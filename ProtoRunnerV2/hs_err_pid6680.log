@@ -1,0 +1,590 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x000000006d0d2deb, pid=6680, tid=2516
+#
+# JRE version: 7.0_09-b05
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (23.5-b02 mixed mode windows-amd64 compressed oops)
+# Problematic frame:
+# V  [jvm.dll+0x82deb]
+#
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.sun.com/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000000000015d000):  JavaThread "main" [_thread_in_vm, id=2516, stack(0x0000000002520000,0x0000000002620000)]
+
+siginfo: ExceptionCode=0xc0000005, reading address 0x0000000000000007
+
+Registers:
+RAX=0x000000000015dc28, RBX=0x0000000000000000, RCX=0x00000000bb111cc8, RDX=0x000000000015dc00
+RSP=0x000000000261d780, RBP=0x0000000001d378e0, RSI=0x000000000015dc18, RDI=0x000000000015dc20
+R8 =0x00000000bb111cc8, R9 =0x000000000000005c, R10=0x00000000bb111cc8, R11=0x0000000000000006
+R12=0xffffffffffffffff, R13=0x000000000015d000, R14=0x0000000008ce6380, R15=0x0000000001d88400
+RIP=0x000000006d0d2deb, EFLAGS=0x0000000000010202
+
+Top of Stack: (sp=0x000000000261d780)
+0x000000000261d780:   0000000001d88401 000000000015dc08
+0x000000000261d790:   0000000000000000 0000000000000006
+0x000000000261d7a0:   0000000000000000 000000000261e6c0
+0x000000000261d7b0:   000000000261dc70 000000006d2127e6
+0x000000000261d7c0:   000000000015d000 000000000261d920
+0x000000000261d7d0:   000000000261d960 0000000000000006
+0x000000000261d7e0:   000000000261dc80 0000000000000006
+0x000000000261d7f0:   000000000015d000 00000000bb111cc8
+0x000000000261d800:   000000000015dc00 000000000261dc70
+0x000000000261d810:   000000000261d960 000000006d0d315d
+0x000000000261d820:   000000000261dce0 000000000015dc00
+0x000000000261d830:   000000000261dce0 0000000000000000
+0x000000000261d840:   000000000015d000 000000000261d960
+0x000000000261d850:   0000000001d378e0 000000006d213ee3
+0x000000000261d860:   000000000015d000 000000000015dbb8
+0x000000000261d870:   000000000261dd00 000000000015dbd0 
+
+Instructions: (pc=0x000000006d0d2deb)
+0x000000006d0d2dcb:   5d 08 0f 85 bb 00 00 00 48 8b 94 24 a8 00 00 00
+0x000000006d0d2ddb:   48 85 d2 74 7d 38 1d 02 8f 62 00 4c 8b 22 74 17
+0x000000006d0d2deb:   45 8b 64 24 08 8b 0d 22 77 5d 00 49 d3 e4 4c 03
+0x000000006d0d2dfb:   25 10 77 5d 00 eb 05 4d 8b 64 24 08 4d 85 e4 74 
+
+
+Register to memory mapping:
+
+RAX=0x000000000015dc28 is an unknown value
+RBX=0x0000000000000000 is an unknown value
+RCX=0x00000000bb111cc8 is an oop
+{constant pool} 
+ - klass: {other class}
+ - holder: 0x00000000bb1135f0
+ - cache: 0x00000000bb114098
+ -   1 :  : klass_index=23 name_and_type_index=62
+ -   2 :  : 'java/lang/IllegalArgumentException'
+ -   3 :  : "size < 1" {0xecb63f00}
+ -   4 :  : klass_index=2 name_and_type_index=65
+ -   5 :  : 'com/android/dx/rop/cst/Constant' {0xbb0c7d98}
+ -   6 :  : klass_index=22 name_and_type_index=67
+ -   7 :  : 'java/lang/IndexOutOfBoundsException'
+ -   8 :  : klass_index=22 name_and_type_index=69
+ -   9 :  : klass_index=22 name_and_type_index=70
+ -  10 :  : klass_index=22 name_and_type_index=71
+ -  11 :  : klass_index=5 name_and_type_index=72
+ -  12 :  : "n < 1" {0xecb63ec8}
+ -  13 :  : "(n == size - 1) && cst.isCategory2()" {0xecb63e58}
+ -  14 :  : 'com/android/dex/util/ExceptionWithContext'
+ -  15 :  : 'java/lang/StringBuilder'
+ -  16 :  : klass_index=15 name_and_type_index=77
+ -  17 :  : "invalid constant pool index " {0xecb63df8}
+ -  18 :  : klass_index=15 name_and_type_index=79
+ -  19 :  : klass_index=80 name_and_type_index=81
+ -  20 :  : klass_index=15 name_and_type_index=82
+ -  21 :  : klass_index=14 name_and_type_index=83
+ -  22 :  : 'com/android/dx/rop/cst/StdConstantPool' {0xbb1135f0}
+ -  23 :  : 'com/android/dx/util/MutabilityControl' {0xbb113398}
+ -  24 :  : 'com/android/dx/rop/cst/ConstantPool'
+ -  25 :  : 'entries'
+ -  26 :  : '[Lcom/android/dx/rop/cst/Constant;'
+ -  27 :  : '<init>'
+ -  28 :  : '(I)V'
+ -  29 :  : 'Code'
+ -  30 :  : 'LineNumberTable'
+ -  31 :  : 'LocalVariableTable'
+ -  32 :  : 'this'
+ -  33 :  : 'Lcom/android/dx/rop/cst/StdConstantPool;'
+ -  34 :  : 'size'
+ -  35 :  : 'I'
+ -  36 :  : 'StackMapTable'
+ -  37 :  : 'com/android/dx/rop/cst/StdConstantPool'
+ -  38 :  : '()I'
+ -  39 :  : 'getOrNull'
+ -  40 :  : '(I)Lcom/android/dx/rop/cst/Constant;'
+ -  41 :  : 'ex'
+ -  42 :  : 'Ljava/lang/IndexOutOfBoundsException;'
+ -  43 :  : 'n'
+ -  44 :  : 'java/lang/IndexOutOfBoundsException'
+ -  45 :  : 'get0Ok'
+ -  46 :  : 'get'
+ -  47 :  : 'result'
+ -  48 :  : 'Lcom/android/dx/rop/cst/Constant;'
+ -  49 :  : 'com/android/dx/rop/cst/Constant'
+ -  50 :  : 'getEntries'
+ -  51 :  : '()[Lcom/android/dx/rop/cst/Constant;'
+ -  52 :  : 'set'
+ -  53 :  : '(ILcom/android/dx/rop/cst/Constant;)V'
+ -  54 :  : 'prev'
+ -  55 :  : 'cst'
+ -  56 :  : 'cat2'
+ -  57 :  : 'Z'
+ -  58 :  : 'throwInvalid'
+ -  59 :  : 'idx'
+ -  60 :  : 'SourceFile'
+ -  61 :  : 'StdConstantPool.java'
+ -  62 :  : name_index=27 signature_index=87
+ -  63 :  : 'java/lang/IllegalArgumentException'
+ -  64 :  : 'size < 1'
+ -  65 :  : name_index=27 signature_index=88
+ -  66 :  : 'com/android/dx/rop/cst/Constant'
+ -  67 :  : name_index=25 signature_index=26
+ -  68 :  : 'java/lang/IndexOutOfBoundsException'
+ -  69 :  : name_index=58 signature_index=40
+ -  70 :  : name_index=46 signature_index=40
+ -  71 :  : name_index=89 signature_index=90
+ -  72 :  : name_index=91 signature_index=92
+ -  73 :  : 'n < 1'
+ -  74 :  : '(n == size - 1) && cst.isCategory2()'
+ -  75 :  : 'com/android/dex/util/ExceptionWithContext'
+ -  76 :  : 'java/lang/StringBuilder'
+ -  77 :  : name_index=27 signature_index=90
+ -  78 :  : 'invalid constant pool index '
+ -  79 :  : name_index=93 signature_index=94
+ -  80 :  : 'com/android/dx/util/Hex'
+ -  81 :  : name_index=96 signature_index=97
+ -  82 :  : name_index=98 signature_index=99
+ -  83 :  : name_index=27 signature_index=88
+ -  84 :  : 'com/android/dx/rop/cst/StdConstantPool'
+ -  85 :  : 'com/android/dx/util/MutabilityControl'
+ -  86 :  : 'com/android/dx/rop/cst/ConstantPool'
+ -  87 :  : '(Z)V'
+ -  88 :  : '(Ljava/lang/String;)V'
+ -  89 :  : 'throwIfImmutable'
+ -  90 :  : '()V'
+ -  91 :  : 'isCategory2'
+ -  92 :  : '()Z'
+ -  93 :  : 'append'
+ -  94 :  : '(Ljava/lang/String;)Ljava/lang/StringBuilder;'
+ -  95 :  : 'com/android/dx/util/Hex'
+ -  96 :  : 'u2'
+ -  97 :  : '(I)Ljava/lang/String;'
+ -  98 :  : 'toString'
+ -  99 :  : '()Ljava/lang/String;'
+
+RDX=0x000000000015dc00 is an unknown value
+RSP=0x000000000261d780 is pointing into the stack for thread: 0x000000000015d000
+RBP=0x0000000001d378e0 is an unknown value
+RSI=0x000000000015dc18 is an unknown value
+RDI=0x000000000015dc20 is an unknown value
+R8 =0x00000000bb111cc8 is an oop
+{constant pool} 
+ - klass: {other class}
+ - holder: 0x00000000bb1135f0
+ - cache: 0x00000000bb114098
+ -   1 :  : klass_index=23 name_and_type_index=62
+ -   2 :  : 'java/lang/IllegalArgumentException'
+ -   3 :  : "size < 1" {0xecb63f00}
+ -   4 :  : klass_index=2 name_and_type_index=65
+ -   5 :  : 'com/android/dx/rop/cst/Constant' {0xbb0c7d98}
+ -   6 :  : klass_index=22 name_and_type_index=67
+ -   7 :  : 'java/lang/IndexOutOfBoundsException'
+ -   8 :  : klass_index=22 name_and_type_index=69
+ -   9 :  : klass_index=22 name_and_type_index=70
+ -  10 :  : klass_index=22 name_and_type_index=71
+ -  11 :  : klass_index=5 name_and_type_index=72
+ -  12 :  : "n < 1" {0xecb63ec8}
+ -  13 :  : "(n == size - 1) && cst.isCategory2()" {0xecb63e58}
+ -  14 :  : 'com/android/dex/util/ExceptionWithContext'
+ -  15 :  : 'java/lang/StringBuilder'
+ -  16 :  : klass_index=15 name_and_type_index=77
+ -  17 :  : "invalid constant pool index " {0xecb63df8}
+ -  18 :  : klass_index=15 name_and_type_index=79
+ -  19 :  : klass_index=80 name_and_type_index=81
+ -  20 :  : klass_index=15 name_and_type_index=82
+ -  21 :  : klass_index=14 name_and_type_index=83
+ -  22 :  : 'com/android/dx/rop/cst/StdConstantPool' {0xbb1135f0}
+ -  23 :  : 'com/android/dx/util/MutabilityControl' {0xbb113398}
+ -  24 :  : 'com/android/dx/rop/cst/ConstantPool'
+ -  25 :  : 'entries'
+ -  26 :  : '[Lcom/android/dx/rop/cst/Constant;'
+ -  27 :  : '<init>'
+ -  28 :  : '(I)V'
+ -  29 :  : 'Code'
+ -  30 :  : 'LineNumberTable'
+ -  31 :  : 'LocalVariableTable'
+ -  32 :  : 'this'
+ -  33 :  : 'Lcom/android/dx/rop/cst/StdConstantPool;'
+ -  34 :  : 'size'
+ -  35 :  : 'I'
+ -  36 :  : 'StackMapTable'
+ -  37 :  : 'com/android/dx/rop/cst/StdConstantPool'
+ -  38 :  : '()I'
+ -  39 :  : 'getOrNull'
+ -  40 :  : '(I)Lcom/android/dx/rop/cst/Constant;'
+ -  41 :  : 'ex'
+ -  42 :  : 'Ljava/lang/IndexOutOfBoundsException;'
+ -  43 :  : 'n'
+ -  44 :  : 'java/lang/IndexOutOfBoundsException'
+ -  45 :  : 'get0Ok'
+ -  46 :  : 'get'
+ -  47 :  : 'result'
+ -  48 :  : 'Lcom/android/dx/rop/cst/Constant;'
+ -  49 :  : 'com/android/dx/rop/cst/Constant'
+ -  50 :  : 'getEntries'
+ -  51 :  : '()[Lcom/android/dx/rop/cst/Constant;'
+ -  52 :  : 'set'
+ -  53 :  : '(ILcom/android/dx/rop/cst/Constant;)V'
+ -  54 :  : 'prev'
+ -  55 :  : 'cst'
+ -  56 :  : 'cat2'
+ -  57 :  : 'Z'
+ -  58 :  : 'throwInvalid'
+ -  59 :  : 'idx'
+ -  60 :  : 'SourceFile'
+ -  61 :  : 'StdConstantPool.java'
+ -  62 :  : name_index=27 signature_index=87
+ -  63 :  : 'java/lang/IllegalArgumentException'
+ -  64 :  : 'size < 1'
+ -  65 :  : name_index=27 signature_index=88
+ -  66 :  : 'com/android/dx/rop/cst/Constant'
+ -  67 :  : name_index=25 signature_index=26
+ -  68 :  : 'java/lang/IndexOutOfBoundsException'
+ -  69 :  : name_index=58 signature_index=40
+ -  70 :  : name_index=46 signature_index=40
+ -  71 :  : name_index=89 signature_index=90
+ -  72 :  : name_index=91 signature_index=92
+ -  73 :  : 'n < 1'
+ -  74 :  : '(n == size - 1) && cst.isCategory2()'
+ -  75 :  : 'com/android/dex/util/ExceptionWithContext'
+ -  76 :  : 'java/lang/StringBuilder'
+ -  77 :  : name_index=27 signature_index=90
+ -  78 :  : 'invalid constant pool index '
+ -  79 :  : name_index=93 signature_index=94
+ -  80 :  : 'com/android/dx/util/Hex'
+ -  81 :  : name_index=96 signature_index=97
+ -  82 :  : name_index=98 signature_index=99
+ -  83 :  : name_index=27 signature_index=88
+ -  84 :  : 'com/android/dx/rop/cst/StdConstantPool'
+ -  85 :  : 'com/android/dx/util/MutabilityControl'
+ -  86 :  : 'com/android/dx/rop/cst/ConstantPool'
+ -  87 :  : '(Z)V'
+ -  88 :  : '(Ljava/lang/String;)V'
+ -  89 :  : 'throwIfImmutable'
+ -  90 :  : '()V'
+ -  91 :  : 'isCategory2'
+ -  92 :  : '()Z'
+ -  93 :  : 'append'
+ -  94 :  : '(Ljava/lang/String;)Ljava/lang/StringBuilder;'
+ -  95 :  : 'com/android/dx/util/Hex'
+ -  96 :  : 'u2'
+ -  97 :  : '(I)Ljava/lang/String;'
+ -  98 :  : 'toString'
+ -  99 :  : '()Ljava/lang/String;'
+
+R9 =0x000000000000005c is an unknown value
+R10=0x00000000bb111cc8 is an oop
+{constant pool} 
+ - klass: {other class}
+ - holder: 0x00000000bb1135f0
+ - cache: 0x00000000bb114098
+ -   1 :  : klass_index=23 name_and_type_index=62
+ -   2 :  : 'java/lang/IllegalArgumentException'
+ -   3 :  : "size < 1" {0xecb63f00}
+ -   4 :  : klass_index=2 name_and_type_index=65
+ -   5 :  : 'com/android/dx/rop/cst/Constant' {0xbb0c7d98}
+ -   6 :  : klass_index=22 name_and_type_index=67
+ -   7 :  : 'java/lang/IndexOutOfBoundsException'
+ -   8 :  : klass_index=22 name_and_type_index=69
+ -   9 :  : klass_index=22 name_and_type_index=70
+ -  10 :  : klass_index=22 name_and_type_index=71
+ -  11 :  : klass_index=5 name_and_type_index=72
+ -  12 :  : "n < 1" {0xecb63ec8}
+ -  13 :  : "(n == size - 1) && cst.isCategory2()" {0xecb63e58}
+ -  14 :  : 'com/android/dex/util/ExceptionWithContext'
+ -  15 :  : 'java/lang/StringBuilder'
+ -  16 :  : klass_index=15 name_and_type_index=77
+ -  17 :  : "invalid constant pool index " {0xecb63df8}
+ -  18 :  : klass_index=15 name_and_type_index=79
+ -  19 :  : klass_index=80 name_and_type_index=81
+ -  20 :  : klass_index=15 name_and_type_index=82
+ -  21 :  : klass_index=14 name_and_type_index=83
+ -  22 :  : 'com/android/dx/rop/cst/StdConstantPool' {0xbb1135f0}
+ -  23 :  : 'com/android/dx/util/MutabilityControl' {0xbb113398}
+ -  24 :  : 'com/android/dx/rop/cst/ConstantPool'
+ -  25 :  : 'entries'
+ -  26 :  : '[Lcom/android/dx/rop/cst/Constant;'
+ -  27 :  : '<init>'
+ -  28 :  : '(I)V'
+ -  29 :  : 'Code'
+ -  30 :  : 'LineNumberTable'
+ -  31 :  : 'LocalVariableTable'
+ -  32 :  : 'this'
+ -  33 :  : 'Lcom/android/dx/rop/cst/StdConstantPool;'
+ -  34 :  : 'size'
+ -  35 :  : 'I'
+ -  36 :  : 'StackMapTable'
+ -  37 :  : 'com/android/dx/rop/cst/StdConstantPool'
+ -  38 :  : '()I'
+ -  39 :  : 'getOrNull'
+ -  40 :  : '(I)Lcom/android/dx/rop/cst/Constant;'
+ -  41 :  : 'ex'
+ -  42 :  : 'Ljava/lang/IndexOutOfBoundsException;'
+ -  43 :  : 'n'
+ -  44 :  : 'java/lang/IndexOutOfBoundsException'
+ -  45 :  : 'get0Ok'
+ -  46 :  : 'get'
+ -  47 :  : 'result'
+ -  48 :  : 'Lcom/android/dx/rop/cst/Constant;'
+ -  49 :  : 'com/android/dx/rop/cst/Constant'
+ -  50 :  : 'getEntries'
+ -  51 :  : '()[Lcom/android/dx/rop/cst/Constant;'
+ -  52 :  : 'set'
+ -  53 :  : '(ILcom/android/dx/rop/cst/Constant;)V'
+ -  54 :  : 'prev'
+ -  55 :  : 'cst'
+ -  56 :  : 'cat2'
+ -  57 :  : 'Z'
+ -  58 :  : 'throwInvalid'
+ -  59 :  : 'idx'
+ -  60 :  : 'SourceFile'
+ -  61 :  : 'StdConstantPool.java'
+ -  62 :  : name_index=27 signature_index=87
+ -  63 :  : 'java/lang/IllegalArgumentException'
+ -  64 :  : 'size < 1'
+ -  65 :  : name_index=27 signature_index=88
+ -  66 :  : 'com/android/dx/rop/cst/Constant'
+ -  67 :  : name_index=25 signature_index=26
+ -  68 :  : 'java/lang/IndexOutOfBoundsException'
+ -  69 :  : name_index=58 signature_index=40
+ -  70 :  : name_index=46 signature_index=40
+ -  71 :  : name_index=89 signature_index=90
+ -  72 :  : name_index=91 signature_index=92
+ -  73 :  : 'n < 1'
+ -  74 :  : '(n == size - 1) && cst.isCategory2()'
+ -  75 :  : 'com/android/dex/util/ExceptionWithContext'
+ -  76 :  : 'java/lang/StringBuilder'
+ -  77 :  : name_index=27 signature_index=90
+ -  78 :  : 'invalid constant pool index '
+ -  79 :  : name_index=93 signature_index=94
+ -  80 :  : 'com/android/dx/util/Hex'
+ -  81 :  : name_index=96 signature_index=97
+ -  82 :  : name_index=98 signature_index=99
+ -  83 :  : name_index=27 signature_index=88
+ -  84 :  : 'com/android/dx/rop/cst/StdConstantPool'
+ -  85 :  : 'com/android/dx/util/MutabilityControl'
+ -  86 :  : 'com/android/dx/rop/cst/ConstantPool'
+ -  87 :  : '(Z)V'
+ -  88 :  : '(Ljava/lang/String;)V'
+ -  89 :  : 'throwIfImmutable'
+ -  90 :  : '()V'
+ -  91 :  : 'isCategory2'
+ -  92 :  : '()Z'
+ -  93 :  : 'append'
+ -  94 :  : '(Ljava/lang/String;)Ljava/lang/StringBuilder;'
+ -  95 :  : 'com/android/dx/util/Hex'
+ -  96 :  : 'u2'
+ -  97 :  : '(I)Ljava/lang/String;'
+ -  98 :  : 'toString'
+ -  99 :  : '()Ljava/lang/String;'
+
+R11=0x0000000000000006 is an unknown value
+R12=0xffffffffffffffff is an unknown value
+R13=0x000000000015d000 is a thread
+R14=0x0000000008ce6380 is an unknown value
+R15=0x0000000001d88400 is an unknown value
+
+
+Stack: [0x0000000002520000,0x0000000002620000],  sp=0x000000000261d780,  free space=1013k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x82deb]
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+v  ~RuntimeStub::resolve_virtual_call
+J  com.android.dx.cf.cst.ConstantPoolParser.parse0(ILjava/util/BitSet;)Lcom/android/dx/rop/cst/Constant;
+J  com.android.dx.cf.cst.ConstantPoolParser.parse0(ILjava/util/BitSet;)Lcom/android/dx/rop/cst/Constant;
+J  com.android.dx.cf.cst.ConstantPoolParser.parse0(ILjava/util/BitSet;)Lcom/android/dx/rop/cst/Constant;
+j  com.android.dx.cf.cst.ConstantPoolParser.parse()V+130
+j  com.android.dx.cf.cst.ConstantPoolParser.parseIfNecessary()V+8
+j  com.android.dx.cf.cst.ConstantPoolParser.getPool()Lcom/android/dx/rop/cst/StdConstantPool;+1
+j  com.android.dx.cf.direct.DirectClassFile.parse0()V+283
+j  com.android.dx.cf.direct.DirectClassFile.parse()V+1
+j  com.android.dx.cf.direct.DirectClassFile.parseToInterfacesIfNecessary()V+9
+j  com.android.dx.cf.direct.DirectClassFile.getMagic()I+1
+j  com.android.dx.command.dexer.Main.processClass(Ljava/lang/String;[B)Z+40
+j  com.android.dx.command.dexer.Main.processFileBytes(Ljava/lang/String;J[B)Z+188
+j  com.android.dx.command.dexer.Main.access$300(Ljava/lang/String;J[B)Z+3
+j  com.android.dx.command.dexer.Main$1.processFileBytes(Ljava/lang/String;J[B)Z+4
+j  com.android.dx.cf.direct.ClassPathOpener.processOne(Ljava/io/File;Z)Z+82
+j  com.android.dx.cf.direct.ClassPathOpener.processDirectory(Ljava/io/File;Z)Z+64
+j  com.android.dx.cf.direct.ClassPathOpener.processOne(Ljava/io/File;Z)Z+10
+j  com.android.dx.cf.direct.ClassPathOpener.processDirectory(Ljava/io/File;Z)Z+64
+j  com.android.dx.cf.direct.ClassPathOpener.processOne(Ljava/io/File;Z)Z+10
+j  com.android.dx.cf.direct.ClassPathOpener.processDirectory(Ljava/io/File;Z)Z+64
+j  com.android.dx.cf.direct.ClassPathOpener.processOne(Ljava/io/File;Z)Z+10
+j  com.android.dx.cf.direct.ClassPathOpener.processDirectory(Ljava/io/File;Z)Z+64
+j  com.android.dx.cf.direct.ClassPathOpener.processOne(Ljava/io/File;Z)Z+10
+j  com.android.dx.cf.direct.ClassPathOpener.processDirectory(Ljava/io/File;Z)Z+64
+j  com.android.dx.cf.direct.ClassPathOpener.processOne(Ljava/io/File;Z)Z+10
+j  com.android.dx.cf.direct.ClassPathOpener.process()Z+15
+j  com.android.dx.command.dexer.Main.processOne(Ljava/lang/String;Lcom/android/dx/cf/direct/ClassPathOpener$FileNameFilter;)V+58
+j  com.android.dx.command.dexer.Main.processAllFiles()Z+202
+j  com.android.dx.command.dexer.Main.runMonoDex()I+58
+j  com.android.dx.command.dexer.Main.run(Lcom/android/dx/command/dexer/Main$Arguments;)I+76
+j  com.android.dx.command.dexer.Main.main([Ljava/lang/String;)V+14
+j  com.android.dx.command.Main.main([Ljava/lang/String;)V+61
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x0000000008c8f000 JavaThread "Service Thread" daemon [_thread_blocked, id=7192, stack(0x000000000a700000,0x000000000a800000)]
+  0x0000000008c8e800 JavaThread "C2 CompilerThread1" daemon [_thread_in_native, id=7824, stack(0x000000000a550000,0x000000000a650000)]
+  0x0000000008c89800 JavaThread "C2 CompilerThread0" daemon [_thread_in_native, id=7812, stack(0x000000000a420000,0x000000000a520000)]
+  0x0000000008c87000 JavaThread "Attach Listener" daemon [_thread_blocked, id=4132, stack(0x000000000a140000,0x000000000a240000)]
+  0x0000000008c80000 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=6852, stack(0x0000000009c20000,0x0000000009d20000)]
+  0x0000000001df7000 JavaThread "Finalizer" daemon [_thread_blocked, id=6668, stack(0x000000000a000000,0x000000000a100000)]
+  0x0000000001def000 JavaThread "Reference Handler" daemon [_thread_blocked, id=6036, stack(0x0000000009e60000,0x0000000009f60000)]
+=>0x000000000015d000 JavaThread "main" [_thread_in_vm, id=2516, stack(0x0000000002520000,0x0000000002620000)]
+
+Other Threads:
+  0x0000000008c02800 VMThread [stack: 0x0000000009d50000,0x0000000009e50000] [id=7144]
+  0x0000000008ca0800 WatcherThread [stack: 0x000000000a250000,0x000000000a350000] [id=7132]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ PSYoungGen      total 38144K, used 35528K [0x00000000eaab0000, 0x00000000ef530000, 0x0000000100000000)
+  eden space 32704K, 92% used [0x00000000eaab0000,0x00000000ec8138c0,0x00000000ecaa0000)
+  from space 5440K, 99% used [0x00000000ecaa0000,0x00000000ecfee980,0x00000000ecff0000)
+  to   space 5440K, 0% used [0x00000000eefe0000,0x00000000eefe0000,0x00000000ef530000)
+ ParOldGen       total 87232K, used 1165K [0x00000000c0000000, 0x00000000c5530000, 0x00000000eaab0000)
+  object space 87232K, 1% used [0x00000000c0000000,0x00000000c0123678,0x00000000c5530000)
+ PSPermGen       total 21248K, used 5242K [0x00000000bae00000, 0x00000000bc2c0000, 0x00000000c0000000)
+  object space 21248K, 24% used [0x00000000bae00000,0x00000000bb31e840,0x00000000bc2c0000)
+
+Card table byte_map: [0x0000000005620000,0x0000000005850000] byte_map_base: 0x0000000005049000
+
+Polling page: 0x0000000000130000
+
+Code Cache  [0x0000000002620000, 0x0000000002890000, 0x0000000005620000)
+ total_blobs=554 nmethods=345 adapters=160 free_code_cache=47774Kb largest_free_block=48877888
+
+Compilation events (10 events):
+Event: 5.756 Thread 0x0000000008c8e800 nmethod 327 0x0000000002766f90 code [0x00000000027674c0, 0x0000000002769860]
+Event: 5.757 Thread 0x0000000008c8e800  328             com.android.dx.rop.type.Type::getBasicFrameType (60 bytes)
+Event: 5.758 Thread 0x0000000008c8e800 nmethod 328 0x000000000273a650 code [0x000000000273a780, 0x000000000273a7f8]
+Event: 5.758 Thread 0x0000000008c8e800  329             com.android.dx.ssa.SsaRenamer$BlockRenamer::access$200 (5 bytes)
+Event: 5.759 Thread 0x0000000008c8e800 nmethod 329 0x000000000273a450 code [0x000000000273a580, 0x000000000273a5d8]
+Event: 5.759 Thread 0x0000000008c8e800  330             java.lang.Math::max (11 bytes)
+Event: 5.759 Thread 0x0000000008c8e800 nmethod 330 0x000000000273d910 code [0x000000000273da40, 0x000000000273da98]
+Event: 5.759 Thread 0x0000000008c8e800  331             java.lang.Object::equals (11 bytes)
+Event: 5.760 Thread 0x0000000008c8e800 nmethod 331 0x000000000273d710 code [0x000000000273d840, 0x000000000273d898]
+Event: 5.760 Thread 0x0000000008c8e800  332             com.android.dx.ssa.back.InterferenceGraph::ensureCapacity (42 bytes)
+
+GC Heap History (2 events):
+Event: 4.218 GC heap before
+{Heap before GC invocations=1 (full 0):
+ PSYoungGen      total 38144K, used 32704K [0x00000000eaab0000, 0x00000000ed540000, 0x0000000100000000)
+  eden space 32704K, 100% used [0x00000000eaab0000,0x00000000ecaa0000,0x00000000ecaa0000)
+  from space 5440K, 0% used [0x00000000ecff0000,0x00000000ecff0000,0x00000000ed540000)
+  to   space 5440K, 0% used [0x00000000ecaa0000,0x00000000ecaa0000,0x00000000ecff0000)
+ ParOldGen       total 87232K, used 0K [0x00000000c0000000, 0x00000000c5530000, 0x00000000eaab0000)
+  object space 87232K, 0% used [0x00000000c0000000,0x00000000c0000000,0x00000000c5530000)
+ PSPermGen       total 21248K, used 5174K [0x00000000bae00000, 0x00000000bc2c0000, 0x00000000c0000000)
+  object space 21248K, 24% used [0x00000000bae00000,0x00000000bb30d860,0x00000000bc2c0000)
+Event: 4.307 GC heap after
+Heap after GC invocations=1 (full 0):
+ PSYoungGen      total 38144K, used 5434K [0x00000000eaab0000, 0x00000000ef530000, 0x0000000100000000)
+  eden space 32704K, 0% used [0x00000000eaab0000,0x00000000eaab0000,0x00000000ecaa0000)
+  from space 5440K, 99% used [0x00000000ecaa0000,0x00000000ecfee980,0x00000000ecff0000)
+  to   space 5440K, 0% used [0x00000000eefe0000,0x00000000eefe0000,0x00000000ef530000)
+ ParOldGen       total 87232K, used 1165K [0x00000000c0000000, 0x00000000c5530000, 0x00000000eaab0000)
+  object space 87232K, 1% used [0x00000000c0000000,0x00000000c0123678,0x00000000c5530000)
+ PSPermGen       total 21248K, used 5174K [0x00000000bae00000, 0x00000000bc2c0000, 0x00000000c0000000)
+  object space 21248K, 24% used [0x00000000bae00000,0x00000000bb30d860,0x00000000bc2c0000)
+}
+
+Deoptimization events (10 events):
+Event: 2.585 Thread 0x000000000015d000 Uncommon trap -34 fr.pc 0x00000000026a8e88
+Event: 2.589 Thread 0x000000000015d000 Uncommon trap -34 fr.pc 0x00000000026a8e88
+Event: 2.618 Thread 0x000000000015d000 Uncommon trap -34 fr.pc 0x00000000026a8e88
+Event: 2.621 Thread 0x000000000015d000 Uncommon trap -34 fr.pc 0x00000000026a8e88
+Event: 3.416 Thread 0x000000000015d000 Uncommon trap -12 fr.pc 0x00000000026d2120
+Event: 3.947 Thread 0x000000000015d000 Uncommon trap -83 fr.pc 0x00000000026eea2c
+Event: 3.958 Thread 0x000000000015d000 Uncommon trap -83 fr.pc 0x00000000026f70f8
+Event: 4.959 Thread 0x000000000015d000 Uncommon trap -12 fr.pc 0x0000000002727f44
+Event: 5.186 Thread 0x000000000015d000 Uncommon trap -83 fr.pc 0x00000000026a17c4
+Event: 5.655 Thread 0x000000000015d000 Uncommon trap -34 fr.pc 0x000000000274c424
+
+Internal exceptions (10 events):
+Event: 1.103 Thread 0x000000000015d000 Threw 0x00000000eb263460 at C:\jdk7u1_64p\jdk7u9\hotspot\src\share\vm\prims\jvm.cpp:1166
+Event: 1.624 Thread 0x000000000015d000 Threw 0x00000000eb48ffb8 at C:\jdk7u1_64p\jdk7u9\hotspot\src\share\vm\prims\jvm.cpp:1166
+Event: 1.627 Thread 0x000000000015d000 Threw 0x00000000eb495430 at C:\jdk7u1_64p\jdk7u9\hotspot\src\share\vm\prims\jvm.cpp:1166
+Event: 1.632 Thread 0x000000000015d000 Threw 0x00000000eb49e078 at C:\jdk7u1_64p\jdk7u9\hotspot\src\share\vm\prims\jvm.cpp:1166
+Event: 1.827 Thread 0x000000000015d000 Threw 0x00000000eb5bcfb8 at C:\jdk7u1_64p\jdk7u9\hotspot\src\share\vm\prims\jvm.cpp:1166
+Event: 1.888 Thread 0x000000000015d000 Implicit null exception at 0x000000000269e055 to 0x000000000269e3b9
+Event: 2.824 Thread 0x000000000015d000 Threw 0x00000000ebb3ab00 at C:\jdk7u1_64p\jdk7u9\hotspot\src\share\vm\prims\jvm.cpp:1166
+Event: 3.416 Thread 0x000000000015d000 Implicit null exception at 0x00000000026d1162 to 0x00000000026d20f1
+Event: 3.986 Thread 0x000000000015d000 Threw 0x00000000ec745250 at C:\jdk7u1_64p\jdk7u9\hotspot\src\share\vm\prims\jvm.cpp:1166
+Event: 4.959 Thread 0x000000000015d000 Implicit null exception at 0x0000000002727857 to 0x0000000002727f35
+
+Events (10 events):
+Event: 4.317 loading class 0x0000000001de73f0 done
+Event: 4.959 Thread 0x000000000015d000 DEOPT PACKING pc=0x0000000002727f44 sp=0x000000000261e650
+Event: 4.959 Thread 0x000000000015d000 DEOPT UNPACKING pc=0x0000000002659164 sp=0x000000000261e570 mode 2
+Event: 5.186 Thread 0x000000000015d000 DEOPT PACKING pc=0x00000000026a17c4 sp=0x000000000261e230
+Event: 5.186 Thread 0x000000000015d000 DEOPT UNPACKING pc=0x0000000002659164 sp=0x000000000261e1d0 mode 2
+Event: 5.321 Thread 0x0000000008c8e800 flushing nmethod 0x000000000269dd10
+Event: 5.563 loading class 0x0000000008c13ce0
+Event: 5.564 loading class 0x0000000008c13ce0 done
+Event: 5.655 Thread 0x000000000015d000 DEOPT PACKING pc=0x000000000274c424 sp=0x000000000261e600
+Event: 5.655 Thread 0x000000000015d000 DEOPT UNPACKING pc=0x0000000002659164 sp=0x000000000261e598 mode 2
+
+
+Dynamic libraries:
+0x000000013f9b0000 - 0x000000013f9e3000 	C:\Program Files\Java\jdk1.7.0_09\bin\java.exe
+0x0000000076ef0000 - 0x0000000077099000 	C:\Windows\SYSTEM32\ntdll.dll
+0x0000000076cd0000 - 0x0000000076def000 	C:\Windows\system32\kernel32.dll
+0x000007fefcf20000 - 0x000007fefcf8c000 	C:\Windows\system32\KERNELBASE.dll
+0x000007fefd9d0000 - 0x000007fefdaab000 	C:\Windows\system32\ADVAPI32.dll
+0x000007fefdbd0000 - 0x000007fefdc6f000 	C:\Windows\system32\msvcrt.dll
+0x000007fefdcf0000 - 0x000007fefdd0f000 	C:\Windows\SYSTEM32\sechost.dll
+0x000007fefd310000 - 0x000007fefd43d000 	C:\Windows\system32\RPCRT4.dll
+0x0000000076df0000 - 0x0000000076eea000 	C:\Windows\system32\USER32.dll
+0x000007fefd670000 - 0x000007fefd6d7000 	C:\Windows\system32\GDI32.dll
+0x000007fefdab0000 - 0x000007fefdabe000 	C:\Windows\system32\LPK.dll
+0x000007fefdd60000 - 0x000007fefde29000 	C:\Windows\system32\USP10.dll
+0x000007fefb800000 - 0x000007fefb9f4000 	C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.7601.18837_none_fa3b1e3d17594757\COMCTL32.dll
+0x000007fefee40000 - 0x000007fefeeb1000 	C:\Windows\system32\SHLWAPI.dll
+0x000007fefde30000 - 0x000007fefde5e000 	C:\Windows\system32\IMM32.DLL
+0x000007fefdac0000 - 0x000007fefdbc9000 	C:\Windows\system32\MSCTF.dll
+0x0000000071fd0000 - 0x00000000720a1000 	C:\Program Files\Java\jdk1.7.0_09\jre\bin\msvcr100.dll
+0x000000006d050000 - 0x000000006d76f000 	C:\Program Files\Java\jdk1.7.0_09\jre\bin\server\jvm.dll
+0x000007fee79f0000 - 0x000007fee79f9000 	C:\Windows\system32\WSOCK32.dll
+0x000007fefdd10000 - 0x000007fefdd5d000 	C:\Windows\system32\WS2_32.dll
+0x000007fefee30000 - 0x000007fefee38000 	C:\Windows\system32\NSI.dll
+0x000007fefa380000 - 0x000007fefa3bb000 	C:\Windows\system32\WINMM.dll
+0x00000000770b0000 - 0x00000000770b7000 	C:\Windows\system32\PSAPI.DLL
+0x0000000071ef0000 - 0x0000000071eff000 	C:\Program Files\Java\jdk1.7.0_09\jre\bin\verify.dll
+0x0000000071ec0000 - 0x0000000071ee8000 	C:\Program Files\Java\jdk1.7.0_09\jre\bin\java.dll
+0x0000000071ea0000 - 0x0000000071eb5000 	C:\Program Files\Java\jdk1.7.0_09\jre\bin\zip.dll
+0x000007fefb0c0000 - 0x000007fefb1e5000 	C:\Windows\system32\dbghelp.dll
+
+VM Arguments:
+jvm_args: -Xmx1024M -Dfile.encoding=windows-1252 -Duser.country=GB -Duser.language=en -Duser.variant 
+java_command: com.android.dx.command.Main --dex --output C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\dex\debug C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\classes\debug C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\support-v4-19.1.0-67f3e68b9d74135449ccbcf8df0f8bc5dfa8fbe1.jar
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=C:\Program Files (x86)\AMD APP\bin\x86_64;C:\Program Files (x86)\AMD APP\bin\x86;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files\Common Files\Autodesk Shared\;c:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\;c:\Program Files (x86)\Microsoft SQL Server\100\DTS\Binn\;C:\Program Files\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files\TortoiseGit\bin;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files (x86)\Microsoft SDKs\TypeScript\1.0\
+USERNAME=Sinky
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=AMD64 Family 21 Model 1 Stepping 2, AuthenticAMD
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 7 , 64 bit Build 7601 Service Pack 1
+
+CPU:total 4 (4 cores per cpu, 1 threads per core) family 21 model 1 stepping 2, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, mmxext, 3dnowpref, lzcnt, sse4a, tsc, tscinvbit, tscinv
+
+Memory: 4k page, physical 8370296k(3439952k free), swap 16738756k(10457268k free)
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (23.5-b02) for windows-amd64 JRE (1.7.0_09-b05), built on Sep 24 2012 21:45:04 by "java_re" with unknown MS VC++:1600
+
+time: Tue Jun 23 23:25:12 2015
+elapsed time: 6 seconds
+

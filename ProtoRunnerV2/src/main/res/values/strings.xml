@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="empty"></string>
+    
+    <string name="app_name">ProtoRunner V2</string>
+    <string name="company_name">Raggamuffin Games</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="aftermath_screen_title">Aftermath</string>
+    
+    <string name="button_back">&lt;&lt;&lt;</string>
+    <string name="button_next">&gt;&gt;&gt;</string>
+    
+    <string name="label_score">Score: </string>
+    <string name="label_score_reverse">:Score</string>
+    <string name="label_new_high_score">New Highscore</string>
+    <string name="label_enter_your_name">Enter your initials</string>
+	<string name="label_accuracy">Accuracy</string>
+	<string name="label_play_time">Play time: </string>
+	<string name="label_num_reboots">Times rebooted: </string>
+	<string name="label_wingman_a_life">Wingman-A: Life expectancy</string>
+	<string name="label_wingman_b_life">Wingman-B: Life expectancy</string>
+    
+    <string name="button_play">Start</string>
+    <string name="button_scores">Scoreboard</string>
+    <string name="button_credits">Credits</string>
+    <string name="button_tutorial">Tutorial</string>
+
+    <string name="weapon_pulse">Pulse Shot</string>
+    <string name="weapon_burst">Burst Laser</string>
+    <string name="weapon_rocket">Homing Rockets</string>
+    <string name="weapon_panic">Panic Switch</string>
+    
+    <string name="credits_text1">Raggamuffin Games is</string>
+    <string name="credits_text2">Sinclair Ross</string>
+    <string name="credits_text3">Special thanks to</string>
+    <string name="credits_text4">Calvin Wylie &amp; Will Sidle</string>
+    
+    <string name="game_over_message">Session Terminated</string>
+    <string name="down_but_not_out_text">System Failing: </string>
+    <string name="revive_text">Reboot</string>
+    <string name="wingman_down">Wingman Destroyed"</string>
+
+    <string name="tutorial_progress">Progress</string>
+    <string name="tutorial_start">Initialising Tutorial</string>
+    <string name="tutorial_turning">Tilt your device to turn the runner</string>
+    <string name="tutorial_firing">Touch the left side of the screen to fire</string>
+    <string name="tutorial_end">Tutorial Complete</string>
+
+</resources>
