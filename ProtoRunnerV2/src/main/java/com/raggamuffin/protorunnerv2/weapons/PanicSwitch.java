@@ -32,7 +32,7 @@ public class PanicSwitch extends Weapon
 
         AddMuzzle( 0, 0, 0);
 
-        SetColour(Colours.White);
+        SetColour(Colours.Azure);
 
         m_Name = context.getString(R.string.weapon_panic);
     }

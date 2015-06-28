@@ -32,36 +32,51 @@ public class UIProgressBar extends UIElement
 
     private ProgressBarAnimation m_OpeningAnimation;
 	
-	public UIProgressBar(double MaxLength, double MaxValue, double[] HighColour, double[] LowColour, double[] UnderColour, String Label, Alignment Align, GameAudioManager audio)
+	public UIProgressBar(double maxLength, double maxValue, double[] highColour, double[] lowColour, double[] underColour, String label, Alignment align, GameAudioManager audio)
 	{
 		super();
-		
-		m_Alignment = Align;
-		
-		m_Label = new UILabel(audio);
-		m_Label.GetFont().SetSize(0.07);
-		m_Label.SetText(Label);
-		m_Label.GetFont().SetAlignment(Font.Alignment.Left);
-	
-		m_Type = UIElementType.ProgressBar;
-		
-		m_MaxLength = MaxLength;
-		
-		m_Progress = 0.0;
-		m_MaxValue  = MaxValue;
-		m_CurrentValue = m_MaxValue;
-		
-		m_HighColour = new Colour(HighColour);
-		m_LowColour = new Colour(LowColour);
-		
-		m_UnderColour = new Colour(UnderColour);
+
+        m_HighColour    = new Colour(highColour);
+        m_LowColour     = new Colour(lowColour);
+        m_UnderColour   = new Colour(underColour);
+
+        Initialise(maxLength, maxValue, label, align, audio);
+	}
+
+    public UIProgressBar(double maxLength, double maxValue, Colour highColour, Colour lowColour, Colour underColour, String label, Alignment align, GameAudioManager audio)
+    {
+        super();
+
+        m_HighColour    = highColour;
+        m_LowColour     = lowColour;
+        m_UnderColour   = underColour;
+
+        Initialise(maxLength, maxValue, label, align, audio);
+    }
+
+    private void Initialise(double MaxLength, double MaxValue, String Label, Alignment Align, GameAudioManager audio)
+    {
+        m_Alignment = Align;
+
+        m_Label = new UILabel(audio);
+        m_Label.GetFont().SetSize(0.07);
+        m_Label.SetText(Label);
+        m_Label.GetFont().SetAlignment(Font.Alignment.Left);
+
+        m_Type = UIElementType.ProgressBar;
+
+        m_MaxLength = MaxLength;
+
+        m_Progress = 0.0;
+        m_MaxValue  = MaxValue;
+        m_CurrentValue = m_MaxValue;
 
         m_UnderBarPosition = new Vector2();
-		m_UnderBarScale = new Vector2();
-		CalculateMaxSize();
+        m_UnderBarScale = new Vector2();
+        CalculateMaxSize();
 
         m_OpeningAnimation = new ProgressBarAnimation_GrowIn(this);
-	}
+    }
 
 	@Override
 	public void Update(double deltaTime)

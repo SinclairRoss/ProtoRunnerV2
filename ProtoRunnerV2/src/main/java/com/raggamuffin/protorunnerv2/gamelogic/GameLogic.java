@@ -10,6 +10,7 @@ import com.raggamuffin.protorunnerv2.gameobjects.ExhibitionCameraAnchor;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.BulletManager;
+import com.raggamuffin.protorunnerv2.managers.ColourManager;
 import com.raggamuffin.protorunnerv2.managers.DatabaseManager;
 import com.raggamuffin.protorunnerv2.managers.GameManager;
 import com.raggamuffin.protorunnerv2.managers.GameManager_Exhibition;
@@ -44,6 +45,7 @@ public class GameLogic extends ApplicationLogic
 	
 	private ExhibitionCameraAnchor m_CameraAnchor;
 
+    private ColourManager m_ColourManager;
 	private DatabaseManager m_DatabaseManager;
 	private GameAudioManager m_GameAudioManager;
 	private PubSubHub m_PubSubHub;
@@ -83,6 +85,7 @@ public class GameLogic extends ApplicationLogic
 		m_ParticleManager 		= new ParticleManager(this);
 		m_BulletManager 		= new BulletManager(this);
 		m_VehicleManager 		= new VehicleManager(this);
+        m_ColourManager         = new ColourManager(this);
 		m_UIManager 			= new UIManager(this);
 		m_GameStats 			= new GameStats(this);
 		m_SecondWindHandler		= new SecondWindHandler(this);
@@ -105,7 +108,7 @@ public class GameLogic extends ApplicationLogic
 	@Override
 	public void Update(double deltaTime) 
 	{
-//		Log.e("","DT: " + Double.toString(DeltaTime));
+        m_ColourManager.Update(deltaTime);
         m_GameManager.Update(deltaTime);
 		m_UIManager.Update(deltaTime);
 		m_ParticleManager.Update(deltaTime);
@@ -336,6 +339,11 @@ public class GameLogic extends ApplicationLogic
     public GameManager_Tutorial GetTutorial()
     {
         return m_TutorialManager;
+    }
+
+    public ColourManager GetColourManager()
+    {
+        return m_ColourManager;
     }
 
     private class StartGameSubscriber extends Subscriber

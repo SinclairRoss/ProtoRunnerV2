@@ -26,6 +26,32 @@ public class MathsHelper
 		return Clamp((Normalise(Amount, Min, Max) - 0.5) * 2, -1.0, 1.0);
 	}
 
+    public static double Max(double... args)
+    {
+        double max = Double.MIN_VALUE;
+
+        for(double d : args)
+        {
+            if(d > max)
+                max = d;
+        }
+
+        return max;
+    }
+
+    public static double Min(double... args)
+    {
+        double min = Double.MAX_VALUE;
+
+        for(double d : args)
+        {
+            if(d < min)
+                min = d;
+        }
+
+        return min;
+    }
+
 	// Clamp a value between two values.
 	public static double Clamp(double Amount, double Min, double Max)
 	{

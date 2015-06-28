@@ -3,6 +3,7 @@ package com.raggamuffin.protorunnerv2.ui;
 
 import com.raggamuffin.protorunnerv2.R;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
+import com.raggamuffin.protorunnerv2.managers.ColourManager;
 import com.raggamuffin.protorunnerv2.managers.UIManager;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
@@ -66,7 +67,8 @@ public abstract class UIScreen
 	
 	protected UIProgressBar CreateProgressBar(String Name, double maxVal)
 	{
-		UIProgressBar Bar = new UIProgressBar(2.0, maxVal, Colours.CalvinOrange, Colours.ChaserOrange, Colours.HannahBlue, Name, UIProgressBar.Alignment.Left, m_Game.GetGameAudioManager());
+        ColourManager cManager = m_Game.GetColourManager();
+		UIProgressBar Bar = new UIProgressBar(2.0, maxVal, cManager.GetAccentingColour(), cManager.GetAccentTintColour(), cManager.GetPrimaryColour(), Name, UIProgressBar.Alignment.Left, m_Game.GetGameAudioManager());
         Bar.SetPosition(m_UIManager.GetScreenRatio() * ButtonX - (Bar.GetMaxLength() * 0.5), ButtonY - (ButtonPadding * m_NumElements));
 
 		m_NumElements ++;
@@ -117,7 +119,7 @@ public abstract class UIScreen
         Button.SetText(m_Game.GetContext().getString(R.string.button_back));
         Button.SetPosition(m_UIManager.GetScreenRatio() * -0.9, -1.0 + ButtonPadding);
         Button.GetFont().SetAlignment(Font.Alignment.Left);
-        Button.GetFont().SetColour(Colours.CalvinOrange);
+        Button.GetFont().SetColour(m_Game.GetColourManager().GetAccentingColour());
 
         m_UIManager.AddUIElement(Button);
 

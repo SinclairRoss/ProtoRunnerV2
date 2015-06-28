@@ -64,13 +64,14 @@ public class Colour
 		Blue 	= colour[2];
 		Alpha 	= colour[3];
 	}
-	
+
+    // Quick inverse.
 	public void SetAsInverse(Colour colour)
 	{
-		Red 	= 1.0 - colour.Red;
-		Green 	= 1.0 - colour.Green;
-		Blue 	= 1.0 - colour.Blue;
-		Alpha 	= colour.Alpha;
+        Red 	= 1.0 - colour.Red;
+        Green 	= 1.0 - colour.Green;
+        Blue 	= 1.0 - colour.Blue;
+        Alpha 	= colour.Alpha;
 	}
 	
 	public void Brighten(double amount)

@@ -50,8 +50,6 @@ public abstract class ParticleEmitter extends GameObject
 	public void Update(double deltaTime)
 	{
 		Emit(m_Behaviour.GetEmissionCount(deltaTime));
-		
-		
 	}
 
 	protected void Emit(int count)

@@ -259,7 +259,7 @@ public abstract class Vehicle extends GameObject
 		m_BurstEmitter.SetStartColour(start);
 		m_BurstEmitter.SetFinalColour(end);
 		
-		m_Engine.UpdateParticleColours(start, end);
+		m_Engine.UpdateParticleColours(end, start);
 	}
 	
 	public void SetHullPoints(double hp)

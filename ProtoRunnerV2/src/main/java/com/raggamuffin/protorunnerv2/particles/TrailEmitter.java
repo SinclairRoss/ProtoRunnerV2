@@ -22,7 +22,6 @@ public class TrailEmitter extends ParticleEmitter
 		
 		m_Offset = new Vector3();
 		m_Offset.Scale(-1.0);
-		
 	}
 	
 	@Override

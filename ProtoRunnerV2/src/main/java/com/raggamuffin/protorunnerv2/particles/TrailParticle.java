@@ -26,20 +26,26 @@ public class TrailParticle extends Particle
 	
 	@Override
 	public void Update(double deltaTime)
-	{		
+	{
 		super.Update(deltaTime);
-		
+
 		if(m_Parent == null)
-			CalculateLineDimentions();	
+        {
+            CalculateLineDimentions();
+            m_EndPointColour.SetColour(m_Origin.GetAltColour());
+            m_EndPointColour.Alpha = m_BaseColour.Alpha;
+        }
 		else
-			m_EndPointColour.SetColour(m_Parent.GetColour());
+        {
+            m_EndPointColour.SetColour(m_Parent.GetColour());
+        }
 	}
 	
 	@Override
 	public void Activate(ParticleEmitter origin)
 	{
 		super.Activate(origin);
-		
+
 		m_Scale.SetVector(0.0);
 		m_Origin = origin;
 		m_Parent = null;

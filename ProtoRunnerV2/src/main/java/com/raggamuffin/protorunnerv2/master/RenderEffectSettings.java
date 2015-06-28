@@ -15,7 +15,7 @@ public class RenderEffectSettings
 		m_GlowIntensityVert  = 0.0;
 		m_GlowIntensityHoriz = 0.0;
 
-        m_SkyBoxColour = new Colour(Colours.White);
+        m_SkyBoxColour = null;
 	}
 	
 	public double GetGlowIntensityHoriz()
@@ -46,7 +46,7 @@ public class RenderEffectSettings
 
     public void SetSkyboxColour(Colour colour)
     {
-        m_SkyBoxColour.SetColour(colour);
+        m_SkyBoxColour = colour;
     }
 
     public Colour GetSkyBoxColour()

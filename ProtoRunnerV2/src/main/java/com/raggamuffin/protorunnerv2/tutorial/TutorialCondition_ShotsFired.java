@@ -42,4 +42,10 @@ public class TutorialCondition_ShotsFired extends TutorialCondition
     {
         return MathsHelper.Normalise(m_Amount, 0, m_MaxAmount);
     }
+
+    @Override
+    public void Reset()
+    {
+        m_Amount = 0;
+    }
 }

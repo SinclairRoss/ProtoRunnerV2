@@ -4,9 +4,11 @@ import com.raggamuffin.protorunnerv2.R;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gamelogic.GameSettings;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
+import com.raggamuffin.protorunnerv2.managers.ColourManager;
 import com.raggamuffin.protorunnerv2.managers.UIManager;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
+import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 
 public class PlayScreen extends UIScreen
@@ -41,8 +43,10 @@ public class PlayScreen extends UIScreen
 	{
 		super.Create();
 		
-		String HealthString = m_Game.GetContext().getString(R.string.empty);	
-		m_HealthBar = new UIProgressBar(3.0, m_Player.GetMaxHullPoints(), Colours.EmeraldGreen, Colours.Crimson, Colours.Clear, HealthString, UIProgressBar.Alignment.Center, m_Game.GetGameAudioManager());
+		String HealthString = m_Game.GetContext().getString(R.string.empty);
+
+        ColourManager cManager = m_Game.GetColourManager();
+		m_HealthBar = new UIProgressBar(3.0, m_Player.GetMaxHullPoints(), cManager.GetAccentingColour(), cManager.GetAccentTintColour(), new Colour(Colours.Clear), HealthString, UIProgressBar.Alignment.Center, m_Game.GetGameAudioManager());
 		m_HealthBar.SetPosition(0.0, 0.9);
 		
 		m_UIManager.AddUIElement(m_HealthBar);

@@ -41,4 +41,10 @@ public class TutorialCondition_TurnAmount extends TutorialCondition
     {
         return m_TurnTimer.GetProgress();
     }
+
+    @Override
+    public void Reset()
+    {
+        m_TurnTimer.ResetTimer();
+    }
 }

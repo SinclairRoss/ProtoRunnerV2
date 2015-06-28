@@ -14,10 +14,10 @@ public abstract class TutorialCondition
     }
 
     public abstract void Update(double deltaTime);
-
     public abstract boolean ConditionComplete();
-
     public abstract double GetProgress();
+    public abstract void Reset();
+
 
     public String GetMessage()
     {

@@ -117,7 +117,17 @@ public class GameManager_Tutorial extends GameManager
         {
             m_TutorialState = TutorialState.Complete;
             m_TutorialCompletePublisher.Publish();
+            ResetTutorial();
         }
+    }
+
+    private void ResetTutorial()
+    {
+        m_TutorialIndex = 0;
+
+        for(TutorialCondition condition : m_Conditions)
+            condition.Reset();
+
     }
 
     public double GetConditionProgress()

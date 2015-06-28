@@ -31,4 +31,10 @@ public class TutorialCondition_Time extends TutorialCondition
     {
         return m_Timer.GetProgress();
     }
+
+    @Override
+    public void Reset()
+    {
+        m_Timer.ResetTimer();
+    }
 }
