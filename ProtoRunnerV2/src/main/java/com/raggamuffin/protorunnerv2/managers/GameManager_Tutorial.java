@@ -42,7 +42,7 @@ public class GameManager_Tutorial extends GameManager
 
         m_TutorialState = TutorialState.Starting;
         m_MessageHandler = m_Game.GetUIManager().GetScreen(UIScreens.Tutorial).GetMessageHandler();
-        m_InbetweenTimer = new Timer(2.0);
+        m_InbetweenTimer = new Timer(1.0);
 
         m_TutorialIndex = 0;
 
@@ -127,7 +127,6 @@ public class GameManager_Tutorial extends GameManager
 
         for(TutorialCondition condition : m_Conditions)
             condition.Reset();
-
     }
 
     public double GetConditionProgress()

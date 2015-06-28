@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
+import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
@@ -27,13 +28,13 @@ public class Radar extends GameObject
 	private Vector3 m_ToVehicle;
 	private Vehicle m_Anchor;
 
-	public Radar(PubSubHub pubSub, GameAudioManager audio, VehicleManager vManager, Vehicle anchor) 
+	public Radar(Vehicle anchor, GameLogic game)
 	{
-		super(pubSub, audio);
+		super(game.GetPubSubHub(), game.GetGameAudioManager());
 		
 		m_Model = ModelType.Nothing;
 		m_RadarFragments = new ArrayList<RadarFragment>();
-		m_Vehicles = vManager.GetVehicles();
+		m_Vehicles = game.GetVehicleManager().GetVehicles();
 		m_Anchor = anchor;
 		m_ToVehicle = new Vector3();
 		
@@ -50,7 +51,7 @@ public class Radar extends GameObject
 				double posX = (x * (FRAGMENT_SCALE + FRAGMENT_PADDING)) - offset;
 				double posY = (y * (FRAGMENT_SCALE + FRAGMENT_PADDING)) - offset;
 
-				RadarFragment fragment = new RadarFragment(pubSub, audio, MIN_DEPTH, MAX_DEPTH, posX, posY, radius);
+				RadarFragment fragment = new RadarFragment(game, MIN_DEPTH, MAX_DEPTH, posX, posY, radius);
 
 				fragment.SetScale(FRAGMENT_SCALE);
 				

@@ -5,6 +5,7 @@ import android.content.Context;
 import com.raggamuffin.protorunnerv2.R;
 import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
+import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.BulletManager;
 import com.raggamuffin.protorunnerv2.managers.ParticleManager;
@@ -15,9 +16,9 @@ import com.raggamuffin.protorunnerv2.utils.Colours;
 
 public class RocketLauncher extends Weapon
 {
-	public RocketLauncher(Vehicle anchor, VehicleManager vManager, BulletManager bManager, ParticleManager pManager, GameAudioManager audio, PubSubHub pubSub, Context context)
+	public RocketLauncher(Vehicle anchor, GameLogic game)
 	{
-		super(anchor, bManager, pManager, audio);
+		super(anchor, game);
 
 		m_Damage = 100;
         m_Drain = 25;
@@ -36,13 +37,13 @@ public class RocketLauncher extends Weapon
 		m_FireMode = new FireControl_MissileCharge(this, 0.25, GetNumMuzzles());
 		m_ProjectileTemplate = new ProjectileTemplate(this, m_Anchor.GetVehicleInfo(), ModelType.Missile, GetAffiliation(),
 													  m_MuzzleVelocity, m_Damage, m_LifeSpan, m_ProjectileFadeInTime,
-													  ProjectileBehaviourType.Missile, m_ParticleManager, m_BulletManager, audio, vManager, pubSub);
+													  ProjectileBehaviourType.Missile, m_ParticleManager, m_BulletManager, m_AudioService, game.GetVehicleManager(), game.GetPubSubHub());
 
 		m_ProjectileTemplate.AddSpecialBehaviour(SpecialProjectileBehaviourType.Explode);
 		
 		m_HasLasers = false;
 		
 		SetColour(Colours.Crimson);
-        m_Name = context.getString(R.string.weapon_rocket);
+        m_Name = game.GetContext().getString(R.string.weapon_rocket);
 	}
 }

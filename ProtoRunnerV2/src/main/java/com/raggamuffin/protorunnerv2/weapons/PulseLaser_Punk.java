@@ -2,6 +2,7 @@ package com.raggamuffin.protorunnerv2.weapons;
 
 import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
+import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.BulletManager;
 import com.raggamuffin.protorunnerv2.managers.ParticleManager;
@@ -12,9 +13,9 @@ import com.raggamuffin.protorunnerv2.utils.Colours;
 
 public class PulseLaser_Punk extends Weapon
 {
-	public PulseLaser_Punk(Vehicle anchor, VehicleManager vManager, BulletManager bManager, ParticleManager pManager, GameAudioManager audio, PubSubHub pubSub)
+	public PulseLaser_Punk(Vehicle anchor, GameLogic game)
 	{
-		super(anchor, bManager, pManager, audio);
+		super(anchor, game);
 		
 		m_Damage = 200;
 		m_MuzzleVelocity = 0.6;
@@ -24,7 +25,7 @@ public class PulseLaser_Punk extends Weapon
 		m_FireMode = new FireControl_Pulse(0.6, 0.06, 2);
 		m_ProjectileTemplate = new ProjectileTemplate(this, m_Anchor.GetVehicleInfo(), ModelType.PulseLaser, GetAffiliation(),
 														m_MuzzleVelocity, m_Damage, m_LifeSpan, m_ProjectileFadeInTime,
-														ProjectileBehaviourType.Standard, m_ParticleManager, m_BulletManager, audio, vManager, pubSub);
+														ProjectileBehaviourType.Standard, m_ParticleManager, m_BulletManager, m_AudioService, game.GetVehicleManager(), game.GetPubSubHub());
 
 		m_AudioClip = AudioClips.PulseLaser;
 		

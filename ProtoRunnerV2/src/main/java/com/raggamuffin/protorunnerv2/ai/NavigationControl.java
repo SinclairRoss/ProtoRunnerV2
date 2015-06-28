@@ -25,7 +25,7 @@ public class NavigationControl
 		Strafe
 	}
 	
-	private final double ARRIVAL_ANGLE = MathsHelper.DegToRad(15.0);
+	private final double ARRIVAL_ANGLE = MathsHelper.DegToRad(5.0);
 	private final double EVASION_CHANCE = 0.6;
 	private final double DELTA_DODGE_TIME = 2.0;
 

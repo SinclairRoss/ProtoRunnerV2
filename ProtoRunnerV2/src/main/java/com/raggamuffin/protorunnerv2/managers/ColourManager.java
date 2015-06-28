@@ -5,6 +5,7 @@ import com.raggamuffin.protorunnerv2.gameobjects.Runner;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.utils.Colour;
+import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 
 public class ColourManager
@@ -31,7 +32,7 @@ public class ColourManager
         m_AccentingColour = new Colour();
         m_AccentTintColour = new Colour();
 
-        m_NextColour = new Colour();
+        m_NextColour = new Colour(Colours.RunnerBlue);
         m_PreviousColour = new Colour();
 
         m_Counter = 0.0;
@@ -53,6 +54,11 @@ public class ColourManager
         m_PrimaryColour.Green   = MathsHelper.Lerp(m_Counter, m_PreviousColour.Green, m_NextColour.Green);
         m_PrimaryColour.Blue    = MathsHelper.Lerp(m_Counter, m_PreviousColour.Blue,  m_NextColour.Blue);
 
+        UpdateAccentingColours();
+    }
+
+    private void UpdateAccentingColours()
+    {
         m_AccentingColour.SetAsInverse(m_PrimaryColour);
         m_AccentTintColour.SetColour(m_AccentingColour);
         m_AccentTintColour.Brighten(-0.6);

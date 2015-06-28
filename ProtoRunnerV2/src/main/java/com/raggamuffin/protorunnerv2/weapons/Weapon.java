@@ -10,6 +10,7 @@ import java.util.Vector;
 import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
+import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.gameobjects.PostFireAction;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
@@ -40,8 +41,8 @@ public abstract class Weapon
 	protected double m_LifeSpan;
 	protected double m_ProjectileFadeInTime;
 
-	private Colour m_Colour;
-	private Colour m_AltColour;
+	protected Colour m_Colour;
+    protected Colour m_AltColour;
 	
 	private Vector<Vector3> m_MuzzleOffsets;
 	private Vector3 m_MuzzleOffset;
@@ -55,12 +56,12 @@ public abstract class Weapon
 	private boolean m_TriggerPulled;
     private boolean m_IsFiring;
 
-	public Weapon(Vehicle anchor, BulletManager bManager, ParticleManager pManager, GameAudioManager audio)
+	public Weapon(Vehicle anchor, GameLogic game)
 	{
 		m_Anchor = anchor;
-		m_BulletManager = bManager;
-		m_ParticleManager = pManager;
-		m_AudioService = audio;
+		m_BulletManager = game.GetBulletManager();
+		m_ParticleManager = game.GetParticleManager();
+		m_AudioService = game.GetGameAudioManager();
 		
 		m_AudioClip = AudioClips.PulseLaser;
 		

@@ -3,6 +3,7 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour.ActivationMode;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_LerpTo;
+import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colour;
@@ -33,9 +34,9 @@ public class RadarFragment extends GameObject
 	private Colour m_EnemyColour;
 	private Colour m_NeutralColour;
 	
-	public RadarFragment(PubSubHub PubSub, GameAudioManager audio, double min, double max, double x, double y, double radarRadius) 
+	public RadarFragment(GameLogic game, double min, double max, double x, double y, double radarRadius)
 	{
-		super(PubSub, audio);
+		super(game.GetPubSubHub(), game.GetGameAudioManager());
 
 		MIN_DEPTH = min;
 		MAX_DEPTH = max;	
@@ -62,8 +63,8 @@ public class RadarFragment extends GameObject
 		
 		m_RadarSignatureType = RadarSignatureType.None;
 		
-		m_FriendlyColour 	= new Colour(Colours.PastelBlueDark);
-		m_EnemyColour 		= new Colour(Colours.PastelRed);
+		m_FriendlyColour 	= game.GetColourManager().GetPrimaryColour();
+		m_EnemyColour 		= game.GetColourManager().GetAccentingColour();
 		m_NeutralColour 	= new Colour(Colours.PastelGrey);
 	}
 	

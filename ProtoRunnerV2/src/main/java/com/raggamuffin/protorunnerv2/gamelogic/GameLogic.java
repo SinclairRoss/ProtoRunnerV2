@@ -380,6 +380,7 @@ public class GameLogic extends ApplicationLogic
         public void Update(int args)
         {
             SetGameMode(GameMode.Exhibition);
+            m_SecondWindHandler.Reset();
             m_GameStats.Lock();
             m_UIManager.ShowScreen(UIScreens.GameOverScreen);
             AttachCameraToAnchor();
@@ -403,6 +404,7 @@ public class GameLogic extends ApplicationLogic
             m_VehicleManager.Wipe();
 
             SetGameMode(GameMode.Exhibition);
+            m_SecondWindHandler.Reset();
             m_GameStats.Lock();
             m_UIManager.ShowScreen(UIScreens.MainMenu);
             AttachCameraToAnchor();

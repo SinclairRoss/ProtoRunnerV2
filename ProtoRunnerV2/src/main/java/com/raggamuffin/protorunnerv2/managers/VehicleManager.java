@@ -7,12 +7,8 @@ import android.util.Log;
 
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.gamelogic.GameSettings;
-import com.raggamuffin.protorunnerv2.gamelogic.GameStats;
 import com.raggamuffin.protorunnerv2.gameobjects.Bit;
-import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
 import com.raggamuffin.protorunnerv2.gameobjects.Runner;
-import com.raggamuffin.protorunnerv2.gameobjects.Squaker;
 import com.raggamuffin.protorunnerv2.gameobjects.Tank;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.gameobjects.Wingman;
@@ -22,8 +18,6 @@ import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
-import com.raggamuffin.protorunnerv2.utils.Orbiter;
-import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class VehicleManager
@@ -43,9 +37,6 @@ public class VehicleManager
 	private GameLogic m_Game;
 	
 	private Publisher m_PlayerSpawnedPublisher;
-	
-	private Squaker m_Squaker;
-	private Orbiter m_Orbiter;
 	
 	public VehicleManager(GameLogic Game)
 	{
@@ -104,31 +95,17 @@ public class VehicleManager
 		
 		Log.e("Player", "Player spawn.");
 		
-		m_Player = new Runner(m_Game.GetBulletManager(), m_Game.GetGameAudioManager(), m_Game.GetParticleManager(), this, m_ControlScheme, m_Game.GetPubSubHub(), m_Game.GetContext());
+		m_Player = new Runner(m_Game);
 		m_Vehicles.add(m_Player);
 		m_BlueTeam.add(m_Player);
 		m_Game.AddObjectToRenderer(m_Player);
 
 		m_PlayerSpawnedPublisher.Publish();
 	}
-	
-	private void SpawnSquaker()
-	{
-		m_Squaker = new Squaker(m_Game.GetPubSubHub(), m_Game.GetGameAudioManager());
-		m_Game.AddObjectToRenderer(m_Squaker);
-	}
-	
-	private void SpawnOrbiter()
-	{
-		m_Orbiter = new Orbiter(m_Game.GetBulletManager(), m_Game.GetParticleManager(), m_Game.GetPubSubHub(), m_Game.GetGameAudioManager());
-		m_Game.AddObjectToRenderer(m_Orbiter);
-		m_Vehicles.add(m_Orbiter);
-		m_RedTeam.add(m_Orbiter);
-	}
-	
+
 	public void SpawnWingmen()
 	{
-		Wingman Buddy = new Wingman(m_Game.GetBulletManager(), m_Game.GetGameAudioManager(), m_Game.GetParticleManager(), this, m_Game.GetPubSubHub(), m_Game.GetContext());
+		Wingman Buddy = new Wingman(m_Game);
 		m_Vehicles.add(Buddy);
 		m_BlueTeam.add(Buddy);
 		m_Game.AddObjectToRenderer(Buddy);		
@@ -149,7 +126,7 @@ public class VehicleManager
 		
 		for(int b = 0; b < 1; b++)
 		{
-			Tank bit = new Tank(m_Game.GetBulletManager(), m_Game.GetGameAudioManager(), m_Game.GetParticleManager(), this, m_Game.GetPubSubHub());
+			Tank bit = new Tank(m_Game);
 			m_Vehicles.add(bit);
 			m_RedTeam.add(bit);
 			m_Game.AddObjectToRenderer(bit);
@@ -159,7 +136,7 @@ public class VehicleManager
 		
 		for(int b = 0; b < 6; b++)
 		{
-			Bit bit = new Bit(m_Game.GetBulletManager(), m_Game.GetGameAudioManager(), m_Game.GetParticleManager(), this, m_Game.GetPubSubHub());
+			Bit bit = new Bit(m_Game);
 			m_Vehicles.add(bit);
 			m_RedTeam.add(bit);
 			m_Game.AddObjectToRenderer(bit);
@@ -203,6 +180,19 @@ public class VehicleManager
 				return null;
 		}
 	}
+
+    public int GetTeamCount(AffiliationKey faction)
+    {
+        switch(faction)
+        {
+            case BlueTeam:
+                return m_BlueTeam.size();
+            case RedTeam:
+                return m_RedTeam.size();
+            default:
+                return 0;
+        }
+    }
 	
 	public void Wipe()
 	{

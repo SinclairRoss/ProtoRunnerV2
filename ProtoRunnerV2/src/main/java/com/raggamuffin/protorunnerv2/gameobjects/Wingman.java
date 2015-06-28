@@ -5,6 +5,7 @@ import android.content.Context;
 import com.raggamuffin.protorunnerv2.ai.AIController;
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
+import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.BulletManager;
 import com.raggamuffin.protorunnerv2.managers.ParticleManager;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
@@ -20,11 +21,11 @@ public class Wingman extends Vehicle
 	private AIController m_AIController;
 	private VehicleManager m_VehicleManager;
 	
-	public Wingman(BulletManager bManager, GameAudioManager audio, ParticleManager pManager, VehicleManager vManager, PubSubHub pubSub, Context context)
+	public Wingman(GameLogic game)
 	{
-		super( pManager, pubSub, audio);
+		super(game);
 		
-		m_VehicleManager = vManager;
+		m_VehicleManager = game.GetVehicleManager();
 
 		m_Model = ModelType.Runner;
 
@@ -38,12 +39,12 @@ public class Wingman extends Vehicle
 
 		SetAffiliation(AffiliationKey.BlueTeam);
 		
-		SelectWeapon(new PulseLaser(this, vManager, bManager, pManager, audio, pubSub, context));
+		SelectWeapon(new PulseLaser(this, game));
 		
-		m_AIController = new AIController(this, m_VehicleManager, bManager);		
+		m_AIController = new AIController(this, m_VehicleManager, game.GetBulletManager());
 		
-		pubSub.SubscribeToTopic(PublishedTopics.PlayerSpawned, new PlayerSpawnedSubscriber());
-		pubSub.SubscribeToTopic(PublishedTopics.PlayerDestroyed, new PlayerDestroyedSubscriber());
+		game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerSpawned, new PlayerSpawnedSubscriber());
+        game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerDestroyed, new PlayerDestroyedSubscriber());
 		
 		m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.WingmanDestroyed);
 	}

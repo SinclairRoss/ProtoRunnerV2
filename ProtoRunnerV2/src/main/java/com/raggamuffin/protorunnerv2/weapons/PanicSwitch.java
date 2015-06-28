@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.raggamuffin.protorunnerv2.R;
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
+import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.BulletManager;
 import com.raggamuffin.protorunnerv2.managers.ParticleManager;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
@@ -14,9 +15,9 @@ import com.raggamuffin.protorunnerv2.utils.Colours;
 
 public class PanicSwitch extends Weapon
 {
-    public PanicSwitch(Vehicle anchor, VehicleManager vManager, BulletManager bManager, ParticleManager pManager, GameAudioManager audio, PubSubHub pubSub, Context context)
+    public PanicSwitch(Vehicle anchor, GameLogic game)
     {
-        super(anchor, bManager, pManager, audio);
+        super(anchor, game);
 
         m_Damage = 999999.0;
         m_MuzzleVelocity = 0.0;
@@ -26,7 +27,7 @@ public class PanicSwitch extends Weapon
         m_FireMode = new FireControl_Auto(1.0);
         m_ProjectileTemplate = new ProjectileTemplate(this, m_Anchor.GetVehicleInfo(), ModelType.Ring, GetAffiliation(),
                 m_MuzzleVelocity, m_Damage, m_LifeSpan, m_ProjectileFadeInTime,
-                ProjectileBehaviourType.Panic, m_ParticleManager, m_BulletManager, audio, vManager, pubSub);
+                ProjectileBehaviourType.Panic, m_ParticleManager, m_BulletManager, m_AudioService, game.GetVehicleManager(), game.GetPubSubHub());
 
         m_HasLasers = false;
 
@@ -34,7 +35,7 @@ public class PanicSwitch extends Weapon
 
         SetColour(Colours.Azure);
 
-        m_Name = context.getString(R.string.weapon_panic);
+        m_Name = game.GetContext().getString(R.string.weapon_panic);
     }
 
     @Override

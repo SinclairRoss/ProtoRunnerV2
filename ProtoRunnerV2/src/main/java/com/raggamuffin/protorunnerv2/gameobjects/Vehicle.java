@@ -11,6 +11,7 @@ import com.raggamuffin.protorunnerv2.colours.ColourBehaviour;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_FadeTo;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_Flicker;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_Pulse;
+import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.ParticleManager;
 import com.raggamuffin.protorunnerv2.particles.BurstEmitter;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
@@ -53,11 +54,11 @@ public abstract class Vehicle extends GameObject
 	protected ParticleManager m_ParticleManager;
 	protected BurstEmitter m_BurstEmitter;
 
-	public Vehicle(ParticleManager pManager, PubSubHub pubSub, GameAudioManager audio)
+	public Vehicle(GameLogic game)
 	{
-		super(pubSub, audio);
+		super(game.GetPubSubHub(), game.GetGameAudioManager());
 		
-		m_ParticleManager = pManager;
+		m_ParticleManager = game.GetParticleManager();
 		
 		///// Motion Attributes.
 		m_Position 		= new Vector3();
@@ -66,7 +67,7 @@ public abstract class Vehicle extends GameObject
 		m_Mass				 = 1000.0f;			
 		m_DragCoefficient	 = 0.2f;	
 		
-		m_Engine = new Engine(this, pManager, new EngineUseBehaviour_Null());
+		m_Engine = new Engine(this, m_ParticleManager, new EngineUseBehaviour_Null());
 
 		///// Attributes.
 		m_MaxHullPoints = 100;
@@ -259,7 +260,7 @@ public abstract class Vehicle extends GameObject
 		m_BurstEmitter.SetStartColour(start);
 		m_BurstEmitter.SetFinalColour(end);
 		
-		m_Engine.UpdateParticleColours(end, start);
+		m_Engine.UpdateParticleColours(start, end);
 	}
 	
 	public void SetHullPoints(double hp)

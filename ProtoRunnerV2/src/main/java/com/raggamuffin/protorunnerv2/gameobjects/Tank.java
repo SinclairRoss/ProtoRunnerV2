@@ -3,6 +3,7 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 import com.raggamuffin.protorunnerv2.ai.AIController;
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
+import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.BulletManager;
 import com.raggamuffin.protorunnerv2.managers.ParticleManager;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
@@ -22,12 +23,12 @@ public class Tank extends Vehicle
 	private Vehicle m_Player;
 	private VehicleManager m_VehicleManager;
 	
-	public Tank(BulletManager bManager, GameAudioManager audio, ParticleManager pManager, VehicleManager vManager, PubSubHub pubSub)
+	public Tank(GameLogic game)
 	{
-		super( pManager, pubSub, audio);
+		super(game);
 		
-		m_VehicleManager = vManager;
-		m_Player = vManager.GetPlayer();
+		m_VehicleManager = game.GetVehicleManager();
+		m_Player = m_VehicleManager.GetPlayer();
 
 		m_Mass = 2000;
 		
@@ -43,14 +44,14 @@ public class Tank extends Vehicle
 
 		SetAffiliation(AffiliationKey.RedTeam); 
 		
-		SelectWeapon(new RailGun_Tank(this, vManager, bManager, pManager, audio, pubSub));
+		SelectWeapon(new RailGun_Tank(this, game));
 		
-		m_AIController = new AIController(this, m_VehicleManager, bManager);
+		m_AIController = new AIController(this, m_VehicleManager, game.GetBulletManager());
 		
 		m_EnemyHitPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.EnemyHit);
 		m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.EnemyDestroyed);
 		
-		pubSub.SubscribeToTopic(PublishedTopics.PlayerSpawned, new PlayerSpawnedSubscriber());
+		game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerSpawned, new PlayerSpawnedSubscriber());
 	}
 	
 	@Override 

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.raggamuffin.protorunnerv2.R;
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
+import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.BulletManager;
 import com.raggamuffin.protorunnerv2.managers.ParticleManager;
@@ -14,9 +15,9 @@ import com.raggamuffin.protorunnerv2.utils.Colours;
 
 public class BurstLaser extends Weapon
 {
-	public BurstLaser(Vehicle anchor, VehicleManager vManager, BulletManager bManager, ParticleManager pManager, GameAudioManager audio, PubSubHub pubSub, Context context)
+	public BurstLaser(Vehicle anchor, GameLogic game)
 	{
-		super(anchor, bManager, pManager, audio);
+		super(anchor, game);
 
 		m_Damage = 50.0;
         m_Drain = 20;
@@ -27,7 +28,7 @@ public class BurstLaser extends Weapon
 		m_FireMode = new FireControl_Burst(0.8, 12);
 		m_ProjectileTemplate = new ProjectileTemplate(this, m_Anchor.GetVehicleInfo(), ModelType.PulseLaser, GetAffiliation(),
 				m_MuzzleVelocity, m_Damage, m_LifeSpan, m_ProjectileFadeInTime,
-				ProjectileBehaviourType.Standard, m_ParticleManager, m_BulletManager, audio, vManager, pubSub);
+				ProjectileBehaviourType.Standard, m_ParticleManager, m_BulletManager, m_AudioService, game.GetVehicleManager(), game.GetPubSubHub());
 
 		m_HasLasers = true;
 
@@ -36,6 +37,6 @@ public class BurstLaser extends Weapon
 
 		SetColour(Colours.EmeraldGreen);
 
-        m_Name = context.getString(R.string.weapon_burst);
+        m_Name = game.GetContext().getString(R.string.weapon_burst);
 	}
 }

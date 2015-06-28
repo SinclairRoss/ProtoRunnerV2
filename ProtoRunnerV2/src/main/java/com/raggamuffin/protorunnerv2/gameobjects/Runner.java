@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
+import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.BulletManager;
 import com.raggamuffin.protorunnerv2.managers.ParticleManager;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
@@ -36,33 +37,33 @@ public class Runner extends Vehicle
 	private Publisher m_DamageTakenPublisher;
 	private Publisher m_SwitchWeaponsPublisher;
 
-	public Runner(BulletManager bManager, GameAudioManager audio, ParticleManager pManager, VehicleManager vManager, ControlScheme scheme, PubSubHub pubSub, Context context)
+	public Runner(GameLogic game)
 	{
-		super(pManager, pubSub, audio);
+		super(game);
 
-		m_Input = scheme;
+		m_Input = game.GetControlScheme();
 
 		m_Model = ModelType.Runner;
 
 		m_Position.SetVector(0, 0, 0);
 		
-		m_Engine = new Engine(this, pManager, new EngineUseBehaviour_Drain(this));
+		m_Engine = new Engine(this, m_ParticleManager, new EngineUseBehaviour_Drain(this));
 		m_Engine.SetMaxTurnRate(2.0);//2
 		m_Engine.SetMaxEngineOutput(1500);//1500
 		
 		m_MaxHullPoints = 1000;
 		m_HullPoints 	= m_MaxHullPoints;
 
-		AddChild(new Radar(pubSub, audio, vManager, this));
+		AddChild(new Radar(this, game));
 		
 		m_PostFireAction = new PostFireAction_Player(this, m_PubSubHub);
 		
 		SetAffiliation(AffiliationKey.BlueTeam);
 
-		m_WeaponLeft 	= new PulseLaser(this, vManager, bManager, pManager, audio, m_PubSubHub, context);
-		m_WeaponRight 	= new BurstLaser(this, vManager, bManager, pManager, audio, m_PubSubHub, context);
-		m_WeaponUp 		= new RocketLauncher(this, vManager, bManager, pManager, audio, m_PubSubHub, context);
-		m_WeaponDown 	= new PanicSwitch(this, vManager, bManager, pManager, audio, m_PubSubHub, context);
+		m_WeaponLeft 	= new PulseLaser(this, game);
+		m_WeaponRight 	= new BurstLaser(this, game);
+		m_WeaponUp 		= new RocketLauncher(this, game);
+		m_WeaponDown 	= new PanicSwitch(this, game);
 		
 		m_LasersOn = true;
 			
@@ -97,7 +98,7 @@ public class Runner extends Vehicle
 	@Override 
 	public void Update(double DeltaTime)
 	{
-      //  m_HullPoints = m_MaxHullPoints;
+        m_HullPoints = m_MaxHullPoints;
         m_Engine.SetTurnRate(m_Input.GetTilt());
 		super.Update(DeltaTime);	
 	}
