@@ -96,19 +96,19 @@ public class CharPicker
 	
 	public void Create(double delay)
 	{
-		m_CharLabel = new UILabel(m_AudioManager);
+		m_CharLabel = new UILabel(m_AudioManager, m_UIManager);
 		m_CharLabel.SetText("A");
 		m_CharLabel.SetPosition(m_Position.I, m_Position.J);
 		m_CharLabel.GetFont().SetAlignment(Font.Alignment.Center);
 		m_UIManager.AddUIElement(m_CharLabel);
 		
-		m_UpButton = new UIButton(m_AudioManager);
+		m_UpButton = new UIButton(m_AudioManager, m_UIManager);
 		m_UpButton.SetText(" £ ");
 		m_UpButton.SetPosition(m_Position.I, m_Position.J + CHAR_SPACING);
 		m_UpButton.GetFont().SetAlignment(Alignment.Center);
 		m_UIManager.AddUIElement(m_UpButton);
 			
-		m_DownButton = new UIButton(m_AudioManager);
+		m_DownButton = new UIButton(m_AudioManager, m_UIManager);
 		m_DownButton.SetText(" $ ");
 		m_DownButton.SetPosition(m_Position.I, m_Position.J - CHAR_SPACING);
 		m_DownButton.GetFont().SetAlignment(Alignment.Center);

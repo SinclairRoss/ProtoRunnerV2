@@ -35,4 +35,10 @@ public class GameManager_Exhibition extends GameManager
     {
 
     }
+
+    @Override
+    public void CleanUp()
+    {
+
+    }
 }

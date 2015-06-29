@@ -14,4 +14,5 @@ public abstract class GameManager
     public abstract void Update(double deltaTime);
 
     public abstract void Initialise();
+    public abstract void CleanUp();
 }

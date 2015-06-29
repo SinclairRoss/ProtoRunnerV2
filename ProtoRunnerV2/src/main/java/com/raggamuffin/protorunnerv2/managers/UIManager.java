@@ -155,7 +155,7 @@ public class UIManager
 		m_Game.RemoveObjectFromRenderer(Label);
 		m_UIElements.remove(Label);
 	}
-	
+
 	public Vector2 GetScreenSize()
 	{
 		return m_ScreenSize;

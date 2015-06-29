@@ -25,7 +25,6 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
 	
 	public AudioService(Context context, int numSounds)
 	{
-		Log.e(TAG, "Constructed");
 		m_Context = context;
 		m_MasterVolume = 1.0f;
 

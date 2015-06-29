@@ -5,6 +5,7 @@ public enum PublishedTopics
 	SwitchScreen,
 	StartGame,
     StartTutorial,
+    NextTutorialButtonPressed,
     TutorialComplete,
 	EndGame,
 	PlayerSpawned,
@@ -17,6 +18,7 @@ public enum PublishedTopics
 	PlayerSwitchedWeapon,
     PanicSwitchFired,
     PanicSwitchDepleted,
+    DummyDestroyed,
 
     // Controls
     EvadeLeft,

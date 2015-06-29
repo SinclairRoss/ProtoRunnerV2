@@ -29,4 +29,10 @@ public class GameManager_Play extends GameManager
         m_VehicleManager.SpawnWingmen();
         m_VehicleManager.SpawnPlayer();
     }
+
+    @Override
+    public void CleanUp()
+    {
+
+    }
 }

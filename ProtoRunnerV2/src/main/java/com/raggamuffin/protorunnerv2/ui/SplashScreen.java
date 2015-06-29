@@ -18,15 +18,15 @@ public class SplashScreen extends UIScreen
 	
 	private Publisher m_SplashScreenOverPublisher;
 
-	public SplashScreen(GameLogic Game, UIManager Manager) 
+	public SplashScreen(GameLogic game, UIManager uiManager)
 	{
-		super(Game, Manager);
+		super(game, uiManager);
 
 		m_Company = null;
 		
 		m_Timer = new Timer(SCREEN_DURATION);
 		
-		PubSubHub pubSub = Game.GetPubSubHub();
+		PubSubHub pubSub = m_Game.GetPubSubHub();
 		m_SplashScreenOverPublisher = pubSub.CreatePublisher(PublishedTopics.SwitchScreen);
 	}
 
@@ -35,7 +35,7 @@ public class SplashScreen extends UIScreen
 	{
         super.Create();
 
-		m_Company = new UILabel(m_Game.GetGameAudioManager());
+		m_Company = new UILabel(m_Game.GetGameAudioManager(), m_UIManager);
 		m_Company.SetText(m_Game.GetContext().getString(R.string.company_name));
 		m_Company.SetPosition(0, 0);
 		m_Company.CentreHorizontal();

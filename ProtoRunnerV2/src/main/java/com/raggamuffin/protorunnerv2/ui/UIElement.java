@@ -1,11 +1,14 @@
 package com.raggamuffin.protorunnerv2.ui;
 
+import com.raggamuffin.protorunnerv2.managers.UIManager;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.Vector2;
 
 public abstract class UIElement 
 {
+    private final double SCREEN_RATIO;
+
 	protected Vector2 m_Position;
 	protected Vector2 m_OriginalPosition;
 	protected Vector2 m_Size;
@@ -17,8 +20,10 @@ public abstract class UIElement
 	
 	protected Colour m_Colour;
 	
-	public UIElement()
+	public UIElement(UIManager uiManager)
 	{
+        SCREEN_RATIO = uiManager.GetScreenRatio();
+
 		m_OriginalPosition = new Vector2(0,0);
 		m_Position  = new Vector2(m_OriginalPosition);
 		m_Size 		= new Vector2();
@@ -32,10 +37,11 @@ public abstract class UIElement
 
 	public abstract void Update(double DeltaTime);
 	protected abstract void TriggerOpenAnimation(double delay);
+    protected abstract void TriggerClosingAnimation();
 
 	public void Hide()
 	{
-		m_Hidden = true;
+        TriggerClosingAnimation();
 	}
 	
 	public void Show()
@@ -46,8 +52,13 @@ public abstract class UIElement
 	public void Show(double delay)
 	{
 		TriggerOpenAnimation(delay);
-		m_Hidden = false;
+        SetHidden(false);
 	}
+
+    public void SetHidden(boolean hide)
+    {
+        m_Hidden = hide;
+    }
 	
 	public void AlignLeft()
 	{
@@ -66,9 +77,16 @@ public abstract class UIElement
 
 	public void SetPosition(double x, double y)
 	{
+        x *= SCREEN_RATIO;
 		m_OriginalPosition.SetVector(x, y);
 		m_Position.SetVector(x,y);
 	}
+
+    public void SetPositionAbsolute(double x, double y)
+    {
+        m_OriginalPosition.SetVector(x, y);
+        m_Position.SetVector(x,y);
+    }
 	
 	///// Getters.
 	public Vector2 GetPosition()

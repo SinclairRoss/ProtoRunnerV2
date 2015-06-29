@@ -34,9 +34,7 @@ public class FlingListener
 		float velocityY = (y - event.GetY()) / (deltaTime * 0.001f);
 	
 		m_Events.remove(event);
-		
-		Log.e("Inices", "size: " + m_Events.size());
-		
+
 		if(velocityX > m_ThresholdX)
 		{
 			return FlingOutcomeType.Right; 

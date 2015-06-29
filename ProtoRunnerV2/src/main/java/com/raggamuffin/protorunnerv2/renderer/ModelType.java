@@ -18,5 +18,6 @@ public enum ModelType
 	Explosion,
 	Skybox,
 	RadarFragment,
+    Dummy,
 	Nothing
 }

@@ -62,7 +62,6 @@ public class GameLogic extends ApplicationLogic
     private GameManager_Tutorial m_TutorialManager;
     private GameManager_Exhibition m_ExhibitionManager;
 
-
 	public GameLogic(Context context, PubSubHub pubSub, ControlScheme scheme, RendererPacket packet)
 	{
 		super(context, packet);
@@ -102,6 +101,7 @@ public class GameLogic extends ApplicationLogic
         m_PlayManager = new GameManager_Play(this);
         m_TutorialManager = new GameManager_Tutorial(this);
         m_ExhibitionManager = new GameManager_Exhibition(this);
+        m_GameManager = m_ExhibitionManager;
         SetGameMode(GameMode.Exhibition);
 	}
 
@@ -243,6 +243,8 @@ public class GameLogic extends ApplicationLogic
 
     private void SetGameMode(GameMode mode)
     {
+        m_GameManager.CleanUp();
+
         switch(mode)
         {
             case Play:

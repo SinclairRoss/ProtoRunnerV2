@@ -25,8 +25,6 @@ public class GLCamera
 
 	public GLCamera(ChaseCamera camera)
 	{
-		Log.e(TAG, "GLCamera");
-		
 		m_GameCamera = camera;
 	
 		m_Position = m_GameCamera.GetPosition();

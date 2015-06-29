@@ -1,6 +1,8 @@
 package com.raggamuffin.protorunnerv2.ui;
 
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
+import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
+import com.raggamuffin.protorunnerv2.managers.UIManager;
 import com.raggamuffin.protorunnerv2.ui.TextAnimation.AnimationState;
 
 public class UILabel extends UIElement
@@ -11,9 +13,9 @@ public class UILabel extends UIElement
 	
 	private TextAnimation m_OpeningAnimation;
 	
-	public UILabel(GameAudioManager audio)
+	public UILabel(GameAudioManager audio, UIManager uiManager)
 	{
-		super();
+		super(uiManager);
 		
 		m_Font = new Font(this, 0.1);
 		
@@ -47,8 +49,14 @@ public class UILabel extends UIElement
 	{
 		m_OpeningAnimation.TriggerBehaviour(delay);
 	}
-	
-	///// Setters.
+
+    @Override
+    protected void TriggerClosingAnimation()
+    {
+        SetHidden(true);
+    }
+
+    ///// Setters.
 	public void SetText(String Text)
 	{
 		m_OriginalText = Text;

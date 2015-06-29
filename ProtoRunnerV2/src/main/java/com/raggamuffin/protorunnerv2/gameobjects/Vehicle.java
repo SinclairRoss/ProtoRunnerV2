@@ -1,11 +1,8 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
-import android.util.Log;
-
 import com.raggamuffin.protorunnerv2.ai.VehicleInfo;
 import com.raggamuffin.protorunnerv2.ai.VehicleInfo.AfterBurnerStates;
 import com.raggamuffin.protorunnerv2.ai.VehicleInfo.MovementStates;
-import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_LerpTo;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_FadeTo;
@@ -14,7 +11,6 @@ import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_Pulse;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.ParticleManager;
 import com.raggamuffin.protorunnerv2.particles.BurstEmitter;
-import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Colours;
@@ -178,6 +174,11 @@ public abstract class Vehicle extends GameObject
     public double GetTurnRate()
     {
         return m_Engine.GetTurnRate();
+    }
+
+    public boolean IsDodging()
+    {
+        return m_Engine.GetDodgeOutput() > 0.0;
     }
 
 	public void SetTurnRate(double TurnRate)

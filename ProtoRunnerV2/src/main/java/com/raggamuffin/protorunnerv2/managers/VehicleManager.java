@@ -8,6 +8,7 @@ import android.util.Log;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.Bit;
+import com.raggamuffin.protorunnerv2.gameobjects.Dummy;
 import com.raggamuffin.protorunnerv2.gameobjects.Runner;
 import com.raggamuffin.protorunnerv2.gameobjects.Tank;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
@@ -26,9 +27,7 @@ public class VehicleManager
 	private final double PlayingSpawnDistance = 100.0;
 
 	private double m_MaxSpawnDistance;
-	
-	private ControlScheme m_ControlScheme;
-	
+
 	private Runner m_Player;
 	private Vector<Vehicle> m_Vehicles;
 	private Vector<Vehicle> m_BlueTeam;
@@ -42,8 +41,6 @@ public class VehicleManager
 	{
 		m_Game = Game;
 
-		m_ControlScheme 	= m_Game.GetControlScheme();
-		
 		m_Vehicles = new Vector<Vehicle>();
 		m_BlueTeam = new Vector<Vehicle>();
 		m_RedTeam  = new Vector<Vehicle>();
@@ -110,6 +107,14 @@ public class VehicleManager
 		m_BlueTeam.add(Buddy);
 		m_Game.AddObjectToRenderer(Buddy);		
 	}
+
+    public void SpawnDummy(double x, double z)
+    {
+        Dummy dummy = new Dummy(m_Game, x, z);
+        m_Vehicles.add(dummy);
+        m_RedTeam.add(dummy);
+        m_Game.AddObjectToRenderer(dummy);
+    }
 	
 	public void SpawnSquad()
 	{

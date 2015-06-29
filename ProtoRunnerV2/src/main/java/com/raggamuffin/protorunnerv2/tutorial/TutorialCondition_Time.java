@@ -9,7 +9,7 @@ public class TutorialCondition_Time extends TutorialCondition
 
     public TutorialCondition_Time(GameLogic game, String message, double time)
     {
-        super(game, message);
+        super(game, message, OptionalElement.ProgressBar);
 
         m_Timer = new Timer(time);
     }
@@ -35,6 +35,7 @@ public class TutorialCondition_Time extends TutorialCondition
     @Override
     public void Reset()
     {
+        super.Reset();
         m_Timer.ResetTimer();
     }
 }

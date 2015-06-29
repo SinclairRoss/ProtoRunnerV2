@@ -46,7 +46,7 @@ public class PlayScreen extends UIScreen
 		String HealthString = m_Game.GetContext().getString(R.string.empty);
 
         ColourManager cManager = m_Game.GetColourManager();
-		m_HealthBar = new UIProgressBar(3.0, m_Player.GetMaxHullPoints(), cManager.GetAccentingColour(), cManager.GetAccentTintColour(), new Colour(Colours.Clear), HealthString, UIProgressBar.Alignment.Center, m_Game.GetGameAudioManager());
+		m_HealthBar = new UIProgressBar(3.0, m_Player.GetMaxHullPoints(), cManager.GetAccentingColour(), cManager.GetAccentTintColour(), new Colour(Colours.Clear), HealthString, UIProgressBar.Alignment.Center, m_Game.GetGameAudioManager(), m_UIManager);
 		m_HealthBar.SetPosition(0.0, 0.9);
 		
 		m_UIManager.AddUIElement(m_HealthBar);
@@ -75,7 +75,7 @@ public class PlayScreen extends UIScreen
 		@Override
 		public void Update(int args) 
 		{
-			m_MessageHandler.DisplayMessage(m_DownButNotOutText, OptionalTextType.SecondWindTimeRemaining, MessageOrientation.Center, 2, GameSettings.SECOND_WIND_DURATION, 0.5);
+			m_MessageHandler.DisplayMessage(m_DownButNotOutText, MessageOrientation.Center, 0.9, 1, GameSettings.SECOND_WIND_DURATION, 0.5);
 		}	
 	}
 	
@@ -86,7 +86,7 @@ public class PlayScreen extends UIScreen
 		{
 			m_Player = m_Game.GetVehicleManager().GetPlayer(); 
 			
-			m_MessageHandler.DisplayMessage(m_RespawnText, OptionalTextType.None, MessageOrientation.Center, 2, LABEL_DURATION, 0.0);
+			m_MessageHandler.DisplayMessage(m_RespawnText, MessageOrientation.Center, 0.9, 1, LABEL_DURATION, 0.0);
 		}	
 	}
 
@@ -95,7 +95,7 @@ public class PlayScreen extends UIScreen
 		@Override
 		public void Update(int args) 
 		{
-			m_MessageHandler.DisplayMessage(m_WingmanDownText, OptionalTextType.None, MessageOrientation.Center, 1, LABEL_DURATION, 0.0);
+			m_MessageHandler.DisplayMessage(m_WingmanDownText, MessageOrientation.Center, 0.9, 1, LABEL_DURATION, 0.0);
 		}
 	}
 }

@@ -93,11 +93,11 @@ public abstract class Weapon
 	}
 	
 	// Override to add functionality.
-	public void Update(double DeltaTime)
+	public void Update(double deltaTime)
 	{
         m_IsFiring = false;
 
-        m_FireMode.Update(DeltaTime);
+        m_FireMode.Update(deltaTime);
 		
 		if(m_FireMode.ShouldFire())
 		{

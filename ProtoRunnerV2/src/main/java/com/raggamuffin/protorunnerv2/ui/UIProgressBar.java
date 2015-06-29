@@ -1,6 +1,8 @@
 package com.raggamuffin.protorunnerv2.ui;
 
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
+import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
+import com.raggamuffin.protorunnerv2.managers.UIManager;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Vector2;
@@ -31,44 +33,29 @@ public class UIProgressBar extends UIElement
 	private Vector2 m_UnderBarScale;
 
     private ProgressBarAnimation m_OpeningAnimation;
-	
-	public UIProgressBar(double maxLength, double maxValue, double[] highColour, double[] lowColour, double[] underColour, String label, Alignment align, GameAudioManager audio)
-	{
-		super();
+    private ProgressBarAnimation m_ClosingAnimation;
 
-        m_HighColour    = new Colour(highColour);
-        m_LowColour     = new Colour(lowColour);
-        m_UnderColour   = new Colour(underColour);
-
-        Initialise(maxLength, maxValue, label, align, audio);
-	}
-
-    public UIProgressBar(double maxLength, double maxValue, Colour highColour, Colour lowColour, Colour underColour, String label, Alignment align, GameAudioManager audio)
+    public UIProgressBar(double maxLength, double maxValue, Colour highColour, Colour lowColour, Colour underColour, String label, Alignment align, GameAudioManager audio, UIManager uiManager)
     {
-        super();
+        super(uiManager);
 
         m_HighColour    = highColour;
         m_LowColour     = lowColour;
         m_UnderColour   = underColour;
 
-        Initialise(maxLength, maxValue, label, align, audio);
-    }
+        m_Alignment = align;
 
-    private void Initialise(double MaxLength, double MaxValue, String Label, Alignment Align, GameAudioManager audio)
-    {
-        m_Alignment = Align;
-
-        m_Label = new UILabel(audio);
+        m_Label = new UILabel(audio, uiManager);
         m_Label.GetFont().SetSize(0.07);
-        m_Label.SetText(Label);
+        m_Label.SetText(label);
         m_Label.GetFont().SetAlignment(Font.Alignment.Left);
 
         m_Type = UIElementType.ProgressBar;
 
-        m_MaxLength = MaxLength;
+        m_MaxLength = maxLength;
 
         m_Progress = 0.0;
-        m_MaxValue  = MaxValue;
+        m_MaxValue  = maxValue;
         m_CurrentValue = m_MaxValue;
 
         m_UnderBarPosition = new Vector2();
@@ -76,12 +63,14 @@ public class UIProgressBar extends UIElement
         CalculateMaxSize();
 
         m_OpeningAnimation = new ProgressBarAnimation_GrowIn(this);
+        m_ClosingAnimation = new ProgressBarAnimation_ShrinkOut(this);
     }
 
 	@Override
 	public void Update(double deltaTime)
 	{
         m_OpeningAnimation.Update(deltaTime);
+        m_ClosingAnimation.Update(deltaTime);
 
         UpdateProgress(deltaTime);
 		CalculateSize();
@@ -101,7 +90,7 @@ public class UIProgressBar extends UIElement
 	
 	private void CalculateSize() 
 	{	
-		m_Size.I = MathsHelper.Lerp(m_Progress, 0.0, m_MaxLength);
+		m_Size.I = MathsHelper.Lerp(m_Progress, 0.0, m_UnderBarScale.I);
 		m_Size.J = HEIGHT;
 	}
 
@@ -157,7 +146,7 @@ public class UIProgressBar extends UIElement
 	{
 		super.SetPosition(x, y);
         m_UnderBarPosition.SetVector(x,y);
-		m_Label.SetPosition(x - (m_MaxLength * 0.5), y);
+		m_Label.SetPositionAbsolute(x - (m_MaxLength * 0.5), y);
 	}
 	
 	public void SetValue(double Value)
@@ -173,7 +162,14 @@ public class UIProgressBar extends UIElement
         m_OpeningAnimation.TriggerBehaviour(delay);
 	}
 
-	public UILabel GetLabel()
+    @Override
+    protected void TriggerClosingAnimation()
+    {
+        m_Label.TriggerClosingAnimation();
+        m_ClosingAnimation.TriggerBehaviour();
+    }
+
+    public UILabel GetLabel()
 	{
 		return m_Label;
 	}
@@ -202,5 +198,26 @@ public class UIProgressBar extends UIElement
     public Vector2 GetUnderBarPosition()
     {
         return m_UnderBarPosition;
+    }
+
+    @Override
+    public void Hide()
+    {
+        super.Hide();
+        m_Label.Hide();
+    }
+
+    @Override
+    public void Show(double delay)
+    {
+        super.Show(delay);
+        m_Label.Show();
+    }
+
+    @Override
+    public void SetHidden(boolean hide)
+    {
+        super.SetHidden(hide);
+        m_Label.SetHidden(hide);
     }
 }

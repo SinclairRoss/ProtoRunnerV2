@@ -1,15 +1,8 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
-import android.content.Context;
-
-import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.managers.BulletManager;
-import com.raggamuffin.protorunnerv2.managers.ParticleManager;
-import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.master.ControlScheme;
-import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
@@ -112,6 +105,8 @@ public class Runner extends Vehicle
 
 	public void SelectWeaponBySlot(WeaponSlot slot)
 	{
+        m_CurrentlyUsedSlot = slot;
+
 		switch(slot)
 		{
 			case Down:
@@ -127,8 +122,6 @@ public class Runner extends Vehicle
 				SelectWeapon(m_WeaponUp);
 				break;		
 		}
-		
-		m_CurrentlyUsedSlot = slot;
 	}
 
     @Override

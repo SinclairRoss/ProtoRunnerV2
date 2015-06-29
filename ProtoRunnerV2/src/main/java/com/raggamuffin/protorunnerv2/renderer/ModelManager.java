@@ -43,6 +43,7 @@ public class ModelManager
 	private GLScreenQuad m_Screen;
 	private GLSkybox	 m_Skybox;
 	private GLRadarFragment m_RadarFragment;
+    private GLDummy m_Dummy;
 	
 	public ModelManager(Context context, RenderEffectSettings Settings)
 	{		
@@ -75,6 +76,7 @@ public class ModelManager
 		m_Screen	 = null;
 		m_Skybox 	 = null;
 		m_RadarFragment = null;
+        m_Dummy = null;
 	}
 	
 	public void LoadAssets(final GLCamera camera)
@@ -104,6 +106,7 @@ public class ModelManager
 		m_Screen	 = new GLScreenQuad();
 		m_Skybox	 = new GLSkybox();
 		m_RadarFragment = new GLRadarFragment();
+        m_Dummy      = new GLDummy();
 	}
 	
 	public void DrawModel(GameObject object, final float[] mvpMatrix)
@@ -218,6 +221,11 @@ public class ModelManager
 				m_RadarFragment.SetColour(object.GetColour());
 				m_RadarFragment.draw(mvpMatrix);
 				break;
+
+            case Dummy:
+                m_Dummy.SetColour(object.GetColour());
+                m_Dummy.draw(mvpMatrix);
+                break;
 				
 			case Nothing:
 				// Do nothing.

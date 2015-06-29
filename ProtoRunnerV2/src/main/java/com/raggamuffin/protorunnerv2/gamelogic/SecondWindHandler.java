@@ -45,8 +45,7 @@ public class SecondWindHandler
 		PubSubHub pubSubHub = m_Game.GetPubSubHub();
 		
 		m_GameOverPublisher = pubSubHub.CreatePublisher(PublishedTopics.EndGame);
-		
-		pubSubHub.SubscribeToTopic(PublishedTopics.EndGame, new EndGameSubscriber());
+
 		pubSubHub.SubscribeToTopic(PublishedTopics.PlayerDestroyed, new PlayerDestroyedSubscriber());	
 		pubSubHub.SubscribeToTopic(PublishedTopics.EnemyDestroyed, new EnemyDestroyedSubscriber());
 		pubSubHub.SubscribeToTopic(PublishedTopics.PlayerSpawned, new PlayerSpawnedSubscriber());
@@ -98,6 +97,13 @@ public class SecondWindHandler
 			}
 		}
 	}
+
+    public void Reset()
+    {
+        m_PlayerPosition.SetVector(0);
+        m_PlayerOrientation = 0.0;
+        m_HealthDivider = 1;
+    }
 	
 	private class PlayerSpawnedSubscriber extends Subscriber
 	{
@@ -110,17 +116,6 @@ public class SecondWindHandler
 			m_Player.SetOrientation(m_PlayerOrientation); 
 			m_Player.SetHullPoints(m_Player.GetMaxHullPoints() / m_HealthDivider);
 			m_HealthDivider = 2;
-		}	
-	}
-	
-	private class EndGameSubscriber extends Subscriber
-	{
-		@Override
-		public void Update(int args) 
-		{
-			m_PlayerPosition.SetVector(0);
-			m_PlayerOrientation = 0.0;
-			m_HealthDivider = 1;
 		}	
 	}
 	

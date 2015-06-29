@@ -12,7 +12,7 @@ public class TutorialCondition_TurnAmount extends TutorialCondition
 
     public TutorialCondition_TurnAmount(GameLogic game, String message, double amount)
     {
-        super(game, message);
+        super(game, message, OptionalElement.ProgressBar);
 
         m_TurnTimer = new Timer(amount);
         m_VehicleManager = m_Game.GetVehicleManager();
@@ -45,6 +45,7 @@ public class TutorialCondition_TurnAmount extends TutorialCondition
     @Override
     public void Reset()
     {
+        super.Reset();
         m_TurnTimer.ResetTimer();
     }
 }

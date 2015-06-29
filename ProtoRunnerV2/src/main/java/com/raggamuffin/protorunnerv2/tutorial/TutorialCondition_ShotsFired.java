@@ -11,7 +11,7 @@ public class TutorialCondition_ShotsFired extends TutorialCondition
 
     public TutorialCondition_ShotsFired(GameLogic game, String message, int amount)
     {
-        super(game, message);
+        super(game, message, OptionalElement.ProgressBar);
 
         m_MaxAmount = amount;
         m_Amount = 0;
@@ -46,6 +46,7 @@ public class TutorialCondition_ShotsFired extends TutorialCondition
     @Override
     public void Reset()
     {
+        super.Reset();
         m_Amount = 0;
     }
 }

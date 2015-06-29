@@ -2,6 +2,7 @@ package com.raggamuffin.protorunnerv2.ui;
 
 import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
+import com.raggamuffin.protorunnerv2.managers.UIManager;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 
 public class UIButton extends UILabel
@@ -10,17 +11,17 @@ public class UIButton extends UILabel
 	GameAudioManager m_GameAudioManager;
 	int m_Args;
 	
-	public UIButton(GameAudioManager audio)
+	public UIButton(GameAudioManager audio, UIManager uiManager)
 	{
-		super(audio);
+		super(audio, uiManager);
 		
 		m_GameAudioManager = audio;
 		m_Type = UIElementType.Button;
 	}
 	
-	public UIButton(Publisher PressedPublisher, GameAudioManager audio, final int args)
+	public UIButton(Publisher PressedPublisher, GameAudioManager audio, UIManager uiManager, final int args)
 	{
-		super(audio);
+		super(audio, uiManager);
 		
 		m_PressedPublisher = PressedPublisher;
 		m_GameAudioManager = audio;

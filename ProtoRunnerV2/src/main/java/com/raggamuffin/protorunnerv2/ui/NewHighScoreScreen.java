@@ -39,7 +39,7 @@ public class NewHighScoreScreen extends UIScreen
 	{
         super.Create();
 
-		m_Score = new UILabel(m_Game.GetGameAudioManager());
+		m_Score = new UILabel(m_Game.GetGameAudioManager(), m_UIManager);
 		m_Score.SetText(m_Game.GetContext().getString(R.string.label_enter_your_name));
 		m_Score.SetPosition(0.0, 0.7);
 		m_Score.GetFont().SetAlignment(Font.Alignment.Center);
@@ -48,7 +48,7 @@ public class NewHighScoreScreen extends UIScreen
 		m_Score.Show(DELAY);
 		
 		
-		m_Title = new UILabel(m_Game.GetGameAudioManager());
+		m_Title = new UILabel(m_Game.GetGameAudioManager(), m_UIManager);
 		m_Title.SetText(m_Game.GetContext().getString(R.string.label_score) + m_Game.GetGameStats().GetScore());
 		m_Title.SetPosition(0.0, -0.7);
 		m_Title.GetFont().SetAlignment(Font.Alignment.Center);
@@ -61,7 +61,7 @@ public class NewHighScoreScreen extends UIScreen
 		m_CharPickerC.Create(DELAY + 0.25);
 		
 		m_MessageHandler.Activate();
-		m_MessageHandler.DisplayMessage(m_Game.GetContext().getString(R.string.label_new_high_score), OptionalTextType.None, MessageOrientation.Center, 1, 3.0, 0.5);
+		m_MessageHandler.DisplayMessage(m_Game.GetContext().getString(R.string.label_new_high_score), MessageOrientation.Center, 1, 1, 3.0, 0.5);
 		
 		m_NextButton = CreateNextButton(UIScreens.HighScore);
 		m_NextButton.Hide();

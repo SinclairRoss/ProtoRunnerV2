@@ -211,16 +211,37 @@ public final class R {
         public static final int label_wingman_a_life=0x7f070018;
         public static final int label_wingman_b_life=0x7f070019;
         public static final int revive_text=0x7f07001a;
-        public static final int tutorial_end=0x7f07001b;
-        public static final int tutorial_firing=0x7f07001c;
-        public static final int tutorial_progress=0x7f07001d;
-        public static final int tutorial_start=0x7f07001e;
-        public static final int tutorial_turning=0x7f07001f;
-        public static final int weapon_burst=0x7f070020;
-        public static final int weapon_panic=0x7f070021;
-        public static final int weapon_pulse=0x7f070022;
-        public static final int weapon_rocket=0x7f070023;
-        public static final int wingman_down=0x7f070024;
+        public static final int tutorial_boost=0x7f07001b;
+        public static final int tutorial_burst_equip=0x7f07001c;
+        public static final int tutorial_burst_fire=0x7f07001d;
+        public static final int tutorial_dodge=0x7f07001e;
+        public static final int tutorial_end=0x7f07001f;
+        public static final int tutorial_firing=0x7f070020;
+        public static final int tutorial_forward=0x7f070021;
+        public static final int tutorial_left_side=0x7f070022;
+        public static final int tutorial_next=0x7f070023;
+        public static final int tutorial_progress=0x7f070024;
+        public static final int tutorial_radar_1=0x7f070025;
+        public static final int tutorial_radar_2=0x7f070026;
+        public static final int tutorial_radar_3=0x7f070027;
+        public static final int tutorial_radar_4=0x7f070028;
+        public static final int tutorial_radar_5=0x7f070029;
+        public static final int tutorial_radar_6=0x7f07002a;
+        public static final int tutorial_re_equip_pulse=0x7f07002b;
+        public static final int tutorial_reverse=0x7f07002c;
+        public static final int tutorial_right_side=0x7f07002d;
+        public static final int tutorial_rocket_equip=0x7f07002e;
+        public static final int tutorial_rocket_fire=0x7f07002f;
+        public static final int tutorial_screen=0x7f070030;
+        public static final int tutorial_start=0x7f070031;
+        public static final int tutorial_strafe_left=0x7f070032;
+        public static final int tutorial_strafe_right=0x7f070033;
+        public static final int tutorial_turning=0x7f070034;
+        public static final int weapon_burst=0x7f070035;
+        public static final int weapon_panic=0x7f070036;
+        public static final int weapon_pulse=0x7f070037;
+        public static final int weapon_rocket=0x7f070038;
+        public static final int wingman_down=0x7f070039;
     }
     public static final class style {
         /**  API 11 theme customizations can go here. 

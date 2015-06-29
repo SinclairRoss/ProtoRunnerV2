@@ -231,11 +231,6 @@ public class NavigationControl
 		m_SteeringVector.Add(m_Seperation);
 		m_SteeringVector.Add(m_Alignment);
 		m_SteeringVector.Add(m_Cohesion);
-		
-		if(m_SteeringVector.IsNan())
-		{
-			Log.e("Nav", "<---------- NAN ERROR! ---------->");
-		}
 	}
 	
 	private double CalculateEngineOutput()

@@ -122,12 +122,7 @@ public class Engine
 		m_AfterBurnerOutput = 0.0;
 	}
 	
-	///// Getters.	
-	public double GetMaxEngineOutput()
-	{
-		return m_MaxEngineOutput;
-	}
-	
+	///// Getters.
 	public double GetEngineOutput()
 	{
 		return (m_EngineOutput * m_MaxEngineOutput) + (m_AfterBurnerOutput * m_MaxAfterBurnerOutput);

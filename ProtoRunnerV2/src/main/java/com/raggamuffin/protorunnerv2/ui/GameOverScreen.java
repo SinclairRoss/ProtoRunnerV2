@@ -33,7 +33,7 @@ public class GameOverScreen extends UIScreen
 	{
         super.Create();
 
-		m_GameOverMessage = new UILabel(m_Game.GetGameAudioManager());
+		m_GameOverMessage = new UILabel(m_Game.GetGameAudioManager(), m_UIManager);
 		m_GameOverMessage.SetText(m_Game.GetContext().getString(R.string.game_over_message));
 		m_GameOverMessage.SetPosition(0, 0);
 		m_GameOverMessage.CentreHorizontal();

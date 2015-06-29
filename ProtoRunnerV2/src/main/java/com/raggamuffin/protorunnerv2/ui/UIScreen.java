@@ -23,12 +23,12 @@ public abstract class UIScreen
     private int m_NumElements;
 	private boolean m_HasBackButton;
 	
-	public UIScreen(GameLogic Game, UIManager Manager)
+	public UIScreen(GameLogic Game, UIManager uiManager)
 	{
 		m_Game = Game;
-		m_UIManager = Manager;
+		m_UIManager = uiManager;
 
-        m_MessageHandler = new InGameMessageHandler(m_Game, m_UIManager, m_Game.GetGameAudioManager());
+        m_MessageHandler = new InGameMessageHandler(m_Game, m_UIManager);
 
         m_NumElements = 0;
 		
@@ -55,9 +55,9 @@ public abstract class UIScreen
 
 	protected UILabel CreateTitle(String Name)
 	{
-		UILabel Title = new UILabel(m_Game.GetGameAudioManager());
+		UILabel Title = new UILabel(m_Game.GetGameAudioManager(), m_UIManager);
 		Title.SetText(Name);
-		Title.SetPosition(m_UIManager.GetScreenRatio() * -0.9, 0.0);
+		Title.SetPosition(-0.9, 0.0);
 		Title.GetFont().SetAlignment(Font.Alignment.Left);
 
         m_UIManager.AddUIElement(Title);
@@ -68,8 +68,8 @@ public abstract class UIScreen
 	protected UIProgressBar CreateProgressBar(String Name, double maxVal)
 	{
         ColourManager cManager = m_Game.GetColourManager();
-		UIProgressBar Bar = new UIProgressBar(2.0, maxVal, cManager.GetAccentingColour(), cManager.GetAccentTintColour(), cManager.GetPrimaryColour(), Name, UIProgressBar.Alignment.Left, m_Game.GetGameAudioManager());
-        Bar.SetPosition(m_UIManager.GetScreenRatio() * ButtonX - (Bar.GetMaxLength() * 0.5), ButtonY - (ButtonPadding * m_NumElements));
+		UIProgressBar Bar = new UIProgressBar(2.0, maxVal, cManager.GetAccentingColour(), cManager.GetAccentTintColour(), cManager.GetPrimaryColour(), Name, UIProgressBar.Alignment.Left, m_Game.GetGameAudioManager(), m_UIManager);
+        Bar.SetPosition(ButtonX - (Bar.GetMaxLength() * 0.5), ButtonY - (ButtonPadding * m_NumElements));
 
 		m_NumElements ++;
 
@@ -82,10 +82,10 @@ public abstract class UIScreen
 	protected UIButton CreateButton(String Name, UIScreens Screen)
 	{
 		Publisher Pub = m_Game.GetPubSubHub().CreatePublisher(PublishedTopics.SwitchScreen);
-		UIButton Button = new UIButton(Pub, m_Game.GetGameAudioManager(), Screen.ordinal());
+		UIButton Button = new UIButton(Pub, m_Game.GetGameAudioManager(), m_UIManager, Screen.ordinal());
 		
 		Button.SetText(Name);
-		Button.SetPosition(m_UIManager.GetScreenRatio() * ButtonX, ButtonY - (ButtonPadding * m_NumElements));
+		Button.SetPosition(ButtonX, ButtonY - (ButtonPadding * m_NumElements));
 		Button.GetFont().SetAlignment(Font.Alignment.Right);
 		
 		m_UIManager.AddUIElement(Button);
@@ -98,10 +98,10 @@ public abstract class UIScreen
     protected UIButton CreateButton(String text, PublishedTopics topic)
     {
         Publisher Pub = m_Game.GetPubSubHub().CreatePublisher(topic);
-        UIButton Button = new UIButton(Pub, m_Game.GetGameAudioManager(),  -1);
+        UIButton Button = new UIButton(Pub, m_Game.GetGameAudioManager(), m_UIManager, -1);
 
         Button.SetText(text);
-        Button.SetPosition(m_UIManager.GetScreenRatio() * ButtonX, ButtonY - (ButtonPadding * m_NumElements));
+        Button.SetPosition(ButtonX, ButtonY - (ButtonPadding * m_NumElements));
         Button.GetFont().SetAlignment(Font.Alignment.Right);
 
         m_UIManager.AddUIElement(Button);
@@ -114,10 +114,10 @@ public abstract class UIScreen
     protected UIButton CreateBackButton(UIScreens screen)
     {
         Publisher Pub = m_Game.GetPubSubHub().CreatePublisher(PublishedTopics.SwitchScreen);
-        UIButton Button = new UIButton(Pub, m_Game.GetGameAudioManager(), screen.ordinal());
+        UIButton Button = new UIButton(Pub, m_Game.GetGameAudioManager(), m_UIManager, screen.ordinal());
 
         Button.SetText(m_Game.GetContext().getString(R.string.button_back));
-        Button.SetPosition(m_UIManager.GetScreenRatio() * -0.9, -1.0 + ButtonPadding);
+        Button.SetPosition(-0.9, -1.0 + ButtonPadding);
         Button.GetFont().SetAlignment(Font.Alignment.Left);
         Button.GetFont().SetColour(m_Game.GetColourManager().GetAccentingColour());
 
@@ -131,22 +131,22 @@ public abstract class UIScreen
 	protected UIButton CreateNextButton(UIScreens screen)
 	{
 		Publisher Pub = m_Game.GetPubSubHub().CreatePublisher(PublishedTopics.SwitchScreen);
-		UIButton Button = new UIButton(Pub, m_Game.GetGameAudioManager(), screen.ordinal());
+		UIButton Button = new UIButton(Pub, m_Game.GetGameAudioManager(), m_UIManager, screen.ordinal());
 
         Button.SetText(m_Game.GetContext().getString(R.string.button_next));
 		
 		if(m_HasBackButton)
 		{
-			Button.SetPosition(m_UIManager.GetScreenRatio() * -0.4, -1.0 + ButtonPadding);
+			Button.SetPosition(-0.4, -1.0 + ButtonPadding);
 			Button.GetFont().SetAlignment(Font.Alignment.Right);
 		}
 		else
 		{
-			Button.SetPosition(m_UIManager.GetScreenRatio() * -0.9, -1.0 + ButtonPadding);
+			Button.SetPosition(-0.9, -1.0 + ButtonPadding);
 			Button.GetFont().SetAlignment(Font.Alignment.Left);
 		}
 
-        Button.GetFont().SetColour(Colours.Cyan);
+        Button.GetFont().SetColour(m_Game.GetColourManager().GetPrimaryColour());
 		
 		m_UIManager.AddUIElement(Button);
 		
@@ -155,7 +155,7 @@ public abstract class UIScreen
 
 	protected UILabel CreateLabel(String text)
 	{
-		UILabel label = new UILabel(m_Game.GetGameAudioManager());
+		UILabel label = new UILabel(m_Game.GetGameAudioManager(), m_UIManager);
 		label.SetText(text);
 		label.SetPosition(m_UIManager.GetScreenRatio() * ButtonX, ButtonY - (ButtonPadding * m_NumElements));
         label.GetFont().SetAlignment(Font.Alignment.Right);
