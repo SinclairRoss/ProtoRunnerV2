@@ -3,6 +3,7 @@ package com.raggamuffin.protorunnerv2.tutorial;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.Runner;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
+import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 
 public class TutorialEvent_Immortality extends TutorialEvent
 {
@@ -32,14 +33,21 @@ public class TutorialEvent_Immortality extends TutorialEvent
     @Override
     public void Update()
     {
-        if(!m_On)
-            return;
-
         Runner player = m_VehicleManager.GetPlayer();
 
-        if(player == null)
+        if (player == null)
             return;
 
-        player.SetHullPoints(player.GetMaxHullPoints());
+        if(m_On)
+        {
+            player.SetHullPoints(player.GetMaxHullPoints());
+        }
+        else
+        {
+            int hullPointMin = player.GetMaxHullPoints() >> 2;
+
+            if(player.GetHullPoints() < hullPointMin)
+                player.SetHullPoints(hullPointMin);
+        }
     }
 }

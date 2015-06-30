@@ -5,5 +5,6 @@ public enum TutorialEffect
     Immortality_On,
     Immortality_Off,
     HealthBar_On,
-    HealthBar_Off
+    HealthBar_Off,
+    SpawnWingmen
 }

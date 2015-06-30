@@ -1,20 +1,24 @@
 package com.raggamuffin.protorunnerv2.tutorial;
 
+import com.raggamuffin.protorunnerv2.ai.VehicleInfo;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.Runner;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
+import com.raggamuffin.protorunnerv2.weapons.WeaponSlot;
 
 public class TutorialCondition_ShotsFired extends TutorialCondition
 {
     private int m_MaxAmount;
     private int m_Amount;
+    private WeaponSlot m_WeaponSlot;
 
-    public TutorialCondition_ShotsFired(GameLogic game, String message, int amount, TutorialEffect... effects)
+    public TutorialCondition_ShotsFired(GameLogic game, String message, int amount, WeaponSlot slot, TutorialEffect... effects)
     {
         super(game, message, OptionalElement.ProgressBar, effects);
 
         m_MaxAmount = amount;
         m_Amount = 0;
+        m_WeaponSlot = slot;
     }
 
     @Override
@@ -22,13 +26,17 @@ public class TutorialCondition_ShotsFired extends TutorialCondition
     {
         Runner player = m_Game.GetVehicleManager().GetPlayer();
 
-        if(player != null)
+        if(player == null)
+            return;
+
+        if(player.GetWeaponSlot() != m_WeaponSlot)
+            return;
+
+        if(player.GetPrimaryWeapon().IsFiring())
         {
-            if(player.GetPrimaryWeapon().IsFiring())
-            {
-                m_Amount ++;
-            }
+            m_Amount ++;
         }
+
     }
 
     @Override

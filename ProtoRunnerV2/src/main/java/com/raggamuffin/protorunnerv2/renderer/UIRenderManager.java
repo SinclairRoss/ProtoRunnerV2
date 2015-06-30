@@ -525,6 +525,11 @@ public class UIRenderManager
                 Coord[0] = 0.75f;
                 Coord[1] = 0.125f;
                 break;
+
+            case'\'':
+                Coord[0] = 0.4375f;
+                Coord[1] = 0.125f;
+                break;
 		}
 		
 		return Coord;

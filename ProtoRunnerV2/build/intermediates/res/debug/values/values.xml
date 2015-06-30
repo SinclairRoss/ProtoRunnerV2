@@ -175,6 +175,10 @@
     <string name="label_score_reverse">:Score</string>
     <string name="label_wingman_a_life">Wingman-A: Life expectancy</string>
     <string name="label_wingman_b_life">Wingman-B: Life expectancy</string>
+    <string name="reboot_1">If your energy drains entirely your runner will be destroyed</string>
+    <string name="reboot_2">After being destroyed there is a short period of time where your runner can reboot</string>
+    <string name="reboot_3">If an enemy is destroyed by yourself or by one of your wingmen you will reboot</string>
+    <string name="reboot_4">PREPARE TO DIE!</string>
     <string name="revive_text">Reboot</string>
     <string name="tutorial_boost">Press and hold the right side of the screen to boost</string>
     <string name="tutorial_burst_equip">Swipe right to equip the Burst Laser</string>
@@ -192,6 +196,11 @@
     <string name="tutorial_health_6">Destroy the training dummies before your energy drains completely</string>
     <string name="tutorial_left_side">Interacting with the left side of the screen controls your weapons</string>
     <string name="tutorial_next">Continue</string>
+    <string name="tutorial_panic_1">The final weapon is the Panic Switch</string>
+    <string name="tutorial_panic_2">The Panic Switch is a weapon that will destroy everything around you</string>
+    <string name="tutorial_panic_3">However you will recieve no points or energy for using it</string>
+    <string name="tutorial_panic_4">Use the panic switch to destroy the training dummies</string>
+    <string name="tutorial_panic_equip">Swipe down to select the panic switch</string>
     <string name="tutorial_progress">Progress</string>
     <string name="tutorial_radar_1">The grid of cells underneath the runner is a radar</string>
     <string name="tutorial_radar_2">Lit cells represent runners</string>
@@ -209,6 +218,10 @@
     <string name="tutorial_strafe_left">Rapidly swipe left twice to strafe left</string>
     <string name="tutorial_strafe_right">Rapidly swipe right twice to strafe right</string>
     <string name="tutorial_turning">Tilt your device to turn the runner</string>
+    <string name="tutorial_wingmen_1">Fortunately you\'re not alone</string>
+    <string name="tutorial_wingmen_2">At the start of the game you will spawn with two wingmen</string>
+    <string name="tutorial_wingmen_3">Enemies destroyed by your wingmen will still boost both your health and score</string>
+    <string name="tutorial_wingmen_4">With the help of your wingmen destroy all training dummies</string>
     <string name="weapon_burst">Burst Laser</string>
     <string name="weapon_panic">Panic Switch</string>
     <string name="weapon_pulse">Pulse Shot</string>

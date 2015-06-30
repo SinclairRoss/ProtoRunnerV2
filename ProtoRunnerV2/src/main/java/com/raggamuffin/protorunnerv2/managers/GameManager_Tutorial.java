@@ -11,6 +11,7 @@ import com.raggamuffin.protorunnerv2.tutorial.TutorialCondition_Destroy;
 import com.raggamuffin.protorunnerv2.tutorial.TutorialCondition_Dodge;
 import com.raggamuffin.protorunnerv2.tutorial.TutorialCondition_Message;
 import com.raggamuffin.protorunnerv2.tutorial.TutorialCondition_Movement;
+import com.raggamuffin.protorunnerv2.tutorial.TutorialCondition_Reboot;
 import com.raggamuffin.protorunnerv2.tutorial.TutorialCondition_ShotsFired;
 import com.raggamuffin.protorunnerv2.tutorial.TutorialCondition_SwitchWeapon;
 import com.raggamuffin.protorunnerv2.tutorial.TutorialCondition_Time;
@@ -115,17 +116,16 @@ public class GameManager_Tutorial extends GameManager
 
         Context context = m_Game.GetContext();
 
-
         m_Conditions.add(new TutorialCondition_Time(m_Game, context.getString(R.string.tutorial_start), 3.0, TutorialEffect.Immortality_On));
 
         m_Conditions.add(new TutorialCondition_TurnAmount(m_Game, context.getString(R.string.tutorial_turning), 3));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_screen)));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_left_side)));
-        m_Conditions.add(new TutorialCondition_ShotsFired(m_Game, context.getString(R.string.tutorial_firing), 16));
+        m_Conditions.add(new TutorialCondition_ShotsFired(m_Game, context.getString(R.string.tutorial_fire_pulse), 16, WeaponSlot.Left));
         m_Conditions.add(new TutorialCondition_SwitchWeapon(m_Game, context.getString(R.string.tutorial_burst_equip), WeaponSlot.Right));
-        m_Conditions.add(new TutorialCondition_ShotsFired(m_Game,context.getString(R.string.tutorial_firing), 4));
+        m_Conditions.add(new TutorialCondition_ShotsFired(m_Game,context.getString(R.string.tutorial_fire_burst), 4, WeaponSlot.Right));
         m_Conditions.add(new TutorialCondition_SwitchWeapon(m_Game, context.getString(R.string.tutorial_rocket_equip), WeaponSlot.Up));
-        m_Conditions.add(new TutorialCondition_ShotsFired(m_Game, context.getString(R.string.tutorial_rocket_fire), 8));
+        m_Conditions.add(new TutorialCondition_ShotsFired(m_Game, context.getString(R.string.tutorial_rocket_fire), 8, WeaponSlot.Up));
         m_Conditions.add(new TutorialCondition_SwitchWeapon(m_Game, context.getString(R.string.tutorial_re_equip_pulse), WeaponSlot.Left));
         m_Conditions.add(new TutorialCondition_Message(m_Game,context.getString(R.string.tutorial_right_side)));
         m_Conditions.add(new TutorialCondition_Boost(m_Game, context.getString(R.string.tutorial_boost), 5));
@@ -141,7 +141,6 @@ public class GameManager_Tutorial extends GameManager
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_radar_5)));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_radar_6)));
         m_Conditions.add(new TutorialCondition_Destroy(m_Game, context.getString(R.string.tutorial_destroy), 3));
-
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_health_1), TutorialEffect.HealthBar_On));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_health_2)));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_health_3)));
@@ -149,7 +148,25 @@ public class GameManager_Tutorial extends GameManager
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_health_5)));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_health_6)));
         m_Conditions.add(new TutorialCondition_Destroy(m_Game, context.getString(R.string.tutorial_destroy), 3, TutorialEffect.Immortality_Off));
-        m_Conditions.add(new TutorialCondition_Time(m_Game, m_Game.GetContext().getString(R.string.tutorial_end), 3.0));
+        m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_panic_1), TutorialEffect.Immortality_On, TutorialEffect.HealthBar_Off));
+        m_Conditions.add(new TutorialCondition_SwitchWeapon(m_Game, context.getString(R.string.tutorial_panic_equip), WeaponSlot.Down));
+        m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_panic_2)));
+        m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_panic_3)));
+        m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_panic_4)));
+        m_Conditions.add(new TutorialCondition_Destroy(m_Game, context.getString(R.string.tutorial_destroy), 6, TutorialEffect.Immortality_Off, TutorialEffect.HealthBar_On));
+        m_Conditions.add(new TutorialCondition_SwitchWeapon(m_Game, context.getString(R.string.tutorial_re_equip_pulse), WeaponSlot.Left, TutorialEffect.Immortality_On, TutorialEffect.HealthBar_Off));
+        m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_wingmen_1)));
+        m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_wingmen_2), TutorialEffect.SpawnWingmen));
+        m_Conditions.add(new TutorialCondition_Time(m_Game, context.getString(R.string.empty), 5.0));
+        m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_wingmen_3)));
+        m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_wingmen_4)));
+        m_Conditions.add(new TutorialCondition_Destroy(m_Game, context.getString(R.string.tutorial_destroy), 6, TutorialEffect.Immortality_Off, TutorialEffect.HealthBar_On));
+        m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.reboot_1), TutorialEffect.Immortality_On, TutorialEffect.HealthBar_Off));
+        m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.reboot_2)));
+        m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.reboot_3)));
+        m_Conditions.add(new TutorialCondition_Time(m_Game, context.getString(R.string.reboot_4), 1));
+        m_Conditions.add(new TutorialCondition_Reboot(m_Game, context.getString(R.string.empty)));
+        m_Conditions.add(new TutorialCondition_Time(m_Game, context.getString(R.string.tutorial_end), 3.0));
 
         m_ActiveCondition = m_Conditions.get(0);
 
@@ -211,6 +228,10 @@ public class GameManager_Tutorial extends GameManager
                     break;
                 case HealthBar_Off:
                     m_HealthBar.Off();
+                    break;
+                case SpawnWingmen:
+                    m_Game.GetVehicleManager().SpawnWingmen();
+                    m_Game.GetVehicleManager().SpawnWingmen();
                     break;
             }
         }

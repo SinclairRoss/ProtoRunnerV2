@@ -9,7 +9,7 @@ public class TutorialCondition_Time extends TutorialCondition
 
     public TutorialCondition_Time(GameLogic game, String message, double time, TutorialEffect... effects)
     {
-        super(game, message, OptionalElement.ProgressBar, effects);
+        super(game, message, OptionalElement.None, effects);
 
         m_Timer = new Timer(time);
     }

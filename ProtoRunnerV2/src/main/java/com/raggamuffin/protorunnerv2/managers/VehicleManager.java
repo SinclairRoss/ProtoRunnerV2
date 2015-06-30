@@ -103,6 +103,13 @@ public class VehicleManager
 	public void SpawnWingmen()
 	{
 		Wingman Buddy = new Wingman(m_Game);
+
+        if(m_Player != null)
+        {
+            Buddy.SetPosition(m_Player.GetPosition());
+            Buddy.SetOrientation(m_Player.GetOrientation());
+        }
+
 		m_Vehicles.add(Buddy);
 		m_BlueTeam.add(Buddy);
 		m_Game.AddObjectToRenderer(Buddy);		

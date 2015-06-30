@@ -47,6 +47,11 @@ public class Wingman extends Vehicle
         game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerDestroyed, new PlayerDestroyedSubscriber());
 		
 		m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.WingmanDestroyed);
+
+        Runner player = m_VehicleManager.GetPlayer();
+
+        if(player != null)
+            m_AIController.SetLeader(m_VehicleManager.GetPlayer());
 	}
 
 	@Override 
