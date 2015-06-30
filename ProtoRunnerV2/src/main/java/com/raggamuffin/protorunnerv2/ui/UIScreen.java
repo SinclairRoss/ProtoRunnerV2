@@ -68,8 +68,9 @@ public abstract class UIScreen
 	protected UIProgressBar CreateProgressBar(String Name, double maxVal)
 	{
         ColourManager cManager = m_Game.GetColourManager();
-		UIProgressBar Bar = new UIProgressBar(2.0, maxVal, cManager.GetAccentingColour(), cManager.GetAccentTintColour(), cManager.GetPrimaryColour(), Name, UIProgressBar.Alignment.Left, m_Game.GetGameAudioManager(), m_UIManager);
-        Bar.SetPosition(ButtonX - (Bar.GetMaxLength() * 0.5), ButtonY - (ButtonPadding * m_NumElements));
+        double barLength = 1.1;
+		UIProgressBar Bar = new UIProgressBar(barLength, maxVal, cManager.GetAccentingColour(), cManager.GetAccentTintColour(), cManager.GetPrimaryColour(), Name, UIProgressBar.Alignment.Left, m_Game.GetGameAudioManager(), m_UIManager);
+        Bar.SetPosition(ButtonX - (barLength * 0.5), ButtonY - (ButtonPadding * m_NumElements));
 
 		m_NumElements ++;
 

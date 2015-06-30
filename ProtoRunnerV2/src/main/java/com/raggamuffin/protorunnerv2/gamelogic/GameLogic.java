@@ -89,8 +89,9 @@ public class GameLogic extends ApplicationLogic
 		m_GameStats 			= new GameStats(this);
 		m_SecondWindHandler		= new SecondWindHandler(this);
         m_RenderEffectManager 	= new RenderEffectManager(this, m_Packet.GetRenderEffectSettings());
-		
-		m_PubSubHub.SubscribeToTopic(PublishedTopics.PlayerSpawned, new PlayerSpawnedSubscriber());
+
+        m_PubSubHub.SubscribeToTopic(PublishedTopics.PlayerSpawned, new PlayerSpawnedSubscriber());
+        m_PubSubHub.SubscribeToTopic(PublishedTopics.PlayerDestroyed, new PlayerDestroyedSubscriber());
         m_PubSubHub.SubscribeToTopic(PublishedTopics.StartGame, new StartGameSubscriber());
         m_PubSubHub.SubscribeToTopic(PublishedTopics.StartTutorial, new StartTutorialSubscriber());
         m_PubSubHub.SubscribeToTopic(PublishedTopics.EndGame, new EndGameSubscriber());
@@ -359,6 +360,7 @@ public class GameLogic extends ApplicationLogic
 
             SetGameMode(GameMode.Play);
             m_UIManager.ShowScreen(UIScreens.Play);
+            m_SecondWindHandler.AutoSpawnOff();
         }
     }
 
@@ -373,6 +375,7 @@ public class GameLogic extends ApplicationLogic
 
             SetGameMode(GameMode.Tutorial);
             m_UIManager.ShowScreen(UIScreens.Tutorial);
+            m_SecondWindHandler.AutoSpawnOn();
         }
     }
 
@@ -395,6 +398,15 @@ public class GameLogic extends ApplicationLogic
         public void Update(int args)
         {
             m_Camera.Attach(m_VehicleManager.GetPlayer());
+        }
+    }
+
+    private class PlayerDestroyedSubscriber extends Subscriber
+    {
+        @Override
+        public void Update(int args)
+        {
+            m_UIManager.ShowScreen(UIScreens.Reboot);
         }
     }
 

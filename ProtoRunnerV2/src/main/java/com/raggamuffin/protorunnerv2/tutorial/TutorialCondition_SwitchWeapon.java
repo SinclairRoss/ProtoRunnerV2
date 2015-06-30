@@ -54,6 +54,7 @@ public class TutorialCondition_SwitchWeapon extends TutorialCondition
     public void Reset()
     {
         super.Reset();
+
         m_Active = false;
         m_CondtionComplete = false;
     }

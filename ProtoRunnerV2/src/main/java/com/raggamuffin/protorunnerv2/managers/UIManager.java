@@ -18,6 +18,7 @@ import com.raggamuffin.protorunnerv2.ui.HighScoreScreen;
 import com.raggamuffin.protorunnerv2.ui.MenuScreen;
 import com.raggamuffin.protorunnerv2.ui.NewHighScoreScreen;
 import com.raggamuffin.protorunnerv2.ui.PlayScreen;
+import com.raggamuffin.protorunnerv2.ui.RebootScreen;
 import com.raggamuffin.protorunnerv2.ui.SplashScreen;
 import com.raggamuffin.protorunnerv2.ui.TutorialScreen;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
@@ -46,6 +47,10 @@ public class UIManager
 	private GameOverScreen m_GameOverScreen;
 	private AftermathScreen m_AftermathScreen;
 	private TutorialScreen m_TutorialScreen;
+    private RebootScreen m_RebootScreen;
+
+    private UIScreens m_PreviousScreen;
+    private UIScreens m_CurrentScreen;
 
 	public UIManager(GameLogic Game)
 	{
@@ -60,8 +65,9 @@ public class UIManager
 		m_ScreenRatio = m_ScreenSize.I / m_ScreenSize.J;
 		
 		m_UIElements = new Vector<UIElement>();
-		
+
 		m_Screen 	 		 = null;
+
 		m_SplashScreen 		 = new SplashScreen(m_Game, this);
 		m_MenuScreen 		 = new MenuScreen(m_Game, this);
 		m_HighScoreScreen    = new HighScoreScreen(m_Game, this);
@@ -71,7 +77,11 @@ public class UIManager
 		m_GameOverScreen 	 = new GameOverScreen(m_Game, this);
 		m_AftermathScreen 	 = new AftermathScreen(m_Game, this);
         m_TutorialScreen     = new TutorialScreen(m_Game, this);
-		
+        m_RebootScreen       = new RebootScreen(m_Game, this);
+
+        m_CurrentScreen  = UIScreens.None;
+        m_PreviousScreen = UIScreens.None;
+
 		ShowScreen(UIScreens.Splash);
 		
 		m_Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.SwitchScreen, new ButtonPressedSubscriber());
@@ -109,22 +119,32 @@ public class UIManager
                 return m_AftermathScreen;
             case Tutorial:
                 return m_TutorialScreen;
+            case Reboot:
+                return m_RebootScreen;
             default:
                 return null;
         }
     }
 	
-	public void ShowScreen(UIScreens Screen)
+	public void ShowScreen(UIScreens screen)
 	{
-		if(Screen == UIScreens.None)
+		if(screen == UIScreens.None)
 			return;
-		
+
 		if(m_Screen != null)
 			m_Screen.Remove();
 
-		m_Screen = GetScreen(Screen);
+        m_PreviousScreen = m_CurrentScreen;
+        m_CurrentScreen = screen;
+
+		m_Screen = GetScreen(m_CurrentScreen);
 		m_Screen.Create();
 	}
+
+    public void ShowPreviousScreen()
+    {
+        ShowScreen(m_PreviousScreen);
+    }
 	
 	public void AddUIElement(UIElement element)
 	{

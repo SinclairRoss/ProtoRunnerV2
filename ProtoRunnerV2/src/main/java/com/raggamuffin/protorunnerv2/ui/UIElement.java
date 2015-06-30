@@ -7,7 +7,7 @@ import com.raggamuffin.protorunnerv2.utils.Vector2;
 
 public abstract class UIElement 
 {
-    private final double SCREEN_RATIO;
+    protected final double SCREEN_RATIO;
 
 	protected Vector2 m_Position;
 	protected Vector2 m_OriginalPosition;

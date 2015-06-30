@@ -19,12 +19,13 @@ public class SecondWindHandler
 		Idle,
 		Respawn
 	}
-	
+
 	private SecondWindState m_SecondWindState;
 	
 	private GameLogic m_Game;
 	private Runner m_Player;
-	
+
+    public final double SECOND_WIND_DURATION = 5.0;
 	private Timer m_SecondWindTimer;
 	
 	private Publisher m_GameOverPublisher;
@@ -34,11 +35,13 @@ public class SecondWindHandler
 	private int m_HealthDivider;
 	
 	private WeaponSlot m_LastSelectedWeapon;
+
+    private boolean m_AutoRespawn;
 	
 	public SecondWindHandler(GameLogic game)
 	{
 		m_Game = game;
-		m_SecondWindTimer = new Timer(GameSettings.SECOND_WIND_DURATION);
+		m_SecondWindTimer = new Timer(SECOND_WIND_DURATION);
 
 		m_SecondWindState = SecondWindState.Idle;
 		
@@ -57,6 +60,8 @@ public class SecondWindHandler
 		m_HealthDivider = 1;
 		
 		m_LastSelectedWeapon = WeaponSlot.Left;
+
+        m_AutoRespawn = false;
 	}
 	
 	public void Update(double deltaTime)
@@ -79,8 +84,15 @@ public class SecondWindHandler
 			
 				if(m_SecondWindTimer.TimedOut())
 				{
-					m_GameOverPublisher.Publish();
-					m_SecondWindState = SecondWindState.Idle;
+                    if(m_AutoRespawn)
+                    {
+                        m_SecondWindState = SecondWindState.Respawn;
+                    }
+                    else
+                    {
+                        m_GameOverPublisher.Publish();
+                        m_SecondWindState = SecondWindState.Idle;
+                    }
 
 					return;
 				}
@@ -93,6 +105,7 @@ public class SecondWindHandler
 				m_Game.GetVehicleManager().SpawnPlayer();
 				m_SecondWindState = SecondWindState.Idle;
 				m_Player.SelectWeaponBySlot(m_LastSelectedWeapon);
+                m_Game.GetUIManager().ShowPreviousScreen();
 				break;
 			}
 		}
@@ -150,9 +163,19 @@ public class SecondWindHandler
 				m_LastSelectedWeapon = m_Player.GetWeaponSlot();
 		}	
 	}
-	
-	public double GetSecondWindTimeRemaining()
-	{
-		return m_SecondWindTimer.GetInverseTimeRemaining();
-	}
+
+    public double GetInverseProgress()
+    {
+        return m_SecondWindTimer.GetInverseProgress();
+    }
+
+    public void AutoSpawnOn()
+    {
+        m_AutoRespawn = true;
+    }
+
+    public void AutoSpawnOff()
+    {
+        m_AutoRespawn = false;
+    }
 }	

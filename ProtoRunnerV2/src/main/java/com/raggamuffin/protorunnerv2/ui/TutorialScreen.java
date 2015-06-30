@@ -35,7 +35,7 @@ public class TutorialScreen extends UIScreen
         ColourManager cManager = m_Game.GetColourManager();
 
         // Condition progress bar
-        m_ConditionProgress = new UIProgressBar(2.0, 1.0, cManager.GetAccentingColour(), cManager.GetAccentTintColour(), cManager.GetPrimaryColour(), m_Game.GetContext().getString(R.string.tutorial_progress), UIProgressBar.Alignment.Left, m_Game.GetGameAudioManager(), m_UIManager);
+        m_ConditionProgress = new UIProgressBar(1.2, 1.0, cManager.GetAccentingColour(), cManager.GetAccentTintColour(), cManager.GetPrimaryColour(), m_Game.GetContext().getString(R.string.tutorial_progress), UIProgressBar.Alignment.Left, m_Game.GetGameAudioManager(), m_UIManager);
         m_ConditionProgress.SetPosition(0.0, 0.3);
 
         m_UIManager.AddUIElement(m_ConditionProgress);

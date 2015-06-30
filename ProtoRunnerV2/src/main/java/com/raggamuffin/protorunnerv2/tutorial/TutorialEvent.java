@@ -4,7 +4,7 @@ import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 
 public abstract class TutorialEvent
 {
-    private GameLogic m_Game;
+    protected GameLogic m_Game;
 
     public TutorialEvent(GameLogic game)
     {

@@ -11,5 +11,6 @@ public enum UIScreens
 	Aftermath,
 	HighScore,
 	NewHighScore,
-    Tutorial
+    Tutorial,
+    Reboot
 }

@@ -1,6 +1,8 @@
 package com.raggamuffin.protorunnerv2.managers;
 
 import android.content.Context;
+import android.util.Log;
+
 import com.raggamuffin.protorunnerv2.R;
 import com.raggamuffin.protorunnerv2.ai.VehicleInfo;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
@@ -19,9 +21,9 @@ import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.tutorial.TutorialCondition_TurnAmount;
 import com.raggamuffin.protorunnerv2.tutorial.TutorialEffect;
-import com.raggamuffin.protorunnerv2.tutorial.TutorialEvent;
 import com.raggamuffin.protorunnerv2.tutorial.TutorialEvent_HealthBar;
 import com.raggamuffin.protorunnerv2.tutorial.TutorialEvent_Immortality;
+import com.raggamuffin.protorunnerv2.tutorial.TutorialEvent_LockWeapon;
 import com.raggamuffin.protorunnerv2.ui.TutorialScreen;
 import com.raggamuffin.protorunnerv2.ui.UIScreens;
 import com.raggamuffin.protorunnerv2.utils.Timer;
@@ -48,8 +50,12 @@ public class GameManager_Tutorial extends GameManager
 
     private Publisher m_TutorialCompletePublisher;
 
-    private TutorialEvent m_Immortality;
-    private TutorialEvent m_HealthBar;
+    private TutorialEvent_Immortality m_Immortality;
+    private TutorialEvent_HealthBar m_HealthBar;
+    private TutorialEvent_LockWeapon m_LockWeaponLeft;
+    private TutorialEvent_LockWeapon m_LockWeaponRight;
+    private TutorialEvent_LockWeapon m_LockWeaponUp;
+    private TutorialEvent_LockWeapon m_LockWeaponDown;
 
     public GameManager_Tutorial(GameLogic game)
     {
@@ -76,7 +82,6 @@ public class GameManager_Tutorial extends GameManager
             {
                 m_TutorialState = TutorialState.Idle;
                 m_ActiveCondition.Initialise();
-                ActivateTutorialEffects(m_ActiveCondition.GetEffects());
                 break;
             }
             case Idle:
@@ -99,6 +104,7 @@ public class GameManager_Tutorial extends GameManager
                     m_TutorialState = TutorialState.Starting;
                     m_InbetweenTimer.ResetTimer();
                     NextState();
+                    ActivateTutorialEffects(m_ActiveCondition.GetEffects());
                 }
 
                 break;
@@ -116,17 +122,17 @@ public class GameManager_Tutorial extends GameManager
 
         Context context = m_Game.GetContext();
 
-        m_Conditions.add(new TutorialCondition_Time(m_Game, context.getString(R.string.tutorial_start), 3.0, TutorialEffect.Immortality_On));
+        m_Conditions.add(new TutorialCondition_Time(m_Game, context.getString(R.string.tutorial_start), 3.0, TutorialEffect.Immortality_On, TutorialEffect.LockWeapon_Right, TutorialEffect.LockWeapon_Up, TutorialEffect.LockWeapon_Down));
 
         m_Conditions.add(new TutorialCondition_TurnAmount(m_Game, context.getString(R.string.tutorial_turning), 3));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_screen)));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_left_side)));
         m_Conditions.add(new TutorialCondition_ShotsFired(m_Game, context.getString(R.string.tutorial_fire_pulse), 16, WeaponSlot.Left));
-        m_Conditions.add(new TutorialCondition_SwitchWeapon(m_Game, context.getString(R.string.tutorial_burst_equip), WeaponSlot.Right));
+        m_Conditions.add(new TutorialCondition_SwitchWeapon(m_Game, context.getString(R.string.tutorial_burst_equip), WeaponSlot.Right, TutorialEffect.LockWeapon_Left, TutorialEffect.UnlockWeapon_Right));
         m_Conditions.add(new TutorialCondition_ShotsFired(m_Game,context.getString(R.string.tutorial_fire_burst), 4, WeaponSlot.Right));
-        m_Conditions.add(new TutorialCondition_SwitchWeapon(m_Game, context.getString(R.string.tutorial_rocket_equip), WeaponSlot.Up));
+        m_Conditions.add(new TutorialCondition_SwitchWeapon(m_Game, context.getString(R.string.tutorial_rocket_equip), WeaponSlot.Up, TutorialEffect.LockWeapon_Right, TutorialEffect.UnlockWeapon_Up));
         m_Conditions.add(new TutorialCondition_ShotsFired(m_Game, context.getString(R.string.tutorial_rocket_fire), 8, WeaponSlot.Up));
-        m_Conditions.add(new TutorialCondition_SwitchWeapon(m_Game, context.getString(R.string.tutorial_re_equip_pulse), WeaponSlot.Left));
+        m_Conditions.add(new TutorialCondition_SwitchWeapon(m_Game, context.getString(R.string.tutorial_re_equip_pulse), WeaponSlot.Left, TutorialEffect.UnlockWeapon_Left,TutorialEffect.UnlockWeapon_Right));
         m_Conditions.add(new TutorialCondition_Message(m_Game,context.getString(R.string.tutorial_right_side)));
         m_Conditions.add(new TutorialCondition_Boost(m_Game, context.getString(R.string.tutorial_boost), 5));
         m_Conditions.add(new TutorialCondition_Dodge(m_Game, context.getString(R.string.tutorial_dodge), 1));
@@ -149,12 +155,12 @@ public class GameManager_Tutorial extends GameManager
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_health_6)));
         m_Conditions.add(new TutorialCondition_Destroy(m_Game, context.getString(R.string.tutorial_destroy), 3, TutorialEffect.Immortality_Off));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_panic_1), TutorialEffect.Immortality_On, TutorialEffect.HealthBar_Off));
-        m_Conditions.add(new TutorialCondition_SwitchWeapon(m_Game, context.getString(R.string.tutorial_panic_equip), WeaponSlot.Down));
+        m_Conditions.add(new TutorialCondition_SwitchWeapon(m_Game, context.getString(R.string.tutorial_panic_equip), WeaponSlot.Down, TutorialEffect.UnlockWeapon_Down, TutorialEffect.LockWeapon_Left, TutorialEffect.LockWeapon_Up, TutorialEffect.LockWeapon_Right));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_panic_2)));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_panic_3)));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_panic_4)));
         m_Conditions.add(new TutorialCondition_Destroy(m_Game, context.getString(R.string.tutorial_destroy), 6, TutorialEffect.Immortality_Off, TutorialEffect.HealthBar_On));
-        m_Conditions.add(new TutorialCondition_SwitchWeapon(m_Game, context.getString(R.string.tutorial_re_equip_pulse), WeaponSlot.Left, TutorialEffect.Immortality_On, TutorialEffect.HealthBar_Off));
+        m_Conditions.add(new TutorialCondition_SwitchWeapon(m_Game, context.getString(R.string.tutorial_re_equip_pulse), WeaponSlot.Left, TutorialEffect.Immortality_On, TutorialEffect.HealthBar_Off, TutorialEffect.LockWeapon_Down, TutorialEffect.UnlockWeapon_Left, TutorialEffect.UnlockWeapon_Right, TutorialEffect.UnlockWeapon_Up));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_wingmen_1)));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_wingmen_2), TutorialEffect.SpawnWingmen));
         m_Conditions.add(new TutorialCondition_Time(m_Game, context.getString(R.string.empty), 5.0));
@@ -164,7 +170,7 @@ public class GameManager_Tutorial extends GameManager
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.reboot_1), TutorialEffect.Immortality_On, TutorialEffect.HealthBar_Off));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.reboot_2)));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.reboot_3)));
-        m_Conditions.add(new TutorialCondition_Time(m_Game, context.getString(R.string.reboot_4), 1));
+        m_Conditions.add(new TutorialCondition_Time(m_Game, context.getString(R.string.reboot_4), 1, TutorialEffect.NoInbetween));
         m_Conditions.add(new TutorialCondition_Reboot(m_Game, context.getString(R.string.empty)));
         m_Conditions.add(new TutorialCondition_Time(m_Game, context.getString(R.string.tutorial_end), 3.0));
 
@@ -176,6 +182,12 @@ public class GameManager_Tutorial extends GameManager
 
         m_Immortality = new TutorialEvent_Immortality(m_Game);
         m_HealthBar = new TutorialEvent_HealthBar(m_Game, tutorialScreen);
+        m_LockWeaponLeft = new TutorialEvent_LockWeapon(m_Game, WeaponSlot.Left);
+        m_LockWeaponRight = new TutorialEvent_LockWeapon(m_Game, WeaponSlot.Right);
+        m_LockWeaponUp = new TutorialEvent_LockWeapon(m_Game, WeaponSlot.Up);
+        m_LockWeaponDown = new TutorialEvent_LockWeapon(m_Game, WeaponSlot.Down);
+
+        ActivateTutorialEffects(m_ActiveCondition.GetEffects());
     }
 
     @Override
@@ -184,6 +196,10 @@ public class GameManager_Tutorial extends GameManager
         m_Conditions.clear();
         m_Immortality = null;
         m_HealthBar = null;
+        m_LockWeaponLeft = null;
+        m_LockWeaponRight = null;
+        m_LockWeaponUp = null;
+        m_LockWeaponDown = null;
     }
 
     private void NextState()
@@ -232,6 +248,33 @@ public class GameManager_Tutorial extends GameManager
                 case SpawnWingmen:
                     m_Game.GetVehicleManager().SpawnWingmen();
                     m_Game.GetVehicleManager().SpawnWingmen();
+                    break;
+                case LockWeapon_Left:
+                    m_LockWeaponLeft.On();
+                    break;
+                case LockWeapon_Right:
+                    m_LockWeaponRight.On();
+                    break;
+                case LockWeapon_Up:
+                    m_LockWeaponUp.On();
+                    break;
+                case LockWeapon_Down:
+                    m_LockWeaponDown.On();
+                    break;
+                case UnlockWeapon_Left:
+                    m_LockWeaponLeft.Off();
+                    break;
+                case UnlockWeapon_Right:
+                    m_LockWeaponRight.Off();
+                    break;
+                case UnlockWeapon_Up:
+                    m_LockWeaponUp.Off();
+                    break;
+                case UnlockWeapon_Down:
+                    m_LockWeaponDown.Off();
+                    break;
+                case NoInbetween:
+                    m_InbetweenTimer.MaxOutTimer();
                     break;
             }
         }

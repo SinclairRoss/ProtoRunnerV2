@@ -30,6 +30,8 @@ public class Runner extends Vehicle
 	private Publisher m_DamageTakenPublisher;
 	private Publisher m_SwitchWeaponsPublisher;
 
+    private WeaponSlot m_PreviousWeaponSlot;
+
 	public Runner(GameLogic game)
 	{
 		super(game);
@@ -80,6 +82,7 @@ public class Runner extends Vehicle
         m_PubSubHub.SubscribeToTopic(PublishedTopics.Forward, new ForwardSubscriber());
         m_PubSubHub.SubscribeToTopic(PublishedTopics.Reverse, new ReverseSubscriber());
 
+        m_PreviousWeaponSlot = WeaponSlot.Left;
         SelectWeaponBySlot(WeaponSlot.Left);
 	}
 
@@ -99,6 +102,7 @@ public class Runner extends Vehicle
 
 	public void SelectWeaponBySlot(WeaponSlot slot)
 	{
+        m_PreviousWeaponSlot = m_CurrentlyUsedSlot;
         m_CurrentlyUsedSlot = slot;
 
 		switch(slot)
@@ -129,6 +133,8 @@ public class Runner extends Vehicle
 	{
 		return m_CurrentlyUsedSlot;
 	}
+
+    public WeaponSlot GetPreviousWeaponSlot() {return m_PreviousWeaponSlot; }
 
     private class FireSubscriber extends Subscriber
     {

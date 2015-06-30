@@ -13,7 +13,6 @@
     <string name="button_next">&gt;&gt;&gt;</string>
     
     <string name="label_score">Score: </string>
-    <string name="label_score_reverse">:Score</string>
     <string name="label_new_high_score">New Highscore</string>
     <string name="label_enter_your_name">Enter your initials</string>
 	<string name="label_accuracy">Accuracy</string>
@@ -38,7 +37,7 @@
     <string name="credits_text4">Calvin Wylie &amp; Will Sidle</string>
     
     <string name="game_over_message">Session Terminated</string>
-    <string name="down_but_not_out_text">System Failing: </string>
+    <string name="down_but_not_out_text">System Failing</string>
     <string name="revive_text">Reboot</string>
     <string name="wingman_down">Wingman Destroyed"</string>
 
@@ -52,8 +51,8 @@
     <string name="tutorial_burst_equip">Swipe right to equip the Burst Laser</string>
     <string name="tutorial_burst_fire">Swipe right to equip the Burst Laser</string>
     <string name="tutorial_rocket_equip">Swipe up to equip Homing Rockets</string>
-    <string name="tutorial_re_equip_pulse">Swipe left to re-equip the pulse laser</string>
     <string name="tutorial_rocket_fire">Press and hold to charge the rocket launcher, Release to fire</string>
+    <string name="tutorial_re_equip_pulse">Swipe left to re-equip the pulse laser</string>
     <string name="tutorial_right_side">Interacting with the right side of the screen performs manoeuvres</string>
     <string name="tutorial_boost">Press and hold the right side of the screen to boost</string>
     <string name="tutorial_dodge">Swipe left or right to dodge</string>

@@ -163,7 +163,7 @@
     <string name="credits_text2">Sinclair Ross</string>
     <string name="credits_text3">Special thanks to</string>
     <string name="credits_text4">Calvin Wylie &amp; Will Sidle</string>
-    <string name="down_but_not_out_text">System Failing: </string>
+    <string name="down_but_not_out_text">System Failing</string>
     <string name="empty"/>
     <string name="game_over_message">Session Terminated</string>
     <string name="label_accuracy">Accuracy</string>
@@ -172,7 +172,6 @@
     <string name="label_num_reboots">Times rebooted: </string>
     <string name="label_play_time">Play time: </string>
     <string name="label_score">Score: </string>
-    <string name="label_score_reverse">:Score</string>
     <string name="label_wingman_a_life">Wingman-A: Life expectancy</string>
     <string name="label_wingman_b_life">Wingman-B: Life expectancy</string>
     <string name="reboot_1">If your energy drains entirely your runner will be destroyed</string>
@@ -186,7 +185,8 @@
     <string name="tutorial_destroy">Destroy the training dummies</string>
     <string name="tutorial_dodge">Swipe left or right to dodge</string>
     <string name="tutorial_end">Tutorial complete</string>
-    <string name="tutorial_firing">Touch the left side of the screen to fire</string>
+    <string name="tutorial_fire_burst">Touch the left side of the screen to fire your burst laser</string>
+    <string name="tutorial_fire_pulse">Touch the left side of the screen to fire your pulse laser</string>
     <string name="tutorial_forward">Swipe up to continue moving forward</string>
     <string name="tutorial_health_1">The bar at the top of the screen represents your remaining energy</string>
     <string name="tutorial_health_2">Once this bar has emptied your runner will be destroyed</string>

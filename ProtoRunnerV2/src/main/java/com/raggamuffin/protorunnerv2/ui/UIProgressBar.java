@@ -52,7 +52,7 @@ public class UIProgressBar extends UIElement
 
         m_Type = UIElementType.ProgressBar;
 
-        m_MaxLength = maxLength;
+        m_MaxLength = maxLength * SCREEN_RATIO;
 
         m_Progress = 0.0;
         m_MaxValue  = maxValue;
@@ -91,7 +91,7 @@ public class UIProgressBar extends UIElement
 	private void CalculateSize() 
 	{	
 		m_Size.I = MathsHelper.Lerp(m_Progress, 0.0, m_UnderBarScale.I);
-		m_Size.J = HEIGHT;
+        m_Size.J = HEIGHT;
 	}
 
 	private void UpdatePosition()
@@ -130,7 +130,7 @@ public class UIProgressBar extends UIElement
 
 	private void CalculateMaxSize()
 	{
-		m_UnderBarScale.I =  m_MaxLength;
+		m_UnderBarScale.I = m_MaxLength;
 		m_UnderBarScale.J = HEIGHT;
 	}
 	
@@ -146,7 +146,7 @@ public class UIProgressBar extends UIElement
 	{
 		super.SetPosition(x, y);
         m_UnderBarPosition.SetVector(x,y);
-		m_Label.SetPositionAbsolute(x - (m_MaxLength * 0.5), y);
+		m_Label.SetPosition(x - ( m_MaxLength * 0.25), y);
 	}
 	
 	public void SetValue(double Value)
@@ -154,6 +154,11 @@ public class UIProgressBar extends UIElement
 		Value = MathsHelper.Clamp(Value, 0.0, m_MaxValue);
 		m_CurrentValue = Value;
 	}
+
+    public void SnapToValue(double val)
+    {
+        m_Progress = val;
+    }
 	
 	@Override
 	protected void TriggerOpenAnimation(double delay)
@@ -173,12 +178,7 @@ public class UIProgressBar extends UIElement
 	{
 		return m_Label;
 	}
-	
-	public double GetMaxLength()
-	{
-		return m_MaxLength;
-	}
-	
+
 	public Colour GetUnderColour()
 	{
 		return m_UnderColour;
