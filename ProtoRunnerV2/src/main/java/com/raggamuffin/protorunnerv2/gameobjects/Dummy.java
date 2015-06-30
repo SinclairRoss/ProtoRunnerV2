@@ -18,7 +18,9 @@ public class Dummy extends Vehicle
         m_Model = ModelType.Dummy;
         SetAffiliation(AffiliationKey.RedTeam);
 
-        m_OnDeathPublisher = game.GetPubSubHub().CreatePublisher(PublishedTopics.DummyDestroyed);
+        m_OnDeathPublisher = game.GetPubSubHub().CreatePublisher(PublishedTopics.EnemyDestroyed);
+
+        m_BoundingRadius = 2;
 
         m_Position.SetVector(x, 0, z);
 

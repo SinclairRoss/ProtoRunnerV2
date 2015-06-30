@@ -19,8 +19,6 @@ public class Runner extends Vehicle
 	private WeaponSlot m_CurrentlyUsedSlot;
 	private ControlScheme m_Input;
 
-    private boolean m_PanicSwitchLocked;
-	
 	// Weapons.
 	private Weapon m_WeaponLeft;
 	private Weapon m_WeaponRight;
@@ -63,10 +61,6 @@ public class Runner extends Vehicle
 		m_DamageTakenPublisher     	= m_PubSubHub.CreatePublisher(PublishedTopics.PlayerHit);
 		m_OnDeathPublisher 			= m_PubSubHub.CreatePublisher(PublishedTopics.PlayerDestroyed);
 		m_SwitchWeaponsPublisher	= m_PubSubHub.CreatePublisher(PublishedTopics.PlayerSwitchedWeapon);
-		
-		m_PubSubHub.SubscribeToTopic(PublishedTopics.EnemyDestroyed, new EnemyDestroyedSubscriber());
-        m_PubSubHub.SubscribeToTopic(PublishedTopics.PanicSwitchFired, new PanicSwitchFiredSubscriber());
-        m_PubSubHub.SubscribeToTopic(PublishedTopics.PanicSwitchDepleted, new PanicSwitchDepletedSubscriber());
 
         m_PubSubHub.SubscribeToTopic(PublishedTopics.Fire, new FireSubscriber());
         m_PubSubHub.SubscribeToTopic(PublishedTopics.CeaseFire, new CeaseFireSubscriber());
@@ -84,14 +78,11 @@ public class Runner extends Vehicle
         m_PubSubHub.SubscribeToTopic(PublishedTopics.Reverse, new ReverseSubscriber());
 
         SelectWeaponBySlot(WeaponSlot.Left);
-
-        m_PanicSwitchLocked = false;
 	}
 
 	@Override 
 	public void Update(double DeltaTime)
 	{
-        m_HullPoints = m_MaxHullPoints;
         m_Engine.SetTurnRate(m_Input.GetTilt());
 		super.Update(DeltaTime);	
 	}
@@ -135,41 +126,6 @@ public class Runner extends Vehicle
 	{
 		return m_CurrentlyUsedSlot;
 	}
-
-    @Override
-    public void ChargeEnergy(double charge)
-    {
-        if(!m_PanicSwitchLocked)
-            super.ChargeEnergy(charge);
-    }
-
-	private class EnemyDestroyedSubscriber extends Subscriber
-	{
-		@Override
-		public void Update(final int args) 
-		{
-            if(m_PanicSwitchLocked)
-			    ChargeEnergy(args * 3);
-		}
-	}
-
-    private class PanicSwitchFiredSubscriber extends Subscriber
-    {
-        @Override
-        public void Update(int args)
-        {
-            m_PanicSwitchLocked = true;
-        }
-    }
-
-    private class PanicSwitchDepletedSubscriber extends Subscriber
-    {
-        @Override
-        public void Update(int args)
-        {
-            m_PanicSwitchLocked = false;
-        }
-    }
 
     private class FireSubscriber extends Subscriber
     {

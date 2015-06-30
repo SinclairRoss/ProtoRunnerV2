@@ -11,9 +11,9 @@ public class TutorialCondition_Boost extends TutorialCondition
     private VehicleManager m_VehicleManager;
     private Timer m_BoostTimer;
 
-    public TutorialCondition_Boost(GameLogic game, String message, double time)
+    public TutorialCondition_Boost(GameLogic game, String message, double time, TutorialEffect... effects)
     {
-        super(game, message, OptionalElement.ProgressBar);
+        super(game, message, OptionalElement.ProgressBar, effects);
 
         m_VehicleManager = m_Game.GetVehicleManager();
         m_BoostTimer = new Timer(time);

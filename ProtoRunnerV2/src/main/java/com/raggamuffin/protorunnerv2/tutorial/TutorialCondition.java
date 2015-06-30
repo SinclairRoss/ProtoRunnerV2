@@ -14,18 +14,19 @@ public abstract class TutorialCondition
 
     private final TutorialScreen m_TutorialScreen;
     private final InGameMessageHandler m_MessageHandler;
+    private TutorialEffect[] m_Effects;
 
-    public TutorialCondition(GameLogic game, String message, OptionalElement element)
+    public TutorialCondition(GameLogic game, String message, OptionalElement element, TutorialEffect... effects)
     {
         m_Game = game;
         m_Message = message;
         m_OptionalElement = element;
+        m_Effects = effects;
 
         m_TutorialScreen = (TutorialScreen)m_Game.GetUIManager().GetScreen(UIScreens.Tutorial);
         m_MessageHandler = m_TutorialScreen.GetMessageHandler();
     }
 
-    public abstract void Update(double deltaTime);
     public abstract boolean ConditionComplete();
     public abstract double GetProgress();
 
@@ -34,6 +35,8 @@ public abstract class TutorialCondition
         m_MessageHandler.DisplayMessage(m_Message, MessageOrientation.Top, 0.9, 1, -1.0, 0.0);
         CreateOptionalElement();
     }
+
+    public abstract void Update(double deltaTime);
 
     public void Reset()
     {
@@ -69,5 +72,10 @@ public abstract class TutorialCondition
                 m_TutorialScreen.HideNextButton();
                 break;
         }
+    }
+
+    public TutorialEffect[] GetEffects()
+    {
+        return m_Effects;
     }
 }

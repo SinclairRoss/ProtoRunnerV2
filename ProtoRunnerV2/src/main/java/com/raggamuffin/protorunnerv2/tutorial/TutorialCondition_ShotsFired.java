@@ -9,9 +9,9 @@ public class TutorialCondition_ShotsFired extends TutorialCondition
     private int m_MaxAmount;
     private int m_Amount;
 
-    public TutorialCondition_ShotsFired(GameLogic game, String message, int amount)
+    public TutorialCondition_ShotsFired(GameLogic game, String message, int amount, TutorialEffect... effects)
     {
-        super(game, message, OptionalElement.ProgressBar);
+        super(game, message, OptionalElement.ProgressBar, effects);
 
         m_MaxAmount = amount;
         m_Amount = 0;

@@ -14,22 +14,16 @@ public class TutorialCondition_Destroy extends TutorialCondition
     private final double m_MinSpawnDistance;
     private final double m_MaxSpawnDistance;
 
-    public TutorialCondition_Destroy(GameLogic game, String message, int amount)
+    public TutorialCondition_Destroy(GameLogic game, String message, int amount, TutorialEffect... effects)
     {
-        super(game, message, OptionalElement.ProgressBar);
+        super(game, message, OptionalElement.ProgressBar, effects);
 
         m_NumDummies = amount;
         m_DummiesDestroyed = 0;
         m_MinSpawnDistance = 5.0;
         m_MaxSpawnDistance = 20.0;
 
-        m_Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.DummyDestroyed, new DummyDestroyedSubscriber());
-    }
-
-    @Override
-    public void Update(double deltaTime)
-    {
-
+        m_Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.EnemyDestroyed, new EnemyDestroyedSubscriber());
     }
 
     @Override
@@ -73,7 +67,13 @@ public class TutorialCondition_Destroy extends TutorialCondition
         m_DummiesDestroyed = 0;
     }
 
-    private class DummyDestroyedSubscriber extends Subscriber
+    @Override
+    public void Update(double deltaTime)
+    {
+
+    }
+
+    private class EnemyDestroyedSubscriber extends Subscriber
     {
         @Override
         public void Update(int args)

@@ -61,13 +61,20 @@
     <string name="tutorial_reverse">Swipe down to reverse</string>
     <string name="tutorial_forward">Swipe up to continue moving forward</string>
     <string name="tutorial_radar_1">The grid of cells underneath the runner is a radar</string>
-    <string name="tutorial_radar_2">Lit cells represent vehicles</string>
+    <string name="tutorial_radar_2">Lit cells represent runners</string>
     <string name="tutorial_radar_3">The coloured cell in the center represents you</string>
     <string name="tutorial_radar_4">other cells of the same colour represent allies</string>
     <string name="tutorial_radar_5">while other cells represent enemies</string>
     <string name="tutorial_radar_6">Use the radar to find and destroy the training dummies</string>
+    <string name="tutorial_destroy">Destroy the training dummies</string>
+    <string name="tutorial_health_1">The bar at the top of the screen represents your remaining energy</string>
+    <string name="tutorial_health_2">Once this bar has emptied your runner will be destroyed</string>
+    <string name="tutorial_health_3">Energy drains over time</string>
+    <string name="tutorial_health_4">Being hit by enemy attacks, firing your weapons and boosting will drain energy</string>
+    <string name="tutorial_health_5">Energy can be replenished by destroying enemies</string>
+    <string name="tutorial_health_6">Destroy the training dummies before your energy drains completely</string>
 
-    <string name="tutorial_end">Tutorial Complete</string>
+    <string name="tutorial_end">Tutorial complete</string>
     <string name="tutorial_next">Continue</string>
 
 </resources>

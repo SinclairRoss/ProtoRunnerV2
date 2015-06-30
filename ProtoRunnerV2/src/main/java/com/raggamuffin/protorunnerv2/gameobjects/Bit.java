@@ -35,6 +35,7 @@ public class Bit extends Vehicle
 		m_Position.SetVector(10, 0, 10);
 		m_Engine.SetMaxTurnRate(1.5);
 		m_Engine.SetMaxEngineOutput(1500);
+        m_BoundingRadius = 2;
 
 		SetAffiliation(AffiliationKey.RedTeam); 
 		

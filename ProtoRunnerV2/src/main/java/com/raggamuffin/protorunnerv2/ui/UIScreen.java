@@ -157,7 +157,7 @@ public abstract class UIScreen
 	{
 		UILabel label = new UILabel(m_Game.GetGameAudioManager(), m_UIManager);
 		label.SetText(text);
-		label.SetPosition(m_UIManager.GetScreenRatio() * ButtonX, ButtonY - (ButtonPadding * m_NumElements));
+		label.SetPosition(ButtonX, ButtonY - (ButtonPadding * m_NumElements));
         label.GetFont().SetAlignment(Font.Alignment.Right);
 
         m_UIManager.AddUIElement(label);

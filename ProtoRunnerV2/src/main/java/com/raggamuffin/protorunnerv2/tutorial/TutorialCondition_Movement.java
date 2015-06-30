@@ -11,9 +11,9 @@ public class TutorialCondition_Movement extends TutorialCondition
     private VehicleInfo.MovementStates m_MovementState;
     private boolean m_ConditionComplete;
 
-    public TutorialCondition_Movement(GameLogic game, String message, VehicleInfo.MovementStates state)
+    public TutorialCondition_Movement(GameLogic game, String message, VehicleInfo.MovementStates state, TutorialEffect... effects)
     {
-        super(game, message, OptionalElement.None);
+        super(game, message, OptionalElement.None, effects);
 
         m_VehicleManager = m_Game.GetVehicleManager();
         m_MovementState = state;

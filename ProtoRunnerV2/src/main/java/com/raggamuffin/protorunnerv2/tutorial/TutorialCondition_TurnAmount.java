@@ -10,9 +10,9 @@ public class TutorialCondition_TurnAmount extends TutorialCondition
     private VehicleManager m_VehicleManager;
     private Timer m_TurnTimer;
 
-    public TutorialCondition_TurnAmount(GameLogic game, String message, double amount)
+    public TutorialCondition_TurnAmount(GameLogic game, String message, double amount, TutorialEffect... effects)
     {
-        super(game, message, OptionalElement.ProgressBar);
+        super(game, message, OptionalElement.ProgressBar, effects);
 
         m_TurnTimer = new Timer(amount);
         m_VehicleManager = m_Game.GetVehicleManager();

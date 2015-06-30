@@ -1,8 +1,8 @@
 package com.raggamuffin.protorunnerv2.managers;
 
 import android.content.Context;
-
 import com.raggamuffin.protorunnerv2.R;
+import com.raggamuffin.protorunnerv2.ai.VehicleInfo;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.tutorial.TutorialCondition;
@@ -17,6 +17,12 @@ import com.raggamuffin.protorunnerv2.tutorial.TutorialCondition_Time;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.tutorial.TutorialCondition_TurnAmount;
+import com.raggamuffin.protorunnerv2.tutorial.TutorialEffect;
+import com.raggamuffin.protorunnerv2.tutorial.TutorialEvent;
+import com.raggamuffin.protorunnerv2.tutorial.TutorialEvent_HealthBar;
+import com.raggamuffin.protorunnerv2.tutorial.TutorialEvent_Immortality;
+import com.raggamuffin.protorunnerv2.ui.TutorialScreen;
+import com.raggamuffin.protorunnerv2.ui.UIScreens;
 import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.weapons.WeaponSlot;
 
@@ -41,6 +47,9 @@ public class GameManager_Tutorial extends GameManager
 
     private Publisher m_TutorialCompletePublisher;
 
+    private TutorialEvent m_Immortality;
+    private TutorialEvent m_HealthBar;
+
     public GameManager_Tutorial(GameLogic game)
     {
         super(game);
@@ -58,12 +67,15 @@ public class GameManager_Tutorial extends GameManager
     @Override
     public void Update(double deltaTime)
     {
+        m_Immortality.Update();
+
         switch (m_TutorialState)
         {
             case Starting:
             {
                 m_TutorialState = TutorialState.Idle;
                 m_ActiveCondition.Initialise();
+                ActivateTutorialEffects(m_ActiveCondition.GetEffects());
                 break;
             }
             case Idle:
@@ -103,7 +115,9 @@ public class GameManager_Tutorial extends GameManager
 
         Context context = m_Game.GetContext();
 
-        m_Conditions.add(new TutorialCondition_Time(m_Game, context.getString(R.string.tutorial_start), 3.0));/*
+
+        m_Conditions.add(new TutorialCondition_Time(m_Game, context.getString(R.string.tutorial_start), 3.0, TutorialEffect.Immortality_On));
+                /*
         m_Conditions.add(new TutorialCondition_TurnAmount(m_Game, context.getString(R.string.tutorial_turning), 3));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_screen)));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_left_side)));
@@ -119,25 +133,40 @@ public class GameManager_Tutorial extends GameManager
         m_Conditions.add(new TutorialCondition_Movement(m_Game, context.getString(R.string.tutorial_strafe_left), VehicleInfo.MovementStates.StrafeLeft));
         m_Conditions.add(new TutorialCondition_Movement(m_Game, context.getString(R.string.tutorial_strafe_right), VehicleInfo.MovementStates.StrafeRight));
         m_Conditions.add(new TutorialCondition_Movement(m_Game, context.getString(R.string.tutorial_reverse), VehicleInfo.MovementStates.Reverse));
-        m_Conditions.add(new TutorialCondition_Movement(m_Game, context.getString(R.string.tutorial_forward), VehicleInfo.MovementStates.Normal));*/
+        m_Conditions.add(new TutorialCondition_Movement(m_Game, context.getString(R.string.tutorial_forward), VehicleInfo.MovementStates.Normal));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_radar_1)));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_radar_2)));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_radar_3)));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_radar_4)));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_radar_5)));
-        m_Conditions.add(new TutorialCondition_Destroy(m_Game, context.getString(R.string.tutorial_radar_6), 3));
-
+        m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_radar_6)));
+        m_Conditions.add(new TutorialCondition_Destroy(m_Game, context.getString(R.string.tutorial_radar_7), 3));
+        */
+        m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_health_1), TutorialEffect.HealthBar_On));
+        m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_health_2)));
+        m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_health_3)));
+        m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_health_4)));
+        m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_health_5)));
+        m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_health_6)));
+        m_Conditions.add(new TutorialCondition_Destroy(m_Game, context.getString(R.string.tutorial_destroy), 3, TutorialEffect.Immortality_Off));
         m_Conditions.add(new TutorialCondition_Time(m_Game, m_Game.GetContext().getString(R.string.tutorial_end), 3.0));
 
         m_ActiveCondition = m_Conditions.get(0);
 
         m_TutorialIndex = 0;
+
+        TutorialScreen tutorialScreen = (TutorialScreen)m_Game.GetUIManager().GetScreen(UIScreens.Tutorial);
+
+        m_Immortality = new TutorialEvent_Immortality(m_Game);
+        m_HealthBar = new TutorialEvent_HealthBar(m_Game, tutorialScreen);
     }
 
     @Override
     public void CleanUp()
     {
         m_Conditions.clear();
+        m_Immortality = null;
+        m_HealthBar = null;
     }
 
     private void NextState()
@@ -165,6 +194,28 @@ public class GameManager_Tutorial extends GameManager
         return m_ActiveCondition.GetProgress();
     }
 
+    private void ActivateTutorialEffects(TutorialEffect... effects)
+    {
+        for(TutorialEffect effect : effects)
+        {
+            switch(effect)
+            {
+                case Immortality_On:
+                    m_Immortality.On();
+                    break;
+                case Immortality_Off:
+                    m_Immortality.Off();
+                    break;
+                case HealthBar_On:
+                    m_HealthBar.On();
+                    break;
+                case HealthBar_Off:
+                    m_HealthBar.Off();
+                    break;
+            }
+        }
+    }
+
     private class NextButtonPressedSubscriber extends Subscriber
     {
         @Override
@@ -174,5 +225,4 @@ public class GameManager_Tutorial extends GameManager
             m_ActiveCondition.Reset();
         }
     }
-
 }

@@ -10,9 +10,9 @@ public class TutorialCondition_Dodge extends TutorialCondition
     private VehicleManager m_VehicleManager;
     private Timer m_DodgeTimer;
 
-    public TutorialCondition_Dodge(GameLogic game, String message, double time)
+    public TutorialCondition_Dodge(GameLogic game, String message, double time, TutorialEffect... effects)
     {
-        super(game, message, OptionalElement.ProgressBar);
+        super(game, message, OptionalElement.ProgressBar, effects);
 
         m_VehicleManager = m_Game.GetVehicleManager();
         m_DodgeTimer = new Timer(time);

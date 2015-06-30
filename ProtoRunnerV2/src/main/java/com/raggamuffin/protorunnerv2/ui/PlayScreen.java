@@ -67,7 +67,6 @@ public class PlayScreen extends UIScreen
         super.Update(deltaTime);
 
 		m_HealthBar.SetValue(m_Player.GetHullPoints());
-		m_HealthBar.Update(deltaTime);
 	}
 	
 	private class PlayerDestroyedSubscriber extends Subscriber

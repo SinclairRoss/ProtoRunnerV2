@@ -18,7 +18,6 @@ public enum PublishedTopics
 	PlayerSwitchedWeapon,
     PanicSwitchFired,
     PanicSwitchDepleted,
-    DummyDestroyed,
 
     // Controls
     EvadeLeft,

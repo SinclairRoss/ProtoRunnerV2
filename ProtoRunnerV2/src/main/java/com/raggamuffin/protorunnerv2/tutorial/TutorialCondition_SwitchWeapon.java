@@ -13,9 +13,9 @@ public class TutorialCondition_SwitchWeapon extends TutorialCondition
     private boolean m_Active;
     private boolean m_CondtionComplete;
 
-    public TutorialCondition_SwitchWeapon(GameLogic game, String message, WeaponSlot slot)
+    public TutorialCondition_SwitchWeapon(GameLogic game, String message, WeaponSlot slot, TutorialEffect... effects)
     {
-        super(game, message, OptionalElement.None);
+        super(game, message, OptionalElement.None, effects);
 
         m_Slot = slot;
         m_Active = false;
@@ -23,12 +23,6 @@ public class TutorialCondition_SwitchWeapon extends TutorialCondition
 
         PubSubHub pubSub = game.GetPubSubHub();
         pubSub.SubscribeToTopic(PublishedTopics.PlayerSwitchedWeapon, new PlayerSwitchedWeaponSubscriber());
-    }
-
-    @Override
-    public void Update(double deltaTime)
-    {
-
     }
 
     @Override
@@ -48,6 +42,12 @@ public class TutorialCondition_SwitchWeapon extends TutorialCondition
     {
         super.Initialise();
         m_Active = true;
+    }
+
+    @Override
+    public void Update(double deltaTime)
+    {
+
     }
 
     @Override

@@ -4,15 +4,9 @@ import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 
 public class TutorialCondition_Message extends TutorialCondition
 {
-    public TutorialCondition_Message(GameLogic game, String message)
+    public TutorialCondition_Message(GameLogic game, String message, TutorialEffect... effects)
     {
-        super(game, message, OptionalElement.NextButton);
-    }
-
-    @Override
-    public void Update(double deltaTime)
-    {
-
+        super(game, message, OptionalElement.NextButton, effects);
     }
 
     @Override
@@ -25,5 +19,11 @@ public class TutorialCondition_Message extends TutorialCondition
     public double GetProgress()
     {
         return 0;
+    }
+
+    @Override
+    public void Update(double deltaTime)
+    {
+
     }
 }
