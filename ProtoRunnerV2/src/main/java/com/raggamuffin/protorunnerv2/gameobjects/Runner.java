@@ -2,6 +2,7 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
+import com.raggamuffin.protorunnerv2.gamelogic.HealthRegenHandler;
 import com.raggamuffin.protorunnerv2.master.ControlScheme;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
@@ -18,6 +19,7 @@ public class Runner extends Vehicle
 {
 	private WeaponSlot m_CurrentlyUsedSlot;
 	private ControlScheme m_Input;
+    private HealthRegenHandler m_HealthRegenHandler;
 
 	// Weapons.
 	private Weapon m_WeaponLeft;
@@ -33,6 +35,7 @@ public class Runner extends Vehicle
 		super(game);
 
 		m_Input = game.GetControlScheme();
+        m_HealthRegenHandler = new HealthRegenHandler(game, this);
 
 		m_Model = ModelType.Runner;
 

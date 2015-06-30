@@ -117,7 +117,7 @@ public class GameManager_Tutorial extends GameManager
 
 
         m_Conditions.add(new TutorialCondition_Time(m_Game, context.getString(R.string.tutorial_start), 3.0, TutorialEffect.Immortality_On));
-                /*
+
         m_Conditions.add(new TutorialCondition_TurnAmount(m_Game, context.getString(R.string.tutorial_turning), 3));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_screen)));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_left_side)));
@@ -140,8 +140,8 @@ public class GameManager_Tutorial extends GameManager
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_radar_4)));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_radar_5)));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_radar_6)));
-        m_Conditions.add(new TutorialCondition_Destroy(m_Game, context.getString(R.string.tutorial_radar_7), 3));
-        */
+        m_Conditions.add(new TutorialCondition_Destroy(m_Game, context.getString(R.string.tutorial_destroy), 3));
+
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_health_1), TutorialEffect.HealthBar_On));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_health_2)));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_health_3)));

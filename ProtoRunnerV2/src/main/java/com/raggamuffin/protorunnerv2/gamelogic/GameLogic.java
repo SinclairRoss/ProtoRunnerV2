@@ -56,7 +56,6 @@ public class GameLogic extends ApplicationLogic
 	private RenderEffectManager m_RenderEffectManager;
 	private GameStats m_GameStats;
 	private SecondWindHandler m_SecondWindHandler;
-    private HealthRegenHandler m_HealthRegenHandler;
 
     private GameManager m_GameManager;
     private GameManager_Play m_PlayManager;
@@ -89,7 +88,6 @@ public class GameLogic extends ApplicationLogic
 		m_UIManager 			= new UIManager(this);
 		m_GameStats 			= new GameStats(this);
 		m_SecondWindHandler		= new SecondWindHandler(this);
-        m_HealthRegenHandler    = new HealthRegenHandler(this);
         m_RenderEffectManager 	= new RenderEffectManager(this, m_Packet.GetRenderEffectSettings());
 		
 		m_PubSubHub.SubscribeToTopic(PublishedTopics.PlayerSpawned, new PlayerSpawnedSubscriber());

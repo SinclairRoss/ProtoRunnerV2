@@ -7,45 +7,20 @@ import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 
 public class HealthRegenHandler
 {
-    private GameLogic m_Game;
-    private Runner m_Player;
-    private boolean m_Locked;
+    private Runner m_Anchor;
     private boolean m_PanicLocked;
 
-    public HealthRegenHandler(GameLogic game)
+    public HealthRegenHandler(GameLogic game, Runner anchor)
     {
-        m_Game = game;
+        m_Anchor = anchor;
 
-        PubSubHub pubSubHub = m_Game.GetPubSubHub();
+        PubSubHub pubSubHub = game.GetPubSubHub();
 
         pubSubHub.SubscribeToTopic(PublishedTopics.PanicSwitchFired, new PanicSwitchFiredSubscriber());
         pubSubHub.SubscribeToTopic(PublishedTopics.PanicSwitchDepleted, new PanicSwitchDepletedSubscriber());
-        pubSubHub.SubscribeToTopic(PublishedTopics.PlayerSpawned, new PlayerSpawnedSubscriber());
-        pubSubHub.SubscribeToTopic(PublishedTopics.PlayerDestroyed, new PlayerDestroyedSubscriber());
         pubSubHub.SubscribeToTopic(PublishedTopics.EnemyDestroyed, new EnemyDestroyedSubscriber());
 
-        m_Locked = true;
         m_PanicLocked = false;
-    }
-
-    private class PlayerSpawnedSubscriber extends Subscriber
-    {
-        @Override
-        public void Update(int args)
-        {
-            m_Player = m_Game.GetVehicleManager().GetPlayer();
-            m_Locked = false;
-        }
-    }
-
-    private class PlayerDestroyedSubscriber extends Subscriber
-    {
-        @Override
-        public void Update(int args)
-        {
-            m_Player = null;
-            m_Locked = true;
-        }
     }
 
     private class EnemyDestroyedSubscriber extends Subscriber
@@ -53,13 +28,10 @@ public class HealthRegenHandler
         @Override
         public void Update(int args)
         {
-            if(m_Locked)
-                return;
-
             if(m_PanicLocked)
                 return;
 
-            m_Player.ChargeEnergy(200);
+            m_Anchor.ChargeEnergy(200);
         }
     }
 
