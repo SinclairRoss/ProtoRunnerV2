@@ -64,7 +64,6 @@ public class GameThread extends Thread
 
                 m_Handler.sendMessage(ComposeMessage(GameActivity.REQUEST_RENDER));
             }
-
         }
     } 
 	
@@ -79,6 +78,7 @@ public class GameThread extends Thread
 	public void DestroyThread()
 	{
 		m_Running = false;
+        m_Logic.Destroy();
 	}
     
     public void pauseThread() 
@@ -87,10 +87,10 @@ public class GameThread extends Thread
         m_Logic.Pause();
     } 
       
-    public void resumeThread() 
-    { 
+    public void resumeThread()
+    {
         m_StartTime = System.currentTimeMillis();
-        m_Paused = false; 
+        m_Paused = false;
         m_Logic.Resume();
-    } 
+    }
 }

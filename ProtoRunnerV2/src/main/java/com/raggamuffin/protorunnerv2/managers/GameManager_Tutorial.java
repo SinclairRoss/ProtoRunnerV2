@@ -1,7 +1,6 @@
 package com.raggamuffin.protorunnerv2.managers;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.raggamuffin.protorunnerv2.R;
 import com.raggamuffin.protorunnerv2.ai.VehicleInfo;

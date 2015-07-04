@@ -9,8 +9,8 @@ public enum UIScreens
 	Play,
 	GameOverScreen,
 	Aftermath,
-	HighScore,
-	NewHighScore,
     Tutorial,
-    Reboot
+    Reboot,
+    NewToGame,
+    NotSignedIn
 }

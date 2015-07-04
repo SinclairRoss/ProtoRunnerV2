@@ -1,119 +1,86 @@
 package com.raggamuffin.protorunnerv2.managers;
 
-import java.util.ArrayList;
-
-import com.raggamuffin.protorunnerv2.data.DataType;
-import com.raggamuffin.protorunnerv2.data.ExtraInformation;
-import com.raggamuffin.protorunnerv2.data.HighScoreRow;
-import com.raggamuffin.protorunnerv2.data.HighScoreTable;
-import com.raggamuffin.protorunnerv2.data.SQLTable;
-import com.raggamuffin.protorunnerv2.data.SQLTableColumn;
+import com.raggamuffin.protorunnerv2.data.AutoSignInRow;
+import com.raggamuffin.protorunnerv2.data.AutoSignInTable;
+import com.raggamuffin.protorunnerv2.data.OfflineHighScoreRow;
+import com.raggamuffin.protorunnerv2.data.OfflineHighScoreTable;
 import com.raggamuffin.protorunnerv2.data.TableRow;
-import com.raggamuffin.protorunnerv2.data.TableType;
+import com.raggamuffin.protorunnerv2.data.TutorialOfferedRow;
+import com.raggamuffin.protorunnerv2.data.TutorialOfferedTable;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
+
+import java.util.ArrayList;
 
 public class DatabaseManager 
 {
 	private final String DATABASE_NAME = "protodb";
 	private GameLogic m_Game;
-	
-	SQLiteDatabase m_Database;
-	
-	private HighScoreTable m_HighScoreTable;
-	
+
+	private TutorialOfferedTable m_TutorialOfferedTable;
+    private OfflineHighScoreTable m_OfflineHighScoreTable;
+    private AutoSignInTable m_AutoSignInTable;
+
 	public DatabaseManager(GameLogic game)
 	{
 		m_Game = game;
 
-		m_Database = m_Game.GetContext().openOrCreateDatabase(DATABASE_NAME, Context.MODE_PRIVATE, null);
-		
-		m_HighScoreTable = new HighScoreTable();
-		AddTable(m_HighScoreTable);
+        SQLiteDatabase db = m_Game.GetContext().openOrCreateDatabase(DATABASE_NAME, Context.MODE_PRIVATE, null);
 
-		m_HighScoreTable.CleanTable(m_Database);
-	}
+        m_TutorialOfferedTable  = new TutorialOfferedTable(db);
+        m_OfflineHighScoreTable = new OfflineHighScoreTable(db);
+        m_AutoSignInTable       = new AutoSignInTable(db);
+    }
 	
-	public ArrayList<TableRow> GetTableData(TableType table)
-	{
-		switch(table)
-		{
-			case Highscore:
-				return m_HighScoreTable.Read(m_Database);
-		}
-		
-		return new ArrayList<TableRow>();	// Return an empty array list.
-	}
-	
-	public void AddToTable(TableType table, TableRow row)
-	{
-		switch(table)
-		{
-			case Highscore:
-				m_HighScoreTable.Insert(m_Database, row);
-				break;	
-		}
-	}
-	
-	private void AddTable(SQLTable table)
-	{
-		String sqlQuery = "create table if not exists " + table.GetName() + " (";
-		
-		ArrayList<SQLTableColumn> columns = table.GetColumns();
-		
-		for(SQLTableColumn column : columns)
-		{
-			sqlQuery += column.GetName() + " " + GetDataTypeString(column.GetDataType()) + " " + GetExtraInfoString(column.GetExtraInformation()) + " ";
-			
-			if(columns.indexOf(column) != columns.size() - 1)
-				sqlQuery += ",";
-			else
-				sqlQuery += ");";	
-		}
+	public boolean HasTheTutorialBeenOffered()
+    {
+        return m_TutorialOfferedTable.Read().size() > 0;
+    }
 
-		m_Database.execSQL(sqlQuery);
-	}
-	
-	private String GetDataTypeString(DataType type)
-	{
-		switch(type)
-		{
-			case Integer:
-				return "integer";
-				
-			case String:
-				return "varchar";
-			
-			case Float:
-				return "float";
-			
-			case Boolean:
-				return "boolean";
-		}
-		
-		return "";
-	}
-	
-	private String GetExtraInfoString(ExtraInformation info)
-	{
-		switch(info)
-		{
-			case None:
-				return "";
-				
-			case PrimaryKey:
-				return "primary key autoincrement";
-				
-			case AutoIncrement:
-				return "autoincrement";
-				
-			case NotNull:
-				return "not null";
-		}
-		
-		return "";
-	}
+    public void TutorialOffered()
+    {
+        if(HasTheTutorialBeenOffered())
+            return;
+
+        m_TutorialOfferedTable.Insert(new TutorialOfferedRow(0, true));
+    }
+
+    public int GetHighestOfflineScore()
+    {
+        ArrayList<TableRow> tableRows = m_OfflineHighScoreTable.Read();
+
+        if(tableRows.size() == 0)
+            return 0;
+
+        OfflineHighScoreRow row = (OfflineHighScoreRow)tableRows.get(0);
+        return row.GetScore();
+    }
+
+    public void SubmitOfflineScore(int score)
+    {
+        if(GetHighestOfflineScore() > score)
+            return;
+
+        m_OfflineHighScoreTable.ClearTable();
+        m_OfflineHighScoreTable.Insert(new OfflineHighScoreRow(0, score));
+    }
+
+    public boolean ShouldAutoSignIn()
+    {
+        ArrayList<TableRow> tableRows = m_AutoSignInTable.Read();
+
+        if(tableRows.size() == 0)
+            return false;
+
+        AutoSignInRow row = (AutoSignInRow)tableRows.get(0);
+        return row.GetShouldAutoSignIn();
+    }
+
+    public void SetAutoSignIn(boolean autoSignIn)
+    {
+        m_AutoSignInTable.ClearTable();
+        m_AutoSignInTable.Insert(new AutoSignInRow(0, autoSignIn));
+    }
 }

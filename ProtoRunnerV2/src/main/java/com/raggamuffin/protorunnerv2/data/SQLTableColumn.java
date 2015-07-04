@@ -4,13 +4,13 @@ public class SQLTableColumn
 {
 	private String m_Name;
 	private DataType m_DataType;
-	private ExtraInformation m_ExtraInformation;
+	private Constraints m_Constraint;
 	
-	public SQLTableColumn(String name, DataType dataType, ExtraInformation extra)
+	public SQLTableColumn(String name, DataType dataType, Constraints extra)
 	{
 		m_Name = name;
 		m_DataType = dataType;
-		m_ExtraInformation = extra;
+        m_Constraint = extra;
 	}
 	
 	public String GetName()
@@ -23,8 +23,8 @@ public class SQLTableColumn
 		return m_DataType;
 	}
 	
-	public ExtraInformation GetExtraInformation()
+	public Constraints GetConstraint()
 	{
-		return m_ExtraInformation;
+		return m_Constraint;
 	}
 }

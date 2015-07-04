@@ -54,7 +54,7 @@ public class TutorialScreen extends UIScreen
         Runner player = m_Game.GetVehicleManager().GetPlayer();
 
         String HealthString = m_Game.GetContext().getString(R.string.empty);
-        m_HealthBar = new UIProgressBar(3.0, player.GetMaxHullPoints(), cManager.GetAccentingColour(), cManager.GetAccentTintColour(), new Colour(Colours.Clear), HealthString, UIProgressBar.Alignment.Center, m_Game.GetGameAudioManager(), m_UIManager);
+        m_HealthBar = new UIProgressBar(1.6, player.GetMaxHullPoints(), cManager.GetAccentingColour(), cManager.GetAccentTintColour(), new Colour(Colours.Clear), HealthString, UIProgressBar.Alignment.Center, m_Game.GetGameAudioManager(), m_UIManager);
         m_HealthBar.SetPosition(0.0, 0.9);
 
         m_UIManager.AddUIElement(m_HealthBar);

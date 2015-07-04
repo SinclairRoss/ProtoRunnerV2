@@ -14,9 +14,9 @@ import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.ui.AftermathScreen;
 import com.raggamuffin.protorunnerv2.ui.CreditsScreen;
 import com.raggamuffin.protorunnerv2.ui.GameOverScreen;
-import com.raggamuffin.protorunnerv2.ui.HighScoreScreen;
 import com.raggamuffin.protorunnerv2.ui.MenuScreen;
-import com.raggamuffin.protorunnerv2.ui.NewHighScoreScreen;
+import com.raggamuffin.protorunnerv2.ui.NewToGameScreen;
+import com.raggamuffin.protorunnerv2.ui.NotSignedInScreen;
 import com.raggamuffin.protorunnerv2.ui.PlayScreen;
 import com.raggamuffin.protorunnerv2.ui.RebootScreen;
 import com.raggamuffin.protorunnerv2.ui.SplashScreen;
@@ -40,14 +40,14 @@ public class UIManager
 	
 	private SplashScreen m_SplashScreen;
 	private MenuScreen m_MenuScreen;
-	private HighScoreScreen m_HighScoreScreen;
-	private NewHighScoreScreen m_NewHighScoreScreen;
 	private CreditsScreen m_CreditsScreen;
 	private PlayScreen m_PlayScreen;
 	private GameOverScreen m_GameOverScreen;
 	private AftermathScreen m_AftermathScreen;
 	private TutorialScreen m_TutorialScreen;
     private RebootScreen m_RebootScreen;
+    private NewToGameScreen m_NewToGameScreen;
+    private NotSignedInScreen m_NotSignedInScreen;
 
     private UIScreens m_PreviousScreen;
     private UIScreens m_CurrentScreen;
@@ -70,14 +70,14 @@ public class UIManager
 
 		m_SplashScreen 		 = new SplashScreen(m_Game, this);
 		m_MenuScreen 		 = new MenuScreen(m_Game, this);
-		m_HighScoreScreen    = new HighScoreScreen(m_Game, this);
-		m_NewHighScoreScreen = new NewHighScoreScreen(m_Game, this);
 		m_CreditsScreen		 = new CreditsScreen(m_Game, this);
 		m_PlayScreen 		 = new PlayScreen(m_Game, this);
 		m_GameOverScreen 	 = new GameOverScreen(m_Game, this);
 		m_AftermathScreen 	 = new AftermathScreen(m_Game, this);
         m_TutorialScreen     = new TutorialScreen(m_Game, this);
         m_RebootScreen       = new RebootScreen(m_Game, this);
+        m_NewToGameScreen    = new NewToGameScreen(m_Game, this);
+        m_NotSignedInScreen  = new NotSignedInScreen(m_Game, this);
 
         m_CurrentScreen  = UIScreens.None;
         m_PreviousScreen = UIScreens.None;
@@ -105,10 +105,6 @@ public class UIManager
                 return m_SplashScreen;
             case MainMenu:
                 return m_MenuScreen;
-            case HighScore:
-                return m_HighScoreScreen;
-            case NewHighScore:
-                return m_NewHighScoreScreen;
             case Credits:
                 return m_CreditsScreen;
             case Play:
@@ -121,6 +117,10 @@ public class UIManager
                 return m_TutorialScreen;
             case Reboot:
                 return m_RebootScreen;
+            case NewToGame:
+                return m_NewToGameScreen;
+            case NotSignedIn:
+                return m_NotSignedInScreen;
             default:
                 return null;
         }

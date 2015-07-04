@@ -15,7 +15,7 @@ public class ChaseCamera
 	private Vector3 m_Velocity;			// The velocity of the camera.
 
 	///// Chase Attributes \\\\\
-	GameObject m_ChaseObject;			// The Chase Object.
+	GameObject m_ChaseObject;			// The object the camera is following.
 	private Vector3 m_ChasePosition;	// The position of the Chase Object.
 	private Vector3 m_ChaseForward;		// The Forward vector of the Chase Object.
 	private Vector3 m_ChaseUp;			// The Up vector of the Chase Object.
@@ -50,7 +50,7 @@ public class ChaseCamera
 		
 		m_Stiffness = 0.08;
 		m_Damping 	= 0.03;
-		m_Mass  	= 0.5;	
+		m_Mass  	= 0.5;
 	}
 	
 	public void Attach(GameObject ChaseObject)
@@ -115,12 +115,12 @@ public class ChaseCamera
 	}
 	
 	protected void UpdatePosition(double DeltaTime)
-	{
+    {
 		m_Position.I += m_Velocity.I * DeltaTime;
 		m_Position.J += m_Velocity.J * DeltaTime;
 		m_Position.K += m_Velocity.K * DeltaTime;
 	}
-	
+
 	public void SetInPlace()
 	{
 		m_Position.SetVector(m_RelaxedPosition);

@@ -8,6 +8,7 @@ import java.util.Vector;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
+import com.raggamuffin.protorunnerv2.managers.GooglePlayService;
 import com.raggamuffin.protorunnerv2.particles.TrailParticle;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
@@ -32,7 +33,7 @@ import android.view.WindowManager;
 
 public class GameActivity extends Activity implements SensorEventListener
 {
-	public static final String TAG = "faceFace";
+	public static final String TAG = "GameActivity";
 	public static final int REQUEST_RENDER = 0;
 	
 	private final double GYRO_LIMIT = 3.0;
@@ -48,9 +49,9 @@ public class GameActivity extends Activity implements SensorEventListener
 
 	private Handler m_Handler;
 	
-	private GameLogic		 m_GameLogic;
+	private GameLogic m_GameLogic;
 
-	@Override
+    @Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{		
 		super.onCreate(savedInstanceState);
@@ -106,7 +107,7 @@ public class GameActivity extends Activity implements SensorEventListener
 		m_SensorManager = (SensorManager) getSystemService(GameActivity.SENSOR_SERVICE);
 		m_Accelerometer = m_SensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 		m_SensorManager.registerListener(this, m_Accelerometer, SensorManager.SENSOR_DELAY_GAME);
-	}
+    }
 	
 	private void StartRender()
 	{
@@ -130,7 +131,21 @@ public class GameActivity extends Activity implements SensorEventListener
                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 	    }
 	}
-	
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        Log.e(TAG, "onStart");
+    }
+
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+        Log.e(TAG, "onStop");
+    }
+
 	@Override
 	protected void onResume()
 	{
@@ -153,23 +168,16 @@ public class GameActivity extends Activity implements SensorEventListener
 		m_SensorManager.unregisterListener(this);
 		m_GameThread.pauseThread();
 	}
-	
-	@Override
-	protected void onStop()
-	{
-		super.onStop();
-		Log.e(TAG, "onStop");
-	}
-	
+
 	@Override
 	protected void onDestroy()
 	{
 		super.onDestroy();
 		
 		Log.e(TAG, "onDestroy");
-		
+
 		m_GameThread.DestroyThread();
-		
+
 		boolean Retry = true;
 		
 		while(Retry)

@@ -18,5 +18,5 @@ public enum TutorialEffect
     UnlockWeapon_Up,
     UnlockWeapon_Down,
 
-    NoInbetween
+    NoInbetween,
 }
