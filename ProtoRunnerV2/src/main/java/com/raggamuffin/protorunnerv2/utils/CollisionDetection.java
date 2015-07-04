@@ -1,11 +1,12 @@
 package com.raggamuffin.protorunnerv2.utils;
 
+import android.util.Log;
+
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
 
 public final class CollisionDetection 
 {
-	public static CollisionReport CollisionReport = new CollisionReport();
 	private static Vector3 MovementA = new Vector3();
 	private static Vector3 MovementB = new Vector3();
 	private static Vector3 MovementResultant = new Vector3();
@@ -18,10 +19,16 @@ public final class CollisionDetection
 	{
 		MovementA.SetVectorDifference(A.GetPreviousPosition(), A.GetPosition());
 		MovementB.SetVectorDifference(B.GetPreviousPosition(), B.GetPosition());	
-		MovementResultant.SetVectorDifference(MovementA, MovementB); 	
+		MovementResultant.SetVectorDifference(MovementA, MovementB);
 
-		AToB.SetVectorDifference(A.GetPreviousPosition(), B.GetPreviousPosition()); 
-		
+        if(MovementResultant.IsNan())
+        {
+            for (int i = 0; i < 100; i++)
+                Log.e("badNan", "<----------------- NAN ----------------->");
+        }
+
+		AToB.SetVectorDifference(A.GetPreviousPosition(), B.GetPreviousPosition());
+
 		double ResultantLength = MovementResultant.GetLength();	
 		double AToBLength = AToB.GetLength();
 
@@ -56,27 +63,6 @@ public final class CollisionDetection
 
 		if(ResultantLength < Distance)
 			return false;
-		
-		// Doesn't work.
-		/*
-		double Amount = MinDistance / ResultantLength;
-		
-		if(Amount > 1.0 || Amount < 0.0)
-			Log.d("Collision Detection", "You done goofed: " + Double.toString(Amount));
-
-		Vector3 CollisionA = CollisionReport.GetCollisionPointA();
-		Vector3 CollisionB = CollisionReport.GetCollisionPointB();		
-
-		CollisionA.SetVector(A.GetPreviousPosition());
-		CollisionB.SetVector(B.GetPreviousPosition());
-
-		MovementA.Scale(Amount);
-		MovementB.Scale(Amount);
-		
-		CollisionA.Add(MovementA);
-		CollisionB.Add(MovementB);
-		*/
-		// Works again.
 		
 		return true;
 	}
@@ -116,6 +102,9 @@ public final class CollisionDetection
 	
 	public static boolean UIElementInteraction(final Vector2 Touch, final Vector2 ScreenSize, final UIElement Element)
 	{
+        if(Element.IsHidden())
+            return false;
+
 		// PHASE 1: Convert Touch coords into screen space coords.
 		double ratio = ScreenSize.I / ScreenSize.J;
 

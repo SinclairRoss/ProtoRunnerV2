@@ -1,20 +1,12 @@
 package com.raggamuffin.protorunnerv2.ui;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 
 import com.raggamuffin.protorunnerv2.R;
-import com.raggamuffin.protorunnerv2.data.HighScoreRow;
-import com.raggamuffin.protorunnerv2.data.HighScoreTable;
-import com.raggamuffin.protorunnerv2.data.TableRow;
-import com.raggamuffin.protorunnerv2.data.TableType;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gamelogic.GameStats;
 import com.raggamuffin.protorunnerv2.managers.UIManager;
 import com.raggamuffin.protorunnerv2.master.ControlScheme;
-import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
-import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.utils.CollisionDetection;
 
 public class AftermathScreen extends UIScreen
@@ -53,11 +45,8 @@ public class AftermathScreen extends UIScreen
 		GameStats stats = m_Game.GetGameStats();
 		
 		m_Title = CreateTitle(context.getString(R.string.aftermath_screen_title));
-		
-		if(m_Game.GetGameStats().GetScore() > GetMinScore() && m_Game.GetGameStats().isRealData())
-			m_Back = CreateBackButton(UIScreens.NewHighScore);
-		else
-			m_Back = CreateBackButton(UIScreens.HighScore);	
+
+        m_Back = CreateBackButton(UIScreens.MainMenu);
 		
 		m_ScoreLabel = CreateLabel(context.getString(R.string.label_score) + stats.GetScore());
 		
@@ -77,6 +66,8 @@ public class AftermathScreen extends UIScreen
 	@Override
 	public void Remove() 
 	{
+        super.Remove();
+
 		m_UIManager.RemoveUIElement(m_Title);
 		m_Title = null;
 		
@@ -116,29 +107,5 @@ public class AftermathScreen extends UIScreen
 			Scheme.ResetTouchCoordinates();
 			return;
 		}
-	}
-	
-	private int GetMinScore()
-	{
-		ArrayList<TableRow> rows = m_Game.GetDatabaseManager().GetTableData(TableType.Highscore);
-
-		if(rows.size() < HighScoreTable.MAX_HIGH_SCORES)
-			return 0;
-		
-		int minScore = Integer.MAX_VALUE;
-
-		for(TableRow row : rows)
-		{
-			HighScoreRow scoreRow = (HighScoreRow) row;
-			
-			int score = scoreRow.GetScore();
-			
-			if(score < minScore)
-			{
-				minScore = score;
-			}
-		}
-		
-		return minScore;
 	}
 }

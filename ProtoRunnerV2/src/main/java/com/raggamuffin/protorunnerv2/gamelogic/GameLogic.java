@@ -2,7 +2,8 @@ package com.raggamuffin.protorunnerv2.gamelogic;
 
 import java.util.Vector;
 
-import android.content.Context;
+import android.app.Activity;
+import android.util.Log;
 
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
@@ -22,6 +23,7 @@ import com.raggamuffin.protorunnerv2.managers.GameManager_Tutorial;
 import com.raggamuffin.protorunnerv2.managers.UIManager;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.master.ControlScheme;
+import com.raggamuffin.protorunnerv2.managers.GooglePlayService;
 import com.raggamuffin.protorunnerv2.master.RendererPacket;
 import com.raggamuffin.protorunnerv2.particles.TrailParticle;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
@@ -61,16 +63,17 @@ public class GameLogic extends ApplicationLogic
     private GameManager_Play m_PlayManager;
     private GameManager_Tutorial m_TutorialManager;
     private GameManager_Exhibition m_ExhibitionManager;
+    private GooglePlayService m_GooglePlayService;
 
-	public GameLogic(Context context, PubSubHub pubSub, ControlScheme scheme, RendererPacket packet)
+	public GameLogic(Activity activity, PubSubHub pubSub, ControlScheme scheme, RendererPacket packet)
 	{
-		super(context, packet);
+		super(activity, packet);
 
 		m_RendererObjects 		= m_Packet.GetGameObjects();
-		m_TransparentObjects 	= m_Packet.GetTransparentObjects();
+        m_TransparentObjects 	= m_Packet.GetTransparentObjects();
 		m_UIElements 			= m_Packet.GetUIElements();
 		m_Trails 				= m_Packet.GetTrails();
-		
+
 		m_Camera = packet.GetCamera();
 		m_Control = scheme;
 		
@@ -80,7 +83,7 @@ public class GameLogic extends ApplicationLogic
 
         m_PubSubHub 			= pubSub;
 		m_DatabaseManager 	    = new DatabaseManager(this);
-		m_GameAudioManager		= new GameAudioManager(context, m_Camera);
+		m_GameAudioManager		= new GameAudioManager(m_Context, m_Camera);
 		m_ParticleManager 		= new ParticleManager(this);
 		m_BulletManager 		= new BulletManager(this);
 		m_VehicleManager 		= new VehicleManager(this);
@@ -89,6 +92,7 @@ public class GameLogic extends ApplicationLogic
 		m_GameStats 			= new GameStats(this);
 		m_SecondWindHandler		= new SecondWindHandler(this);
         m_RenderEffectManager 	= new RenderEffectManager(this, m_Packet.GetRenderEffectSettings());
+        m_GooglePlayService     = new GooglePlayService(this);
 
         m_PubSubHub.SubscribeToTopic(PublishedTopics.PlayerSpawned, new PlayerSpawnedSubscriber());
         m_PubSubHub.SubscribeToTopic(PublishedTopics.PlayerDestroyed, new PlayerDestroyedSubscriber());
@@ -96,6 +100,7 @@ public class GameLogic extends ApplicationLogic
         m_PubSubHub.SubscribeToTopic(PublishedTopics.StartTutorial, new StartTutorialSubscriber());
         m_PubSubHub.SubscribeToTopic(PublishedTopics.EndGame, new EndGameSubscriber());
         m_PubSubHub.SubscribeToTopic(PublishedTopics.TutorialComplete, new TutorialCompleteSubscriber());
+        m_PubSubHub.SubscribeToTopic(PublishedTopics.LeaderboardPressed, new LeaderBoardPressedSubscriber());
 
 		m_GameAudioManager.StartMusic();
 
@@ -192,7 +197,7 @@ public class GameLogic extends ApplicationLogic
 					break;
 					
 				case Trail:
-					m_Trails.add((TrailParticle)Child);
+					m_Trails.add((TrailParticle) Child);
 					break;
 
 				default:
@@ -349,6 +354,11 @@ public class GameLogic extends ApplicationLogic
         return m_ColourManager;
     }
 
+    public GooglePlayService GetGooglePlayService()
+    {
+        return m_GooglePlayService;
+    }
+
     private class StartGameSubscriber extends Subscriber
     {
         @Override
@@ -358,9 +368,16 @@ public class GameLogic extends ApplicationLogic
             m_VehicleManager.Wipe();
             m_GameStats.ResetStats();
 
-            SetGameMode(GameMode.Play);
-            m_UIManager.ShowScreen(UIScreens.Play);
-            m_SecondWindHandler.AutoSpawnOff();
+            if(!m_DatabaseManager.HasTheTutorialBeenOffered())
+            {
+                m_UIManager.ShowScreen(UIScreens.NewToGame);
+            }
+            else
+            {
+                SetGameMode(GameMode.Play);
+                m_UIManager.ShowScreen(UIScreens.Play);
+                m_SecondWindHandler.AutoSpawnOff();
+            }
         }
     }
 
@@ -389,6 +406,8 @@ public class GameLogic extends ApplicationLogic
             m_GameStats.Lock();
             m_UIManager.ShowScreen(UIScreens.GameOverScreen);
             AttachCameraToAnchor();
+
+            m_GooglePlayService.SubmitScore(m_GameStats.GetScore());
         }
     }
 
@@ -407,6 +426,13 @@ public class GameLogic extends ApplicationLogic
         public void Update(int args)
         {
             m_UIManager.ShowScreen(UIScreens.Reboot);
+
+            Vector<Vehicle> wingmen = m_VehicleManager.GetTeam(AffiliationKey.BlueTeam);
+
+            if(wingmen.size() == 0)
+                return;
+
+            m_Camera.Attach(wingmen.get(0));
         }
     }
 
@@ -415,6 +441,8 @@ public class GameLogic extends ApplicationLogic
         @Override
         public void Update(int args)
         {
+            m_DatabaseManager.TutorialOffered();
+
             m_VehicleManager.Wipe();
 
             SetGameMode(GameMode.Exhibition);
@@ -422,6 +450,15 @@ public class GameLogic extends ApplicationLogic
             m_GameStats.Lock();
             m_UIManager.ShowScreen(UIScreens.MainMenu);
             AttachCameraToAnchor();
+        }
+    }
+
+    private class LeaderBoardPressedSubscriber extends Subscriber
+    {
+        @Override
+        public void Update(int args)
+        {
+            m_GooglePlayService.DisplayLeaderBoard();
         }
     }
 
@@ -436,4 +473,10 @@ public class GameLogic extends ApplicationLogic
 	{
 		m_GameAudioManager.Resume();
 	}
+
+    @Override
+    public void Destroy()
+    {
+        m_GooglePlayService.Disconnect();
+    }
 }

@@ -1,6 +1,5 @@
 package com.raggamuffin.protorunnerv2.gamelogic;
 
-import com.raggamuffin.protorunnerv2.data.HighScoreRow;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 
@@ -92,16 +91,16 @@ public class GameStats
 		return m_ShotsLanded;
 	}
 	
-	public void SetStatsFromScoreTable(HighScoreRow row)
+	public void SetStatsFromScoreTable()
 	{
-		m_Score = row.GetScore();
-		m_ShotsFired = row.GetShotsFired();
-		m_ShotsLanded = row.GetShotsLanded();
-		m_PlayTime = row.GetPlayTime();
-		m_LivesUsed = row.GetNumReboots();
+		//m_Score = row.GetScore();
+		//m_ShotsFired = row.GetShotsFired();
+		//m_ShotsLanded = row.GetShotsLanded();
+		//m_PlayTime = row.GetPlayTime();
+		//m_LivesUsed = row.GetNumReboots();
 		
-		m_WingmanADuration = row.GetWingmanALife();
-		m_WingmanBDuration = row.GetWingmanBLife();
+		//m_WingmanADuration = row.GetWingmanALife();
+		//m_WingmanBDuration = row.GetWingmanBLife();
 		
 		m_RealData = false;
 	}

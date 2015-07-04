@@ -7,6 +7,8 @@ public enum PublishedTopics
     StartTutorial,
     NextTutorialButtonPressed,
     TutorialComplete,
+    LeaderboardPressed,
+    AchievementsPressed,
 	EndGame,
 	PlayerSpawned,
 	PlayerHit,
@@ -18,6 +20,10 @@ public enum PublishedTopics
 	PlayerSwitchedWeapon,
     PanicSwitchFired,
     PanicSwitchDepleted,
+    SignInPressed,
+    SignOutPressed,
+    GooglePlayConnected,
+    GooglePlayDisconnected,
 
     // Controls
     EvadeLeft,
