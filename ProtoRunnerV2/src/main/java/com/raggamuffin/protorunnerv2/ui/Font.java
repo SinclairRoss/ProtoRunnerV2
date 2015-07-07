@@ -11,7 +11,6 @@ public class Font
 	private UIElement m_Anchor;
 	private double m_Size;
 	private Colour m_Colour;
-    private double m_Spacing;
 	
 	public Font(UIElement Element, double Size)
 	{

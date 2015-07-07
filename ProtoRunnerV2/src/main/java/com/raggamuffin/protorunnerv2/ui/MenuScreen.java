@@ -62,6 +62,7 @@ public class MenuScreen extends UIScreen
         m_SignIn.SetText(context.getString(R.string.sign_in));
         m_SignIn.SetPosition(0.8, -0.8);
         m_SignIn.GetFont().SetAlignment(Font.Alignment.Right);
+        m_SignIn.GetFont().SetColour(m_Game.GetColourManager().GetAccentingColour());
 
         m_UIManager.AddUIElement(m_SignIn);
 
@@ -70,6 +71,7 @@ public class MenuScreen extends UIScreen
         m_SignOut.SetText(context.getString(R.string.sign_out));
         m_SignOut.SetPosition(0.8, -0.8);
         m_SignOut.GetFont().SetAlignment(Font.Alignment.Right);
+        m_SignOut.GetFont().SetColour(m_Game.GetColourManager().GetPrimaryColour());
 
         m_UIManager.AddUIElement(m_SignOut);
 

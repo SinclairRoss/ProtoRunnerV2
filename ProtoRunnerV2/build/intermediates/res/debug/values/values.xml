@@ -381,9 +381,16 @@
     <string name="accept">Accept</string>
     <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/strings.xml -->
     <eat-comment/>
+    <string name="achievement_teachers_pet_id">CgkIyc-S9NEKEAIQAg</string>
+    <string name="achievement_test_id">CgkIyc-S9NEKEAIQBw</string>
     <string name="action_settings">Settings</string>
     <string name="aftermath_screen_title">Aftermath</string>
     <string name="app_id">365584230345</string>
+    <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/build/intermediates/exploded-aar/ProtoRunnerV2/BaseGameUtils/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="app_misconfigured">The application is incorrectly configured. Check that the package name and signing certificate match the client ID created in Developer Console. Also, if the application is not yet published, check that the account you are trying to sign in with is listed as a tester account. See logs for more information.</string>
+    <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/strings.xml -->
+    <eat-comment/>
     <string name="app_name">ProtoRunner V2</string>
     <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/7.5.0/res/values/auth_strings.xml -->
     <eat-comment/>
@@ -398,6 +405,7 @@
     <string name="button_play">Start</string>
     <string name="button_scores">Leaderboard</string>
     <string name="button_tutorial">Tutorial</string>
+    <string name="cannot_connect">Unable to connect</string>
     <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/7.5.0/res/values/cast_strings.xml -->
     <eat-comment/>
     <string name="cast_notification_connected_message">Connected to <ns1:g id="name">%1$s</ns1:g></string>
@@ -458,6 +466,14 @@
     <string name="down_but_not_out_text">System Failing</string>
     <string name="empty"/>
     <string name="game_over_message">Session Terminated</string>
+    <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/build/intermediates/exploded-aar/ProtoRunnerV2/BaseGameUtils/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="gamehelper_app_misconfigured">The application is incorrectly configured. Check that the package name and signing certificate match the client ID created in Developer Console. Also, if the application is not yet published, check that the account you are trying to sign in with is listed as a tester account. See logs for more information.</string>
+    <string name="gamehelper_license_failed">License check failed.</string>
+    <string name="gamehelper_sign_in_failed">Failed to sign in. Please check your network connection and try again.</string>
+    <string name="gamehelper_unknown_error">Unknown error.</string>
+    <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/strings.xml -->
+    <eat-comment/>
     <string name="label_accuracy">Accuracy</string>
     <string name="label_enter_your_name">Enter your initials</string>
     <string name="label_new_high_score">New Highscore</string>
@@ -467,6 +483,9 @@
     <string name="label_wingman_a_life">Wingman-A: Life expectancy</string>
     <string name="label_wingman_b_life">Wingman-B: Life expectancy</string>
     <string name="leaderboard_id">CgkIyc-S9NEKEAIQAQ</string>
+    <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/build/intermediates/exploded-aar/ProtoRunnerV2/BaseGameUtils/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="license_failed">License check failed.</string>
     <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <string name="mr_media_route_button_content_description">Cast</string>
@@ -485,13 +504,18 @@
     <string name="new_player_2">After watching all my friends play I came to the conclusion that we really need a tutorial </string>
     <string name="new_player_3">It takes 5 minutes and you will have much more fun if you know what you\'re doing.</string>
     <string name="new_player_4">Do you want to play the tutorial?</string>
-    <string name="not_signed_in">You must sign in with your google play account to access the leaderboard. Would you like to log in?</string>
+    <string name="not_signed_in">You must sign in with your google play account to access google play features. Would you like to sign in?</string>
     <string name="reboot_1">If your energy drains entirely your runner will be destroyed</string>
     <string name="reboot_2">After being destroyed there is a short period of time where your runner can reboot</string>
     <string name="reboot_3">If an enemy is destroyed by yourself or by one of your wingmen you will reboot</string>
     <string name="reboot_4">PREPARE TO DIE!</string>
     <string name="revive_text">Reboot</string>
     <string name="sign_in">Sign in</string>
+    <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/build/intermediates/exploded-aar/ProtoRunnerV2/BaseGameUtils/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="sign_in_failed">Failed to sign in. Please check your network connection and try again.</string>
+    <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/strings.xml -->
+    <eat-comment/>
     <string name="sign_out">Sign out</string>
     <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/7.5.0/res/values/admob_strings.xml -->
     <eat-comment/>
@@ -544,6 +568,9 @@
     <string name="tutorial_wingmen_3">Enemies destroyed by your wingmen will still boost both your health and score</string>
     <string name="tutorial_wingmen_4">With the help of your wingmen destroy all training dummies</string>
     <string name="tutorial_yes">Yes</string>
+    <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/build/intermediates/exploded-aar/ProtoRunnerV2/BaseGameUtils/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="unknown_error">Unknown error.</string>
     <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/7.5.0/res/values/wallet_strings.xml -->
     <eat-comment/>
     <string name="wallet_buy_button_place_holder" translation_description="Text on a button that allows a user to make a payment with Google Wallet [CHAR LIMIT=30]">Buy with Google</string>

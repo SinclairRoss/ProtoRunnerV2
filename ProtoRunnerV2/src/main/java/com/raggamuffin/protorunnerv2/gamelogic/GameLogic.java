@@ -3,7 +3,6 @@ package com.raggamuffin.protorunnerv2.gamelogic;
 import java.util.Vector;
 
 import android.app.Activity;
-import android.util.Log;
 
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
@@ -101,6 +100,7 @@ public class GameLogic extends ApplicationLogic
         m_PubSubHub.SubscribeToTopic(PublishedTopics.EndGame, new EndGameSubscriber());
         m_PubSubHub.SubscribeToTopic(PublishedTopics.TutorialComplete, new TutorialCompleteSubscriber());
         m_PubSubHub.SubscribeToTopic(PublishedTopics.LeaderboardPressed, new LeaderBoardPressedSubscriber());
+        m_PubSubHub.SubscribeToTopic(PublishedTopics.AchievementsPressed, new AchievementsPressedSubscriber());
 
 		m_GameAudioManager.StartMusic();
 
@@ -459,6 +459,15 @@ public class GameLogic extends ApplicationLogic
         public void Update(int args)
         {
             m_GooglePlayService.DisplayLeaderBoard();
+        }
+    }
+
+    private class AchievementsPressedSubscriber extends Subscriber
+    {
+        @Override
+        public void Update(int args)
+        {
+            m_GooglePlayService.DisplayAchievements();
         }
     }
 
