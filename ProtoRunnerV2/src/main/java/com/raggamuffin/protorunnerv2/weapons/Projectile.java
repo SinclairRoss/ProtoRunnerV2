@@ -68,7 +68,8 @@ public class Projectile extends GameObject
 		m_BaseColour.SetColour(Colours.Black);
 		m_SpawnBehaviour.SetNextColour(m_Origin.GetBulletColour());
 		m_SpawnBehaviour.SetTimeFrame(template.GetFadeInTime());
-		m_SpawnBehaviour.TriggerBehaviour();	
+		m_SpawnBehaviour.TriggerBehaviour();
+        m_BoundingRadius = template.GetBoundingRadius();
 		
 		m_Model = template.GetModel();
 		SetAffiliation(template.GetAffiliation());

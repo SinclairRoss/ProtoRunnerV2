@@ -36,6 +36,7 @@ public class ModelManager
 	private GLRing		 m_Ring;
 	private GLBit		 m_Bit;
 	private GLByte		 m_Byte;
+    private GLMine       m_Mine;
 	private GLStandardPoint m_StandardPoint;
 	private GLLine		 m_Line;
 	private GLMissile	 m_Missile;
@@ -70,6 +71,7 @@ public class ModelManager
 		m_Bit 		 = null;
 		m_Byte		 = null;
 		m_StandardPoint = null;
+        m_Mine       = null;
 		m_Line		 = null;
 		m_Missile	 = null;
 		m_Explosion  = null;
@@ -99,6 +101,7 @@ public class ModelManager
 		m_Ring		 = new GLRing();
 		m_Bit 		 = new GLBit();
 		m_Byte		 = new GLByte();
+        m_Mine       = new GLMine();
 		m_StandardPoint = new GLStandardPoint();
 		m_Line 	 	 = new GLLine();
 		m_Missile	 = new GLMissile();
@@ -180,7 +183,12 @@ public class ModelManager
 				m_Byte.SetColour(object.GetColour());
 				m_Byte.draw(mvpMatrix);			
 				break;
-				
+
+            case Mine:
+                m_Mine.SetColour(object.GetColour());
+                m_Mine.draw(mvpMatrix);
+                break;
+
 			case StandardPoint:
 				m_StandardPoint.SetEyePos(m_EyePos);
 				m_StandardPoint.SetWorldPos(m_WorldPos);

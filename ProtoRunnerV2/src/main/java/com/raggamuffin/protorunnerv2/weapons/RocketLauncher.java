@@ -36,10 +36,8 @@ public class RocketLauncher extends Weapon
 		
 		m_FireMode = new FireControl_MissileCharge(this, 0.25, GetNumMuzzles());
 		m_ProjectileTemplate = new ProjectileTemplate(this, m_Anchor.GetVehicleInfo(), ModelType.Missile, GetAffiliation(),
-													  m_MuzzleVelocity, m_Damage, m_LifeSpan, m_ProjectileFadeInTime,
-													  ProjectileBehaviourType.Missile, m_ParticleManager, m_BulletManager, m_AudioService, game.GetVehicleManager(), game.GetPubSubHub());
-
-		m_ProjectileTemplate.AddSpecialBehaviour(SpecialProjectileBehaviourType.Explode);
+													  m_MuzzleVelocity, m_Damage, m_LifeSpan, m_ProjectileFadeInTime, 0.0,
+													  ProjectileBehaviourType.Missile, game, SpecialProjectileBehaviourType.Explode);
 		
 		m_HasLasers = false;
 		

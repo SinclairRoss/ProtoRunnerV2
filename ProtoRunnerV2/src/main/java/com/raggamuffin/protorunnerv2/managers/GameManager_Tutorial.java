@@ -131,7 +131,9 @@ public class GameManager_Tutorial extends GameManager
         m_Conditions.add(new TutorialCondition_ShotsFired(m_Game,context.getString(R.string.tutorial_fire_burst), 4, WeaponSlot.Right));
         m_Conditions.add(new TutorialCondition_SwitchWeapon(m_Game, context.getString(R.string.tutorial_rocket_equip), WeaponSlot.Up, TutorialEffect.LockWeapon_Right, TutorialEffect.UnlockWeapon_Up));
         m_Conditions.add(new TutorialCondition_ShotsFired(m_Game, context.getString(R.string.tutorial_rocket_fire), 8, WeaponSlot.Up));
-        m_Conditions.add(new TutorialCondition_SwitchWeapon(m_Game, context.getString(R.string.tutorial_re_equip_pulse), WeaponSlot.Left, TutorialEffect.UnlockWeapon_Left,TutorialEffect.UnlockWeapon_Right));
+        m_Conditions.add(new TutorialCondition_SwitchWeapon(m_Game, context.getString(R.string.tutorial_mines_equip), WeaponSlot.Down, TutorialEffect.LockWeapon_Up, TutorialEffect.UnlockWeapon_Down));
+        m_Conditions.add(new TutorialCondition_ShotsFired(m_Game, context.getString(R.string.tutorial_mines_fire), 12, WeaponSlot.Down));
+        m_Conditions.add(new TutorialCondition_SwitchWeapon(m_Game, context.getString(R.string.tutorial_re_equip_pulse), WeaponSlot.Left, TutorialEffect.UnlockWeapon_Left, TutorialEffect.UnlockWeapon_Right, TutorialEffect.UnlockWeapon_Up));
         m_Conditions.add(new TutorialCondition_Message(m_Game,context.getString(R.string.tutorial_right_side)));
         m_Conditions.add(new TutorialCondition_Boost(m_Game, context.getString(R.string.tutorial_boost), 5));
         m_Conditions.add(new TutorialCondition_Dodge(m_Game, context.getString(R.string.tutorial_dodge), 1));
@@ -153,12 +155,6 @@ public class GameManager_Tutorial extends GameManager
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_health_5)));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_health_6)));
         m_Conditions.add(new TutorialCondition_Destroy(m_Game, context.getString(R.string.tutorial_destroy), 3, TutorialEffect.Immortality_Off));
-        m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_panic_1), TutorialEffect.Immortality_On, TutorialEffect.HealthBar_Off));
-        m_Conditions.add(new TutorialCondition_SwitchWeapon(m_Game, context.getString(R.string.tutorial_panic_equip), WeaponSlot.Down, TutorialEffect.UnlockWeapon_Down, TutorialEffect.LockWeapon_Left, TutorialEffect.LockWeapon_Up, TutorialEffect.LockWeapon_Right));
-        m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_panic_2)));
-        m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_panic_3)));
-        m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_panic_4)));
-        m_Conditions.add(new TutorialCondition_Destroy(m_Game, context.getString(R.string.tutorial_destroy), 6, TutorialEffect.Immortality_Off, TutorialEffect.HealthBar_On));
         m_Conditions.add(new TutorialCondition_SwitchWeapon(m_Game, context.getString(R.string.tutorial_re_equip_pulse), WeaponSlot.Left, TutorialEffect.Immortality_On, TutorialEffect.HealthBar_Off, TutorialEffect.LockWeapon_Down, TutorialEffect.UnlockWeapon_Left, TutorialEffect.UnlockWeapon_Right, TutorialEffect.UnlockWeapon_Up));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_wingmen_1)));
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_wingmen_2), TutorialEffect.SpawnWingmen));

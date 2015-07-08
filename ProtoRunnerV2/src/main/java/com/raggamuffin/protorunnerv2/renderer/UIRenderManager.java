@@ -500,11 +500,16 @@ public class UIRenderManager
 				Coord[0] = 0.875f;
 				Coord[1] = 0.1250f;
 				break;
-				
-			case '!':
-				Coord[0] = 0.0625f;
-				Coord[1] = 0.125f;
-				break;
+
+            case '!':
+                Coord[0] = 0.0625f;
+                Coord[1] = 0.125f;
+                break;
+
+            case '?':
+                Coord[0] = 0.9375f;
+                Coord[1] = 0.1875f;
+                break;
 
 			case '£' :
 				Coord[0] = 0.0f;

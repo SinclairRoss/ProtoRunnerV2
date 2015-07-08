@@ -58,6 +58,8 @@
     <string name="tutorial_burst_fire">Swipe right to equip the Burst Laser</string>
     <string name="tutorial_rocket_equip">Swipe up to equip Homing Rockets</string>
     <string name="tutorial_rocket_fire">Press and hold to charge the rocket launcher, Release to fire</string>
+    <string name="tutorial_mines_equip">Swipe down to select your mines.</string>
+    <string name="tutorial_mines_fire">Touch the left side of the screen to lay mines</string>
     <string name="tutorial_re_equip_pulse">Swipe left to re-equip the pulse laser</string>
     <string name="tutorial_right_side">Interacting with the right side of the screen performs manoeuvres</string>
     <string name="tutorial_boost">Press and hold the right side of the screen to boost</string>
@@ -83,11 +85,6 @@
     <string name="tutorial_wingmen_2">At the start of the game you will spawn with two wingmen</string>
     <string name="tutorial_wingmen_3">Enemies destroyed by your wingmen will still boost both your health and score</string>
     <string name="tutorial_wingmen_4">With the help of your wingmen destroy all training dummies</string>
-    <string name="tutorial_panic_1">The final weapon is the Panic Switch</string>
-    <string name="tutorial_panic_equip">Swipe down to select the panic switch</string>
-    <string name="tutorial_panic_2">The Panic Switch is a weapon that will destroy everything around you</string>
-    <string name="tutorial_panic_3">However you will recieve no points or energy for using it</string>
-    <string name="tutorial_panic_4">Use the panic switch to destroy the training dummies</string>
     <string name="reboot_1">If your energy drains entirely your runner will be destroyed</string>
     <string name="reboot_2">After being destroyed there is a short period of time where your runner can reboot</string>
     <string name="reboot_3">If an enemy is destroyed by yourself or by one of your wingmen you will reboot</string>

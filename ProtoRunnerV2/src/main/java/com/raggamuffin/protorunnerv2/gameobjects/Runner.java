@@ -9,9 +9,9 @@ import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.weapons.BurstLaser;
+import com.raggamuffin.protorunnerv2.weapons.MineLayer;
 import com.raggamuffin.protorunnerv2.weapons.PulseLaser;
 import com.raggamuffin.protorunnerv2.weapons.RocketLauncher;
-import com.raggamuffin.protorunnerv2.weapons.PanicSwitch;
 import com.raggamuffin.protorunnerv2.weapons.Weapon;
 import com.raggamuffin.protorunnerv2.weapons.WeaponSlot;
 
@@ -59,7 +59,7 @@ public class Runner extends Vehicle
 		m_WeaponLeft 	= new PulseLaser(this, game);
 		m_WeaponRight 	= new BurstLaser(this, game);
 		m_WeaponUp 		= new RocketLauncher(this, game);
-		m_WeaponDown 	= new PanicSwitch(this, game);
+		m_WeaponDown 	= new MineLayer(this, game);
 		
 		m_LasersOn = true;
 			

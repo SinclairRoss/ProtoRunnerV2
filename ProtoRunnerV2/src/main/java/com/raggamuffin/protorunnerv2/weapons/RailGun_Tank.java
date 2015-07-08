@@ -30,11 +30,8 @@ public class RailGun_Tank extends Weapon
 		
 		m_FireMode = new FireControl_Charge(1.0, 1.0);
 		m_ProjectileTemplate = new ProjectileTemplate(this, m_Anchor.GetVehicleInfo(), ModelType.RailSlug, GetAffiliation(),
-							   m_MuzzleVelocity, m_Damage, m_LifeSpan, m_ProjectileFadeInTime,
-							   ProjectileBehaviourType.Detonate, m_ParticleManager, m_BulletManager, m_AudioService, game.GetVehicleManager(), game.GetPubSubHub());
-		
-		m_ProjectileTemplate.AddSpecialBehaviour(SpecialProjectileBehaviourType.AddAttractGraviton);
-		m_ProjectileTemplate.AddSpecialBehaviour(SpecialProjectileBehaviourType.Explode);
+							   m_MuzzleVelocity, m_Damage, m_LifeSpan, m_ProjectileFadeInTime, 2.0,
+							   ProjectileBehaviourType.Standard, game, SpecialProjectileBehaviourType.AddAttractGraviton, SpecialProjectileBehaviourType.Explode);
 		
 		m_HasLasers = true;
 		

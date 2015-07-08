@@ -539,13 +539,10 @@
     <string name="tutorial_health_5">Energy can be replenished by destroying enemies</string>
     <string name="tutorial_health_6">Destroy the training dummies before your energy drains completely</string>
     <string name="tutorial_left_side">Interacting with the left side of the screen controls your weapons</string>
+    <string name="tutorial_mines_equip">Swipe down to select your mines.</string>
+    <string name="tutorial_mines_fire">Touch the left side of the screen to lay mines</string>
     <string name="tutorial_next">Continue</string>
     <string name="tutorial_no">No</string>
-    <string name="tutorial_panic_1">The final weapon is the Panic Switch</string>
-    <string name="tutorial_panic_2">The Panic Switch is a weapon that will destroy everything around you</string>
-    <string name="tutorial_panic_3">However you will recieve no points or energy for using it</string>
-    <string name="tutorial_panic_4">Use the panic switch to destroy the training dummies</string>
-    <string name="tutorial_panic_equip">Swipe down to select the panic switch</string>
     <string name="tutorial_progress">Progress</string>
     <string name="tutorial_radar_1">The grid of cells underneath the runner is a radar</string>
     <string name="tutorial_radar_2">Lit cells represent runners</string>

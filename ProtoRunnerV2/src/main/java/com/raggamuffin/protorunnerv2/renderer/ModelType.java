@@ -11,6 +11,7 @@ public enum ModelType
 	Ring,
 	Bit,
 	Byte,
+    Mine,
 	StandardPoint,
 	Trail,
 	LaserPointer,
