@@ -63,6 +63,13 @@ public final class Vector3
 		J = -vector.J;
 		K = -vector.K;
 	}
+
+    public void SetAsCrossProduct(final Vector3 a, final Vector3 b)
+    {
+        I = (a.J * b.K) - (b.J * a.K);
+        J = (a.I * b.K) - (b.I * a.K);
+        K = (a.I * b.J) - (b.I * a.J);
+    }
 	
 	public void SetVectorDifference(final Vector3 A, final Vector3 B)
 	{

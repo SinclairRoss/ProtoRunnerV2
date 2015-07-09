@@ -134,25 +134,13 @@ public abstract class GameObject
 
 	protected void UpdateVectors()
 	{
-		// This just performs a 2D matrix rotation on the default orientation vectors.
-		// This is done in this way so that we don't have to worry about the orientation vectors drifting and needing to be normalised
-		// as they are set to a unit vector and then rotated each frame.
-		// This way also involves less maths.
-		// I = (I Cos(Theta)) - (K Sin(Theta).	The full formula.
-		// J = (I Sin(Theta)) + (K Cos(Theta).	
-		
 		m_Forward.I = -Math.sin(m_Yaw);
 		m_Forward.K =  Math.cos(m_Yaw);
-		
-		m_Backward.I = -m_Forward.I;
-		m_Backward.K = -m_Forward.K;
-		
+        m_Backward.SetVectorAsInverse(m_Forward);
+
 		m_Left.I = Math.cos(m_Yaw);
 		m_Left.K = Math.sin(m_Yaw);
-		
-		m_Right.I = -m_Left.I;
-		m_Right.I = -m_Left.I;
-		m_Right.K = -m_Left.K;
+		m_Right.SetVectorAsInverse(m_Left);
 	}
 	
 	public void ApplyForce(Vector3 Dir, double Force)

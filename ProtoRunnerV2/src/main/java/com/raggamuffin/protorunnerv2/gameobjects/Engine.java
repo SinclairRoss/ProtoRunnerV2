@@ -26,11 +26,13 @@ public class Engine
     private double m_AfterBurnerOutput; 	// The percentage of energy that is being output by the afterburners.
     private double m_MaxAfterBurnerOutput; 	// The maximum energy output of the afterburners.
 
-    private double m_DodgeOutput;			// How much energy is output by dodging.
+    private double m_DodgeOutput;			// How much energy is output when dodging.
     private double m_MaxDodgeForce;
     private Vector3 m_DodgeDirection;
 
     // Turning.
+    protected double m_TargetTurnRate;
+    protected double m_TurnSpeed;
     protected double m_TurnRate;		// How forcefully the object is turning.
     protected double m_MaxTurnRate;		// The maximum rate at which an object can turn.
 
@@ -58,6 +60,8 @@ public class Engine
 
         m_DodgeDirection = new Vector3();
 
+        m_TargetTurnRate = 0.0;
+        m_TurnSpeed = 4.0;
         m_TurnRate = 0.0f;
         m_MaxTurnRate = 1.0f;
 
@@ -69,6 +73,7 @@ public class Engine
 
     public void Update(double deltaTime)
     {
+        UpdateTurnRate(deltaTime);
         UpdateOrientation(deltaTime);
 
         m_Anchor.UpdateVectors();
@@ -89,6 +94,16 @@ public class Engine
     {
         m_DodgeDirection.SetVector(Direction);
         m_DodgeOutput = 1.0;
+    }
+
+    private void UpdateTurnRate(double deltaTime)
+    {
+        double deltaTurn = m_TargetTurnRate - m_TurnRate;
+        double turnSpeed = deltaTurn > 0 ? m_TurnSpeed : -m_TurnSpeed;
+
+        double turnAmount = turnSpeed * deltaTime;
+
+        m_TurnRate = MathsHelper.Clamp((m_TurnRate + turnAmount), -m_TargetTurnRate, m_TargetTurnRate);
     }
 
     private void UpdateOrientation(double DeltaTime)
@@ -159,10 +174,9 @@ public class Engine
         m_Direction = Direction;
     }
 
-    public void SetTurnRate(double TurnRate)
+    public void SetTurnRate(double turnRate)
     {
-        m_TurnRate = TurnRate;
-        m_TurnRate = MathsHelper.Clamp(m_TurnRate, -1.0, 1.0);
+        m_TargetTurnRate = MathsHelper.Clamp(turnRate, -1.0, 1.0);
     }
 
     public double GetTurnRate()
