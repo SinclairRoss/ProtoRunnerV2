@@ -2,8 +2,6 @@ package com.raggamuffin.protorunnerv2.weapons;
 
 import java.util.Vector;
 
-import android.util.Log;
-
 import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour;
@@ -221,7 +219,7 @@ public class ProjectileBehaviour_Missile extends ProjectileBehaviour
 		m_DockedPosition.RotateY(m_FiringWeapon.GetOrientation());
 		m_DockedPosition.Add(m_FiringWeapon.GetPosition());
 		
-		m_Anchor.SetOrientation(m_FiringWeapon.GetOrientation());
+		m_Anchor.SetYaw(m_FiringWeapon.GetOrientation());
 		m_Anchor.SetPosition(m_DockedPosition);
 		
 		m_Anchor.ResetLifeSpan();

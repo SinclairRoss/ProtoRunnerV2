@@ -7,8 +7,6 @@ package com.raggamuffin.protorunnerv2.ai;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import android.util.Log;
-
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Timer;
@@ -99,7 +97,7 @@ public class NavigationControl
 	public void Update(double deltaTime)
 	{
 		CalculateToGoal();
-		CalculateSeperation();
+		CalculateSeparation();
 		CalculateAlignment();
 		CalculateCohesion(); 
 		CalculateSteeringVector();
@@ -128,7 +126,6 @@ public class NavigationControl
 		if(outcome > EVASION_CHANCE)
 			return;
 		
-		
 		outcome = MathsHelper.RandomDouble(0, 1);
 		
 		if(outcome >= 0.5)
@@ -145,29 +142,23 @@ public class NavigationControl
 		m_ToGoal.Scale(m_GoalWeight);
 	}
 	
-	private void CalculateSeperation()
+	private void CalculateSeparation()
 	{
 		m_Seperation.SetVector(0.0);
-		
-		Vector3 ObstaclePosition = null;
-		
-		double I = 0.0;
-		double J = 0.0;
-		double K = 0.0;
-		
+
 		// Get surrounding vehicles.
 		Vector<Vehicle> SurroundingVehicles = m_SituationalAwareness.GetSurroundingVehicles();
 		
 		// Loop through each surrounding vehicle and create seperation vector.
 		for(Vehicle Obstacle : SurroundingVehicles)
 		{
-			ObstaclePosition = Obstacle.GetPosition();
+            Vector3 obstaclePosition = Obstacle.GetPosition();
+
+            double i = m_AnchorPosition.I - obstaclePosition.I;
+            double j = m_AnchorPosition.J - obstaclePosition.J;
+            double k = m_AnchorPosition.K - obstaclePosition.K;
 			
-			I = m_AnchorPosition.I - ObstaclePosition.I;
-			J = m_AnchorPosition.J - ObstaclePosition.J;
-			K = m_AnchorPosition.K - ObstaclePosition.K;
-			
-			m_Seperation.Add(I, J, K);
+			m_Seperation.Add(i, j, k);
 		}
 		
 		m_Seperation.Normalise();
@@ -241,18 +232,18 @@ public class NavigationControl
 	private double CalculateTurnRate()
 	{
 		// Calculate the difference in bearing to point towards the target.
-		double DeltaRadians = Vector3.RadiansBetween(m_AnchorForward, m_SteeringVector);
+		double deltaRadians = Vector3.RadiansBetween(m_AnchorForward, m_SteeringVector);
 		
 		// Calculate Turn Rate	
-		double NormalisedTurnRate = MathsHelper.Normalise(DeltaRadians, 0.0, ARRIVAL_ANGLE);
+		double normalisedTurnRate = MathsHelper.Normalise(deltaRadians, 0.0, ARRIVAL_ANGLE);
 		
 		// Calculate Turn Direction
 		if(Vector3.Determinant(m_AnchorForward,  m_SteeringVector) > 0.0)
 		{
-			NormalisedTurnRate *= -1;
+            normalisedTurnRate *= -1;
 		}
 
-		return NormalisedTurnRate;
+		return normalisedTurnRate;
 	}
 	
 	public void SetNavigationState(NavigationStates state)

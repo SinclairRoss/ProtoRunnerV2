@@ -227,18 +227,16 @@ public class GLRenderer implements GLSurfaceView.Renderer
 	private void DrawFloor()
 	{
 		Vector<GameObject> Copy = (Vector<GameObject>) m_TransparentObjects.clone();
-		Vector3 Position = null;
-		Vector3 Scale 	 = null;
-		
+
 		for(GameObject object : Copy)
 		{
-			Position = object.GetPosition();
-			Scale 	 = object.GetScale();
-			
+            Vector3 Position = object.GetPosition();
+            Vector3 Scale 	 = object.GetScale();
+
 			Matrix.setIdentityM(m_MMatrix, 0);
 		
-			Matrix.translateM(m_MMatrix, 0, (float)Position.I, (float)Position.J, (float)Position.K);
-			Matrix.rotateM(m_MMatrix, 0, (float) -Math.toDegrees(object.GetOrientation()), 0.0f, 1.0f, 0.0f);
+			Matrix.translateM(m_MMatrix, 0, (float) Position.I, (float) Position.J, (float) Position.K);
+			Matrix.rotateM(m_MMatrix, 0, (float) -Math.toDegrees(object.GetYaw()), 0.0f, 1.0f, 0.0f);
 			Matrix.scaleM(m_MMatrix, 0, (float)Scale.I, (float)Scale.J, (float)Scale.K);
 			
 			// Combine the rotation matrix with the projection and camera view
@@ -258,11 +256,15 @@ public class GLRenderer implements GLSurfaceView.Renderer
 		{
             Vector3 Position = object.GetPosition();
             Vector3 Scale 	 = object.GetScale();
-			
+            Vector3 forward  = object.GetForward();
+
 			Matrix.setIdentityM(m_MMatrix, 0);
 			
-			Matrix.translateM(m_MMatrix, 0, (float)Position.I, (float)Position.J, (float)Position.K);
-			Matrix.rotateM(m_MMatrix, 0, (float) -Math.toDegrees(object.GetOrientation()), 0.0f, 1.0f, 0.0f);
+			Matrix.translateM(m_MMatrix, 0, (float) Position.I, (float) Position.J, (float) Position.K);
+
+            Matrix.rotateM(m_MMatrix, 0, (float)  Math.toDegrees(object.GetRoll()), (float) forward.I, (float) forward.J, (float) forward.K);
+            Matrix.rotateM(m_MMatrix, 0, (float) -Math.toDegrees(object.GetYaw()), 0.0f, 1.0f, 0.0f);
+
 			Matrix.scaleM(m_MMatrix, 0, (float)Scale.I, (float)Scale.J, (float)Scale.K);
 			
 			// Combine the rotation matrix with the projection and camera view
@@ -288,7 +290,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
 			Matrix.setIdentityM(m_MMatrix, 0);
 			
 			Matrix.translateM(m_MMatrix, 0, (float)Position.I, (float)Position.J, (float)Position.K);
-			Matrix.rotateM(m_MMatrix, 0, (float) -Math.toDegrees(particle.GetOrientation()), 0.0f, 1.0f, 0.0f);
+			Matrix.rotateM(m_MMatrix, 0, (float) -Math.toDegrees(particle.GetYaw()), 0.0f, 1.0f, 0.0f);
 			Matrix.scaleM(m_MMatrix, 0, (float)Scale.I, (float)Scale.J, (float)Scale.K);
 			
 			// Combine the rotation matrix with the projection and camera view

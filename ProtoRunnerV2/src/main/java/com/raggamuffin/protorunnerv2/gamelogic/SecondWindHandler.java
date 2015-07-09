@@ -1,14 +1,12 @@
 package com.raggamuffin.protorunnerv2.gamelogic;
 
 import com.raggamuffin.protorunnerv2.gameobjects.Runner;
-import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
-import com.raggamuffin.protorunnerv2.weapons.Weapon;
 import com.raggamuffin.protorunnerv2.weapons.WeaponSlot;
 
 public class SecondWindHandler 
@@ -74,7 +72,7 @@ public class SecondWindHandler
 					break;
 				
 				m_PlayerPosition.SetVector(m_Player.GetPosition());
-				m_PlayerOrientation = m_Player.GetOrientation();
+				m_PlayerOrientation = m_Player.GetYaw();
 				
 				break;
 			}
@@ -126,7 +124,7 @@ public class SecondWindHandler
 			m_SecondWindTimer.ResetTimer();
 			m_Player = m_Game.GetVehicleManager().GetPlayer();
 			m_Player.SetPosition(m_PlayerPosition);
-			m_Player.SetOrientation(m_PlayerOrientation); 
+			m_Player.SetYaw(m_PlayerOrientation);
 			m_Player.SetHullPoints(m_Player.GetMaxHullPoints() / m_HealthDivider);
 			m_HealthDivider = 2;
 		}	

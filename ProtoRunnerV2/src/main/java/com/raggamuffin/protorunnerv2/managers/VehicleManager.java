@@ -13,7 +13,6 @@ import com.raggamuffin.protorunnerv2.gameobjects.Runner;
 import com.raggamuffin.protorunnerv2.gameobjects.Tank;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.gameobjects.Wingman;
-import com.raggamuffin.protorunnerv2.master.ControlScheme;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
@@ -107,7 +106,7 @@ public class VehicleManager
         if(m_Player != null)
         {
             Buddy.SetPosition(m_Player.GetPosition());
-            Buddy.SetOrientation(m_Player.GetOrientation());
+            Buddy.SetYaw(m_Player.GetYaw());
         }
 
 		m_Vehicles.add(Buddy);
@@ -146,7 +145,7 @@ public class VehicleManager
 			bit.SetPosition(m_Spawn.I + b * 2,m_Spawn.J,m_Spawn.K);
 		}
 		
-		for(int b = 0; b < 6; b++)
+		for(int b = 0; b < 4; b++)
 		{
 			Bit bit = new Bit(m_Game);
 			m_Vehicles.add(bit);

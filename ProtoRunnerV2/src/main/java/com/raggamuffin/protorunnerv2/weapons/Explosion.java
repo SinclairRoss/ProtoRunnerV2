@@ -52,7 +52,7 @@ public class Explosion extends GameObject
 		m_Theta += m_RateOfExpansion * deltaTime;
 		m_Size = MathsHelper.Lerp(m_Theta, 0, m_MaxSize);
 				
-		m_Orientation += deltaTime;
+		m_Yaw += deltaTime;
 		m_Scale.SetVector(m_Size, m_Size * 0.75, m_Size);
 		m_BoundingRadius = m_Size;
 	}

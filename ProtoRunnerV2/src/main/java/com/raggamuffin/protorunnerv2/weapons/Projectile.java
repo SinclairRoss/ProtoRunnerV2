@@ -86,7 +86,7 @@ public class Projectile extends GameObject
 		m_Position.SetVector(m_Origin.GetFirePosition());
 		m_Velocity.SetVector(m_Origin.GetVelocity());
 		CalculateForward(m_Origin.GetForward(), m_Origin.GetAccuracy());
-		m_Orientation = m_Origin.GetOrientation();
+		m_Yaw = m_Origin.GetOrientation();
 
 		double muzzleVelocity = template.GetMuzzleVelocity();
 		m_Velocity.I += m_Forward.I * muzzleVelocity;

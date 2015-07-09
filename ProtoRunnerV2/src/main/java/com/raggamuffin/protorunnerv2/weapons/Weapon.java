@@ -124,7 +124,7 @@ public abstract class Weapon
 	{
 		m_MuzzleOffset.SetVector(m_MuzzleOffsets.elementAt(m_MuzzleIndex));
 
-        m_MuzzleOffset.RotateY(m_Anchor.GetOrientation());
+        m_MuzzleOffset.RotateY(m_Anchor.GetYaw());
 		m_MuzzleOffset.Add(m_Anchor.GetPosition());
 		
 		return m_MuzzleOffset;
@@ -134,7 +134,7 @@ public abstract class Weapon
 	{
 		m_MuzzleOffset.SetVector(Muzzle);
 		
-		m_MuzzleOffset.RotateY(m_Anchor.GetOrientation());
+		m_MuzzleOffset.RotateY(m_Anchor.GetYaw());
 		m_MuzzleOffset.Add(m_Anchor.GetPosition());
 		
 		return m_MuzzleOffset;
@@ -242,7 +242,7 @@ public abstract class Weapon
 	
 	public double GetOrientation()
 	{
-		return m_Anchor.GetOrientation();
+		return m_Anchor.GetYaw();
 	} 
 	
 	public int GetNumMuzzles()

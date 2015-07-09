@@ -2,7 +2,6 @@ package com.raggamuffin.protorunnerv2.weapons;
 
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
-import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
@@ -83,7 +82,7 @@ public class LaserPointer extends GameObject
 		}
 		
 		m_Position.SetVector(m_Anchor.GetMuzzlePosition(m_Muzzle));
-		m_Orientation = m_Anchor.GetOrientation();
+		m_Yaw = m_Anchor.GetOrientation();
 	}
 
 	@Override

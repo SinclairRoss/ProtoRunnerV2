@@ -99,9 +99,9 @@ public class TrailParticle extends Particle
 		double length = m_EndPoint.GetLength();
 		m_Scale.SetVector(length);
 		
-		m_Orientation = Vector3.RadiansBetween(m_North, m_EndPoint);
+		m_Yaw = Vector3.RadiansBetween(m_North, m_EndPoint);
 		
 		if(Vector3.Determinant(m_North, m_EndPoint) > 0)
-			m_Orientation *= -1;
+			m_Yaw *= -1;
 	}
 }

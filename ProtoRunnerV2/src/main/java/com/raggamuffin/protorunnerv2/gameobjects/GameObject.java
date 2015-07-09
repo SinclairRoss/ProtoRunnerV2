@@ -28,7 +28,8 @@ public abstract class GameObject
 	protected Vector3 m_Force;			// The force being applied to the GameObject.
 	protected Vector3 m_Drag;			// The force of air resistance being applied to the GameObject.
 	protected Vector3 m_Acceleration;	// Acceleration of GameObject
-	protected double  m_Orientation;	// The orientation of the GameObject.
+	protected double m_Yaw;	            // The orientation of the GameObject in the x-z plane
+    protected double  m_Roll;           // The orientation of the GameObject in the x-y plane
 	
 	///// Physics Attributes
 	protected double m_Mass;			// The mass of the vehicle.
@@ -66,7 +67,8 @@ public abstract class GameObject
 		m_Force 			= new Vector3();
 		m_Drag 				= new Vector3();
 		m_Acceleration  	= new Vector3();
-		m_Orientation 		= 0.0;
+		m_Yaw = 0.0;
+        m_Roll = 0.0;
 		
 		///// Physics Attributes
 		m_Mass				 = 1000.0f;			
@@ -139,14 +141,14 @@ public abstract class GameObject
 		// I = (I Cos(Theta)) - (K Sin(Theta).	The full formula.
 		// J = (I Sin(Theta)) + (K Cos(Theta).	
 		
-		m_Forward.I = -Math.sin(m_Orientation);
-		m_Forward.K =  Math.cos(m_Orientation);
+		m_Forward.I = -Math.sin(m_Yaw);
+		m_Forward.K =  Math.cos(m_Yaw);
 		
 		m_Backward.I = -m_Forward.I;
 		m_Backward.K = -m_Forward.K;
 		
-		m_Left.I = Math.cos(m_Orientation);
-		m_Left.K = Math.sin(m_Orientation);
+		m_Left.I = Math.cos(m_Yaw);
+		m_Left.K = Math.sin(m_Yaw);
 		
 		m_Right.I = -m_Left.I;
 		m_Right.I = -m_Left.I;
@@ -231,16 +233,26 @@ public abstract class GameObject
 	}
 
 	///// Getters / Setters.
-	public double GetOrientation()
+	public double GetYaw()
 	{
-		return m_Orientation;
+		return m_Yaw;
 	}
 	
-	public void SetOrientation(double Orientation)
+	public void SetYaw(double yaw)
 	{
-		m_Orientation = Orientation;
+		m_Yaw = yaw;
 	}
-	
+
+    public double GetRoll()
+    {
+        return m_Roll;
+    }
+
+    public void SetRoll(double roll)
+    {
+        m_Roll = roll;
+    }
+
 	public ModelType GetModel()
 	{
 		return m_Model;
