@@ -2,6 +2,7 @@ package com.raggamuffin.protorunnerv2.renderer;
 
 import android.content.Context;
 import android.opengl.GLES20;
+import android.util.Log;
 
 import com.raggamuffin.protorunnerv2.R;
 import com.raggamuffin.protorunnerv2.master.RenderEffectSettings;
@@ -29,7 +30,7 @@ public class ModelManager
 	private Context m_Context;
 	
 	private GLCube 	 	 m_Cube;
-	private GLRunner 	 m_Runner;
+	private GLRunner m_Runner;
 	private GLPlane 	 m_Plane;
 	private GLFloorPanel m_FloorPanel;
 	private GLPulseLaser m_PulseLaser;
@@ -116,80 +117,78 @@ public class ModelManager
         m_Dummy      = new GLDummy();
 	}
 	
-	public void DrawModel(GameObject object, final float[] mvpMatrix)
+	public void DrawModel(GameObject object, final float[] projMatrix)
 	{
 		switch(object.GetModel())
 		{
             // unused.
 			case Cube:
 				m_Cube.SetColour(object.GetColour());
-				m_Cube.draw(mvpMatrix);
+			//	m_Cube.draw(mvpMatrix);
+                Log.e("testy test", "<--------- Cube --------->");
 				break;
 			
 			case Runner:
 				m_Runner.SetColour(object.GetColour());
-				m_Runner.draw(mvpMatrix);
+                m_Runner.draw(object.GetPosition(), object.GetForward(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
 				break;
 
             // unused.
 			case Plane:
-				GLES20.glDisable(GLES20.GL_DEPTH_TEST);
+			//	GLES20.glDisable(GLES20.GL_DEPTH_TEST);
 				
-				m_Plane.SetColour(object.GetColour());
-				m_Plane.draw(mvpMatrix);
+			//	m_Plane.SetColour(object.GetColour());
+			//	m_Plane.draw(mvpMatrix);
 				
-				GLES20.glEnable(GLES20.GL_DEPTH_TEST);
+			//	GLES20.glEnable(GLES20.GL_DEPTH_TEST);
+                Log.e("testy test", "<--------- Plane --------->");
 				break;
 				
 			case FloorPanel:
 				m_FloorPanel.SetColour(object.GetColour());
 				m_FloorPanel.SetWorldPos(object.GetPosition());
-				m_FloorPanel.draw(mvpMatrix);
+				m_FloorPanel.draw(object.GetPosition(), projMatrix);
 
 				break;
 			
 			case PulseLaser:
-				m_PulseLaser.SetEyePos(m_EyePos);
-				m_PulseLaser.SetWorldPos(object.GetPosition());
 				m_PulseLaser.SetColour(object.GetColour());
-				m_PulseLaser.draw(mvpMatrix);
+                m_PulseLaser.draw(object.GetPosition(), m_EyePos, projMatrix);
 
 				break;
 				
 			case RailSlug:
-				m_RailSlug.SetEyePos(m_EyePos);
-				m_RailSlug.SetWorldPos(object.GetPosition());
 				m_RailSlug.SetColour(object.GetColour());
-				m_RailSlug.draw(mvpMatrix);
+                m_RailSlug.draw(object.GetPosition(), m_EyePos, projMatrix);
 				break;
 
             // unused.
 			case Ring:
-				m_Ring.SetColour(object.GetColour());
-                m_Ring.SetEndPointColour(object.GetAltColour());
-				m_Ring.draw(mvpMatrix);
+			//	m_Ring.SetColour(object.GetColour());
+             //   m_Ring.SetEndPointColour(object.GetAltColour());
+			//	m_Ring.draw(mvpMatrix);
+                Log.e("testy test", "<--------- Ring --------->");
 				break;
 
 			case Bit:
 				m_Bit.SetColour(object.GetColour());
-				m_Bit.draw(mvpMatrix);
+                m_Bit.draw(object.GetPosition(), object.GetForward(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
 				break;
 				
 			case Byte:
 				m_Byte.SetColour(object.GetColour());
-				m_Byte.draw(mvpMatrix);			
-				break;
+				m_Byte.draw(object.GetPosition(), object.GetForward(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
+                break;
 
             case Mine:
                 m_Mine.SetColour(object.GetColour());
-                m_Mine.draw(mvpMatrix);
+                m_Mine.draw(object.GetPosition(), object.GetForward(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
+
                 break;
 
 			case StandardPoint:
-				m_StandardPoint.SetEyePos(m_EyePos);
-				m_StandardPoint.SetWorldPos(object.GetPosition());
 				m_StandardPoint.SetColour(object.GetColour());
-				m_StandardPoint.draw(mvpMatrix);
+				m_StandardPoint.draw(object.GetPosition(), m_EyePos, projMatrix);
 
 				break;
 
@@ -201,34 +200,35 @@ public class ModelManager
 
                 m_Trail.SetColour(object.GetColour());
                 m_Trail.SetEndPointColour(object.GetAltColour());
-                m_Trail.draw(mvpMatrix);
+                m_Trail.draw(object.GetPosition(), object.GetScale(), (float)object.GetYaw(), projMatrix);
                 break;
 
 			case LaserPointer:
 
                 m_Pointer.SetColour(object.GetColour());
                 m_Pointer.SetEndPointColour(object.GetAltColour());
-                m_Pointer.draw(mvpMatrix);
+                m_Pointer.draw(object.GetPosition(), object.GetScale(), (float)object.GetYaw(), projMatrix);
 				break;
 
 			case Missile:			
 				m_Missile.SetColour(object.GetColour());
-				m_Missile.draw(mvpMatrix);
-				break;
+				m_Missile.draw(object.GetPosition(), object.GetForward(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
+
+                break;
 			
 			case Explosion:
 				m_Explosion.SetColour(object.GetColour());
-				m_Explosion.draw(mvpMatrix);
+				m_Explosion.draw(object.GetPosition(), object.GetForward(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
 				break;
 
 			case RadarFragment:
 				m_RadarFragment.SetColour(object.GetColour());
-				m_RadarFragment.draw(mvpMatrix);
+				m_RadarFragment.draw(object.GetPosition(), projMatrix);
 				break;
 
             case Dummy:
                 m_Dummy.SetColour(object.GetColour());
-                m_Dummy.draw(mvpMatrix);
+                m_Dummy.draw(object.GetPosition(), object.GetForward(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
                 break;
 				
 			case Nothing:
@@ -315,12 +315,17 @@ public class ModelManager
         return null;
     }
 
-    public void DrawSkyBox(final float[] mvpMatrix, Colour colour)
+    public void DrawSkyBox(Vector3 pos, Colour colour, final float[] projMatrix)
     {
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_TextureHandles[1]);
+
+        m_Skybox.InitialiseModel();
+
         m_Skybox.SetColour(colour);
-        m_Skybox.draw(mvpMatrix);
+        m_Skybox.draw(pos, projMatrix);
+
+        m_Skybox.CleanModel();
     }
 
 	public void DrawFBOGlowHoriz()

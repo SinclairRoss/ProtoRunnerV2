@@ -8,14 +8,16 @@ import com.raggamuffin.protorunnerv2.utils.Colour;
 
 import android.opengl.GLES20;
 
-public class GLTextQuad 
+public class GLTextQuad extends GLModel
 {
 	public final FloatBuffer vertexBuffer;
 	public final FloatBuffer textureBuffer;
 	
 	private int m_Program;
-	
-	private int m_MVPMatrixHandle;  
+
+	private int m_ProjMatrixHandle;
+    private int m_WorldPosHandle;
+    private int m_ScaleHandle;
     private int m_ColourHandle;
     private int m_PositionHandle;
     private int m_TexUniformHandle;
@@ -81,9 +83,11 @@ public class GLTextQuad
 		m_Offset = new float[2];
 		m_Offset[0] = 0.0f;
 		m_Offset[1] = 0.0f;
-		
+
 		m_Program 			= 0;
-	    m_MVPMatrixHandle	= 0;  
+	    m_ProjMatrixHandle = 0;
+        m_WorldPosHandle = 0;
+        m_ScaleHandle = 0;
 	    m_ColourHandle		= 0;
 	    m_PositionHandle	= 0;
 	    m_TexUniformHandle	= 0;
@@ -106,63 +110,59 @@ public class GLTextQuad
 		m_Offset[0] = offset[0];
 		m_Offset[1] = offset[1];
 	}
-	
-	public void draw(float[] mvpMatrix)
-	{
-		GLES20.glUseProgram(m_Program);
 
-		GLES20.glUniformMatrix4fv(m_MVPMatrixHandle, 1, false, mvpMatrix, 0);
+	public void draw(float x, float y, float scale, float[] projMatrix)
+	{
+        GLES20.glUniformMatrix4fv(m_ProjMatrixHandle, 1, false, projMatrix, 0);
+        GLES20.glUniform4f(m_WorldPosHandle, x, y, 0.0f, 1.0f);
+        GLES20.glUniform3f(m_ScaleHandle, scale, scale, 1.0f);
         GLES20.glUniform4fv(m_ColourHandle, 1, m_Colour, 0);
         GLES20.glUniform2f(m_TexOffsetHandle, m_Offset[0], m_Offset[1]);
-        
-        GLES20.glEnableVertexAttribArray(m_PositionHandle);
-		GLES20.glVertexAttribPointer(m_PositionHandle, GLCube.COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, GLCube.VERTEX_STRIDE, vertexBuffer);
 
-		GLES20.glEnableVertexAttribArray(m_TexCoordHandle);
-		GLES20.glVertexAttribPointer(m_TexCoordHandle, TEX_COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, TEX_STRIDE, textureBuffer);
-		
-		GLES20.glUniform1i(m_TexUniformHandle, 0);
-		
 		GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
-		
-		GLES20.glDisableVertexAttribArray(m_PositionHandle);
-		GLES20.glDisableVertexAttribArray(m_TexCoordHandle);
 	}
-	
+
 	public void InitShaders()
     {
-		int vertexShaderHandler = 0;
-		int fragmentShaderHandler = 0;
-
 		// prepare shaders and OpenGL program
-		vertexShaderHandler 	= loadShader(GLES20.GL_VERTEX_SHADER,Shaders.vertexShader_TEXTURED);
-		fragmentShaderHandler 	= loadShader(GLES20.GL_FRAGMENT_SHADER,Shaders.fragmentShader_TEXTURED);
+        int vertexShaderHandler 	= loadShader(GLES20.GL_VERTEX_SHADER,Shaders.vertexShader_TEXTURED);
+        int fragmentShaderHandler 	= loadShader(GLES20.GL_FRAGMENT_SHADER,Shaders.fragmentShader_TEXTURED);
 
 		m_Program = GLES20.glCreateProgram();             		// create empty OpenGL Program
         GLES20.glAttachShader(m_Program, vertexShaderHandler);   // add the vertex shader to program
         GLES20.glAttachShader(m_Program, fragmentShaderHandler); // add the fragment shader to program
         GLES20.glLinkProgram(m_Program);                  		// create OpenGL program executables
 
-        m_MVPMatrixHandle 		= GLES20.glGetUniformLocation(m_Program, "u_MVPMatrix");  
+        m_ProjMatrixHandle      = GLES20.glGetUniformLocation(m_Program, "u_ProjMatrix");
+        m_WorldPosHandle        = GLES20.glGetUniformLocation(m_Program, "u_WorldPos");
+        m_ScaleHandle           = GLES20.glGetUniformLocation(m_Program, "u_Scale");
+
         m_ColourHandle 			= GLES20.glGetUniformLocation(m_Program, "u_Color");
         m_TexUniformHandle		= GLES20.glGetUniformLocation(m_Program, "u_Texture");
         m_TexOffsetHandle		= GLES20.glGetUniformLocation(m_Program, "u_TexOffset");
-        
+
         m_PositionHandle = GLES20.glGetAttribLocation(m_Program, "a_Position");
         m_TexCoordHandle = GLES20.glGetAttribLocation(m_Program, "a_TexCoord");
-
     }
-	
-	public static int loadShader(int type, String shaderCode)
+
+    @Override
+    public void InitialiseModel()
     {
-        // create a vertex shader type (GLES20.GL_VERTEX_SHADER)
-        // or a fragment shader type (GLES20.GL_FRAGMENT_SHADER)
-        int shader = GLES20.glCreateShader(type);
+        GLES20.glUseProgram(m_Program);
 
-        // add the source code to the shader and compile it
-        GLES20.glShaderSource(shader, shaderCode);
-        GLES20.glCompileShader(shader);
+        GLES20.glEnableVertexAttribArray(m_PositionHandle);
+        GLES20.glVertexAttribPointer(m_PositionHandle, GLCube.COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, GLCube.VERTEX_STRIDE, vertexBuffer);
 
-        return shader;
+        GLES20.glEnableVertexAttribArray(m_TexCoordHandle);
+        GLES20.glVertexAttribPointer(m_TexCoordHandle, TEX_COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, TEX_STRIDE, textureBuffer);
+
+        GLES20.glUniform1i(m_TexUniformHandle, 0);
+    }
+
+    @Override
+    public void CleanModel()
+    {
+        GLES20.glDisableVertexAttribArray(m_PositionHandle);
+        GLES20.glDisableVertexAttribArray(m_TexCoordHandle);
     }
 }

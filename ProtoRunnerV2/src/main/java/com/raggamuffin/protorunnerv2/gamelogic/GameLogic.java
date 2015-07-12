@@ -25,7 +25,6 @@ import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.master.ControlScheme;
 import com.raggamuffin.protorunnerv2.managers.GooglePlayService;
 import com.raggamuffin.protorunnerv2.master.RendererPacket;
-import com.raggamuffin.protorunnerv2.particles.TrailParticle;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
@@ -186,25 +185,6 @@ public class GameLogic extends ApplicationLogic
 
             m_Packet.AddObject(child);
 
-            /*
-			// Once the orphan has been investigated, Add it to children and remove it from orphans.
-			switch(Child.GetModel())
-			{
-				case Explosion:
-				case FloorPanel:
-					m_TransparentObjects.add(Child);
-					break;
-					
-				case Trail:
-					m_Trails.add((TrailParticle) Child);
-					break;
-
-				default:
-					m_RendererObjects.add(Child);
-					break;
-			}
-			*/
-
 			Children.remove(c);
 			c--;
 		}
@@ -228,24 +208,6 @@ public class GameLogic extends ApplicationLogic
 			}
 
             m_Packet.RemoveObject(child);
-
-            /*
-			// Once the orphan has been investigated, Add it to children and remove it from orphans.
-			switch(Child.GetModel())
-			{
-				case Explosion:
-				case FloorPanel:
-					m_TransparentObjects.remove(Child);
-					break;
-				case Trail:
-					m_Trails.remove(Child);
-					break;
-					
-				default:
-					m_RendererObjects.remove(Child);
-					break;
-			}
-			*/
 
 			Children.remove(c);
 			c--;

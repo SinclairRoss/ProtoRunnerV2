@@ -153,6 +153,7 @@ public class GooglePlayService implements GoogleApiClient.ConnectionCallbacks, G
 
     public void UpdateAchievement(String id, int amount)
     {
-        Games.Achievements.increment(m_GoogleApiClient, id, amount);
+        if(IsConnected())
+            Games.Achievements.increment(m_GoogleApiClient, id, amount);
     }
 }

@@ -1,7 +1,6 @@
 package com.raggamuffin.protorunnerv2.renderer;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -10,7 +9,6 @@ import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.master.RenderEffectSettings;
 import com.raggamuffin.protorunnerv2.master.RendererPacket;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
-import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 import android.content.Context;
 
@@ -31,10 +29,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
 	private ArrayList<UIElement> m_UIElements;
 	
 	private Context m_Context;
-	
-	private final float[] m_MVPMatrix = new float[16];	// MVP Matrix.
-    private final float[] m_MMatrix   = new float[16];	// Model Matrix		// Projection and View Matrices in camera class.
-    
+
     private GLOrthoCamera m_UICamera;
     private GLCamera m_Camera;
 
@@ -220,22 +215,21 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
     private void DrawSkybox()
     {
+        float[] view = new float[16];
+        Matrix.setIdentityM(view, 0);
+        Matrix.multiplyMM(view, 0, m_Camera.m_ProjMatrix, 0, m_Camera.m_VMatrix, 0);
+
         m_ModelManager.InitialiseType(ModelType.Skybox);
-
-        Matrix.setIdentityM(m_MMatrix, 0);
-        Matrix.translateM(m_MMatrix, 0, (float) m_Camera.GetPosition().I, (float) m_Camera.GetPosition().J, (float) m_Camera.GetPosition().K);
-
-        // Combine the rotation matrix with the projection and camera view
-        Matrix.multiplyMM(m_MVPMatrix, 0, m_Camera.m_VMatrix, 0, m_MMatrix, 0);
-        Matrix.multiplyMM(m_MVPMatrix, 0, m_Camera.m_ProjMatrix, 0, m_MVPMatrix, 0);
-
-        m_ModelManager.DrawSkyBox(m_MVPMatrix, m_RenderEffectSettings.GetSkyBoxColour());
-
+        m_ModelManager.DrawSkyBox(m_Camera.GetPosition(), m_RenderEffectSettings.GetSkyBoxColour(), view);
         m_ModelManager.CleanModel(ModelType.Skybox);
     }
 
     private void DrawObjects()
     {
+        float[] view = new float[16];
+        Matrix.setIdentityM(view, 0);
+        Matrix.multiplyMM(view, 0, m_Camera.m_ProjMatrix, 0, m_Camera.m_VMatrix, 0);
+
         ModelType[] types = ModelType.values();
 
         for (ModelType type : types)
@@ -249,24 +243,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
                 if(obj == null)
                     continue;
 
-                Vector3 Position = obj.GetPosition();
-                Vector3 Scale 	 = obj.GetScale();
-                Vector3 forward  = obj.GetForward();
-
-                Matrix.setIdentityM(m_MMatrix, 0);
-
-                Matrix.translateM(m_MMatrix, 0, (float) Position.I, (float) Position.J, (float) Position.K);
-
-                Matrix.rotateM(m_MMatrix, 0, (float) Math.toDegrees(obj.GetRoll()), (float) forward.I, (float) forward.J, (float) forward.K);
-                Matrix.rotateM(m_MMatrix, 0, (float) -Math.toDegrees(obj.GetYaw()), 0.0f, 1.0f, 0.0f);
-
-                Matrix.scaleM(m_MMatrix, 0, (float) Scale.I, (float) Scale.J, (float) Scale.K);
-
-                // Combine the rotation matrix with the projection and camera view
-                Matrix.multiplyMM(m_MVPMatrix, 0, m_Camera.m_VMatrix, 0, m_MMatrix, 0);
-                Matrix.multiplyMM(m_MVPMatrix, 0, m_Camera.m_ProjMatrix, 0, m_MVPMatrix, 0);
-
-                m_ModelManager.DrawModel(obj, m_MVPMatrix);
+                m_ModelManager.DrawModel(obj , view);
             }
 
             m_ModelManager.CleanModel(type);

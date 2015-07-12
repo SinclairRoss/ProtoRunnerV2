@@ -5,6 +5,7 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 import com.raggamuffin.protorunnerv2.utils.Colour;
+import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 import android.opengl.GLES20;
 
@@ -15,7 +16,9 @@ public class GLSkybox extends GLModel
 
 	private int m_Program;
 	
-	private int m_MVPMatrixHandle;  
+	private int m_ProjMatrixHandle;
+    private int m_WorldPosHandle;
+    private int m_ScaleHandle;
     private int m_PositionHandle;
     private int m_TexUniformHandle;
     private int m_TexCoordHandle;
@@ -167,7 +170,9 @@ public class GLSkybox extends GLModel
 		m_Colour[3] = 1.0f;
 		
 		m_Program 			= 0;
-	    m_MVPMatrixHandle	= 0;  
+	    m_ProjMatrixHandle = 0;
+        m_WorldPosHandle = 0;
+        m_ScaleHandle = 0;
 	    m_PositionHandle	= 0;
 	    m_TexUniformHandle	= 0;
 	    m_TexCoordHandle	= 0;
@@ -184,10 +189,12 @@ public class GLSkybox extends GLModel
 		m_Colour[3] = (float)colour.Alpha;
 	}
 	
-	public void draw(float[] mvpMatrix)
+	public void draw(Vector3 pos, float[] projMatrix)
 	{
-		GLES20.glUniformMatrix4fv(m_MVPMatrixHandle, 1, false, mvpMatrix, 0);
-		GLES20.glUniform4fv(m_ColourHandle, 1, m_Colour, 0);
+		GLES20.glUniformMatrix4fv(m_ProjMatrixHandle, 1, false, projMatrix, 0);
+        GLES20.glUniform4f(m_WorldPosHandle, (float) pos.I, (float) pos.J, (float) pos.K, 1.0f);
+        GLES20.glUniform3f(m_ScaleHandle, 1.0f, 1.0f, 1.0f);
+        GLES20.glUniform4fv(m_ColourHandle, 1, m_Colour, 0);
 
         GLES20.glUniform1i(m_TexUniformHandle, 0);
 		
@@ -205,25 +212,15 @@ public class GLSkybox extends GLModel
         GLES20.glAttachShader(m_Program, fragmentShaderHandler); // add the fragment shader to program
         GLES20.glLinkProgram(m_Program);                  		// create OpenGL program executables
 
-        m_MVPMatrixHandle 		= GLES20.glGetUniformLocation(m_Program, "u_MVPMatrix");  
+        m_ProjMatrixHandle = GLES20.glGetUniformLocation(m_Program, "u_ProjMatrix");
+        m_WorldPosHandle   = GLES20.glGetUniformLocation(m_Program, "u_WorldPos");
+        m_ScaleHandle      = GLES20.glGetUniformLocation(m_Program, "u_Scale");
+
         m_ColourHandle 			= GLES20.glGetUniformLocation(m_Program, "u_Color");
         m_TexUniformHandle		= GLES20.glGetUniformLocation(m_Program, "u_Texture");
 
         m_PositionHandle = GLES20.glGetAttribLocation(m_Program, "a_Position");
         m_TexCoordHandle = GLES20.glGetAttribLocation(m_Program, "a_TexCoord");
-    }
-	
-	public static int loadShader(int type, String shaderCode)
-    {
-        // create a vertex shader type (GLES20.GL_VERTEX_SHADER)
-        // or a fragment shader type (GLES20.GL_FRAGMENT_SHADER)
-        int shader = GLES20.glCreateShader(type);
-
-        // add the source code to the shader and compile it
-        GLES20.glShaderSource(shader, shaderCode);
-        GLES20.glCompileShader(shader);
-
-        return shader;
     }
 
     @Override

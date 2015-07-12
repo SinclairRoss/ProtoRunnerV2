@@ -7,6 +7,7 @@ import java.nio.FloatBuffer;
 import android.opengl.GLES20;
 
 import com.raggamuffin.protorunnerv2.utils.Colour;
+import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class GLLine extends GLModel
 {
@@ -15,7 +16,10 @@ public class GLLine extends GLModel
 	
 	private int m_Program;
 	
-	private int m_MVPMatrixHandle;  
+	private int m_ProjMatrixHandle;
+    private int m_WorldPosHandle;
+    private int m_YawHandle;
+    private int m_ScaleHandle;
     private int m_ColourHandle;
     private int m_EndPointColourHandle;
     private int m_PositionHandle;
@@ -52,7 +56,7 @@ public class GLLine extends GLModel
 		ByteBuffer bb = ByteBuffer.allocateDirect(VertexCoords.length * 4);
 		bb.order(ByteOrder.nativeOrder());
 		vertexBuffer = bb.asFloatBuffer();
-		vertexBuffer.put(VertexCoords);
+        vertexBuffer.put(VertexCoords);
 		vertexBuffer.position(0);
 		
 		ByteBuffer wb = ByteBuffer.allocateDirect(VertexWeight.length * 4);
@@ -74,7 +78,10 @@ public class GLLine extends GLModel
 		m_EndPointColour[3] = 1.0f;
 
 		m_Program 			= 0;
-	    m_MVPMatrixHandle	= 0;  
+	    m_ProjMatrixHandle = 0;
+        m_WorldPosHandle    = 0;
+        m_YawHandle = 0;
+        m_ScaleHandle       = 0;
 	    m_ColourHandle		= 0;
 	    m_EndPointColourHandle = 0;
 	    m_PositionHandle	= 0;
@@ -83,9 +90,13 @@ public class GLLine extends GLModel
 	    InitShaders();
 	}
 	
-	public void draw(float[] mvpMatrix)
+	public void draw(Vector3 pos, Vector3 scale, float yaw, float[] projMatrix)
 	{
-		GLES20.glUniformMatrix4fv(m_MVPMatrixHandle, 1, false, mvpMatrix, 0);
+		GLES20.glUniformMatrix4fv(m_ProjMatrixHandle, 1, false, projMatrix, 0);
+        GLES20.glUniform4f(m_WorldPosHandle, (float) pos.I, (float) pos.J, (float) pos.K, 1.0f);
+        GLES20.glUniform1f(m_YawHandle, yaw);
+        GLES20.glUniform3f(m_ScaleHandle, (float) scale.I, (float) scale.J, (float) scale.K);
+
         GLES20.glUniform4fv(m_ColourHandle, 1, m_Colour, 0);
         GLES20.glUniform4fv(m_EndPointColourHandle, 1, m_EndPointColour, 0);
 
@@ -119,25 +130,16 @@ public class GLLine extends GLModel
         GLES20.glAttachShader(m_Program, fragmentShaderHandler); // add the fragment shader to program
         GLES20.glLinkProgram(m_Program);                  		// create OpenGL program executables
 
-        m_MVPMatrixHandle 		= GLES20.glGetUniformLocation(m_Program, "u_MVPMatrix");  
+        m_ProjMatrixHandle = GLES20.glGetUniformLocation(m_Program, "u_ProjMatrix");
+        m_WorldPosHandle   = GLES20.glGetUniformLocation(m_Program, "u_WorldPos");
+        m_YawHandle        = GLES20.glGetUniformLocation(m_Program, "u_Yaw");
+        m_ScaleHandle      = GLES20.glGetUniformLocation(m_Program, "u_Scale");
+
         m_ColourHandle 			= GLES20.glGetUniformLocation(m_Program, "u_Color");
         m_EndPointColourHandle	= GLES20.glGetUniformLocation(m_Program, "u_EndPointColor");
         
         m_PositionHandle = GLES20.glGetAttribLocation(m_Program, "a_Position");    
         m_WeightHandle = GLES20.glGetAttribLocation(m_Program, "a_Weight");
-    }
-	
-	public static int loadShader(int type, String shaderCode)
-    {
-        // create a vertex shader type (GLES20.GL_VERTEX_SHADER)
-        // or a fragment shader type (GLES20.GL_FRAGMENT_SHADER)
-        int shader = GLES20.glCreateShader(type);
-
-        // add the source code to the shader and compile it
-        GLES20.glShaderSource(shader, shaderCode);
-        GLES20.glCompileShader(shader);
-
-        return shader;
     }
 
     @Override

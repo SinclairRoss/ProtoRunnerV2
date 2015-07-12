@@ -74,41 +74,39 @@ public class UIRenderManager
 					break;
 				default:
 					break;
-			
 			}
 		}
 	}
 	
 	private void DrawText(final UILabel Element)
 	{
+        m_TextQuad.InitialiseModel();
+
 		Vector2 Position = Element.GetPosition();
 		Font TextFont 	 = Element.GetFont();
 		String Text 	 = Element.GetText();
 		int Length 		 = Text.length();
-		float FontSize 	 = (float)TextFont.GetSize();
+		float fontSize 	 = (float)TextFont.GetSize();
 
 		GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
 		GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_TextureHandles[0]);
 		
 		m_TextQuad.SetColour(TextFont.GetColour());
+
+        float[] view = new float[16];
+        Matrix.setIdentityM(view, 0);
+        Matrix.multiplyMM(view, 0, m_Camera.m_ProjMatrix, 0, m_Camera.m_VMatrix, 0);
 		
 		for(int i = 0; i < Length; i++)
 		{
-			float X = ((float)Position.I + FontSize* i);
-			float Y = (float)Position.J;
-			
-			Matrix.setIdentityM(m_MMatrix, 0);
-			
-			Matrix.translateM(m_MMatrix, 0, X, Y, 0.0f);
-			Matrix.scaleM(m_MMatrix, 0, FontSize, FontSize, 1.0f);
-			
-			// Combine the rotation matrix with the projection and camera view
-	        Matrix.multiplyMM(m_MVPMatrix, 0, m_Camera.m_VMatrix, 0, m_MMatrix, 0);
-	        Matrix.multiplyMM(m_MVPMatrix, 0, m_Camera.m_ProjMatrix, 0, m_MVPMatrix, 0);
-	        
+			float x = (float)Position.I + fontSize * i;
+			float y = (float)Position.J;
+
 			m_TextQuad.SetOffset(GetTexCoord(Text.charAt(i)));
-			m_TextQuad.draw(m_MVPMatrix);
+			m_TextQuad.draw(x, y, fontSize, view);
 		}
+
+        m_TextQuad.CleanModel();
 	}
 	
 	private void DrawProgressBar(final UIProgressBar Element)

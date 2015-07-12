@@ -5,6 +5,7 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 import com.raggamuffin.protorunnerv2.utils.Colour;
+import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 import android.opengl.GLES20;
 
@@ -15,7 +16,11 @@ public class GLMine extends GLModel
 
     private int m_Program;
 
-    private int m_MVPMatrixHandle;
+    private int m_ProjMatrixHandle;
+    private int m_WorldPosHandle;
+    private int m_YawHandle;
+    private int m_RollHandle;
+    private int m_ForwardHandle;
     private int m_ColourHandle;
     private int m_PositionHandle;
     private int m_BarycentricHandle;
@@ -120,7 +125,11 @@ public class GLMine extends GLModel
         m_Colour[3] = 1.0f;
 
         m_Program 			= 0;
-        m_MVPMatrixHandle	= 0;
+        m_ProjMatrixHandle  = 0;
+        m_WorldPosHandle    = 0;
+        m_YawHandle         = 0;
+        m_RollHandle        = 0;
+        m_ForwardHandle     = 0;
         m_ColourHandle		= 0;
         m_PositionHandle	= 0;
         m_BarycentricHandle = 0;
@@ -128,9 +137,14 @@ public class GLMine extends GLModel
         InitShaders();
     }
 
-    public void draw(float[] mvpMatrix)
+    public void draw(Vector3 pos, Vector3 forward, float roll, float yaw, float[] projMatrix)
     {
-        GLES20.glUniformMatrix4fv(m_MVPMatrixHandle, 1, false, mvpMatrix, 0);
+        GLES20.glUniform4f(m_WorldPosHandle, (float)pos.I, (float)pos.J, (float)pos.K, 1.0f);
+        GLES20.glUniform3f(m_ForwardHandle, (float)forward.I, (float)forward.J, (float)forward.K);
+        GLES20.glUniform1f(m_YawHandle, yaw);
+        GLES20.glUniform1f(m_RollHandle, roll);
+
+        GLES20.glUniformMatrix4fv(m_ProjMatrixHandle, 1, false, projMatrix, 0);
         GLES20.glUniform4fv(m_ColourHandle, 1, m_Colour, 0);
 
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
@@ -144,7 +158,7 @@ public class GLMine extends GLModel
         m_Colour[3] = (float)colour.Alpha;
     }
 
-    public void InitShaders()
+    private void InitShaders()
     {
         // prepare shaders and OpenGL program
         int vertexShaderHandler 	= loadShader(GLES20.GL_VERTEX_SHADER,Shaders.vertexShader_BARYCENTRIC);
@@ -155,24 +169,15 @@ public class GLMine extends GLModel
         GLES20.glAttachShader(m_Program, fragmentShaderHandler); // add the fragment shader to program
         GLES20.glLinkProgram(m_Program);                  		// create OpenGL program executables
 
-        m_MVPMatrixHandle 		= GLES20.glGetUniformLocation(m_Program, "u_MVPMatrix");
-        m_ColourHandle 			= GLES20.glGetUniformLocation(m_Program, "u_Color");
+        m_ProjMatrixHandle = GLES20.glGetUniformLocation(m_Program, "u_ProjMatrix");
+        m_ForwardHandle    = GLES20.glGetUniformLocation(m_Program, "u_Forward");
+        m_WorldPosHandle   = GLES20.glGetUniformLocation(m_Program, "u_WorldPos");
+        m_YawHandle        = GLES20.glGetUniformLocation(m_Program, "u_Yaw");
+        m_RollHandle       = GLES20.glGetUniformLocation(m_Program, "u_Roll");
+        m_ColourHandle 	   = GLES20.glGetUniformLocation(m_Program, "u_Color");
 
-        m_PositionHandle = GLES20.glGetAttribLocation(m_Program, "a_Position");
+        m_PositionHandle    = GLES20.glGetAttribLocation(m_Program, "a_Position");
         m_BarycentricHandle = GLES20.glGetAttribLocation(m_Program, "a_Barycentric");
-    }
-
-    public static int loadShader(int type, String shaderCode)
-    {
-        // create a vertex shader type (GLES20.GL_VERTEX_SHADER)
-        // or a fragment shader type (GLES20.GL_FRAGMENT_SHADER)
-        int shader = GLES20.glCreateShader(type);
-
-        // add the source code to the shader and compile it
-        GLES20.glShaderSource(shader, shaderCode);
-        GLES20.glCompileShader(shader);
-
-        return shader;
     }
 
     @Override

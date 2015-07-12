@@ -2,11 +2,41 @@ package com.raggamuffin.protorunnerv2.renderer;
 
 public class Shaders 
 {
+    public static final String vertexShader_STANDARD_MK2 =
+        "uniform mat4 u_ProjMatrix;"
+    +   "uniform vec4 u_WorldPos;"
+    +   "uniform float u_Yaw;"
+
+    +	"attribute vec4 a_Position;"
+
+    + 	"void main()"
+    +	"{"
+
+    +   "   mat4 world;"
+    +   "   world[0] = vec4(1,0,0,0);"
+    +   "   world[1] = vec4(0,1,0,0);"
+    +   "   world[2] = vec4(0,0,1,0);"
+    +   "   world[3] = u_WorldPos;"
+
+    +   "   float cosTheta = cos(u_Yaw);"
+    +   "   float sinTheta = sin(u_Yaw);"
+
+    +   "   mat4 yaw;"
+    +   "   yaw[0] = vec4(cosTheta, 0, sinTheta, 0);"
+    +   "   yaw[1] = vec4(0, 1, 0, 0);"
+    +   "   yaw[2] = vec4(-sinTheta,0,cosTheta,0);"
+    +   "   yaw[3] = vec4(0, 0, 0, 1);"
+
+    +   "   world = world * yaw;"
+
+    +   "   mat4 mvp = u_ProjMatrix * world;"
+    +	"	gl_Position = mvp * a_Position;"
+    +	"}";
+
 	public static final String vertexShader_STANDARD =
 	        "uniform mat4 u_MVPMatrix;   \n"    
 	 	+	"attribute vec4 a_Position;  \n" 
-        		
-	 	
+
 	    +   "void main()                \n" 
 	    +   "{"  
 	    +   "	gl_Position = u_MVPMatrix * a_Position; \n" // the matrix must be included as a modifier of gl_Position  
@@ -22,7 +52,11 @@ public class Shaders
 	    +   "}";
 
 	public static final String vertexShader_LINE =
-	        "uniform mat4 u_MVPMatrix;   \n"
+            "uniform mat4 u_ProjMatrix;"
+        +   "uniform vec4 u_WorldPos;"
+        +   "uniform float u_Yaw;"
+        +   "uniform vec3 u_Scale;"
+
 	 	+	"attribute vec4 a_Position;  \n"
 		+	"attribute float a_Weight;	 \n"
 	 	+   "varying float v_Weight;	 \n"
@@ -30,7 +64,33 @@ public class Shaders
 	    +   "void main()                 \n"
 	    +   "{"
 	    +	"	v_Weight = a_Weight;     \n"
-	    +   "	gl_Position = u_MVPMatrix * a_Position; \n" // the matrix must be included as a modifier of gl_Position
+
+        +   "   mat4 world;"
+        +   "   world[0] = vec4(1,0,0,0);"
+        +   "   world[1] = vec4(0,1,0,0);"
+        +   "   world[2] = vec4(0,0,1,0);"
+        +   "   world[3] = u_WorldPos;"
+
+        +   "   float cosTheta = cos(u_Yaw);"
+        +   "   float sinTheta = sin(u_Yaw);"
+
+        +   "   mat4 yaw;"
+        +   "   yaw[0] = vec4(cosTheta, 0, sinTheta, 0);"
+        +   "   yaw[1] = vec4(0, 1, 0, 0);"
+        +   "   yaw[2] = vec4(-sinTheta,0,cosTheta,0);"
+        +   "   yaw[3] = vec4(0, 0, 0, 1);"
+
+        +   "   mat4 scale;"
+        +   "   scale[0] = vec4(u_Scale.x, 0, 0, 0);"
+        +   "   scale[1] = vec4(0, u_Scale.y, 0, 0);"
+        +   "   scale[2] = vec4(0, 0, u_Scale.z, 0);"
+        +   "   scale[3] = vec4(0, 0, 0, 1);"
+
+        +   "   world *= yaw;"
+        +   "   world *= scale;"
+
+        +   "   mat4 mvp = u_ProjMatrix * world;"
+        +	"	gl_Position = mvp * a_Position;"
 	    +   "}";
 
 	public static final String fragmentShader_LINE =
@@ -45,10 +105,26 @@ public class Shaders
 	    +   "	gl_FragColor = mix(u_Color, u_EndPointColor, v_Weight); "
 	    +   "}";
 
+    public static final String fragmentShader_TEXTURED_UI =
+            "precision mediump float;"
+
+        + 	"uniform sampler2D u_Texture;"
+        +   "uniform vec2 u_TexOffset;"
+        +   "uniform vec4 u_Color;"
+
+        + 	"varying vec2 v_TexCoord;"
+
+        +   "void main()"
+        +   "{"
+        +   "	gl_FragColor = u_Color * texture2D(u_Texture, v_TexCoord + u_TexOffset);"
+        +   "}";
+
 	public static final String vertexShader_TEXTURED =
-			"uniform mat4 u_MVPMatrix;"
+            "uniform mat4 u_ProjMatrix;"
+        +   "uniform vec4 u_WorldPos;"
+        +   "uniform vec3 u_Scale;"
 			
-		+	"attribute vec4 a_Position;"     	// Per-vertex position information we will pass in.
+		+	"attribute vec4 a_Position;"
 		+ 	"attribute vec2 a_TexCoord;"
 		
 		+ 	"varying vec2 v_TexCoord;"
@@ -56,7 +132,22 @@ public class Shaders
 		+	"void main()"
 		+	"{"
 		+	"	v_TexCoord = a_TexCoord;"
-		+	"	gl_Position = u_MVPMatrix * a_Position;"
+
+        +   "   mat4 world;"
+        +   "   world[0] = vec4(1,0,0,0);"
+        +   "   world[1] = vec4(0,1,0,0);"
+        +   "   world[2] = vec4(0,0,1,0);"
+        +   "   world[3] = u_WorldPos;"
+
+        +   "   mat4 scale;"
+        +   "   scale[0] = vec4(u_Scale.x, 0, 0, 0);"
+        +   "   scale[1] = vec4(0, u_Scale.y, 0, 0);"
+        +   "   scale[2] = vec4(0, 0, u_Scale.z, 0);"
+        +   "   scale[3] = vec4(0, 0, 0, 1);"
+
+        +   "   world = world * scale;"
+        +   "   mat4 mvp = u_ProjMatrix * world;"
+        +	"	gl_Position = mvp * a_Position;"
 		+	"}";
 	
 	public static final String fragmentShader_TEXTURED =
@@ -72,20 +163,43 @@ public class Shaders
 	    +   "{" 
 	    +   "	gl_FragColor = u_Color * texture2D(u_Texture, v_TexCoord + u_TexOffset);" 
 	    +   "}";
-	
-	public static final String vertexShader_BARYCENTRIC = 
-			"uniform mat4 u_MVPMatrix;"
-			
-		+	"attribute vec4 a_Position;"
-		+	"attribute vec3 a_Barycentric;"
 
-		+	"varying vec3 v_Barycentric;"
-		
-		+ 	"void main()"
-		+	"{"
-		+	"	v_Barycentric = a_Barycentric;"
-		+	"	gl_Position = u_MVPMatrix * a_Position;"
-		+	"}";
+    public static final String vertexShader_BARYCENTRIC =
+            "uniform mat4 u_ProjMatrix;"
+        +   "uniform vec4 u_WorldPos;"
+        +   "uniform vec3 u_Forward;"
+        +   "uniform float u_Yaw;"
+        +   "uniform float u_Roll;"
+
+        +	"attribute vec4 a_Position;"
+        +	"attribute vec3 a_Barycentric;"
+
+        +	"varying vec3 v_Barycentric;"
+
+        + 	"void main()"
+        +	"{"
+        +	"	v_Barycentric = a_Barycentric;"
+
+        +   "   mat4 world;"
+        +   "   world[0] = vec4(1,0,0,0);"
+        +   "   world[1] = vec4(0,1,0,0);"
+        +   "   world[2] = vec4(0,0,1,0);"
+        +   "   world[3] = u_WorldPos;"
+
+        +   "   float cosTheta = cos(u_Yaw);"
+        +   "   float sinTheta = sin(u_Yaw);"
+
+        +   "   mat4 yaw;"
+        +   "   yaw[0] = vec4(cosTheta, 0, sinTheta, 0);"
+        +   "   yaw[1] = vec4(0, 1, 0, 0);"
+        +   "   yaw[2] = vec4(-sinTheta,0,cosTheta,0);"
+        +   "   yaw[3] = vec4(0, 0, 0, 1);"
+
+        +   "   world = world * yaw;"
+
+        +   "   mat4 mvp = u_ProjMatrix * world;"
+        +	"	gl_Position = mvp * a_Position;"
+        +	"}";
 	
 	public static final String fragmentShader_BARYCENTRIC =
 			"precision mediump float;"
@@ -127,7 +241,7 @@ public class Shaders
 		+	"}";
 
 	public static final String vertexShader_POINT =
-		    "uniform mat4 u_MVPMatrix;      \n"     // A constant representing the combined model/view/projection matrix.
+		    "uniform mat4 u_ProjMatrix;      \n"     // A constant representing the combined model/view/projection matrix.
 		  + "uniform float u_Size;			\n"
 		  + "uniform vec4 u_EyePos;			\n"
 		  + "uniform vec4 u_WorldPos;		\n"
@@ -138,21 +252,19 @@ public class Shaders
 		  + "{                              \n"
 		  + "	vec4 toEye;					\n"		
 		  + " 	toEye = u_EyePos - u_WorldPos;		\n"	
-		  + "   float distance =  length(toEye);	\n"
-		  + "	gl_PointSize = u_Size * inversesqrt(distance);		\n"		// The size of the glPoint.
-		  + "   gl_Position = u_MVPMatrix   \n"     // Multiply the vertex info by the MVPMatrix.
-		  + "               * a_Position;   \n"     
-		  + "}                              \n";   
-	
-	public static final String fragmentShader_POINT =
-		    "precision mediump float;       \n"     // Set the default precision to medium. We don't need as high of a
-		  + "uniform vec4 u_Color;			\n"     // triangle per fragment.
-		
-		  + "void main()                    \n"     // The entry point for our fragment shader.
-		  + "{                              \n"   
-		  + " 	gl_FragColor = u_Color;    	\n"  	// Set the fragment colour
-		  + "}                              \n";
-	
+		  + "   float distance = length(toEye);	\n"
+		  + "	gl_PointSize = u_Size * inversesqrt(distance);		\n"
+
+        +   "   mat4 world;"
+        +   "   world[0] = vec4(1,0,0,0);"
+        +   "   world[1] = vec4(0,1,0,0);"
+        +   "   world[2] = vec4(0,0,1,0);"
+        +   "   world[3] = u_WorldPos;"
+
+        +   "   mat4 mvp = u_ProjMatrix * world;"
+        +	"	gl_Position = mvp * a_Position;"
+        + "}                              \n";
+
 	public static final String fragmentShader_FADEPOINT =
 		    "precision mediump float;       \n"     // Set the default precision to medium. We don't need as high of a
 		  + "uniform vec4 u_Color;			\n"     // triangle per fragment.
@@ -173,8 +285,10 @@ public class Shaders
 
 		  + "}                              				\n";
 	
-	public static final String vertexShader_SCROLLTEX = 
-			"uniform mat4 u_MVPMatrix;   \n"    
+	public static final String vertexShader_SCROLLTEX =
+            "uniform mat4 u_ProjMatrix;"
+        +   "uniform vec4 u_WorldPos;"
+
 	 	+	"attribute vec4 a_Position;  \n" 
 		+   "attribute vec2 a_TexCoord;  \n"
 	 	
@@ -183,7 +297,15 @@ public class Shaders
 	    +   "void main()                 \n" 
 	    +   "{"  
 	    +	"   v_TexCoord = a_TexCoord; \n"
-	    +   "	gl_Position = u_MVPMatrix * a_Position; \n" // the matrix must be included as a modifier of gl_Position  
+
+        +   "   mat4 world;"
+        +   "   world[0] = vec4(1,0,0,0);"
+        +   "   world[1] = vec4(0,1,0,0);"
+        +   "   world[2] = vec4(0,0,1,0);"
+        +   "   world[3] = u_WorldPos;"
+
+        +   "   mat4 mvp = u_ProjMatrix * world;"
+        +	"	gl_Position = mvp * a_Position;"
 	    +   "}";
 	
 	public static final String fragmentShader_SCROLLTEX =

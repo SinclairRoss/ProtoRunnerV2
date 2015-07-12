@@ -18,7 +18,8 @@ public class GameManager_Play extends GameManager
     {
         if(m_VehicleManager.GetTeamCount(AffiliationKey.RedTeam) == 0)
         {
-            m_VehicleManager.SpawnSquad();
+            for(int i = 0; i < 6; i++)
+                m_VehicleManager.SpawnSquad();
         }
     }
 
