@@ -23,6 +23,7 @@ import com.raggamuffin.protorunnerv2.utils.Vector3;
 public abstract class Weapon 
 {
 	protected Vehicle m_Anchor;
+    protected GameLogic m_Game;
 	protected BulletManager m_BulletManager;
 	protected ParticleManager m_ParticleManager;
 	protected GameAudioManager m_AudioService;
@@ -59,9 +60,10 @@ public abstract class Weapon
 	public Weapon(Vehicle anchor, GameLogic game)
 	{
 		m_Anchor = anchor;
-		m_BulletManager = game.GetBulletManager();
-		m_ParticleManager = game.GetParticleManager();
-		m_AudioService = game.GetGameAudioManager();
+        m_Game = game;
+		m_BulletManager = m_Game.GetBulletManager();
+		m_ParticleManager = m_Game.GetParticleManager();
+		m_AudioService = m_Game.GetGameAudioManager();
 		
 		m_AudioClip = AudioClips.PulseLaser;
 		
@@ -160,7 +162,7 @@ public abstract class Weapon
 		
 		if(m_HasLasers)
 		{		
-			LaserPointer Laser = new LaserPointer(this, Muzzle);
+			LaserPointer Laser = new LaserPointer(m_Game, this, Muzzle);
 			m_Lasers.add(Laser);
 		}
 	}

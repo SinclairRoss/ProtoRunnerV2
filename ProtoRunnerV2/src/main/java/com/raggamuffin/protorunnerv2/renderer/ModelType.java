@@ -2,8 +2,9 @@ package com.raggamuffin.protorunnerv2.renderer;
 
 public enum ModelType
 {
-    RadarFragment,
     FloorPanel,
+    RadarFragment,
+
 
 	Cube,
 	Runner,

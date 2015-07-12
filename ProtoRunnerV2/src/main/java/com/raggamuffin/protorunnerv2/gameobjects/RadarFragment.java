@@ -1,10 +1,8 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
-import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour.ActivationMode;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_LerpTo;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Colours;
@@ -20,7 +18,7 @@ public class RadarFragment extends GameObject
 	private final double MIN_DEPTH;
 	private final double MAX_DEPTH;	
 	private final double MIN_ALPHA = 0.0;
-	private final double MAX_ALPHA = 0.2;
+	private final double MAX_ALPHA = 0.1;
 	private double m_Depth;
 	
 	private ColourBehaviour_LerpTo m_ColourBehaviour;

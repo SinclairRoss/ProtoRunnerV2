@@ -318,14 +318,14 @@ public class Shaders
 	    
 	    +   "void main()"
 	    +   "{" 
-	    +   "	gl_FragColor = u_Color * texture2D(u_Texture, v_TexCoord + u_TexOffset);" 
-	    
+	    +   "	gl_FragColor = u_Color * texture2D(u_Texture, v_TexCoord + u_TexOffset);"
+
 	    +   "   float x = 2.0 - v_TexCoord.x;		\n" 
 	    +   "   float y = 2.0 - v_TexCoord.y;		\n" 
 	   
 		+ 	"	float Dist = (sqrt((x * x) + (y * y)) * 0.5); 		\n"		// Find the Distance of this fragment from the center.
 		+	"	float Alpha = 1.0 - ((Dist - 0.4) / 0.6);			\n"		
-		+ 	"	gl_FragColor.a = Alpha * 0.5 * u_Color.a;	\n"
+		+ 	"	gl_FragColor.a *= Alpha * 0.5;	\n"
 	    +   "}";
 	
 	public static final String vertexShader_SCREENQUAD =

@@ -1,5 +1,6 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
+import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Timer;
@@ -15,21 +16,23 @@ public class LaserPointer extends GameObject
 	}
 	
 	private LaserState m_State;
-	
+
+    private GameLogic m_Game;
 	private Weapon m_Anchor;
 	private Vector3 m_Muzzle;
 	
 	private Timer m_Timer;
-	
+
 	private boolean m_On;
 	
-	public LaserPointer(Weapon Anchor, Vector3 Muzzle)
+	public LaserPointer(GameLogic game, Weapon Anchor, Vector3 Muzzle)
 	{
 		super(null, null);
-		
+
+        m_Game = game;
 		m_Anchor = Anchor;
-		
-		m_Model = ModelType.Nothing;
+
+        m_Model = ModelType.LaserPointer;
 
 		m_Muzzle = Muzzle;
 		m_Forward = Anchor.GetForward();
@@ -39,7 +42,7 @@ public class LaserPointer extends GameObject
 		m_Anchor.AddChild(this);
 		
 		m_Timer = new Timer(1.0);
-		
+
 		Off();
 	}
 	
@@ -68,10 +71,10 @@ public class LaserPointer extends GameObject
 				
 				if(m_Timer.TimedOut())
 				{
-					m_Model = ModelType.Nothing;
 					m_BaseColour.Alpha = 0.0;
 					m_State = LaserState.Idle;
 					m_On = false;
+                    m_Game.RemoveObjectFromRenderer(this);
 				}
 				
 				break;
@@ -97,7 +100,7 @@ public class LaserPointer extends GameObject
         this.GetAltColour().Alpha = 0.0;
 		m_State = LaserState.Activating;
 		m_Timer.ResetTimer();
-		m_Model = ModelType.LaserPointer;
+        m_Game.AddObjectToRenderer(this);
 		m_On = true;
 	}
 	
