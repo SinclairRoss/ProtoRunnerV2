@@ -193,23 +193,23 @@ public class GameLogic extends ApplicationLogic
 	// Removes a game object and all of its children from the renderer.
 	public void RemoveObjectFromRenderer(GameObject obj)
 	{
-		Vector<GameObject> Children = new Vector<GameObject>(); 	// A vector containing Game Objects not yet added to the Children vector.
-		Children.add(obj);
+		Vector<GameObject> children = new Vector<GameObject>(); 	// A vector containing Game Objects not yet added to the Children vector.
+        children.add(obj);
 
-		for(int c = 0; c < Children.size(); c ++)
+		for(int c = 0; c < children.size(); c ++)
 		{
-			GameObject child = Children.elementAt(c);
+			GameObject child = children.elementAt(c);
 
             Vector<GameObject> Investigated = child.GetChildren();
 
 			for(GameObject Temp : Investigated)
 			{
-				Children.add(Temp);
+                children.add(Temp);
 			}
 
             m_Packet.RemoveObject(child);
 
-			Children.remove(c);
+            children.remove(c);
 			c--;
 		}
 	}

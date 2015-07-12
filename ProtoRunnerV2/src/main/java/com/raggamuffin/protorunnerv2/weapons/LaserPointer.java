@@ -74,7 +74,6 @@ public class LaserPointer extends GameObject
 					m_BaseColour.Alpha = 0.0;
 					m_State = LaserState.Idle;
 					m_On = false;
-                    m_Game.RemoveObjectFromRenderer(this);
 				}
 				
 				break;
@@ -100,7 +99,6 @@ public class LaserPointer extends GameObject
         this.GetAltColour().Alpha = 0.0;
 		m_State = LaserState.Activating;
 		m_Timer.ResetTimer();
-        m_Game.AddObjectToRenderer(this);
 		m_On = true;
 	}
 	
