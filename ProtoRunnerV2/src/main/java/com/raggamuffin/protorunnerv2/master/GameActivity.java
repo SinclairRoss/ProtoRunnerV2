@@ -3,13 +3,10 @@
 
 package com.raggamuffin.protorunnerv2.master;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
-import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
-import com.raggamuffin.protorunnerv2.managers.GooglePlayService;
-import com.raggamuffin.protorunnerv2.particles.TrailParticle;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
@@ -82,11 +79,8 @@ public class GameActivity extends Activity implements SensorEventListener
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 		
 		RendererPacket rendererPacket = new RendererPacket();
-		
-		rendererPacket.SetGameObjects(new Vector<GameObject>());
-		rendererPacket.SetTransparentObjects(new Vector<GameObject>());
-		rendererPacket.SetUIElements(new Vector<UIElement>());
-		rendererPacket.SetTrails(new Vector<TrailParticle>());
+
+		rendererPacket.SetUIElements(new ArrayList<UIElement>());
 		rendererPacket.SetContext(this);
 		rendererPacket.SetCamera(new ChaseCamera());
 		rendererPacket.SetRenderEffectSettings(new RenderEffectSettings());

@@ -15,10 +15,8 @@ public class ChaseCamera
 	private Vector3 m_Velocity;			// The velocity of the camera.
 
 	///// Chase Attributes \\\\\
-	GameObject m_ChaseObject;			// The object the camera is following.
-	private Vector3 m_ChasePosition;	// The position of the Chase Object.
-	private Vector3 m_ChaseForward;		// The Forward vector of the Chase Object.
-	private Vector3 m_ChaseUp;			// The Up vector of the Chase Object.
+	private GameObject m_ChaseObject;	// The object the camera is following.
+    private GameObject m_LookObject;       // The object the camera is looking at.
 
 	///// Spring Attributes \\\\\
 	private Vector3 m_Stretch;			// The displacement of the springs current position from the resting position.
@@ -39,11 +37,6 @@ public class ChaseCamera
 		m_Acceleration 		= new Vector3(0.0);		
 		m_Velocity 			= new Vector3(0.0);
 		
-		///// Chase Attributes \\\\\
-		m_ChasePosition = new Vector3();
-		m_ChaseForward  = new Vector3(0.0, 0.0, 1.0);
-		m_ChaseUp 		= new Vector3(0.0, 1.0, 0.0);
-		
 		///// Spring Attributes \\\\\
 		m_Stretch = new Vector3();
 		m_Force = new Vector3();
@@ -53,15 +46,19 @@ public class ChaseCamera
 		m_Mass  	= 0.5;
 	}
 	
-	public void Attach(GameObject ChaseObject)
+	public void Attach(GameObject chaseObject)
 	{
-		m_ChaseObject = ChaseObject;
+		m_ChaseObject = chaseObject;
+        m_LookObject  = chaseObject;
 	}
+
+    public void SetLookAt(GameObject lookObject)
+    {
+        m_LookObject = lookObject;
+    }
 	
 	public void Update(double deltaTime)
 	{
-		m_ChasePosition.SetVector(m_ChaseObject.GetPosition());
-		m_ChaseForward.SetVector(m_ChaseObject.GetForward());
 		m_Up.SetVector(m_ChaseObject.GetUp());
 		
 		CalculateLookAt();
@@ -76,16 +73,22 @@ public class ChaseCamera
 	
 	private void CalculateLookAt()
 	{
-		m_LookAt.I = m_ChasePosition.I + m_ChaseObject.GetForward().I * 10.0;
-		m_LookAt.J = m_ChasePosition.J + m_ChaseObject.GetForward().J * 10.0;
-		m_LookAt.K = m_ChasePosition.K + m_ChaseObject.GetForward().K * 10.0;
+        Vector3 lookPosition = m_LookObject.GetPosition();
+        Vector3 lookForward  = m_LookObject.GetForward();
+
+		m_LookAt.I = lookPosition.I + lookForward.I * 10.0;
+		m_LookAt.J = lookPosition.J + lookForward.J * 10.0;
+		m_LookAt.K = lookPosition.K + lookForward.K * 10.0;
 	}
 	
 	private void CalculateRelaxedPosition()
 	{
-		m_RelaxedPosition.I = m_ChasePosition.I + (m_ChaseForward.I * m_PositionOffset.I);
-		m_RelaxedPosition.J = m_ChasePosition.J + (m_ChaseUp.J * 	  m_PositionOffset.J);
-		m_RelaxedPosition.K = m_ChasePosition.K + (m_ChaseForward.K * m_PositionOffset.K);
+        Vector3 chasePosition = m_ChaseObject.GetPosition();
+        Vector3 chaseForward  = m_ChaseObject.GetForward();
+
+		m_RelaxedPosition.I = chasePosition.I + (chaseForward.I * m_PositionOffset.I);
+		m_RelaxedPosition.J = chasePosition.J + (m_PositionOffset.J);
+		m_RelaxedPosition.K = chasePosition.K + (chaseForward.K * m_PositionOffset.K);
 	}
 	
 	private void CalculateSpringForce()

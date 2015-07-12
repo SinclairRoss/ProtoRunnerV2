@@ -9,7 +9,7 @@ import com.raggamuffin.protorunnerv2.utils.Colour;
 import android.opengl.GLES20;
 import android.util.Log;
 
-public class GLExplosion
+public class GLExplosion extends GLModel
 {
 	public final FloatBuffer vertexBuffer;
 	public final FloatBuffer barycentricCoordBuffer;
@@ -228,21 +228,10 @@ public class GLExplosion
 	
 	public void draw(float[] mvpMatrix)
 	{
-		GLES20.glUseProgram(m_Program);
-
 		GLES20.glUniformMatrix4fv(m_MVPMatrixHandle, 1, false, mvpMatrix, 0);
         GLES20.glUniform4fv(m_ColourHandle, 1, m_Colour, 0);
-        
-        GLES20.glEnableVertexAttribArray(m_PositionHandle);
-		GLES20.glVertexAttribPointer(m_PositionHandle, GLCube.COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, GLCube.VERTEX_STRIDE, vertexBuffer);
-
-        GLES20.glEnableVertexAttribArray(m_BarycentricHandle);
-		GLES20.glVertexAttribPointer(m_BarycentricHandle, GLCube.BARYCENTRICCOORDS_PER_VERTEX, GLES20.GL_FLOAT, false, GLCube.BARYCENTRICCOORD_STRIDE, barycentricCoordBuffer);
 
 		GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
-		
-		GLES20.glDisableVertexAttribArray(m_PositionHandle);
-		GLES20.glDisableVertexAttribArray(m_BarycentricHandle);
 	}
 	
 	public void SetColour(Colour colour)
@@ -255,12 +244,9 @@ public class GLExplosion
 	
 	public void InitShaders()
     {
-		int vertexShaderHandler = 0;
-		int fragmentShaderHandler = 0;
-
 		// prepare shaders and OpenGL program
-		vertexShaderHandler 	= loadShader(GLES20.GL_VERTEX_SHADER,Shaders.vertexShader_BARYCENTRIC);
-		fragmentShaderHandler 	= loadShader(GLES20.GL_FRAGMENT_SHADER,Shaders.fragmentShader_BARYCENTRIC_HOLLOW);
+        int vertexShaderHandler 	= loadShader(GLES20.GL_VERTEX_SHADER,Shaders.vertexShader_BARYCENTRIC);
+        int fragmentShaderHandler 	= loadShader(GLES20.GL_FRAGMENT_SHADER,Shaders.fragmentShader_BARYCENTRIC_HOLLOW);
 
 		m_Program = GLES20.glCreateProgram();             		// create empty OpenGL Program
         GLES20.glAttachShader(m_Program, vertexShaderHandler);   // add the vertex shader to program
@@ -269,7 +255,7 @@ public class GLExplosion
 
         m_MVPMatrixHandle 		= GLES20.glGetUniformLocation(m_Program, "u_MVPMatrix");  
         m_ColourHandle 			= GLES20.glGetUniformLocation(m_Program, "u_Color");
-        
+
         m_PositionHandle = GLES20.glGetAttribLocation(m_Program, "a_Position");
         m_BarycentricHandle = GLES20.glGetAttribLocation(m_Program, "a_Barycentric");
     }
@@ -285,5 +271,30 @@ public class GLExplosion
         GLES20.glCompileShader(shader);
 
         return shader;
+    }
+
+    @Override
+    public void InitialiseModel()
+    {
+        GLES20.glUseProgram(m_Program);
+
+        GLES20.glDisable(GLES20.GL_CULL_FACE);
+        GLES20.glDisable(GLES20.GL_DEPTH_TEST);
+
+        GLES20.glEnableVertexAttribArray(m_PositionHandle);
+        GLES20.glVertexAttribPointer(m_PositionHandle, GLCube.COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, GLCube.VERTEX_STRIDE, vertexBuffer);
+
+        GLES20.glEnableVertexAttribArray(m_BarycentricHandle);
+        GLES20.glVertexAttribPointer(m_BarycentricHandle, GLCube.BARYCENTRICCOORDS_PER_VERTEX, GLES20.GL_FLOAT, false, GLCube.BARYCENTRICCOORD_STRIDE, barycentricCoordBuffer);
+    }
+
+    @Override
+    public void CleanModel()
+    {
+        GLES20.glEnable(GLES20.GL_CULL_FACE);
+        GLES20.glEnable(GLES20.GL_DEPTH_TEST);
+
+        GLES20.glDisableVertexAttribArray(m_PositionHandle);
+        GLES20.glDisableVertexAttribArray(m_BarycentricHandle);
     }
 }

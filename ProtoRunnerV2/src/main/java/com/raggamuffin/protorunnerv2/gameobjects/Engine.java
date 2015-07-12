@@ -1,5 +1,7 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
+import android.util.Log;
+
 import com.raggamuffin.protorunnerv2.managers.ParticleManager;
 import com.raggamuffin.protorunnerv2.particles.TrailEmitter;
 import com.raggamuffin.protorunnerv2.utils.Colour;
@@ -61,7 +63,7 @@ public class Engine
         m_DodgeDirection = new Vector3();
 
         m_TargetTurnRate = 0.0;
-        m_TurnSpeed = 4.0;
+        m_TurnSpeed = 6.0;
         m_TurnRate = 0.0f;
         m_MaxTurnRate = 1.0f;
 
@@ -99,11 +101,9 @@ public class Engine
     private void UpdateTurnRate(double deltaTime)
     {
         double deltaTurn = m_TargetTurnRate - m_TurnRate;
-        double turnSpeed = deltaTurn > 0 ? m_TurnSpeed : -m_TurnSpeed;
+        double turnMultiplier = MathsHelper.SignedNormalise(deltaTurn, -0.1, 0.1);
 
-        double turnAmount = turnSpeed * deltaTime;
-
-        m_TurnRate = MathsHelper.Clamp((m_TurnRate + turnAmount), -m_TargetTurnRate, m_TargetTurnRate);
+        m_TurnRate += m_TurnSpeed * turnMultiplier * deltaTime;
     }
 
     private void UpdateOrientation(double DeltaTime)
@@ -117,7 +117,7 @@ public class Engine
 
     private void UpdateExertion(double DeltaTime)
     {
-        m_Exertion += DeltaTime * ((m_EngineOutput 		* ENGINE_OUTPUT_EXERTION_MULTIPLIER)
+        m_Exertion += DeltaTime * ((m_EngineOutput * ENGINE_OUTPUT_EXERTION_MULTIPLIER)
                 +  (m_AfterBurnerOutput * AFTERBURNER_EXERTION_MULTIPLIER)
                 + 	m_DodgeOutput 		* DODGE_EXERTION_MULTIPLIER);
 

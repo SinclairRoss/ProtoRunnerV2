@@ -1,79 +1,67 @@
 package com.raggamuffin.protorunnerv2.master;
 
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.concurrent.SynchronousQueue;
 
 import android.content.Context;
 
 import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
-import com.raggamuffin.protorunnerv2.particles.TrailParticle;
+import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
 
 public class RendererPacket 
 {
-	private Vector<GameObject> m_GameObjects;
-	private Vector<GameObject> m_TransparentObjects;
-	private Vector<UIElement>  m_UIElements;
-	private Vector<TrailParticle> m_TrailParticles;
+	private ArrayList<ArrayList<GameObject>> m_GameObjects;
+
+	private ArrayList<UIElement> m_UIElements;
 	private ChaseCamera m_Camera;
 	private Context m_Context;
 	private RenderEffectSettings m_RenderEffectSettings;
 	
 	public RendererPacket()
-	{
-		m_GameObjects = null;
-		m_TransparentObjects = null;
+    {
+        int numModels = ModelType.values().length;
+
+		m_GameObjects = new ArrayList<ArrayList<GameObject>>(numModels);
+
+        for(int i = 0; i < numModels; i++)
+        {
+            m_GameObjects.add(new ArrayList<GameObject>());
+        }
+
 		m_UIElements = null;
-		m_TrailParticles = null;
 		m_Context = null;
 		m_Camera = null;
 		m_RenderEffectSettings = null;
 	}
-	
-	///// Game Objects.
-	public Vector<GameObject> GetGameObjects()
-	{
-		return m_GameObjects;
-	}
-	
-	public void SetGameObjects(Vector<GameObject> objects)
-	{
-		m_GameObjects = objects;
-	}
-	
-	///// Transparent Objects.
-	public Vector<GameObject> GetTransparentObjects()
-	{
-		return m_TransparentObjects;
-	}
-	
-	public void SetTransparentObjects(Vector<GameObject> objects)
-	{
-		m_TransparentObjects = objects;
-	}
-	
+
+    public ArrayList<GameObject> GetList(ModelType type)
+    {
+        return m_GameObjects.get(type.ordinal());
+    }
+
+    public void AddObject(GameObject object)
+    {
+        GetList(object.GetModel()).add(object);
+    }
+
+    public void RemoveObject(GameObject object)
+    {
+        GetList(object.GetModel()).remove(object);
+    }
+
 	///// UI Elements.
-	public Vector<UIElement> GetUIElements()
+	public ArrayList<UIElement> GetUIElements()
 	{
 		return m_UIElements;
 	}
 	
-	public void SetUIElements(Vector<UIElement> elements)
+	public void SetUIElements(ArrayList<UIElement> elements)
 	{
 		m_UIElements = elements;
 	}
-	
-	///// Trail Particles.
-	public Vector<TrailParticle> GetTrails()
-	{
-		return m_TrailParticles;
-	}
-	
-	public void SetTrails(Vector<TrailParticle> trails)
-	{
-		m_TrailParticles = trails;
-	}
-	
+
 	///// Context.
 	public Context GetContext()
 	{

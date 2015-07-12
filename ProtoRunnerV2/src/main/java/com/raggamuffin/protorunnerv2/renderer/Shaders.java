@@ -20,31 +20,31 @@ public class Shaders
 	    +   "{" 
 	    +   "	gl_FragColor = u_Color;" 
 	    +   "}";
-	
+
 	public static final String vertexShader_LINE =
-	        "uniform mat4 u_MVPMatrix;   \n"    
-	 	+	"attribute vec4 a_Position;  \n" 
+	        "uniform mat4 u_MVPMatrix;   \n"
+	 	+	"attribute vec4 a_Position;  \n"
 		+	"attribute float a_Weight;	 \n"
 	 	+   "varying float v_Weight;	 \n"
 
 	    +   "void main()                 \n"
-	    +   "{"  
+	    +   "{"
 	    +	"	v_Weight = a_Weight;     \n"
-	    +   "	gl_Position = u_MVPMatrix * a_Position; \n" // the matrix must be included as a modifier of gl_Position  
+	    +   "	gl_Position = u_MVPMatrix * a_Position; \n" // the matrix must be included as a modifier of gl_Position
 	    +   "}";
-	
+
 	public static final String fragmentShader_LINE =
-	        "precision mediump float;" 
-	    +   "uniform vec4 u_Color;" 
+	        "precision mediump float;"
+	    +   "uniform vec4 u_Color;"
 	    +	"uniform vec4 u_EndPointColor;"
-	    
+
 	    +   "varying float v_Weight;	 "
-	    
+
 	    +   "void main()"
-	    +   "{" 
+	    +   "{"
 	    +   "	gl_FragColor = mix(u_Color, u_EndPointColor, v_Weight); "
 	    +   "}";
-	
+
 	public static final String vertexShader_TEXTURED =
 			"uniform mat4 u_MVPMatrix;"
 			

@@ -32,12 +32,12 @@ public class TrailParticle extends Particle
 		if(m_Parent == null)
         {
             CalculateLineDimentions();
-            m_EndPointColour.SetColour(m_Origin.GetAltColour());
-            m_EndPointColour.Alpha = m_BaseColour.Alpha;
+            m_AltColour.SetColour(m_Origin.GetAltColour());
+            m_AltColour.Alpha = m_BaseColour.Alpha;
         }
 		else
         {
-            m_EndPointColour.SetColour(m_Parent.GetColour());
+            m_AltColour.SetColour(m_Parent.GetColour());
         }
 	}
 	

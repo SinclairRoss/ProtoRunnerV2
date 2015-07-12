@@ -134,8 +134,9 @@ public class VehicleManager
 		
 		if(m_Player != null)
 			m_Spawn.Add(m_Player.GetPosition());
-		
-		for(int b = 0; b < 1; b++)
+
+        /*
+		for(int b = 0; b < 2; b++)
 		{
 			Tank bit = new Tank(m_Game);
 			m_Vehicles.add(bit);
@@ -144,16 +145,15 @@ public class VehicleManager
 			
 			bit.SetPosition(m_Spawn.I + b * 2,m_Spawn.J,m_Spawn.K);
 		}
-		
-		for(int b = 0; b < 4; b++)
-		{
-			Bit bit = new Bit(m_Game);
-			m_Vehicles.add(bit);
-			m_RedTeam.add(bit);
-			m_Game.AddObjectToRenderer(bit);
-			
-			bit.SetPosition(m_Spawn.I + b * 2,m_Spawn.J,m_Spawn.K);
-		}
+		*/
+
+        Bit bit = new Bit(m_Game);
+        m_Vehicles.add(bit);
+        m_RedTeam.add(bit);
+        m_Game.AddObjectToRenderer(bit);
+
+        bit.SetPosition(m_Spawn.I,m_Spawn.J,m_Spawn.K);
+
 	}
 	
 	public Vector<Vehicle> GetTeam(AffiliationKey faction)

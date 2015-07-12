@@ -98,16 +98,16 @@ public class UIProgressBar extends UIElement
 	{
 		switch (m_Alignment)
 		{
-		case Center:
-			break;
+            case Center:
+                break;
 
-		case Left:
-			m_Position.I = (m_OriginalPosition.I - (m_MaxLength * 0.5)) + (m_Size.I * 0.5);
-			break;
+            case Left:
+                m_Position.I = (m_OriginalPosition.I - (m_MaxLength * 0.5)) + (m_Size.I * 0.5);
+                break;
 
-		case Right:
-			m_Position.I = (m_OriginalPosition.I + (m_MaxLength * 0.5)) - (m_Size.I * 0.5);
-			break;
+            case Right:
+                m_Position.I = (m_OriginalPosition.I + (m_MaxLength * 0.5)) - (m_Size.I * 0.5);
+                break;
 		}
 	}
 

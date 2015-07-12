@@ -1,5 +1,6 @@
 package com.raggamuffin.protorunnerv2.gamelogic;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 import android.app.Activity;
@@ -36,10 +37,7 @@ import com.raggamuffin.protorunnerv2.weapons.Projectile;
 
 public class GameLogic extends ApplicationLogic
 {
-	private Vector<GameObject> m_RendererObjects;
-	private Vector<GameObject> m_TransparentObjects;
-	private Vector<UIElement>  m_UIElements;
-	private Vector<TrailParticle> m_Trails;
+	private ArrayList<UIElement> m_UIElements;
 	
 	private ChaseCamera m_Camera;
 	private ControlScheme m_Control;
@@ -68,10 +66,7 @@ public class GameLogic extends ApplicationLogic
 	{
 		super(activity, packet);
 
-		m_RendererObjects 		= m_Packet.GetGameObjects();
-        m_TransparentObjects 	= m_Packet.GetTransparentObjects();
-		m_UIElements 			= m_Packet.GetUIElements();
-		m_Trails 				= m_Packet.GetTrails();
+        m_UIElements = m_Packet.GetUIElements();
 
 		m_Camera = packet.GetCamera();
 		m_Control = scheme;
@@ -180,14 +175,18 @@ public class GameLogic extends ApplicationLogic
 
 		for(int c = 0; c < Children.size(); c ++)
 		{
-			GameObject Child = Children.elementAt(c);
+			GameObject child = Children.elementAt(c);
 
-            Vector<GameObject> Investigated = Child.GetChildren();
+            Vector<GameObject> Investigated = child.GetChildren();
+
 			for(GameObject Temp : Investigated)
 			{
 				Children.add(Temp);
 			}
-			
+
+            m_Packet.AddObject(child);
+
+            /*
 			// Once the orphan has been investigated, Add it to children and remove it from orphans.
 			switch(Child.GetModel())
 			{
@@ -204,7 +203,8 @@ public class GameLogic extends ApplicationLogic
 					m_RendererObjects.add(Child);
 					break;
 			}
-			
+			*/
+
 			Children.remove(c);
 			c--;
 		}
@@ -218,14 +218,18 @@ public class GameLogic extends ApplicationLogic
 
 		for(int c = 0; c < Children.size(); c ++)
 		{
-			GameObject Child = Children.elementAt(c);
+			GameObject child = Children.elementAt(c);
 
-            Vector<GameObject> Investigated = Child.GetChildren();
+            Vector<GameObject> Investigated = child.GetChildren();
+
 			for(GameObject Temp : Investigated)
 			{
 				Children.add(Temp);
 			}
-			
+
+            m_Packet.RemoveObject(child);
+
+            /*
 			// Once the orphan has been investigated, Add it to children and remove it from orphans.
 			switch(Child.GetModel())
 			{
@@ -241,7 +245,8 @@ public class GameLogic extends ApplicationLogic
 					m_RendererObjects.remove(Child);
 					break;
 			}
-			
+			*/
+
 			Children.remove(c);
 			c--;
 		}
@@ -432,7 +437,7 @@ public class GameLogic extends ApplicationLogic
             if(wingmen.size() == 0)
                 return;
 
-            m_Camera.Attach(wingmen.get(0));
+            m_Camera.SetLookAt(wingmen.elementAt(0));
         }
     }
 

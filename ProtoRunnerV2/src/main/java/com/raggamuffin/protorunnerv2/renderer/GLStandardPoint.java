@@ -9,11 +9,9 @@ import android.opengl.GLES20;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
-public class GLStandardPoint 
+public class GLStandardPoint extends GLModel
 {
-
     public final FloatBuffer vertexBuffer;
-    public int PositionHandle;
     
     private int m_Program;
 	
@@ -74,28 +72,19 @@ public class GLStandardPoint
 	    m_EyePosHandle 		= 0;
 	    
 	    InitShaders();
-	       
     }
 	
 	public void draw(float[] mvpMatrix) 
 	{
-		// set the shader program that will render this object.
-	    GLES20.glUseProgram(m_Program);
-	    
 		// Set the shader information.
 		GLES20.glUniformMatrix4fv(m_MVPMatrixHandle, 1, false, mvpMatrix, 0);
 		GLES20.glUniform4fv(m_ColourHandle, 1, m_Colour, 0);
 		GLES20.glUniform4fv(m_WorldPosHandle, 1, m_WorldPos, 0);
 		GLES20.glUniform4fv(m_EyePosHandle, 1, m_EyePos, 0);
         GLES20.glUniform1f(m_SizeHandle, m_Size);
-        
-        GLES20.glEnableVertexAttribArray(m_PositionHandle);
-		GLES20.glVertexAttribPointer(m_PositionHandle, GLPulseLaser.COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, GLPulseLaser.VERTEX_STRIDE, vertexBuffer);
 
 		// Draw the object using glPoints.
         GLES20.glDrawArrays(GLES20.GL_POINTS, 0, 1);
-        
-    	GLES20.glDisableVertexAttribArray(m_PositionHandle);
 	}
 	
 	public void SetColour(Colour colour)
@@ -124,12 +113,9 @@ public class GLStandardPoint
 	
 	private void InitShaders()
     {
-		int vertexShaderHandler = 0;
-		int fragmentShaderHandler = 0;
-
 		// prepare shaders and OpenGL program
-		vertexShaderHandler 	= loadShader(GLES20.GL_VERTEX_SHADER,Shaders.vertexShader_POINT);
-		fragmentShaderHandler 	= loadShader(GLES20.GL_FRAGMENT_SHADER,Shaders.fragmentShader_STANDARD);
+        int vertexShaderHandler 	= loadShader(GLES20.GL_VERTEX_SHADER,Shaders.vertexShader_POINT);
+        int fragmentShaderHandler 	= loadShader(GLES20.GL_FRAGMENT_SHADER,Shaders.fragmentShader_STANDARD);
 
 		m_Program = GLES20.glCreateProgram();             		// create empty OpenGL Program
         GLES20.glAttachShader(m_Program, vertexShaderHandler);   // add the vertex shader to program
@@ -156,5 +142,20 @@ public class GLStandardPoint
         GLES20.glCompileShader(shader);
 
         return shader;
+    }
+
+    @Override
+    public void InitialiseModel()
+    {
+        GLES20.glUseProgram(m_Program);
+
+        GLES20.glEnableVertexAttribArray(m_PositionHandle);
+        GLES20.glVertexAttribPointer(m_PositionHandle, GLPulseLaser.COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, GLPulseLaser.VERTEX_STRIDE, vertexBuffer);
+    }
+
+    @Override
+    public void CleanModel()
+    {
+        GLES20.glDisableVertexAttribArray(m_PositionHandle);
     }
 }

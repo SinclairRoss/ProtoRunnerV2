@@ -10,7 +10,7 @@ import com.raggamuffin.protorunnerv2.utils.Vector3;
 import android.opengl.GLES20;
 import android.util.Log;
 
-public class GLFloorPanel 
+public class GLFloorPanel extends GLModel
 {
 	public final FloatBuffer vertexBuffer;
 	public final FloatBuffer textureBuffer;
@@ -118,27 +118,12 @@ public class GLFloorPanel
 		
 		m_Offset[0] %= m_RepeatStride;
 		m_Offset[1] %= m_RepeatStride;
-		
-		GLES20.glUseProgram(m_Program);
 
 		GLES20.glUniformMatrix4fv(m_MVPMatrixHandle, 1, false, mvpMatrix, 0);
         GLES20.glUniform4fv(m_ColourHandle, 1, m_Colour, 0);
         GLES20.glUniform2f(m_TexOffsetHandle, m_Offset[0], m_Offset[1]);
-       // GLES20.glUniform2f(m_TexOffsetHandle, 0.0f, 150.0f);
-        
-        // Tell the texture uniform sampler to use this texture in the shader by binding to texture unit 0.
-        GLES20.glUniform1i(m_TexUniformHandle, 0);
-        
-        GLES20.glEnableVertexAttribArray(m_PositionHandle);
-		GLES20.glVertexAttribPointer(m_PositionHandle, COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, VERTEX_STRIDE, vertexBuffer);
 
-		GLES20.glEnableVertexAttribArray(m_TexCoordHandle);
-		GLES20.glVertexAttribPointer(m_TexCoordHandle, TEX_COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, TEX_STRIDE, textureBuffer);
-		
 		GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
-		
-		GLES20.glDisableVertexAttribArray(m_PositionHandle);
-		GLES20.glDisableVertexAttribArray(m_TexCoordHandle);
 	}
 	
 	public void SetColour(Colour colour)
@@ -159,12 +144,9 @@ public class GLFloorPanel
 	
 	public void InitShaders()
     {
-		int vertexShaderHandler = 0;
-		int fragmentShaderHandler = 0;
-
 		// prepare shaders and OpenGL program
-		vertexShaderHandler 	= loadShader(GLES20.GL_VERTEX_SHADER,Shaders.vertexShader_SCROLLTEX);
-		fragmentShaderHandler 	= loadShader(GLES20.GL_FRAGMENT_SHADER,Shaders.fragmentShader_SCROLLTEX);
+        int vertexShaderHandler 	= loadShader(GLES20.GL_VERTEX_SHADER,Shaders.vertexShader_SCROLLTEX);
+        int fragmentShaderHandler 	= loadShader(GLES20.GL_FRAGMENT_SHADER,Shaders.fragmentShader_SCROLLTEX);
 
 		m_Program = GLES20.glCreateProgram();             		// create empty OpenGL Program
         GLES20.glAttachShader(m_Program, vertexShaderHandler);   // add the vertex shader to program
@@ -191,5 +173,32 @@ public class GLFloorPanel
         GLES20.glCompileShader(shader);
 
         return shader;
+    }
+
+    @Override
+    public void InitialiseModel()
+    {
+        GLES20.glDisable(GLES20.GL_DEPTH_TEST);
+        GLES20.glDisable(GLES20.GL_CULL_FACE);
+
+        GLES20.glUseProgram(m_Program);
+
+        GLES20.glUniform1i(m_TexUniformHandle, 0);
+
+        GLES20.glEnableVertexAttribArray(m_PositionHandle);
+        GLES20.glVertexAttribPointer(m_PositionHandle, COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, VERTEX_STRIDE, vertexBuffer);
+
+        GLES20.glEnableVertexAttribArray(m_TexCoordHandle);
+        GLES20.glVertexAttribPointer(m_TexCoordHandle, TEX_COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, TEX_STRIDE, textureBuffer);
+    }
+
+    @Override
+    public void CleanModel()
+    {
+        GLES20.glDisableVertexAttribArray(m_PositionHandle);
+        GLES20.glDisableVertexAttribArray(m_TexCoordHandle);
+
+        GLES20.glEnable(GLES20.GL_DEPTH_TEST);
+        GLES20.glEnable(GLES20.GL_CULL_FACE);
     }
 }

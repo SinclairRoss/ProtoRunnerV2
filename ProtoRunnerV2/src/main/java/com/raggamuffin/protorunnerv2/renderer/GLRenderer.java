@@ -1,6 +1,7 @@
 package com.raggamuffin.protorunnerv2.renderer;
 
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -8,7 +9,6 @@ import javax.microedition.khronos.opengles.GL10;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.master.RenderEffectSettings;
 import com.raggamuffin.protorunnerv2.master.RendererPacket;
-import com.raggamuffin.protorunnerv2.particles.TrailParticle;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
@@ -26,11 +26,9 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
 	private int m_Width;
 	private int m_Height;
-	
-	private Vector<GameObject> m_GameObjects;
-	private Vector<GameObject> m_TransparentObjects;
-	private Vector<UIElement>  m_UIElements;
-	private Vector<TrailParticle> m_Trails;
+
+    private RendererPacket m_Packet;
+	private ArrayList<UIElement> m_UIElements;
 	
 	private Context m_Context;
 	
@@ -44,7 +42,6 @@ public class GLRenderer implements GLSurfaceView.Renderer
     private UIRenderManager m_UIManager;
     
     private RenderEffectSettings m_RenderEffectSettings;
-    private LineRenderer m_LineRenderer;
     
     // FBO
     private final int m_NumFBOs = 3;
@@ -52,20 +49,21 @@ public class GLRenderer implements GLSurfaceView.Renderer
     private int m_Depth[];
     private int m_Size[];
     private int m_FrameBuffers[];
-    
+
+    private int counter = 0;
+    private final int maxCount = 500;
+    private Long totalTime = 0L;
+
 	public GLRenderer(RendererPacket packet)
 	{
 		Log.e(TAG, "GLRenderer");
-    
-		m_Context 				= packet.GetContext();
-		m_GameObjects 			= packet.GetGameObjects();
-		m_TransparentObjects 	= packet.GetTransparentObjects();
-		m_UIElements 			= packet.GetUIElements();
-		m_Trails				= packet.GetTrails();
-		m_Camera 				= new GLCamera(packet.GetCamera());
+
+        m_Packet = packet;
+		m_Context 				= m_Packet.GetContext();
+		m_UIElements 			= m_Packet.GetUIElements();
+		m_Camera 				= new GLCamera(m_Packet.GetCamera());
 		m_UICamera 				= new GLOrthoCamera();
-		m_RenderEffectSettings 	= packet.GetRenderEffectSettings();
-		m_LineRenderer			= new LineRenderer();
+		m_RenderEffectSettings 	= m_Packet.GetRenderEffectSettings();
 
 		m_ModelManager = new ModelManager(m_Context, m_RenderEffectSettings);
 		m_UIManager    = new UIRenderManager(m_Context, m_UICamera);
@@ -91,7 +89,6 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
         m_ModelManager.LoadAssets(m_Camera);
         m_UIManager.LoadAssets();
-        m_LineRenderer.LoadAssets();
 
         // FBO
         m_Size = new int [m_NumFBOs];
@@ -144,24 +141,24 @@ public class GLRenderer implements GLSurfaceView.Renderer
 	public void onDrawFrame(GL10 unused) 
 	{
 	//	Log.e(TAG,"onDrawFrame");
+
+        Long start = System.currentTimeMillis();
 		
 		GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, m_FrameBuffers[0]);
-		GLES20.glViewport(0,0, m_Size[0], m_Size[0]);
+		GLES20.glViewport(0, 0, m_Size[0], m_Size[0]);
  
 		GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
 		
 		m_Camera.Update();
 		m_UICamera.Update();
-		
-		DrawSkybox();
-		DrawFloor();
-		DrawGameObjects();
-		DrawTrails();
+
+        DrawSkybox();
+        DrawObjects();
 		DrawUI();
 		
 		// Glow vertical.
 		GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, m_FrameBuffers[1]);
-		GLES20.glViewport(0,0, m_Size[1], m_Size[1]);
+		GLES20.glViewport(0, 0, m_Size[1], m_Size[1]);
 		
 		GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
 		    
@@ -194,6 +191,19 @@ public class GLRenderer implements GLSurfaceView.Renderer
 	    GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_Textures[2]);
 			
         m_ModelManager.DrawFBOFinal();
+
+        Long end = System.currentTimeMillis();
+
+        totalTime += end - start;
+        counter++;
+
+        if(counter >= maxCount)
+        {
+            Log.e("testy test", "Time: " + totalTime / counter);
+
+            totalTime = 0L;
+            counter = 0;
+        }
 	}
 
 	@Override
@@ -207,104 +217,65 @@ public class GLRenderer implements GLSurfaceView.Renderer
 		m_Camera.ViewPortChanged(m_Width, m_Height);
 		m_UICamera.ViewPortChanged(m_Width, m_Height);
 	}
-	
-	private void DrawSkybox()
-	{
-		GLES20.glDisable(GLES20.GL_DEPTH_TEST);
-		
-		Matrix.setIdentityM(m_MMatrix, 0);	
-		Matrix.translateM(m_MMatrix, 0, (float) m_Camera.GetPosition().I, (float) m_Camera.GetPosition().J, (float) m_Camera.GetPosition().K);
-		
-		// Combine the rotation matrix with the projection and camera view
+
+    private void DrawSkybox()
+    {
+        m_ModelManager.InitialiseType(ModelType.Skybox);
+
+        Matrix.setIdentityM(m_MMatrix, 0);
+        Matrix.translateM(m_MMatrix, 0, (float) m_Camera.GetPosition().I, (float) m_Camera.GetPosition().J, (float) m_Camera.GetPosition().K);
+
+        // Combine the rotation matrix with the projection and camera view
         Matrix.multiplyMM(m_MVPMatrix, 0, m_Camera.m_VMatrix, 0, m_MMatrix, 0);
         Matrix.multiplyMM(m_MVPMatrix, 0, m_Camera.m_ProjMatrix, 0, m_MVPMatrix, 0);
 
         m_ModelManager.DrawSkyBox(m_MVPMatrix, m_RenderEffectSettings.GetSkyBoxColour());
-        
-        GLES20.glEnable(GLES20.GL_DEPTH_TEST);
-	}
-	
-	private void DrawFloor()
-	{
-		Vector<GameObject> Copy = (Vector<GameObject>) m_TransparentObjects.clone();
 
-		for(GameObject object : Copy)
-		{
-            Vector3 Position = object.GetPosition();
-            Vector3 Scale 	 = object.GetScale();
+        m_ModelManager.CleanModel(ModelType.Skybox);
+    }
 
-			Matrix.setIdentityM(m_MMatrix, 0);
-		
-			Matrix.translateM(m_MMatrix, 0, (float) Position.I, (float) Position.J, (float) Position.K);
-			Matrix.rotateM(m_MMatrix, 0, (float) -Math.toDegrees(object.GetYaw()), 0.0f, 1.0f, 0.0f);
-			Matrix.scaleM(m_MMatrix, 0, (float)Scale.I, (float)Scale.J, (float)Scale.K);
-			
-			// Combine the rotation matrix with the projection and camera view
-	        Matrix.multiplyMM(m_MVPMatrix, 0, m_Camera.m_VMatrix, 0, m_MMatrix, 0);
-	        Matrix.multiplyMM(m_MVPMatrix, 0, m_Camera.m_ProjMatrix, 0, m_MVPMatrix, 0);
-	        
-	        m_ModelManager.SetWorldPosition(object.GetPosition());
-	        m_ModelManager.DrawModel(object, m_MVPMatrix);
-		}
-	}
-	
-	private void DrawGameObjects()
-	{
-		Vector<GameObject> Copy = (Vector<GameObject>) m_GameObjects.clone();
+    private void DrawObjects()
+    {
+        ModelType[] types = ModelType.values();
 
-		for(GameObject object : Copy)
-		{
-            Vector3 Position = object.GetPosition();
-            Vector3 Scale 	 = object.GetScale();
-            Vector3 forward  = object.GetForward();
+        for (ModelType type : types)
+        {
+            m_ModelManager.InitialiseType(type);
 
-			Matrix.setIdentityM(m_MMatrix, 0);
-			
-			Matrix.translateM(m_MMatrix, 0, (float) Position.I, (float) Position.J, (float) Position.K);
+            ArrayList<GameObject> list = (ArrayList<GameObject>)m_Packet.GetList(type).clone();
 
-            Matrix.rotateM(m_MMatrix, 0, (float)  Math.toDegrees(object.GetRoll()), (float) forward.I, (float) forward.J, (float) forward.K);
-            Matrix.rotateM(m_MMatrix, 0, (float) -Math.toDegrees(object.GetYaw()), 0.0f, 1.0f, 0.0f);
+            for(GameObject obj : list)
+            {
+                if(obj == null)
+                    continue;
 
-			Matrix.scaleM(m_MMatrix, 0, (float)Scale.I, (float)Scale.J, (float)Scale.K);
-			
-			// Combine the rotation matrix with the projection and camera view
-	        Matrix.multiplyMM(m_MVPMatrix, 0, m_Camera.m_VMatrix, 0, m_MMatrix, 0);
-	        Matrix.multiplyMM(m_MVPMatrix, 0, m_Camera.m_ProjMatrix, 0, m_MVPMatrix, 0);
-	        
-	        m_ModelManager.SetWorldPosition(object.GetPosition());
-	        m_ModelManager.DrawModel(object, m_MVPMatrix);
-		}
-	}
-	
-	private void DrawTrails()
-	{
-		Vector<TrailParticle> copy = (Vector<TrailParticle>) m_Trails.clone();
-		Vector3 Position = null;
-		Vector3 Scale 	 = null;
-		
-		for(TrailParticle particle : copy)
-		{
-			Position = particle.GetPosition();
-			Scale 	 = particle.GetScale();
-			
-			Matrix.setIdentityM(m_MMatrix, 0);
-			
-			Matrix.translateM(m_MMatrix, 0, (float)Position.I, (float)Position.J, (float)Position.K);
-			Matrix.rotateM(m_MMatrix, 0, (float) -Math.toDegrees(particle.GetYaw()), 0.0f, 1.0f, 0.0f);
-			Matrix.scaleM(m_MMatrix, 0, (float)Scale.I, (float)Scale.J, (float)Scale.K);
-			
-			// Combine the rotation matrix with the projection and camera view
-	        Matrix.multiplyMM(m_MVPMatrix, 0, m_Camera.m_VMatrix, 0, m_MMatrix, 0);
-	        Matrix.multiplyMM(m_MVPMatrix, 0, m_Camera.m_ProjMatrix, 0, m_MVPMatrix, 0);
-	        
-	        
-	        m_LineRenderer.DrawTrail(Position, m_Camera.GetPosition(), particle.GetColour(), particle.GetEndPointColour(), m_MVPMatrix);
-		}
-	}
+                Vector3 Position = obj.GetPosition();
+                Vector3 Scale 	 = obj.GetScale();
+                Vector3 forward  = obj.GetForward();
+
+                Matrix.setIdentityM(m_MMatrix, 0);
+
+                Matrix.translateM(m_MMatrix, 0, (float) Position.I, (float) Position.J, (float) Position.K);
+
+                Matrix.rotateM(m_MMatrix, 0, (float) Math.toDegrees(obj.GetRoll()), (float) forward.I, (float) forward.J, (float) forward.K);
+                Matrix.rotateM(m_MMatrix, 0, (float) -Math.toDegrees(obj.GetYaw()), 0.0f, 1.0f, 0.0f);
+
+                Matrix.scaleM(m_MMatrix, 0, (float) Scale.I, (float) Scale.J, (float) Scale.K);
+
+                // Combine the rotation matrix with the projection and camera view
+                Matrix.multiplyMM(m_MVPMatrix, 0, m_Camera.m_VMatrix, 0, m_MMatrix, 0);
+                Matrix.multiplyMM(m_MVPMatrix, 0, m_Camera.m_ProjMatrix, 0, m_MVPMatrix, 0);
+
+                m_ModelManager.DrawModel(obj, m_MVPMatrix);
+            }
+
+            m_ModelManager.CleanModel(type);
+        }
+    }
 	
 	private void DrawUI()
 	{
-		Vector<UIElement> Copy = (Vector<UIElement>) m_UIElements.clone();
+		ArrayList<UIElement> Copy = (ArrayList<UIElement>) m_UIElements.clone();
 
 		for(UIElement object : Copy)
 	        m_UIManager.DrawElement(object);

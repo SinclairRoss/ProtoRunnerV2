@@ -22,7 +22,7 @@ public class PulseLaser_Punk extends Weapon
 		m_Accuracy = 1.0;
 		m_LifeSpan = 2.0;
 		
-		m_FireMode = new FireControl_Pulse(1.0, 0.06, 1);
+		m_FireMode = new FireControl_Pulse(0.8, 0.06, 2);
 		m_ProjectileTemplate = new ProjectileTemplate(this, m_Anchor.GetVehicleInfo(), ModelType.PulseLaser, GetAffiliation(),
 														m_MuzzleVelocity, m_Damage, m_LifeSpan, m_ProjectileFadeInTime, 0.0,
 														ProjectileBehaviourType.Standard, game);

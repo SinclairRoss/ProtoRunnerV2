@@ -9,10 +9,9 @@ import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 import android.opengl.GLES20;
 
-public class GLPulseLaser 
+public class GLPulseLaser extends GLModel
 {
     public final FloatBuffer vertexBuffer;
-    public int PositionHandle;
     
     private int m_Program;
 	
@@ -73,28 +72,19 @@ public class GLPulseLaser
 	    m_EyePosHandle 		= 0;
 	    
 	    InitShaders();
-	       
     }
 	
-	public void draw(float[] mvpMatrix) 
-	{
-		// set the shader program that will render this object.
-	    GLES20.glUseProgram(m_Program);
-	    
+	public void draw(float[] mvpMatrix)
+    {
 		// Set the shader information.
 		GLES20.glUniformMatrix4fv(m_MVPMatrixHandle, 1, false, mvpMatrix, 0);
 		GLES20.glUniform4fv(m_ColourHandle, 1, m_Colour, 0);
 		GLES20.glUniform4fv(m_WorldPosHandle, 1, m_WorldPos, 0);
 		GLES20.glUniform4fv(m_EyePosHandle, 1, m_EyePos, 0);
         GLES20.glUniform1f(m_SizeHandle, m_Size);
-        
-        GLES20.glEnableVertexAttribArray(m_PositionHandle);
-		GLES20.glVertexAttribPointer(m_PositionHandle, GLPulseLaser.COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, GLPulseLaser.VERTEX_STRIDE, vertexBuffer);
 
 		// Draw the object using glPoints.
         GLES20.glDrawArrays(GLES20.GL_POINTS, 0, 1);
-        
-    	GLES20.glDisableVertexAttribArray(m_PositionHandle);
 	}
 	
 	public void SetColour(Colour colour)
@@ -155,5 +145,20 @@ public class GLPulseLaser
         GLES20.glCompileShader(shader);
 
         return shader;
+    }
+
+    @Override
+    public void InitialiseModel()
+    {
+        GLES20.glUseProgram(m_Program);
+
+        GLES20.glEnableVertexAttribArray(m_PositionHandle);
+        GLES20.glVertexAttribPointer(m_PositionHandle, GLPulseLaser.COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, GLPulseLaser.VERTEX_STRIDE, vertexBuffer);
+    }
+
+    @Override
+    public void CleanModel()
+    {
+        GLES20.glDisableVertexAttribArray(m_PositionHandle);
     }
 }

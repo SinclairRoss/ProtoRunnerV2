@@ -2,23 +2,30 @@ package com.raggamuffin.protorunnerv2.renderer;
 
 public enum ModelType
 {
+    RadarFragment,
+    FloorPanel,
+
 	Cube,
 	Runner,
+    Bit,
+    Byte,
+    Mine,
+    Missile,
+    Dummy,
+
+    Trail,
+    LaserPointer,
+
 	Plane,
-	FloorPanel,
+
 	PulseLaser,
 	RailSlug,
 	Ring,
-	Bit,
-	Byte,
-    Mine,
 	StandardPoint,
-	Trail,
-	LaserPointer,
-	Missile,
+
 	Explosion,
 	Skybox,
-	RadarFragment,
-    Dummy,
+
+
 	Nothing
 }
