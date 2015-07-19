@@ -85,7 +85,7 @@ public class GLPulseLaser extends GLModel
     {
         // prepare shaders and OpenGL program
         int vertexShaderHandler 	= loadShader(GLES20.GL_VERTEX_SHADER,Shaders.vertexShader_POINT);
-        int fragmentShaderHandler 	= loadShader(GLES20.GL_FRAGMENT_SHADER,Shaders.fragmentShader_STANDARD);
+        int fragmentShaderHandler 	= loadShader(GLES20.GL_FRAGMENT_SHADER,Shaders.fragmentShader_FADEPOINT);
 
         m_Program = GLES20.glCreateProgram();             		// create empty OpenGL Program
         GLES20.glAttachShader(m_Program, vertexShaderHandler);   // add the vertex shader to program
@@ -114,5 +114,17 @@ public class GLPulseLaser extends GLModel
     public void CleanModel()
     {
         GLES20.glDisableVertexAttribArray(m_PositionHandle);
+    }
+
+    @Override
+    public int GetVertexCount()
+    {
+        return 1;
+    }
+
+    @Override
+    public void Draw(float[] projMatrix)
+    {
+
     }
 }

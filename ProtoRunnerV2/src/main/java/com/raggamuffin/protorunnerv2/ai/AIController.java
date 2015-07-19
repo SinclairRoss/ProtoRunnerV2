@@ -10,45 +10,40 @@ public class AIController
 {
 	///// AI Subsystems.
 	private SituationalAwareness m_SituationalAwareness;
+    private SituationalAnalysis m_SituationalAnalysis;
+    private BehaviourControl m_BehaviourControl;
+
 	private NavigationControl m_NavigationControl;
 	private FireControl m_FireControl;
-	private BehaviourControl m_BehaviourControl;
 
 	private AffiliationKey m_EnemyFaction;
 	private Vehicle m_Anchor;
 	private Vehicle m_Leader;
 	
-	public AIController(Vehicle anchor, VehicleManager vManager, BulletManager bManager)
+	public AIController(Vehicle anchor, VehicleManager vManager, BulletManager bManager, AIPersonalityAttributes attributes)
 	{
 		m_Anchor = anchor;
-		
 		m_Leader = null;
-		
-		switch(m_Anchor.GetAffiliation())
-		{
-			case RedTeam:
-				m_EnemyFaction = AffiliationKey.BlueTeam;
-				break;
-			case BlueTeam:
-				m_EnemyFaction = AffiliationKey.RedTeam;
-				break;
-			default:
-				break;
-		}
+
+        m_EnemyFaction = m_Anchor.GetAffiliation() == AffiliationKey.BlueTeam ?
+                AffiliationKey.RedTeam : AffiliationKey.BlueTeam;
 
 		///// AI Subsystems.
 		m_SituationalAwareness 	= new SituationalAwareness(this, vManager, bManager);
-		m_NavigationControl 	= new NavigationControl(this);
+        m_SituationalAnalysis   = new SituationalAnalysis(this, attributes);
+
+        m_NavigationControl 	= new NavigationControl(this);
 		m_FireControl 			= new FireControl(this);
 		m_BehaviourControl		= new BehaviourControl(this);
-	}
+    }
 
-	public void Update(double DeltaTime)
+	public void Update(double deltaTime)
 	{
 		m_SituationalAwareness.Update();
-		m_BehaviourControl.Update(DeltaTime);
-		m_NavigationControl.Update(DeltaTime);
-		m_FireControl.Update(DeltaTime);
+        m_SituationalAnalysis.Update(deltaTime);
+		m_BehaviourControl.Update();
+		m_NavigationControl.Update();
+		m_FireControl.Update();
 	}
 
 	public Vehicle GetAnchor()
@@ -87,4 +82,9 @@ public class AIController
 	{
 		return m_SituationalAwareness;
 	}
+
+    public SituationalAnalysis GetSituationalAnalysis()
+    {
+        return m_SituationalAnalysis;
+    }
 }

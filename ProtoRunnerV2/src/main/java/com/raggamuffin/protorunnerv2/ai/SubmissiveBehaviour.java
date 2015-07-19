@@ -1,6 +1,5 @@
 package com.raggamuffin.protorunnerv2.ai;
 
-import com.raggamuffin.protorunnerv2.ai.NavigationControl.NavigationStates;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 
 public class SubmissiveBehaviour extends BehaviourState
@@ -11,14 +10,14 @@ public class SubmissiveBehaviour extends BehaviourState
 	}
 
 	@Override
-	public void Update(double DeltaTime) 
+	public void Update()
 	{
 		Vehicle leader = m_Controller.GetLeader();
 		
 		if(leader == null)
-		{
 			return;
-		}
+
+        m_NavController.SetGoal(leader.GetPosition());
 		
 		VehicleInfo leaderState = leader.GetVehicleInfo();
 		
@@ -36,6 +35,6 @@ public class SubmissiveBehaviour extends BehaviourState
 	@Override
 	public void InitialiseState() 
 	{
-		m_NavController.SetNavigationState(NavigationStates.Follow);
+
 	}
 }

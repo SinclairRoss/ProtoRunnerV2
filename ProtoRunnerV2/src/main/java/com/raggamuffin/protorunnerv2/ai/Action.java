@@ -1,15 +1,14 @@
 package com.raggamuffin.protorunnerv2.ai;
 
-import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
-
-public abstract class Action 
+public abstract class Action
 {
-	protected Vehicle m_Anchor;
-	
-	protected Action(Vehicle anchor)
-	{
-		m_Anchor = anchor;
-	}
+    protected AIController m_Controller;
 
-	public abstract void Update(double DeltaTime);
+    public Action(AIController controller)
+    {
+        m_Controller = controller;
+    }
+
+    public abstract void Update(double deltaTime);
+    public abstract double CalculateUtility();
 }

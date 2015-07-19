@@ -1,6 +1,6 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
@@ -38,7 +38,7 @@ public class ProjectileBehaviour_Missile extends ProjectileBehaviour
 	private final double ARMING_TIME = 0.5;
 	
 	private GameAudioManager m_Audio;
-	private Vector<Vehicle> m_Enemies;
+	private ArrayList<Vehicle> m_Enemies;
 	
 	private ProjectileState m_State;
 	private Weapon m_FiringWeapon;

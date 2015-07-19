@@ -1,6 +1,6 @@
 package com.raggamuffin.protorunnerv2.ai;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
@@ -8,49 +8,104 @@ import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class Sensor_SurroundingAwareness extends Sensor
 {	
-	private Vector<Vehicle> m_VehiclesInWorld;
-	private Vector<Vehicle> m_VehiclesInNeighbourhood;
-	
-	private Vector3 m_ToVehicle;
-	
-	public Sensor_SurroundingAwareness(Vehicle Anchor, VehicleManager VManager) 
-	{
-		super(Anchor, 10.0);
-		
-		m_VehiclesInWorld = VManager.GetVehicles();
-		m_VehiclesInNeighbourhood = new  Vector<Vehicle>();
+	private ArrayList<Vehicle> m_VehiclesInWorld;
 
-		m_ToVehicle = new Vector3();
+    private ArrayList<Vehicle> m_VehiclesInNeighbourhood;
+    private ArrayList<Vehicle> m_FriendlyVehiclesInNeighbourhood;
+    private ArrayList<Vehicle> m_EnemyVehiclesInNeighbourhood;
+
+    private Vector3 m_CenterOfMassEnemy;
+    private Vector3 m_CenterOfMassFriend;
+	
+	private Vector3 m_TempVector;
+	
+	public Sensor_SurroundingAwareness(Vehicle anchor, VehicleManager vManager)
+	{
+		super(anchor, 10.0);
+		
+		m_VehiclesInWorld = vManager.GetVehicles();
+
+        m_VehiclesInNeighbourhood = new ArrayList<Vehicle>();
+        m_FriendlyVehiclesInNeighbourhood = new ArrayList<Vehicle>();
+        m_EnemyVehiclesInNeighbourhood = new ArrayList<Vehicle>();
+
+        m_CenterOfMassFriend = new Vector3();
+        m_CenterOfMassEnemy  = new Vector3();
+
+		m_TempVector = new Vector3();
 	}
 
 	@Override
 	public void Update() 
 	{
-		// Clear the vector containing the minions in the neighbourhood.
-		m_VehiclesInNeighbourhood.clear();
+        m_VehiclesInNeighbourhood.clear();
+        m_FriendlyVehiclesInNeighbourhood.clear();
+        m_EnemyVehiclesInNeighbourhood.clear();
+
+        m_CenterOfMassFriend.SetVector(0);
+        m_CenterOfMassEnemy.SetVector(0);
 		
 		// Iterate through all minions.
-		for(Vehicle Object : m_VehiclesInWorld)
+		for(Vehicle object : m_VehiclesInWorld)
 		{
-			// Skips this iteration if the minion is the vehicle this sensor is attached to.
-			if(Object == m_Anchor)	
-			{
-				continue;					
-			}
-				
-			// Sets a vector from the anchor to the vehicle being investigated.
-			m_ToVehicle.SetVectorDifference(m_Anchor.GetPosition(), Object.GetPosition());
-			
-			// If the other vehicle is within sensor range add it to the neighbourhood.
-			if(m_ToVehicle.GetLengthSqr() <= (m_SensorRadius * m_SensorRadius))
-			{
-				m_VehiclesInNeighbourhood.add(Object);
-			}
+			if(object == m_Anchor)
+				continue;
+
+			m_TempVector.SetVectorDifference(m_Anchor.GetPosition(), object.GetPosition());
+
+            if (object.GetAffiliation() == m_Anchor.GetAffiliation())
+            {
+                m_CenterOfMassFriend.Add(object.GetPosition());
+
+                if(m_TempVector.GetLengthSqr() <= (m_SensorRadius * m_SensorRadius))
+                {
+                    m_VehiclesInNeighbourhood.add(object);
+                    m_FriendlyVehiclesInNeighbourhood.add(object);
+                }
+            }
+            else
+            {
+                m_CenterOfMassEnemy.Add(object.GetPosition());
+
+                if(m_TempVector.GetLengthSqr() <= (m_SensorRadius * m_SensorRadius))
+                {
+                    m_VehiclesInNeighbourhood.add(object);
+                    m_EnemyVehiclesInNeighbourhood.add(object);
+                }
+            }
 		}
+
+        double scale;
+
+        scale = 1.0 / m_FriendlyVehiclesInNeighbourhood.size();
+        m_CenterOfMassFriend.Scale(scale);
+
+        scale = 1.0 / m_EnemyVehiclesInNeighbourhood.size();
+        m_CenterOfMassEnemy.Scale(scale);
 	}
-	
-	public Vector<Vehicle> GetVehiclesInNeighbourhood()
-	{
-		return m_VehiclesInNeighbourhood;
-	}
+
+    public ArrayList<Vehicle> GetVehiclesInNeighbourhood()
+    {
+        return m_VehiclesInNeighbourhood;
+    }
+
+    public ArrayList<Vehicle> GetFriendliesInNeighbourhood()
+    {
+        return m_FriendlyVehiclesInNeighbourhood;
+    }
+
+    public ArrayList<Vehicle> GetEnemiesInNeighbourhood()
+    {
+        return m_EnemyVehiclesInNeighbourhood;
+    }
+
+    public Vector3 GetCenterOfMassEnemy()
+    {
+        return m_CenterOfMassEnemy;
+    }
+
+    public Vector3 GetCenterOfMassFriend()
+    {
+        return m_CenterOfMassFriend;
+    }
 }

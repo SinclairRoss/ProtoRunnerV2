@@ -21,9 +21,9 @@ public class FireControl
 		m_Range= 1000.0f;
 	}
 	
-	public void Update(double DeltaTime)
+	public void Update()
 	{
-		Vehicle Target = m_SituationalAwareness.GetTarget();
+		Vehicle Target = m_SituationalAwareness.GetTargetSensor().GetTarget();
 		
 		// Don't fire if there is no target.
 		if(Target == null)

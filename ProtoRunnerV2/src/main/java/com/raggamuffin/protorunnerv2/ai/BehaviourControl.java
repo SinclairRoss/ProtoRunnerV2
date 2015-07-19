@@ -2,7 +2,7 @@ package com.raggamuffin.protorunnerv2.ai;
 
 public class BehaviourControl 
 {
-	public enum BehaviourStates {Independent, Submissive};
+	public enum BehaviourStates {Independent, Submissive}
 
 	private AIController m_Controller;
 	
@@ -18,9 +18,9 @@ public class BehaviourControl
 		m_BehaviourState 	= m_IndependentState;
 	}
 	
-	public void Update(double DeltaTime)
+	public void Update()
 	{
-		m_BehaviourState.Update(DeltaTime);
+		m_BehaviourState.Update();
 	}
 
 	public void SetState(BehaviourStates State)

@@ -1,5 +1,6 @@
 package com.raggamuffin.protorunnerv2.ai;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
@@ -9,8 +10,6 @@ import com.raggamuffin.protorunnerv2.weapons.Projectile;
 
 public class SituationalAwareness
 {
-	private AIController m_Controller;
-	
 	///// Sensors.
 	private Sensor_SurroundingAwareness m_SurroundingAwarenessSensor;
 	private Sensor_Target m_TargetSensor;
@@ -18,14 +17,10 @@ public class SituationalAwareness
 
 	public SituationalAwareness(AIController controller, VehicleManager vManager, BulletManager bManager)
 	{
-		m_Controller = controller;
-		
-		Vehicle anchor = m_Controller.GetAnchor();
-		
 		///// Sensors.
-		m_SurroundingAwarenessSensor 	= new Sensor_SurroundingAwareness(anchor, vManager);
-		m_TargetSensor					= new Sensor_Target(m_Controller, vManager);
-		m_DangerSensor					= new Sensor_IncomingDanger(m_Controller, bManager);
+		m_SurroundingAwarenessSensor 	= new Sensor_SurroundingAwareness(controller.GetAnchor(), vManager);
+		m_TargetSensor					= new Sensor_Target(controller, vManager);
+		m_DangerSensor					= new Sensor_IncomingDanger(controller, bManager);
 	}
 	
 	public void Update()
@@ -34,19 +29,19 @@ public class SituationalAwareness
 		m_TargetSensor.Update();
 		m_DangerSensor.Update();
 	}
+
+    public Sensor_SurroundingAwareness GetSurroundingAwarenessSensor()
+    {
+        return m_SurroundingAwarenessSensor;
+    }
 	
-	public Vector<Vehicle> GetSurroundingVehicles()
-	{
-		return m_SurroundingAwarenessSensor.GetVehiclesInNeighbourhood();
-	}
-	
-	public Vehicle GetTarget()
-	{
-		return m_TargetSensor.GetTarget();
-	}
-	
-	public Vector<Projectile> GetIncomingProjectiles()
-	{
-		return m_DangerSensor.GetIncomingProjectiles();
-	}
+    public Sensor_Target GetTargetSensor()
+    {
+        return m_TargetSensor;
+    }
+
+    public Sensor_IncomingDanger GetDangerSensor()
+    {
+        return m_DangerSensor;
+    }
 }

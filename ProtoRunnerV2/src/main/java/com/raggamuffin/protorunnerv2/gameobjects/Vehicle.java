@@ -11,6 +11,8 @@ import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_Pulse;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.ParticleManager;
 import com.raggamuffin.protorunnerv2.particles.BurstEmitter;
+import com.raggamuffin.protorunnerv2.pubsub.InternalPubSubHub;
+import com.raggamuffin.protorunnerv2.pubsub.InternalTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Colours;
@@ -50,10 +52,16 @@ public abstract class Vehicle extends GameObject
 	protected ParticleManager m_ParticleManager;
 	protected BurstEmitter m_BurstEmitter;
 
+    protected InternalPubSubHub m_InternalPubSub;
+    protected Publisher m_InternalDamagedPublisher;
+
 	public Vehicle(GameLogic game)
 	{
 		super(game.GetPubSubHub(), game.GetGameAudioManager());
-		
+
+        m_InternalPubSub = new InternalPubSubHub();
+        m_InternalDamagedPublisher = m_InternalPubSub.CreatePublisher(InternalTopics.DamageTaken);
+
 		m_ParticleManager = game.GetParticleManager();
 		
 		///// Motion Attributes.
@@ -147,6 +155,8 @@ public abstract class Vehicle extends GameObject
 		}
 		
 		m_DamageDecayCounter.AddValue(1.0);
+        m_InternalDamagedPublisher.Publish();
+
 	}
 	
 	public void DrainEnergy(double drain)
@@ -298,6 +308,11 @@ public abstract class Vehicle extends GameObject
 	{
 		return m_PostFireAction;
 	}
+
+    public InternalPubSubHub GetInternalPubSubHub()
+    {
+        return m_InternalPubSub;
+    }
 }
 
 

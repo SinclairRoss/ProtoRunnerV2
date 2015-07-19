@@ -240,8 +240,21 @@ public class GLSkybox extends GLModel
     @Override
     public void CleanModel()
     {
+        GLES20.glEnable(GLES20.GL_DEPTH_TEST);
+
         GLES20.glDisableVertexAttribArray(m_PositionHandle);
         GLES20.glDisableVertexAttribArray(m_TexCoordHandle);
-        GLES20.glEnable(GLES20.GL_DEPTH_TEST);
+    }
+
+    @Override
+    public int GetVertexCount()
+    {
+        return vertexCount;
+    }
+
+    @Override
+    public void Draw(float[] projMatrix)
+    {
+
     }
 }

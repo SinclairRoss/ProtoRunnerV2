@@ -1,5 +1,7 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour;
@@ -21,8 +23,9 @@ public class Projectile extends GameObject
 	private ProjectileBehaviour m_Behaviour;
 	private ArrayList<SpecialProjectileBehaviour> m_SpecialBehaviours;
 	private Weapon m_Origin;
-	
-	private ColourBehaviour_FadeTo m_SpawnBehaviour;
+
+    private double m_FadeIn;
+    private double m_FadeOut;
 
 	public Projectile()
 	{
@@ -38,20 +41,35 @@ public class Projectile extends GameObject
 		
 		m_BaseColour.SetColour(Colours.Black);
 		SetDragCoefficient(0.0);
-		
-		m_SpawnBehaviour = new ColourBehaviour_FadeTo(this, ColourBehaviour.ActivationMode.Triggered, 0.3);
-		AddColourBehaviour(m_SpawnBehaviour);
+
+        m_FadeIn = 0;
+        m_FadeOut = 0;
 	}
 	
 	public void Update(double deltaTime)
 	{
 		m_LifeSpan -= deltaTime;
-		
-		m_SpawnBehaviour.Update(deltaTime);
+
+        HandleFade();
 		m_Behaviour.Update(deltaTime);
 		
 		super.Update(deltaTime);
 	}
+
+    private void HandleFade()
+    {
+        double normLifeSpan = 1 - MathsHelper.Normalise(m_LifeSpan, 0, m_MaxLifeSpan);
+        double alpha = 1.0;
+
+        if(normLifeSpan <= m_FadeIn)
+            alpha = MathsHelper.Normalise(normLifeSpan, 0, m_FadeIn);
+
+        if(normLifeSpan > m_FadeOut)
+            alpha = 1.0 - MathsHelper.Normalise(normLifeSpan, m_FadeOut, 1.0);
+
+        m_BaseColour.Alpha = alpha;
+        m_AltColour.Alpha  = alpha;
+    }
 
 	public void ResetLifeSpan()
 	{
@@ -65,10 +83,14 @@ public class Projectile extends GameObject
 		
 		m_Origin = template.GetOrigin();
 
-		m_BaseColour.SetColour(Colours.Black);
-		m_SpawnBehaviour.SetNextColour(m_Origin.GetBulletColour());
-		m_SpawnBehaviour.SetTimeFrame(template.GetFadeInTime());
-		m_SpawnBehaviour.TriggerBehaviour();
+		m_BaseColour.SetColour(m_Origin.GetAltColour());
+        m_AltColour.SetColour(m_Origin.GetBulletColour());
+        m_BaseColour.Alpha = 0.0;
+        m_AltColour.Alpha  = 0.0;
+
+		m_FadeIn = template.GetFadeInTime();
+        m_FadeOut = template.GetFadeOutTime();
+
         m_BoundingRadius = template.GetBoundingRadius();
 		
 		m_Model = template.GetModel();

@@ -1,5 +1,6 @@
 package com.raggamuffin.protorunnerv2.ai;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 import com.raggamuffin.protorunnerv2.managers.BulletManager;
@@ -9,7 +10,7 @@ import com.raggamuffin.protorunnerv2.weapons.Projectile;
 public class Sensor_IncomingDanger extends Sensor
 {
 	private Vector<Projectile> m_Bullets;
-	private Vector<Projectile> m_IncomingProjectiles;
+	private ArrayList<Projectile> m_IncomingProjectiles;
 	private Vector3 m_ReltivePosition;
 	private Vector3 m_RelativeVelocity;
 	
@@ -18,7 +19,7 @@ public class Sensor_IncomingDanger extends Sensor
 		super(controller.GetAnchor(), 10);
 		
 		m_Bullets = bManager.GetActiveBullets();
-		m_IncomingProjectiles = new Vector<Projectile>();
+		m_IncomingProjectiles = new ArrayList<Projectile>();
 		m_ReltivePosition = new Vector3();
 		m_RelativeVelocity = new Vector3();
 	}
@@ -49,7 +50,7 @@ public class Sensor_IncomingDanger extends Sensor
 		}
 	}
 	
-	public Vector<Projectile> GetIncomingProjectiles()
+	public ArrayList<Projectile> GetIncomingProjectiles()
 	{
 		return m_IncomingProjectiles;
 	}

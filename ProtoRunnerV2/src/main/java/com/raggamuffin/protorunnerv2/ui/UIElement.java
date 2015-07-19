@@ -17,7 +17,7 @@ public abstract class UIElement
 	private boolean m_Interactive;
 
 	protected UIElementType m_Type;
-	
+
 	protected Colour m_Colour;
 	
 	public UIElement(UIManager uiManager)
@@ -43,7 +43,7 @@ public abstract class UIElement
 	{
         TriggerClosingAnimation();
 	}
-	
+
 	public void Show()
 	{
 		Show(0.0);
@@ -82,23 +82,12 @@ public abstract class UIElement
 		m_Position.SetVector(x,y);
 	}
 
-    public void SetPositionAbsolute(double x, double y)
-    {
-        m_OriginalPosition.SetVector(x, y);
-        m_Position.SetVector(x,y);
-    }
-	
 	///// Getters.
 	public Vector2 GetPosition()
 	{
 		return m_Position;
 	}
-	
-	public Vector2 GetOriginalPosition()
-	{
-		return m_OriginalPosition;
-	}
-	
+
 	public Vector2 GetSize()
 	{
 		return m_Size;
@@ -108,12 +97,7 @@ public abstract class UIElement
 	{
 		return m_Hidden;
 	}
-	
-	public boolean IsInteractive()
-	{
-		return m_Interactive;
-	}
-	
+
 	public UIElementType GetType()
 	{
 		return m_Type;

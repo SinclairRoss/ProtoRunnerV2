@@ -10,9 +10,9 @@ import com.raggamuffin.protorunnerv2.utils.Vector2;
 public class UIProgressBar extends UIElement
 {
 	public enum Alignment { Left, Center, Right }
-	
+
 	private Alignment m_Alignment;
-	
+
 	private UILabel m_Label;
 	
 	private final double HEIGHT = 0.01;
@@ -60,7 +60,8 @@ public class UIProgressBar extends UIElement
 
         m_UnderBarPosition = new Vector2();
         m_UnderBarScale = new Vector2();
-        CalculateMaxSize();
+        m_UnderBarScale.I = m_MaxLength;
+        m_UnderBarScale.J = HEIGHT;
 
         m_OpeningAnimation = new ProgressBarAnimation_GrowIn(this);
         m_ClosingAnimation = new ProgressBarAnimation_ShrinkOut(this);
@@ -98,9 +99,6 @@ public class UIProgressBar extends UIElement
 	{
 		switch (m_Alignment)
 		{
-            case Center:
-                break;
-
             case Left:
                 m_Position.I = (m_OriginalPosition.I - (m_MaxLength * 0.5)) + (m_Size.I * 0.5);
                 break;
@@ -115,9 +113,6 @@ public class UIProgressBar extends UIElement
     {
         switch (m_Alignment)
         {
-            case Center:
-                break;
-
             case Left:
                 m_UnderBarPosition.I = (m_OriginalPosition.I - (m_MaxLength * 0.5)) + (m_UnderBarScale.I * 0.5);
                 break;
@@ -127,12 +122,6 @@ public class UIProgressBar extends UIElement
                 break;
         }
     }
-
-	private void CalculateMaxSize()
-	{
-		m_UnderBarScale.I = m_MaxLength;
-		m_UnderBarScale.J = HEIGHT;
-	}
 	
 	private void CalculateColour() 
 	{

@@ -1,6 +1,7 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
 import com.raggamuffin.protorunnerv2.ai.AIController;
+import com.raggamuffin.protorunnerv2.ai.AIPersonalityAttributes;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
@@ -33,8 +34,9 @@ public class Wingman extends Vehicle
 		SetAffiliation(AffiliationKey.BlueTeam);
 		
 		SelectWeapon(new PulseLaser(this, game));
-		
-		m_AIController = new AIController(this, m_VehicleManager, game.GetBulletManager());
+
+        AIPersonalityAttributes attributes = new AIPersonalityAttributes(1.0, 0.0, 1.0, 0.2, 1.0);
+		m_AIController = new AIController(this, m_VehicleManager, game.GetBulletManager(), attributes);
 		
 		game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerSpawned, new PlayerSpawnedSubscriber());
         game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerDestroyed, new PlayerDestroyedSubscriber());

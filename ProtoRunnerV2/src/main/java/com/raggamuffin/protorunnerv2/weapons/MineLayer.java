@@ -24,7 +24,7 @@ public class MineLayer extends Weapon
         m_FireMode = new FireControl_Pulse(1.5, 0.2, 4);
 
         m_ProjectileTemplate = new ProjectileTemplate(this, m_Anchor.GetVehicleInfo(), ModelType.Mine, GetAffiliation(),
-                m_MuzzleVelocity, m_Damage, m_LifeSpan, m_ProjectileFadeInTime, 2.0,
+                m_MuzzleVelocity, m_Damage, m_LifeSpan, m_ProjectileFadeInTime, m_ProjectileFadeOutTime, 2.0,
                 ProjectileBehaviourType.Mine, game, SpecialProjectileBehaviourType.Explode);
 
         AddMuzzle(0, 0, -1);

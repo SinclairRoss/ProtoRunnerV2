@@ -1,5 +1,6 @@
 package com.raggamuffin.protorunnerv2.ai;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
@@ -10,7 +11,7 @@ import com.raggamuffin.protorunnerv2.utils.Vector3;
 public class Sensor_Target extends Sensor
 {
 	private Vehicle m_Target;
-	private Vector<Vehicle> m_Targets;
+	private ArrayList<Vehicle> m_Targets;
 	private Vector3 m_ToTarget;
 	
 	public Sensor_Target(AIController Controller, VehicleManager VManager) 

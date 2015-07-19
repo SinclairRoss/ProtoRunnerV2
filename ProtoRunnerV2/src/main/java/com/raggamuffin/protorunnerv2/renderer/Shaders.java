@@ -59,6 +59,7 @@ public class Shaders
 
 	 	+	"attribute vec4 a_Position;  \n"
 		+	"attribute float a_Weight;	 \n"
+
 	 	+   "varying float v_Weight;	 \n"
 
 	    +   "void main()                 \n"
@@ -95,6 +96,7 @@ public class Shaders
 
 	public static final String fragmentShader_LINE =
 	        "precision mediump float;"
+
 	    +   "uniform vec4 u_Color;"
 	    +	"uniform vec4 u_EndPointColor;"
 
@@ -166,59 +168,114 @@ public class Shaders
 
     public static final String vertexShader_BARYCENTRIC =
             "uniform mat4 u_ProjMatrix;"
-        +   "uniform vec4 u_WorldPos;"
-        +   "uniform vec3 u_Forward;"
-        +   "uniform float u_Yaw;"
-        +   "uniform float u_Roll;"
+                    +   "uniform vec4 u_WorldPos;"
+                    +   "uniform vec3 u_Forward;"
+                    +   "uniform float u_Yaw;"
+                    +   "uniform float u_Roll;"
+                    +   "uniform vec3 u_Scale;"
 
-        +	"attribute vec4 a_Position;"
-        +	"attribute vec3 a_Barycentric;"
+                    +	"attribute vec4 a_Position;"
+                    +	"attribute vec3 a_Barycentric;"
 
-        +	"varying vec3 v_Barycentric;"
+                    +	"varying vec3 v_Barycentric;"
+
+                    + 	"void main()"
+                    +	"{"
+                    +	"	v_Barycentric = a_Barycentric;"
+
+                    +   "   mat4 world;"
+                    +   "   world[0] = vec4(1,0,0,0);"
+                    +   "   world[1] = vec4(0,1,0,0);"
+                    +   "   world[2] = vec4(0,0,1,0);"
+                    +   "   world[3] = u_WorldPos;"
+
+                    +   "   float cosTheta = cos(u_Yaw);"
+                    +   "   float sinTheta = sin(u_Yaw);"
+
+                    +   "   mat4 yaw;"
+                    +   "   yaw[0] = vec4(cosTheta, 0, sinTheta, 0);"
+                    +   "   yaw[1] = vec4(0, 1, 0, 0);"
+                    +   "   yaw[2] = vec4(-sinTheta,0,cosTheta,0);"
+                    +   "   yaw[3] = vec4(0, 0, 0, 1);"
+
+                    +   "   mat4 scale;"
+                    +   "   scale[0] = vec4(u_Scale.x, 0, 0, 0);"
+                    +   "   scale[1] = vec4(0, u_Scale.y, 0, 0);"
+                    +   "   scale[2] = vec4(0, 0, u_Scale.z, 0);"
+                    +   "   scale[3] = vec4(0, 0, 0, 1);"
+
+                    +   "   world = world * yaw;"
+                    +   "   world = world * scale;"
+
+                    +   "   mat4 mvp = u_ProjMatrix * world;"
+                    +	"	gl_Position = mvp * a_Position;"
+                    +	"}";
+
+    public static final String fragmentShader_BARYCENTRIC =
+            "precision mediump float;"
+
+                    +	"uniform vec4 u_Color;"
+
+                    +	"varying vec3 v_Barycentric;"
+
+                    +	"void main()"
+                    +	"{"
+                    +	"	if(any(lessThan(v_Barycentric, vec3(0.06))))"
+                    +	"	{"
+                    +	"		gl_FragColor = u_Color;"
+                    +	"	}"
+                    +	"	else"
+                    +	"	{"
+                    +	"		gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);"
+                    +	"	}"
+                    +	"}";
+
+    public static final String vertexShader_INSTANCING_TEST =
+            "uniform mat4 u_ProjMatrix;"
+
+        +   "attribute vec4 a_Position;"
+        +   "attribute int a_InstanceID;"
+
+        +   "uniform float[3] u_WorldPos;"
 
         + 	"void main()"
         +	"{"
-        +	"	v_Barycentric = a_Barycentric;"
-
         +   "   mat4 world;"
         +   "   world[0] = vec4(1,0,0,0);"
         +   "   world[1] = vec4(0,1,0,0);"
         +   "   world[2] = vec4(0,0,1,0);"
-        +   "   world[3] = u_WorldPos;"
-
-        +   "   float cosTheta = cos(u_Yaw);"
-        +   "   float sinTheta = sin(u_Yaw);"
-
-        +   "   mat4 yaw;"
-        +   "   yaw[0] = vec4(cosTheta, 0, sinTheta, 0);"
-        +   "   yaw[1] = vec4(0, 1, 0, 0);"
-        +   "   yaw[2] = vec4(-sinTheta,0,cosTheta,0);"
-        +   "   yaw[3] = vec4(0, 0, 0, 1);"
-
-        +   "   world = world * yaw;"
+        +   "   world[3] = vec4(0, 0, 0, 1);"
 
         +   "   mat4 mvp = u_ProjMatrix * world;"
         +	"	gl_Position = mvp * a_Position;"
         +	"}";
-	
-	public static final String fragmentShader_BARYCENTRIC =
-			"precision mediump float;"
-			
-		+	"uniform vec4 u_Color;"
-				
-		+	"varying vec3 v_Barycentric;"
-		
-		+	"void main()"
-		+	"{"
-		+	"	if(any(lessThan(v_Barycentric, vec3(0.06))))"
-		+	"	{"
-		+	"		gl_FragColor = u_Color;"
-		+	"	}"
-		+	"	else"
-		+	"	{"
-		+	"		gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);"
-		+	"	}"
-		+	"}";
+
+    public static final String fragmentShader_INSTANCING_TEST =
+            "precision mediump float;"
+
+        +   "void main()"
+        +   "{"
+        +   "	gl_FragColor = vec4(1,0,1,1);"
+        +   "}";
+
+    public static final String fragmentShader_BARYCENTRIC_TEST =
+            "precision mediump float;"
+
+        +	"attribute vec4 a_Color;"
+
+        +	"varying vec3 v_Barycentric;"
+
+        +	"void main()"
+        +	"{"
+        +	"	if(any(lessThan(v_Barycentric, vec3(0.06))))"
+        +	"	{"
+        +	"		gl_FragColor = a_Color;"
+        +	"	}"
+        +	"	else"
+        +	"	{"
+        +	"		gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);"
+        +	"	}"
+        +	"}";
 	
 
 	public static final String fragmentShader_BARYCENTRIC_HOLLOW =

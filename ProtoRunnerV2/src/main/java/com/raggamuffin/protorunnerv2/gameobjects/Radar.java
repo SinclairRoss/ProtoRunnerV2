@@ -1,13 +1,9 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
-import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.managers.VehicleManager;
-import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.CollisionDetection;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
@@ -23,7 +19,7 @@ public class Radar extends GameObject
 	private final int RESOLUTION = 7;
 	
 	private ArrayList<RadarFragment> m_RadarFragments;
-	private Vector<Vehicle> m_Vehicles;
+	private ArrayList<Vehicle> m_Vehicles;
 	
 	private Vector3 m_ToVehicle;
 	private Vehicle m_Anchor;

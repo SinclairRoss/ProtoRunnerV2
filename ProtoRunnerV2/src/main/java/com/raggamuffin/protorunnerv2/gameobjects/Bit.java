@@ -1,6 +1,7 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
 import com.raggamuffin.protorunnerv2.ai.AIController;
+import com.raggamuffin.protorunnerv2.ai.AIPersonalityAttributes;
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
@@ -40,8 +41,9 @@ public class Bit extends Vehicle
 		SetAffiliation(AffiliationKey.RedTeam); 
 		
 		SelectWeapon(new PulseLaser_Punk(this, game));
-		
-		m_AIController = new AIController(this, m_VehicleManager, game.GetBulletManager());
+
+        AIPersonalityAttributes attributes = new AIPersonalityAttributes(0.7, 1.0, 0.2, 1.0, 0.7);
+		m_AIController = new AIController(this, m_VehicleManager, game.GetBulletManager(), attributes);
 		
 		m_EnemyHitPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.EnemyHit);
 		m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.EnemyDestroyed);
@@ -54,17 +56,18 @@ public class Bit extends Vehicle
 	{
 		super.CollisionResponse(Collider, deltaTime);
 
+        // For calculating accuracy.
 		if(Collider instanceof Projectile)
 		{
 			Projectile proj = (Projectile) Collider;
 
-			if(m_Player != null)
-			{
-				if(proj.GetFiringWeapon().GetAnchor() == m_Player)
-				{
-					m_EnemyHitPublisher.Publish();
-				}
-			}
+			if(m_Player == null)
+			    return;
+
+            if(proj.GetFiringWeapon().GetAnchor() != m_Player)
+                return;
+
+            m_EnemyHitPublisher.Publish();
 		}
 	}
 	

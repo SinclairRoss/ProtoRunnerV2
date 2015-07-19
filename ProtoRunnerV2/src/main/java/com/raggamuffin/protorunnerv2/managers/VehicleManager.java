@@ -1,5 +1,6 @@
 package com.raggamuffin.protorunnerv2.managers;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -28,9 +29,9 @@ public class VehicleManager
 	private double m_MaxSpawnDistance;
 
 	private Runner m_Player;
-	private Vector<Vehicle> m_Vehicles;
-	private Vector<Vehicle> m_BlueTeam;
-	private Vector<Vehicle> m_RedTeam;
+	private ArrayList<Vehicle> m_Vehicles;
+	private ArrayList<Vehicle> m_BlueTeam;
+	private ArrayList<Vehicle> m_RedTeam;
 	
 	private GameLogic m_Game;
 	
@@ -40,9 +41,9 @@ public class VehicleManager
 	{
 		m_Game = Game;
 
-		m_Vehicles = new Vector<Vehicle>();
-		m_BlueTeam = new Vector<Vehicle>();
-		m_RedTeam  = new Vector<Vehicle>();
+		m_Vehicles = new ArrayList<Vehicle>();
+		m_BlueTeam = new ArrayList<Vehicle>();
+		m_RedTeam  = new ArrayList<Vehicle>();
 
 		m_MaxSpawnDistance = ExhibitionSpawnDistance;
 
@@ -156,7 +157,7 @@ public class VehicleManager
 
 	}
 	
-	public Vector<Vehicle> GetTeam(AffiliationKey faction)
+	public ArrayList<Vehicle> GetTeam(AffiliationKey faction)
 	{
 		switch(faction)
 		{
@@ -174,7 +175,7 @@ public class VehicleManager
 		}
 	}
 	
-	public Vector<Vehicle> GetOpposingTeam(AffiliationKey faction)
+	public ArrayList<Vehicle> GetOpposingTeam(AffiliationKey faction)
 	{
 		switch(faction)
 		{
@@ -219,7 +220,7 @@ public class VehicleManager
 		return m_Player;
 	}
 	
-	public Vector<Vehicle> GetVehicles()
+	public ArrayList<Vehicle> GetVehicles()
 	{
 		return m_Vehicles;
 	}

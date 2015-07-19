@@ -41,6 +41,7 @@ public abstract class Weapon
 	protected double m_Accuracy;
 	protected double m_LifeSpan;
 	protected double m_ProjectileFadeInTime;
+    protected double m_ProjectileFadeOutTime;
 
 	protected Colour m_Colour;
     protected Colour m_AltColour;
@@ -77,7 +78,8 @@ public abstract class Weapon
 		m_MuzzleVelocity = 1.0;
 		m_Accuracy = 1.0;
 		m_LifeSpan = 1.0;
-		m_ProjectileFadeInTime = 0.25;
+		m_ProjectileFadeInTime = 0.02;
+        m_ProjectileFadeOutTime = 0.9;
 
 		m_Colour = new Colour(Colours.White);
 		m_AltColour = new Colour(Colours.White);
@@ -254,7 +256,7 @@ public abstract class Weapon
 	
 	public Colour GetAltColour()
 	{
-		return m_AltColour;
+		return m_Colour;
 	}
 	
 	public Vehicle GetAnchor()

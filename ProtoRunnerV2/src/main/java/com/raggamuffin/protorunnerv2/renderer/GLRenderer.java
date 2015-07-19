@@ -243,7 +243,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
                 if(obj == null)
                     continue;
 
-                m_ModelManager.DrawModel(obj , view);
+                m_ModelManager.Draw(obj, view);
             }
 
             m_ModelManager.CleanModel(type);
@@ -252,10 +252,14 @@ public class GLRenderer implements GLSurfaceView.Renderer
 	
 	private void DrawUI()
 	{
-		ArrayList<UIElement> Copy = (ArrayList<UIElement>) m_UIElements.clone();
+        float[] view = new float[16];
+        Matrix.setIdentityM(view, 0);
+        Matrix.multiplyMM(view, 0, m_UICamera.m_ProjMatrix, 0, m_UICamera.m_VMatrix, 0);
+
+        ArrayList<UIElement> Copy = (ArrayList<UIElement>) m_UIElements.clone();
 
 		for(UIElement object : Copy)
-	        m_UIManager.DrawElement(object);
+	        m_UIManager.DrawElement(object, view);
 	}
 	
 	public static int loadShader(int type, String shaderCode)

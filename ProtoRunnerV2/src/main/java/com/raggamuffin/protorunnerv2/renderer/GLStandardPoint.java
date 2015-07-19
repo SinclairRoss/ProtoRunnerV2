@@ -115,4 +115,16 @@ public class GLStandardPoint extends GLModel
     {
         GLES20.glDisableVertexAttribArray(m_PositionHandle);
     }
+
+    @Override
+    public int GetVertexCount()
+    {
+        return 1;
+    }
+
+    @Override
+    public void Draw(float[] projMatrix)
+    {
+
+    }
 }

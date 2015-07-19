@@ -30,7 +30,7 @@ public abstract class Particle extends GameObject
 		
 		m_DragCoefficient = 0.0;
 		
-		m_FadeIn = 0.3;
+		m_FadeIn = 0.6;
 		m_FadeOut = 0.7;
 		
 		m_BaseColour.SetColour(Colours.Black);

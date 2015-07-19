@@ -16,6 +16,7 @@ public enum ModelType
 
     Trail,
     LaserPointer,
+    ParticleLaser,
 
 	Plane,
 

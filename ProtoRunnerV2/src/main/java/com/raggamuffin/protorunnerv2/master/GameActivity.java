@@ -75,9 +75,11 @@ public class GameActivity extends Activity implements SensorEventListener
 		
 		// Adds support for devices that cannot use emersive mode.
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-		
+
+        Log.e("Activity", "Refresh rate: " + getWindowManager().getDefaultDisplay().getRefreshRate());
+
 		RendererPacket rendererPacket = new RendererPacket();
 
 		rendererPacket.SetUIElements(new ArrayList<UIElement>());

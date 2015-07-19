@@ -10,6 +10,7 @@ import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.weapons.BurstLaser;
 import com.raggamuffin.protorunnerv2.weapons.MineLayer;
+import com.raggamuffin.protorunnerv2.weapons.ParticleCannon;
 import com.raggamuffin.protorunnerv2.weapons.PulseLaser;
 import com.raggamuffin.protorunnerv2.weapons.RocketLauncher;
 import com.raggamuffin.protorunnerv2.weapons.Weapon;

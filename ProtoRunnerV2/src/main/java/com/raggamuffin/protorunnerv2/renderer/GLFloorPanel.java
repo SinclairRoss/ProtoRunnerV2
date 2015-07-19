@@ -13,9 +13,9 @@ public class GLFloorPanel extends GLModel
 {
 	public final FloatBuffer vertexBuffer;
 	public final FloatBuffer textureBuffer;
-	
+
 	private int m_Program;
-	
+
 	private int m_ProjMatrixHandle;
     private int m_WorldPosHandle;
     private int m_ColourHandle;
@@ -23,51 +23,51 @@ public class GLFloorPanel extends GLModel
     private int m_TexUniformHandle;
     private int m_TexCoordHandle;
     private int m_TexOffsetHandle;
-    
+
     private float[] m_Colour;
     private float[] m_Offset;
-    
+
     private float[] m_WorldPos;
     private float m_RepeatStride;
-    
+
 	static final int COORDS_PER_VERTEX = 3;
 	static final int VERTEX_STRIDE = COORDS_PER_VERTEX * 4;	// 4 Bytes to a float.
 	static final float SIZE = 6.0f;
-	
+
 	static float VertexCoords[] =
-	{	
+	{
 		// BOTTOM.
 	   -SIZE,	0.0f,	 SIZE, // A
 	    SIZE,	0.0f,	-SIZE, // C
 	   -SIZE,	0.0f,	-SIZE, // B
-	   
-		
+
+
 	   -SIZE,	0.0f,	 SIZE, // A
 	    SIZE,	0.0f,	 SIZE, // D
 		SIZE,	0.0f,	-SIZE, // C
-		
+
 	};
 
 	static final int TEX_COORDS_PER_VERTEX = 2;
 	static final int TEX_STRIDE = TEX_COORDS_PER_VERTEX * 4;	// 4 Bytes to a float.
-	static final float NUM_CELLS = 4.0f;	
-	
+	static final float NUM_CELLS = 4.0f;
+
 	static float TextureCoords[] =
-	{	
+	{
 		// BOTTOM.
 	    0.0f,		NUM_CELLS, // A
 	    NUM_CELLS,	0.0f, // C
 	    0.0f,		0.0f, // B
-	   
-		
+
+
 	    0.0f,		NUM_CELLS, // A
 	    NUM_CELLS,	NUM_CELLS, // D
 	    NUM_CELLS,	0.0f, // C
-		
+
 	};
-	
+
 	private final int vertexCount = VertexCoords.length / COORDS_PER_VERTEX;
-	
+
 	public GLFloorPanel()
 	{
 		ByteBuffer vc = ByteBuffer.allocateDirect(VertexCoords.length * 4);
@@ -87,17 +87,17 @@ public class GLFloorPanel extends GLModel
 		m_Colour[1] = 1.0f;
 		m_Colour[2] = 1.0f;
 		m_Colour[3] = 1.0f;
-		
+
 		m_Offset = new float[2];
 		m_Offset[0] = 0.0f;
 		m_Offset[1] = 0.0f;
-		
+
 		m_WorldPos = new float[4];
 		m_WorldPos[0] = 0.0f;
 		m_WorldPos[1] = 0.0f;
 		m_WorldPos[2] = 0.0f;
-		m_WorldPos[3] = 0.0f;	
-		
+		m_WorldPos[3] = 0.0f;
+
 		m_Program 			= 0;
 	    m_ProjMatrixHandle  = 0;
         m_WorldPosHandle    = 0;
@@ -106,17 +106,17 @@ public class GLFloorPanel extends GLModel
 	    m_TexUniformHandle	= 0;
 	    m_TexCoordHandle	= 0;
 	    m_TexOffsetHandle	= 0;
-	    
+
 	    m_RepeatStride = (SIZE / NUM_CELLS) * 2.0f;
 
 	    InitShaders();
 	}
-	
+
 	public void draw(Vector3 pos, float[] view)
-	{     
+	{
 		m_Offset[0] = m_WorldPos[0] / m_RepeatStride;
 		m_Offset[1] = m_WorldPos[2] / m_RepeatStride;
-		
+
 		m_Offset[0] %= m_RepeatStride;
 		m_Offset[1] %= m_RepeatStride;
 
@@ -128,7 +128,7 @@ public class GLFloorPanel extends GLModel
 
 		GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
 	}
-	
+
 	public void SetColour(Colour colour)
 	{
 		m_Colour[0] = (float)colour.Red;
@@ -136,7 +136,7 @@ public class GLFloorPanel extends GLModel
 		m_Colour[2] = (float)colour.Blue;
 		m_Colour[3] = (float)colour.Alpha;
 	}
-	
+
 	public void SetWorldPos(Vector3 WorldPos)
 	{
 		m_WorldPos[0] = (float)WorldPos.I;
@@ -191,5 +191,17 @@ public class GLFloorPanel extends GLModel
 
         GLES20.glEnable(GLES20.GL_DEPTH_TEST);
         GLES20.glEnable(GLES20.GL_CULL_FACE);
+    }
+
+    @Override
+    public int GetVertexCount()
+    {
+        return vertexCount;
+    }
+
+    @Override
+    public void Draw(float[] projMatrix)
+    {
+
     }
 }

@@ -17,7 +17,6 @@ public class ProjectileTemplate
     private Weapon m_Origin;
     private VehicleInfo m_VehicleState;
 
-
     private ModelType m_Model;
     private AffiliationKey m_Affiliation;
 
@@ -25,6 +24,7 @@ public class ProjectileTemplate
     private double m_BaseDamage;
     private double m_LifeSpan;
     private double m_FadeInTime;
+    private double m_FadeOutTime;
     private double m_BoundingRadius;
 
     private ProjectileBehaviourType m_Behaviour;
@@ -37,7 +37,7 @@ public class ProjectileTemplate
     private PubSubHub m_PubSubHub;
 
     public ProjectileTemplate(Weapon origin, VehicleInfo state, ModelType model, AffiliationKey affiliation,
-                              double muzzleVelocity, double baseDamage, double lifeSpan, double fadeInTime, double boundingRadius,
+                              double muzzleVelocity, double baseDamage, double lifeSpan, double fadeInTime, double fadeOutTime, double boundingRadius,
                               ProjectileBehaviourType behaviour, GameLogic game, SpecialProjectileBehaviourType... specialBehaviours)
     {
         m_Origin = origin;
@@ -50,6 +50,7 @@ public class ProjectileTemplate
         m_BaseDamage = baseDamage;
         m_LifeSpan = lifeSpan;
         m_FadeInTime = fadeInTime;
+        m_FadeOutTime = fadeOutTime;
         m_BoundingRadius = boundingRadius;
 
         m_Behaviour = behaviour;
@@ -97,6 +98,11 @@ public class ProjectileTemplate
         return m_FadeInTime;
     }
 
+    public double GetFadeOutTime()
+    {
+        return m_FadeOutTime;
+    }
+
     public double GetBoundingRadius()
     {
         return m_BoundingRadius;
@@ -112,6 +118,8 @@ public class ProjectileTemplate
 				return new ProjectileBehaviour_Missile(proj, m_Audio, m_VehicleManager, m_ParticleManager, m_Origin.GetMuzzle(), m_Origin.GetMuzzleIndex());
             case Mine:
                 return new ProjectileBehaviour_Mine(proj);
+            case ParticleLaser:
+                return new ProjectileBehaviour_Laser(proj, m_Origin.GetMuzzle());
             default:
 				return null;
 		}

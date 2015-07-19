@@ -30,7 +30,7 @@ public class ModelManager
 	private Context m_Context;
 	
 	private GLCube 	 	 m_Cube;
-	private GLRunner m_Runner;
+	private GLRunner     m_Runner;
 	private GLPlane 	 m_Plane;
 	private GLFloorPanel m_FloorPanel;
 	private GLPulseLaser m_PulseLaser;
@@ -42,6 +42,7 @@ public class ModelManager
 	private GLStandardPoint m_StandardPoint;
 	private GLLine		 m_Pointer;
     private GLLine       m_Trail;
+    private GLLine       m_ParticleLaser;
 	private GLMissile	 m_Missile;
 	private GLExplosion	 m_Explosion;
 	private GLScreenQuad m_Screen;
@@ -77,6 +78,7 @@ public class ModelManager
         m_Mine       = null;
         m_Pointer	 = null;
         m_Trail      = null;
+        m_ParticleLaser = null;
 		m_Missile	 = null;
 		m_Explosion  = null;
 		m_Screen	 = null;
@@ -109,6 +111,7 @@ public class ModelManager
 		m_StandardPoint = new GLStandardPoint();
         m_Pointer 	 = new GLLine(2.0f);
         m_Trail      = new GLLine(20.0f);
+        m_ParticleLaser = new GLLine(3.0f);
 		m_Missile	 = new GLMissile();
 		m_Explosion	 = new GLExplosion();	
 		m_Screen	 = new GLScreenQuad();
@@ -117,7 +120,7 @@ public class ModelManager
         m_Dummy      = new GLDummy();
 	}
 	
-	public void DrawModel(GameObject object, final float[] projMatrix)
+	public void Draw(GameObject object, float[] projMatrix)
 	{
 		switch(object.GetModel())
 		{
@@ -127,11 +130,12 @@ public class ModelManager
 			//	m_Cube.draw(mvpMatrix);
                 Log.e("testy test", "<--------- Cube --------->");
 				break;
-			
+
 			case Runner:
 				m_Runner.SetColour(object.GetColour());
-                m_Runner.draw(object.GetPosition(), object.GetForward(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
-				break;
+                m_Runner.draw(object.GetPosition(), object.GetScale(), object.GetForward(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
+
+                break;
 
             // unused.
 			case Plane:
@@ -172,17 +176,17 @@ public class ModelManager
 
 			case Bit:
 				m_Bit.SetColour(object.GetColour());
-                m_Bit.draw(object.GetPosition(), object.GetForward(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
+                m_Bit.draw(object.GetPosition(), object.GetScale(), object.GetForward(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
 				break;
 				
 			case Byte:
 				m_Byte.SetColour(object.GetColour());
-				m_Byte.draw(object.GetPosition(), object.GetForward(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
+				m_Byte.draw(object.GetPosition(), object.GetScale(), object.GetForward(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
                 break;
 
             case Mine:
                 m_Mine.SetColour(object.GetColour());
-                m_Mine.draw(object.GetPosition(), object.GetForward(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
+                m_Mine.draw(object.GetPosition(), object.GetScale(), object.GetForward(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
 
                 break;
 
@@ -193,6 +197,7 @@ public class ModelManager
 				break;
 
             case Trail:
+            {
                 m_ToEye.SetVectorDifference(m_EyePos, object.GetPosition());
                 float dist = (float) m_ToEye.GetLength();
 
@@ -200,9 +205,9 @@ public class ModelManager
 
                 m_Trail.SetColour(object.GetColour());
                 m_Trail.SetEndPointColour(object.GetAltColour());
-                m_Trail.draw(object.GetPosition(), object.GetScale(), (float)object.GetYaw(), projMatrix);
+                m_Trail.draw(object.GetPosition(), object.GetScale(), (float) object.GetYaw(), projMatrix);
                 break;
-
+            }
 			case LaserPointer:
 
                 m_Pointer.SetColour(object.GetColour());
@@ -210,15 +215,27 @@ public class ModelManager
                 m_Pointer.draw(object.GetPosition(), object.GetScale(), (float)object.GetYaw(), projMatrix);
 				break;
 
+            case ParticleLaser:
+            {
+                m_ToEye.SetVectorDifference(m_EyePos, object.GetPosition());
+                float dist = (float) m_ToEye.GetLength();
+
+                GLES20.glLineWidth((float) (6.0f * MathsHelper.FastInverseSqrt(dist)));
+
+                m_ParticleLaser.SetColour(object.GetAltColour());
+                m_ParticleLaser.SetEndPointColour(object.GetColour());
+                m_ParticleLaser.draw(object.GetPosition(), object.GetScale(), (float) object.GetYaw(), projMatrix);
+                break;
+            }
 			case Missile:			
 				m_Missile.SetColour(object.GetColour());
-				m_Missile.draw(object.GetPosition(), object.GetForward(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
+				m_Missile.draw(object.GetPosition(), object.GetScale(), object.GetForward(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
 
                 break;
 			
 			case Explosion:
 				m_Explosion.SetColour(object.GetColour());
-				m_Explosion.draw(object.GetPosition(), object.GetForward(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
+				m_Explosion.draw(object.GetPosition(), object.GetScale(), object.GetForward(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
 				break;
 
 			case RadarFragment:
@@ -228,12 +245,13 @@ public class ModelManager
 
             case Dummy:
                 m_Dummy.SetColour(object.GetColour());
-                m_Dummy.draw(object.GetPosition(), object.GetForward(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
+                m_Dummy.draw(object.GetPosition(), object.GetScale(), object.GetForward(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
                 break;
 				
 			case Nothing:
 				// Do nothing.
 				break;
+
 		}
 	}
 
@@ -302,6 +320,8 @@ public class ModelManager
                 return m_Trail;
             case LaserPointer:
                 return m_Pointer;
+            case ParticleLaser:
+                return m_ParticleLaser;
             case Explosion:
                 return m_Explosion;
             case Skybox:

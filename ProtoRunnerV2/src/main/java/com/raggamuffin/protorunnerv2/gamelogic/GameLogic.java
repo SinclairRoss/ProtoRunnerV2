@@ -394,12 +394,12 @@ public class GameLogic extends ApplicationLogic
         {
             m_UIManager.ShowScreen(UIScreens.Reboot);
 
-            Vector<Vehicle> wingmen = m_VehicleManager.GetTeam(AffiliationKey.BlueTeam);
+            ArrayList<Vehicle> wingmen = m_VehicleManager.GetTeam(AffiliationKey.BlueTeam);
 
             if(wingmen.size() == 0)
                 return;
 
-            m_Camera.SetLookAt(wingmen.elementAt(0));
+            m_Camera.SetLookAt(wingmen.get(0));
         }
     }
 

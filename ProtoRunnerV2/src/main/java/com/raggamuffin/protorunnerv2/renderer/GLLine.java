@@ -25,7 +25,7 @@ public class GLLine extends GLModel
     private int m_PositionHandle;
     private int m_WeightHandle;
 
-    private double m_LineThickness;
+    private float m_LineThickness;
     
     private float[] m_Colour;
     private float[] m_EndPointColour;
@@ -145,7 +145,7 @@ public class GLLine extends GLModel
     @Override
     public void InitialiseModel()
     {
-        GLES20.glLineWidth(2.0f);
+        GLES20.glLineWidth(m_LineThickness);
 
         GLES20.glUseProgram(m_Program);
 
@@ -160,5 +160,17 @@ public class GLLine extends GLModel
     public void CleanModel()
     {
         GLES20.glDisableVertexAttribArray(m_PositionHandle);
+    }
+
+    @Override
+    public int GetVertexCount()
+    {
+        return vertexCount;
+    }
+
+    @Override
+    public void Draw(float[] projMatrix)
+    {
+
     }
 }

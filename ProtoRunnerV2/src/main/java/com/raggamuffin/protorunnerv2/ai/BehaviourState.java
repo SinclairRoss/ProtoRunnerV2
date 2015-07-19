@@ -7,7 +7,7 @@ public abstract class BehaviourState
 	protected AIController m_Controller;
 	protected NavigationControl m_NavController;
 	protected Vehicle m_Anchor;
-	
+
 	public BehaviourState(AIController Controller)
 	{
 		m_Controller 	= Controller;
@@ -18,5 +18,5 @@ public abstract class BehaviourState
 	
 	
 	public abstract void InitialiseState();
-	public abstract void Update(double DeltaTime);
+	public abstract void Update();
 }

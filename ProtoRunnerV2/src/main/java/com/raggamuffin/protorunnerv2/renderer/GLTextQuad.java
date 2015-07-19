@@ -165,4 +165,16 @@ public class GLTextQuad extends GLModel
         GLES20.glDisableVertexAttribArray(m_PositionHandle);
         GLES20.glDisableVertexAttribArray(m_TexCoordHandle);
     }
+
+    @Override
+    public int GetVertexCount()
+    {
+        return vertexCount;
+    }
+
+    @Override
+    public void Draw(float[] projMatrix)
+    {
+
+    }
 }

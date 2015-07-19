@@ -153,9 +153,9 @@ public class GLRadarFragment extends GLModel
 		m_Colour[3] = 1.0f;
 
         m_Program 			= 0;
-        m_ProjMatrixHandle = 0;
-        m_WorldPosHandle = 0;
-        m_ScaleHandle = 0;
+        m_ProjMatrixHandle  = 0;
+        m_WorldPosHandle    = 0;
+        m_ScaleHandle       = 0;
         m_ColourHandle		= 0;
         m_PositionHandle	= 0;
         m_TexUniformHandle	= 0;
@@ -212,6 +212,8 @@ public class GLRadarFragment extends GLModel
     {
         GLES20.glUseProgram(m_Program);
 
+        GLES20.glEnable(GLES20.GL_DEPTH_TEST);
+
         GLES20.glUniform2f(m_TexOffsetHandle, 0.0f, 0.0f);
 
         GLES20.glEnableVertexAttribArray(m_PositionHandle);
@@ -228,5 +230,17 @@ public class GLRadarFragment extends GLModel
     {
         GLES20.glDisableVertexAttribArray(m_PositionHandle);
         GLES20.glDisableVertexAttribArray(m_TexCoordHandle);
+    }
+
+    @Override
+    public int GetVertexCount()
+    {
+        return vertexCount;
+    }
+
+    @Override
+    public void Draw(float[] projMatrix)
+    {
+
     }
 }

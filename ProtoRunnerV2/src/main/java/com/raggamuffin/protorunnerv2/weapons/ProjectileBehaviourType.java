@@ -4,5 +4,6 @@ public enum ProjectileBehaviourType
 {
 	Standard,
 	Missile,
-    Mine
+    Mine,
+    ParticleLaser
 }

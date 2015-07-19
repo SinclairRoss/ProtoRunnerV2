@@ -7,6 +7,9 @@ public abstract class GLModel
     public abstract void InitialiseModel();
     public abstract void CleanModel();
 
+    public abstract int GetVertexCount();
+    public abstract void Draw(float[] projMatrix);
+
     protected int loadShader(int type, String shaderCode)
     {
         // create a vertex shader type (GLES20.GL_VERTEX_SHADER)
