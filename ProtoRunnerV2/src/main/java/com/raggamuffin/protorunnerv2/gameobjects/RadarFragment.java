@@ -18,7 +18,7 @@ public class RadarFragment extends GameObject
 	private final double MIN_DEPTH;
 	private final double MAX_DEPTH;	
 	private final double MIN_ALPHA = 0.0;
-	private final double MAX_ALPHA = 0.1;
+	private final double MAX_ALPHA = 0.4;
 	private double m_Depth;
 	
 	private ColourBehaviour_LerpTo m_ColourBehaviour;

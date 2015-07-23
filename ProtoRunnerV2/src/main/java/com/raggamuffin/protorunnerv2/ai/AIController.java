@@ -20,7 +20,7 @@ public class AIController
 	private Vehicle m_Anchor;
 	private Vehicle m_Leader;
 	
-	public AIController(Vehicle anchor, VehicleManager vManager, BulletManager bManager, AIPersonalityAttributes attributes)
+	public AIController(Vehicle anchor, VehicleManager vManager, BulletManager bManager, AIPersonalityAttributes attributes, AIGoalSet goalSet)
 	{
 		m_Anchor = anchor;
 		m_Leader = null;
@@ -34,7 +34,7 @@ public class AIController
 
         m_NavigationControl 	= new NavigationControl(this);
 		m_FireControl 			= new FireControl(this);
-		m_BehaviourControl		= new BehaviourControl(this);
+		m_BehaviourControl		= new BehaviourControl(this, goalSet);
     }
 
 	public void Update(double deltaTime)

@@ -29,6 +29,6 @@ public class MineLayer extends Weapon
 
         AddMuzzle(0, 0, -1);
 
-        SetColour(Colours.CalvinOrange);
+        SetColour(Colours.Yellow);
     }
 }

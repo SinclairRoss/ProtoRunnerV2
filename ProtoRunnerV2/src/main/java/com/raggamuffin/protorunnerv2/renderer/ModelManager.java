@@ -132,8 +132,7 @@ public class ModelManager
 				break;
 
 			case Runner:
-				m_Runner.SetColour(object.GetColour());
-                m_Runner.draw(object.GetPosition(), object.GetScale(), object.GetForward(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
+                m_Runner.draw(object.GetPosition(), object.GetScale(), object.GetColour(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
 
                 break;
 
@@ -175,18 +174,15 @@ public class ModelManager
 				break;
 
 			case Bit:
-				m_Bit.SetColour(object.GetColour());
-                m_Bit.draw(object.GetPosition(), object.GetScale(), object.GetForward(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
+                m_Bit.draw(object.GetPosition(), object.GetScale(), object.GetColour(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
 				break;
 				
 			case Byte:
-				m_Byte.SetColour(object.GetColour());
-				m_Byte.draw(object.GetPosition(), object.GetScale(), object.GetForward(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
+				m_Byte.draw(object.GetPosition(), object.GetScale(), object.GetColour(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
                 break;
 
             case Mine:
-                m_Mine.SetColour(object.GetColour());
-                m_Mine.draw(object.GetPosition(), object.GetScale(), object.GetForward(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
+                m_Mine.draw(object.GetPosition(), object.GetScale(), object.GetColour(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
 
                 break;
 
@@ -227,25 +223,20 @@ public class ModelManager
                 m_ParticleLaser.draw(object.GetPosition(), object.GetScale(), (float) object.GetYaw(), projMatrix);
                 break;
             }
-			case Missile:			
-				m_Missile.SetColour(object.GetColour());
-				m_Missile.draw(object.GetPosition(), object.GetScale(), object.GetForward(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
-
+			case Missile:
+				m_Missile.draw(object.GetPosition(), object.GetScale(), object.GetColour(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
                 break;
 			
 			case Explosion:
-				m_Explosion.SetColour(object.GetColour());
-				m_Explosion.draw(object.GetPosition(), object.GetScale(), object.GetForward(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
+				m_Explosion.draw(object.GetPosition(), object.GetScale(), object.GetColour(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
 				break;
 
 			case RadarFragment:
-				m_RadarFragment.SetColour(object.GetColour());
-				m_RadarFragment.draw(object.GetPosition(), projMatrix);
+				m_RadarFragment.draw(object.GetPosition(), object.GetScale(), object.GetColour(), projMatrix);
 				break;
 
             case Dummy:
-                m_Dummy.SetColour(object.GetColour());
-                m_Dummy.draw(object.GetPosition(), object.GetScale(), object.GetForward(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
+                m_Dummy.draw(object.GetPosition(), object.GetScale(), object.GetColour(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
                 break;
 				
 			case Nothing:

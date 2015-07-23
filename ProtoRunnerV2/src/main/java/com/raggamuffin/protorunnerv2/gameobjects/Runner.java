@@ -2,7 +2,6 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.gamelogic.HealthRegenHandler;
 import com.raggamuffin.protorunnerv2.master.ControlScheme;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
@@ -10,7 +9,6 @@ import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.weapons.BurstLaser;
 import com.raggamuffin.protorunnerv2.weapons.MineLayer;
-import com.raggamuffin.protorunnerv2.weapons.ParticleCannon;
 import com.raggamuffin.protorunnerv2.weapons.PulseLaser;
 import com.raggamuffin.protorunnerv2.weapons.RocketLauncher;
 import com.raggamuffin.protorunnerv2.weapons.Weapon;
@@ -20,7 +18,6 @@ public class Runner extends Vehicle
 {
 	private WeaponSlot m_CurrentlyUsedSlot;
 	private ControlScheme m_Input;
-    private HealthRegenHandler m_HealthRegenHandler;
 
 	// Weapons.
 	private Weapon m_WeaponLeft;
@@ -38,15 +35,13 @@ public class Runner extends Vehicle
 		super(game);
 
 		m_Input = game.GetControlScheme();
-        m_HealthRegenHandler = new HealthRegenHandler(game, this);
-
 		m_Model = ModelType.Runner;
 
 		m_Position.SetVector(0, 0, 0);
 		
 		m_Engine = new Engine(this, m_ParticleManager, new EngineUseBehaviour_Drain(this));
 		m_Engine.SetMaxTurnRate(2.0);//2
-		m_Engine.SetMaxEngineOutput(1500);//1500
+		m_Engine.SetMaxEngineOutput(3000);//3000
 		
 		m_MaxHullPoints = 1000;
 		m_HullPoints 	= m_MaxHullPoints;
@@ -82,6 +77,7 @@ public class Runner extends Vehicle
         m_PubSubHub.SubscribeToTopic(PublishedTopics.WeaponDown, new WeaponDownSubscriber());
         m_PubSubHub.SubscribeToTopic(PublishedTopics.Forward, new ForwardSubscriber());
         m_PubSubHub.SubscribeToTopic(PublishedTopics.Reverse, new ReverseSubscriber());
+        m_PubSubHub.SubscribeToTopic(PublishedTopics.EnemyDestroyed, new EnemyDestroyedSubscriber());
 
         m_PreviousWeaponSlot = WeaponSlot.Left;
         SelectWeaponBySlot(WeaponSlot.Left);
@@ -262,4 +258,14 @@ public class Runner extends Vehicle
             UseForwardEngine();
         }
     }
+
+    private class EnemyDestroyedSubscriber extends Subscriber
+    {
+        @Override
+        public void Update(int args)
+        {
+            ChargeEnergy(200);
+        }
+    }
+
 }

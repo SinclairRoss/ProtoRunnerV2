@@ -1,7 +1,9 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
 import com.raggamuffin.protorunnerv2.ai.AIController;
+import com.raggamuffin.protorunnerv2.ai.AIGoalSet;
 import com.raggamuffin.protorunnerv2.ai.AIPersonalityAttributes;
+import com.raggamuffin.protorunnerv2.ai.GoalState;
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
@@ -43,7 +45,8 @@ public class Bit extends Vehicle
 		SelectWeapon(new PulseLaser_Punk(this, game));
 
         AIPersonalityAttributes attributes = new AIPersonalityAttributes(0.7, 1.0, 0.2, 1.0, 0.7);
-		m_AIController = new AIController(this, m_VehicleManager, game.GetBulletManager(), attributes);
+        AIGoalSet goalSet = new AIGoalSet(GoalState.EngageTarget);
+		m_AIController = new AIController(this, m_VehicleManager, game.GetBulletManager(), attributes, goalSet);
 		
 		m_EnemyHitPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.EnemyHit);
 		m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.EnemyDestroyed);

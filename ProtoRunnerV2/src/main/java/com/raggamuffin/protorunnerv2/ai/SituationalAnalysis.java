@@ -25,7 +25,7 @@ public class SituationalAnalysis
 
         m_SelfWorth = attributes.GetSelfWorth();
 
-        m_BraveryFactors = new ArrayList<BraveryFactor>();
+        m_BraveryFactors = new ArrayList<>();
         m_BraveryFactors.add(new BraveryFactor_DamageTaken(controller.GetAnchor().GetInternalPubSubHub(), attributes));
         m_BraveryFactors.add(new BraveryFactor_Enemies(controller, attributes));
         m_BraveryFactors.add(new BraveryFactor_Friendlies(controller, attributes));
@@ -52,14 +52,14 @@ public class SituationalAnalysis
 
         m_Bravery +=  valA + valB + valC;
 
-        if(m_Anchor instanceof Wingman)
-        {
-            Log.e("Wingman", "Bravery:     " + m_Bravery);
-            Log.e("Wingman", "SelfWorth:   " + m_SelfWorth);
-            Log.e("Wingman", "DamageTaken: " + valA);
-            Log.e("Wingman", "Enemies:     " + valB);
-            Log.e("Wingman", "Friendlies:  " + valC);
-        }
+//        if(m_Anchor instanceof Wingman)
+//        {
+//            Log.e("Wingman", "Bravery:     " + m_Bravery);
+//            Log.e("Wingman", "SelfWorth:   " + m_SelfWorth);
+//            Log.e("Wingman", "DamageTaken: " + valA);
+//            Log.e("Wingman", "Enemies:     " + valB);
+//            Log.e("Wingman", "Friendlies:  " + valC);
+//        }
     }
 
     public double GetBravery()

@@ -1,5 +1,9 @@
 package com.raggamuffin.protorunnerv2.ai;
 
+import android.util.Log;
+
+import com.raggamuffin.protorunnerv2.gameobjects.Bit;
+
 import java.util.ArrayList;
 
 public class IndependentBehaviour extends BehaviourState
@@ -7,13 +11,11 @@ public class IndependentBehaviour extends BehaviourState
     private ArrayList<Goal> m_Goals;
     private Goal m_Goal;
 
-	public IndependentBehaviour(AIController controller)
+	public IndependentBehaviour(AIController controller, AIGoalSet goalSet)
 	{
 		super(controller);
 
-        m_Goals = new ArrayList<Goal>();
-        m_Goals.add(new Goal_EngageTarget(m_Controller));
-        m_Goals.add(new Goal_Flee(m_Controller));
+        m_Goals = goalSet.GetGoals(controller);
 	}
 	
 	@Override

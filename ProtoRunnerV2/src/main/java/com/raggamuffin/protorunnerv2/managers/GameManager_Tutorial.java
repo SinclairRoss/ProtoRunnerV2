@@ -241,8 +241,8 @@ public class GameManager_Tutorial extends GameManager
                     m_HealthBar.Off();
                     break;
                 case SpawnWingmen:
-                    m_Game.GetVehicleManager().SpawnWingmen();
-                    m_Game.GetVehicleManager().SpawnWingmen();
+                    m_Game.GetVehicleManager().SpawnWingmen(-1);
+                    m_Game.GetVehicleManager().SpawnWingmen(1);
                     break;
                 case LockWeapon_Left:
                     m_LockWeaponLeft.On();

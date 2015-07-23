@@ -1,11 +1,7 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 
-import com.raggamuffin.protorunnerv2.colours.ColourBehaviour;
-import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_FadeTo;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
@@ -83,8 +79,8 @@ public class Projectile extends GameObject
 		
 		m_Origin = template.GetOrigin();
 
-		m_BaseColour.SetColour(m_Origin.GetAltColour());
-        m_AltColour.SetColour(m_Origin.GetBulletColour());
+		m_BaseColour.SetColour(m_Origin.GetColour());
+        m_AltColour.SetColour(m_Origin.GetAltColour());
         m_BaseColour.Alpha = 0.0;
         m_AltColour.Alpha  = 0.0;
 

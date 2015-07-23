@@ -1,16 +1,9 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
-import android.content.Context;
-
 import com.raggamuffin.protorunnerv2.R;
 import com.raggamuffin.protorunnerv2.audio.AudioClips;
-import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
-import com.raggamuffin.protorunnerv2.managers.BulletManager;
-import com.raggamuffin.protorunnerv2.managers.ParticleManager;
-import com.raggamuffin.protorunnerv2.managers.VehicleManager;
-import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 
@@ -25,7 +18,8 @@ public class RocketLauncher extends Weapon
 		m_MuzzleVelocity = 0.0;
 		m_Accuracy = 1.0;
 		m_LifeSpan = 5.0;
-		m_ProjectileFadeInTime = 1.0;
+		m_ProjectileFadeInTime = 0.0;
+        m_ProjectileFadeOutTime = 0.0;
 		
 		m_AudioClip = AudioClips.MissileSpawned;
 		

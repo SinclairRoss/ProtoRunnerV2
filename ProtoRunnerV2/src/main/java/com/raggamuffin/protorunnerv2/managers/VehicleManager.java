@@ -100,19 +100,23 @@ public class VehicleManager
 		m_PlayerSpawnedPublisher.Publish();
 	}
 
-	public void SpawnWingmen()
+	public void SpawnWingmen(int i)
 	{
-		Wingman Buddy = new Wingman(m_Game);
+		Wingman buddy = new Wingman(m_Game);
 
         if(m_Player != null)
         {
-            Buddy.SetPosition(m_Player.GetPosition());
-            Buddy.SetYaw(m_Player.GetYaw());
+            buddy.SetYaw(m_Player.GetYaw());
         }
 
-		m_Vehicles.add(Buddy);
-		m_BlueTeam.add(Buddy);
-		m_Game.AddObjectToRenderer(Buddy);		
+        Vector3 pos = new Vector3(i, 0, 0);
+        buddy.SetPosition(pos);
+
+		m_Vehicles.add(buddy);
+		m_BlueTeam.add(buddy);
+		m_Game.AddObjectToRenderer(buddy);
+
+
 	}
 
     public void SpawnDummy(double x, double z)
@@ -122,8 +126,9 @@ public class VehicleManager
         m_RedTeam.add(dummy);
         m_Game.AddObjectToRenderer(dummy);
     }
+
 	
-	public void SpawnSquad()
+	public void SpawnSquad(double maxSpawnDistance)
 	{
 		double I = MathsHelper.RandomDouble(-1.0, 1.0);
 		double J = 0;
@@ -131,13 +136,13 @@ public class VehicleManager
 		
 		Vector3 m_Spawn = new Vector3(I,J,K);
 		m_Spawn.Normalise();
-		m_Spawn.Scale(m_MaxSpawnDistance);
+		m_Spawn.Scale(maxSpawnDistance);
 		
 		if(m_Player != null)
 			m_Spawn.Add(m_Player.GetPosition());
 
-        /*
-		for(int b = 0; b < 2; b++)
+
+		for(int b = 0; b < 1; b++)
 		{
 			Tank bit = new Tank(m_Game);
 			m_Vehicles.add(bit);
@@ -146,15 +151,16 @@ public class VehicleManager
 			
 			bit.SetPosition(m_Spawn.I + b * 2,m_Spawn.J,m_Spawn.K);
 		}
-		*/
 
-        Bit bit = new Bit(m_Game);
-        m_Vehicles.add(bit);
-        m_RedTeam.add(bit);
-        m_Game.AddObjectToRenderer(bit);
+        for(int b = 0; b < 6; b++)
+        {
+            Bit bit = new Bit(m_Game);
+            m_Vehicles.add(bit);
+            m_RedTeam.add(bit);
+            m_Game.AddObjectToRenderer(bit);
 
-        bit.SetPosition(m_Spawn.I,m_Spawn.J,m_Spawn.K);
-
+            bit.SetPosition(m_Spawn.I + b * 2,m_Spawn.J,m_Spawn.K);
+        }
 	}
 	
 	public ArrayList<Vehicle> GetTeam(AffiliationKey faction)

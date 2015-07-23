@@ -5,11 +5,7 @@ import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 
 public class GameStats 
 {
-	private GameLogic m_Game;
-	
 	private boolean m_Locked;
-    private boolean m_PanicSwitchLocked;
-	private boolean m_RealData;
 	
 	private int m_Score;
 	private double m_PlayTime;
@@ -22,21 +18,15 @@ public class GameStats
 	
 	public GameStats(GameLogic Game)
 	{
-		m_Game = Game;
+        Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.EnemyDestroyed, new EnemyDestroyedSubscriber());
+        Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.EnemyHit, new EnemyHitSubscriber());
+        Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerShotFired, new PlayerShotFiredSubscriber());
+        Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerSpawned, new PlayerSpawnedSubscriber());
+        Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.WingmanDestroyed, new WingmanDestroyedSubscriber());
 
-		m_Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.EnemyDestroyed, new EnemyDestroyedSubscriber());
-		m_Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.EnemyHit, new EnemyHitSubscriber());
-		m_Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerShotFired, new PlayerShotFiredSubscriber());
-		m_Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerSpawned, new PlayerSpawnedSubscriber());
-        m_Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.WingmanDestroyed, new WingmanDestroyedSubscriber());
-        m_Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PanicSwitchFired, new PanicSwitchFiredSubscriber());
-        m_Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PanicSwitchDepleted, new PanicSwitchDepletedSubscriber());
-
-		ResetStats();
+        ResetStats();
 		
 		m_Locked = true;
-        m_PanicSwitchLocked = false;
-		m_RealData = false;
 	}
 	
 	public void Update(double deltaTime)
@@ -59,9 +49,7 @@ public class GameStats
 		m_WingmanBDuration = 0;
 
         m_Locked = false;
-        m_PanicSwitchLocked = false;
-        m_RealData = true;
-	}
+    }
 
     public void Lock()
     {
@@ -79,30 +67,6 @@ public class GameStats
 			return 0.0;
 		
 		return (double) m_ShotsLanded / m_ShotsFired;
-	}
-	
-	public int GetShotsFired()
-	{
-		return m_ShotsFired;
-	}
-	
-	public int GetShotsLanded()
-	{
-		return m_ShotsLanded;
-	}
-	
-	public void SetStatsFromScoreTable()
-	{
-		//m_Score = row.GetScore();
-		//m_ShotsFired = row.GetShotsFired();
-		//m_ShotsLanded = row.GetShotsLanded();
-		//m_PlayTime = row.GetPlayTime();
-		//m_LivesUsed = row.GetNumReboots();
-		
-		//m_WingmanADuration = row.GetWingmanALife();
-		//m_WingmanBDuration = row.GetWingmanBLife();
-		
-		m_RealData = false;
 	}
 	
 	public String GetPlayTimeString()
@@ -138,23 +102,15 @@ public class GameStats
 		
 		return m_WingmanBDuration;
 	}
-	
-	public boolean isRealData()
-	{
-		return m_RealData;
-	}
-	
+
 	private class EnemyDestroyedSubscriber extends Subscriber
 	{
 		@Override
-		public void Update(int args) 
+		public void Update(int args)
 		{
 			if(m_Locked)
 				return;
 
-            if(m_PanicSwitchLocked)
-                return;
-			
 			m_Score += args;
 		}
 	}
@@ -166,9 +122,6 @@ public class GameStats
 		{
 			if(m_Locked)
 				return;
-
-            if(m_PanicSwitchLocked)
-                return;
 
 			m_ShotsLanded++;
 		}	
@@ -210,24 +163,6 @@ public class GameStats
                 m_WingmanBDuration = m_PlayTime;
             else
                 m_WingmanADuration = m_PlayTime;
-        }
-    }
-
-    private class PanicSwitchFiredSubscriber extends Subscriber
-    {
-        @Override
-        public void Update(int args)
-        {
-            m_PanicSwitchLocked = true;
-        }
-    }
-
-    private class PanicSwitchDepletedSubscriber extends Subscriber
-    {
-        @Override
-        public void Update(int args)
-        {
-            m_PanicSwitchLocked = false;
         }
     }
 }

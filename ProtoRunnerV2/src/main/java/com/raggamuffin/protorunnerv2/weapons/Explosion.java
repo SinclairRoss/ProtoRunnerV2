@@ -34,6 +34,7 @@ public class Explosion extends GameObject
 		fadeBehaviour.TriggerBehaviour();
 		
 		m_BaseColour.SetColour(colour);
+        m_BaseColour.Alpha = 1.0;
 
 		m_Position.SetVector(position);
 		m_Size = 0.0;
@@ -65,11 +66,6 @@ public class Explosion extends GameObject
 	@Override
 	public boolean IsValid() 
 	{
-		if(m_Theta >= 1.0 || m_ForciblyInvalidated)
-		{	
-			return false;
-		}
-		
-		return true;
+		return !(m_Theta >= 1.0 || m_ForciblyInvalidated);
 	}
 }

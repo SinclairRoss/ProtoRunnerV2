@@ -18,8 +18,6 @@ public enum PublishedTopics
 	WingmanDestroyed,
 	PlayerDestroyed,
 	PlayerSwitchedWeapon,
-    PanicSwitchFired,
-    PanicSwitchDepleted,
     SignInPressed,
     SignOutPressed,
     GooglePlayConnected,

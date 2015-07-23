@@ -25,9 +25,9 @@ public class Sensor_SurroundingAwareness extends Sensor
 		
 		m_VehiclesInWorld = vManager.GetVehicles();
 
-        m_VehiclesInNeighbourhood = new ArrayList<Vehicle>();
-        m_FriendlyVehiclesInNeighbourhood = new ArrayList<Vehicle>();
-        m_EnemyVehiclesInNeighbourhood = new ArrayList<Vehicle>();
+        m_VehiclesInNeighbourhood = new ArrayList<>();
+        m_FriendlyVehiclesInNeighbourhood = new ArrayList<>();
+        m_EnemyVehiclesInNeighbourhood = new ArrayList<>();
 
         m_CenterOfMassFriend = new Vector3();
         m_CenterOfMassEnemy  = new Vector3();
@@ -76,11 +76,22 @@ public class Sensor_SurroundingAwareness extends Sensor
 		}
 
         double scale;
+        int size;
 
-        scale = 1.0 / m_FriendlyVehiclesInNeighbourhood.size();
+        size = m_FriendlyVehiclesInNeighbourhood.size();
+
+        if(size == 0)
+            size = 1;
+
+        scale = 1.0 / size;
         m_CenterOfMassFriend.Scale(scale);
 
-        scale = 1.0 / m_EnemyVehiclesInNeighbourhood.size();
+        size = m_EnemyVehiclesInNeighbourhood.size();
+
+        if(size == 0)
+            size = 1;
+
+        scale = 1.0 / size;
         m_CenterOfMassEnemy.Scale(scale);
 	}
 

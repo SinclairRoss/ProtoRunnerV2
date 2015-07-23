@@ -111,7 +111,7 @@ public class Engine
         double yaw = m_Anchor.GetYaw() + (m_TurnRate * m_MaxTurnRate * DeltaTime);
         m_Anchor.SetYaw(yaw);
 
-        double roll = Math.toRadians(m_TurnRate * 25);
+        double roll = Math.toRadians(-m_TurnRate * 25);
         m_Anchor.SetRoll(roll);
     }
 

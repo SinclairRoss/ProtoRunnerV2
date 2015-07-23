@@ -1,7 +1,9 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
 import com.raggamuffin.protorunnerv2.ai.AIController;
+import com.raggamuffin.protorunnerv2.ai.AIGoalSet;
 import com.raggamuffin.protorunnerv2.ai.AIPersonalityAttributes;
+import com.raggamuffin.protorunnerv2.ai.GoalState;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
@@ -30,7 +32,8 @@ public class Dummy extends Vehicle
 
         SelectWeapon(new Weapon_None(this, game));
         AIPersonalityAttributes attributes = new AIPersonalityAttributes(0.5, 0.0, 1.0, 0.0, 0.0);
-        m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), attributes);
+        AIGoalSet goalSet = new AIGoalSet(GoalState.EngageTarget, GoalState.Flee);
+        m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), attributes, goalSet);
     }
 
     @Override

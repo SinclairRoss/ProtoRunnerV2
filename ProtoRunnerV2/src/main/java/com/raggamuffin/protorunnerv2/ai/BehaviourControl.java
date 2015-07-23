@@ -10,10 +10,10 @@ public class BehaviourControl
 	private IndependentBehaviour m_IndependentState;
 	private SubmissiveBehaviour  m_SubmissiveState;
 	
-	public BehaviourControl(AIController Controller)
+	public BehaviourControl(AIController Controller, AIGoalSet goalSet)
 	{
 		m_Controller 		= Controller;
-		m_IndependentState 	= new IndependentBehaviour(Controller);
+		m_IndependentState 	= new IndependentBehaviour(Controller, goalSet);
 		m_SubmissiveState 	= new SubmissiveBehaviour(Controller);
 		m_BehaviourState 	= m_IndependentState;
 	}

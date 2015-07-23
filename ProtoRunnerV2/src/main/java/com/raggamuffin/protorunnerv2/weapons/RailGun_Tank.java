@@ -37,7 +37,7 @@ public class RailGun_Tank extends Weapon
 		
 		AddMuzzle(0, 0, 1);
 		
-		SetColour(Colours.Cyan);
+		SetColour(Colours.IndianRed);
 
         m_BurstEmitter.SetStartColour(m_Colour);
         m_BurstEmitter.SetFinalColour(m_AltColour);

@@ -35,6 +35,10 @@ public class Goal_Flee extends Goal
 
         m_FleeVector.SetVector(pos);
         m_FleeVector.Add(m_TempVector);
+
+        if(m_FleeVector == null)
+            return null;
+
         return m_FleeVector;
     }
 }

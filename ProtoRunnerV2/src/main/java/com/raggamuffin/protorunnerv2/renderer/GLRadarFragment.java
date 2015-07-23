@@ -24,8 +24,6 @@ public class GLRadarFragment extends GLModel
     private int m_TexUniformHandle;
     private int m_TexCoordHandle;
     private int m_TexOffsetHandle;
-    
-    private float[] m_Colour = new float[4];
 	
 	static final int COORDS_PER_VERTEX = 3;
 	static final int VERTEX_STRIDE = COORDS_PER_VERTEX * 4;	// 4 Bytes to a float.
@@ -146,11 +144,6 @@ public class GLRadarFragment extends GLModel
 		textureBuffer = tc.asFloatBuffer();
 		textureBuffer.put(TextureCoords);
 		textureBuffer.position(0);
-		
-		m_Colour[0] = 1.0f;
-		m_Colour[1] = 1.0f;
-		m_Colour[2] = 1.0f;
-		m_Colour[3] = 1.0f;
 
         m_Program 			= 0;
         m_ProjMatrixHandle  = 0;
@@ -165,24 +158,16 @@ public class GLRadarFragment extends GLModel
 	    InitShaders();
 	}
 
-    public void draw(Vector3 pos, float[] projMatrix)
+    public void draw(Vector3 pos, Vector3 scale, Colour colour, float[] projMatrix)
     {
         GLES20.glUniformMatrix4fv(m_ProjMatrixHandle, 1, false, projMatrix, 0);
         GLES20.glUniform4f(m_WorldPosHandle, (float) pos.I, (float) pos.J, (float) pos.K, 1.0f);
-        GLES20.glUniform3f(m_ScaleHandle, 1.0f, 1.0f, 1.0f);
+        GLES20.glUniform3f(m_ScaleHandle, (float) scale.I, (float) scale.J, (float) scale.K);
 
-        GLES20.glUniform4fv(m_ColourHandle, 1, m_Colour, 0);
+        GLES20.glUniform4f(m_ColourHandle, (float) colour.Red, (float)colour.Green, (float)colour.Blue, (float)colour.Alpha);
 
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
     }
-	
-	public void SetColour(Colour colour)
-	{
-		m_Colour[0] = (float)colour.Red;
-		m_Colour[1] = (float)colour.Green;
-		m_Colour[2] = (float)colour.Blue;
-		m_Colour[3] = (float)colour.Alpha;
-	}
 
     public void InitShaders()
     {
@@ -212,7 +197,7 @@ public class GLRadarFragment extends GLModel
     {
         GLES20.glUseProgram(m_Program);
 
-        GLES20.glEnable(GLES20.GL_DEPTH_TEST);
+      //  GLES20.glDisable(GLES20.GL_DEPTH_TEST);
 
         GLES20.glUniform2f(m_TexOffsetHandle, 0.0f, 0.0f);
 
@@ -221,13 +206,13 @@ public class GLRadarFragment extends GLModel
 
         GLES20.glEnableVertexAttribArray(m_TexCoordHandle);
         GLES20.glVertexAttribPointer(m_TexCoordHandle, TEX_COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, TEX_STRIDE, textureBuffer);
-
-        GLES20.glUniform1i(m_TexUniformHandle, 0);
     }
 
     @Override
     public void CleanModel()
     {
+     //   GLES20.glEnable(GLES20.GL_DEPTH_TEST);
+
         GLES20.glDisableVertexAttribArray(m_PositionHandle);
         GLES20.glDisableVertexAttribArray(m_TexCoordHandle);
     }

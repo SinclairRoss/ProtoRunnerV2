@@ -1,5 +1,7 @@
 package com.raggamuffin.protorunnerv2.ui;
 
+import android.util.Log;
+
 import com.raggamuffin.protorunnerv2.R;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.ColourManager;
@@ -56,6 +58,9 @@ public class RebootScreen extends UIScreen
     public void Update(double deltaTime)
     {
         super.Update(deltaTime);
+
+        if(m_Game.GetVehicleManager().GetPlayer() != null)
+            Log.e("Reboot", "WTF!");
 
         m_Bar.SetValue(m_Game.GetSecondWindHandler().GetInverseProgress());
     }

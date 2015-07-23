@@ -121,9 +121,7 @@ public abstract class Vehicle extends GameObject
 	public void SelectWeapon(Weapon newWeapon)
 	{
 		if(m_PrimaryWeapon != null)
-		{
 			m_PrimaryWeapon.LasersOff();
-		}
 		
 		m_PrimaryWeapon = newWeapon;
 		m_WeaponChangeColourBehaviour.SetNextColour(m_PrimaryWeapon.GetColour());
