@@ -80,7 +80,7 @@ public class UIRenderManager
 	
 	private void DrawText(final UILabel Element, float[] view)
 	{
-        m_TextQuad.InitialiseModel();
+        m_TextQuad.InitialiseModel(view);
 
 		Vector2 Position = Element.GetPosition();
 		Font TextFont 	 = Element.GetFont();
@@ -107,7 +107,7 @@ public class UIRenderManager
 	
 	private void DrawProgressBar(final UIProgressBar element, float[] view)
 	{
-        m_TexQuad.InitialiseModel();
+        m_TexQuad.InitialiseModel(view);
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_TextureHandles[1]);
 
@@ -119,7 +119,7 @@ public class UIRenderManager
         m_TexQuad.draw(underBarPosition, underBarSize, element.GetUnderColour(), view);	// Draw UnderLayer
         m_TexQuad.draw(Position, size, element.GetColour(), view);      // Draw OverLayer
 
-        m_TextQuad.InitialiseModel();
+        m_TextQuad.InitialiseModel(view);
 	}
 	
 	private float[] GetTexCoord(char c)

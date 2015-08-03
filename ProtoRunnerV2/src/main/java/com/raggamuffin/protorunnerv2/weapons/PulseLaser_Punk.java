@@ -1,13 +1,8 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
 import com.raggamuffin.protorunnerv2.audio.AudioClips;
-import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
-import com.raggamuffin.protorunnerv2.managers.BulletManager;
-import com.raggamuffin.protorunnerv2.managers.ParticleManager;
-import com.raggamuffin.protorunnerv2.managers.VehicleManager;
-import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
+import com.raggamuffin.protorunnerv2.Vehicles.Vehicle;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 

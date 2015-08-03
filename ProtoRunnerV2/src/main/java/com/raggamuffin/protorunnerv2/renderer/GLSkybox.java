@@ -4,6 +4,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
+import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
@@ -224,7 +225,7 @@ public class GLSkybox extends GLModel
     }
 
     @Override
-    public void InitialiseModel()
+    public void InitialiseModel(float[] projMatrix)
     {
         GLES20.glDisable(GLES20.GL_DEPTH_TEST);
 
@@ -238,23 +239,17 @@ public class GLSkybox extends GLModel
     }
 
     @Override
+    public void Draw(GameObject obj)
+    {
+
+    }
+
+    @Override
     public void CleanModel()
     {
         GLES20.glEnable(GLES20.GL_DEPTH_TEST);
 
         GLES20.glDisableVertexAttribArray(m_PositionHandle);
         GLES20.glDisableVertexAttribArray(m_TexCoordHandle);
-    }
-
-    @Override
-    public int GetVertexCount()
-    {
-        return vertexCount;
-    }
-
-    @Override
-    public void Draw(float[] projMatrix)
-    {
-
     }
 }

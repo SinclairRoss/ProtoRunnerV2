@@ -1,10 +1,6 @@
 package com.raggamuffin.protorunnerv2.ai;
 
-import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
-import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
-
-import java.util.ArrayList;
 
 public class BraveryFactor_Enemies extends BraveryFactor
 {

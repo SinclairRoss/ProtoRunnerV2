@@ -1,6 +1,8 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
-public abstract class PostFireAction 
+import com.raggamuffin.protorunnerv2.Vehicles.Vehicle;
+
+public abstract class PostFireAction
 {
 	protected Vehicle m_Anchor;
 	

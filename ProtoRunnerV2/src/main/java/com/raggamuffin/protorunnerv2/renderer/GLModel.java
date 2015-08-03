@@ -2,13 +2,15 @@ package com.raggamuffin.protorunnerv2.renderer;
 
 import android.opengl.GLES20;
 
+import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
+
 public abstract class GLModel
 {
-    public abstract void InitialiseModel();
+    public abstract void InitialiseModel(float[] projMatrix);
+    public abstract void Draw(GameObject obj);
     public abstract void CleanModel();
 
-    public abstract int GetVertexCount();
-    public abstract void Draw(float[] projMatrix);
+    protected abstract void InitShaders();
 
     protected int loadShader(int type, String shaderCode)
     {

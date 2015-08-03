@@ -28,7 +28,7 @@ public class TrailEmitter extends ParticleEmitter
 	public void Emit(int count)
 	{
 		m_Offset.SetVector(m_Anchor.GetForward());
-		m_Offset.Scale(-1.0);
+		m_Offset.Scale(-1.5);
 		m_Position.Add(m_Offset);
 		
 		if(count == 0)

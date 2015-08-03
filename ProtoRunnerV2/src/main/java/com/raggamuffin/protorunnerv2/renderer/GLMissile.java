@@ -4,6 +4,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
+import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
@@ -21,7 +22,6 @@ public class GLMissile extends GLModel
     private int m_WorldPosHandle;
     private int m_YawHandle;
     private int m_RollHandle;
-    private int m_ScaleHandle;
     private int m_ColourHandle;
     private int m_PositionHandle;
     private int m_BarycentricHandle;
@@ -139,7 +139,6 @@ public class GLMissile extends GLModel
         m_WorldPosHandle    = 0;
         m_YawHandle         = 0;
         m_RollHandle        = 0;
-        m_ScaleHandle       = 0;
         m_ColourHandle		= 0;
         m_PositionHandle	= 0;
         m_BarycentricHandle = 0;
@@ -152,7 +151,6 @@ public class GLMissile extends GLModel
         GLES20.glUniform4f(m_WorldPosHandle, (float) pos.I, (float) pos.J, (float) pos.K, 1.0f);
         GLES20.glUniform1f(m_YawHandle, yaw);
         GLES20.glUniform1f(m_RollHandle, roll);
-        GLES20.glUniform3f(m_ScaleHandle, (float) scale.I, (float) scale.J, (float) scale.K);
 
         GLES20.glUniformMatrix4fv(m_ProjMatrixHandle, 1, false, projMatrix, 0);
 
@@ -161,7 +159,7 @@ public class GLMissile extends GLModel
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
     }
 
-    private void InitShaders()
+    protected void InitShaders()
     {
         // prepare shaders and OpenGL program
         int vertexShaderHandler 	= loadShader(GLES20.GL_VERTEX_SHADER,Shaders.vertexShader_BARYCENTRIC);
@@ -176,7 +174,6 @@ public class GLMissile extends GLModel
         m_WorldPosHandle   = GLES20.glGetUniformLocation(m_Program, "u_WorldPos");
         m_YawHandle        = GLES20.glGetUniformLocation(m_Program, "u_Yaw");
         m_RollHandle       = GLES20.glGetUniformLocation(m_Program, "u_Roll");
-        m_ScaleHandle      = GLES20.glGetUniformLocation(m_Program, "u_Scale");
         m_ColourHandle 	   = GLES20.glGetUniformLocation(m_Program, "u_Color");
 
         m_PositionHandle    = GLES20.glGetAttribLocation(m_Program, "a_Position");
@@ -184,7 +181,7 @@ public class GLMissile extends GLModel
     }
 
     @Override
-    public void InitialiseModel()
+    public void InitialiseModel(float[] projMatrix)
     {
         GLES20.glUseProgram(m_Program);
 
@@ -196,21 +193,15 @@ public class GLMissile extends GLModel
     }
 
     @Override
+    public void Draw(GameObject obj)
+    {
+
+    }
+
+    @Override
     public void CleanModel()
     {
         GLES20.glDisableVertexAttribArray(m_PositionHandle);
         GLES20.glDisableVertexAttribArray(m_BarycentricHandle);
-    }
-
-    @Override
-    public int GetVertexCount()
-    {
-        return vertexCount;
-    }
-
-    @Override
-    public void Draw(float[] projMatrix)
-    {
-
     }
 }

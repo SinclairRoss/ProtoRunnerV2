@@ -54,10 +54,7 @@ public class TrailParticle extends Particle
 	@Override
 	public boolean IsValid() 
 	{
-		if(HasParent())
-			return m_Parent.IsAlive();
-		else 
-			return IsAlive();
+        return HasParent() ? m_Parent.IsAlive() : IsAlive();
 	}
 	
 	public boolean IsAlive()

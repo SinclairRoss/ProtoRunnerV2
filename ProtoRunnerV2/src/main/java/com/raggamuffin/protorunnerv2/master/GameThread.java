@@ -34,7 +34,7 @@ public class GameThread extends Thread
 		m_StartTime = 0L;
 		m_EndTime 	= 0L;
 		m_DeltaTime = 0L;
-		m_FrameRate = 1000L / 40;
+		m_FrameRate = 1000L / 60;
 
 		m_Running = true;
 	    m_Paused = false;

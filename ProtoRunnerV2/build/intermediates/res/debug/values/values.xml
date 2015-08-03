@@ -510,6 +510,36 @@
     <string name="reboot_3">If an enemy is destroyed by yourself or by one of your wingmen you will reboot</string>
     <string name="reboot_4">PREPARE TO DIE!</string>
     <string name="revive_text">Reboot</string>
+    <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/runner.xml -->
+    <eat-comment/>
+    <string name="runner_barycentric">
+        0.0f,  1.0f,  0.0f,
+        0.0f,  0.0f,  1.0f,
+        0.0f,  1.0f,  0.0f,
+        0.0f,  0.0f,  1.0f,
+        1.0f,  0.0f,  0.0f,
+        1.0f,  0.0f,  0.0f,
+    </string>
+    <string name="runner_indices">
+        0, 1, 4,
+        1, 2, 4,
+        2, 3, 4,
+        3, 0, 4,
+        0, 5, 1,
+        2, 1, 5,
+        0, 3, 5,
+        2, 5, 3
+    </string>
+    <string name="runner_vertices">
+        -1.0f,  0.0f,  -1.0f,
+        0.0f,  0.75f, -1.5f,
+        1.0f,  0.0f,  -1.0f,
+        0.0f, -0.75f, -1.2f,
+        0.0f,  0.0f,  -0.5f,
+        0.0f,  0.0f,   1.5f
+    </string>
+    <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/strings.xml -->
+    <eat-comment/>
     <string name="sign_in">Sign in</string>
     <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/build/intermediates/exploded-aar/ProtoRunnerV2/BaseGameUtils/unspecified/res/values/values.xml -->
     <eat-comment/>

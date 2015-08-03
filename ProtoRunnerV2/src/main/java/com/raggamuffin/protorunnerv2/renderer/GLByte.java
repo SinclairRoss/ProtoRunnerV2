@@ -4,6 +4,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
+import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
@@ -20,7 +21,6 @@ public class GLByte extends GLModel
     private int m_WorldPosHandle;
     private int m_YawHandle;
     private int m_RollHandle;
-    private int m_ScaleHandle;
     private int m_ColourHandle;
     private int m_PositionHandle;
     private int m_BarycentricHandle;
@@ -31,64 +31,65 @@ public class GLByte extends GLModel
 	static float VertexCoords[] =
 	{	
 		// AHD
-		0.0f,    0.0f,    1.5f, // A
-		0.5625f,  0.5625f,   0.375f, // H
-		0.0f,    1.5f,    0.0f, // D
+		0.0f,    0.0f,    3.75f, // A
+		1.40625f,  1.40625f,   0.9375f, // H
+		0.0f,    3.75f,    0.0f, // D
 		
 		// ADG
-		0.0f,    0.0f,    1.5f, // A
-		0.0f,    1.5f,    0.0f, // D
-		-0.5625f,  0.5625f,   0.375f, // G
+            0.0f,    0.0f,    3.75f, // A
+            0.0f,    3.75f,    0.0f, // D
+		-1.40625f,  1.40625f,   0.9375f, // G
 		
 		// ACH
-	   	0.0f,    0.0f,    1.5f, // A
-	   	1.5f,    0.0f,    0.0f, // C
-		0.5625f,  0.5625f,   0.375f, // H
+            0.0f,    0.0f,    3.75f, // A
+	   	3.75f,    0.0f,    0.0f, // C
+            1.40625f,  1.40625f,   0.9375f, // H
 	   	
 	   	// AGB
-	   	0.0f,    0.0f,    1.5f, // A
-		-0.5625f,  0.5625f,   0.375f, // G
-	   	-1.5f,    0.0f,    0.0f, // B
+            0.0f,    0.0f,    3.75f, // A
+            -1.40625f,  1.40625f,   0.9375f, // G
+	   	-3.75f,    0.0f,    0.0f, // B
 
 		// GDF
-	   	-0.5625f,  0.5625f,   0.375f, // G
-		 0.0f,    1.5f,     0.0f, // D
-		 0.0f,  0.8f,   0.2f, // F
+            -1.40625f,  1.40625f,   0.9375f, // G
+            0.0f,    3.75f,    0.0f, // D
+		 0.0f,  2.0f,   0.5f, // F
 		 
 		// FDH
-		 0.0f,  0.8f,   0.2f, // F
-		0.0f,    1.5f,     0.0f, // D
-		0.5625f,  0.5625f,   0.375f, // H
+            0.0f,  2.0f,   0.5f, // F
+            0.0f,    3.75f,    0.0f, // D
+            1.40625f,  1.40625f,   0.9375f, // H
 
 	    // CIH
-	    1.5f,  0.0f,   0.0f, // C
-	    0.375f,  0.0f,   0.0f, // I
-	    0.5625f,  0.5625f,   0.375f, // H
+            3.75f,    0.0f,    0.0f, // C
+	    0.9375f,  0.0f,   0.0f, // I
+            1.40625f,  1.40625f,   0.9375f, // H
 	    
 	    // GJB
-		-0.5625f,  0.5625f,   0.375f, // G
-		-0.375f,  0.0f,   0.0f, // J
-		-1.5f,  0.0f,   0.0f, // B
-	   
-	   // GFJ
-		-0.5625f,  0.5625f,   0.375f, // G
-		 0.0f,  0.8f,   0.2f, // F
-		-0.375f,  0.0f,   0.0f, // J
+            -1.40625f,  1.40625f,   0.9375f, // G
+		-0.9375f,  0.0f,   0.0f, // J
+            -3.75f,    0.0f,    0.0f, // B
+
+
+            // GFJ
+            -1.40625f,  1.40625f,   0.9375f, // G
+            0.0f,  2.0f,   0.5f, // F
+            -0.9375f,  0.0f,   0.0f, // J
 
 	   // FHI
-		 0.0f,  0.8f,   0.2f, // F
-		0.5625f,  0.5625f,   0.375f, // H
-	    0.375f,  0.0f,   0.0f, // I
+            0.0f,  2.0f,   0.5f, // F
+            1.40625f,  1.40625f,   0.9375f, // H
+            0.9375f,  0.0f,   0.0f, // I
 	    
 	    // JFE
-		-0.375f,  0.0f,   0.0f, // J
-		 0.0f,  0.8f,   0.2f, // F
-		   0.0f,  0.0f,   -1.75f, // E
+            -0.9375f,  0.0f,   0.0f, // J
+            0.0f,  2.0f,   0.5f, // F
+		   0.0f,  0.0f,   -4.375f, // E
 		   
 		   // EFI
-	   0.0f,  0.0f,   -1.75f, // E
-		 0.0f,  0.8f,   0.2f, // F
-	    0.375f,  0.0f,   0.0f // I
+            0.0f,  0.0f,   -4.375f, // E
+            0.0f,  2.0f,   0.5f, // F
+            0.9375f,  0.0f,   0.0f, // I
 	};
 	
 	private final int vertexCount = VertexCoords.length / COORDS_PER_VERTEX;
@@ -166,7 +167,6 @@ public class GLByte extends GLModel
         m_WorldPosHandle    = 0;
         m_YawHandle         = 0;
         m_RollHandle        = 0;
-        m_ScaleHandle       = 0;
         m_ColourHandle		= 0;
         m_PositionHandle	= 0;
         m_BarycentricHandle = 0;
@@ -179,7 +179,6 @@ public class GLByte extends GLModel
         GLES20.glUniform4f(m_WorldPosHandle, (float)pos.I, (float)pos.J, (float)pos.K, 1.0f);
         GLES20.glUniform1f(m_YawHandle, yaw);
         GLES20.glUniform1f(m_RollHandle, roll);
-        GLES20.glUniform3f(m_ScaleHandle, (float) scale.I, (float) scale.J, (float) scale.K);
 
         GLES20.glUniformMatrix4fv(m_ProjMatrixHandle, 1, false, projMatrix, 0);
         GLES20.glUniform4f(m_ColourHandle, (float) colour.Red, (float) colour.Green, (float) colour.Blue, (float) colour.Alpha);
@@ -187,7 +186,7 @@ public class GLByte extends GLModel
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
     }
 
-    private void InitShaders()
+    protected void InitShaders()
     {
         // prepare shaders and OpenGL program
         int vertexShaderHandler 	= loadShader(GLES20.GL_VERTEX_SHADER,Shaders.vertexShader_BARYCENTRIC);
@@ -202,7 +201,6 @@ public class GLByte extends GLModel
         m_WorldPosHandle   = GLES20.glGetUniformLocation(m_Program, "u_WorldPos");
         m_YawHandle        = GLES20.glGetUniformLocation(m_Program, "u_Yaw");
         m_RollHandle       = GLES20.glGetUniformLocation(m_Program, "u_Roll");
-        m_ScaleHandle      = GLES20.glGetUniformLocation(m_Program, "u_Scale");
         m_ColourHandle 	   = GLES20.glGetUniformLocation(m_Program, "u_Color");
 
         m_PositionHandle    = GLES20.glGetAttribLocation(m_Program, "a_Position");
@@ -210,7 +208,7 @@ public class GLByte extends GLModel
     }
 
     @Override
-    public void InitialiseModel()
+    public void InitialiseModel(float[] projMatrix)
     {
         GLES20.glUseProgram(m_Program);
 
@@ -219,6 +217,13 @@ public class GLByte extends GLModel
 
         GLES20.glEnableVertexAttribArray(m_BarycentricHandle);
         GLES20.glVertexAttribPointer(m_BarycentricHandle, GLByte.BARYCENTRICCOORDS_PER_VERTEX, GLES20.GL_FLOAT, false, GLByte.BARYCENTRICCOORD_STRIDE, barycentricCoordBuffer);
+
+    }
+
+    @Override
+    public void Draw(GameObject obj)
+    {
+
     }
 
     @Override
@@ -226,17 +231,5 @@ public class GLByte extends GLModel
     {
         GLES20.glDisableVertexAttribArray(m_PositionHandle);
         GLES20.glDisableVertexAttribArray(m_BarycentricHandle);
-    }
-
-    @Override
-    public int GetVertexCount()
-    {
-        return vertexCount;
-    }
-
-    @Override
-    public void Draw(float[] projMatrix)
-    {
-
     }
 }

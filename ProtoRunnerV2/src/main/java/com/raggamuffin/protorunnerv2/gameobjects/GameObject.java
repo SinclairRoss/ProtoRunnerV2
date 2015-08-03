@@ -19,14 +19,13 @@ public abstract class GameObject
 	protected Vector3 m_Position;		// Position of the GameObject. 
 	private Vector3 m_PreviousPosition;	// Used in collision detection.
 	protected Vector3 m_Forward;		// Forward vector of the GameObject
-	protected Vector3 m_Backward;		// The backwards facing vector of the GameObject.
+    protected Vector3 m_Backward;
 	protected Vector3 m_Up;				// Up vector of the GameObject.
 	protected Vector3 m_Left;			// Left vector of the GameObject.
-	protected Vector3 m_Right;			// Right vector of the GameObject.
+    protected Vector3 m_Right;
 	protected Vector3 m_Scale;			// The scale of the GameObject. 
 	protected Vector3 m_Velocity;		// Velocity of the GameObject.
 	protected Vector3 m_Force;			// The force being applied to the GameObject.
-	protected Vector3 m_Drag;			// The force of air resistance being applied to the GameObject.
 	protected Vector3 m_Acceleration;	// Acceleration of GameObject
 	protected double m_Yaw;	            // The orientation of the GameObject in the x-z plane
     protected double  m_Roll;           // The orientation of the GameObject in the x-y plane
@@ -58,32 +57,31 @@ public abstract class GameObject
 		m_Position 			= new Vector3(0,0,0);		
 		m_PreviousPosition 	= new Vector3(0,0,0);
 		m_Forward 			= new Vector3(0,0,1);
-		m_Backward  		= new Vector3(0,0,-1);
+        m_Backward          = new Vector3(0,0,-1);
 		m_Up 				= new Vector3(0,1,0);
 		m_Left 				= new Vector3(-1,0,0);
-		m_Right 			= new Vector3(1,0,0);
+        m_Right             = new Vector3(1,0,0);
 		m_Scale 			= new Vector3(1.0);
 		m_Velocity 			= new Vector3();
 		m_Force 			= new Vector3();
-		m_Drag 				= new Vector3();
 		m_Acceleration  	= new Vector3();
 		m_Yaw = 0.0;
         m_Roll = 0.0;
 		
 		///// Physics Attributes
-		m_Mass				 = 1000.0f;			
-		m_DragCoefficient	 = 0.2f;	
+		m_Mass				 = 1000.0f;
+		m_DragCoefficient	 = 0.05f;
 		
 		///// Colour Attributes.
 		m_BaseColour  = new Colour(Colours.Black);
         m_AltColour   = new Colour(Colours.Black);
 		m_Colour  	  = new Colour(m_BaseColour);
 		m_DeltaColour = new Vector4();
-		m_ColourBehaviours = new Vector<ColourBehaviour>();
+		m_ColourBehaviours = new Vector<>();
 
 		///// Misc Attributes.
 		m_BoundingRadius = 1.0;
-		m_Children = new Vector<GameObject>();
+		m_Children = new Vector<>();
 
 		SetAffiliation(AffiliationKey.Neutral);
 
@@ -97,50 +95,63 @@ public abstract class GameObject
 	public void Update(double deltaTime)
 	{	
 		CalculateAcceleration();
-		CalculateVelocity(deltaTime);
-		ApplyDrag();
-		
-		UpdatePosition();
-		UpdateColours(deltaTime);
+		CalculateVelocity();
+        ApplyDrag();
+		UpdatePosition(deltaTime);
+        UpdateColours(deltaTime);
 
-		for(GameObject Child : m_Children)
-		{
-			Child.GetPosition().SetVector(m_Position);
-			Child.Update(deltaTime);
+		for (GameObject Child : m_Children)
+        {
+            Child.GetPosition().SetVector(m_Position);
+            Child.Update(deltaTime);
 		}
 		
 		CleanUpForces();
-	}	
-	
-	private void UpdateColours(double DeltaTime)
-	{
-		m_Colour.SetColour(m_BaseColour);
-		m_DeltaColour.SetVector(0.0);
-		
-		for(ColourBehaviour Behaviour : m_ColourBehaviours)
-		{
-			Behaviour.Update(DeltaTime);
-			m_DeltaColour.Add(Behaviour.GetDeltaColour());
-		}
-		
-		m_Colour.Add(m_DeltaColour);
 	}
+
+    protected void CalculateAcceleration()
+    {
+        m_Acceleration.I = m_Force.I / m_Mass;
+        m_Acceleration.J = m_Force.J / m_Mass;
+        m_Acceleration.K = m_Force.K / m_Mass;
+    }
+
+    protected void CalculateVelocity()
+    {
+        m_Velocity.I += m_Acceleration.I;
+        m_Velocity.J += m_Acceleration.J;
+        m_Velocity.K += m_Acceleration.K;
+    }
+
+    private void ApplyDrag()
+    {
+        double Speed = m_Velocity.GetLength();
+
+        double i = m_DragCoefficient * -m_Velocity.I * Speed;
+        double j = m_DragCoefficient * -m_Velocity.J * Speed;
+        double k = m_DragCoefficient * -m_Velocity.K * Speed;
+
+        m_Velocity.Add(i, j, k);
+    }
 	
-	private void UpdatePosition()
-	{
-		m_PreviousPosition.SetVector(m_Position);
-		m_Position.Add(m_Velocity);
+	private void UpdatePosition(double deltaTime)
+    {
+        m_PreviousPosition.SetVector(m_Position);
+
+        m_Position.I += m_Velocity.I * deltaTime;
+        m_Position.J += m_Velocity.J * deltaTime;
+        m_Position.K += m_Velocity.K * deltaTime;
 	}
 
 	protected void UpdateVectors()
 	{
-		m_Forward.I = -Math.sin(m_Yaw);
-		m_Forward.K =  Math.cos(m_Yaw);
+        m_Forward.I = -Math.sin(m_Yaw);
+        m_Forward.K =  Math.cos(m_Yaw);
         m_Backward.SetVectorAsInverse(m_Forward);
 
-		m_Left.I = Math.cos(m_Yaw);
-		m_Left.K = Math.sin(m_Yaw);
-		m_Right.SetVectorAsInverse(m_Left);
+        m_Left.I = Math.cos(m_Yaw);
+        m_Left.K = Math.sin(m_Yaw);
+        m_Right.SetVectorAsInverse(m_Left);
 	}
 	
 	public void ApplyForce(Vector3 Dir, double Force)
@@ -149,35 +160,23 @@ public abstract class GameObject
 		m_Force.J += Dir.J * Force;
 		m_Force.K += Dir.K * Force;
 	}
-	
-	protected void CalculateAcceleration()
-	{
-		m_Acceleration.I = m_Force.I / m_Mass;
-		m_Acceleration.J = m_Force.J / m_Mass;
-		m_Acceleration.K = m_Force.K / m_Mass;
-	}
-	
-	protected void CalculateVelocity( double DeltaTime)
-	{
-		m_Velocity.I += m_Acceleration.I * DeltaTime;
-		m_Velocity.J += m_Acceleration.J * DeltaTime;
-		m_Velocity.K += m_Acceleration.K * DeltaTime;
-	}
-	
-	protected void ApplyDrag()
-	{
-		double Speed = m_Velocity.GetLength();
-	
-		m_Drag.I = m_DragCoefficient * -m_Velocity.I * Speed;
-		m_Drag.J = m_DragCoefficient * -m_Velocity.J * Speed;
-		m_Drag.K = m_DragCoefficient * -m_Velocity.K * Speed;
-		
-		m_Velocity.I += m_Drag.I;
-		m_Velocity.J += m_Drag.J;
-		m_Velocity.K += m_Drag.K;
-	}
 
-	public void AddColourBehaviour(ColourBehaviour behaviour)
+    private void UpdateColours(double deltaTime)
+    {
+        m_Colour.SetColour(m_BaseColour);
+        m_DeltaColour.SetVector(0.0);
+
+        for(ColourBehaviour Behaviour : m_ColourBehaviours)
+        {
+            Behaviour.Update(deltaTime);
+            m_DeltaColour.Add(Behaviour.GetDeltaColour());
+        }
+
+        m_Colour.Add(m_DeltaColour);
+    }
+
+
+    public void AddColourBehaviour(ColourBehaviour behaviour)
 	{
 		m_ColourBehaviours.add(behaviour);
 	}
@@ -185,13 +184,8 @@ public abstract class GameObject
 	public void RemoveColourBehaviour(ColourBehaviour behaviour)
 	{
 		m_ColourBehaviours.remove(behaviour);
-	}
-	
-	public void ClearColourBehaviours()
-	{
-		m_ColourBehaviours.clear();
-	}
-	
+    }
+
 	protected void CleanUpForces()
 	{
 		m_Force.SetVector(0.0f);
@@ -275,20 +269,10 @@ public abstract class GameObject
 	{
 		return m_Forward;
 	}
-	
-	public Vector3 GetRight()
-	{
-		return m_Right;
-	}
-	
+
 	public Vector3 GetUp()
 	{
 		return m_Up;
-	}
-	
-	public Vector3 GetBackward()
-	{
-		return m_Backward;
 	}
 
 	public Vector3 GetVelocity()
@@ -339,12 +323,7 @@ public abstract class GameObject
 	{
 		m_Children.add(obj);
 	}
-	
-	public void RemoveChild(GameObject obj)
-	{
-		m_Children.remove(obj);
-	}
-	
+
 	public void RemoveAllChildren()
 	{
 		m_Children.removeAllElements();
@@ -384,6 +363,4 @@ public abstract class GameObject
 	{
 		m_Mass = mass;
 	}
-
-	public void SetBoundingRadius(double radius) { m_BoundingRadius = radius; }
 }

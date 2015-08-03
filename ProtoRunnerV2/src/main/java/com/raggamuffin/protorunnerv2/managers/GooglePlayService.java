@@ -81,7 +81,6 @@ public class GooglePlayService implements GoogleApiClient.ConnectionCallbacks, G
 
         m_OnDisconnectPublisher.Publish();
 
-        // Games.signOut(m_GoogleApiClient);
         m_GoogleApiClient.disconnect();
     }
 

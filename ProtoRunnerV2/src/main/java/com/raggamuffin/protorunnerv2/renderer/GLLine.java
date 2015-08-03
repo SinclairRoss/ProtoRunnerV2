@@ -6,6 +6,7 @@ import java.nio.FloatBuffer;
 
 import android.opengl.GLES20;
 
+import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
@@ -119,7 +120,7 @@ public class GLLine extends GLModel
 		m_EndPointColour[3] = (float)colour.Alpha;
 	}
 	
-	private void InitShaders()
+	protected void InitShaders()
     {
 		// prepare shaders and OpenGL program
         int vertexShaderHandler 	= loadShader(GLES20.GL_VERTEX_SHADER,Shaders.vertexShader_LINE);
@@ -143,7 +144,7 @@ public class GLLine extends GLModel
     }
 
     @Override
-    public void InitialiseModel()
+    public void InitialiseModel(float[] projMatrix)
     {
         GLES20.glLineWidth(m_LineThickness);
 
@@ -157,20 +158,14 @@ public class GLLine extends GLModel
     }
 
     @Override
+    public void Draw(GameObject obj)
+    {
+
+    }
+
+    @Override
     public void CleanModel()
     {
         GLES20.glDisableVertexAttribArray(m_PositionHandle);
-    }
-
-    @Override
-    public int GetVertexCount()
-    {
-        return vertexCount;
-    }
-
-    @Override
-    public void Draw(float[] projMatrix)
-    {
-
     }
 }

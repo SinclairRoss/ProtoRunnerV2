@@ -28,9 +28,9 @@ public class ModelManager
     private Vector3 m_ToEye;
 	
 	private Context m_Context;
-	
+
 	private GLCube 	 	 m_Cube;
-	private GLRunner     m_Runner;
+	private GLModel_StandardObject     m_Runner;
 	private GLPlane 	 m_Plane;
 	private GLFloorPanel m_FloorPanel;
 	private GLPulseLaser m_PulseLaser;
@@ -39,11 +39,13 @@ public class ModelManager
 	private GLBit		 m_Bit;
 	private GLByte		 m_Byte;
     private GLMine       m_Mine;
+    private GLEngineDrone m_EngineDrone;
 	private GLStandardPoint m_StandardPoint;
 	private GLLine		 m_Pointer;
     private GLLine       m_Trail;
     private GLLine       m_ParticleLaser;
 	private GLMissile	 m_Missile;
+    private GLCarrier    m_Carrier;
 	private GLExplosion	 m_Explosion;
 	private GLScreenQuad m_Screen;
 	private GLSkybox	 m_Skybox;
@@ -64,27 +66,6 @@ public class ModelManager
         m_ToEye      = null;
 		
 		m_Context 	 = context;
-		
-		m_Cube 		 = null;
-		m_Runner 	 = null;
-		m_Plane 	 = null;
-		m_FloorPanel = null;
-		m_PulseLaser = null;
-		m_RailSlug   = null;
-		m_Ring		 = null;
-		m_Bit 		 = null;
-		m_Byte		 = null;
-		m_StandardPoint = null;
-        m_Mine       = null;
-        m_Pointer	 = null;
-        m_Trail      = null;
-        m_ParticleLaser = null;
-		m_Missile	 = null;
-		m_Explosion  = null;
-		m_Screen	 = null;
-		m_Skybox 	 = null;
-		m_RadarFragment = null;
-        m_Dummy = null;
 	}
 	
 	public void LoadAssets(final GLCamera camera)
@@ -94,36 +75,85 @@ public class ModelManager
 	}
 	
 	private void LoadModels(final GLCamera camera)
-	{
-		m_EyePos   	 = camera.GetPosition();
-        m_ToEye      = new Vector3();
+    {
+        m_EyePos = camera.GetPosition();
+        m_ToEye = new Vector3();
 
-		m_Cube 		 = new GLCube();
-		m_Runner 	 = new GLRunner();
-		m_Plane 	 = new GLPlane();
-		m_FloorPanel = new GLFloorPanel();	
-		m_PulseLaser = new GLPulseLaser(50.0f);
-		m_RailSlug	 = new GLPulseLaser(100.0f);
-		m_Ring		 = new GLRing();
-		m_Bit 		 = new GLBit();
-		m_Byte		 = new GLByte();
-        m_Mine       = new GLMine();
-		m_StandardPoint = new GLStandardPoint();
-        m_Pointer 	 = new GLLine(2.0f);
-        m_Trail      = new GLLine(20.0f);
+
+        m_Cube = new GLCube();
+        m_Runner = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.runner_vertices), ReadShortArrayFromResource(R.string.runner_indices), ReadFloatArrayFromResource(R.string.runner_barycentric));
+        m_Plane = new GLPlane();
+        m_FloorPanel = new GLFloorPanel();
+        m_PulseLaser = new GLPulseLaser(50.0f);
+        m_RailSlug = new GLPulseLaser(100.0f);
+        m_Ring = new GLRing();
+        m_Bit = new GLBit();
+        m_Byte = new GLByte();
+        m_Mine = new GLMine();
+        m_EngineDrone = new GLEngineDrone();
+        m_StandardPoint = new GLStandardPoint();
+        m_Pointer = new GLLine(2.0f);
+        m_Trail = new GLLine(20.0f);
         m_ParticleLaser = new GLLine(3.0f);
-		m_Missile	 = new GLMissile();
-		m_Explosion	 = new GLExplosion();	
-		m_Screen	 = new GLScreenQuad();
-		m_Skybox	 = new GLSkybox();
-		m_RadarFragment = new GLRadarFragment();
-        m_Dummy      = new GLDummy();
-	}
+        m_Missile = new GLMissile();
+        m_Carrier = new GLCarrier();
+        m_Explosion = new GLExplosion();
+        m_Screen = new GLScreenQuad();
+        m_Skybox = new GLSkybox();
+        m_RadarFragment = new GLRadarFragment();
+        m_Dummy = new GLDummy();
+    }
+
+    private float[] ReadFloatArrayFromResource(int resource)
+    {
+        String raw = m_Context.getString(resource);
+        raw = raw.replaceAll("\\s","");
+        String[] rawArray = raw.split(",");
+
+        int numValues = rawArray.length;
+        float[] array = new float[numValues];
+
+        for(int i = 0; i < numValues; i ++)
+            array[i] = Float.parseFloat(rawArray[i]);
+
+        return array;
+    }
+
+    private short[] ReadShortArrayFromResource(int resource)
+    {
+        String raw = m_Context.getString(resource);
+        raw = raw.replaceAll("\\s","");
+        String[] rawArray = raw.split(",");
+
+        int numValues = rawArray.length;
+        short[] array = new short[numValues];
+
+        for(int i = 0; i < numValues; i ++)
+            array[i] = Short.parseShort(rawArray[i]);
+
+        return array;
+    }
+
+    private int[] ReadIntArrayFromResource(int resource)
+    {
+        String raw = m_Context.getString(resource);
+        raw = raw.replaceAll("\\s","");
+        String[] rawArray = raw.split(",");
+
+        int numValues = rawArray.length;
+        int[] array = new int[numValues];
+
+        for(int i = 0; i < numValues; i ++)
+            array[i] = Short.parseShort(rawArray[i]);
+
+        return array;
+    }
 	
 	public void Draw(GameObject object, float[] projMatrix)
 	{
 		switch(object.GetModel())
 		{
+
             // unused.
 			case Cube:
 				m_Cube.SetColour(object.GetColour());
@@ -132,8 +162,7 @@ public class ModelManager
 				break;
 
 			case Runner:
-                m_Runner.draw(object.GetPosition(), object.GetScale(), object.GetColour(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
-
+                m_Runner.Draw(object);
                 break;
 
             // unused.
@@ -174,7 +203,7 @@ public class ModelManager
 				break;
 
 			case Bit:
-                m_Bit.draw(object.GetPosition(), object.GetScale(), object.GetColour(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
+                m_Bit.draw(object.GetPosition(), object.GetColour(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
 				break;
 				
 			case Byte:
@@ -183,13 +212,14 @@ public class ModelManager
 
             case Mine:
                 m_Mine.draw(object.GetPosition(), object.GetScale(), object.GetColour(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
+                break;
 
+            case EngineDrone:
+                m_EngineDrone.draw(object.GetPosition(), object.GetScale(), object.GetColour(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
                 break;
 
 			case StandardPoint:
-				m_StandardPoint.SetColour(object.GetColour());
-				m_StandardPoint.draw(object.GetPosition(), m_EyePos, projMatrix);
-
+				m_StandardPoint.draw(object.GetPosition(), object.GetColour(), m_EyePos, projMatrix);
 				break;
 
             case Trail:
@@ -226,6 +256,10 @@ public class ModelManager
 			case Missile:
 				m_Missile.draw(object.GetPosition(), object.GetScale(), object.GetColour(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
                 break;
+
+            case Carrier:
+                m_Carrier.draw(object.GetPosition(), object.GetScale(), object.GetColour(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
+                break;
 			
 			case Explosion:
 				m_Explosion.draw(object.GetPosition(), object.GetScale(), object.GetColour(), (float) object.GetRoll(), (float) object.GetYaw(), projMatrix);
@@ -246,7 +280,7 @@ public class ModelManager
 		}
 	}
 
-    public void InitialiseType(ModelType type)
+    public void InitialiseType(ModelType type, float[] projMatrix)
     {
         switch(type)
         {
@@ -266,7 +300,7 @@ public class ModelManager
         GLModel model = GetModel(type);
 
         if(model != null)
-            model.InitialiseModel();
+            model.InitialiseModel(projMatrix);
     }
 
     public void CleanModel(ModelType type)
@@ -279,6 +313,7 @@ public class ModelManager
 
     public GLModel GetModel(ModelType type)
     {
+
         switch(type)
         {
             case Cube:
@@ -291,8 +326,12 @@ public class ModelManager
                 return m_Byte;
             case Mine:
                 return m_Mine;
+            case EngineDrone:
+                return m_EngineDrone;
             case Missile:
                 return m_Missile;
+            case Carrier:
+                return m_Carrier;
             case Dummy:
                 return m_Dummy;
             case Plane:
@@ -324,6 +363,7 @@ public class ModelManager
         }
 
         return null;
+
     }
 
     public void DrawSkyBox(Vector3 pos, Colour colour, final float[] projMatrix)
@@ -331,12 +371,13 @@ public class ModelManager
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_TextureHandles[1]);
 
-        m_Skybox.InitialiseModel();
+        m_Skybox.InitialiseModel(projMatrix);
 
         m_Skybox.SetColour(colour);
         m_Skybox.draw(pos, projMatrix);
 
         m_Skybox.CleanModel();
+
     }
 
 	public void DrawFBOGlowHoriz()

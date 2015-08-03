@@ -2,7 +2,7 @@ package com.raggamuffin.protorunnerv2.ai;
 
 import java.util.ArrayList;
 
-import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
+import com.raggamuffin.protorunnerv2.Vehicles.Vehicle;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 

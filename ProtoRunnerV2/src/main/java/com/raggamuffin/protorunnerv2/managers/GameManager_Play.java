@@ -1,5 +1,6 @@
 package com.raggamuffin.protorunnerv2.managers;
 
+import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 
 public class GameManager_Play extends GameManager
@@ -15,10 +16,10 @@ public class GameManager_Play extends GameManager
     @Override
     public void Update(double deltaTime)
     {
-        //if(m_VehicleManager.GetTeamCount(AffiliationKey.RedTeam) == 0)
-       // {
-        //    m_VehicleManager.SpawnSquad(100);
-        //}
+        if(m_VehicleManager.GetTeamCount(AffiliationKey.RedTeam) == 0)
+        {
+            m_VehicleManager.SpawnSquad(100);
+        }
     }
 
     @Override

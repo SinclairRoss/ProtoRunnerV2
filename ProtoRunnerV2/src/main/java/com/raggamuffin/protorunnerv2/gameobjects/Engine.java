@@ -1,14 +1,10 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
-import android.util.Log;
-
-import com.raggamuffin.protorunnerv2.managers.ParticleManager;
-import com.raggamuffin.protorunnerv2.particles.TrailEmitter;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
-public class Engine
+public abstract class Engine
 {
     private double ENGINE_OUTPUT_EXERTION_MULTIPLIER 	= 0.0;
     private double AFTERBURNER_EXERTION_MULTIPLIER 		= 2.0;
@@ -17,7 +13,7 @@ public class Engine
 
     private final double DODGE_DECAY_MULTIPLIER 		= 5.0;
 
-    private GameObject m_Anchor;
+    protected GameObject m_Anchor;
 
     // Propulsion.
     private Vector3 m_Direction;		// The direction the engine is applying force.
@@ -42,9 +38,7 @@ public class Engine
 
     private EngineUseBehaviour m_UseBehaviour;
 
-    private TrailEmitter m_TrailEmitter;
-
-    public Engine(GameObject anchor, ParticleManager pManager, EngineUseBehaviour behaviour)
+    public Engine(GameObject anchor, EngineUseBehaviour behaviour)
     {
         m_Anchor = anchor;
         m_UseBehaviour = behaviour;
@@ -68,9 +62,6 @@ public class Engine
         m_MaxTurnRate = 1.0f;
 
         m_Exertion = 0.0;
-
-        m_TrailEmitter = new TrailEmitter(m_Anchor, pManager);
-        m_Anchor.AddChild(m_TrailEmitter);
     }
 
     public void Update(double deltaTime)
@@ -189,9 +180,10 @@ public class Engine
         return m_Exertion;
     }
 
-    public void UpdateParticleColours(Colour start, Colour end)
+    public abstract void UpdateParticleColours(Colour start, Colour end);
+
+    public Vector3 GetPosition()
     {
-        m_TrailEmitter.SetStartColour(start);
-        m_TrailEmitter.SetFinalColour(end);
+        return m_Anchor.GetPosition();
     }
 }

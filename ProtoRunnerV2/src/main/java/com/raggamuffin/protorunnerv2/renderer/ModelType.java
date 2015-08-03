@@ -13,6 +13,8 @@ public enum ModelType
     Mine,
     Missile,
     Dummy,
+    Carrier,
+    EngineDrone,
 
     Trail,
     LaserPointer,

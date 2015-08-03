@@ -16,8 +16,8 @@ public class GameManager_Exhibition extends GameManager
 
         m_VehicleManager = m_Game.GetVehicleManager();
 
-        m_BlueTeamCount = 3;//8;
-        m_RedTeamCount =  8;//24;
+        m_BlueTeamCount = 8;
+        m_RedTeamCount =  24;
     }
 
     @Override
@@ -25,18 +25,21 @@ public class GameManager_Exhibition extends GameManager
     {
         int blueCount = m_VehicleManager.GetTeamCount(AffiliationKey.BlueTeam);
 
-        if(blueCount <= 0)
+        if(blueCount < 8)
         {
-            for(int i = 0; i < 3; i++)
+            for(int i = 0; i < 8 - blueCount; i++)
             {
                 m_VehicleManager.SpawnWingmen(i);
             }
         }
 
         int redCount = m_VehicleManager.GetTeamCount(AffiliationKey.RedTeam);
-        if(redCount <= 0)
+        if(redCount < 24)
         {
-            m_VehicleManager.SpawnSquad(30);
+            for(int i = 0; i < 24 - redCount; i++)
+            {
+               m_VehicleManager.SpawnSquad(30);
+            }
         }
     }
 

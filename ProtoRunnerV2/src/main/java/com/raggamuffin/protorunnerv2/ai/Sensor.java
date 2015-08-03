@@ -1,6 +1,6 @@
 package com.raggamuffin.protorunnerv2.ai;
 
-import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
+import com.raggamuffin.protorunnerv2.Vehicles.Vehicle;
 
 public abstract class Sensor 
 {

@@ -76,7 +76,7 @@ public class ChaseCamera
         Vector3 lookPosition = m_LookObject.GetPosition();
         Vector3 lookForward  = m_LookObject.GetForward();
 
-		m_LookAt.I = lookPosition.I + lookForward.I * 10.0;
+		m_LookAt.I = lookPosition.I + lookForward.I * 10.0;//10
 		m_LookAt.J = lookPosition.J + lookForward.J * 10.0;
 		m_LookAt.K = lookPosition.K + lookForward.K * 10.0;
 	}

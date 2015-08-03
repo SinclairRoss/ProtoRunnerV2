@@ -2,18 +2,19 @@ package com.raggamuffin.protorunnerv2.managers;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Vector;
 
 import android.util.Log;
 
+import com.raggamuffin.protorunnerv2.Vehicles.Tank;
+import com.raggamuffin.protorunnerv2.Vehicles.VehicleType;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.gameobjects.Bit;
-import com.raggamuffin.protorunnerv2.gameobjects.Dummy;
-import com.raggamuffin.protorunnerv2.gameobjects.Runner;
-import com.raggamuffin.protorunnerv2.gameobjects.Tank;
-import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
-import com.raggamuffin.protorunnerv2.gameobjects.Wingman;
+import com.raggamuffin.protorunnerv2.Vehicles.Bit;
+import com.raggamuffin.protorunnerv2.Vehicles.Carrier;
+import com.raggamuffin.protorunnerv2.Vehicles.Dummy;
+import com.raggamuffin.protorunnerv2.Vehicles.Runner;
+import com.raggamuffin.protorunnerv2.Vehicles.Vehicle;
+import com.raggamuffin.protorunnerv2.Vehicles.Wingman;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
@@ -23,11 +24,6 @@ import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class VehicleManager
 {	
-	private final double ExhibitionSpawnDistance = 40.0;
-	private final double PlayingSpawnDistance = 100.0;
-
-	private double m_MaxSpawnDistance;
-
 	private Runner m_Player;
 	private ArrayList<Vehicle> m_Vehicles;
 	private ArrayList<Vehicle> m_BlueTeam;
@@ -41,17 +37,13 @@ public class VehicleManager
 	{
 		m_Game = Game;
 
-		m_Vehicles = new ArrayList<Vehicle>();
-		m_BlueTeam = new ArrayList<Vehicle>();
-		m_RedTeam  = new ArrayList<Vehicle>();
-
-		m_MaxSpawnDistance = ExhibitionSpawnDistance;
+		m_Vehicles = new ArrayList<>();
+		m_BlueTeam = new ArrayList<>();
+		m_RedTeam  = new ArrayList<>();
 
 		PubSubHub PubSub = m_Game.GetPubSubHub();
 		
 		m_PlayerSpawnedPublisher = PubSub.CreatePublisher(PublishedTopics.PlayerSpawned);
-		PubSub.SubscribeToTopic(PublishedTopics.StartGame, new StartGameSubscriber());
-		PubSub.SubscribeToTopic(PublishedTopics.EndGame, new EndGameSubscriber());
 	}
 	
 	public void Update(double deltaTime)
@@ -115,8 +107,6 @@ public class VehicleManager
 		m_Vehicles.add(buddy);
 		m_BlueTeam.add(buddy);
 		m_Game.AddObjectToRenderer(buddy);
-
-
 	}
 
     public void SpawnDummy(double x, double z)
@@ -127,6 +117,31 @@ public class VehicleManager
         m_Game.AddObjectToRenderer(dummy);
     }
 
+    public void SpawnVehicle(VehicleType type, Vector3 spawnPoint)
+    {
+        Vehicle spawn = null;
+
+        switch(type)
+        {
+            case Wingman:
+                spawn = new Wingman(m_Game);
+                break;
+            case Bit:
+                spawn = new Bit(m_Game);
+                break;
+            case Tank:
+                spawn = new Tank(m_Game);
+                break;
+            case Carrier:
+                spawn = new Carrier(m_Game);
+                break;
+        }
+
+        spawn.SetPosition(spawnPoint);
+        m_Vehicles.add(spawn);
+        GetTeam(spawn.GetAffiliation()).add(spawn);
+        m_Game.AddObjectToRenderer(spawn);
+    }
 	
 	public void SpawnSquad(double maxSpawnDistance)
 	{
@@ -142,25 +157,26 @@ public class VehicleManager
 			m_Spawn.Add(m_Player.GetPosition());
 
 
-		for(int b = 0; b < 1; b++)
-		{
-			Tank bit = new Tank(m_Game);
-			m_Vehicles.add(bit);
-			m_RedTeam.add(bit);
-			m_Game.AddObjectToRenderer(bit);
-			
-			bit.SetPosition(m_Spawn.I + b * 2,m_Spawn.J,m_Spawn.K);
-		}
+	//	for(int b = 0; b < 1; b++)
+	//	{
+	//		Carrier bit = new Carrier(m_Game);
+	//		m_Vehicles.add(bit);
+	//		m_RedTeam.add(bit);
+	//		m_Game.AddObjectToRenderer(bit);
 
-        for(int b = 0; b < 6; b++)
-        {
+	//		bit.SetPosition(m_Spawn.I + b * 2,m_Spawn.J,m_Spawn.K);
+	//	}
+
+      //  for(int b = 0; b < 6; b++)
+     //   {
             Bit bit = new Bit(m_Game);
             m_Vehicles.add(bit);
             m_RedTeam.add(bit);
             m_Game.AddObjectToRenderer(bit);
 
-            bit.SetPosition(m_Spawn.I + b * 2,m_Spawn.J,m_Spawn.K);
-        }
+         //   bit.SetPosition(m_Spawn.I + b * 2,m_Spawn.J,m_Spawn.K);
+        bit.SetPosition(m_Spawn.I,m_Spawn.J,m_Spawn.K);
+      //  }
 	}
 	
 	public ArrayList<Vehicle> GetTeam(AffiliationKey faction)
@@ -229,25 +245,5 @@ public class VehicleManager
 	public ArrayList<Vehicle> GetVehicles()
 	{
 		return m_Vehicles;
-	}
-	
-	private class StartGameSubscriber extends Subscriber
-	{
-		@Override
-		public void Update(int args) 
-		{
-			m_MaxSpawnDistance = PlayingSpawnDistance;
-		}	
-	}
-	
-	private class EndGameSubscriber extends Subscriber
-	{
-		@Override
-		public void Update(int args) 
-		{
-			m_MaxSpawnDistance = ExhibitionSpawnDistance;
-			
-			m_Player = null;
-		}	
 	}
 }

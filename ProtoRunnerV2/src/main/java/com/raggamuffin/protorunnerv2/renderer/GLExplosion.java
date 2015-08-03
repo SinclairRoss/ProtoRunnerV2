@@ -4,6 +4,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
+import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
@@ -241,10 +242,10 @@ public class GLExplosion extends GLModel
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
     }
 
-    private void InitShaders()
+    protected void InitShaders()
     {
         // prepare shaders and OpenGL program
-        int vertexShaderHandler 	= loadShader(GLES20.GL_VERTEX_SHADER,Shaders.vertexShader_BARYCENTRIC);
+        int vertexShaderHandler 	= loadShader(GLES20.GL_VERTEX_SHADER,Shaders.vertexShader_EXPLOSION);
         int fragmentShaderHandler 	= loadShader(GLES20.GL_FRAGMENT_SHADER,Shaders.fragmentShader_BARYCENTRIC_HOLLOW);
 
         m_Program = GLES20.glCreateProgram();             		// create empty OpenGL Program
@@ -264,7 +265,7 @@ public class GLExplosion extends GLModel
     }
 
     @Override
-    public void InitialiseModel()
+    public void InitialiseModel(float[] projMatrix)
     {
         GLES20.glUseProgram(m_Program);
 
@@ -279,6 +280,12 @@ public class GLExplosion extends GLModel
     }
 
     @Override
+    public void Draw(GameObject obj)
+    {
+
+    }
+
+    @Override
     public void CleanModel()
     {
         GLES20.glEnable(GLES20.GL_CULL_FACE);
@@ -286,17 +293,5 @@ public class GLExplosion extends GLModel
 
         GLES20.glDisableVertexAttribArray(m_PositionHandle);
         GLES20.glDisableVertexAttribArray(m_BarycentricHandle);
-    }
-
-    @Override
-    public int GetVertexCount()
-    {
-        return vertexCount;
-    }
-
-    @Override
-    public void Draw(float[] projMatrix)
-    {
-
     }
 }

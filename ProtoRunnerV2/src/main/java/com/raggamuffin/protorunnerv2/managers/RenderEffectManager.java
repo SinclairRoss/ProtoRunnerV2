@@ -10,7 +10,7 @@ import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 public class RenderEffectManager
 {
 	private final double BASE_GLOW_INTENSITY   = 1.5;
-	private final double MAX_GLOW_INTENSITY    = 1.5;//4.0
+	private final double MAX_GLOW_INTENSITY    = 4.0;//4.0
 	private final double GLOW_DECAY_MULTIPLIER = 4.0;
 	
 	private double m_GlowIntensity;

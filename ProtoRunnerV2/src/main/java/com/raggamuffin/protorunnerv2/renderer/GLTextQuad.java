@@ -4,6 +4,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
+import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 
 import android.opengl.GLES20;
@@ -146,7 +147,7 @@ public class GLTextQuad extends GLModel
     }
 
     @Override
-    public void InitialiseModel()
+    public void InitialiseModel(float[] projMatrix)
     {
         GLES20.glUseProgram(m_Program);
 
@@ -160,21 +161,15 @@ public class GLTextQuad extends GLModel
     }
 
     @Override
+    public void Draw(GameObject obj)
+    {
+
+    }
+
+    @Override
     public void CleanModel()
     {
         GLES20.glDisableVertexAttribArray(m_PositionHandle);
         GLES20.glDisableVertexAttribArray(m_TexCoordHandle);
-    }
-
-    @Override
-    public int GetVertexCount()
-    {
-        return vertexCount;
-    }
-
-    @Override
-    public void Draw(float[] projMatrix)
-    {
-
     }
 }

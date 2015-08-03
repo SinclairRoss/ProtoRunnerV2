@@ -46,7 +46,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
     private int m_FrameBuffers[];
 
     private int counter = 0;
-    private final int maxCount = 500;
+    private final int maxCount = 1;
     private Long totalTime = 0L;
 
 	public GLRenderer(RendererPacket packet)
@@ -194,7 +194,8 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
         if(counter >= maxCount)
         {
-            Log.e("testy test", "Time: " + totalTime / counter);
+            if(totalTime / counter > 32)
+                Log.e("testy test", "Time: " + totalTime / counter);
 
             totalTime = 0L;
             counter = 0;
@@ -219,7 +220,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
         Matrix.setIdentityM(view, 0);
         Matrix.multiplyMM(view, 0, m_Camera.m_ProjMatrix, 0, m_Camera.m_VMatrix, 0);
 
-        m_ModelManager.InitialiseType(ModelType.Skybox);
+        m_ModelManager.InitialiseType(ModelType.Skybox, view);
         m_ModelManager.DrawSkyBox(m_Camera.GetPosition(), m_RenderEffectSettings.GetSkyBoxColour(), view);
         m_ModelManager.CleanModel(ModelType.Skybox);
     }
@@ -234,9 +235,12 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
         for (ModelType type : types)
         {
-            m_ModelManager.InitialiseType(type);
-
             ArrayList<GameObject> list = (ArrayList<GameObject>)m_Packet.GetList(type).clone();
+
+            if(list.size() == 0)
+                continue;
+
+            m_ModelManager.InitialiseType(type, view);
 
             for(GameObject obj : list)
             {

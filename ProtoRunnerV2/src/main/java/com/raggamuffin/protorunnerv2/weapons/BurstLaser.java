@@ -2,7 +2,7 @@ package com.raggamuffin.protorunnerv2.weapons;
 
 import com.raggamuffin.protorunnerv2.R;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
+import com.raggamuffin.protorunnerv2.Vehicles.Vehicle;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 
@@ -13,7 +13,7 @@ public class BurstLaser extends Weapon
 		super(anchor, game);
 
 		m_Damage = 50.0;
-        m_Drain = 20;
+        m_Drain = 10;
 		m_MuzzleVelocity = 3.5;
 		m_Accuracy = 0.85;
 		m_LifeSpan = 2.0;

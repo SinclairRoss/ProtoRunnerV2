@@ -4,6 +4,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
+import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
@@ -12,7 +13,7 @@ import android.opengl.GLES20;
 public class GLPulseLaser extends GLModel
 {
     public final FloatBuffer vertexBuffer;
-    
+
     private int m_Program;
 
     private int m_ProjMatrixHandle;
@@ -21,33 +22,33 @@ public class GLPulseLaser extends GLModel
     private int m_PositionHandle;
     private int m_WorldPosHandle;
     private int m_EyePosHandle;
-    
+
     private float[] m_Colour;
     private float m_Size;
-    
+
     static final int COORDS_PER_VERTEX = 3;
     static final int VERTEX_STRIDE = COORDS_PER_VERTEX * 4;
-    static float VertexCoords[] = 
-    { 
-        0.0f, 0.0f, 0.0f
-    };
-    
-    public GLPulseLaser(float size) 
+    static float VertexCoords[] =
+            {
+                    0.0f, 0.0f, 0.0f
+            };
+
+    public GLPulseLaser(float size)
     {
-    	// create a byte buffer for the vertex coords.
-    	ByteBuffer bb = ByteBuffer.allocateDirect(VertexCoords.length * 4);
-		bb.order(ByteOrder.nativeOrder());
-		vertexBuffer = bb.asFloatBuffer();
-		vertexBuffer.put(VertexCoords);
-		vertexBuffer.position(0);
-		
-		m_Colour = new float[4];
-		m_Colour[0] = 1.0f;
-		m_Colour[1] = 1.0f;
-		m_Colour[2] = 1.0f;
-		m_Colour[3] = 1.0f;
-		
-		m_Size = size;
+        // create a byte buffer for the vertex coords.
+        ByteBuffer bb = ByteBuffer.allocateDirect(VertexCoords.length * 4);
+        bb.order(ByteOrder.nativeOrder());
+        vertexBuffer = bb.asFloatBuffer();
+        vertexBuffer.put(VertexCoords);
+        vertexBuffer.position(0);
+
+        m_Colour = new float[4];
+        m_Colour[0] = 1.0f;
+        m_Colour[1] = 1.0f;
+        m_Colour[2] = 1.0f;
+        m_Colour[3] = 1.0f;
+
+        m_Size = size;
 
         m_Program 			= 0;
         m_ProjMatrixHandle  = 0;
@@ -56,8 +57,8 @@ public class GLPulseLaser extends GLModel
         m_PositionHandle	= 0;
         m_WorldPosHandle 	= 0;
         m_EyePosHandle 		= 0;
-	    
-	    InitShaders();
+
+        InitShaders();
     }
 
     public void draw(Vector3 pos, Vector3 eye, float[] projMatrix)
@@ -72,16 +73,16 @@ public class GLPulseLaser extends GLModel
         // Draw the object using glPoints.
         GLES20.glDrawArrays(GLES20.GL_POINTS, 0, 1);
     }
-	
-	public void SetColour(Colour colour)
-	{
-		m_Colour[0] = (float)colour.Red;
-		m_Colour[1] = (float)colour.Green;
-		m_Colour[2] = (float)colour.Blue;
-		m_Colour[3] = (float)colour.Alpha;
-	}
 
-    private void InitShaders()
+    public void SetColour(Colour colour)
+    {
+        m_Colour[0] = (float)colour.Red;
+        m_Colour[1] = (float)colour.Green;
+        m_Colour[2] = (float)colour.Blue;
+        m_Colour[3] = (float)colour.Alpha;
+    }
+
+    protected void InitShaders()
     {
         // prepare shaders and OpenGL program
         int vertexShaderHandler 	= loadShader(GLES20.GL_VERTEX_SHADER,Shaders.vertexShader_POINT);
@@ -102,12 +103,19 @@ public class GLPulseLaser extends GLModel
     }
 
     @Override
-    public void InitialiseModel()
+    public void InitialiseModel(float[] projMatrix)
     {
         GLES20.glUseProgram(m_Program);
 
         GLES20.glEnableVertexAttribArray(m_PositionHandle);
         GLES20.glVertexAttribPointer(m_PositionHandle, GLPulseLaser.COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, GLPulseLaser.VERTEX_STRIDE, vertexBuffer);
+
+    }
+
+    @Override
+    public void Draw(GameObject obj)
+    {
+
     }
 
     @Override
@@ -116,15 +124,4 @@ public class GLPulseLaser extends GLModel
         GLES20.glDisableVertexAttribArray(m_PositionHandle);
     }
 
-    @Override
-    public int GetVertexCount()
-    {
-        return 1;
-    }
-
-    @Override
-    public void Draw(float[] projMatrix)
-    {
-
-    }
 }

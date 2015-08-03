@@ -1,10 +1,6 @@
 package com.raggamuffin.protorunnerv2.ai;
 
-import android.util.Log;
-
-import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
-import com.raggamuffin.protorunnerv2.gameobjects.Wingman;
-import com.raggamuffin.protorunnerv2.utils.MathsHelper;
+import com.raggamuffin.protorunnerv2.Vehicles.Vehicle;
 
 import java.util.ArrayList;
 

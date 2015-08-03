@@ -9,7 +9,8 @@ import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_LerpTo;
 import com.raggamuffin.protorunnerv2.gameobjects.Engine;
 import com.raggamuffin.protorunnerv2.gameobjects.EngineUseBehaviour_Null;
 import com.raggamuffin.protorunnerv2.gameobjects.FloorGrid;
-import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
+import com.raggamuffin.protorunnerv2.gameobjects.StandardEngine;
+import com.raggamuffin.protorunnerv2.Vehicles.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.ParticleManager;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.utils.Colour;
@@ -70,13 +71,13 @@ public class ProjectileBehaviour_Missile extends ProjectileBehaviour
 		m_DockedPosition = new Vector3();
 		m_Offset = new Vector3(muzzlePos);
 		
-		m_Anchor.SetDragCoefficient(0.2);
+		m_Anchor.SetDragCoefficient(0.9);
 		
 		m_Anchor.SetMass(100);
 		
 		Colour altColour = new Colour(m_Anchor.GetFiringWeapon().GetAltColour());
 		
-		m_Engine = new Engine(anchor, pManager, new EngineUseBehaviour_Null());
+		m_Engine = new StandardEngine(anchor, pManager, new EngineUseBehaviour_Null());
 		m_Engine.SetMaxTurnRate(2.0);
 		m_Engine.SetAfterBurnerOutput(50);
 		m_Engine.UpdateParticleColours(altColour, m_Anchor.GetFiringWeapon().GetColour());

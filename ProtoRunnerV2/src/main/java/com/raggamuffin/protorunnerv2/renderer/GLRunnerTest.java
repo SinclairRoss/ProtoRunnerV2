@@ -2,6 +2,7 @@ package com.raggamuffin.protorunnerv2.renderer;
 
 import android.opengl.GLES20;
 
+import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
@@ -14,6 +15,30 @@ import java.util.Arrays;
 
 public class GLRunnerTest extends GLModel
 {
+    @Override
+    public void InitialiseModel(float[] projMatrix)
+    {
+
+    }
+
+    @Override
+    public void Draw(GameObject obj)
+    {
+
+    }
+
+    @Override
+    public void CleanModel()
+    {
+
+    }
+
+    @Override
+    protected void InitShaders()
+    {
+
+    }
+    /*
     private FloatBuffer m_VertexBuffer;
     private IntBuffer m_IDBuffer;
 
@@ -200,6 +225,18 @@ public class GLRunnerTest extends GLModel
     }
 
     @Override
+    public void InitialiseModel(float[] projMatrix)
+    {
+
+    }
+
+    @Override
+    public void Draw(GameObject obj)
+    {
+
+    }
+
+    @Override
     public void CleanModel()
     {
         GLES20.glDisableVertexAttribArray(m_VertexPosHandle);
@@ -213,7 +250,6 @@ public class GLRunnerTest extends GLModel
 
         m_IDBuffer.clear();
         m_VertexBuffer.clear();
-
     }
 
     @Override
@@ -221,4 +257,5 @@ public class GLRunnerTest extends GLModel
     {
         return vertexCount;
     }
+    */
 }

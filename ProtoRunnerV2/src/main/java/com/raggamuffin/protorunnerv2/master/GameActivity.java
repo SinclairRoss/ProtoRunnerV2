@@ -54,7 +54,7 @@ public class GameActivity extends Activity implements SensorEventListener
 		super.onCreate(savedInstanceState);
 		
 		Log.e(TAG, "onCreate");
-		
+
 		m_Handler = new Handler(Looper.getMainLooper())
 		{
 			@Override
@@ -96,7 +96,7 @@ public class GameActivity extends Activity implements SensorEventListener
 		
 		m_GameThread = new GameThread(m_GameLogic, m_ControlScheme, m_Handler);
 		m_GameThread.start();
-		
+
 		m_GameView = new GameView(this, rendererPacket);
 		setContentView(m_GameView);	
 		

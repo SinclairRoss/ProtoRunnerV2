@@ -1,9 +1,5 @@
 package com.raggamuffin.protorunnerv2.ai;
 
-import android.util.Log;
-
-import com.raggamuffin.protorunnerv2.gameobjects.Bit;
-
 import java.util.ArrayList;
 
 public class IndependentBehaviour extends BehaviourState
