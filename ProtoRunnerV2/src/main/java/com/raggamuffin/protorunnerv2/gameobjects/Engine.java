@@ -52,7 +52,7 @@ public abstract class Engine
         m_MaxAfterBurnerOutput= 2000;
 
         m_DodgeOutput = 0.0;
-        m_MaxDodgeForce = 18000.0;
+        m_MaxDodgeForce = 32000.0;
 
         m_DodgeDirection = new Vector3();
 

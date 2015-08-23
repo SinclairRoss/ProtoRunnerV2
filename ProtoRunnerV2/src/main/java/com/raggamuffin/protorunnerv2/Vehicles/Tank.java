@@ -1,4 +1,4 @@
-package com.raggamuffin.protorunnerv2.Vehicles;
+package com.raggamuffin.protorunnerv2.vehicles;
 
 import com.raggamuffin.protorunnerv2.ai.AIController;
 import com.raggamuffin.protorunnerv2.ai.AIGoalSet;
@@ -14,6 +14,7 @@ import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
+import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.weapons.Projectile;
 import com.raggamuffin.protorunnerv2.weapons.RailGun_Tank;
 
@@ -33,12 +34,14 @@ public class Tank extends Vehicle
 		m_Player = m_VehicleManager.GetPlayer();
 
 		m_Mass = 2000;
-		
-		m_Scale.SetVector(2.5);
-		m_HullPoints = 300;
+
+        m_MaxHullPoints = 300;
+		m_HullPoints = m_MaxHullPoints;
+
 		m_BoundingRadius = 2.0;
 		
 		m_Model = ModelType.Byte;
+        SetBaseColour(Colours.IndianRed);
 
 		m_Position.SetVector(10, 0, 10);
 

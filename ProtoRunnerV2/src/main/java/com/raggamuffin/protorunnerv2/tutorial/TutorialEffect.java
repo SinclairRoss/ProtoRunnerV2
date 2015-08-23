@@ -7,6 +7,13 @@ public enum TutorialEffect
     HealthBar_On,
     HealthBar_Off,
     SpawnWingmen,
+    LeftOverlay_On,
+    LeftOverlay_Off,
+    RightOverlay_On,
+    RightOverlay_Off,
+
+    LockStrafe,
+    UnlockStrafe,
 
     LockWeapon_Left,
     LockWeapon_Right,

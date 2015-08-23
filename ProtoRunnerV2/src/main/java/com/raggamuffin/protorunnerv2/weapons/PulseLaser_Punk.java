@@ -2,7 +2,7 @@ package com.raggamuffin.protorunnerv2.weapons;
 
 import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.Vehicles.Vehicle;
+import com.raggamuffin.protorunnerv2.vehicles.Vehicle;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 
@@ -13,7 +13,7 @@ public class PulseLaser_Punk extends Weapon
 		super(anchor, game);
 		
 		m_Damage = 100;
-		m_MuzzleVelocity = 0.6;
+		m_MuzzleVelocity = 25.0;
 		m_Accuracy = 1.0;
 		m_LifeSpan = 2.0;
 		
@@ -28,7 +28,5 @@ public class PulseLaser_Punk extends Weapon
 		
 		AddMuzzle( 1, 0, 0);
 		AddMuzzle(-1, 0, 0);
-		
-		SetColour(Colours.CalvinOrange);
 	}
 }

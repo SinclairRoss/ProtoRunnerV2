@@ -10,7 +10,7 @@ import com.raggamuffin.protorunnerv2.gameobjects.Engine;
 import com.raggamuffin.protorunnerv2.gameobjects.EngineUseBehaviour_Null;
 import com.raggamuffin.protorunnerv2.gameobjects.FloorGrid;
 import com.raggamuffin.protorunnerv2.gameobjects.StandardEngine;
-import com.raggamuffin.protorunnerv2.Vehicles.Vehicle;
+import com.raggamuffin.protorunnerv2.vehicles.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.ParticleManager;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.utils.Colour;
@@ -71,7 +71,7 @@ public class ProjectileBehaviour_Missile extends ProjectileBehaviour
 		m_DockedPosition = new Vector3();
 		m_Offset = new Vector3(muzzlePos);
 		
-		m_Anchor.SetDragCoefficient(0.9);
+		m_Anchor.SetDragCoefficient(0.007f);
 		
 		m_Anchor.SetMass(100);
 		
@@ -79,8 +79,8 @@ public class ProjectileBehaviour_Missile extends ProjectileBehaviour
 		
 		m_Engine = new StandardEngine(anchor, pManager, new EngineUseBehaviour_Null());
 		m_Engine.SetMaxTurnRate(2.0);
-		m_Engine.SetAfterBurnerOutput(50);
-		m_Engine.UpdateParticleColours(altColour, m_Anchor.GetFiringWeapon().GetColour());
+		m_Engine.SetAfterBurnerOutput(1500);
+		m_Engine.UpdateParticleColours(altColour, m_Anchor.GetColour());
 		
 		m_ReleaseTimer = new Timer(DELTA_RELEASE * index);
 		m_ArmingTimer = new Timer(ARMING_TIME);

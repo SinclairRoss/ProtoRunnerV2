@@ -1,7 +1,7 @@
 package com.raggamuffin.protorunnerv2.managers;
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.Vehicles.Runner;
+import com.raggamuffin.protorunnerv2.vehicles.Runner;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.utils.Colour;
@@ -11,7 +11,6 @@ import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 public class ColourManager
 {
     private GameLogic m_Game;
-    private VehicleManager m_VehicleManager;
 
     private Colour m_PrimaryColour;
     private Colour m_AccentingColour;
@@ -26,7 +25,6 @@ public class ColourManager
     public ColourManager(GameLogic game)
     {
         m_Game = game;
-        m_VehicleManager = m_Game.GetVehicleManager();
 
         m_PrimaryColour = new Colour();
         m_AccentingColour = new Colour();
@@ -50,9 +48,9 @@ public class ColourManager
         m_Counter += (deltaTime * m_CounterMultiplier);
         m_Counter = MathsHelper.Clamp(m_Counter, 0, 1);
 
-        m_PrimaryColour.Red     = MathsHelper.Lerp(m_Counter, m_PreviousColour.Red,   m_NextColour.Red);
+        m_PrimaryColour.Red     = MathsHelper.Lerp(m_Counter, m_PreviousColour.Red, m_NextColour.Red);
         m_PrimaryColour.Green   = MathsHelper.Lerp(m_Counter, m_PreviousColour.Green, m_NextColour.Green);
-        m_PrimaryColour.Blue    = MathsHelper.Lerp(m_Counter, m_PreviousColour.Blue,  m_NextColour.Blue);
+        m_PrimaryColour.Blue    = MathsHelper.Lerp(m_Counter, m_PreviousColour.Blue, m_NextColour.Blue);
 
         UpdateAccentingColours();
     }
@@ -97,15 +95,23 @@ public class ColourManager
         }
     }
 
+    public void SetColour(double[] colour)
+    {
+        m_Counter = 0;
+        m_PreviousColour.SetColour(colour);
+        m_NextColour.SetColour(colour);
+    }
+
     private void PrimaryColourChanged()
     {
-        Runner player = m_VehicleManager.GetPlayer();
+        Runner player = m_Game.GetVehicleManager().GetPlayer();
 
-        if(player != null)
-        {
-            m_Counter = 0;
-            m_PreviousColour.SetColour(m_PrimaryColour);
-            m_NextColour.SetColour(m_Game.GetVehicleManager().GetPlayer().GetPrimaryWeapon().GetColour());
-        }
+        if(player == null)
+            return;
+
+        m_Counter = 0;
+        m_PreviousColour.SetColour(m_PrimaryColour);
+        m_NextColour.SetColour(player.GetColourByWeaponSlot(player.GetWeaponSlot()));
+
     }
 }

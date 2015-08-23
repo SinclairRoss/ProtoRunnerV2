@@ -17,19 +17,15 @@ public class LaserPointer extends GameObject
 	
 	private LaserState m_State;
 
-    private GameLogic m_Game;
 	private Weapon m_Anchor;
 	private Vector3 m_Muzzle;
 	
 	private Timer m_Timer;
 
-	private boolean m_On;
-	
-	public LaserPointer(GameLogic game, Weapon Anchor, Vector3 Muzzle)
+	public LaserPointer(Weapon Anchor, Vector3 Muzzle)
 	{
 		super(null, null);
 
-        m_Game = game;
 		m_Anchor = Anchor;
 
         m_Model = ModelType.LaserPointer;
@@ -73,7 +69,6 @@ public class LaserPointer extends GameObject
 				{
 					m_BaseColour.Alpha = 0.0;
 					m_State = LaserState.Idle;
-					m_On = false;
 				}
 				
 				break;
@@ -95,11 +90,10 @@ public class LaserPointer extends GameObject
 	
 	public void On()
 	{
-        SetBaseColour(m_Anchor.GetAltColour());
-        this.GetAltColour().Alpha = 0.0;
+        SetBaseColour(m_Anchor.GetAnchor().GetBaseColour());
+        GetAltColour().Alpha = 0.0;
 		m_State = LaserState.Activating;
 		m_Timer.ResetTimer();
-		m_On = true;
 	}
 	
 	public void Off()

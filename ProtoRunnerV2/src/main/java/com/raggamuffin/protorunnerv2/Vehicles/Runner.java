@@ -1,4 +1,4 @@
-package com.raggamuffin.protorunnerv2.Vehicles;
+package com.raggamuffin.protorunnerv2.vehicles;
 
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
@@ -12,6 +12,8 @@ import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
+import com.raggamuffin.protorunnerv2.utils.Colour;
+import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.weapons.BurstLaser;
 import com.raggamuffin.protorunnerv2.weapons.MineLayer;
 import com.raggamuffin.protorunnerv2.weapons.PulseLaser;
@@ -47,6 +49,7 @@ public class Runner extends Vehicle
 		m_Engine = new StandardEngine(this, m_ParticleManager, new EngineUseBehaviour_Drain(this));
 		m_Engine.SetMaxTurnRate(2.0);//2
 		m_Engine.SetMaxEngineOutput(3000);
+        m_Engine.SetAfterBurnerOutput(6000);
 		
 		m_MaxHullPoints = 700;
 		m_HullPoints 	= m_MaxHullPoints;
@@ -89,12 +92,10 @@ public class Runner extends Vehicle
 	}
 
 	@Override 
-	public void Update(double DeltaTime)
+	public void Update(double deltaTime)
 	{
-        m_HullPoints = m_MaxHullPoints;
-
         m_Engine.SetTurnRate(m_Input.GetTilt());
-		super.Update(DeltaTime);	
+		super.Update(deltaTime);
 	}
 	
 	@Override
@@ -104,10 +105,29 @@ public class Runner extends Vehicle
 		m_DamageTakenPublisher.Publish();
 	}
 
+    public double[] GetColourByWeaponSlot(WeaponSlot slot)
+    {
+        switch(slot)
+        {
+            case Up:
+                return Colours.Cyan;
+            case Down:
+                return Colours.PastelGreen;
+            case Left:
+                return Colours.RunnerBlue;
+            case Right:
+                return Colours.Crimson;
+        }
+
+        return null;
+    }
+
 	public void SelectWeaponBySlot(WeaponSlot slot)
 	{
         m_PreviousWeaponSlot = m_CurrentlyUsedSlot;
         m_CurrentlyUsedSlot = slot;
+
+        SetBaseColour(GetColourByWeaponSlot(slot));
 
 		switch(slot)
 		{

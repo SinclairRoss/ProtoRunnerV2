@@ -1,4 +1,4 @@
-package com.raggamuffin.protorunnerv2.Vehicles;
+package com.raggamuffin.protorunnerv2.vehicles;
 
 import com.raggamuffin.protorunnerv2.ai.AIController;
 import com.raggamuffin.protorunnerv2.ai.AIGoalSet;
@@ -14,6 +14,8 @@ import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
+import com.raggamuffin.protorunnerv2.utils.Colours;
+import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.weapons.Projectile;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_None;
 
@@ -26,6 +28,9 @@ public class Carrier extends Vehicle
 	private VehicleManager m_VehicleManager;
 
     private final int DRONE_CAPACITY = 3;
+    private int m_NumDrones;
+
+    private Timer m_SpawnTimer;
 
 	public Carrier(GameLogic game)
 	{
@@ -35,12 +40,16 @@ public class Carrier extends Vehicle
 		m_Player = m_VehicleManager.GetPlayer();
 		
 		m_Model = ModelType.Carrier;
+        SetBaseColour(Colours.PastelRed);
+
+        m_MaxHullPoints = 600;
+        m_HullPoints = m_MaxHullPoints;
 
 		m_Position.SetVector(10, 0, 10);
 
         m_Engine = new CyclingEngine(this, game.GetParticleManager(), new EngineUseBehaviour_Null());
 		m_Engine.SetMaxTurnRate(1.5);
-		m_Engine.SetMaxEngineOutput(1500);
+		m_Engine.SetMaxEngineOutput(10000);
         m_BoundingRadius = 2;
 
 		SetAffiliation(AffiliationKey.RedTeam);
@@ -48,7 +57,7 @@ public class Carrier extends Vehicle
         SelectWeapon(new Weapon_None(this, game));
 
         AIPersonalityAttributes attributes = new AIPersonalityAttributes(0.7, 1.0, 0.2, 1.0, 0.7);
-        AIGoalSet goalSet = new AIGoalSet(GoalState.EngageTarget);
+        AIGoalSet goalSet = new AIGoalSet(GoalState.Encircle);
 		m_AIController = new AIController(this, m_VehicleManager, game.GetBulletManager(), attributes, goalSet);
 		
 		m_EnemyHitPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.EnemyHit);
@@ -56,9 +65,9 @@ public class Carrier extends Vehicle
 		
 		game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerSpawned, new PlayerSpawnedSubscriber());
 
-      //  for(int i = 0; i < DRONE_CAPACITY; i++)
-      //      game.GetVehicleManager().SpawnVehicle(VehicleType.Drone);
-	}
+        m_SpawnTimer = new Timer(0.75);
+        m_NumDrones = 0;
+    }
 	
 	@Override
 	public void CollisionResponse(GameObject Collider, double deltaTime)
@@ -81,11 +90,20 @@ public class Carrier extends Vehicle
 	}
 	
 	@Override 
-	public void Update(double DeltaTime)
+	public void Update(double deltaTime)
 	{
-		m_AIController.Update(DeltaTime);
-		
-		super.Update(DeltaTime);	
+        m_SpawnTimer.Update(deltaTime);
+
+        if (m_SpawnTimer.TimedOut() && m_NumDrones < DRONE_CAPACITY)
+        {
+            m_SpawnTimer.ResetTimer();
+            m_NumDrones ++;
+            m_VehicleManager.SpawnDrone(this, m_Position);
+        }
+
+		m_AIController.Update(deltaTime);
+
+		super.Update(deltaTime);
 	}
 	
 	private class PlayerSpawnedSubscriber extends Subscriber

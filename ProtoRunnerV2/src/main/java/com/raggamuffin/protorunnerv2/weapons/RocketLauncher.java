@@ -3,7 +3,7 @@ package com.raggamuffin.protorunnerv2.weapons;
 import com.raggamuffin.protorunnerv2.R;
 import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.Vehicles.Vehicle;
+import com.raggamuffin.protorunnerv2.vehicles.Vehicle;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 
@@ -34,8 +34,5 @@ public class RocketLauncher extends Weapon
 													  ProjectileBehaviourType.Missile, game, SpecialProjectileBehaviourType.Explode);
 		
 		m_HasLasers = false;
-		
-		SetColour(Colours.Crimson);
-        m_Name = game.GetContext().getString(R.string.weapon_rocket);
 	}
 }

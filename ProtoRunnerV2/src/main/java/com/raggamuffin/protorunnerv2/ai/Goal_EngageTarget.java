@@ -1,6 +1,6 @@
 package com.raggamuffin.protorunnerv2.ai;
 
-import com.raggamuffin.protorunnerv2.Vehicles.Vehicle;
+import com.raggamuffin.protorunnerv2.vehicles.Vehicle;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class Goal_EngageTarget extends Goal

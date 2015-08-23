@@ -16,7 +16,7 @@ public class UIButton extends UILabel
 		super(audio, uiManager);
 		
 		m_GameAudioManager = audio;
-		m_Type = UIElementType.Button;
+		m_Type = UIElementType.Label;
 	}
 
     public UIButton(Publisher PressedPublisher, GameAudioManager audio, UIManager uiManager, final int args)
@@ -27,7 +27,7 @@ public class UIButton extends UILabel
         m_GameAudioManager = audio;
         m_Args = args;
 
-        m_Type = UIElementType.Button;
+        m_Type = UIElementType.Label;
     }
 
     public UIButton(Publisher PressedPublisher, GameAudioManager audio, UIManager uiManager)
@@ -37,7 +37,7 @@ public class UIButton extends UILabel
         m_PressedPublisher = PressedPublisher;
         m_GameAudioManager = audio;
 
-        m_Type = UIElementType.Button;
+        m_Type = UIElementType.Label;
     }
 	
 	public void Pressed()

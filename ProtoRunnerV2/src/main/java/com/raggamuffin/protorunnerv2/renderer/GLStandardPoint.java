@@ -23,13 +23,9 @@ public class GLStandardPoint extends GLModel
     private int m_WorldPosHandle;
     private int m_EyePosHandle;
 
-    private float m_Size;
-
-    static final int COORDS_PER_VERTEX = 3;
-    static final int VERTEX_STRIDE = COORDS_PER_VERTEX * 4;
     static float VertexCoords[] =
     {
-            0.0f, 0.0f, 0.0f
+        0.0f, 0.0f, 0.0f
     };
 
     public GLStandardPoint()
@@ -41,8 +37,6 @@ public class GLStandardPoint extends GLModel
         vertexBuffer.put(VertexCoords);
         vertexBuffer.position(0);
 
-        m_Size = 30.0f;
-
         m_Program 			= 0;
         m_ProjMatrixHandle  = 0;
         m_SizeHandle		= 0;
@@ -52,19 +46,6 @@ public class GLStandardPoint extends GLModel
         m_EyePosHandle 		= 0;
 
         InitShaders();
-    }
-
-    public void draw(Vector3 pos, Colour colour, Vector3 eye, float[] projMatrix)
-    {
-        // Set the shader information.
-        GLES20.glUniformMatrix4fv(m_ProjMatrixHandle, 1, false, projMatrix, 0);
-        GLES20.glUniform4f(m_ColourHandle, (float)colour.Red, (float)colour.Green, (float)colour.Blue, (float)colour.Alpha);
-        GLES20.glUniform4f(m_WorldPosHandle, (float) pos.I, (float) pos.J, (float) pos.K, 1.0f);
-        GLES20.glUniform4f(m_EyePosHandle, (float) eye.I, (float) eye.J, (float) eye.K, 1.0f);
-        GLES20.glUniform1f(m_SizeHandle, m_Size);
-
-        // Draw the object using glPoints.
-        GLES20.glDrawArrays(GLES20.GL_POINTS, 0, 1);
     }
 
     protected void InitShaders()
@@ -78,7 +59,7 @@ public class GLStandardPoint extends GLModel
         GLES20.glAttachShader(m_Program, fragmentShaderHandler); // add the fragment shader to program
         GLES20.glLinkProgram(m_Program);                  		// create OpenGL program executables
 
-        m_ProjMatrixHandle = GLES20.glGetUniformLocation(m_Program, "u_ProjMatrix");
+        m_ProjMatrixHandle  = GLES20.glGetUniformLocation(m_Program, "u_ProjMatrix");
         m_ColourHandle 		= GLES20.glGetUniformLocation(m_Program, "u_Color");
         m_SizeHandle 		= GLES20.glGetUniformLocation(m_Program, "u_Size");
         m_EyePosHandle 		= GLES20.glGetUniformLocation(m_Program, "u_EyePos");
@@ -88,19 +69,29 @@ public class GLStandardPoint extends GLModel
     }
 
     @Override
-    public void InitialiseModel(float[] projMatrix)
+    public void InitialiseModel(float[] projMatrix, Vector3 eye)
     {
         GLES20.glUseProgram(m_Program);
 
-        GLES20.glEnableVertexAttribArray(m_PositionHandle);
-        GLES20.glVertexAttribPointer(m_PositionHandle, GLPulseLaser.COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, GLPulseLaser.VERTEX_STRIDE, vertexBuffer);
-    }
+        GLES20.glUniformMatrix4fv(m_ProjMatrixHandle, 1, false, projMatrix, 0);
+        GLES20.glUniform4f(m_EyePosHandle, (float) eye.I, (float) eye.J, (float) eye.K, 1.0f);
 
+        GLES20.glEnableVertexAttribArray(m_PositionHandle);
+        GLES20.glVertexAttribPointer(m_PositionHandle, 3, GLES20.GL_FLOAT, false, 12, vertexBuffer);
+    }
 
     @Override
     public void Draw(GameObject obj)
     {
+        Vector3 pos = obj.GetPosition();
 
+        GLES20.glUniform4f(m_WorldPosHandle, (float) pos.I, (float) pos.J, (float) pos.K, 1.0f);
+
+        GLES20.glUniform1f(m_SizeHandle, (float)obj.GetScale().I);
+        Colour colour = obj.GetColour();
+        GLES20.glUniform4f(m_ColourHandle, (float)colour.Red, (float)colour.Green, (float)colour.Blue, (float)colour.Alpha);
+
+        GLES20.glDrawArrays(GLES20.GL_POINTS, 0, 1);
     }
 
     @Override

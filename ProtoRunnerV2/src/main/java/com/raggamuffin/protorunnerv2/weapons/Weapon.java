@@ -13,11 +13,10 @@ import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.gameobjects.PostFireAction;
-import com.raggamuffin.protorunnerv2.Vehicles.Vehicle;
+import com.raggamuffin.protorunnerv2.utils.Colour;
+import com.raggamuffin.protorunnerv2.vehicles.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.BulletManager;
 import com.raggamuffin.protorunnerv2.managers.ParticleManager;
-import com.raggamuffin.protorunnerv2.utils.Colour;
-import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public abstract class Weapon 
@@ -33,8 +32,6 @@ public abstract class Weapon
 	protected FireControl m_FireMode;
 	protected ProjectileTemplate m_ProjectileTemplate;
 
-    protected String m_Name;
-
 	protected double m_Damage;
     protected double m_Drain;
 	protected double m_MuzzleVelocity;
@@ -43,9 +40,6 @@ public abstract class Weapon
 	protected double m_ProjectileFadeInTime;
     protected double m_ProjectileFadeOutTime;
 
-	protected Colour m_Colour;
-    protected Colour m_AltColour;
-	
 	private Vector<Vector3> m_MuzzleOffsets;
 	private Vector3 m_MuzzleOffset;
 	private int m_MuzzleIndex;
@@ -71,8 +65,6 @@ public abstract class Weapon
 		m_FireMode = null;
 		m_ProjectileTemplate = null;
 
-        m_Name = "---";
-
 		m_Damage = 1.0;
         m_Drain = 1.0;
 		m_MuzzleVelocity = 1.0;
@@ -81,14 +73,11 @@ public abstract class Weapon
 		m_ProjectileFadeInTime = 0.02;
         m_ProjectileFadeOutTime = 0.9;
 
-		m_Colour = new Colour(Colours.White);
-		m_AltColour = new Colour(Colours.White);
-		
-		m_MuzzleOffsets = new Vector<Vector3>();
+		m_MuzzleOffsets = new Vector<>();
 		m_MuzzleOffset = new Vector3();
 		m_MuzzleIndex = 0;
 		m_HasLasers = false;
-		m_Lasers = new Vector<LaserPointer>();
+		m_Lasers = new Vector<>();
 
 		m_PostFireAction = m_Anchor.GetPostFireAction();
 		
@@ -164,7 +153,7 @@ public abstract class Weapon
 		
 		if(m_HasLasers)
 		{		
-			LaserPointer Laser = new LaserPointer(m_Game, this, Muzzle);
+			LaserPointer Laser = new LaserPointer(this, Muzzle);
 			m_Lasers.add(Laser);
 		}
 	}
@@ -197,22 +186,16 @@ public abstract class Weapon
 		for(LaserPointer Pointer : m_Lasers)
 			Pointer.Off();
 	}
-	
-	protected void SetColour(double[] Colour)
-	{
-		m_Colour.SetColour(Colour);
-		m_AltColour.SetAsInverse(m_Colour);
-	}
 
-	public Colour GetColour()
-	{
-		return m_Colour;
-	}
-	
-	public Colour GetBulletColour()
-	{
-		return m_AltColour;
-	}
+    public Colour GetBaseColour()
+    {
+        return m_Anchor.GetBaseColour();
+    }
+
+    public Colour GetAltColour()
+    {
+        return m_Anchor.GetAltColour();
+    }
 
 	public Vector3 GetVelocity()
 	{
@@ -253,12 +236,7 @@ public abstract class Weapon
 	{
 		return m_MuzzleOffsets.size();
 	}
-	
-	public Colour GetAltColour()
-	{
-		return m_Colour;
-	}
-	
+
 	public Vehicle GetAnchor()
 	{
 		return m_Anchor;
@@ -277,11 +255,6 @@ public abstract class Weapon
     public double GetDrain()
     {
         return m_Drain;
-    }
-
-    public String GetName()
-    {
-        return m_Name;
     }
 
     public Boolean IsFiring()

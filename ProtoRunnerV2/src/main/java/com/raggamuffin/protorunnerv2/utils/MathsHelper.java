@@ -76,10 +76,15 @@ public class MathsHelper
     }
 	
 	// Returns a random double within in range Min - Max.
-	public static double RandomDouble(double Min, double Max)
+	public static double RandomDouble(double min, double max)
 	{
-		return (Rand.nextDouble() * (Max - Min)) + Min;
+		return (Rand.nextDouble() * (max - min)) + min;
 	}
+
+    public static double BiasedRandomDouble(double min, double max, double bias)
+    {
+        return (Math.pow(Rand.nextDouble(), bias) * (max - min)) + min;
+    }
 	
 	// Returns a random int within the range Min -Max.
 	public static int RandomInt(int Min, int Max)

@@ -132,31 +132,31 @@ public final class Vector3
 		K *= scale;
 	}
 
-    public void RotateX(double Theta)
+    public void RotateX(double theta)
     {
         double y = J;
         double z = K;
 
-        J =  (y  * Math.cos(Theta)) + (z * Math.sin(Theta));
-        K = -(y  * Math.sin(Theta)) + (z * Math.cos(Theta));
+        J =  (y  * Math.cos(theta)) + (z * Math.sin(theta));
+        K = -(y  * Math.sin(theta)) + (z * Math.cos(theta));
     }
 	
-	public void RotateY(double Theta)
+	public void RotateY(double theta)
 	{
 		double x = I;
 		double z = K;
 		
-		I = (x  * Math.cos(Theta)) - (z * Math.sin(Theta));
-		K = (x  * Math.sin(Theta)) + (z * Math.cos(Theta));
+		I = (x  * Math.cos(theta)) - (z * Math.sin(theta));
+		K = (x  * Math.sin(theta)) + (z * Math.cos(theta));
 	}
 
-    public void RotateZ(double Theta)
+    public void RotateZ(double theta)
     {
         double x = I;
         double y = J;
 
-        I =  (x  * Math.cos(Theta)) + (y * -Math.sin(Theta));
-        J =  (x  * Math.sin(Theta)) + (y * Math.cos(Theta));
+        I =  (x  * Math.cos(theta)) + (y * -Math.sin(theta));
+        J =  (x  * Math.sin(theta)) + (y * Math.cos(theta));
     }
 	
 	public static double DotProduct(Vector3 A, Vector3 B)

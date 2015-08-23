@@ -25,10 +25,12 @@ public class AIGoalSet
                 case Flee:
                     goals.add(new Goal_Flee(controller));
                     break;
+                case Encircle:
+                    goals.add(new Goal_Encircle(controller));
+                    break;
             }
         }
 
         return goals;
     }
-
 }

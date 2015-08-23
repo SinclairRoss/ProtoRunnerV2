@@ -5,8 +5,6 @@ public enum ModelType
     FloorPanel,
     RadarFragment,
 
-
-	Cube,
 	Runner,
     Bit,
     Byte,
@@ -15,12 +13,11 @@ public enum ModelType
     Dummy,
     Carrier,
     EngineDrone,
+    WeaponDrone,
 
     Trail,
     LaserPointer,
     ParticleLaser,
-
-	Plane,
 
 	PulseLaser,
 	RailSlug,
@@ -29,7 +26,6 @@ public enum ModelType
 
 	Explosion,
 	Skybox,
-
 
 	Nothing
 }

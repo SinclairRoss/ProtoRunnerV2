@@ -2,7 +2,7 @@ package com.raggamuffin.protorunnerv2.weapons;
 
 import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.Vehicles.Vehicle;
+import com.raggamuffin.protorunnerv2.vehicles.Vehicle;
 import com.raggamuffin.protorunnerv2.particles.BurstEmitter;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
@@ -19,7 +19,7 @@ public class RailGun_Tank extends Weapon
 		m_Anchor.AddChild(m_BurstEmitter);
 		
 		m_Damage = 100;
-		m_MuzzleVelocity = 2.0;
+		m_MuzzleVelocity = 90.0;
 		m_Accuracy = 1.0;
 		m_LifeSpan = 0.5;
 		
@@ -31,11 +31,9 @@ public class RailGun_Tank extends Weapon
 		m_HasLasers = true;
 		
 		AddMuzzle(0, 0, 1);
-		
-		SetColour(Colours.IndianRed);
 
-        m_BurstEmitter.SetStartColour(m_Colour);
-        m_BurstEmitter.SetFinalColour(m_AltColour);
+        m_BurstEmitter.SetStartColour(anchor.GetColour());
+        m_BurstEmitter.SetFinalColour(anchor.GetAltColour());
 		
 		m_AudioClip = AudioClips.RailGun;
 	}

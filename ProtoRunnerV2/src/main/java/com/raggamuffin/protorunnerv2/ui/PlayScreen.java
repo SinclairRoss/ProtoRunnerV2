@@ -2,7 +2,7 @@ package com.raggamuffin.protorunnerv2.ui;
 
 import com.raggamuffin.protorunnerv2.R;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.Vehicles.Vehicle;
+import com.raggamuffin.protorunnerv2.vehicles.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.ColourManager;
 import com.raggamuffin.protorunnerv2.managers.UIManager;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
@@ -15,11 +15,13 @@ public class PlayScreen extends UIScreen
 	private final double LABEL_DURATION = 2.0;
 
 	private Vehicle m_Player;
-	
+
 	private UIProgressBar m_HealthBar;
 
 	private String m_RespawnText;
 	private String m_WingmanDownText;
+
+    private boolean m_ShowRebootMessage;
 
 	public PlayScreen(GameLogic game, UIManager uiManager) 
 	{
@@ -32,15 +34,21 @@ public class PlayScreen extends UIScreen
 
 		m_Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerSpawned, new PlayerSpawnedSubscriber());
 		m_Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.WingmanDestroyed, new WingmanDownSubscriber());
+
+        m_ShowRebootMessage = false;
     }
 
 	@Override
 	public void Create() 
 	{
 		super.Create();
-		
-		String HealthString = m_Game.GetContext().getString(R.string.empty);
 
+        if(m_ShowRebootMessage)
+            m_MessageHandler.DisplayMessage(m_RespawnText, MessageOrientation.Center, 0.9, 1, LABEL_DURATION, 0.0);
+
+        m_ShowRebootMessage = true;
+
+		String HealthString = m_Game.GetContext().getString(R.string.empty);
         ColourManager cManager = m_Game.GetColourManager();
 		m_HealthBar = new UIProgressBar(1.6, m_Player.GetMaxHullPoints(), cManager.GetAccentingColour(), cManager.GetAccentTintColour(), new Colour(Colours.Clear), HealthString, UIProgressBar.Alignment.Center, m_Game.GetGameAudioManager(), m_UIManager);
 		m_HealthBar.SetPosition(0.0, 0.9);
@@ -68,12 +76,10 @@ public class PlayScreen extends UIScreen
 	private class PlayerSpawnedSubscriber extends Subscriber
 	{
 		@Override
-		public void Update(int args) 
+		public void Update(int args)
 		{
-			m_Player = m_Game.GetVehicleManager().GetPlayer(); 
-			
-			m_MessageHandler.DisplayMessage(m_RespawnText, MessageOrientation.Center, 0.9, 1, LABEL_DURATION, 0.0);
-		}	
+			m_Player = m_Game.GetVehicleManager().GetPlayer();
+		}
 	}
 
 	private class WingmanDownSubscriber extends Subscriber

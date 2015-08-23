@@ -14,7 +14,6 @@ public abstract class UIElement
 	protected Vector2 m_Size;
 	
 	private boolean m_Hidden;
-	private boolean m_Interactive;
 
 	protected UIElementType m_Type;
 
@@ -29,7 +28,6 @@ public abstract class UIElement
 		m_Size 		= new Vector2();
 
 		m_Hidden = false;
-		m_Interactive = true;
 		
 		m_Type = UIElementType.Undefined;
 		m_Colour = new Colour(Colours.White);
@@ -81,6 +79,11 @@ public abstract class UIElement
 		m_OriginalPosition.SetVector(x, y);
 		m_Position.SetVector(x,y);
 	}
+
+    public void SetSize(double width, double height)
+    {
+        m_Size.SetVector(width, height);
+    }
 
 	///// Getters.
 	public Vector2 GetPosition()

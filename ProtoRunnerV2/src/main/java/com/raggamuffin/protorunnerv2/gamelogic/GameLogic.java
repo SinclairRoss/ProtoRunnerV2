@@ -9,7 +9,7 @@ import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
 import com.raggamuffin.protorunnerv2.gameobjects.ExhibitionCameraAnchor;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
-import com.raggamuffin.protorunnerv2.Vehicles.Vehicle;
+import com.raggamuffin.protorunnerv2.vehicles.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.BulletManager;
 import com.raggamuffin.protorunnerv2.managers.ColourManager;
 import com.raggamuffin.protorunnerv2.managers.DatabaseManager;
@@ -36,8 +36,6 @@ import com.raggamuffin.protorunnerv2.weapons.Projectile;
 
 public class GameLogic extends ApplicationLogic
 {
-	private ArrayList<UIElement> m_UIElements;
-	
 	private ChaseCamera m_Camera;
 	private ControlScheme m_Control;
 	
@@ -65,8 +63,6 @@ public class GameLogic extends ApplicationLogic
 	{
 		super(activity, packet);
 
-        m_UIElements = m_Packet.GetUIElements();
-
 		m_Camera = packet.GetCamera();
 		m_Control = scheme;
 		
@@ -75,12 +71,12 @@ public class GameLogic extends ApplicationLogic
 		m_Camera.SetInPlace();
 
         m_PubSubHub 			= pubSub;
+        m_ColourManager         = new ColourManager(this);
 		m_DatabaseManager 	    = new DatabaseManager(this);
 		m_GameAudioManager		= new GameAudioManager(m_Context, m_Camera);
 		m_ParticleManager 		= new ParticleManager(this);
 		m_BulletManager 		= new BulletManager(this);
 		m_VehicleManager 		= new VehicleManager(this);
-        m_ColourManager         = new ColourManager(this);
 		m_UIManager 			= new UIManager(this);
 		m_GameStats 			= new GameStats(this);
 		m_SecondWindHandler		= new SecondWindHandler(this);
@@ -165,54 +161,6 @@ public class GameLogic extends ApplicationLogic
 			}
 		}
 	}
-	
-	// Adds a game object and all children of the game object to the renderer.
-	public void AddObjectToRenderer(GameObject obj)
-	{
-		Vector<GameObject> Children = new Vector<GameObject>(); 	// A vector containing Game Objects not yet added to the Children vector.
-		Children.add(obj);
-
-		for(int c = 0; c < Children.size(); c ++)
-		{
-			GameObject child = Children.elementAt(c);
-
-            Vector<GameObject> Investigated = child.GetChildren();
-
-			for(GameObject Temp : Investigated)
-			{
-				Children.add(Temp);
-			}
-
-            m_Packet.AddObject(child);
-
-			Children.remove(c);
-			c--;
-		}
-	}
-	
-	// Removes a game object and all of its children from the renderer.
-	public void RemoveObjectFromRenderer(GameObject obj)
-	{
-		Vector<GameObject> children = new Vector<GameObject>(); 	// A vector containing Game Objects not yet added to the Children vector.
-        children.add(obj);
-
-		for(int c = 0; c < children.size(); c ++)
-		{
-			GameObject child = children.elementAt(c);
-
-            Vector<GameObject> Investigated = child.GetChildren();
-
-			for(GameObject Temp : Investigated)
-			{
-                children.add(Temp);
-			}
-
-            m_Packet.RemoveObject(child);
-
-            children.remove(c);
-			c--;
-		}
-	}
 
     private void SetGameMode(GameMode mode)
     {
@@ -236,14 +184,62 @@ public class GameLogic extends ApplicationLogic
         m_GameManager.Initialise();
     }
 
-	public void AddObjectToRenderer(UIElement Element)
+	// Adds a game object and all children of the game object to the renderer.
+	public void AddObjectToRenderer(GameObject obj)
 	{
-		 m_UIElements.add(Element);
+        ArrayList<GameObject> Children = new ArrayList<>(); 	// A vector containing Game Objects not yet added to the Children vector.
+		Children.add(obj);
+
+		for(int c = 0; c < Children.size(); c ++)
+		{
+			GameObject child = Children.get(c);
+
+            ArrayList<GameObject> Investigated = child.GetChildren();
+
+			for(GameObject Temp : Investigated)
+			{
+				Children.add(Temp);
+			}
+
+            m_Packet.AddObject(child);
+
+			Children.remove(c);
+			c--;
+		}
 	}
 	
-	public void RemoveObjectFromRenderer(UIElement Element)
+	// Removes a game object and all of its children from the renderer.
+	public void RemoveObjectFromRenderer(GameObject obj)
 	{
-		 m_UIElements.remove(Element);
+		ArrayList<GameObject> children = new ArrayList<>(); 	// A vector containing Game Objects not yet added to the Children vector.
+        children.add(obj);
+
+		for(int c = 0; c < children.size(); c ++)
+		{
+			GameObject child = children.get(c);
+
+            ArrayList<GameObject> Investigated = child.GetChildren();
+
+			for(GameObject Temp : Investigated)
+			{
+                children.add(Temp);
+			}
+
+            m_Packet.RemoveObject(child);
+
+            children.remove(c);
+			c--;
+		}
+	}
+
+	public void AddObjectToRenderer(UIElement element)
+	{
+		 m_Packet.AddUIElement(element);
+	}
+	
+	public void RemoveObjectFromRenderer(UIElement element)
+	{
+        m_Packet.RemoveUIElement(element);
 	}
 	
 	public PubSubHub GetPubSubHub()

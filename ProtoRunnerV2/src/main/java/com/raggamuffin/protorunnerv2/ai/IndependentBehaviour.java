@@ -18,12 +18,13 @@ public class IndependentBehaviour extends BehaviourState
 	public void Update()
 	{
         EvaluateGoals();
+
         m_NavController.SetGoal(m_Goal.GetGoalCoords());
 	}
 
     private void EvaluateGoals()
     {
-        double maxUtility = Double.MIN_VALUE;
+        double maxUtility = -Double.MAX_VALUE;
 
         for(Goal goal : m_Goals)
         {

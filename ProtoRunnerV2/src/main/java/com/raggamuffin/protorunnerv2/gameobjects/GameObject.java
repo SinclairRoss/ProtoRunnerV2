@@ -1,10 +1,12 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour;
+import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_FadeTo;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
@@ -12,6 +14,7 @@ import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 import com.raggamuffin.protorunnerv2.utils.Vector4;
+import com.raggamuffin.protorunnerv2.vehicles.Wingman;
 
 public abstract class GameObject 
 {
@@ -23,7 +26,7 @@ public abstract class GameObject
 	protected Vector3 m_Up;				// Up vector of the GameObject.
 	protected Vector3 m_Left;			// Left vector of the GameObject.
     protected Vector3 m_Right;
-	protected Vector3 m_Scale;			// The scale of the GameObject. 
+	protected Vector3 m_Scale;			// The scale of the GameObject.
 	protected Vector3 m_Velocity;		// Velocity of the GameObject.
 	protected Vector3 m_Force;			// The force being applied to the GameObject.
 	protected Vector3 m_Acceleration;	// Acceleration of GameObject
@@ -40,11 +43,12 @@ public abstract class GameObject
     protected Colour m_AltColour;       // The Alternate colour of the GameObject.
 	private Vector4 m_DeltaColour; 		// The colour to be added to the base colour resulting in the actual colour of the game object. Uses a vector3 because the colour class doesn't support numbers outside of the range 0 - 1.
 	private Vector<ColourBehaviour> m_ColourBehaviours;	// Contains all colour behaviours active on this game object.
-	
+    protected ColourBehaviour_FadeTo m_ChangeColourBehaviour;
+
 	///// Misc Attributes.
 	protected double m_BoundingRadius;	// The bounding radius of the game object. Used in collision detection.	
 	protected ModelType m_Model;				// What model the gameobject is using to render.
-	private Vector<GameObject> m_Children;	// Other game object that depend on this object. for example reticules and Floor effects.
+	private ArrayList<GameObject> m_Children;	// Other game object that depend on this object. for example reticules and Floor effects.
 	private AffiliationKey m_Faction;
 	protected PubSubHub m_PubSubHub;
 	protected GameAudioManager m_GameAudioManager;
@@ -70,7 +74,7 @@ public abstract class GameObject
 		
 		///// Physics Attributes
 		m_Mass				 = 1000.0f;
-		m_DragCoefficient	 = 0.05f;
+		m_DragCoefficient	 = 0.007f;
 		
 		///// Colour Attributes.
 		m_BaseColour  = new Colour(Colours.Black);
@@ -79,9 +83,12 @@ public abstract class GameObject
 		m_DeltaColour = new Vector4();
 		m_ColourBehaviours = new Vector<>();
 
-		///// Misc Attributes.
+        m_ChangeColourBehaviour = new ColourBehaviour_FadeTo(this, ColourBehaviour.ActivationMode.Triggered, 1.0);
+        AddColourBehaviour(m_ChangeColourBehaviour);
+
+        ///// Misc Attributes.
 		m_BoundingRadius = 1.0;
-		m_Children = new Vector<>();
+		m_Children = new ArrayList<>();
 
 		SetAffiliation(AffiliationKey.Neutral);
 
@@ -166,7 +173,7 @@ public abstract class GameObject
         m_Colour.SetColour(m_BaseColour);
         m_DeltaColour.SetVector(0.0);
 
-        for(ColourBehaviour Behaviour : m_ColourBehaviours)
+        for (ColourBehaviour Behaviour : m_ColourBehaviours)
         {
             Behaviour.Update(deltaTime);
             m_DeltaColour.Add(Behaviour.GetDeltaColour());
@@ -174,7 +181,6 @@ public abstract class GameObject
 
         m_Colour.Add(m_DeltaColour);
     }
-
 
     public void AddColourBehaviour(ColourBehaviour behaviour)
 	{
@@ -292,14 +298,18 @@ public abstract class GameObject
 	
 	public void SetBaseColour(double[] colour)
 	{
-		m_BaseColour.SetColour(colour);
-        m_AltColour.SetAsInverse(m_BaseColour);
+        m_ChangeColourBehaviour.SetNextColour(colour);
+        m_ChangeColourBehaviour.TriggerBehaviour();
+
+        m_AltColour.SetAsInverse(colour);
 	}
 	
 	public void SetBaseColour(Colour colour)
 	{
-		m_BaseColour.SetColour(colour);
-        m_AltColour.SetAsInverse(m_BaseColour);
+        m_ChangeColourBehaviour.SetNextColour(colour);
+        m_ChangeColourBehaviour.TriggerBehaviour();
+
+        m_AltColour.SetAsInverse(colour);
 	}
 	
 	public Colour GetColour()
@@ -314,7 +324,7 @@ public abstract class GameObject
 		return m_BoundingRadius;
 	}
 	
-	public Vector<GameObject> GetChildren()
+	public ArrayList<GameObject> GetChildren()
 	{
 		return m_Children;
 	}
@@ -326,7 +336,7 @@ public abstract class GameObject
 
 	public void RemoveAllChildren()
 	{
-		m_Children.removeAllElements();
+		m_Children.clear();
 	}
 	
 	public void SetAffiliation(AffiliationKey faction)

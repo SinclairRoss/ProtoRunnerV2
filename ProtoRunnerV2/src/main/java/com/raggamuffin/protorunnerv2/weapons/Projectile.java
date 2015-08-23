@@ -79,8 +79,8 @@ public class Projectile extends GameObject
 		
 		m_Origin = template.GetOrigin();
 
-		m_BaseColour.SetColour(m_Origin.GetColour());
-        m_AltColour.SetColour(m_Origin.GetAltColour());
+		m_BaseColour.SetColour(m_Origin.GetAnchor().GetColour());
+        m_AltColour.SetColour(m_Origin.GetAnchor().GetAltColour());
         m_BaseColour.Alpha = 0.0;
         m_AltColour.Alpha  = 0.0;
 

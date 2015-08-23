@@ -4,14 +4,16 @@ import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.managers.ParticleManager;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colour;
-import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public abstract class ParticleEmitter extends GameObject
 {
 	protected GameObject m_Anchor;
 	protected ParticleManager m_ParticleManager;
-	
+
+    protected double m_MinSize;
+    protected double m_MaxSize;
+
 	protected Vector3 m_ParticleForward;
 	protected double m_ParticleLifeSpan;
 	protected double m_EmissionForce;
@@ -31,16 +33,19 @@ public abstract class ParticleEmitter extends GameObject
 		m_Anchor = anchor;
 		m_ParticleManager = pManager;
 
+        m_MinSize = 30.0f;
+        m_MaxSize = 90.0f;
+
 		m_ParticleForward = new Vector3();
 		m_ParticleLifeSpan = lifeSpan;
 		m_EmissionForce = 1.0f;
 		m_Range = Math.PI * 2;
-		
-		m_ParticleStartColour = new Colour(Colours.Red);
-		m_ParticleFinalColour = new Colour(Colours.Red);
+
+        m_ParticleStartColour = anchor.GetColour();
+        m_ParticleFinalColour = anchor.GetAltColour();
 
 		m_Behaviour = behaviour;
-				
+
 		m_ParticleModel = ModelType.StandardPoint;
 		m_Model = ModelType.Nothing;
 	}
@@ -63,6 +68,12 @@ public abstract class ParticleEmitter extends GameObject
 	{
 		return true;
 	}
+
+    public double GetParticleSize()
+    {
+        return m_MinSize;
+        //return MathsHelper.BiasedRandomDouble(m_MinSize, m_MaxSize, 4);
+    }
 
 	///// Getters \\\\\
 	public Vector3 GetVelocity()

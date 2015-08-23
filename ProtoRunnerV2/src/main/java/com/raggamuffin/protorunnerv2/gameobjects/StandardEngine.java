@@ -19,7 +19,7 @@ public class StandardEngine extends Engine
     @Override
     public void UpdateParticleColours(Colour start, Colour end)
     {
-        m_TrailEmitter.SetStartColour(start);
-        m_TrailEmitter.SetFinalColour(end);
+    //    m_TrailEmitter.SetStartColour(start);
+     //   m_TrailEmitter.SetFinalColour(end);
     }
 }

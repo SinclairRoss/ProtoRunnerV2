@@ -396,6 +396,73 @@
     <eat-comment/>
     <string name="auth_google_play_services_client_facebook_display_name">Facebook</string>
     <string name="auth_google_play_services_client_google_display_name">Google</string>
+    <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/bit.xml -->
+    <eat-comment/>
+    <string name="bit_vertices">
+        -0.5f,  0.0f,  1.25f,
+        -0.5f,  0.5f,  0.0f,
+        -1.0f,  0.0f,  0.0f,
+
+        -0.5f,  0.0f,  1.25f,
+        -1.0f,  0.0f,  0.0f,
+        -0.5f, -0.5f,  0.0f,
+
+        -0.5f,  0.0f,  1.25f,
+        -0.5f, -0.5f,  0.0f,
+        -0.5f,  0.5f,  0.0f,
+
+        0.5f,  0.0f,  1.25f,
+        1.0f,  0.0f,  0.0f,
+        0.5f,  0.5f,  0.0f,
+
+        0.5f,  0.0f,  1.25f,
+        0.5f,  0.5f,  0.0f,
+        0.5f, -0.5f,  0.0f,
+
+        0.5f,  0.0f,  1.25f,
+        0.5f, -0.5f,  0.0f,
+        1.0f,  0.0f,  0.0f,
+
+        -1.0f,  0.0f,  0.0f,
+        -0.5f,  0.5f,  0.0f,
+        0.0f,  0.5f, -1.5f,
+
+        -1.0f,  0.0f,  0.0f,
+        0.0f,  0.5f, -1.5f,
+        -0.5f, -0.5f,  0.0f,
+
+        1.0f,  0.0f,  0.0f,
+        0.0f,  0.5f, -1.5f,
+        0.5f,  0.5f,  0.0f,
+
+        0.5f, -0.5f,  0.0f,
+        0.0f,  0.5f, -1.5f,
+        1.0f,  0.0f,  0.0f,
+
+        -0.5f,  0.5f,  0.0f,
+        0.5f,  0.5f,  0.0f,
+        0.0f,  0.5f, -1.5f,
+
+        -0.5f, -0.5f,  0.0f,
+        0.0f,  0.5f, -1.5f,
+        0.5f, -0.5f,  0.0f,
+
+        0.0f,  0.0f,  0.5f,
+        0.5f,  0.5f,  0.0f,
+        -0.5f,  0.5f,  0.0f,
+
+        0.0f,  0.0f,  0.5f,
+        -0.5f, -0.5f,  0.0f,
+        0.5f, -0.5f,  0.0f,
+
+        0.0f,  0.0f,  0.5f,
+        -0.5f,  0.5f,  0.0f,
+        -0.5f, -0.5f,  0.0f,
+
+        0.0f,  0.0f,  0.5f,
+        0.5f, -0.5f,  0.0f,
+        0.5f,  0.5f,  0.0f,
+    </string>
     <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="button_achievements">Achievements</string>
@@ -405,7 +472,95 @@
     <string name="button_play">Start</string>
     <string name="button_scores">Leaderboard</string>
     <string name="button_tutorial">Tutorial</string>
+    <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/byte.xml -->
+    <eat-comment/>
+    <string name="byte_vertices">
+        0.0f,    0.0f,    3.75f,
+        1.40625f,  1.40625f,   0.9375f,
+        0.0f,    3.75f,    0.0f,
+
+        0.0f,    0.0f,    3.75f,
+        0.0f,    3.75f,    0.0f,
+        -1.40625f,  1.40625f,   0.9375f,
+
+        0.0f,    0.0f,    3.75f,
+        3.75f,    0.0f,    0.0f,
+        1.40625f,  1.40625f,   0.9375f,
+
+        0.0f,    0.0f,    3.75f,
+        -1.40625f,  1.40625f,   0.9375f,
+        -3.75f,    0.0f,    0.0f,
+
+        -1.40625f,  1.40625f,   0.9375f,
+        0.0f,    3.75f,    0.0f,
+        0.0f,  2.0f,   0.5f,
+
+        0.0f,  2.0f,   0.5f,
+        0.0f,    3.75f,    0.0f,
+        1.40625f,  1.40625f,   0.9375f,
+
+        3.75f,    0.0f,    0.0f,
+        0.9375f,  0.0f,   0.0f,
+        1.40625f,  1.40625f,   0.9375f,
+
+        -1.40625f,  1.40625f,   0.9375f,
+        -0.9375f,  0.0f,   0.0f,
+        -3.75f,    0.0f,    0.0f,
+
+        -1.40625f,  1.40625f,   0.9375f,
+        0.0f,  2.0f,   0.5f,
+        -0.9375f,  0.0f,   0.0f,
+
+        0.0f,  2.0f,   0.5f,
+        1.40625f,  1.40625f,   0.9375f,
+        0.9375f,  0.0f,   0.0f,
+
+        -0.9375f,  0.0f,   0.0f,
+        0.0f,  2.0f,   0.5f,
+        0.0f,  0.0f,   -4.375f,
+
+        0.0f,  0.0f,   -4.375f,
+        0.0f,  2.0f,   0.5f,
+        0.9375f,  0.0f,   0.0f
+    </string>
+    <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/strings.xml -->
+    <eat-comment/>
     <string name="cannot_connect">Unable to connect</string>
+    <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/carrier.xml -->
+    <eat-comment/>
+    <string name="carrier_vertices">
+        0.0f,  1.5f, -1.4f,
+        0.0f,  0.0f,  3.5f,
+        1.5f,  0.0f,  0.8f,
+
+        0.0f,  1.5f, -1.4f,
+        -1.5f,  0.0f,  0.8f,
+        0.0f,  0.0f,  3.5f,
+
+        0.0f,  1.5f, -1.4f,
+        1.5f,  0.0f,  0.8f,
+        0.0f,  0.0f, -8.0f,
+
+        0.0f,  0.0f, -8.0f,
+        -1.5f,  0.0f,  0.8f,
+        0.0f,  1.5f, -1.4f,
+
+        1.5f,  0.0f,  0.8f,
+        0.0f,  0.0f,  3.5f,
+        0.0f, -1.5f, 0.0f,
+
+        -1.5f,  0.0f,  0.8f,
+        0.0f, -1.5f, 0.0f,
+        0.0f,  0.0f,  3.5f,
+
+        0.0f,  0.0f, -8.0f,
+        1.5f,  0.0f,  0.8f,
+        0.0f, -1.5f, 0.0f,
+
+        0.0f,  0.0f, -8.0f,
+        0.0f, -1.5f, 0.0f,
+        -1.5f,  0.0f,  0.8f,
+    </string>
     <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/7.5.0/res/values/cast_strings.xml -->
     <eat-comment/>
     <string name="cast_notification_connected_message">Connected to <ns1:g id="name">%1$s</ns1:g></string>
@@ -464,7 +619,164 @@
     <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="down_but_not_out_text">System Failing</string>
+    <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/dummy.xml -->
+    <eat-comment/>
+    <string name="dummy_vertices">
+    0.0f,  1.0f,  0.0f,
+    -2.0f,  0.0f,  0.0f,
+    0.0f,  0.0f,  1.0f,
+
+    0.0f,  1.0f,  0.0f,
+    0.0f,  0.0f,  1.0f,
+    2.0f,  0.0f,  0.0f,
+
+    0.0f,  1.0f,  0.0f,
+    2.0f,  0.0f,  0.0f,
+    0.0f,  0.0f, -1.0f,
+
+    0.0f,  1.0f,  0.0f,
+    0.0f,  0.0f, -1.0f,
+    -2.0f,  0.0f,  0.0f,
+
+    0.0f, -1.0f,  0.0f,
+    0.0f,  0.0f,  1.0f,
+    -2.0f,  0.0f,  0.0f,
+
+    0.0f, -1.0f,  0.0f,
+    2.0f,  0.0f,  0.0f,
+    0.0f,  0.0f,  1.0f,
+
+    0.0f, -1.0f,  0.0f,
+    0.0f,  0.0f, -1.0f,
+    2.0f,  0.0f,  0.0f,
+
+    0.0f, -1.0f,  0.0f,
+    -2.0f,  0.0f,  0.0f,
+    0.0f,  0.0f, -1.0f
+    </string>
+    <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/strings.xml -->
+    <eat-comment/>
     <string name="empty"/>
+    <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/enginedrone.xml -->
+    <eat-comment/>
+    <string name="enginedrone_vertices">
+        0.0f,  1.0f,  0.0f,
+        -1.0f,  0.0f,  0.0f,
+        0.0f,  0.0f, 3.0f,
+
+        0.0f,  1.0f,  0.0f,
+        0.0f,  0.0f, 3.0f,
+        1.0f,  0.0f,  0.0f,
+
+        0.0f,  1.0f,  0.0f,
+        1.0f,  0.0f,  0.0f,
+        0.0f,  0.0f, -1.0f,
+
+        0.0f,  1.0f,  0.0f,
+        0.0f,  0.0f, -1.0f,
+        -1.0f,  0.0f,  0.0f,
+
+        0.0f, -1.0f,  0.0f,
+        0.0f,  0.0f, 3.0f,
+        -1.0f,  0.0f,  0.0f,
+
+        0.0f, -1.0f,  0.0f,
+        1.0f,  0.0f,  0.0f,
+        0.0f,  0.0f, 3.0f,
+
+        0.0f, -1.0f,  0.0f,
+        0.0f,  0.0f, -1.0f,
+        1.0f,  0.0f,  0.0f,
+
+        0.0f, -1.0f,  0.0f,
+        -1.0f,  0.0f,  0.0f,
+        0.0f,  0.0f, -1.0f
+    </string>
+    <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/explosion.xml -->
+    <eat-comment/>
+    <string name="explosion_vertices">
+        0.0f, 1.0f, 0.0f,
+        0.219f, 0.707f, 0.672f,
+        0.707f, 0.707f, 0.0f,
+
+        0.0f, 1.0f, 0.0f,
+        -0.572f, 0.707f, 0.416f,
+        0.219f, 0.707f, 0.672f,
+
+        0.0f, 1.0f, 0.0f,
+        -0.572f, 0.707f, -0.416f,
+        -0.572f, 0.707f, 0.416f,
+
+        0.0f, 1.0f, 0.0f,
+        0.219f, 0.707f, -0.672f,
+        -0.572f, 0.707f, -0.416f,
+
+        0.0f, 1.0f, 0.0f,
+        0.707f, 0.707f, 0.0f,
+        0.219f, 0.707f, -0.672f,
+
+        0.707f, 0.707f, 0.0f,
+        0.809f, 0.0f, 0.588f,
+        1.0f, 0.0f, 0.0f,
+
+        0.219f, 0.707f, 0.672f,
+        0.309f, 0.0f, 0.951f,
+        0.809f, 0.0f, 0.588f,
+
+        0.219f, 0.707f, 0.672f,
+        0.809f, 0.0f, 0.588f,
+        0.707f, 0.707f, 0.0f,
+
+        0.219f, 0.707f, 0.672f,
+        -0.309f, 0.0f, 0.951f,
+        0.309f, 0.0f, 0.951f,
+
+        0.219f, 0.707f, 0.672f,
+        -0.572f, 0.707f, 0.416f,
+        -0.309f, 0.0f, 0.951f,
+
+        -0.572f, 0.707f, 0.416f,
+        -0.809f, 0.0f, 0.588f,
+        -0.309f, 0.0f, 0.951f,
+
+        -0.572f, 0.707f, 0.416f,
+        -1.0f,   0.0f, 0.0f,
+        -0.809f, 0.0f, 0.588f,
+
+        -0.572f, 0.707f, 0.416f,
+        -0.572f, 0.707f, -0.416f,
+        -1.0f,   0.0f, 0.0f,
+
+        -0.572f, 0.707f, -0.416f,
+        -0.809f, 0.0f, -0.588f,
+        -1.0f,   0.0f, 0.0f,
+
+        -0.572f, 0.707f, -0.416f,
+        -0.309f, 0.0f, -0.951f,
+        -0.809f, 0.0f, -0.588f,
+
+        -0.572f, 0.707f, -0.416f,
+        0.219f, 0.707f, -0.672f,
+        -0.309f, 0.0f, -0.951f,
+
+        0.219f, 0.707f, -0.672f,
+        0.309f, 0.0f, -0.951f,
+        -0.309f, 0.0f, -0.951f,
+
+        0.219f, 0.707f, -0.672f,
+        0.809f, 0.0f, -0.588f,
+        0.309f, 0.0f, -0.951f,
+
+        0.219f, 0.707f, -0.672f,
+        0.707f, 0.707f, 0.0f,
+        0.809f, 0.0f, -0.588f,
+
+        0.707f, 0.707f, 0.0f,
+        1.0f,   0.0f, 0.0f,
+        0.809f, 0.0f, -0.588f,
+    </string>
+    <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/strings.xml -->
+    <eat-comment/>
     <string name="game_over_message">Session Terminated</string>
     <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/build/intermediates/exploded-aar/ProtoRunnerV2/BaseGameUtils/unspecified/res/values/values.xml -->
     <eat-comment/>
@@ -486,6 +798,76 @@
     <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/build/intermediates/exploded-aar/ProtoRunnerV2/BaseGameUtils/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="license_failed">License check failed.</string>
+    <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/mine.xml -->
+    <eat-comment/>
+    <string name="mine_vertices">
+        0.0f,  0.5f,  0.0f,
+        -0.5f,  0.0f,  0.0f,
+        0.0f,  0.0f,  0.5f,
+
+        0.0f,  0.5f,  0.0f,
+        0.0f,  0.0f,  0.5f,
+        0.5f,  0.0f,  0.0f,
+
+        0.0f,  0.5f,  0.0f,
+        0.5f,  0.0f,  0.0f,
+        0.0f,  0.0f, -0.5f,
+
+        0.0f, 0.5f,  0.0f,
+        0.0f,  0.0f, -0.5f,
+        -0.5f,  0.0f,  0.0f,
+
+        0.0f, -0.5f,  0.0f,
+        0.0f,  0.0f,  0.5f,
+        -0.5f,  0.0f,  0.0f,
+
+        0.0f, -0.5f,  0.0f,
+        0.5f,  0.0f,  0.0f,
+        0.0f,  0.0f,  0.5f,
+
+        0.0f, -0.5f,  0.0f,
+        0.0f,  0.0f, -0.5f,
+        0.5f,  0.0f,  0.0f,
+
+        0.0f, -0.5f,  0.0f,
+        -0.5f,  0.0f,  0.0f,
+        0.0f,  0.0f, -0.5f,
+    </string>
+    <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/missile.xml -->
+    <eat-comment/>
+    <string name="missile_vertices">
+        -0.5f,  0.0f, -0.75f,
+        0.0f,  0.375f, -0.4f,
+        0.0f,  0.0f, -0.25f,
+
+        0.0f,  0.375f, -0.4f,
+        0.5f,  0.0f, -0.75f,
+        0.0f,  0.0f, -0.25f,
+
+        0.5f,  0.0f, -0.75f,
+        0.0f, -0.375f, -0.4f,
+        0.0f,  0.0f, -0.25f,
+
+        0.0f, -0.375f, -0.4f,
+        -0.5f,  0.0f, -0.75f,
+        0.0f,  0.0f, -0.25f,
+
+        -0.5f,  0.0f, -0.75f,
+        0.0f,  0.0f,  0.75f,
+        0.0f,  0.375f, -0.4f,
+
+        0.5f,  0.0f, -0.75f,
+        0.0f,  0.375f, -0.4f,
+        0.0f,  0.0f,  0.75f,
+
+        -0.5f,  0.0f, -0.75f,
+        0.0f, -0.375f, -0.4f,
+        0.0f,  0.0f,  0.75f,
+
+        0.5f,  0.0f, -0.75f,
+        0.0f,  0.0f,  0.75f,
+        0.0f, -0.375f, -0.4f
+    </string>
     <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <string name="mr_media_route_button_content_description">Cast</string>
@@ -512,31 +894,38 @@
     <string name="revive_text">Reboot</string>
     <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/runner.xml -->
     <eat-comment/>
-    <string name="runner_barycentric">
-        0.0f,  1.0f,  0.0f,
-        0.0f,  0.0f,  1.0f,
-        0.0f,  1.0f,  0.0f,
-        0.0f,  0.0f,  1.0f,
-        1.0f,  0.0f,  0.0f,
-        1.0f,  0.0f,  0.0f,
-    </string>
-    <string name="runner_indices">
-        0, 1, 4,
-        1, 2, 4,
-        2, 3, 4,
-        3, 0, 4,
-        0, 5, 1,
-        2, 1, 5,
-        0, 3, 5,
-        2, 5, 3
-    </string>
     <string name="runner_vertices">
-        -1.0f,  0.0f,  -1.0f,
+        -1.0f,  0.0f, -1.0f,
         0.0f,  0.75f, -1.5f,
-        1.0f,  0.0f,  -1.0f,
+        0.0f,  0.0f, -0.5f,
+
+        0.0f,  0.75f, -1.5f,
+        1.0f,  0.0f, -1.0f,
+        0.0f,  0.0f, -0.5f,
+
+        1.0f,  0.0f, -1.0f,
         0.0f, -0.75f, -1.2f,
-        0.0f,  0.0f,  -0.5f,
-        0.0f,  0.0f,   1.5f
+        0.0f,  0.0f, -0.5f,
+
+        0.0f, -0.75f, -1.2f,
+        -1.0f,  0.0f, -1.0f,
+        0.0f,  0.0f, -0.5f,
+
+        -1.0f,  0.0f, -1.0f,
+        0.0f,  0.0f,  1.5f,
+        0.0f,  0.75f, -1.5f,
+
+        1.0f,  0.0f, -1.0f,
+        0.0f,  0.75f, -1.5f,
+        0.0f,  0.0f,  1.5f,
+
+        -1.0f,  0.0f, -1.0f,
+        0.0f, -0.75f, -1.2f,
+        0.0f,  0.0f,  1.5f,
+
+        1.0f,  0.0f, -1.0f,
+        0.0f,  0.0f,  1.5f,
+        0.0f, -0.75f, -1.2f
     </string>
     <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/strings.xml -->
     <eat-comment/>
@@ -551,6 +940,69 @@
     <eat-comment/>
     <string name="store_picture_message">"Allow Ad to store image in Picture gallery?"</string>
     <string name="store_picture_title">Save image</string>
+    <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/missile.xml -->
+    <eat-comment/>
+    <string name="testy">
+        -0.2f,  0.0f,  0.9f, a
+        0.2f,  0.0f,  0.8f, b
+
+        -0.3f,  0.0f, -0.33f, c
+         0.3f,  0.0f, -0.33f, d
+
+        0.0f,  0.2f, -0.33f, e
+        0.0f,  0.0f, -0.0f, f
+        0.0f, -0.2f, -0.33f, g
+
+        abe
+        -0.2f,  0.0f,  0.8f,
+        0.2f,  0.0f,  0.8f,
+        0.0f,  0.2f, -0.33f,
+
+        aec
+        -0.2f,  0.0f,  0.8f,
+        0.0f,  0.2f, -0.33f,
+        -0.3f,  0.0f, -0.33f,
+
+        bde
+        0.2f,  0.0f,  0.8f,
+        0.3f,  0.0f, -0.33f,
+        0.0f,  0.2f, -0.33f,
+
+        cef
+        -0.3f,  0.0f, -0.33f,
+        0.0f,  0.2f, -0.33f,
+        0.0f,  0.0f, -0.0f,
+
+        edf
+        0.0f,  0.2f, -0.33f,
+        0.3f,  0.0f, -0.33f,
+        0.0f,  0.0f, -0.0f,
+
+        cfg
+        -0.3f,  0.0f, -0.33f,
+        0.0f,  0.0f, -0.0f,
+        0.0f, -0.2f, -0.33f,
+
+        gfd
+        0.0f, -0.2f, -0.33f,
+        0.0f,  0.0f, -0.0f,
+        0.3f,  0.0f, -0.33f,
+
+        acg
+        -0.2f,  0.0f,  0.66f,
+        -0.3f,  0.0f, -0.33f,
+        0.0f, -0.2f, -0.33f,
+
+        agb
+        -0.2f,  0.0f,  0.8f,
+        0.0f, -0.2f, -0.33f,
+        0.2f,  0.0f,  0.8f,
+
+        bgd
+        0.2f,  0.0f,  0.8f,
+        0.0f, -0.2f, -0.33f,
+        0.3f,  0.0f, -0.33f,
+    </string>
     <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="tutorial_boost">Press and hold the right side of the screen to boost</string>
@@ -607,6 +1059,43 @@
     <string name="weapon_panic">Panic Switch</string>
     <string name="weapon_pulse">Pulse Shot</string>
     <string name="weapon_rocket">Homing Rockets</string>
+    <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/weapondrone.xml -->
+    <eat-comment/>
+    <string name="weapondrone_vertices">
+        0.0f,  1.0f,  0.0f,
+        -1.0f,  0.0f,  0.0f,
+        0.0f,  0.0f, 1.0f,
+
+        0.0f,  1.0f,  0.0f,
+        0.0f,  0.0f, 1.0f,
+        1.0f,  0.0f,  0.0f,
+
+        0.0f,  1.0f,  0.0f,
+        1.0f,  0.0f,  0.0f,
+        0.0f,  0.0f, -1.0f,
+
+        0.0f,  1.0f,  0.0f,
+        0.0f,  0.0f, -1.0f,
+        -1.0f, 0.0f, 0.0f,
+
+        0.0f, -1.0f,  0.0f,
+        0.0f,  0.0f,  1.0f,
+        -1.0f, 0.0f, 0.0f,
+
+        0.0f, -1.0f,  0.0f,
+        1.0f,  0.0f,  0.0f,
+        0.0f,  0.0f,  1.0f,
+
+        0.0f, -1.0f,  0.0f,
+        0.0f,  0.0f, -1.0f,
+        1.0f,  0.0f,  0.0f,
+
+        0.0f, -1.0f,  0.0f,
+        -1.0f, 0.0f,  0.0f,
+        0.0f,  0.0f, -1.0f
+    </string>
+    <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/strings.xml -->
+    <eat-comment/>
     <string name="wingman_down">Wingman Destroyed"</string>
     <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>

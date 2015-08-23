@@ -189,19 +189,18 @@ public class GLSkybox extends GLModel
 		m_Colour[2] = (float)colour.Blue;
 		m_Colour[3] = (float)colour.Alpha;
 	}
-	
-	public void draw(Vector3 pos, float[] projMatrix)
+
+	public void draw(Vector3 pos)
 	{
-		GLES20.glUniformMatrix4fv(m_ProjMatrixHandle, 1, false, projMatrix, 0);
         GLES20.glUniform4f(m_WorldPosHandle, (float) pos.I, (float) pos.J, (float) pos.K, 1.0f);
         GLES20.glUniform3f(m_ScaleHandle, 1.0f, 1.0f, 1.0f);
         GLES20.glUniform4fv(m_ColourHandle, 1, m_Colour, 0);
 
         GLES20.glUniform1i(m_TexUniformHandle, 0);
-		
+
 		GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
 	}
-	
+
 	public void InitShaders()
     {
 		// prepare shaders and OpenGL program
@@ -225,11 +224,13 @@ public class GLSkybox extends GLModel
     }
 
     @Override
-    public void InitialiseModel(float[] projMatrix)
+    public void InitialiseModel(float[] projMatrix, Vector3 eye)
     {
         GLES20.glDisable(GLES20.GL_DEPTH_TEST);
 
         GLES20.glUseProgram(m_Program);
+
+        GLES20.glUniformMatrix4fv(m_ProjMatrixHandle, 1, false, projMatrix, 0);
 
         GLES20.glEnableVertexAttribArray(m_PositionHandle);
         GLES20.glVertexAttribPointer(m_PositionHandle, GLSkybox.COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, GLSkybox.VERTEX_STRIDE, vertexBuffer);

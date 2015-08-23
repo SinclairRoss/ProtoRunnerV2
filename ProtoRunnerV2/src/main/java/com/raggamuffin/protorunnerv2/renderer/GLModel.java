@@ -3,10 +3,11 @@ package com.raggamuffin.protorunnerv2.renderer;
 import android.opengl.GLES20;
 
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
+import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public abstract class GLModel
 {
-    public abstract void InitialiseModel(float[] projMatrix);
+    public abstract void InitialiseModel(float[] projMatrix, Vector3 eye);
     public abstract void Draw(GameObject obj);
     public abstract void CleanModel();
 

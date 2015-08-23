@@ -22,7 +22,6 @@ public class GLRadarFragment extends GLModel
     private int m_ScaleHandle;
     private int m_ColourHandle;
     private int m_PositionHandle;
-    private int m_TexUniformHandle;
     private int m_TexCoordHandle;
     private int m_TexOffsetHandle;
 	
@@ -79,7 +78,6 @@ public class GLRadarFragment extends GLModel
 	
 	static final int TEX_COORDS_PER_VERTEX = 2;
 	static final int TEX_STRIDE = TEX_COORDS_PER_VERTEX * 4;	// 4 Bytes to a float.
-	static final float NUM_CELLS = 4.0f;	
 	
 	static float TextureCoords[] =
 	{	
@@ -152,23 +150,11 @@ public class GLRadarFragment extends GLModel
         m_ScaleHandle       = 0;
         m_ColourHandle		= 0;
         m_PositionHandle	= 0;
-        m_TexUniformHandle	= 0;
         m_TexCoordHandle	= 0;
         m_TexOffsetHandle	= 0;
 	    
 	    InitShaders();
 	}
-
-    public void draw(Vector3 pos, Vector3 scale, Colour colour, float[] projMatrix)
-    {
-        GLES20.glUniformMatrix4fv(m_ProjMatrixHandle, 1, false, projMatrix, 0);
-        GLES20.glUniform4f(m_WorldPosHandle, (float) pos.I, (float) pos.J, (float) pos.K, 1.0f);
-        GLES20.glUniform3f(m_ScaleHandle, (float) scale.I, (float) scale.J, (float) scale.K);
-
-        GLES20.glUniform4f(m_ColourHandle, (float) colour.Red, (float) colour.Green, (float) colour.Blue, (float) colour.Alpha);
-
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
-    }
 
     public void InitShaders()
     {
@@ -186,7 +172,6 @@ public class GLRadarFragment extends GLModel
         m_ScaleHandle           = GLES20.glGetUniformLocation(m_Program, "u_Scale");
 
         m_ColourHandle 			= GLES20.glGetUniformLocation(m_Program, "u_Color");
-        m_TexUniformHandle		= GLES20.glGetUniformLocation(m_Program, "u_Texture");
         m_TexOffsetHandle		= GLES20.glGetUniformLocation(m_Program, "u_TexOffset");
 
         m_PositionHandle = GLES20.glGetAttribLocation(m_Program, "a_Position");
@@ -194,12 +179,11 @@ public class GLRadarFragment extends GLModel
     }
 
     @Override
-    public void InitialiseModel(float[] projMatrix)
+    public void InitialiseModel(float[] projMatrix, Vector3 eye)
     {
-
         GLES20.glUseProgram(m_Program);
 
-        //  GLES20.glDisable(GLES20.GL_DEPTH_TEST);
+        GLES20.glUniformMatrix4fv(m_ProjMatrixHandle, 1, false, projMatrix, 0);
 
         GLES20.glUniform2f(m_TexOffsetHandle, 0.0f, 0.0f);
 
@@ -208,13 +192,21 @@ public class GLRadarFragment extends GLModel
 
         GLES20.glEnableVertexAttribArray(m_TexCoordHandle);
         GLES20.glVertexAttribPointer(m_TexCoordHandle, TEX_COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, TEX_STRIDE, textureBuffer);
-
     }
 
     @Override
     public void Draw(GameObject obj)
     {
+        Vector3 pos = obj.GetPosition();
+        GLES20.glUniform4f(m_WorldPosHandle, (float) pos.I, (float) pos.J, (float) pos.K, 1.0f);
 
+        Vector3 scale = obj.GetScale();
+        GLES20.glUniform3f(m_ScaleHandle, (float)scale.I, (float)scale.J, (float)scale.K);
+
+        Colour colour = obj.GetColour();
+        GLES20.glUniform4f(m_ColourHandle, (float)colour.Red, (float)colour.Green, (float)colour.Blue, (float)colour.Alpha);
+
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
     }
 
     @Override

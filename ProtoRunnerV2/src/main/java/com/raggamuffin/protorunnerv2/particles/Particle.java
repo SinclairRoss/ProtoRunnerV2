@@ -13,8 +13,8 @@ public abstract class Particle extends GameObject
 	protected Timer m_DissipationTimer;
 	private ColourBehaviour_LerpTo m_ColourBehaviour;
 	
-	private double m_FadeIn;
-	private double m_FadeOut;
+	protected double m_FadeIn;
+    protected double m_FadeOut;
 	
 	public Particle()
 	{
@@ -27,7 +27,7 @@ public abstract class Particle extends GameObject
 		m_DissipationTimer = new Timer(5);
 		m_ColourBehaviour = new ColourBehaviour_LerpTo(this, ActivationMode.Continuous);
 		AddColourBehaviour(m_ColourBehaviour);
-		
+
 		m_DragCoefficient = 0.0;
 		
 		m_FadeIn = 0.6;
@@ -65,6 +65,8 @@ public abstract class Particle extends GameObject
 		m_Position.SetVector(origin.GetPosition());
 		m_Velocity.SetVector(origin.GetVelocity());
 		m_Forward.SetVector(origin.CalculateParticleForward());
+
+        m_Scale.I = origin.GetParticleSize();
 		
 		ApplyForce(m_Forward, origin.GetEmissionForce());
 		

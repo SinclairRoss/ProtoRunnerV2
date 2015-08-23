@@ -18,7 +18,7 @@ public class SpecialProjectileBehaviour_AddAttractGraviton extends SpecialProjec
 	@Override
 	public void Activate() 
 	{
-		m_Graviton = m_ParticleManager.CreateGraviton(600, GravitonBehaviourType.Attract);
+		m_Graviton = m_ParticleManager.CreateGraviton(1200, GravitonBehaviourType.Attract);
 		m_Anchor.AddChild(m_Graviton);
 	}
 

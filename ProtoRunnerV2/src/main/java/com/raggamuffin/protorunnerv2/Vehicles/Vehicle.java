@@ -1,11 +1,10 @@
-package com.raggamuffin.protorunnerv2.Vehicles;
+package com.raggamuffin.protorunnerv2.vehicles;
 
 import com.raggamuffin.protorunnerv2.ai.VehicleInfo;
 import com.raggamuffin.protorunnerv2.ai.VehicleInfo.AfterBurnerStates;
 import com.raggamuffin.protorunnerv2.ai.VehicleInfo.MovementStates;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_LerpTo;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour;
-import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_FadeTo;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_Flicker;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_Pulse;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
@@ -19,8 +18,6 @@ import com.raggamuffin.protorunnerv2.particles.BurstEmitter;
 import com.raggamuffin.protorunnerv2.pubsub.InternalPubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.InternalTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
-import com.raggamuffin.protorunnerv2.utils.Colour;
-import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.DecayCounter;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
@@ -50,7 +47,6 @@ public abstract class Vehicle extends GameObject
 	///// Colour Attributes
 	protected ColourBehaviour m_AmbientBehaviour;
 	protected ColourBehaviour m_DamageBehaviour;
-	private ColourBehaviour_FadeTo m_WeaponChangeColourBehaviour;
 	protected ColourBehaviour_LerpTo m_StressBehaviour;
 	
 	// Particle Emitters.
@@ -72,7 +68,6 @@ public abstract class Vehicle extends GameObject
 		///// Motion Attributes.
 		m_Position 		= new Vector3();
 
-
 		///// Attributes.
 		m_MaxHullPoints = 100;
 		m_HullPoints 	= m_MaxHullPoints;
@@ -83,12 +78,10 @@ public abstract class Vehicle extends GameObject
 		
 		m_DamageBehaviour = new ColourBehaviour_Flicker(this, ColourBehaviour.ActivationMode.Triggered);
 		AddColourBehaviour(m_DamageBehaviour);
-		
-		m_WeaponChangeColourBehaviour = new ColourBehaviour_FadeTo(this, ColourBehaviour.ActivationMode.Triggered, 1.0);
-		AddColourBehaviour(m_WeaponChangeColourBehaviour);
-		
+
 		m_StressBehaviour = new ColourBehaviour_LerpTo(this, ColourBehaviour.ActivationMode.Continuous);
-		AddColourBehaviour(m_StressBehaviour);
+		m_StressBehaviour.SetAltColourByReference(m_AltColour);
+        AddColourBehaviour(m_StressBehaviour);
 
 		AddChild(new FloorGrid(m_Colour));
 		
@@ -98,9 +91,7 @@ public abstract class Vehicle extends GameObject
 		AddChild(m_BurstEmitter);
 		
 		m_PostFireAction = new PostFireAction_Null(this);
-		
-		SetBaseColour(Colours.Black);
-		
+
 		m_DamageDecayCounter = new DecayCounter(1.0, DAMAGE_DECAY_RATE);
 	}
 	
@@ -108,7 +99,7 @@ public abstract class Vehicle extends GameObject
 	public void Update(double deltaTime)
 	{
 		m_Engine.Update(deltaTime);
-		
+
 		m_PrimaryWeapon.Update(deltaTime);
 		
 		m_DamageDecayCounter.Update(deltaTime);
@@ -124,17 +115,9 @@ public abstract class Vehicle extends GameObject
 			m_PrimaryWeapon.LasersOff();
 		
 		m_PrimaryWeapon = newWeapon;
-		m_WeaponChangeColourBehaviour.SetNextColour(m_PrimaryWeapon.GetColour());
-		m_WeaponChangeColourBehaviour.TriggerBehaviour();
-		
-		m_StressBehaviour.SetAltColour(m_PrimaryWeapon.GetAltColour());
-		
-		UpdateParticleColours();
-		
+
 		if(m_LasersOn)
-		{
 			m_PrimaryWeapon.LasersOn();
-		}
 	}
 	
 	@Override
@@ -154,7 +137,6 @@ public abstract class Vehicle extends GameObject
 		
 		m_DamageDecayCounter.AddValue(1.0);
         m_InternalDamagedPublisher.Publish();
-
 	}
 	
 	public void DrainEnergy(double drain)
@@ -214,10 +196,10 @@ public abstract class Vehicle extends GameObject
 	public void UseRearEngine()
 	{
 		m_Engine.SetDirection(m_Forward);
-		m_VehicleInfo.SetMovementState(MovementStates.Normal);
-	}
-	
-	public void UseForwardEngine()
+        m_VehicleInfo.SetMovementState(MovementStates.Normal);
+    }
+
+    public void UseForwardEngine()
 	{
 		m_Engine.SetDirection(m_Backward);
 		m_VehicleInfo.SetMovementState(MovementStates.Reverse);
@@ -227,9 +209,9 @@ public abstract class Vehicle extends GameObject
 	{
 		m_Engine.EngageAfterBurners();
 		m_VehicleInfo.SetAfterBurnerState(AfterBurnerStates.Engaged);
-	}
-	
-	public void DisengageAfterBurners()
+    }
+
+    public void DisengageAfterBurners()
 	{
 		m_Engine.DisengageAfterBurners();
 		m_VehicleInfo.SetAfterBurnerState(AfterBurnerStates.Disengaged);
@@ -259,17 +241,6 @@ public abstract class Vehicle extends GameObject
 		}
 		
 		return true;
-	}
-	
-	protected void UpdateParticleColours()
-	{
-		Colour start = m_PrimaryWeapon.GetColour();
-		Colour end = m_PrimaryWeapon.GetAltColour();
-		
-		m_BurstEmitter.SetStartColour(start);
-		m_BurstEmitter.SetFinalColour(end);
-		
-		m_Engine.UpdateParticleColours(start, end);
 	}
 	
 	public void SetHullPoints(double hp)

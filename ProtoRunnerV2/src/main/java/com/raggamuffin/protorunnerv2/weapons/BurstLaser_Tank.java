@@ -1,7 +1,7 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.Vehicles.Vehicle;
+import com.raggamuffin.protorunnerv2.vehicles.Vehicle;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 
@@ -24,7 +24,5 @@ public class BurstLaser_Tank extends Weapon
 		m_HasLasers = true;
 		
 		AddMuzzle( 0, 0, 2.5);
-	
-		SetColour(Colours.IndianRed);
 	}
 }

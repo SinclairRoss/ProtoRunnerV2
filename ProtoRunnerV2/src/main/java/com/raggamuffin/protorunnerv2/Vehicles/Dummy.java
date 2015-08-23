@@ -1,4 +1,4 @@
-package com.raggamuffin.protorunnerv2.Vehicles;
+package com.raggamuffin.protorunnerv2.vehicles;
 
 import com.raggamuffin.protorunnerv2.ai.AIController;
 import com.raggamuffin.protorunnerv2.ai.AIGoalSet;
@@ -6,6 +6,9 @@ import com.raggamuffin.protorunnerv2.ai.AIPersonalityAttributes;
 import com.raggamuffin.protorunnerv2.ai.GoalState;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
+import com.raggamuffin.protorunnerv2.gameobjects.EngineUseBehaviour_Drain;
+import com.raggamuffin.protorunnerv2.gameobjects.EngineUseBehaviour_Null;
+import com.raggamuffin.protorunnerv2.gameobjects.StandardEngine;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_None;
@@ -27,6 +30,7 @@ public class Dummy extends Vehicle
 
         m_Position.SetVector(x, 0, z);
 
+        m_Engine = new StandardEngine(this, game.GetParticleManager(), new EngineUseBehaviour_Null());
         m_Engine.SetMaxEngineOutput(1500);
         m_Engine.SetAfterBurnerOutput(1);
 

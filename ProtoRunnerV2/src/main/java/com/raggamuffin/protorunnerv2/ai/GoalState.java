@@ -4,4 +4,5 @@ public enum GoalState
 {
     EngageTarget,
     Flee,
+    Encircle
 }

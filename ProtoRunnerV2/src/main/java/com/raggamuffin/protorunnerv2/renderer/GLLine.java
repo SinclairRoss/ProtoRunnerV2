@@ -8,13 +8,17 @@ import android.opengl.GLES20;
 
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.utils.Colour;
+import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class GLLine extends GLModel
 {
 	public final FloatBuffer vertexBuffer;
 	public final FloatBuffer weightBuffer;
-	
+
+    private Vector3 m_EyePos;
+    private Vector3 m_ToEye;
+
 	private int m_Program;
 	
 	private int m_ProjMatrixHandle;
@@ -27,9 +31,6 @@ public class GLLine extends GLModel
     private int m_WeightHandle;
 
     private float m_LineThickness;
-    
-    private float[] m_Colour;
-    private float[] m_EndPointColour;
 	
 	static final int COORDS_PER_VERTEX = 3;
 	static final int VERTEX_STRIDE = COORDS_PER_VERTEX * 4;	// 4 Bytes to a float.
@@ -54,6 +55,9 @@ public class GLLine extends GLModel
 	{
         m_LineThickness = thickness;
 
+        m_EyePos = new Vector3();
+        m_ToEye = new Vector3();
+
 		ByteBuffer bb = ByteBuffer.allocateDirect(VertexCoords.length * 4);
 		bb.order(ByteOrder.nativeOrder());
 		vertexBuffer = bb.asFloatBuffer();
@@ -65,18 +69,6 @@ public class GLLine extends GLModel
 		weightBuffer = wb.asFloatBuffer();
 		weightBuffer.put(VertexWeight);
 		weightBuffer.position(0);
-	
-		m_Colour = new float[4];
-		m_Colour[0] = 1.0f;
-		m_Colour[1] = 1.0f;
-		m_Colour[2] = 1.0f;
-		m_Colour[3] = 1.0f;
-		
-		m_EndPointColour = new float[4];
-		m_EndPointColour[0] = 1.0f;
-		m_EndPointColour[1] = 1.0f;
-		m_EndPointColour[2] = 1.0f;
-		m_EndPointColour[3] = 1.0f;
 
 		m_Program 			= 0;
 	    m_ProjMatrixHandle = 0;
@@ -89,35 +81,6 @@ public class GLLine extends GLModel
 	    m_WeightHandle 		= 0;
 	
 	    InitShaders();
-	}
-	
-	public void draw(Vector3 pos, Vector3 scale, float yaw, float[] projMatrix)
-	{
-		GLES20.glUniformMatrix4fv(m_ProjMatrixHandle, 1, false, projMatrix, 0);
-        GLES20.glUniform4f(m_WorldPosHandle, (float) pos.I, (float) pos.J, (float) pos.K, 1.0f);
-        GLES20.glUniform1f(m_YawHandle, yaw);
-        GLES20.glUniform3f(m_ScaleHandle, (float) scale.I, (float) scale.J, (float) scale.K);
-
-        GLES20.glUniform4fv(m_ColourHandle, 1, m_Colour, 0);
-        GLES20.glUniform4fv(m_EndPointColourHandle, 1, m_EndPointColour, 0);
-
-		GLES20.glDrawArrays(GLES20.GL_LINES, 0, vertexCount);
-	}
-	
-	public void SetColour(Colour colour)
-	{
-		m_Colour[0] = (float)colour.Red;
-		m_Colour[1] = (float)colour.Green;
-		m_Colour[2] = (float)colour.Blue;
-		m_Colour[3] = (float)colour.Alpha;
-	}
-	
-	public void SetEndPointColour(Colour colour)
-	{
-		m_EndPointColour[0] = (float)colour.Red;
-		m_EndPointColour[1] = (float)colour.Green;
-		m_EndPointColour[2] = (float)colour.Blue;
-		m_EndPointColour[3] = (float)colour.Alpha;
 	}
 	
 	protected void InitShaders()
@@ -144,11 +107,13 @@ public class GLLine extends GLModel
     }
 
     @Override
-    public void InitialiseModel(float[] projMatrix)
+    public void InitialiseModel(float[] projMatrix, Vector3 eye)
     {
-        GLES20.glLineWidth(m_LineThickness);
+        m_EyePos.SetVector(eye);
 
         GLES20.glUseProgram(m_Program);
+
+        GLES20.glUniformMatrix4fv(m_ProjMatrixHandle, 1, false, projMatrix, 0);
 
         GLES20.glEnableVertexAttribArray(m_PositionHandle);
         GLES20.glVertexAttribPointer(m_PositionHandle, GLLine.COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, GLLine.VERTEX_STRIDE, vertexBuffer);
@@ -160,7 +125,27 @@ public class GLLine extends GLModel
     @Override
     public void Draw(GameObject obj)
     {
+        Vector3 pos = obj.GetPosition();
 
+        m_ToEye.SetVectorDifference(m_EyePos, pos);
+        float dist = (float) m_ToEye.GetLength();
+
+        GLES20.glLineWidth((float) (m_LineThickness * MathsHelper.FastInverseSqrt(dist)));
+
+        GLES20.glUniform4f(m_WorldPosHandle, (float) pos.I, (float) pos.J, (float) pos.K, 1.0f);
+
+        GLES20.glUniform1f(m_YawHandle, (float) obj.GetYaw());
+
+        Vector3 scale = obj.GetScale();
+        GLES20.glUniform3f(m_ScaleHandle, (float) scale.I, (float) scale.J, (float) scale.K);
+
+        Colour colour = obj.GetColour();
+        GLES20.glUniform4f(m_ColourHandle, (float) colour.Red, (float) colour.Green, (float) colour.Blue, (float) colour.Alpha);
+
+        Colour endColour = obj.GetAltColour();
+        GLES20.glUniform4f(m_EndPointColourHandle, (float) endColour.Red, (float) endColour.Green, (float) endColour.Blue, (float) endColour.Alpha);
+
+        GLES20.glDrawArrays(GLES20.GL_LINES, 0, vertexCount);
     }
 
     @Override

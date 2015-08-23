@@ -1,7 +1,7 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.Vehicles.Vehicle;
+import com.raggamuffin.protorunnerv2.vehicles.Vehicle;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 
 public class Weapon_None extends Weapon
@@ -12,8 +12,6 @@ public class Weapon_None extends Weapon
 
         m_FireMode = new FireControl_Auto(1.0);
         AddMuzzle( 0, 0, 0);
-
-        SetColour(Colours.PastelRed);
     }
 
     @Override

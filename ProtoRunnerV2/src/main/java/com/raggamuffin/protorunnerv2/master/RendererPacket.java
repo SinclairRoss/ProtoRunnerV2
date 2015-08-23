@@ -1,7 +1,6 @@
 package com.raggamuffin.protorunnerv2.master;
 
 import java.util.ArrayList;
-import java.util.concurrent.SynchronousQueue;
 
 import android.content.Context;
 
@@ -9,12 +8,12 @@ import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
+import com.raggamuffin.protorunnerv2.ui.UIElementType;
 
 public class RendererPacket 
 {
 	private ArrayList<ArrayList<GameObject>> m_GameObjects;
-
-	private ArrayList<UIElement> m_UIElements;
+	private ArrayList<ArrayList<UIElement>> m_UIElements;
 	private ChaseCamera m_Camera;
 	private Context m_Context;
 	private RenderEffectSettings m_RenderEffectSettings;
@@ -22,45 +21,53 @@ public class RendererPacket
 	public RendererPacket()
     {
         int numModels = ModelType.values().length;
-
-		m_GameObjects = new ArrayList<ArrayList<GameObject>>(numModels);
+		m_GameObjects = new ArrayList<>(numModels);
 
         for(int i = 0; i < numModels; i++)
-        {
             m_GameObjects.add(new ArrayList<GameObject>());
-        }
 
-		m_UIElements = null;
+        int numUIElements = UIElementType.values().length;
+        m_UIElements = new ArrayList<>(numUIElements);
+
+        for(int i = 0; i < numUIElements; i++)
+            m_UIElements.add(new ArrayList<UIElement>());
+
 		m_Context = null;
 		m_Camera = null;
 		m_RenderEffectSettings = null;
 	}
 
-    public ArrayList<GameObject> GetList(ModelType type)
+    public ArrayList<GameObject> GetModelList(ModelType type)
     {
         return m_GameObjects.get(type.ordinal());
     }
 
     public void AddObject(GameObject object)
     {
-        GetList(object.GetModel()).add(object);
+        GetModelList(object.GetModel()).add(object);
     }
 
     public void RemoveObject(GameObject object)
     {
-        GetList(object.GetModel()).remove(object);
+        GetModelList(object.GetModel()).remove(object);
     }
 
 	///// UI Elements.
-	public ArrayList<UIElement> GetUIElements()
-	{
-		return m_UIElements;
-	}
-	
-	public void SetUIElements(ArrayList<UIElement> elements)
-	{
-		m_UIElements = elements;
-	}
+
+    public ArrayList<UIElement> GetUIElementList(UIElementType type)
+    {
+        return m_UIElements.get(type.ordinal());
+    }
+
+    public void AddUIElement(UIElement element)
+    {
+        GetUIElementList(element.GetType()).add(element);
+    }
+
+    public void RemoveUIElement(UIElement element)
+    {
+        GetUIElementList(element.GetType()).remove(element);
+    }
 
 	///// Context.
 	public Context GetContext()

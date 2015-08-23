@@ -1,9 +1,10 @@
-package com.raggamuffin.protorunnerv2.Vehicles;
+package com.raggamuffin.protorunnerv2.vehicles;
 
 public enum VehicleType
 {
     Wingman,
     Bit,
     Tank,
-    Carrier
+    Carrier,
+    Drone
 }

@@ -91,9 +91,6 @@ public class AftermathScreen extends UIScreen
 		
 		m_UIManager.RemoveUIElement(m_WingmanBLifeBar);
 		m_WingmanBLifeBar = null;
-		
-		m_UIManager.RemoveUIElement(m_ScoreLabel);
-		m_ScoreLabel = null;
 	}
 
 	@Override

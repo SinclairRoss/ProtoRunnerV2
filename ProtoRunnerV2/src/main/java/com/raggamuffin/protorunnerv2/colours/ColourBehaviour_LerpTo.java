@@ -29,14 +29,19 @@ public class ColourBehaviour_LerpTo extends ColourBehaviour
 		m_DeltaColour.K = MathsHelper.Lerp(m_Intensity, m_BaseColour.Blue, 	m_AltColour.Blue) 	- m_BaseColour.Blue;		
 	}
 
-	public void SetAltColour(Colour Alt)
+    public void SetAltColourByReference(Colour alt)
+    {
+        m_AltColour = alt;
+    }
+
+	public void SetAltColour(Colour alt)
 	{
-		m_AltColour.SetColour(Alt);
+		m_AltColour.SetColour(alt);
 	}
 	
-	public void SetAltColour(double[] Alt)
+	public void SetAltColour(double[] alt)
 	{
-		m_AltColour.SetColour(Alt);
+		m_AltColour.SetColour(alt);
 	}
 	
 	public void SetIntensity(double intensity)

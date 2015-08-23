@@ -2,7 +2,7 @@ package com.raggamuffin.protorunnerv2.ai;
 
 import com.raggamuffin.protorunnerv2.ai.BehaviourControl.BehaviourStates;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
-import com.raggamuffin.protorunnerv2.Vehicles.Vehicle;
+import com.raggamuffin.protorunnerv2.vehicles.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.BulletManager;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 

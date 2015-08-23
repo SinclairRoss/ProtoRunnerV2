@@ -1,6 +1,8 @@
 package com.raggamuffin.protorunnerv2.ai;
 
-import com.raggamuffin.protorunnerv2.Vehicles.Vehicle;
+import android.util.Log;
+
+import com.raggamuffin.protorunnerv2.vehicles.Vehicle;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class Goal_Flee extends Goal
@@ -37,7 +39,10 @@ public class Goal_Flee extends Goal
         m_FleeVector.Add(m_TempVector);
 
         if(m_FleeVector == null)
-            return null;
+        {
+           for(int i = 0; i < 100; i++)
+               Log.e("Wanker", "Fuck yo couch");
+        }
 
         return m_FleeVector;
     }

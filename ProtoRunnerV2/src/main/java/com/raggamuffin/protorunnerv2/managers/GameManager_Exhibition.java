@@ -23,6 +23,17 @@ public class GameManager_Exhibition extends GameManager
     @Override
     public void Update(double deltaTime)
     {
+        if(m_VehicleManager.GetTeamCount(AffiliationKey.RedTeam) == 0)
+        {
+            m_VehicleManager.SpawnSquad(30);
+        }
+
+        if(m_VehicleManager.GetTeamCount(AffiliationKey.BlueTeam) == 0)
+        {
+            for(int i = -1; i < 2; i++)
+                m_VehicleManager.SpawnWingmen(i);
+        }
+        /*
         int blueCount = m_VehicleManager.GetTeamCount(AffiliationKey.BlueTeam);
 
         if(blueCount < 8)
@@ -41,6 +52,7 @@ public class GameManager_Exhibition extends GameManager
                m_VehicleManager.SpawnSquad(30);
             }
         }
+        */
     }
 
     @Override

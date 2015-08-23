@@ -2,7 +2,7 @@ package com.raggamuffin.protorunnerv2.ui;
 
 import com.raggamuffin.protorunnerv2.R;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.Vehicles.Runner;
+import com.raggamuffin.protorunnerv2.vehicles.Runner;
 import com.raggamuffin.protorunnerv2.managers.ColourManager;
 import com.raggamuffin.protorunnerv2.managers.UIManager;
 import com.raggamuffin.protorunnerv2.master.ControlScheme;
@@ -18,6 +18,8 @@ public class TutorialScreen extends UIScreen
     private UIProgressBar m_HealthBar;
     private UIProgressBar m_ConditionProgress;
     private UIButton m_NextButton;
+    private UIPanel m_LeftPanel;
+    private UIPanel m_RightPanel;
 
     public TutorialScreen(GameLogic Game, UIManager Manager)
     {
@@ -50,6 +52,16 @@ public class TutorialScreen extends UIScreen
         m_NextButton.GetFont().SetAlignment(Font.Alignment.Right);
         m_NextButton.SetHidden(true);
 
+        m_LeftPanel = new UIPanel(m_UIManager,cManager.GetAccentingColour());
+        m_LeftPanel.SetPosition(-0.5, 0.0);
+        m_UIManager.AddUIElement(m_LeftPanel);
+        m_LeftPanel.SetHidden(true);
+
+        m_RightPanel = new UIPanel(m_UIManager, cManager.GetPrimaryColour());
+        m_RightPanel.SetPosition(0.5, 0.0);
+        m_UIManager.AddUIElement(m_RightPanel);
+        m_RightPanel.SetHidden(true);
+
         // Health bar
         Runner player = m_Game.GetVehicleManager().GetPlayer();
 
@@ -75,6 +87,12 @@ public class TutorialScreen extends UIScreen
 
         m_UIManager.RemoveUIElement(m_HealthBar);
         m_HealthBar = null;
+
+        m_UIManager.RemoveUIElement(m_LeftPanel);
+        m_LeftPanel = null;
+
+        m_UIManager.RemoveUIElement(m_RightPanel);
+        m_RightPanel = null;
     }
 
     @Override
@@ -91,6 +109,7 @@ public class TutorialScreen extends UIScreen
         {
             m_NextButton.Pressed();
             Scheme.ResetTouchCoordinates();
+
             return;
         }
     }
@@ -141,6 +160,38 @@ public class TutorialScreen extends UIScreen
             return;
 
         m_HealthBar.Hide();
+    }
+
+    public void ShowLeftPanel()
+    {
+        if(m_LeftPanel == null)
+            return;
+
+        m_LeftPanel.Show();
+    }
+
+    public void HideLeftPanel()
+    {
+        if(m_LeftPanel == null)
+            return;
+
+        m_LeftPanel.Hide();
+    }
+
+    public void ShowRightPanel()
+    {
+        if(m_RightPanel == null)
+            return;
+
+        m_RightPanel.Show();
+    }
+
+    public void HideRightPanel()
+    {
+        if(m_RightPanel == null)
+            return;
+
+        m_RightPanel.Hide();
     }
 
     private class PlayerSpawnedSubscriber extends Subscriber

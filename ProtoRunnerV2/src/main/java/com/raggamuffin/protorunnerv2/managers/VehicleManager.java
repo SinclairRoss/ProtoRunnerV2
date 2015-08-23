@@ -5,20 +5,20 @@ import java.util.Iterator;
 
 import android.util.Log;
 
-import com.raggamuffin.protorunnerv2.Vehicles.Tank;
-import com.raggamuffin.protorunnerv2.Vehicles.VehicleType;
+import com.raggamuffin.protorunnerv2.vehicles.Drone;
+import com.raggamuffin.protorunnerv2.vehicles.Tank;
+import com.raggamuffin.protorunnerv2.vehicles.VehicleType;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.Vehicles.Bit;
-import com.raggamuffin.protorunnerv2.Vehicles.Carrier;
-import com.raggamuffin.protorunnerv2.Vehicles.Dummy;
-import com.raggamuffin.protorunnerv2.Vehicles.Runner;
-import com.raggamuffin.protorunnerv2.Vehicles.Vehicle;
-import com.raggamuffin.protorunnerv2.Vehicles.Wingman;
+import com.raggamuffin.protorunnerv2.vehicles.Bit;
+import com.raggamuffin.protorunnerv2.vehicles.Carrier;
+import com.raggamuffin.protorunnerv2.vehicles.Dummy;
+import com.raggamuffin.protorunnerv2.vehicles.Runner;
+import com.raggamuffin.protorunnerv2.vehicles.Vehicle;
+import com.raggamuffin.protorunnerv2.vehicles.Wingman;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
-import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
@@ -48,8 +48,25 @@ public class VehicleManager
 	
 	public void Update(double deltaTime)
 	{
+        for(int i = 0; i < m_Vehicles.size(); i++)
+        {
+            Vehicle object = m_Vehicles.get(i);
+
+            if(object.IsValid())
+            {
+                object.Update(deltaTime);
+            }
+            else
+            {
+                RemoveVehicle(object);
+                m_Vehicles.remove(object);
+                i--;
+            }
+        }
+
 		// Update Vehicles.
-		for(Iterator<Vehicle> Iter = m_Vehicles.iterator(); Iter.hasNext();)
+       /* Iterator<Vehicle> Iter = m_Vehicles.iterator();
+		while(Iter.hasNext())
 		{
 			Vehicle Object = Iter.next();
 			
@@ -62,17 +79,17 @@ public class VehicleManager
 				RemoveVehicle(Object);
 				Iter.remove();
 			} 
-		}
+		}*/
 	}
 
 	// Removes vehicle from their team and the renderer.
 	// DOES NOT remove vehicle from m_Vehicles.
-	private void RemoveVehicle(Vehicle Object)
+	private void RemoveVehicle(Vehicle object)
 	{		
-		m_Game.RemoveObjectFromRenderer(Object);
-		GetTeam(Object.GetAffiliation()).remove(Object);
+		m_Game.RemoveObjectFromRenderer(object);
+		GetTeam(object.GetAffiliation()).remove(object);
 		
-		if(Object == m_Player)
+		if(object == m_Player)
 			m_Player = null;
 	}
 
@@ -117,7 +134,7 @@ public class VehicleManager
         m_Game.AddObjectToRenderer(dummy);
     }
 
-    public void SpawnVehicle(VehicleType type, Vector3 spawnPoint)
+    public Vehicle SpawnVehicle(VehicleType type, Vector3 spawnPoint)
     {
         Vehicle spawn = null;
 
@@ -141,6 +158,18 @@ public class VehicleManager
         m_Vehicles.add(spawn);
         GetTeam(spawn.GetAffiliation()).add(spawn);
         m_Game.AddObjectToRenderer(spawn);
+
+        return spawn;
+    }
+
+    public void SpawnDrone(Carrier anchor, Vector3 pos)
+    {
+        Vehicle spawn = new Drone(m_Game, anchor);
+        spawn.SetPosition(pos);
+
+        m_Vehicles.add(spawn);
+        GetTeam(spawn.GetAffiliation()).add(spawn);
+        m_Game.AddObjectToRenderer(spawn);
     }
 	
 	public void SpawnSquad(double maxSpawnDistance)
@@ -156,27 +185,22 @@ public class VehicleManager
 		if(m_Player != null)
 			m_Spawn.Add(m_Player.GetPosition());
 
+        Carrier tank = new Carrier(m_Game);
+        m_Vehicles.add(tank);
+        m_RedTeam.add(tank);
+        m_Game.AddObjectToRenderer(tank);
 
-	//	for(int b = 0; b < 1; b++)
-	//	{
-	//		Carrier bit = new Carrier(m_Game);
-	//		m_Vehicles.add(bit);
-	//		m_RedTeam.add(bit);
-	//		m_Game.AddObjectToRenderer(bit);
+        tank.SetPosition(m_Spawn.I, m_Spawn.J, m_Spawn.K);
 
-	//		bit.SetPosition(m_Spawn.I + b * 2,m_Spawn.J,m_Spawn.K);
-	//	}
-
-      //  for(int b = 0; b < 6; b++)
-     //   {
+        for(int b = 0; b < 0; b++)
+        {
             Bit bit = new Bit(m_Game);
             m_Vehicles.add(bit);
             m_RedTeam.add(bit);
             m_Game.AddObjectToRenderer(bit);
 
-         //   bit.SetPosition(m_Spawn.I + b * 2,m_Spawn.J,m_Spawn.K);
-        bit.SetPosition(m_Spawn.I,m_Spawn.J,m_Spawn.K);
-      //  }
+            bit.SetPosition(m_Spawn.I + b * 2,m_Spawn.J,m_Spawn.K);
+        }
 	}
 	
 	public ArrayList<Vehicle> GetTeam(AffiliationKey faction)

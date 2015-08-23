@@ -1,5 +1,6 @@
 package com.raggamuffin.protorunnerv2.managers;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -17,13 +18,13 @@ import com.raggamuffin.protorunnerv2.particles.TrailParticle;
 
 public class ParticleManager
 {
-	private Vector<StandardParticle> m_ActiveParticles;
-	private Vector<StandardParticle> m_InvalidParticles;
+	private ArrayList<StandardParticle> m_ActiveParticles;
+	private ArrayList<StandardParticle> m_InvalidParticles;
 	
-	private Vector<TrailParticle> m_ActiveTrailParticles;
-	private Vector<TrailParticle> m_InvalidTrailParticles;
+	private ArrayList<TrailParticle> m_ActiveTrailParticles;
+	private ArrayList<TrailParticle> m_InvalidTrailParticles;
 	
-	private Vector<Graviton> m_Gravitons;
+	private ArrayList<Graviton> m_Gravitons;
 	
 	private GameLogic m_Game;
 	
@@ -31,13 +32,13 @@ public class ParticleManager
 	{
 		m_Game = Game;
 		
-		m_ActiveParticles = new Vector<StandardParticle>();
-		m_InvalidParticles = new Vector<StandardParticle>();
+		m_ActiveParticles = new ArrayList<>();
+		m_InvalidParticles = new ArrayList<>();
 		
-		m_ActiveTrailParticles = new Vector<TrailParticle>();
-		m_InvalidTrailParticles = new Vector<TrailParticle>();
+		m_ActiveTrailParticles = new ArrayList<>();
+		m_InvalidTrailParticles = new ArrayList<>();
 		
-		m_Gravitons = new Vector<Graviton>();
+		m_Gravitons = new ArrayList<>();
 	}
 	
 	public void Update(double DeltaTime)
@@ -82,7 +83,7 @@ public class ParticleManager
 		// Check to see if there are any particles ready to be recycled.
 		if(m_InvalidParticles.size() > 0)
 		{
-			newParticle = m_InvalidParticles.elementAt(0);
+			newParticle = m_InvalidParticles.get(0);
 			m_InvalidParticles.remove(newParticle);	
 		}
 		else
@@ -100,12 +101,12 @@ public class ParticleManager
 	
 	public TrailParticle CreateTrailParticle(ParticleEmitter origin)
 	{
-		TrailParticle newParticle = null;
+		TrailParticle newParticle;
 		
 		// Check to see if there are any particles ready to be recycled.
 		if(m_InvalidTrailParticles.size() > 0)
 		{
-			newParticle = m_InvalidTrailParticles.elementAt(0);		
+			newParticle = m_InvalidTrailParticles.get(0);
 			m_InvalidTrailParticles.remove(newParticle);	
 		}
 		else

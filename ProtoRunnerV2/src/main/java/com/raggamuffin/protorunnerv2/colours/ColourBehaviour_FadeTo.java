@@ -16,10 +16,10 @@ public class ColourBehaviour_FadeTo extends ColourBehaviour
 	private double m_Counter;
 	private double m_CounterMultiplier;
 	
-	public ColourBehaviour_FadeTo(GameObject anchor, ActivationMode mode, double timeFrame) 
+	public ColourBehaviour_FadeTo(GameObject anchor, ActivationMode mode, double timeFrame)
 	{
 		super(anchor, mode);
-		
+
 		m_BaseColour = m_Anchor.GetBaseColour();
 		m_NextColour = new Colour();
 		
@@ -31,18 +31,18 @@ public class ColourBehaviour_FadeTo extends ColourBehaviour
 	public void UpdateBehaviour(double deltaTime) 
 	{
 		m_DeltaColour.SetVector(0.0);
-		
+
 		m_Counter += (deltaTime * m_CounterMultiplier);
-		
+
 		// If the behaviour completes on cycle.
 		// stop the behaviour.
 		if(m_Counter >= 1.0)
 		{
 			m_Counter = 1.0;
-			m_Anchor.SetBaseColour(m_NextColour);
+			m_Anchor.GetBaseColour().SetColour(m_NextColour);
 			m_Trigger = false;
 		}
-		
+
 		m_DeltaColour.I 	= MathsHelper.Lerp(m_Counter, m_BaseColour.Red,   m_NextColour.Red) 	- m_BaseColour.Red;
 		m_DeltaColour.J 	= MathsHelper.Lerp(m_Counter, m_BaseColour.Green, m_NextColour.Green) 	- m_BaseColour.Green;
 		m_DeltaColour.K 	= MathsHelper.Lerp(m_Counter, m_BaseColour.Blue,  m_NextColour.Blue) 	- m_BaseColour.Blue;
@@ -52,6 +52,11 @@ public class ColourBehaviour_FadeTo extends ColourBehaviour
 	{
 		m_NextColour.SetColour(nextColour);
 	}
+
+    public void SetNextColour(double[] nextColour)
+    {
+        m_NextColour.SetColour(nextColour);
+    }
 
 	@Override
 	public void TriggerBehaviour()

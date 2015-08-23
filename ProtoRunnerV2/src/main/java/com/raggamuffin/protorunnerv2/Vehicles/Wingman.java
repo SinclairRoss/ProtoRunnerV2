@@ -1,4 +1,4 @@
-package com.raggamuffin.protorunnerv2.Vehicles;
+package com.raggamuffin.protorunnerv2.vehicles;
 
 import com.raggamuffin.protorunnerv2.ai.AIController;
 import com.raggamuffin.protorunnerv2.ai.AIGoalSet;
@@ -12,6 +12,8 @@ import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
+import com.raggamuffin.protorunnerv2.utils.Colour;
+import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.weapons.PulseLaser;
 
 public class Wingman extends Vehicle
@@ -31,10 +33,13 @@ public class Wingman extends Vehicle
 
         m_Engine = new StandardEngine(this, game.GetParticleManager(), new EngineUseBehaviour_Null());
 		m_Engine.SetMaxTurnRate(2.0);
-		m_Engine.SetMaxEngineOutput(1500);
+		m_Engine.SetMaxEngineOutput(3000);
 		
 		m_MaxHullPoints = 1000;
 		m_HullPoints 	= m_MaxHullPoints;
+
+        m_BaseColour = game.GetColourManager().GetPrimaryColour();
+        m_AltColour = game.GetColourManager().GetAccentingColour();
 
 		SetAffiliation(AffiliationKey.BlueTeam);
 		

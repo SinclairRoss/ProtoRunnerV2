@@ -1,6 +1,5 @@
 package com.raggamuffin.protorunnerv2.particles;
 
-import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class TrailParticle extends Particle
@@ -10,8 +9,6 @@ public class TrailParticle extends Particle
 	private Vector3 m_EndPoint;
 	private Vector3 m_North;
 
-	private Colour m_EndPointColour;
-	
 	public TrailParticle(ParticleEmitter origin) 
 	{
 		super();
@@ -20,8 +17,6 @@ public class TrailParticle extends Particle
 		m_Parent = null;
 		m_EndPoint = new Vector3();
 		m_North = new Vector3(0,0,1);
-		
-		m_EndPointColour = new Colour();
 	}
 	
 	@Override
@@ -32,7 +27,7 @@ public class TrailParticle extends Particle
 		if(m_Parent == null)
         {
             CalculateLineDimentions();
-            m_AltColour.SetColour(m_Origin.GetAltColour());
+            m_AltColour.SetColour(m_Origin.GetColour());
             m_AltColour.Alpha = m_BaseColour.Alpha;
         }
 		else
@@ -66,12 +61,7 @@ public class TrailParticle extends Particle
 	{
 		return m_Parent != null;
 	}
-	
-	public Colour GetEndPointColour()
-	{
-		return m_EndPointColour;
-	}
-	
+
 	public TrailParticle GetParent()
 	{
 		return m_Parent;

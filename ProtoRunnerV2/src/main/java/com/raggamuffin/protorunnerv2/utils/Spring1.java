@@ -25,17 +25,19 @@ public class Spring1
         m_Mass = mass;
     }
 
-    public void Update(double deltaTime)
+    public double Update(double deltaTime, double currentPos)
     {
-        CalculateForce();
+        CalculateForce(currentPos);
         CalculateAcceleration();
         m_Velocity += m_Acceleration;
         m_Position += m_Velocity * deltaTime;
+
+        return m_Position;
     }
 
-    private void CalculateForce()
+    private void CalculateForce(double currentPos)
     {
-        double stretch = m_Position - m_RelaxedPosition;
+        double stretch = currentPos - m_RelaxedPosition;
         m_Force = (-m_Stiffness * stretch) - (m_Damping * m_Velocity);
     }
 

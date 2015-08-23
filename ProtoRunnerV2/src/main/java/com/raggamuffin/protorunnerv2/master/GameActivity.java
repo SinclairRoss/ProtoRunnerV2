@@ -81,8 +81,6 @@ public class GameActivity extends Activity implements SensorEventListener
         Log.e("Activity", "Refresh rate: " + getWindowManager().getDefaultDisplay().getRefreshRate());
 
 		RendererPacket rendererPacket = new RendererPacket();
-
-		rendererPacket.SetUIElements(new ArrayList<UIElement>());
 		rendererPacket.SetContext(this);
 		rendererPacket.SetCamera(new ChaseCamera());
 		rendererPacket.SetRenderEffectSettings(new RenderEffectSettings());

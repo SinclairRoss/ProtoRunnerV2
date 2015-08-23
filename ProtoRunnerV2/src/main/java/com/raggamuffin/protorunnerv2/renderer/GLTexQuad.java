@@ -7,15 +7,16 @@ import java.nio.FloatBuffer;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Vector2;
+import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 import android.opengl.GLES20;
 
 public class GLTexQuad extends GLModel
 {
-	public final FloatBuffer vertexBuffer;
-	public final FloatBuffer textureBuffer;
-	
-	private int m_Program;
+    public final FloatBuffer vertexBuffer;
+    public final FloatBuffer textureBuffer;
+
+    private int m_Program;
 
     private int m_ProjMatrixHandle;
     private int m_WorldPosHandle;
@@ -27,56 +28,56 @@ public class GLTexQuad extends GLModel
     private int m_TexOffsetHandle;
 
     private float[] m_Offset;
-    
-	static final int COORDS_PER_VERTEX = 3;
-	static final int VERTEX_STRIDE = COORDS_PER_VERTEX * 4;	// 4 Bytes to a float.
-	
-	// Origin is the centre.
-	static float VertexCoords[] =
-	{	
-		// BOTTOM.
-		-0.5f,	  0.5f,	 0.0f, // A
-	    -0.5f,	 -0.5f,	 0.0f, // B
-	     0.5f,	 -0.5f,	 0.0f, // C
 
-	    -0.5f,	  0.5f,	 0.0f, // A
-	     0.5f,	 -0.5f,	 0.0f, // C
-	     0.5f,	  0.5f,	 0.0f // D
-	};
-		
-	private final int vertexCount = VertexCoords.length / COORDS_PER_VERTEX;
-	
-	static final int TEX_COORDS_PER_VERTEX = 2;
-	static final int TEX_STRIDE = TEX_COORDS_PER_VERTEX * 4;	// 4 Bytes to a float.
-	
-	static float TextureCoords[] =
-	{	
-		0.0f,	 0.0f, 	// A
-	    0.0f,	 1.0f, 	// B
-	    1.0f, 	 1.0f, 	// C
-	 
-	    0.0f,	 0.0f,  // A
-	    1.0f,  	 1.0f,  // C
-	    1.0f,  	 0.0f 	// D
-	};
-	
-	public GLTexQuad()
-	{
-		ByteBuffer bb = ByteBuffer.allocateDirect(VertexCoords.length * 4);
-		bb.order(ByteOrder.nativeOrder());
-		vertexBuffer = bb.asFloatBuffer();
-		vertexBuffer.put(VertexCoords);
-		vertexBuffer.position(0);
-		
-		ByteBuffer tc = ByteBuffer.allocateDirect(TextureCoords.length * 4);
-		tc.order(ByteOrder.nativeOrder());
-		textureBuffer = tc.asFloatBuffer();
-		textureBuffer.put(TextureCoords);
-		textureBuffer.position(0);
+    static final int COORDS_PER_VERTEX = 3;
+    static final int VERTEX_STRIDE = COORDS_PER_VERTEX * 4;	// 4 Bytes to a float.
 
-		m_Offset = new float[2];
-		m_Offset[0] = 0.0f;
-		m_Offset[1] = 0.0f;
+    // Origin is the centre.
+    static float VertexCoords[] =
+            {
+                    // BOTTOM.
+                    -0.5f,	  0.5f,	 0.0f, // A
+                    -0.5f,	 -0.5f,	 0.0f, // B
+                    0.5f,	 -0.5f,	 0.0f, // C
+
+                    -0.5f,	  0.5f,	 0.0f, // A
+                    0.5f,	 -0.5f,	 0.0f, // C
+                    0.5f,	  0.5f,	 0.0f // D
+            };
+
+    private final int vertexCount = VertexCoords.length / COORDS_PER_VERTEX;
+
+    static final int TEX_COORDS_PER_VERTEX = 2;
+    static final int TEX_STRIDE = TEX_COORDS_PER_VERTEX * 4;	// 4 Bytes to a float.
+
+    static float TextureCoords[] =
+            {
+                    0.0f,	 0.0f, 	// A
+                    0.0f,	 1.0f, 	// B
+                    1.0f, 	 1.0f, 	// C
+
+                    0.0f,	 0.0f,  // A
+                    1.0f,  	 1.0f,  // C
+                    1.0f,  	 0.0f 	// D
+            };
+
+    public GLTexQuad()
+    {
+        ByteBuffer bb = ByteBuffer.allocateDirect(VertexCoords.length * 4);
+        bb.order(ByteOrder.nativeOrder());
+        vertexBuffer = bb.asFloatBuffer();
+        vertexBuffer.put(VertexCoords);
+        vertexBuffer.position(0);
+
+        ByteBuffer tc = ByteBuffer.allocateDirect(TextureCoords.length * 4);
+        tc.order(ByteOrder.nativeOrder());
+        textureBuffer = tc.asFloatBuffer();
+        textureBuffer.put(TextureCoords);
+        textureBuffer.position(0);
+
+        m_Offset = new float[2];
+        m_Offset[0] = 0.0f;
+        m_Offset[1] = 0.0f;
 
         m_Program 			= 0;
         m_ProjMatrixHandle = 0;
@@ -87,12 +88,12 @@ public class GLTexQuad extends GLModel
         m_TexUniformHandle	= 0;
         m_TexCoordHandle	= 0;
         m_TexOffsetHandle	= 0;
-	    
-	    InitShaders();
-	}
-	
-	public void draw(Vector2 pos, Vector2 scale, Colour colour, float[] projMatrix)
-	{
+
+        InitShaders();
+    }
+
+    public void draw(Vector2 pos, Vector2 scale, Colour colour, float[] projMatrix)
+    {
         GLES20.glUniformMatrix4fv(m_ProjMatrixHandle, 1, false, projMatrix, 0);
         GLES20.glUniform4f(m_WorldPosHandle, (float)pos.I, (float)pos.J, 0.0f, 1.0f);
         GLES20.glUniform3f(m_ScaleHandle, (float)scale.I, (float)scale.J, 1.0f);
@@ -100,7 +101,7 @@ public class GLTexQuad extends GLModel
         GLES20.glUniform2f(m_TexOffsetHandle, m_Offset[0], m_Offset[1]);
 
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
-	}
+    }
 
     public void InitShaders()
     {
@@ -126,15 +127,15 @@ public class GLTexQuad extends GLModel
     }
 
     @Override
-    public void InitialiseModel(float[] projMatrix)
+    public void InitialiseModel(float[] projMatrix, Vector3 eye)
     {
         GLES20.glUseProgram(m_Program);
 
         GLES20.glEnableVertexAttribArray(m_PositionHandle);
-        GLES20.glVertexAttribPointer(m_PositionHandle, GLCube.COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, GLCube.VERTEX_STRIDE, vertexBuffer);
+        GLES20.glVertexAttribPointer(m_PositionHandle, 3, GLES20.GL_FLOAT, false, 12, vertexBuffer);
 
         GLES20.glEnableVertexAttribArray(m_TexCoordHandle);
-        GLES20.glVertexAttribPointer(m_TexCoordHandle, TEX_COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, TEX_STRIDE, textureBuffer);
+        GLES20.glVertexAttribPointer(m_TexCoordHandle, 2, GLES20.GL_FLOAT, false, 8, textureBuffer);
 
         GLES20.glUniform1i(m_TexUniformHandle, 0);
     }

@@ -3,7 +3,7 @@ package com.raggamuffin.protorunnerv2.weapons;
 import com.raggamuffin.protorunnerv2.R;
 import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.Vehicles.Vehicle;
+import com.raggamuffin.protorunnerv2.vehicles.Vehicle;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 
@@ -32,9 +32,5 @@ public class ParticleCannon extends Weapon
 
         AddMuzzle( 1, 0, 0);
         AddMuzzle(-1, 0, 0);
-
-        SetColour(Colours.CalvinOrange);
-
-        m_Name = game.GetContext().getString(R.string.weapon_pulse);
     }
 }

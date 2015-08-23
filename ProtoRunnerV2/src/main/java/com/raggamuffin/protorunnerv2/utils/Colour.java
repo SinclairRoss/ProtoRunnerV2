@@ -73,6 +73,14 @@ public class Colour
         Blue 	= 1.0 - colour.Blue;
         Alpha 	= colour.Alpha;
 	}
+
+    public void SetAsInverse(double[] colour)
+    {
+        Red 	= 1.0 - colour[0];
+        Green 	= 1.0 - colour[1];
+        Blue 	= 1.0 - colour[2];
+        Alpha 	= colour[3];
+    }
 	
 	public void Brighten(double amount)
 	{
