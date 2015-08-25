@@ -91,6 +91,7 @@ public class LaserPointer extends GameObject
 	public void On()
 	{
         SetBaseColour(m_Anchor.GetAnchor().GetBaseColour());
+
         GetAltColour().Alpha = 0.0;
 		m_State = LaserState.Activating;
 		m_Timer.ResetTimer();

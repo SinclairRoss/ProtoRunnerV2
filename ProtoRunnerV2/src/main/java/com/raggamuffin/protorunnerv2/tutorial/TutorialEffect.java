@@ -20,10 +20,7 @@ public enum TutorialEffect
     LockWeapon_Up,
     LockWeapon_Down,
 
-    UnlockWeapon_Left,
-    UnlockWeapon_Right,
-    UnlockWeapon_Up,
-    UnlockWeapon_Down,
+    UnlockAllWeapons,
 
     NoInbetween,
 }

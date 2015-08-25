@@ -6,17 +6,17 @@ import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.weapons.WeaponSlot;
 
-public class TutorialEvent_LockWeapon extends TutorialEvent
+public class TutorialEvent_WeaponLock extends TutorialEvent
 {
     private boolean m_On;
-    private WeaponSlot m_BlockedSlot;
+    private WeaponSlot m_LockedSlot;
 
-    public TutorialEvent_LockWeapon(GameLogic game, WeaponSlot slot)
+    public TutorialEvent_WeaponLock(GameLogic game)
     {
         super(game);
 
         m_On = false;
-        m_BlockedSlot = slot;
+        m_LockedSlot = WeaponSlot.Left;
 
         game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerSwitchedWeapon, new PlayerSwitchedWeaponSubscriber());
     }
@@ -39,6 +39,12 @@ public class TutorialEvent_LockWeapon extends TutorialEvent
 
     }
 
+    public void SetLock(WeaponSlot slot)
+    {
+        On();
+        m_LockedSlot = slot;
+    }
+
     private class PlayerSwitchedWeaponSubscriber extends Subscriber
     {
         @Override
@@ -52,10 +58,10 @@ public class TutorialEvent_LockWeapon extends TutorialEvent
             if(player == null)
                 return;
 
-            if(player.GetWeaponSlot() != m_BlockedSlot)
+            if(player.GetWeaponSlot() == m_LockedSlot)
                 return;
 
-            player.SelectWeaponBySlot(player.GetPreviousWeaponSlot());
+            player.SelectWeaponBySlot(m_LockedSlot);
         }
     }
 }

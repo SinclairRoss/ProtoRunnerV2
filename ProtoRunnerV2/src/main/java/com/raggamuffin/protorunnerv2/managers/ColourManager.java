@@ -7,6 +7,7 @@ import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
+import com.raggamuffin.protorunnerv2.weapons.WeaponSlot;
 
 public class ColourManager
 {
@@ -109,9 +110,26 @@ public class ColourManager
         if(player == null)
             return;
 
+
         m_Counter = 0;
         m_PreviousColour.SetColour(m_PrimaryColour);
-        m_NextColour.SetColour(player.GetColourByWeaponSlot(player.GetWeaponSlot()));
+        m_NextColour.SetColour(GetColourByWeaponSlot(player.GetWeaponSlot()));
+    }
 
+    public double[] GetColourByWeaponSlot(WeaponSlot slot)
+    {
+        switch(slot)
+        {
+            case Up:
+                return Colours.Cyan;
+            case Down:
+                return Colours.PastelGreen;
+            case Left:
+                return Colours.RunnerBlue;
+            case Right:
+                return Colours.EmeraldGreen;
+        }
+
+        return null;
     }
 }
