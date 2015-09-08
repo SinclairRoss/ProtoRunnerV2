@@ -1,7 +1,7 @@
 package com.raggamuffin.protorunnerv2.tutorial;
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.vehicles.Runner;
+import com.raggamuffin.protorunnerv2.gameobjects.Runner;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.utils.Timer;
 

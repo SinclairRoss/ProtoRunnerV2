@@ -6,19 +6,23 @@ import android.content.Context;
 
 import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
+import com.raggamuffin.protorunnerv2.particles.TrailEmitter;
+import com.raggamuffin.protorunnerv2.particles.TrailEmitterDepricated;
+import com.raggamuffin.protorunnerv2.particles.TrailPoint;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
 import com.raggamuffin.protorunnerv2.ui.UIElementType;
 
 public class RendererPacket 
 {
-	private ArrayList<ArrayList<GameObject>> m_GameObjects;
-	private ArrayList<ArrayList<UIElement>> m_UIElements;
-	private ChaseCamera m_Camera;
-	private Context m_Context;
-	private RenderEffectSettings m_RenderEffectSettings;
+	private final ArrayList<ArrayList<GameObject>> m_GameObjects;
+    private final ArrayList<TrailPoint> m_TrailPoints;
+	private final ArrayList<ArrayList<UIElement>> m_UIElements;
+	private final ChaseCamera m_Camera;
+	private final Context m_Context;
+	private final RenderEffectSettings m_RenderEffectSettings;
 	
-	public RendererPacket()
+	public RendererPacket(Context context, ChaseCamera camera, RenderEffectSettings settings)
     {
         int numModels = ModelType.values().length;
 		m_GameObjects = new ArrayList<>(numModels);
@@ -32,19 +36,37 @@ public class RendererPacket
         for(int i = 0; i < numUIElements; i++)
             m_UIElements.add(new ArrayList<UIElement>());
 
-		m_Context = null;
-		m_Camera = null;
-		m_RenderEffectSettings = null;
+        m_TrailPoints = new ArrayList<>();
+
+		m_Context = context;
+		m_Camera = camera;
+		m_RenderEffectSettings = settings;
 	}
+
+    ///// Game Objects.
+    public ArrayList<TrailPoint> GetTrailPoints()
+    {
+        return m_TrailPoints;
+    }
 
     public ArrayList<GameObject> GetModelList(ModelType type)
     {
         return m_GameObjects.get(type.ordinal());
     }
 
+    public void AddObject(TrailPoint point)
+    {
+        m_TrailPoints.add(point);
+    }
+
     public void AddObject(GameObject object)
     {
         GetModelList(object.GetModel()).add(object);
+    }
+
+    public void RemoveObject(TrailPoint point)
+    {
+        m_TrailPoints.remove(point);
     }
 
     public void RemoveObject(GameObject object)
@@ -53,7 +75,6 @@ public class RendererPacket
     }
 
 	///// UI Elements.
-
     public ArrayList<UIElement> GetUIElementList(UIElementType type)
     {
         return m_UIElements.get(type.ordinal());
@@ -74,31 +95,16 @@ public class RendererPacket
 	{
 		return m_Context;
 	}
-	
-	public void SetContext(Context context)
-	{
-		m_Context = context;
-	}
-	
+
 	///// Camera.
 	public ChaseCamera GetCamera()
-	{
-		return m_Camera;
-	}
-	
-	public void SetCamera(ChaseCamera cam)
-	{
-		m_Camera = cam;
-	}
-	
+    {
+        return m_Camera;
+    }
+
 	///// Render Effect Settings.
 	public RenderEffectSettings GetRenderEffectSettings()
 	{
 		return m_RenderEffectSettings;
-	}
-	
-	public void SetRenderEffectSettings(RenderEffectSettings Settings)
-	{
-		m_RenderEffectSettings = Settings;
 	}
 }

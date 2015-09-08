@@ -6,11 +6,12 @@ import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_LerpTo;
+import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.Engine;
 import com.raggamuffin.protorunnerv2.gameobjects.EngineUseBehaviour_Null;
 import com.raggamuffin.protorunnerv2.gameobjects.FloorGrid;
-import com.raggamuffin.protorunnerv2.gameobjects.StandardEngine;
-import com.raggamuffin.protorunnerv2.vehicles.Vehicle;
+import com.raggamuffin.protorunnerv2.gameobjects.Engine_Standard;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.ParticleManager;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.utils.Colour;
@@ -53,7 +54,7 @@ public class ProjectileBehaviour_Missile extends ProjectileBehaviour
 	
 	private ColourBehaviour_LerpTo m_StressBehaviour;
 	
-	public ProjectileBehaviour_Missile(Projectile anchor, GameAudioManager audio, VehicleManager vManager, ParticleManager pManager, Vector3 muzzlePos, int index) 
+	public ProjectileBehaviour_Missile(Projectile anchor, GameLogic game, Vector3 muzzlePos, int index)
 	{
 		super(anchor);
 
@@ -61,8 +62,8 @@ public class ProjectileBehaviour_Missile extends ProjectileBehaviour
 		
 		ReEvaluateTargetTimer = new Timer(RE_EVALUATION_TIME);
 		
-		m_Audio = audio;
-		m_Enemies = vManager.GetOpposingTeam(m_Anchor.GetAffiliation());
+		m_Audio = game.GetGameAudioManager();
+		m_Enemies = game.GetVehicleManager().GetOpposingTeam(m_Anchor.GetAffiliation());
 		m_ToTarget = new Vector3();
 		m_ScratchVector = new Vector3();
 		m_UtilityArk = Math.toRadians(90);
@@ -77,7 +78,7 @@ public class ProjectileBehaviour_Missile extends ProjectileBehaviour
 		
 		Colour altColour = new Colour(m_Anchor.GetFiringWeapon().GetAltColour());
 		
-		m_Engine = new StandardEngine(anchor, pManager, new EngineUseBehaviour_Null());
+		m_Engine = new Engine_Standard(anchor, game, new EngineUseBehaviour_Null());
 		m_Engine.SetMaxTurnRate(2.0);
 		m_Engine.SetAfterBurnerOutput(1500);
 		m_Engine.UpdateParticleColours(altColour, m_Anchor.GetColour());

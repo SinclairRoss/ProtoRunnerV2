@@ -2,7 +2,7 @@ package com.raggamuffin.protorunnerv2.tutorial;
 
 import com.raggamuffin.protorunnerv2.ai.VehicleInfo;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.vehicles.Vehicle;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 
 public class TutorialEvent_LockStrafing extends TutorialEvent
 {

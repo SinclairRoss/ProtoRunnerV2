@@ -8,6 +8,7 @@ import javax.microedition.khronos.opengles.GL10;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.master.RenderEffectSettings;
 import com.raggamuffin.protorunnerv2.master.RendererPacket;
+import com.raggamuffin.protorunnerv2.particles.TrailPoint;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
 import com.raggamuffin.protorunnerv2.ui.UIElementType;
 
@@ -35,6 +36,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
     private ModelManager m_ModelManager;
     private UIRenderManager m_UIManager;
+    private TrailRenderer m_TrailRenderer;
 
     private RenderEffectSettings m_RenderEffectSettings;
 
@@ -46,7 +48,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
     private int m_FrameBuffers[];
 
     private int counter = 0;
-    private final int maxCount = 1;
+    private final int maxCount = 100;
     private Long totalTime = 0L;
 
 	public GLRenderer(RendererPacket packet)
@@ -61,6 +63,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
 		m_ModelManager = new ModelManager(m_Context, m_RenderEffectSettings);
 		m_UIManager    = new UIRenderManager(m_Context);
+        m_TrailRenderer = new TrailRenderer();
 	}
 
 	@Override
@@ -82,6 +85,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
         GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
 
         m_ModelManager.LoadAssets();
+        m_TrailRenderer.LoadAssets();
         m_UIManager.LoadAssets();
 
         // FBO
@@ -148,6 +152,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
         DrawSkybox();
         DrawObjects();
+        DrawTrails();
 		DrawUI();
 
 		// Glow vertical.
@@ -234,6 +239,9 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
         for (ModelType type : types)
         {
+            if(type == ModelType.TrailDepricated)
+                continue;
+
             ArrayList<GameObject> list = (ArrayList<GameObject>)m_Packet.GetModelList(type).clone();
 
             if(list.size() == 0)
@@ -251,6 +259,32 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
             m_ModelManager.CleanModel(type);
         }
+    }
+
+    private void DrawTrails()
+    {
+        float[] view = new float[16];
+        Matrix.setIdentityM(view, 0);
+        Matrix.multiplyMM(view, 0, m_Camera.m_ProjMatrix, 0, m_Camera.m_VMatrix, 0);
+
+        ArrayList<TrailPoint> list = (ArrayList<TrailPoint>)m_Packet.GetTrailPoints().clone();
+
+        if(list.size() == 0)
+            return;
+
+        m_TrailRenderer.Initialise(view, m_Camera.GetPosition());
+
+        for(TrailPoint obj : list)
+        {
+            if(obj == null)
+                continue;
+
+            m_TrailRenderer.Draw(obj);
+        }
+
+        m_TrailRenderer.Clean();
+
+    //    Log.e("TrailRenderer v2.01", "Count: " + list.size());
     }
 
     private void DrawUI()

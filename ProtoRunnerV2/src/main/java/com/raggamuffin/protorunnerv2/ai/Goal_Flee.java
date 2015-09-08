@@ -2,7 +2,7 @@ package com.raggamuffin.protorunnerv2.ai;
 
 import android.util.Log;
 
-import com.raggamuffin.protorunnerv2.vehicles.Vehicle;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class Goal_Flee extends Goal

@@ -30,7 +30,7 @@ public class ModelManager
 	private GLRing		 m_Ring;
 	private GLStandardPoint m_StandardPoint;
 	private GLLine		 m_Pointer;
-    private GLLine       m_Trail;
+    private GLLine       m_TrailDepricated;
     private GLLine       m_ParticleLaser;
 	private GLScreenQuad m_Screen;
 	private GLSkybox	 m_Skybox;
@@ -74,7 +74,7 @@ public class ModelManager
         m_Ring = new GLRing();
         m_StandardPoint = new GLStandardPoint();
         m_Pointer = new GLLine(2.0f);
-        m_Trail = new GLLine(20.0f);
+        m_TrailDepricated = new GLLine(20.0f);
         m_ParticleLaser = new GLLine(3.0f);
 
         m_Screen = new GLScreenQuad();
@@ -179,8 +179,8 @@ public class ModelManager
                 break;
             case StandardPoint:
                 return m_StandardPoint;
-            case Trail:
-                return m_Trail;
+            case TrailDepricated:
+                return m_TrailDepricated;
             case LaserPointer:
                 return m_Pointer;
             case ParticleLaser:

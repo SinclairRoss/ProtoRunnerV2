@@ -2,6 +2,8 @@ package com.raggamuffin.protorunnerv2.managers;
 
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
+import com.raggamuffin.protorunnerv2.utils.Vector3;
+import com.raggamuffin.protorunnerv2.gameobjects.VehicleType;
 
 
 public class GameManager_Exhibition extends GameManager
@@ -25,13 +27,15 @@ public class GameManager_Exhibition extends GameManager
     {
         if(m_VehicleManager.GetTeamCount(AffiliationKey.RedTeam) == 0)
         {
-            m_VehicleManager.SpawnSquad(30);
+          //  m_VehicleManager.SpawnSquad(30);
+            for(int i = 0; i < 1; i++)
+                m_VehicleManager.SpawnVehicle(VehicleType.Carrier, new Vector3(0,0,0));
         }
 
         if(m_VehicleManager.GetTeamCount(AffiliationKey.BlueTeam) == 0)
         {
-            for(int i = -1; i < 2; i++)
-                m_VehicleManager.SpawnWingmen(i);
+           // for(int i = -1; i < 2; i++)
+            //    m_VehicleManager.SpawnWingmen(i);
         }
         /*
         int blueCount = m_VehicleManager.GetTeamCount(AffiliationKey.BlueTeam);

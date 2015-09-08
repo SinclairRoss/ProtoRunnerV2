@@ -1,7 +1,7 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
 import com.raggamuffin.protorunnerv2.managers.ParticleManager;
-import com.raggamuffin.protorunnerv2.particles.TrailEmitter;
+import com.raggamuffin.protorunnerv2.particles.TrailEmitterDepricated;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
@@ -14,7 +14,7 @@ public class CyclingEngineAttachment extends GameObject
 
     private double m_OrbitCounter;
     private double m_OrbitRate;
-    private TrailEmitter m_TrailEmitter;
+    private TrailEmitterDepricated m_TrailEmitterDepricated;
 
     private Vector3 m_TempVector;
 
@@ -32,8 +32,8 @@ public class CyclingEngineAttachment extends GameObject
         m_OrbitCounter = 0.0;
         m_OrbitRate = Math.toRadians(270.0);
 
-        m_TrailEmitter = new TrailEmitter(this, pManager);
-        AddChild(m_TrailEmitter);
+        m_TrailEmitterDepricated = new TrailEmitterDepricated(this, pManager);
+        AddChild(m_TrailEmitterDepricated);
 
         m_TempVector = new Vector3();
     }
@@ -57,7 +57,7 @@ public class CyclingEngineAttachment extends GameObject
 
         m_Anchor.GetPosition();
 
-        m_TrailEmitter.Update(deltaTime);
+        m_TrailEmitterDepricated.Update(deltaTime);
 
         m_Yaw = m_Anchor.GetYaw();
 
@@ -72,7 +72,7 @@ public class CyclingEngineAttachment extends GameObject
 
     public void SetTrailColour(Colour start, Colour end)
     {
-        m_TrailEmitter.SetStartColour(start);
-        m_TrailEmitter.SetFinalColour(end);
+        m_TrailEmitterDepricated.SetStartColour(start);
+        m_TrailEmitterDepricated.SetFinalColour(end);
     }
 }

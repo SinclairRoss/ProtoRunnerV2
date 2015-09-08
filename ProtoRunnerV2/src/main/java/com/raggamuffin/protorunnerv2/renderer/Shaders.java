@@ -67,6 +67,15 @@ public class Shaders
         +   "	gl_FragColor = mix(u_Color, u_EndPointColor, v_Weight); "
         +   "}";
 
+    public static final String vertexShader_TRAIL =
+            "uniform mat4 u_ProjMatrix;"
+
+        +	"attribute vec4 a_Position;  \n"
+
+        +   "void main()                 \n"
+        +   "{"
+        +	"	gl_Position = u_ProjMatrix * a_Position;"
+        +   "}";
 
     public static final String vertexShader_TEXTURED =
             "uniform mat4 u_ProjMatrix;"
@@ -167,15 +176,28 @@ public class Shaders
 
         +	"void main()"
         +	"{"
-        +	"	if(any(lessThan(v_Barycentric, vec3(0.06))))"
-        +	"	{"
-        +	"		gl_FragColor = u_Color;"
-        +	"	}"
-        +	"	else"
-        +	"	{"
-        +	"		gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);"
-        +	"	}"
+        +   "       gl_FragColor = u_Color * float(any(lessThan(v_Barycentric, vec3(0.06))));"
+        +   "       gl_FragColor.w = u_Color.w;"
         +	"}";
+
+    public static final String fragmentShader_BARYCENTRICOLD =
+            "precision mediump float;"
+
+                    +	"uniform vec4 u_Color;"
+
+                    +	"varying vec3 v_Barycentric;"
+
+                    +	"void main()"
+                    +	"{"
+                    +	"	if(any(lessThan(v_Barycentric, vec3(0.06))))"
+                    +	"	{"
+                    +	"		gl_FragColor = u_Color;"
+                    +	"	}"
+                    +	"	else"
+                    +	"	{"
+                    +	"		gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);"
+                    +	"	}"
+                    +	"}";
 
     public static final String fragmentShader_BARYCENTRIC_HOLLOW =
             "precision mediump float;"
@@ -186,14 +208,8 @@ public class Shaders
 
         +	"void main()"
         +	"{"
-        +	"	if(any(lessThan(v_Barycentric, vec3(0.06))))"
-        +	"	{"
-        +	"		gl_FragColor = u_Color;"
-        +	"	}"
-        +	"	else"
-        +	"	{"
-        +	"		gl_FragColor = vec4(0.0, 0.0, 0.0, 0.0);"
-        +	"	}"
+        +   "       gl_FragColor = u_Color * float(any(lessThan(v_Barycentric, vec3(0.06))));"
+        +   "       gl_FragColor.w = 0.0;"
         +	"}";
 
     public static final String vertexShader_POINT =

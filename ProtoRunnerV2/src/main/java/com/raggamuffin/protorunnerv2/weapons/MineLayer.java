@@ -2,7 +2,7 @@ package com.raggamuffin.protorunnerv2.weapons;
 
 import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.vehicles.Vehicle;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 
@@ -23,7 +23,7 @@ public class MineLayer extends Weapon
 
         m_FireMode = new FireControl_Pulse(1.5, 0.2, 4);
 
-        m_ProjectileTemplate = new ProjectileTemplate(this, m_Anchor.GetVehicleInfo(), ModelType.Mine, GetAffiliation(),
+        m_ProjectileTemplate = new ProjectileTemplate(this, ModelType.Mine, GetAffiliation(),
                 m_MuzzleVelocity, m_Damage, m_LifeSpan, m_ProjectileFadeInTime, m_ProjectileFadeOutTime, 2.0,
                 ProjectileBehaviourType.Mine, game, SpecialProjectileBehaviourType.Explode);
 

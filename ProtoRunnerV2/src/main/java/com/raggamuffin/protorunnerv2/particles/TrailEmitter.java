@@ -1,58 +1,78 @@
 package com.raggamuffin.protorunnerv2.particles;
 
+import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.managers.ParticleManager;
-import com.raggamuffin.protorunnerv2.renderer.ModelType;
-import com.raggamuffin.protorunnerv2.utils.Vector3;
+import com.raggamuffin.protorunnerv2.utils.Colour;
 
-public class TrailEmitter extends ParticleEmitter
+public class TrailEmitter extends GameObject
 {
-	private TrailParticle m_LastParticle;
-	private Vector3 m_Offset;
-	
-	public TrailEmitter(GameObject anchor, ParticleManager pManager)
-	{
-		super(anchor, pManager, new EmissionBehaviour_Timed(0.1), 1.0);
-		
-		m_ParticleForward.SetVector(0,1,0);
-		
-		m_LastParticle = null;
-		
-		m_ParticleModel = ModelType.Trail;
-		
-		m_Offset = new Vector3();
-		m_Offset.Scale(-1.0);
+    private final GameObject m_Anchor;
+    private GameLogic m_Game;
+    private final ParticleManager m_ParticleManager;
 
-        m_ParticleStartColour = anchor.GetColour();
-        m_ParticleFinalColour = anchor.GetColour();
-	}
-	
-	@Override
-	public void Emit(int count)
-	{
-		m_Offset.SetVector(m_Anchor.GetForward());
-		m_Offset.Scale(-1.5);
-		m_Position.Add(m_Offset);
-		
-		if(count == 0)
-			return; 
-		
-		TrailParticle newParticle = m_ParticleManager.CreateTrailParticle(this);
-		
-		if(m_LastParticle != null)
-			m_LastParticle.SetParent(newParticle);
-		
-		m_LastParticle = newParticle;
-	}
-	
-	@Override
-	protected Vector3 CalculateParticleForward() 
-	{
-		return m_ParticleForward;
-	}
-	
-	public Vector3 GetVelocity()
-	{
-		return m_Velocity;
-	}
+    private TrailPoint m_HeadNode;
+
+    private final double m_LifeSpan;
+    private final double m_EmissionRate;
+    private double m_EmissionCounter;
+
+    private Colour m_HotColour;
+    private Colour m_ColdColour;
+
+    public TrailEmitter(GameObject anchor, GameLogic game)
+    {
+        super(null, null);
+
+        m_Anchor = anchor;
+        m_Game = game;
+        m_ParticleManager = m_Game.GetParticleManager();
+
+        m_LifeSpan = 100000.0;
+        m_EmissionRate = 0.2;
+        m_EmissionCounter = 0.0;
+
+        m_HotColour = new Colour(anchor.GetBaseColour());
+        m_ColdColour = new Colour(anchor.GetAltColour());
+    }
+
+    @Override
+    public void Update(double deltaTime)
+    {
+        m_EmissionCounter += deltaTime;
+
+        if(m_EmissionCounter >= m_EmissionRate)
+        {
+            m_EmissionCounter = 0;
+            m_ParticleManager.CreateTrailPoint(this);
+        }
+
+        m_HeadNode.GetPosition().SetVector(m_Position);
+    }
+
+    @Override
+    public boolean IsValid()
+    {
+        return m_Anchor.IsValid();
+    }
+
+    public TrailPoint GetHeadNode()
+    {
+        return m_HeadNode;
+    }
+
+    public double GetLifeSpan()
+    {
+        return m_LifeSpan;
+    }
+
+    public Colour GetHotColour()
+    {
+        return m_HotColour;
+    }
+
+    public Colour GetColdColour()
+    {
+        return m_ColdColour;
+    }
 }

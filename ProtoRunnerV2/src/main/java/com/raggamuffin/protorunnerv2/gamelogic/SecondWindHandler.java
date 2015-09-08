@@ -1,6 +1,6 @@
 package com.raggamuffin.protorunnerv2.gamelogic;
 
-import com.raggamuffin.protorunnerv2.vehicles.Runner;
+import com.raggamuffin.protorunnerv2.gameobjects.Runner;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;

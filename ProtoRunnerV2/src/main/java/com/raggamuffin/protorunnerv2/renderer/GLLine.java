@@ -71,9 +71,9 @@ public class GLLine extends GLModel
 		weightBuffer.position(0);
 
 		m_Program 			= 0;
-	    m_ProjMatrixHandle = 0;
+	    m_ProjMatrixHandle  = 0;
         m_WorldPosHandle    = 0;
-        m_YawHandle = 0;
+        m_YawHandle         = 0;
         m_ScaleHandle       = 0;
 	    m_ColourHandle		= 0;
 	    m_EndPointColourHandle = 0;
@@ -152,5 +152,6 @@ public class GLLine extends GLModel
     public void CleanModel()
     {
         GLES20.glDisableVertexAttribArray(m_PositionHandle);
+        GLES20.glDisableVertexAttribArray(m_WeightHandle);
     }
 }

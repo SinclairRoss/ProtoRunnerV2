@@ -1,6 +1,7 @@
 package com.raggamuffin.protorunnerv2.renderer;
 
 import android.opengl.GLES20;
+import android.util.Log;
 
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
@@ -22,6 +23,14 @@ public abstract class GLModel
         // add the source code to the shader and compile it
         GLES20.glShaderSource(shader, shaderCode);
         GLES20.glCompileShader(shader);
+
+        int[] compiled = new int[1];
+        GLES20.glGetShaderiv(shader, GLES20.GL_COMPILE_STATUS, compiled, 0);
+
+        if (compiled[0] == 0)
+        {
+            Log.e("Shader", "Shits broken yo");
+        }
 
         return shader;
     }

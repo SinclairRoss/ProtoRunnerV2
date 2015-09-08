@@ -14,7 +14,7 @@ import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 import com.raggamuffin.protorunnerv2.utils.Vector4;
-import com.raggamuffin.protorunnerv2.vehicles.Wingman;
+import com.raggamuffin.protorunnerv2.gameobjects.Wingman;
 
 public abstract class GameObject 
 {

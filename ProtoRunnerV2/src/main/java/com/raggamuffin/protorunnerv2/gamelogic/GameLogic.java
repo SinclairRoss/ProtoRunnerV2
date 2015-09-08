@@ -9,7 +9,8 @@ import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
 import com.raggamuffin.protorunnerv2.gameobjects.ExhibitionCameraAnchor;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
-import com.raggamuffin.protorunnerv2.vehicles.Vehicle;
+import com.raggamuffin.protorunnerv2.particles.TrailPoint;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.BulletManager;
 import com.raggamuffin.protorunnerv2.managers.ColourManager;
 import com.raggamuffin.protorunnerv2.managers.DatabaseManager;
@@ -184,6 +185,16 @@ public class GameLogic extends ApplicationLogic
         m_GameManager.Initialise();
     }
 
+    public void AddTrailToRemderer(TrailPoint point)
+    {
+        m_Packet.AddObject(point);
+    }
+
+    public void RemoveObjectFromRenderer(TrailPoint point)
+    {
+        m_Packet.RemoveObject(point);
+    }
+
 	// Adds a game object and all children of the game object to the renderer.
 	public void AddObjectToRenderer(GameObject obj)
 	{
@@ -207,7 +218,7 @@ public class GameLogic extends ApplicationLogic
 			c--;
 		}
 	}
-	
+
 	// Removes a game object and all of its children from the renderer.
 	public void RemoveObjectFromRenderer(GameObject obj)
 	{

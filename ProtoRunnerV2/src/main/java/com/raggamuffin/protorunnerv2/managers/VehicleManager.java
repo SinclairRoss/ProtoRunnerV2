@@ -5,17 +5,17 @@ import java.util.Iterator;
 
 import android.util.Log;
 
-import com.raggamuffin.protorunnerv2.vehicles.Drone;
-import com.raggamuffin.protorunnerv2.vehicles.Tank;
-import com.raggamuffin.protorunnerv2.vehicles.VehicleType;
+import com.raggamuffin.protorunnerv2.gameobjects.Drone;
+import com.raggamuffin.protorunnerv2.gameobjects.Tank;
+import com.raggamuffin.protorunnerv2.gameobjects.VehicleType;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.vehicles.Bit;
-import com.raggamuffin.protorunnerv2.vehicles.Carrier;
-import com.raggamuffin.protorunnerv2.vehicles.Dummy;
-import com.raggamuffin.protorunnerv2.vehicles.Runner;
-import com.raggamuffin.protorunnerv2.vehicles.Vehicle;
-import com.raggamuffin.protorunnerv2.vehicles.Wingman;
+import com.raggamuffin.protorunnerv2.gameobjects.Bit;
+import com.raggamuffin.protorunnerv2.gameobjects.Carrier;
+import com.raggamuffin.protorunnerv2.gameobjects.Dummy;
+import com.raggamuffin.protorunnerv2.gameobjects.Runner;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
+import com.raggamuffin.protorunnerv2.gameobjects.Wingman;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
@@ -63,23 +63,6 @@ public class VehicleManager
                 i--;
             }
         }
-
-		// Update Vehicles.
-       /* Iterator<Vehicle> Iter = m_Vehicles.iterator();
-		while(Iter.hasNext())
-		{
-			Vehicle Object = Iter.next();
-			
-			if(Object.IsValid())
-			{
-				Object.Update(deltaTime);
-			}
-			else	
-			{
-				RemoveVehicle(Object);
-				Iter.remove();
-			} 
-		}*/
 	}
 
 	// Removes vehicle from their team and the renderer.
