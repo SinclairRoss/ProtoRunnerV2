@@ -18,7 +18,7 @@ public class PulseLaser extends Weapon
 
 		m_Damage = 40;
         m_Drain = 15;
-		m_MuzzleVelocity = 45.0;
+		m_MuzzleVelocity = 70.0;
 		m_Accuracy = 1.0;
 		m_LifeSpan = 5.0;
 

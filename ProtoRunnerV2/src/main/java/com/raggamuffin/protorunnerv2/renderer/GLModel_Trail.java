@@ -54,8 +54,6 @@ public class GLModel_Trail
 
         GLES20.glUniformMatrix4fv(m_ProjMatrixHandle, 1, false, projMatrix, 0);
         m_EyePos.SetVector(eye);
-
-        GLES20.glDisable(GLES20.GL_DEPTH_TEST);
     }
 
     public void AddPoint(TrailPoint point)
@@ -121,8 +119,6 @@ public class GLModel_Trail
     {
         GLES20.glDisableVertexAttribArray(m_PositionHandle);
         GLES20.glDisableVertexAttribArray(m_ColourHandle);
-
-        GLES20.glEnable(GLES20.GL_DEPTH_TEST);
     }
 
     private void InitShaders()

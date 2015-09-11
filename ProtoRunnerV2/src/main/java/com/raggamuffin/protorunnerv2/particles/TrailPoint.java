@@ -98,6 +98,11 @@ public class TrailPoint
 
     public boolean IsValid()
     {
-        return !m_LifeTimer.TimedOut();
+        return m_Child != null ? !m_Child.HasTimedOut() : true;
+    }
+
+    public boolean HasTimedOut()
+    {
+        return m_LifeTimer.TimedOut();
     }
 }

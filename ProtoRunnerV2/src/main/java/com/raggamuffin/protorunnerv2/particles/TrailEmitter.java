@@ -29,14 +29,14 @@ public class TrailEmitter extends GameObject
         m_ParticleManager = m_Game.GetParticleManager();
 
         m_HeadNode = new TrailPoint();
-        m_HeadNode.GetPosition().SetVector(m_Position);
+        m_HeadNode.GetPosition().SetVector(m_Anchor.GetPosition());
 
         m_LifeSpan = 2.0;
         m_EmissionRate = 0.1;
         m_EmissionCounter = m_EmissionRate;
 
-        m_HotColour = anchor.GetBaseColour();
-        m_ColdColour = anchor.GetAltColour();
+        m_HotColour = anchor.GetColour();
+        m_ColdColour = anchor.GetColour();
     }
 
     @Override

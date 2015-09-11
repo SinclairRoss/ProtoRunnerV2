@@ -92,6 +92,7 @@ public class Runner extends Vehicle
 	@Override 
 	public void Update(double deltaTime)
 	{
+        m_HullPoints = m_MaxHullPoints;
         m_Engine.SetTurnRate(m_Input.GetTilt());
 		super.Update(deltaTime);
 	}
