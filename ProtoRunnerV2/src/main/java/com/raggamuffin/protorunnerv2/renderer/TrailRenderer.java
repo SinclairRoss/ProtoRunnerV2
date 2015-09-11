@@ -24,31 +24,15 @@ public class TrailRenderer
 
     public void Draw(TrailPoint headNode)
     {
-    //    DrawTest();
-
-    //    if(true)
-     //       return;
-
         TrailPoint node = headNode;
 
         while (node != null)
         {
             m_Trail.AddPoint(node);
-            node = node.GetChild();
+            node = node.GetParent();
         }
 
         m_Trail.Draw();
-    }
-
-    private void DrawTest()
-    {
-       /* TrailPoint nodeA = new TrailPoint(new Vector3(-30, 0, 0), 10000, null);
-        TrailPoint nodeB = new TrailPoint(new Vector3(-30, 0, 0), 10000, nodeA);
-
-        m_Trail.AddPoint(nodeA);
-        m_Trail.AddPoint(nodeB);
-
-        m_Trail.Draw();*/
     }
 
     public void Clean()

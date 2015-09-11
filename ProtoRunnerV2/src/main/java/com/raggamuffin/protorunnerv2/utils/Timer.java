@@ -29,7 +29,7 @@ public class Timer
 	
 	public boolean TimedOut()
 	{
-		return (m_Timer >= m_Limit);
+		return m_Timer >= m_Limit;
 	}
 	
 	public double GetTimeRemaining()

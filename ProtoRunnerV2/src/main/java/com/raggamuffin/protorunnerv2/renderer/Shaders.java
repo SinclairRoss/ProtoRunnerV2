@@ -71,10 +71,24 @@ public class Shaders
             "uniform mat4 u_ProjMatrix;"
 
         +	"attribute vec4 a_Position;  \n"
+        +   "attribute vec4 a_Color;"
+
+        +   "varying vec4 v_Color;"
 
         +   "void main()                 \n"
         +   "{"
+        +   "   v_Color = a_Color;"
         +	"	gl_Position = u_ProjMatrix * a_Position;"
+        +   "}";
+
+    public static final String fragmentShader_TRAIL =
+            "precision mediump float;"
+
+        +   "varying vec4 v_Color;"
+
+        +   "void main()"
+        +   "{"
+        +   "	gl_FragColor = v_Color;"
         +   "}";
 
     public static final String vertexShader_TEXTURED =
@@ -183,21 +197,21 @@ public class Shaders
     public static final String fragmentShader_BARYCENTRICOLD =
             "precision mediump float;"
 
-                    +	"uniform vec4 u_Color;"
+        +	"uniform vec4 u_Color;"
 
-                    +	"varying vec3 v_Barycentric;"
+        +	"varying vec3 v_Barycentric;"
 
-                    +	"void main()"
-                    +	"{"
-                    +	"	if(any(lessThan(v_Barycentric, vec3(0.06))))"
-                    +	"	{"
-                    +	"		gl_FragColor = u_Color;"
-                    +	"	}"
-                    +	"	else"
-                    +	"	{"
-                    +	"		gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);"
-                    +	"	}"
-                    +	"}";
+        +	"void main()"
+        +	"{"
+        +	"	if(any(lessThan(v_Barycentric, vec3(0.06))))"
+        +	"	{"
+        +	"		gl_FragColor = u_Color;"
+        +	"	}"
+        +	"	else"
+        +	"	{"
+        +	"		gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);"
+        +	"	}"
+        +	"}";
 
     public static final String fragmentShader_BARYCENTRIC_HOLLOW =
             "precision mediump float;"
@@ -258,26 +272,26 @@ public class Shaders
 
     public static final String vertexShader_SCROLLTEX =
             "uniform mat4 u_ProjMatrix;"
-                    +   "uniform vec4 u_WorldPos;"
+        +   "uniform vec4 u_WorldPos;"
 
-                    +	"attribute vec4 a_Position;  \n"
-                    +   "attribute vec2 a_TexCoord;  \n"
+        +	"attribute vec4 a_Position;  \n"
+        +   "attribute vec2 a_TexCoord;  \n"
 
-                    +   "varying vec2 v_TexCoord;    \n"
+        +   "varying vec2 v_TexCoord;    \n"
 
-                    +   "void main()                 \n"
-                    +   "{"
-                    +	"   v_TexCoord = a_TexCoord; \n"
+        +   "void main()                 \n"
+        +   "{"
+        +	"   v_TexCoord = a_TexCoord; \n"
 
-                    +   "   mat4 world;"
-                    +   "   world[0] = vec4(1,0,0,0);"
-                    +   "   world[1] = vec4(0,1,0,0);"
-                    +   "   world[2] = vec4(0,0,1,0);"
-                    +   "   world[3] = u_WorldPos;"
+        +   "   mat4 world;"
+        +   "   world[0] = vec4(1,0,0,0);"
+        +   "   world[1] = vec4(0,1,0,0);"
+        +   "   world[2] = vec4(0,0,1,0);"
+        +   "   world[3] = u_WorldPos;"
 
-                    +   "   mat4 mvp = u_ProjMatrix * world;"
-                    +	"	gl_Position = mvp * a_Position;"
-                    +   "}";
+        +   "   mat4 mvp = u_ProjMatrix * world;"
+        +	"	gl_Position = mvp * a_Position;"
+        +   "}";
 
     public static final String fragmentShader_SCROLLTEX =
             "precision mediump float;		\n"
@@ -301,26 +315,26 @@ public class Shaders
 
     public static final String vertexShader_SCREENQUAD =
             "attribute vec4 a_Position;"
-                    + "attribute vec2 a_TexCoord;"
+        + "attribute vec2 a_TexCoord;"
 
-                    + "varying vec2 v_TexCoord;"
+        + "varying vec2 v_TexCoord;"
 
-                    + "void main()"
-                    + "{"
-                    + "  	gl_Position = a_Position;"
-                    + "		v_TexCoord = a_TexCoord;"
-                    + "}";
+        + "void main()"
+        + "{"
+        + "  	gl_Position = a_Position;"
+        + "		v_TexCoord = a_TexCoord;"
+        + "}";
 
     public static final String fragmentShader_ADD =
-            "precision mediump float;"
-                    + "uniform sampler2D u_TextureA;"
-                    + "uniform sampler2D u_TextureB;"
-                    + "varying vec2 v_TexCoord;"
+          "precision mediump float;"
+        + "uniform sampler2D u_TextureA;"
+        + "uniform sampler2D u_TextureB;"
+        + "varying vec2 v_TexCoord;"
 
-                    + "void main(void)"
-                    + "{"
-                    + "		gl_FragColor = texture2D(u_TextureA, v_TexCoord) + texture2D(u_TextureB, v_TexCoord);"
-                    + "}";
+        + "void main(void)"
+        + "{"
+        + "		gl_FragColor = texture2D(u_TextureA, v_TexCoord) + texture2D(u_TextureB, v_TexCoord);"
+        + "}";
 
 
     public static final String fragmentShader_BLURV =

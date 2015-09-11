@@ -32,10 +32,7 @@ public class TutorialCondition_ShotsFired extends TutorialCondition
             return;
 
         if(player.GetPrimaryWeapon().IsFiring())
-        {
             m_Amount ++;
-        }
-
     }
 
     @Override

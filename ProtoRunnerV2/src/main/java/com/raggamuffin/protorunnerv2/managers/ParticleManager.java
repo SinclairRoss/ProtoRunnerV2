@@ -1,5 +1,7 @@
 package com.raggamuffin.protorunnerv2.managers;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -87,6 +89,7 @@ public class ParticleManager
             }
             else
             {
+                temp.CleanUp();
                 m_InvalidTrailParticles.add(temp);
                 m_Game.RemoveObjectFromRenderer(temp);
                 Iter.remove();
@@ -155,7 +158,15 @@ public class ParticleManager
             newParticle = new TrailPoint();
         }
 
-        newParticle.Activate(origin.GetPosition(), origin.GetLifeSpan(), origin.GetHeadNode(), origin.GetHotColour(), origin.GetColdColour());
+        TrailPoint headNode = origin.GetHeadNode();
+
+        if(headNode != null)
+        {
+            m_Game.RemoveObjectFromRenderer(headNode);
+            headNode.SetChild(newParticle);
+        }
+
+        newParticle.Activate(origin.GetPosition(), origin.GetLifeSpan(), headNode, origin.GetHotColour(), origin.GetColdColour());
         m_ActiveTrailParticles.add(newParticle);
 
         m_Game.AddTrailToRemderer(newParticle);

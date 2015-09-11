@@ -151,8 +151,8 @@ public class GLRenderer implements GLSurfaceView.Renderer
 		m_UICamera.Update();
 
         DrawSkybox();
-        DrawObjects();
         DrawTrails();
+        DrawObjects();
 		DrawUI();
 
 		// Glow vertical.
@@ -198,8 +198,8 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
         if(counter >= maxCount)
         {
-            if(totalTime / counter > 32)
-                Log.e("testy test", "Time: " + totalTime / counter);
+         //   if(totalTime / counter > 32)
+            Log.e("testy test", "Time: " + totalTime / counter);
 
             totalTime = 0L;
             counter = 0;

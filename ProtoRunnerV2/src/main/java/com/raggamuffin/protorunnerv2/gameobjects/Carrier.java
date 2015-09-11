@@ -47,7 +47,7 @@ public class Carrier extends Vehicle
 
 		m_Position.SetVector(10, 0, 10);
 
-        m_Engine = new Engine_Cycling(this, game.GetParticleManager(), new EngineUseBehaviour_Null());
+        m_Engine = new Engine_Cycling(this, game, new EngineUseBehaviour_Null());
 		m_Engine.SetMaxTurnRate(1.5);
 		m_Engine.SetMaxEngineOutput(10000);
         m_BoundingRadius = 2;

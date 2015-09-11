@@ -28,12 +28,15 @@ public class TrailEmitter extends GameObject
         m_Game = game;
         m_ParticleManager = m_Game.GetParticleManager();
 
-        m_LifeSpan = 100000.0;
-        m_EmissionRate = 0.2;
-        m_EmissionCounter = 0.0;
+        m_HeadNode = new TrailPoint();
+        m_HeadNode.GetPosition().SetVector(m_Position);
 
-        m_HotColour = new Colour(anchor.GetBaseColour());
-        m_ColdColour = new Colour(anchor.GetAltColour());
+        m_LifeSpan = 2.0;
+        m_EmissionRate = 0.1;
+        m_EmissionCounter = m_EmissionRate;
+
+        m_HotColour = anchor.GetBaseColour();
+        m_ColdColour = anchor.GetAltColour();
     }
 
     @Override
@@ -44,10 +47,11 @@ public class TrailEmitter extends GameObject
         if(m_EmissionCounter >= m_EmissionRate)
         {
             m_EmissionCounter = 0;
-            m_ParticleManager.CreateTrailPoint(this);
+            m_HeadNode = m_ParticleManager.CreateTrailPoint(this);
         }
 
         m_HeadNode.GetPosition().SetVector(m_Position);
+        m_HeadNode.Update(deltaTime);
     }
 
     @Override
