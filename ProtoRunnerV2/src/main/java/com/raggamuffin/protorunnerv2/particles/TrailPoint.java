@@ -30,7 +30,7 @@ public class TrailPoint
         m_HotColour = new Colour(Colours.VioletRed);
         m_ColdColour = new Colour(Colours.PastelBlueDark);
 
-        m_FadeInLength = 0.8;
+        m_FadeInLength = 0.4;
     }
 
     public void Activate(Vector3 position, double lifeSpan, TrailPoint parent, Colour hotColour, Colour coldColour)
@@ -64,10 +64,10 @@ public class TrailPoint
 
     private double CalculateAlpha()
     {
-        double val = m_LifeTimer.GetInverseProgress();
+        double val = m_LifeTimer.GetProgress();
 
         return val < m_FadeInLength ? MathsHelper.Normalise(val, 0, m_FadeInLength):
-                                      MathsHelper.Normalise(val, 1.0, 0.0);
+                                      MathsHelper.Normalise(val, 1, 0);
     }
 
     public void CleanUp()

@@ -80,7 +80,6 @@ public abstract class Vehicle extends GameObject
 		AddColourBehaviour(m_DamageBehaviour);
 
 		m_StressBehaviour = new ColourBehaviour_LerpTo(this, ColourBehaviour.ActivationMode.Continuous);
-		m_StressBehaviour.SetAltColourByReference(m_AltColour);
         AddColourBehaviour(m_StressBehaviour);
 
 		AddChild(new FloorGrid(m_Colour));
@@ -121,23 +120,28 @@ public abstract class Vehicle extends GameObject
 	}
 	
 	@Override
-	public void CollisionResponse(GameObject Collider, double deltaTime)
+	public void CollisionResponse(GameObject collider, double deltaTime)
 	{
         m_DamageBehaviour.TriggerBehaviour();
 		
-		if(Collider instanceof Projectile)
+		if(collider instanceof Projectile)
 		{
-			m_HullPoints -= ((Projectile) Collider).GetBaseDamage();
+			m_HullPoints -= ((Projectile) collider).GetBaseDamage();
 		}
 		
-		if(Collider instanceof Explosion)
+		if(collider instanceof Explosion)
 		{
-			m_HullPoints -= ((Explosion) Collider).GetDamageOutput(deltaTime);
+			m_HullPoints -= ((Explosion) collider).GetDamageOutput(deltaTime);
 		}
-		
-		m_DamageDecayCounter.AddValue(1.0);
+
+        UpdateDamageDecayCounter();
         m_InternalDamagedPublisher.Publish();
 	}
+
+    public void UpdateDamageDecayCounter()
+    {
+        m_DamageDecayCounter.AddValue(1.0);
+    }
 	
 	public void DrainEnergy(double drain)
 	{

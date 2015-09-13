@@ -72,7 +72,6 @@ public abstract class Particle extends GameObject
 		
 		m_Model = origin.GetParticleModel();
 		SetBaseColour(origin.GetStartColour());
-		m_ColourBehaviour.SetAltColour(origin.GetFinalColour());
 		
 		m_DissipationTimer.SetLimit(origin.GetLifeSpan());
 		m_DissipationTimer.ResetTimer();

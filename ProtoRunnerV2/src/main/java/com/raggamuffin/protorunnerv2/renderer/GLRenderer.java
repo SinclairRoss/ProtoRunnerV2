@@ -151,8 +151,8 @@ public class GLRenderer implements GLSurfaceView.Renderer
 		m_UICamera.Update();
 
         DrawSkybox();
-        DrawTrails();
         DrawObjects();
+        DrawTrails();
 		DrawUI();
 
 		// Glow vertical.

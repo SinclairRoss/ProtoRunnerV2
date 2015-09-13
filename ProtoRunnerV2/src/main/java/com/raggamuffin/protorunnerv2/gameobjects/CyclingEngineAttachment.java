@@ -1,9 +1,7 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.managers.ParticleManager;
 import com.raggamuffin.protorunnerv2.particles.TrailEmitter;
-import com.raggamuffin.protorunnerv2.particles.TrailEmitterDepricated;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
@@ -28,6 +26,8 @@ public class CyclingEngineAttachment extends GameObject
 
         m_BaseColour = anchor.GetBaseColour();
         m_AltColour = anchor.GetAltColour();
+        m_Colour = anchor.GetColour();
+
         m_Anchor = anchor;
         m_OrbitRange  = orbitRange;
         m_Offset = offset;
@@ -64,7 +64,11 @@ public class CyclingEngineAttachment extends GameObject
 
         m_Yaw = m_Anchor.GetYaw();
 
-        super.Update(deltaTime);
+        m_TrailEmitter.SetPosition(m_Position);
+        m_TrailEmitter.Update(deltaTime);
+
+
+      //  super.Update(deltaTime);
     }
 
     @Override

@@ -8,8 +8,10 @@ import com.raggamuffin.protorunnerv2.utils.Colour;
 public class TrailEmitter extends GameObject
 {
     private final GameObject m_Anchor;
-    private GameLogic m_Game;
+    private final GameLogic m_Game;
     private final ParticleManager m_ParticleManager;
+
+    private double m_Offset;
 
     private TrailPoint m_HeadNode;
 
@@ -28,8 +30,9 @@ public class TrailEmitter extends GameObject
         m_Game = game;
         m_ParticleManager = m_Game.GetParticleManager();
 
-        m_HeadNode = new TrailPoint();
-        m_HeadNode.GetPosition().SetVector(m_Anchor.GetPosition());
+        m_Offset = -1.5;
+
+        m_HeadNode = null;
 
         m_LifeSpan = 2.0;
         m_EmissionRate = 0.1;
@@ -42,6 +45,10 @@ public class TrailEmitter extends GameObject
     @Override
     public void Update(double deltaTime)
     {
+        m_Position.I += m_Offset * m_Anchor.GetForward().I;
+        m_Position.J += m_Offset * m_Anchor.GetForward().J;
+        m_Position.K += m_Offset * m_Anchor.GetForward().K;
+
         m_EmissionCounter += deltaTime;
 
         if(m_EmissionCounter >= m_EmissionRate)

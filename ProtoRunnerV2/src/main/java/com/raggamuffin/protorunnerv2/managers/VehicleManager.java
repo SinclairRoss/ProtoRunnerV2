@@ -145,14 +145,16 @@ public class VehicleManager
         return spawn;
     }
 
-    public void SpawnDrone(Carrier anchor, Vector3 pos)
+    public Drone SpawnDrone(Carrier anchor, Vector3 pos)
     {
-        Vehicle spawn = new Drone(m_Game, anchor);
+        Drone spawn = new Drone(m_Game, anchor);
         spawn.SetPosition(pos);
 
         m_Vehicles.add(spawn);
         GetTeam(spawn.GetAffiliation()).add(spawn);
         m_Game.AddObjectToRenderer(spawn);
+
+        return spawn;
     }
 	
 	public void SpawnSquad(double maxSpawnDistance)

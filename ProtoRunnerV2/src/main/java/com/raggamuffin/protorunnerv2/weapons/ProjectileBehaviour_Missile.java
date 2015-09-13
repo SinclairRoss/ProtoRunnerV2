@@ -12,8 +12,6 @@ import com.raggamuffin.protorunnerv2.gameobjects.EngineUseBehaviour_Null;
 import com.raggamuffin.protorunnerv2.gameobjects.FloorGrid;
 import com.raggamuffin.protorunnerv2.gameobjects.Engine_Standard;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
-import com.raggamuffin.protorunnerv2.managers.ParticleManager;
-import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Timer;
@@ -87,7 +85,6 @@ public class ProjectileBehaviour_Missile extends ProjectileBehaviour
 		m_ArmingTimer = new Timer(ARMING_TIME);
 
 		m_StressBehaviour = new ColourBehaviour_LerpTo(m_Anchor, ColourBehaviour.ActivationMode.Continuous);
-		m_StressBehaviour.SetAltColour(altColour);
 		m_Anchor.AddColourBehaviour(m_StressBehaviour);
 		
 		m_Anchor.AddChild(new FloorGrid(m_Anchor.GetColour()));

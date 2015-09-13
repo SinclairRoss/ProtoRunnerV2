@@ -19,6 +19,8 @@ import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.weapons.Projectile;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_None;
 
+import java.util.ArrayList;
+
 public class Carrier extends Vehicle
 {
 	private AIController m_AIController;
@@ -27,8 +29,8 @@ public class Carrier extends Vehicle
 	private Vehicle m_Player;
 	private VehicleManager m_VehicleManager;
 
+    private ArrayList<Drone> m_Drones;
     private final int DRONE_CAPACITY = 3;
-    private int m_NumDrones;
 
     private Timer m_SpawnTimer;
 
@@ -50,7 +52,7 @@ public class Carrier extends Vehicle
         m_Engine = new Engine_Cycling(this, game, new EngineUseBehaviour_Null());
 		m_Engine.SetMaxTurnRate(1.5);
 		m_Engine.SetMaxEngineOutput(10000);
-        m_BoundingRadius = 2;
+        m_BoundingRadius = 3;
 
 		SetAffiliation(AffiliationKey.RedTeam);
 
@@ -65,14 +67,17 @@ public class Carrier extends Vehicle
 		
 		game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerSpawned, new PlayerSpawnedSubscriber());
 
+        m_Drones = new ArrayList<>();
         m_SpawnTimer = new Timer(0.75);
-        m_NumDrones = 0;
     }
 	
 	@Override
 	public void CollisionResponse(GameObject Collider, double deltaTime)
 	{
 		super.CollisionResponse(Collider, deltaTime);
+
+        for(Drone drone : m_Drones)
+            drone.UpdateDamageDecayCounter();
 
         // For calculating accuracy.
 		if(Collider instanceof Projectile)
@@ -94,11 +99,10 @@ public class Carrier extends Vehicle
 	{
         m_SpawnTimer.Update(deltaTime);
 
-        if (m_SpawnTimer.TimedOut() && m_NumDrones < DRONE_CAPACITY)
+        if (m_SpawnTimer.TimedOut() && m_Drones.size() < DRONE_CAPACITY)
         {
             m_SpawnTimer.ResetTimer();
-            m_NumDrones ++;
-            m_VehicleManager.SpawnDrone(this, m_Position);
+            m_Drones.add(m_VehicleManager.SpawnDrone(this, m_Position));
         }
 
 		m_AIController.Update(deltaTime);

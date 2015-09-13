@@ -47,7 +47,6 @@ public class RadarFragment extends GameObject
 		m_BaseColour.Alpha = MIN_ALPHA;
 		
 		m_ColourBehaviour = new ColourBehaviour_LerpTo(this, ActivationMode.Continuous);
-		m_ColourBehaviour.SetAltColour(Colours.PastelBlue);
 		AddColourBehaviour(m_ColourBehaviour);
 		
 		m_Heat = 0.0;
@@ -89,15 +88,15 @@ public class RadarFragment extends GameObject
 		switch(type)
 		{
 			case Player:
-				m_ColourBehaviour.SetAltColour(m_FriendlyColour);	
+                m_AltColour = m_FriendlyColour;
 				m_RadarSignatureType = type;
 				break;
 				
 			case Enemy:
 				if(m_RadarSignatureType == RadarSignatureType.Player)
 					break;
-				
-				m_ColourBehaviour.SetAltColour(m_EnemyColour);
+
+                m_AltColour = m_EnemyColour;
 				m_RadarSignatureType = type;
 				break;
 			
@@ -105,8 +104,8 @@ public class RadarFragment extends GameObject
 				if(m_RadarSignatureType == RadarSignatureType.Player ||
 				   m_RadarSignatureType == RadarSignatureType.Enemy	)
 					break;
-				
-				m_ColourBehaviour.SetAltColour(m_FriendlyColour);
+
+                m_AltColour = m_FriendlyColour;
 				m_RadarSignatureType = type;
 				break;	
 		}
@@ -121,7 +120,7 @@ public class RadarFragment extends GameObject
 	{
 		m_Heat = 0.0;
 		m_RadarSignatureType = RadarSignatureType.None;
-		m_ColourBehaviour.SetAltColour(m_NeutralColour);
+        m_AltColour = m_NeutralColour;
 	}
 	
 	@Override

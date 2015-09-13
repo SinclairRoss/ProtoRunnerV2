@@ -42,7 +42,7 @@ public abstract class GameObject
 	protected Colour m_BaseColour;		// Original colour of the GameObject.
     protected Colour m_AltColour;       // The Alternate colour of the GameObject.
 	private Vector4 m_DeltaColour; 		// The colour to be added to the base colour resulting in the actual colour of the game object. Uses a vector3 because the colour class doesn't support numbers outside of the range 0 - 1.
-	private Vector<ColourBehaviour> m_ColourBehaviours;	// Contains all colour behaviours active on this game object.
+	private ArrayList<ColourBehaviour> m_ColourBehaviours;	// Contains all colour behaviours active on this game object.
     protected ColourBehaviour_FadeTo m_ChangeColourBehaviour;
 
 	///// Misc Attributes.
@@ -81,7 +81,7 @@ public abstract class GameObject
         m_AltColour   = new Colour(Colours.Black);
 		m_Colour  	  = new Colour(m_BaseColour);
 		m_DeltaColour = new Vector4();
-		m_ColourBehaviours = new Vector<>();
+		m_ColourBehaviours = new ArrayList<>();
 
         m_ChangeColourBehaviour = new ColourBehaviour_FadeTo(this, ColourBehaviour.ActivationMode.Triggered, 1.0);
         AddColourBehaviour(m_ChangeColourBehaviour);
@@ -311,7 +311,7 @@ public abstract class GameObject
 
         m_AltColour.SetAsInverse(colour);
 	}
-	
+
 	public Colour GetColour()
 	{
 		return m_Colour;

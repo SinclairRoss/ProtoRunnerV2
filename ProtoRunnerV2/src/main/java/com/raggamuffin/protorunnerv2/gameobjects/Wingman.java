@@ -32,7 +32,6 @@ public class Wingman extends Vehicle
         m_BaseColour = game.GetColourManager().GetPrimaryColour();
         m_AltColour = game.GetColourManager().GetAccentingColour();
 
-
         m_Engine = new Engine_Standard(this, game, new EngineUseBehaviour_Null());
 		m_Engine.SetMaxTurnRate(2.0);
 		m_Engine.SetMaxEngineOutput(3000);
