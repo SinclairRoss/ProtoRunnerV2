@@ -28,7 +28,7 @@ public class GameManager_Exhibition extends GameManager
         if(m_VehicleManager.GetTeamCount(AffiliationKey.RedTeam) == 0)
         {
           //  m_VehicleManager.SpawnSquad(30);
-            for(int i = 0; i < 10; i++)
+            for(int i = 0; i < 2; i++)
                 m_VehicleManager.SpawnVehicle(VehicleType.Carrier, new Vector3(0,0,0));
         }
 

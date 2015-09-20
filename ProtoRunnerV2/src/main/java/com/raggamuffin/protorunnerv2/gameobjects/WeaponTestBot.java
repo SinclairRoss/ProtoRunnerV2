@@ -47,6 +47,8 @@ public class WeaponTestBot extends Vehicle
     @Override
     public void Update(double deltaTime)
     {
+        m_Yaw += deltaTime;
+
         m_HullPoints = m_MaxHullPoints;
         m_Timer.Update(deltaTime);
 

@@ -1,5 +1,7 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
+import android.util.Log;
+
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.particles.BurstEmitter;
 import com.raggamuffin.protorunnerv2.particles.DirectionalEmitter;
@@ -55,6 +57,7 @@ public class ProjectileBehaviour_Laser extends ProjectileBehaviour
    //     if(m_Timer.TimedOut())
      //   {
             m_EndPoint.SetVector(m_Anchor.GetForward());
+        m_EndPoint.Output("Forward");
             m_EndPoint.Scale(m_Scale);
             m_EndPoint.Add(m_Anchor.GetPosition());
             m_Emitter.SetPosition(m_EndPoint);
@@ -65,6 +68,7 @@ public class ProjectileBehaviour_Laser extends ProjectileBehaviour
 
     private void LockProjectile()
     {
+        m_Anchor.SetForward(m_Anchor.GetFiringWeapon().GetForward());
         m_DockedPosition.SetVector(m_Offset);
         m_DockedPosition.RotateY(m_FiringWeapon.GetOrientation());
         m_DockedPosition.Add(m_FiringWeapon.GetPosition());
