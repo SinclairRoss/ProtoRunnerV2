@@ -28,10 +28,9 @@ public class ModelManager
 	private GLPulseLaser m_PulseLaser;
 	private GLPulseLaser m_RailSlug;
 	private GLRing		 m_Ring;
-	private GLStandardPoint m_StandardPoint;
 	private GLLine		 m_Pointer;
-    private GLLine       m_TrailDepricated;
     private GLLine       m_ParticleLaser;
+    private GLLine       m_Laser;
 	private GLScreenQuad m_Screen;
 	private GLSkybox	 m_Skybox;
 	private GLRadarFragment m_RadarFragment;
@@ -72,10 +71,9 @@ public class ModelManager
         m_PulseLaser = new GLPulseLaser(50.0f);
         m_RailSlug = new GLPulseLaser(100.0f);
         m_Ring = new GLRing();
-        m_StandardPoint = new GLStandardPoint();
         m_Pointer = new GLLine(2.0f);
-        m_TrailDepricated = new GLLine(20.0f);
-        m_ParticleLaser = new GLLine(3.0f);
+        m_Laser = new GLLine(3.0f);
+        m_ParticleLaser = new GLLine(3000f);
 
         m_Screen = new GLScreenQuad();
         m_Skybox = new GLSkybox();
@@ -177,14 +175,12 @@ public class ModelManager
                 return m_RailSlug;
             case Ring:
                 break;
-            case StandardPoint:
-                return m_StandardPoint;
-            case TrailDepricated:
-                return m_TrailDepricated;
             case LaserPointer:
                 return m_Pointer;
             case ParticleLaser:
                 return m_ParticleLaser;
+            case LaserBeam:
+                return m_Laser;
             case Explosion:
                 return m_Explosion;
             case Skybox:

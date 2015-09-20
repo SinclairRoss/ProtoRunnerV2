@@ -8,6 +8,7 @@ import javax.microedition.khronos.opengles.GL10;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.master.RenderEffectSettings;
 import com.raggamuffin.protorunnerv2.master.RendererPacket;
+import com.raggamuffin.protorunnerv2.particles.Particle;
 import com.raggamuffin.protorunnerv2.particles.TrailPoint;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
 import com.raggamuffin.protorunnerv2.ui.UIElementType;
@@ -37,6 +38,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
     private ModelManager m_ModelManager;
     private UIRenderManager m_UIManager;
     private TrailRenderer m_TrailRenderer;
+    private ParticleRenderer m_ParticleRenderer;
 
     private RenderEffectSettings m_RenderEffectSettings;
 
@@ -64,6 +66,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
 		m_ModelManager = new ModelManager(m_Context, m_RenderEffectSettings);
 		m_UIManager    = new UIRenderManager(m_Context);
         m_TrailRenderer = new TrailRenderer();
+        m_ParticleRenderer = new ParticleRenderer();
 	}
 
 	@Override
@@ -87,6 +90,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
         m_ModelManager.LoadAssets();
         m_TrailRenderer.LoadAssets();
         m_UIManager.LoadAssets();
+        m_ParticleRenderer.LoadAssets();
 
         // FBO
         m_Size = new int [m_NumFBOs];
@@ -153,6 +157,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
         DrawSkybox();
         DrawObjects();
         DrawTrails();
+        DrawParticles();
 		DrawUI();
 
 		// Glow vertical.
@@ -239,9 +244,6 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
         for (ModelType type : types)
         {
-            if(type == ModelType.TrailDepricated)
-                continue;
-
             ArrayList<GameObject> list = (ArrayList<GameObject>)m_Packet.GetModelList(type).clone();
 
             if(list.size() == 0)
@@ -285,6 +287,30 @@ public class GLRenderer implements GLSurfaceView.Renderer
         m_TrailRenderer.Clean();
 
     //    Log.e("TrailRenderer v2.01", "Count: " + list.size());
+    }
+
+    private void DrawParticles()
+    {
+        float[] view = new float[16];
+        Matrix.setIdentityM(view, 0);
+        Matrix.multiplyMM(view, 0, m_Camera.m_ProjMatrix, 0, m_Camera.m_VMatrix, 0);
+
+        ArrayList<GameObject> list = (ArrayList<GameObject>)m_Packet.GetParticles().clone();
+
+        if(list.size() == 0)
+            return;
+
+        m_ParticleRenderer.Initialise(view, m_Camera.GetPosition());
+
+        for(GameObject obj : list)
+        {
+            if(obj == null)
+                continue;
+
+            m_ParticleRenderer.Draw(obj.GetPosition(), obj.GetColour());
+        }
+
+        m_ParticleRenderer.Clean();
     }
 
     private void DrawUI()

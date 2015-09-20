@@ -162,17 +162,17 @@ public class UIManager
 	
 	public void RemoveUIElement(UIElement Element)
 	{
-		m_Game.RemoveObjectFromRenderer(Element);
+		m_Game.RemoveTrailFromRenderer(Element);
 		m_UIElements.remove(Element);
 	}
 	
 	public void RemoveUIElement(UIProgressBar Element)
 	{
-		m_Game.RemoveObjectFromRenderer(Element);
+		m_Game.RemoveTrailFromRenderer(Element);
 		m_UIElements.remove(Element);
 		
 		UILabel Label = Element.GetLabel();
-		m_Game.RemoveObjectFromRenderer(Label);
+		m_Game.RemoveTrailFromRenderer(Label);
 		m_UIElements.remove(Label);
 	}
 

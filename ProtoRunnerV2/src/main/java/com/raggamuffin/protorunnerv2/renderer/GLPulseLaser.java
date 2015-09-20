@@ -57,7 +57,7 @@ public class GLPulseLaser extends GLModel
     protected void InitShaders()
     {
         // prepare shaders and OpenGL program
-        int vertexShaderHandler 	= loadShader(GLES20.GL_VERTEX_SHADER,Shaders.vertexShader_POINT);
+        int vertexShaderHandler 	= loadShader(GLES20.GL_VERTEX_SHADER,Shaders.vertexShader_BULLET);
         int fragmentShaderHandler 	= loadShader(GLES20.GL_FRAGMENT_SHADER,Shaders.fragmentShader_FADEPOINT);
 
         m_Program = GLES20.glCreateProgram();             		// create empty OpenGL Program

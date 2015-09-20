@@ -15,6 +15,7 @@ import com.raggamuffin.protorunnerv2.gameobjects.Carrier;
 import com.raggamuffin.protorunnerv2.gameobjects.Dummy;
 import com.raggamuffin.protorunnerv2.gameobjects.Runner;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
+import com.raggamuffin.protorunnerv2.gameobjects.WeaponTestBot;
 import com.raggamuffin.protorunnerv2.gameobjects.Wingman;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
@@ -69,7 +70,7 @@ public class VehicleManager
 	// DOES NOT remove vehicle from m_Vehicles.
 	private void RemoveVehicle(Vehicle object)
 	{		
-		m_Game.RemoveObjectFromRenderer(object);
+		m_Game.RemoveTrailFromRenderer(object);
 		GetTeam(object.GetAffiliation()).remove(object);
 		
 		if(object == m_Player)
@@ -134,6 +135,9 @@ public class VehicleManager
                 break;
             case Carrier:
                 spawn = new Carrier(m_Game);
+                break;
+            case WeaponTestBot:
+                spawn = new WeaponTestBot(m_Game);
                 break;
         }
 

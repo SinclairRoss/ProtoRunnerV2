@@ -60,7 +60,7 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
 		if(loop)
 			loopCount = -1;
 		
-		m_SoundPool.play(id, (float)leftVolume * m_MasterVolume, (float)rightVolume * m_MasterVolume, 1, loopCount, 1);
+		m_SoundPool.play(id, (float) leftVolume * m_MasterVolume, (float) rightVolume * m_MasterVolume, 1, loopCount, 1);
 	}
 	
 	public void Pause()
@@ -75,8 +75,13 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
 		Log.e(TAG, "Resume");
 		m_MasterVolume = 1.0f;
 		m_SoundPool.autoResume();
-		m_MediaPlayer.start();
-		m_MediaPlayer.setVolume(m_MasterVolume, m_MasterVolume);
+
+        if(m_MediaPlayer != null)
+        {
+            Log.e("AudioService", "Null pointer: m_MediaPlayer");
+            m_MediaPlayer.start();
+            m_MediaPlayer.setVolume(m_MasterVolume, m_MasterVolume);
+        }
 	}
 	
 	public void Stop()

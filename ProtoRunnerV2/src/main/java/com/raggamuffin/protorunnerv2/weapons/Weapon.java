@@ -5,6 +5,7 @@
 
 package com.raggamuffin.protorunnerv2.weapons;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 import com.raggamuffin.protorunnerv2.audio.AudioClips;
@@ -40,7 +41,7 @@ public abstract class Weapon
 	protected double m_ProjectileFadeInTime;
     protected double m_ProjectileFadeOutTime;
 
-	private Vector<Vector3> m_MuzzleOffsets;
+	private ArrayList<Vector3> m_MuzzleOffsets;
 	private Vector3 m_MuzzleOffset;
 	private int m_MuzzleIndex;
 	
@@ -49,7 +50,7 @@ public abstract class Weapon
 	
 	protected PostFireAction m_PostFireAction;
 	
-	private boolean m_TriggerPulled;
+	protected boolean m_TriggerPulled;
     private boolean m_IsFiring;
 
 	public Weapon(Vehicle anchor, GameLogic game)
@@ -73,7 +74,7 @@ public abstract class Weapon
 		m_ProjectileFadeInTime = 0.02;
         m_ProjectileFadeOutTime = 0.9;
 
-		m_MuzzleOffsets = new Vector<>();
+		m_MuzzleOffsets = new ArrayList<>();
 		m_MuzzleOffset = new Vector3();
 		m_MuzzleIndex = 0;
 		m_HasLasers = false;
@@ -115,7 +116,7 @@ public abstract class Weapon
 	
 	public Vector3 GetFirePosition()
 	{
-		m_MuzzleOffset.SetVector(m_MuzzleOffsets.elementAt(m_MuzzleIndex));
+		m_MuzzleOffset.SetVector(m_MuzzleOffsets.get(m_MuzzleIndex));
 
         m_MuzzleOffset.RotateY(m_Anchor.GetYaw());
 		m_MuzzleOffset.Add(m_Anchor.GetPosition());
@@ -143,7 +144,7 @@ public abstract class Weapon
 
 	public Vector3 GetMuzzle()
 	{
-		return m_MuzzleOffsets.elementAt(m_MuzzleIndex);
+		return m_MuzzleOffsets.get(m_MuzzleIndex);
 	}
 	
 	protected void AddMuzzle(double I, double J, double K)

@@ -1,7 +1,6 @@
 package com.raggamuffin.protorunnerv2.gamelogic;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 import android.app.Activity;
 
@@ -9,6 +8,7 @@ import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
 import com.raggamuffin.protorunnerv2.gameobjects.ExhibitionCameraAnchor;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
+import com.raggamuffin.protorunnerv2.particles.Particle;
 import com.raggamuffin.protorunnerv2.particles.TrailPoint;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.BulletManager;
@@ -190,9 +190,19 @@ public class GameLogic extends ApplicationLogic
         m_Packet.AddObject(point);
     }
 
-    public void RemoveObjectFromRenderer(TrailPoint point)
+    public void RemoveTrailFromRenderer(TrailPoint point)
     {
         m_Packet.RemoveObject(point);
+    }
+
+    public void AddParticleToRenderer(Particle particle)
+    {
+        m_Packet.AddObject(particle);
+    }
+
+    public void RemoveParticleFromRenderer(Particle particle)
+    {
+        m_Packet.RemoveObject(particle);
     }
 
 	// Adds a game object and all children of the game object to the renderer.
@@ -220,7 +230,7 @@ public class GameLogic extends ApplicationLogic
 	}
 
 	// Removes a game object and all of its children from the renderer.
-	public void RemoveObjectFromRenderer(GameObject obj)
+	public void RemoveTrailFromRenderer(GameObject obj)
 	{
 		ArrayList<GameObject> children = new ArrayList<>(); 	// A vector containing Game Objects not yet added to the Children vector.
         children.add(obj);
@@ -248,7 +258,7 @@ public class GameLogic extends ApplicationLogic
 		 m_Packet.AddUIElement(element);
 	}
 	
-	public void RemoveObjectFromRenderer(UIElement element)
+	public void RemoveTrailFromRenderer(UIElement element)
 	{
         m_Packet.RemoveUIElement(element);
 	}
@@ -277,12 +287,12 @@ public class GameLogic extends ApplicationLogic
 	{
 		return m_Control;
 	}
-	
+
 	public ChaseCamera GetCamera()
 	{
 		return m_Camera;
 	}
-	
+
 	public void AttachCameraToAnchor()
 	{
 		m_Camera.Attach(m_CameraAnchor);

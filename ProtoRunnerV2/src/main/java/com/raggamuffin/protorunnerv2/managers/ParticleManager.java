@@ -49,7 +49,7 @@ public class ParticleManager
 			else
 			{
 				m_InvalidParticles.add(temp);
-				m_Game.RemoveObjectFromRenderer(temp);
+				m_Game.RemoveParticleFromRenderer(temp);
 				Iter.remove();
 			}
 		}
@@ -66,7 +66,7 @@ public class ParticleManager
             {
                 temp.CleanUp();
                 m_InvalidTrailParticles.add(temp);
-                m_Game.RemoveObjectFromRenderer(temp);
+                m_Game.RemoveTrailFromRenderer(temp);
                 Iter.remove();
             }
         }
@@ -90,7 +90,7 @@ public class ParticleManager
 		newParticle.Activate(origin);
 		m_ActiveParticles.add(newParticle);
 		
-		m_Game.AddObjectToRenderer(newParticle);	
+		m_Game.AddParticleToRenderer(newParticle);
 		
 		return newParticle;
 	}
@@ -114,7 +114,7 @@ public class ParticleManager
 
         if(headNode != null)
         {
-            m_Game.RemoveObjectFromRenderer(headNode);
+            m_Game.RemoveTrailFromRenderer(headNode);
             headNode.SetChild(newParticle);
         }
 

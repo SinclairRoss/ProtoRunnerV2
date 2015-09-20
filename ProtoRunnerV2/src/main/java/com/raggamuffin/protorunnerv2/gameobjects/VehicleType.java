@@ -6,5 +6,6 @@ public enum VehicleType
     Bit,
     Tank,
     Carrier,
-    Drone
+    Drone,
+    WeaponTestBot,
 }

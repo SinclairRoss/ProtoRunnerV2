@@ -194,25 +194,6 @@ public class Shaders
         +   "       gl_FragColor.w = u_Color.w;"
         +	"}";
 
-    public static final String fragmentShader_BARYCENTRICOLD =
-            "precision mediump float;"
-
-        +	"uniform vec4 u_Color;"
-
-        +	"varying vec3 v_Barycentric;"
-
-        +	"void main()"
-        +	"{"
-        +	"	if(any(lessThan(v_Barycentric, vec3(0.06))))"
-        +	"	{"
-        +	"		gl_FragColor = u_Color;"
-        +	"	}"
-        +	"	else"
-        +	"	{"
-        +	"		gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);"
-        +	"	}"
-        +	"}";
-
     public static final String fragmentShader_BARYCENTRIC_HOLLOW =
             "precision mediump float;"
 
@@ -226,7 +207,63 @@ public class Shaders
         +   "       gl_FragColor.w = 0.0;"
         +	"}";
 
+    public static final String vertexShader_BULLET =
+          "uniform mat4 u_ProjMatrix;       \n"     // A constant representing the combined model/view/projection matrix.
+        + "uniform float u_Size;			\n"
+        + "uniform vec4 u_EyePos;			\n"
+        + "uniform vec4 u_WorldPos;		    \n"
+
+        + "attribute vec4 a_Position;     \n"     // Per-vertex position information we will pass in.
+
+        + "void main()                    \n"
+        + "{                              \n"
+        + "	    vec4 toEye;					        \n"
+        + " 	toEye = u_EyePos - u_WorldPos;		\n"
+        + "     float distance = length(toEye);	    \n"
+        + "	    gl_PointSize = u_Size * inversesqrt(distance);		\n"
+
+        +   "   mat4 world;"
+        +   "   world[0] = vec4(1, 0, 0, 0);"
+        +   "   world[1] = vec4(0, 1, 0, 0);"
+        +   "   world[2] = vec4(0, 0, 1, 0);"
+        +   "   world[3] = u_WorldPos;"
+
+        +   "   mat4 mvp = u_ProjMatrix * world;"
+        +	"	gl_Position = mvp * a_Position;"
+        + "}                              \n";
+
+
     public static final String vertexShader_POINT =
+            "uniform mat4 u_ProjMatrix;"
+        +   "uniform vec4 u_EyePos;			\n"
+
+        +	"attribute vec4 a_Position;  \n"
+        +   "attribute vec4 a_Color;"
+
+        +   "varying vec4 v_Color;"
+
+        +   "void main()                 \n"
+        +   "{"
+        + "	    vec4 toEye;					        \n"
+        + " 	toEye = u_EyePos - a_Position;		"
+        + "     float distance = length(toEye);	    "
+        + "	    gl_PointSize = 30.0 * inversesqrt(distance);	"
+
+        +   "   v_Color = a_Color;"
+        +	"	gl_Position = u_ProjMatrix * a_Position;"
+        +   "}";
+
+    public static final String fragmentShader_POINT =
+            "precision mediump float;"
+
+        +   "varying vec4 v_Color;"
+
+        +   "void main()"
+        +   "{"
+        +   "	gl_FragColor = v_Color;"
+        +   "}";
+
+    public static final String vertexShader_POINTOLD =
           "uniform mat4 u_ProjMatrix;       \n"     // A constant representing the combined model/view/projection matrix.
         + "uniform float u_Size;			\n"
         + "uniform vec4 u_EyePos;			\n"

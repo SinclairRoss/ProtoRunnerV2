@@ -3,12 +3,10 @@
 
 package com.raggamuffin.protorunnerv2.weapons;
 
-import com.raggamuffin.protorunnerv2.R;
 import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
-import com.raggamuffin.protorunnerv2.utils.Colours;
 
 public class PulseLaser extends Weapon
 {
@@ -25,6 +23,7 @@ public class PulseLaser extends Weapon
 		m_AudioClip = AudioClips.PulseLaserPunk;
 
 		m_FireMode = new FireControl_Pulse(0.6, 0.06, 4);
+        //m_FireMode = new FireControl_Single();
 		m_ProjectileTemplate = new ProjectileTemplate(this, ModelType.PulseLaser, GetAffiliation(),
 													  m_MuzzleVelocity, m_Damage, m_LifeSpan, m_ProjectileFadeInTime, m_ProjectileFadeOutTime, 0.0,
 													  ProjectileBehaviourType.Standard, game);

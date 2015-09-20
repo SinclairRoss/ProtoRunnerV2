@@ -2,17 +2,13 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.gameobjects.EngineUseBehaviour_Drain;
-import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
-import com.raggamuffin.protorunnerv2.gameobjects.PostFireAction_Player;
-import com.raggamuffin.protorunnerv2.gameobjects.Radar;
-import com.raggamuffin.protorunnerv2.gameobjects.Engine_Standard;
 import com.raggamuffin.protorunnerv2.master.ControlScheme;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.weapons.BurstLaser;
+import com.raggamuffin.protorunnerv2.weapons.LaserBurner;
 import com.raggamuffin.protorunnerv2.weapons.MineLayer;
 import com.raggamuffin.protorunnerv2.weapons.PulseLaser;
 import com.raggamuffin.protorunnerv2.weapons.RocketLauncher;
@@ -47,7 +43,7 @@ public class Runner extends Vehicle
 		
 		m_Engine = new Engine_Standard(this, game, new EngineUseBehaviour_Drain(this));
 		m_Engine.SetMaxTurnRate(2.0);//2
-		m_Engine.SetMaxEngineOutput(3000);
+		m_Engine.SetMaxEngineOutput(0);//3000
         m_Engine.SetAfterBurnerOutput(6000);
 		
 		m_MaxHullPoints = 700;
@@ -62,7 +58,7 @@ public class Runner extends Vehicle
 		m_WeaponLeft 	= new PulseLaser(this, game);
 		m_WeaponRight 	= new BurstLaser(this, game);
 		m_WeaponUp 		= new RocketLauncher(this, game);
-		m_WeaponDown 	= new MineLayer(this, game);
+		m_WeaponDown 	= new LaserBurner(this, game);
 		
 		m_LasersOn = true;
 			
@@ -89,7 +85,7 @@ public class Runner extends Vehicle
         SelectWeaponBySlot(WeaponSlot.Left);
     }
 
-	@Override 
+	@Override
 	public void Update(double deltaTime)
 	{
         m_HullPoints = m_MaxHullPoints;

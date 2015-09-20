@@ -109,7 +109,7 @@ public class ProjectileTemplate
             case Mine:
                 return new ProjectileBehaviour_Mine(proj);
             case ParticleLaser:
-                return new ProjectileBehaviour_Laser(proj, m_Origin.GetMuzzle());
+                return new ProjectileBehaviour_Laser(proj, m_Origin.GetMuzzle(), m_Game);
             default:
 				return null;
 		}

@@ -15,9 +15,9 @@ public enum ModelType
     EngineDrone,
     WeaponDrone,
 
-    TrailDepricated,
     Trail,
     LaserPointer,
+    LaserBeam,
     ParticleLaser,
 
 	PulseLaser,

@@ -5,8 +5,6 @@ import java.util.Vector;
 
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
-import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 import com.raggamuffin.protorunnerv2.weapons.Explosion;
@@ -45,7 +43,7 @@ public class BulletManager
 			else
 			{
 				m_InvalidBullets.add(Temp);
-				m_Game.RemoveObjectFromRenderer(Temp);
+				m_Game.RemoveTrailFromRenderer(Temp);
 				Iter.remove();
 			}
 		}
@@ -60,7 +58,7 @@ public class BulletManager
 			}
 			else
 			{
-				m_Game.RemoveObjectFromRenderer(Temp);
+				m_Game.RemoveTrailFromRenderer(Temp);
 				Iter.remove();
 			}
 		}

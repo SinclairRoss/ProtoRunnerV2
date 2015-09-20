@@ -57,11 +57,14 @@ public class Projectile extends GameObject
         double normLifeSpan = 1 - MathsHelper.Normalise(m_LifeSpan, 0, m_MaxLifeSpan);
         double alpha = 1.0;
 
-        if(normLifeSpan <= m_FadeIn)
-            alpha = MathsHelper.Normalise(normLifeSpan, 0, m_FadeIn);
+        alpha = normLifeSpan <= m_FadeIn ? MathsHelper.Normalise(normLifeSpan, 0, m_FadeIn) :
+                1.0 - MathsHelper.Normalise(normLifeSpan, m_FadeOut, 1.0);
 
-        if(normLifeSpan > m_FadeOut)
-            alpha = 1.0 - MathsHelper.Normalise(normLifeSpan, m_FadeOut, 1.0);
+       // if(normLifeSpan <= m_FadeIn)
+       //     alpha = MathsHelper.Normalise(normLifeSpan, 0, m_FadeIn);
+//
+       // if(normLifeSpan > m_FadeOut)
+        //    alpha =
 
         m_BaseColour.Alpha = alpha;
         m_AltColour.Alpha  = alpha;

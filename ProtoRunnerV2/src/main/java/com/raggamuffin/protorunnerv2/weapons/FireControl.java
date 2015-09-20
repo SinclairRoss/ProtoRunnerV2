@@ -2,8 +2,8 @@ package com.raggamuffin.protorunnerv2.weapons;
 
 public abstract class FireControl 
 {
-	protected boolean m_TriggerPulled;	
-	
+	protected boolean m_TriggerPulled;
+
 	public FireControl()
 	{
 		m_TriggerPulled = false;
