@@ -11,20 +11,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="797cb068-8cb3-41c1-a736-0fb8546efb2d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/GameManager_Exhibition.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/GameManager_Exhibition.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/ProjectileBehaviour_Laser.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/ProjectileBehaviour_Laser.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/outputs/apk/ProtoRunnerV2-debug-unaligned.apk" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/outputs/apk/ProtoRunnerV2-debug-unaligned.apk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/outputs/apk/ProtoRunnerV2-debug.apk" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/outputs/apk/ProtoRunnerV2-debug.apk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/dex/debug/classes.dex" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/dex/debug/classes.dex" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileHashes.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/gradle_project_sync_data.bin" afterPath="$PROJECT_DIR$/build/intermediates/gradle_project_sync_data.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/managers/GameManager_Exhibition.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/managers/GameManager_Exhibition.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/ProjectileBehaviour_Laser.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/ProjectileBehaviour_Laser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/WeaponTestBot.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/WeaponTestBot.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ProtoRunnerV2.iws" />
@@ -3231,7 +3217,13 @@
       <option name="project" value="LOCAL" />
       <updated>1442759335191</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Fixed small issue with laser beams">
+      <created>1442790177084</created>
+      <option name="number" value="00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1442790177084</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TodoView">
