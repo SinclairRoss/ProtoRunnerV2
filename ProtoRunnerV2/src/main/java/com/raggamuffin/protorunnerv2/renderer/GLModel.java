@@ -29,7 +29,7 @@ public abstract class GLModel
 
         if (compiled[0] == 0)
         {
-            Log.e("Shader", "Shits broken yo");
+            Log.e("Shader", "Shader is broken");
         }
 
         return shader;

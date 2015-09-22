@@ -35,7 +35,7 @@ public class ProjectileBehaviour_Laser extends ProjectileBehaviour
 
         m_EndPoint = new Vector3();
         m_Scale = 0.0;
-        m_MaxScale = 200;
+        m_MaxScale = 50;
         m_GrowthRate = 100;
 
         m_Anchor.SetScale(0.0);
@@ -50,14 +50,13 @@ public class ProjectileBehaviour_Laser extends ProjectileBehaviour
         LockProjectile();
 
         m_Scale = MathsHelper.Clamp(m_Scale + (deltaTime * m_GrowthRate), 0, m_MaxScale);
-        m_Anchor.SetScale(m_Scale);
+        m_Anchor.SetScale(0.25, 0.25, m_Scale);
 
         m_Timer.Update(deltaTime);
 
    //     if(m_Timer.TimedOut())
      //   {
             m_EndPoint.SetVector(m_Anchor.GetForward());
-        m_EndPoint.Output("Forward");
             m_EndPoint.Scale(m_Scale);
             m_EndPoint.Add(m_Anchor.GetPosition());
             m_Emitter.SetPosition(m_EndPoint);

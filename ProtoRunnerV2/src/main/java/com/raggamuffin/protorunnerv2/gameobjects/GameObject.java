@@ -358,6 +358,11 @@ public abstract class GameObject
 	{
 		m_Scale.SetVector(scale);
 	}
+
+    public void SetScale(double i, double j, double k)
+    {
+        m_Scale.SetVector(i, j, k);
+    }
 	
 	public void SetForward(Vector3 forward)
 	{

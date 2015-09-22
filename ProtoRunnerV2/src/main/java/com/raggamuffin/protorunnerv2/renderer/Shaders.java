@@ -11,6 +11,45 @@ public class Shaders
         +   "	gl_FragColor = u_Color;"
         +   "}";
 
+    public static final String vertexShader_STANDARD =
+            "uniform mat4 u_ProjMatrix;"
+        +   "uniform vec4 u_WorldPos;"
+        +   "uniform float u_Yaw;"
+        +   "uniform float u_Roll;"
+        +   "uniform vec3 u_Scale;"
+
+        +	"attribute vec4 a_Position;"
+
+        + 	"void main()"
+        +	"{"
+        +   "   float cosT = cos(u_Yaw);"
+        +   "   float sinT = sin(u_Yaw);"
+
+        +   "   mat4 world;"
+        +   "   world[0] = vec4(cosT, 0, sinT, 0);"
+        +   "   world[1] = vec4(0, 1, 0, 0);"
+        +   "   world[2] = vec4(-sinT,0, cosT,0);"
+        +   "   world[3] = u_WorldPos;"
+
+        +   "   cosT = cos(u_Roll);"
+        +   "   sinT = sin(u_Roll);"
+
+        +   "   mat4 roll;"
+        +   "   roll[0] = vec4(cosT, -sinT, 0, 0);"
+        +   "   roll[1] = vec4(sinT, cosT,  0, 0);"
+        +   "   roll[2] = vec4(0, 0, 1, 0);"
+        +   "   roll[3] = vec4(0, 0, 0, 1);"
+
+        +   "   mat4 scale;"
+        +   "   scale[0] = vec4(u_Scale.x, 0, 0, 0);"
+        +   "   scale[1] = vec4(0, u_Scale.y, 0, 0);"
+        +   "   scale[2] = vec4(0, 0, u_Scale.z, 0);"
+        +   "   scale[3] = vec4(0, 0, 0, 1);"
+
+        +   "   mat4 mvp = u_ProjMatrix * (world * roll * scale);"
+        +	"	gl_Position = mvp * a_Position;"
+        +	"}";
+
     public static final String vertexShader_LINE =
             "uniform mat4 u_ProjMatrix;"
         +   "uniform vec4 u_WorldPos;"
@@ -262,31 +301,6 @@ public class Shaders
         +   "{"
         +   "	gl_FragColor = v_Color;"
         +   "}";
-
-    public static final String vertexShader_POINTOLD =
-          "uniform mat4 u_ProjMatrix;       \n"     // A constant representing the combined model/view/projection matrix.
-        + "uniform float u_Size;			\n"
-        + "uniform vec4 u_EyePos;			\n"
-        + "uniform vec4 u_WorldPos;		    \n"
-
-        + "attribute vec4 a_Position;     \n"     // Per-vertex position information we will pass in.
-
-        + "void main()                    \n"
-        + "{                              \n"
-        + "	    vec4 toEye;					        \n"
-        + " 	toEye = u_EyePos - u_WorldPos;		\n"
-        + "     float distance = length(toEye);	    \n"
-        + "	    gl_PointSize = u_Size * inversesqrt(distance);		\n"
-
-        +   "   mat4 world;"
-        +   "   world[0] = vec4(1, 0, 0, 0);"
-        +   "   world[1] = vec4(0, 1, 0, 0);"
-        +   "   world[2] = vec4(0, 0, 1, 0);"
-        +   "   world[3] = u_WorldPos;"
-
-        +   "   mat4 mvp = u_ProjMatrix * world;"
-        +	"	gl_Position = mvp * a_Position;"
-        + "}                              \n";
 
     public static final String fragmentShader_FADEPOINT =
             "precision mediump float;       \n"     // Set the default precision to medium. We don't need as high of a

@@ -29,8 +29,7 @@ public class ModelManager
 	private GLPulseLaser m_RailSlug;
 	private GLRing		 m_Ring;
 	private GLLine		 m_Pointer;
-    private GLLine       m_ParticleLaser;
-    private GLLine       m_Laser;
+    //private GLLine       m_Laser;
 	private GLScreenQuad m_Screen;
 	private GLSkybox	 m_Skybox;
 	private GLRadarFragment m_RadarFragment;
@@ -44,9 +43,10 @@ public class ModelManager
     private GLModel_StandardObject m_Carrier;
     private GLModel_StandardObject m_Dummy;
     private GLModel_StandardObject m_WeaponDrone;
-    private GLModel_HollowObject m_Explosion;
+    private GLModel_HollowObject   m_Explosion;
+    private GLModel_LaserBeam      m_ParticleLaser;
 
-	public ModelManager(Context context, RenderEffectSettings Settings)
+    public ModelManager(Context context, RenderEffectSettings Settings)
 	{		
 		m_TextureHandles 	= new int[NUM_TEXTURES];
 		m_ResourceIDs  		= new int[NUM_TEXTURES];
@@ -72,8 +72,8 @@ public class ModelManager
         m_RailSlug = new GLPulseLaser(100.0f);
         m_Ring = new GLRing();
         m_Pointer = new GLLine(2.0f);
-        m_Laser = new GLLine(3.0f);
-        m_ParticleLaser = new GLLine(3000f);
+      //  m_Laser = new GLLine(3.0f);
+        m_ParticleLaser = new GLModel_LaserBeam();
 
         m_Screen = new GLScreenQuad();
         m_Skybox = new GLSkybox();
@@ -179,8 +179,8 @@ public class ModelManager
                 return m_Pointer;
             case ParticleLaser:
                 return m_ParticleLaser;
-            case LaserBeam:
-                return m_Laser;
+        //    case LaserBeam:
+           //     return m_Laser;
             case Explosion:
                 return m_Explosion;
             case Skybox:

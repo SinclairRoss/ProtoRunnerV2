@@ -123,7 +123,7 @@ public class ColourManager
             case Up:
                 return Colours.Cyan;
             case Down:
-                return Colours.PastelGreen;
+                return Colours.Magenta;
             case Left:
                 return Colours.RunnerBlue;
             case Right:
