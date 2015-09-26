@@ -15,7 +15,7 @@ public class LaserBurner extends Weapon
                 m_MuzzleVelocity, m_Damage, 5, m_ProjectileFadeInTime, m_ProjectileFadeOutTime, 0.0,
                 ProjectileBehaviourType.ParticleLaser, game);
 
-        AddMuzzle(0,0,1.5);
+        AddMuzzle(0,0,0);
 
         m_HasLasers = true;
     }

@@ -80,13 +80,13 @@ public final class Vector3
 	
 	public void Normalise()
 	{
-		double Length = GetLength();
+		double length = GetLength();
 		
-		if(Math.abs(Length) > 0.000001)
+		if(length > 0.000001)
 		{
-			I /= Length;
-			J /= Length;
-			K /= Length;
+			I /= length;
+			J /= length;
+			K /= length;
 		}
 	}
 	
@@ -167,12 +167,29 @@ public final class Vector3
 	public static double RadiansBetween(Vector3 A, Vector3 B)
 	{
 		double rad = Math.acos(DotProduct(A,B) / (A.GetLength() * B.GetLength()));
-		
-		if(rad != rad)
-			return 0.0;
-		
-		return rad;
+
+        return rad == rad ? rad : 0.0;
 	}
+
+    public double Pitch()
+    {
+        double val = Math.atan(J / K);
+
+        if(K < 0.0)
+            val += (Math.PI - val) * 2;
+
+        return val == val ? val : 0.0;
+    }
+
+    public double Yaw()
+    {
+        double val = Math.PI * 2 - Math.atan(I / K);
+
+       if(K < 0.0)
+            val += Math.PI;
+
+        return val == val ? val : 0.0;
+    }
 	
 	public static double Determinant(Vector3 A, Vector3 B)
 	{

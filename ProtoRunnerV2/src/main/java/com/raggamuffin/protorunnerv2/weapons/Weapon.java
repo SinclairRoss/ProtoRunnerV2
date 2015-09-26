@@ -27,6 +27,8 @@ public abstract class Weapon
 	protected BulletManager m_BulletManager;
 	protected ParticleManager m_ParticleManager;
 	protected GameAudioManager m_AudioService;
+
+    protected Vector3 m_Target;
 		
 	protected AudioClips m_AudioClip;
 	
@@ -60,7 +62,9 @@ public abstract class Weapon
 		m_BulletManager = m_Game.GetBulletManager();
 		m_ParticleManager = m_Game.GetParticleManager();
 		m_AudioService = m_Game.GetGameAudioManager();
-		
+
+        m_Target = anchor.GetForward();
+
 		m_AudioClip = AudioClips.PulseLaser;
 		
 		m_FireMode = null;
@@ -85,6 +89,11 @@ public abstract class Weapon
 		m_TriggerPulled = false;
         m_IsFiring = false;
 	}
+
+    public void SetTargetVector(Vector3 target)
+    {
+        m_Target = target;
+    }
 	
 	// Override to add functionality.
 	public void Update(double deltaTime)
@@ -205,9 +214,9 @@ public abstract class Weapon
 	
 	public Vector3 GetForward()
 	{
-		return m_Anchor.GetForward();
+		return m_Target;
 	}
-	
+
 	public Vector3 GetPosition()
 	{
 		return m_Anchor.GetPosition();

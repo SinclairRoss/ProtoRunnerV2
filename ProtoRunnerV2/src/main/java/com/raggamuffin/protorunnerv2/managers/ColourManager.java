@@ -114,6 +114,7 @@ public class ColourManager
         m_Counter = 0;
         m_PreviousColour.SetColour(m_PrimaryColour);
         m_NextColour.SetColour(GetColourByWeaponSlot(player.GetWeaponSlot()));
+
     }
 
     public double[] GetColourByWeaponSlot(WeaponSlot slot)

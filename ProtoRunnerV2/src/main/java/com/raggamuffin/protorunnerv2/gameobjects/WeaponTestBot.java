@@ -5,12 +5,14 @@ import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.Vector3;
 import com.raggamuffin.protorunnerv2.weapons.LaserBurner;
 
 public class WeaponTestBot extends Vehicle
 {
     private Timer m_Timer;
     private boolean m_On;
+    private Vector3 m_Target;
 
     public WeaponTestBot(GameLogic game)
     {
@@ -28,12 +30,18 @@ public class WeaponTestBot extends Vehicle
         m_Engine.SetMaxEngineOutput(0);
         m_Engine.SetAfterBurnerOutput(0);
 
-        SelectWeapon(new LaserBurner(this, game));
+        m_Target = new Vector3(0, -1, 1);
+        m_Target.Normalise();
+
+        LaserBurner burner = new LaserBurner(this, game);
+        SelectWeapon(burner);
+        burner.SetTargetVector(m_Target);
 
         m_Timer = new Timer(5.0);
         m_On = true;
 
         m_PrimaryWeapon.OpenFire();
+        m_Position.SetVector(0,5,0);
 
         m_LasersOn = true;
     }
@@ -51,6 +59,8 @@ public class WeaponTestBot extends Vehicle
 
         m_HullPoints = m_MaxHullPoints;
         m_Timer.Update(deltaTime);
+
+        m_Target.RotateX(deltaTime);
 
         if(m_Timer.TimedOut())
         {

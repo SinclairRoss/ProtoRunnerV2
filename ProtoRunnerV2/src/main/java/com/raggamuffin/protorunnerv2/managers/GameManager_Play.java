@@ -20,7 +20,7 @@ public class GameManager_Play extends GameManager
     {
         if(m_VehicleManager.GetTeamCount(AffiliationKey.RedTeam) == 0)
         {
-            m_VehicleManager.SpawnVehicle(VehicleType.WeaponTestBot, new Vector3(0,0,0));
+            m_VehicleManager.SpawnVehicle(VehicleType.WeaponTestBot, new Vector3(0,3,0));
         }
     }
 

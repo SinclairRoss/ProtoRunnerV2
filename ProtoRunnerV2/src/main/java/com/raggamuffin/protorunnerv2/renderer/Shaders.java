@@ -16,6 +16,7 @@ public class Shaders
         +   "uniform vec4 u_WorldPos;"
         +   "uniform float u_Yaw;"
         +   "uniform float u_Roll;"
+        +   "uniform float u_Pitch;"
         +   "uniform vec3 u_Scale;"
 
         +	"attribute vec4 a_Position;"
@@ -40,13 +41,22 @@ public class Shaders
         +   "   roll[2] = vec4(0, 0, 1, 0);"
         +   "   roll[3] = vec4(0, 0, 0, 1);"
 
+        +   "   cosT = cos(u_Pitch);"
+        +   "   sinT = sin(u_Pitch);"
+
+        +   "   mat4 pitch;"
+        +   "   pitch[0] = vec4(1, 0, 0, 0);"
+        +   "   pitch[1] = vec4(0, cosT,-sinT, 0);"
+        +   "   pitch[2] = vec4(0, sinT, cosT, 0);"
+        +   "   pitch[3] = vec4(0, 0, 0, 1);"
+
         +   "   mat4 scale;"
         +   "   scale[0] = vec4(u_Scale.x, 0, 0, 0);"
         +   "   scale[1] = vec4(0, u_Scale.y, 0, 0);"
         +   "   scale[2] = vec4(0, 0, u_Scale.z, 0);"
         +   "   scale[3] = vec4(0, 0, 0, 1);"
 
-        +   "   mat4 mvp = u_ProjMatrix * (world * roll * scale);"
+        +   "   mat4 mvp = u_ProjMatrix * (world * pitch * roll * scale);"
         +	"	gl_Position = mvp * a_Position;"
         +	"}";
 

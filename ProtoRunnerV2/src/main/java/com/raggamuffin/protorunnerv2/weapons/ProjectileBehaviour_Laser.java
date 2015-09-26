@@ -1,12 +1,7 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
-import android.util.Log;
-
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.particles.BurstEmitter;
-import com.raggamuffin.protorunnerv2.particles.DirectionalEmitter;
-import com.raggamuffin.protorunnerv2.particles.EmissionBehaviour_Timed;
-import com.raggamuffin.protorunnerv2.particles.ParticleEmitter;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
@@ -35,7 +30,7 @@ public class ProjectileBehaviour_Laser extends ProjectileBehaviour
 
         m_EndPoint = new Vector3();
         m_Scale = 0.0;
-        m_MaxScale = 50;
+        m_MaxScale = 10;
         m_GrowthRate = 100;
 
         m_Anchor.SetScale(0.0);
@@ -48,9 +43,7 @@ public class ProjectileBehaviour_Laser extends ProjectileBehaviour
     public void Update(double deltaTime)
     {
         LockProjectile();
-
-        m_Scale = MathsHelper.Clamp(m_Scale + (deltaTime * m_GrowthRate), 0, m_MaxScale);
-        m_Anchor.SetScale(0.25, 0.25, m_Scale);
+        ScaleLaser(deltaTime);
 
         m_Timer.Update(deltaTime);
 
@@ -72,8 +65,23 @@ public class ProjectileBehaviour_Laser extends ProjectileBehaviour
         m_DockedPosition.RotateY(m_FiringWeapon.GetOrientation());
         m_DockedPosition.Add(m_FiringWeapon.GetPosition());
 
-        m_Anchor.SetYaw(m_FiringWeapon.GetOrientation());
+        m_Anchor.SetYaw(m_FiringWeapon.GetForward().Yaw());
+        m_Anchor.SetPitch(m_FiringWeapon.GetForward().Pitch());
         m_Anchor.SetPosition(m_DockedPosition);
+    }
+
+    private void ScaleLaser(double deltaTime)
+    {
+    //    double y = m_Anchor.GetPosition().J + 1;
+     //   double j = m_FiringWeapon.GetForward().J * m_Scale;
+
+     //   if(y + j < 0)
+     //       m_Scale = y / j;
+     //   else
+            m_Scale = MathsHelper.Clamp(m_Scale + (deltaTime * m_GrowthRate), 0, m_MaxScale);
+
+
+        m_Anchor.SetScale(0.25, 0.25, m_Scale);
     }
 
     @Override
