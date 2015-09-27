@@ -9,7 +9,6 @@ import com.raggamuffin.protorunnerv2.utils.Vector3;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
-import java.util.ArrayList;
 
 public class GLModel_StandardObject  extends GLModel
 {
@@ -21,12 +20,11 @@ public class GLModel_StandardObject  extends GLModel
     private int m_Program;
 
     private int m_ProjMatrixHandle;
-    private int m_WorldPosHandle;
-    private int m_YawHandle;
-    private int m_RollHandle;
+    private int m_PositionHandle;
+    private int m_ForwardHandle;
     private int m_ScaleHandle;
     private int m_ColourHandle;
-    private int m_PositionHandle;
+    private int m_VertexHandle;
     private int m_BarycentricHandle;
 
     public GLModel_StandardObject(float[] vertices)
@@ -65,11 +63,10 @@ public class GLModel_StandardObject  extends GLModel
 
         m_Program 			= 0;
         m_ProjMatrixHandle  = 0;
-        m_WorldPosHandle    = 0;
-        m_YawHandle         = 0;
-        m_RollHandle        = 0;
+        m_PositionHandle    = 0;
+
         m_ColourHandle		= 0;
-        m_PositionHandle	= 0;
+        m_VertexHandle	    = 0;
         m_BarycentricHandle = 0;
 
         InitShaders();
@@ -80,8 +77,8 @@ public class GLModel_StandardObject  extends GLModel
     {
         GLES20.glUseProgram(m_Program);
 
-        GLES20.glEnableVertexAttribArray(m_PositionHandle);
-        GLES20.glVertexAttribPointer(m_PositionHandle, 3, GLES20.GL_FLOAT, false, 12, m_VertexBuffer);
+        GLES20.glEnableVertexAttribArray(m_VertexHandle);
+        GLES20.glVertexAttribPointer(m_VertexHandle, 3, GLES20.GL_FLOAT, false, 12, m_VertexBuffer);
 
         GLES20.glEnableVertexAttribArray(m_BarycentricHandle);
         GLES20.glVertexAttribPointer(m_BarycentricHandle, 3, GLES20.GL_FLOAT, false, 12, m_BarycentricCoordBuffer);
@@ -93,9 +90,11 @@ public class GLModel_StandardObject  extends GLModel
     public void Draw(GameObject obj)
     {
         Vector3 pos = obj.GetPosition();
-        GLES20.glUniform4f(m_WorldPosHandle, (float) pos.I, (float) pos.J, (float) pos.K, 1.0f);
-        GLES20.glUniform1f(m_YawHandle, (float) obj.GetYaw());
-        GLES20.glUniform1f(m_RollHandle, (float) obj.GetRoll());
+        GLES20.glUniform4f(m_PositionHandle, (float) pos.I, (float) pos.J, (float) pos.K, 1.0f);
+
+        Vector3 fwd = obj.GetForward();
+        GLES20.glUniform3f(m_ForwardHandle, (float) fwd.I, (float) fwd.J, (float) fwd.K);
+
         Vector3 scale = obj.GetScale();
         GLES20.glUniform3f(m_ScaleHandle, (float)scale.I, (float)scale.J, (float)scale.K);
 
@@ -125,13 +124,12 @@ public class GLModel_StandardObject  extends GLModel
         GLES20.glLinkProgram(m_Program);                  		// create OpenGL program executables
 
         m_ProjMatrixHandle = GLES20.glGetUniformLocation(m_Program, "u_ProjMatrix");
-        m_WorldPosHandle   = GLES20.glGetUniformLocation(m_Program, "u_WorldPos");
-        m_YawHandle        = GLES20.glGetUniformLocation(m_Program, "u_Yaw");
-        m_RollHandle       = GLES20.glGetUniformLocation(m_Program, "u_Roll");
+        m_PositionHandle   = GLES20.glGetUniformLocation(m_Program, "u_Position");
+        m_ForwardHandle    = GLES20.glGetUniformLocation(m_Program, "u_Forward");
         m_ScaleHandle      = GLES20.glGetUniformLocation(m_Program, "u_Scale");
         m_ColourHandle 	   = GLES20.glGetUniformLocation(m_Program, "u_Color");
 
-        m_PositionHandle    = GLES20.glGetAttribLocation(m_Program, "a_Position");
+        m_VertexHandle      = GLES20.glGetAttribLocation(m_Program, "a_Vertices");
         m_BarycentricHandle = GLES20.glGetAttribLocation(m_Program, "a_Barycentric");
     }
 }

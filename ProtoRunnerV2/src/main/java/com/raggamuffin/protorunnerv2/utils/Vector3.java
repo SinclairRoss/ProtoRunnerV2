@@ -173,22 +173,28 @@ public final class Vector3
 
     public double Pitch()
     {
+        return Math.asin(J / GetLength());
+        /*
         double val = Math.atan(J / K);
 
         if(K < 0.0)
             val += (Math.PI - val) * 2;
 
         return val == val ? val : 0.0;
+        */
     }
 
     public double Yaw()
     {
+        return Math.asin(I / Math.cos(Pitch()) * GetLength());
+        /*
         double val = Math.PI * 2 - Math.atan(I / K);
 
-       if(K < 0.0)
+        if(K < 0.0)
             val += Math.PI;
 
         return val == val ? val : 0.0;
+        */
     }
 	
 	public static double Determinant(Vector3 A, Vector3 B)

@@ -11,44 +11,25 @@ public class Shaders
         +   "	gl_FragColor = u_Color;"
         +   "}";
 
-    public static final String vertexShader_STANDARD =
+    public static final String vertexShader_LOOKAT =
             "uniform mat4 u_ProjMatrix;"
-        +   "uniform vec4 u_WorldPos;"
-        +   "uniform float u_Yaw;"
-        +   "uniform float u_Roll;"
-        +   "uniform float u_Pitch;"
+        +   "uniform vec3 u_Position;"
+        +   "uniform vec3 u_Forward;"
         +   "uniform vec3 u_Scale;"
 
-        +	"attribute vec4 a_Position;"
+        +	"attribute vec4 a_Vertices;"
 
         + 	"void main()"
         +	"{"
-        +   "   float cosT = cos(u_Yaw);"
-        +   "   float sinT = sin(u_Yaw);"
+        +   "   vec3 z = normalize(u_Forward);"
+        +   "   vec3 x = normalize(cross(vec3(0,1,0),z));"
+        +   "   vec3 y = cross(z,x);"
 
-        +   "   mat4 world;"
-        +   "   world[0] = vec4(cosT, 0, sinT, 0);"
-        +   "   world[1] = vec4(0, 1, 0, 0);"
-        +   "   world[2] = vec4(-sinT,0, cosT,0);"
-        +   "   world[3] = u_WorldPos;"
-
-        +   "   cosT = cos(u_Roll);"
-        +   "   sinT = sin(u_Roll);"
-
-        +   "   mat4 roll;"
-        +   "   roll[0] = vec4(cosT, -sinT, 0, 0);"
-        +   "   roll[1] = vec4(sinT, cosT,  0, 0);"
-        +   "   roll[2] = vec4(0, 0, 1, 0);"
-        +   "   roll[3] = vec4(0, 0, 0, 1);"
-
-        +   "   cosT = cos(u_Pitch);"
-        +   "   sinT = sin(u_Pitch);"
-
-        +   "   mat4 pitch;"
-        +   "   pitch[0] = vec4(1, 0, 0, 0);"
-        +   "   pitch[1] = vec4(0, cosT,-sinT, 0);"
-        +   "   pitch[2] = vec4(0, sinT, cosT, 0);"
-        +   "   pitch[3] = vec4(0, 0, 0, 1);"
+        +   "   mat4 rotate;"
+        +   "   rotate[0] = vec4(x.x, x.y, x.z, 0);"
+        +   "   rotate[1] = vec4(y.x, y.y, y.z, 0);"
+        +   "   rotate[2] = vec4(z.x, z.y, z.z, 0);"
+        +   "   rotate[3] = vec4(u_Position.x, u_Position.y, u_Position.z, 1);"
 
         +   "   mat4 scale;"
         +   "   scale[0] = vec4(u_Scale.x, 0, 0, 0);"
@@ -56,8 +37,7 @@ public class Shaders
         +   "   scale[2] = vec4(0, 0, u_Scale.z, 0);"
         +   "   scale[3] = vec4(0, 0, 0, 1);"
 
-        +   "   mat4 mvp = u_ProjMatrix * (world * pitch * roll * scale);"
-        +	"	gl_Position = mvp * a_Position;"
+        +	"	gl_Position = (u_ProjMatrix * (rotate * scale)) * a_Vertices;"
         +	"}";
 
     public static final String vertexShader_LINE =
@@ -187,12 +167,11 @@ public class Shaders
 
     public static final String vertexShader_BARYCENTRIC =
             "uniform mat4 u_ProjMatrix;"
-        +   "uniform vec4 u_WorldPos;"
-        +   "uniform float u_Yaw;"
-        +   "uniform float u_Roll;"
+        +   "uniform vec4 u_Position;"
+        +   "uniform vec3 u_Forward;"
         +   "uniform vec3 u_Scale;"
 
-        +	"attribute vec4 a_Position;"
+        +	"attribute vec4 a_Vertices;"
         +	"attribute vec3 a_Barycentric;"
 
         +	"varying vec3 v_Barycentric;"
@@ -201,23 +180,15 @@ public class Shaders
         +	"{"
         +	"	v_Barycentric = a_Barycentric;"
 
-        +   "   float cosT = cos(u_Yaw);"
-        +   "   float sinT = sin(u_Yaw);"
+        +   "   vec3 z = normalize(u_Forward);"
+        +   "   vec3 x = normalize(cross(vec3(0,1,0),z));"
+        +   "   vec3 y = cross(z,x);"
 
-        +   "   mat4 world;"
-        +   "   world[0] = vec4(cosT, 0, sinT, 0);"
-        +   "   world[1] = vec4(0, 1, 0, 0);"
-        +   "   world[2] = vec4(-sinT,0, cosT,0);"
-        +   "   world[3] = u_WorldPos;"
-
-        +   "   cosT = cos(u_Roll);"
-        +   "   sinT = sin(u_Roll);"
-
-        +   "   mat4 roll;"
-        +   "   roll[0] = vec4(cosT, -sinT, 0, 0);"
-        +   "   roll[1] = vec4(sinT, cosT,  0, 0);"
-        +   "   roll[2] = vec4(0, 0, 1, 0);"
-        +   "   roll[3] = vec4(0, 0, 0, 1);"
+        +   "   mat4 rotate;"
+        +   "   rotate[0] = vec4(x.x, x.y, x.z, 0);"
+        +   "   rotate[1] = vec4(y.x, y.y, y.z, 0);"
+        +   "   rotate[2] = vec4(z.x, z.y, z.z, 0);"
+        +   "   rotate[3] = vec4(u_Position.x, u_Position.y, u_Position.z, 1);"
 
         +   "   mat4 scale;"
         +   "   scale[0] = vec4(u_Scale.x, 0, 0, 0);"
@@ -225,10 +196,8 @@ public class Shaders
         +   "   scale[2] = vec4(0, 0, u_Scale.z, 0);"
         +   "   scale[3] = vec4(0, 0, 0, 1);"
 
-        +   "   mat4 mvp = u_ProjMatrix * (world * roll * scale);"
-        +	"	gl_Position = mvp * a_Position;"
+        +	"	gl_Position = (u_ProjMatrix * (rotate * scale)) * a_Vertices;"
         +	"}";
-
 
     public static final String fragmentShader_BARYCENTRIC =
             "precision mediump float;"
@@ -262,7 +231,7 @@ public class Shaders
         + "uniform vec4 u_EyePos;			\n"
         + "uniform vec4 u_WorldPos;		    \n"
 
-        + "attribute vec4 a_Position;     \n"     // Per-vertex position information we will pass in.
+        + "attribute vec4 a_vertices;     \n"     // Per-vertex position information we will pass in.
 
         + "void main()                    \n"
         + "{                              \n"
@@ -278,7 +247,7 @@ public class Shaders
         +   "   world[3] = u_WorldPos;"
 
         +   "   mat4 mvp = u_ProjMatrix * world;"
-        +	"	gl_Position = mvp * a_Position;"
+        +	"	gl_Position = mvp * a_vertices;"
         + "}                              \n";
 
 

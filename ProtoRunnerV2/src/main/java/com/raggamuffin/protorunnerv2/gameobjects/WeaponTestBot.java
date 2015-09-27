@@ -2,6 +2,7 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
+import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.Timer;
@@ -13,6 +14,7 @@ public class WeaponTestBot extends Vehicle
     private Timer m_Timer;
     private boolean m_On;
     private Vector3 m_Target;
+    private VehicleManager m_VManager;
 
     public WeaponTestBot(GameLogic game)
     {
@@ -37,13 +39,15 @@ public class WeaponTestBot extends Vehicle
         SelectWeapon(burner);
         burner.SetTargetVector(m_Target);
 
-        m_Timer = new Timer(5.0);
-        m_On = true;
+        m_Timer = new Timer(500.0);
+        m_Timer.MaxOutTimer();
+        m_On = false;
 
         m_PrimaryWeapon.OpenFire();
-        m_Position.SetVector(0,5,0);
 
         m_LasersOn = true;
+
+        m_VManager = game.GetVehicleManager();
     }
 
     @Override
@@ -55,12 +59,12 @@ public class WeaponTestBot extends Vehicle
     @Override
     public void Update(double deltaTime)
     {
-        m_Yaw += deltaTime;
-
         m_HullPoints = m_MaxHullPoints;
         m_Timer.Update(deltaTime);
 
-        m_Target.RotateX(deltaTime);
+        Vector3 playerPos = m_VManager.GetPlayer().GetPosition();
+        m_Target.SetVectorDifference(m_Position, playerPos);
+        m_Target.Normalise();
 
         if(m_Timer.TimedOut())
         {

@@ -30,7 +30,7 @@ public class ProjectileBehaviour_Laser extends ProjectileBehaviour
 
         m_EndPoint = new Vector3();
         m_Scale = 0.0;
-        m_MaxScale = 10;
+        m_MaxScale = 50;
         m_GrowthRate = 100;
 
         m_Anchor.SetScale(0.0);
@@ -45,29 +45,21 @@ public class ProjectileBehaviour_Laser extends ProjectileBehaviour
         LockProjectile();
         ScaleLaser(deltaTime);
 
-        m_Timer.Update(deltaTime);
-
-   //     if(m_Timer.TimedOut())
-     //   {
-            m_EndPoint.SetVector(m_Anchor.GetForward());
-            m_EndPoint.Scale(m_Scale);
-            m_EndPoint.Add(m_Anchor.GetPosition());
-            m_Emitter.SetPosition(m_EndPoint);
-            m_Emitter.Burst();
-     //       m_Timer.ResetTimer();
-    //    }
+        m_EndPoint.SetVector(m_Anchor.GetForward());
+        m_EndPoint.Scale(m_Scale);
+        m_EndPoint.Add(m_Anchor.GetPosition());
+        m_Emitter.SetPosition(m_EndPoint);
+        m_Emitter.Burst();
     }
 
     private void LockProjectile()
     {
-        m_Anchor.SetForward(m_Anchor.GetFiringWeapon().GetForward());
-        m_DockedPosition.SetVector(m_Offset);
-        m_DockedPosition.RotateY(m_FiringWeapon.GetOrientation());
-        m_DockedPosition.Add(m_FiringWeapon.GetPosition());
-
-        m_Anchor.SetYaw(m_FiringWeapon.GetForward().Yaw());
-        m_Anchor.SetPitch(m_FiringWeapon.GetForward().Pitch());
-        m_Anchor.SetPosition(m_DockedPosition);
+        Vector3 fuck = new Vector3();
+        fuck.SetVectorAsInverse(m_FiringWeapon.GetPosition());
+        fuck.Add(0,3,0);
+        fuck.Normalise();
+        m_Anchor.SetForward(fuck);
+        m_Anchor.SetPosition(m_FiringWeapon.GetPosition());
     }
 
     private void ScaleLaser(double deltaTime)
@@ -78,9 +70,8 @@ public class ProjectileBehaviour_Laser extends ProjectileBehaviour
      //   if(y + j < 0)
      //       m_Scale = y / j;
      //   else
-            m_Scale = MathsHelper.Clamp(m_Scale + (deltaTime * m_GrowthRate), 0, m_MaxScale);
 
-
+        m_Scale = MathsHelper.Clamp(m_Scale + (deltaTime * m_GrowthRate), 0, m_MaxScale);
         m_Anchor.SetScale(0.25, 0.25, m_Scale);
     }
 

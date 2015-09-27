@@ -14,7 +14,7 @@ public class BurstEmitter extends ParticleEmitter
 		super(anchor, pManager, new EmissionBehaviour_None(), 2.0);
 		
 		m_EmissionForce = 9000;
-		m_BurstCount = 20;
+		m_BurstCount = 1;//20;
 	}
 	
 	public void Burst()
