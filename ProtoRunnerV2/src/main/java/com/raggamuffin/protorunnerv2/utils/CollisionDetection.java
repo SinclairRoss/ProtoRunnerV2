@@ -94,7 +94,7 @@ public final class CollisionDetection
 		double BoundingRadius = Object.GetBoundingRadius();
 		double ClosestPointSqr = (AToBLengthSqr) - (DotProduct * DotProduct);
 		
-		if(ClosestPointSqr >= (BoundingRadius * BoundingRadius))
+		if(ClosestPointSqr > (BoundingRadius * BoundingRadius))
 			return false;
 
 		return true;

@@ -31,8 +31,6 @@ import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
 import com.raggamuffin.protorunnerv2.ui.UIScreens;
-import com.raggamuffin.protorunnerv2.utils.CollisionDetection;
-import com.raggamuffin.protorunnerv2.weapons.Explosion;
 import com.raggamuffin.protorunnerv2.weapons.Projectile;
 
 public class GameLogic extends ApplicationLogic
@@ -112,7 +110,6 @@ public class GameLogic extends ApplicationLogic
 		m_BulletManager.Update(deltaTime);
 		m_VehicleManager.Update(deltaTime);
 		m_RenderEffectManager.Update(deltaTime);
-		m_GameStats.Update(deltaTime);
 		m_SecondWindHandler.Update(deltaTime);
 
 		CheckCollisions(deltaTime);
@@ -122,44 +119,38 @@ public class GameLogic extends ApplicationLogic
 	
 	private void CheckCollisions(double deltaTime)
 	{
-		// Vehicle - Bullet.
-		for( Vehicle Object : m_VehicleManager.GetVehicles())
+		ArrayList<Vehicle> vehicles = m_VehicleManager.GetVehicles();
+
+		for(Vehicle vehicle : vehicles)
 		{
-			for(Projectile Bullet : m_BulletManager.GetActiveBullets())
+            ArrayList<Projectile> projectiles = m_BulletManager.GetActiveBullets();
+            
+			for(Projectile projectile : projectiles)
 			{
 				// Prevent friendly fire.
-				if(Object.GetAffiliation() == Bullet.GetAffiliation())
+				if(vehicle.GetAffiliation() == projectile.GetAffiliation())
 					continue;
 
-                if(Bullet.GetProjectileBehaviour().UseSimpleCollisionDetection())
+                if(projectile.CollidesWith(vehicle))
                 {
-                    if (CollisionDetection.SimpleCollisionDetection(Object, Bullet))
-                    {
-                        Object.CollisionResponse(Bullet, deltaTime);
-                        Bullet.CollisionResponse(Object);
-                    }
-                }
-                else
-                {
-                    if (CollisionDetection.CheckCollisions(Object, Bullet))
-                    {
-                        Object.CollisionResponse(Bullet, deltaTime);
-                        Bullet.CollisionResponse(Object);
-                    }
+                    vehicle.CollisionResponse(projectile.GetDamageOutput(deltaTime));
+                    projectile.CollisionResponse(vehicle);
                 }
 			}
-			
+
+            /*
 			for(Explosion exp : m_BulletManager.GetExplosions())
 			{
 				// Prevent friendly fire.
-				if(Object.GetAffiliation() == exp.GetAffiliation())
+				if(vehicle.GetAffiliation() == exp.GetAffiliation())
 					continue;
 				
-				if(CollisionDetection.SimpleCollisionDetection(Object, exp))
+				if(CollisionDetection.SimpleCollisionDetection(vehicle, exp))
 				{
-					Object.CollisionResponse(exp, deltaTime);
+					vehicle.CollisionResponse(exp, deltaTime);
 				}
 			}
+			*/
 		}
 	}
 

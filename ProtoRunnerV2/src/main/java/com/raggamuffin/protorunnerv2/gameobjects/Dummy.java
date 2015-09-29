@@ -6,8 +6,6 @@ import com.raggamuffin.protorunnerv2.ai.AIPersonalityAttributes;
 import com.raggamuffin.protorunnerv2.ai.GoalState;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.gameobjects.EngineUseBehaviour_Null;
-import com.raggamuffin.protorunnerv2.gameobjects.Engine_Standard;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;

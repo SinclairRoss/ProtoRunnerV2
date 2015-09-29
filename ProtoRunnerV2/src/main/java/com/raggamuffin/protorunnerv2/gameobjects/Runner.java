@@ -38,6 +38,9 @@ public class Runner extends Vehicle
         m_BaseColour = game.GetColourManager().GetPrimaryColour();
         m_AltColour = game.GetColourManager().GetAccentingColour();
 
+        m_BurstEmitter.SetInitialColour(m_BaseColour);
+        m_BurstEmitter.SetFinalColour(m_AltColour);
+
         m_Position.SetVector(0, 0, 0);
 		
 		m_Engine = new Engine_Standard(this, game, new EngineUseBehaviour_Drain(this));
@@ -93,9 +96,9 @@ public class Runner extends Vehicle
 	}
 	
 	@Override
-	public void CollisionResponse(GameObject Collider, double deltaTime)
+	public void CollisionResponse(double damage)
 	{
-		super.CollisionResponse(Collider, deltaTime);
+		super.CollisionResponse(damage);
 		m_DamageTakenPublisher.Publish();
 	}
 

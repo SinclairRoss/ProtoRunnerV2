@@ -4,6 +4,10 @@ import android.util.Log;
 
 public final class Vector3 
 {
+    public static final Vector3 RIGHT   = new Vector3(1,0,0);
+    public static final Vector3 UP      = new Vector3(0,1,0);
+    public static final Vector3 FORWARD = new Vector3(0,0,1);
+
 	public double I;
 	public double J;
 	public double K;
@@ -173,28 +177,22 @@ public final class Vector3
 
     public double Pitch()
     {
-        return Math.asin(J / GetLength());
-        /*
         double val = Math.atan(J / K);
 
         if(K < 0.0)
             val += (Math.PI - val) * 2;
 
         return val == val ? val : 0.0;
-        */
     }
 
     public double Yaw()
     {
-        return Math.asin(I / Math.cos(Pitch()) * GetLength());
-        /*
         double val = Math.PI * 2 - Math.atan(I / K);
 
         if(K < 0.0)
             val += Math.PI;
 
         return val == val ? val : 0.0;
-        */
     }
 	
 	public static double Determinant(Vector3 A, Vector3 B)

@@ -6,17 +6,11 @@ import com.raggamuffin.protorunnerv2.ai.AIPersonalityAttributes;
 import com.raggamuffin.protorunnerv2.ai.GoalState;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.gameobjects.Engine_Cycling;
-import com.raggamuffin.protorunnerv2.gameobjects.EngineUseBehaviour_Null;
-import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
-import com.raggamuffin.protorunnerv2.pubsub.Publisher;
-import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.Timer;
-import com.raggamuffin.protorunnerv2.weapons.Projectile;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_None;
 
 import java.util.ArrayList;
@@ -24,9 +18,6 @@ import java.util.ArrayList;
 public class Carrier extends Vehicle
 {
 	private AIController m_AIController;
-	private Publisher m_EnemyHitPublisher;
-
-	private Vehicle m_Player;
 	private VehicleManager m_VehicleManager;
 
     private ArrayList<Drone> m_Drones;
@@ -39,7 +30,6 @@ public class Carrier extends Vehicle
 		super(game);
 		
 		m_VehicleManager = game.GetVehicleManager();
-		m_Player = m_VehicleManager.GetPlayer();
 		
 		m_Model = ModelType.Carrier;
         SetBaseColour(Colours.PastelRed);
@@ -61,38 +51,12 @@ public class Carrier extends Vehicle
         AIPersonalityAttributes attributes = new AIPersonalityAttributes(0.7, 1.0, 0.2, 1.0, 0.7);
         AIGoalSet goalSet = new AIGoalSet(GoalState.Encircle);
 		m_AIController = new AIController(this, m_VehicleManager, game.GetBulletManager(), attributes, goalSet);
-		
-		m_EnemyHitPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.EnemyHit);
+
 		m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.EnemyDestroyed);
-		
-		game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerSpawned, new PlayerSpawnedSubscriber());
 
         m_Drones = new ArrayList<>();
         m_SpawnTimer = new Timer(0.75);
     }
-	
-	@Override
-	public void CollisionResponse(GameObject Collider, double deltaTime)
-	{
-		super.CollisionResponse(Collider, deltaTime);
-
-        for(Drone drone : m_Drones)
-            drone.UpdateDamageDecayCounter();
-
-        // For calculating accuracy.
-		if(Collider instanceof Projectile)
-		{
-			Projectile proj = (Projectile) Collider;
-
-			if(m_Player == null)
-			    return;
-
-            if(proj.GetFiringWeapon().GetAnchor() != m_Player)
-                return;
-
-            m_EnemyHitPublisher.Publish();
-		}
-	}
 	
 	@Override 
 	public void Update(double deltaTime)
@@ -108,14 +72,5 @@ public class Carrier extends Vehicle
 		m_AIController.Update(deltaTime);
 
 		super.Update(deltaTime);
-	}
-	
-	private class PlayerSpawnedSubscriber extends Subscriber
-	{
-		@Override
-		public void Update(int args) 
-		{
-			m_Player = m_VehicleManager.GetPlayer();
-		}	
 	}
 } 

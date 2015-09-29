@@ -9,7 +9,7 @@ import com.raggamuffin.protorunnerv2.weapons.Projectile;
 
 public class Sensor_IncomingDanger extends Sensor
 {
-	private Vector<Projectile> m_Bullets;
+	private ArrayList<Projectile> m_Bullets;
 	private ArrayList<Projectile> m_IncomingProjectiles;
 	private Vector3 m_ReltivePosition;
 	private Vector3 m_RelativeVelocity;
@@ -19,7 +19,7 @@ public class Sensor_IncomingDanger extends Sensor
 		super(controller.GetAnchor(), 10);
 		
 		m_Bullets = bManager.GetActiveBullets();
-		m_IncomingProjectiles = new ArrayList<Projectile>();
+		m_IncomingProjectiles = new ArrayList<>();
 		m_ReltivePosition = new Vector3();
 		m_RelativeVelocity = new Vector3();
 	}

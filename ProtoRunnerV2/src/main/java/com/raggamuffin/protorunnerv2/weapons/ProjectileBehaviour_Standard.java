@@ -1,6 +1,9 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
-public class ProjectileBehaviour_Standard extends ProjectileBehaviour 
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
+import com.raggamuffin.protorunnerv2.utils.CollisionDetection;
+
+public class ProjectileBehaviour_Standard extends ProjectileBehaviour
 {
 	public ProjectileBehaviour_Standard(Projectile anchor) 
 	{
@@ -13,15 +16,27 @@ public class ProjectileBehaviour_Standard extends ProjectileBehaviour
 		// Do nothing.
 	}
 
-	@Override
+    @Override
+    public boolean CollidesWith(Vehicle other)
+    {
+        return CollisionDetection.CheckCollisions(m_Anchor, other);
+    }
+
+    @Override
+    public void CollisionResponce(Vehicle other)
+    {
+        m_Anchor.ForceInvalidation();
+    }
+
+    @Override
+    public double CalculateDamageOutput(double deltaTime)
+    {
+        return 0;
+    }
+
+    @Override
 	public void CleanUp() 
 	{
 
 	}
-
-    @Override
-    public boolean UseSimpleCollisionDetection()
-    {
-        return false;
-    }
 }

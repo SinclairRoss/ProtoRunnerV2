@@ -1,6 +1,8 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
-public abstract class ProjectileBehaviour 
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
+
+public abstract class ProjectileBehaviour
 {
 	protected Projectile m_Anchor;
 	
@@ -10,13 +12,8 @@ public abstract class ProjectileBehaviour
 	}
 	
 	public abstract void Update(double deltaTime);
-
-	public void CollisionResponce()
-	{
-		m_Anchor.ForceInvalidation();
-	}
-
-    public abstract boolean UseSimpleCollisionDetection();
-
+    public abstract boolean CollidesWith(Vehicle other);
+    public abstract void CollisionResponce(Vehicle other);
+    public abstract double CalculateDamageOutput(double deltaTime);
 	public abstract void CleanUp();
 }

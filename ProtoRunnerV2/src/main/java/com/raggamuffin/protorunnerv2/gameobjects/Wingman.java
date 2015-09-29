@@ -6,8 +6,6 @@ import com.raggamuffin.protorunnerv2.ai.AIPersonalityAttributes;
 import com.raggamuffin.protorunnerv2.ai.GoalState;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.gameobjects.EngineUseBehaviour_Null;
-import com.raggamuffin.protorunnerv2.gameobjects.Engine_Standard;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
@@ -31,6 +29,9 @@ public class Wingman extends Vehicle
 
         m_BaseColour = game.GetColourManager().GetPrimaryColour();
         m_AltColour = game.GetColourManager().GetAccentingColour();
+
+        m_BurstEmitter.SetInitialColour(m_BaseColour);
+        m_BurstEmitter.SetFinalColour(m_AltColour);
 
         m_Engine = new Engine_Standard(this, game, new EngineUseBehaviour_Null());
 		m_Engine.SetMaxTurnRate(2.0);

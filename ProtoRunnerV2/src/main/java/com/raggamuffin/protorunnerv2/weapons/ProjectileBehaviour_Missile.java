@@ -159,8 +159,26 @@ public class ProjectileBehaviour_Missile extends ProjectileBehaviour
 		
 		m_StressBehaviour.SetIntensity(m_Engine.GetExertion());
 	}
-	
-	private void CalculateToTarget()
+
+    @Override
+    public boolean CollidesWith(Vehicle other)
+    {
+        return false;
+    }
+
+    @Override
+    public void CollisionResponce(Vehicle other)
+    {
+
+    }
+
+    @Override
+    public double CalculateDamageOutput(double deltaTime)
+    {
+        return 0;
+    }
+
+    private void CalculateToTarget()
 	{
 		Vehicle target = null;
 		double highestUtility = Double.MIN_VALUE;
@@ -217,7 +235,7 @@ public class ProjectileBehaviour_Missile extends ProjectileBehaviour
 		m_DockedPosition.SetVector(m_Offset);
 		m_DockedPosition.RotateY(m_FiringWeapon.GetOrientation());
 		m_DockedPosition.Add(m_FiringWeapon.GetPosition());
-		
+
 		m_Anchor.SetYaw(m_FiringWeapon.GetOrientation());
 		m_Anchor.SetPosition(m_DockedPosition);
 		
@@ -232,9 +250,4 @@ public class ProjectileBehaviour_Missile extends ProjectileBehaviour
 		m_Anchor.ResetMass();
 	}
 
-    @Override
-    public boolean UseSimpleCollisionDetection()
-    {
-        return false;
-    }
 }

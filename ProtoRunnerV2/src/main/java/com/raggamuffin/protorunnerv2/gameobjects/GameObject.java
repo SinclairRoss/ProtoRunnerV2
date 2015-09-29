@@ -198,11 +198,7 @@ public abstract class GameObject
 	{
 		m_Force.SetVector(0.0f);
 	}
-	
-	public void CollisionResponse(GameObject Collider, double deltaTime)
-	{
-		// Should be overriden for collision response.
-	}
+
 	
 	// Each subclass must define when it becomes invalid.
 	public abstract boolean IsValid();

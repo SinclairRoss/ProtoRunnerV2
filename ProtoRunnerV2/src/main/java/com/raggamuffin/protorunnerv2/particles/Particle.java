@@ -28,6 +28,8 @@ public abstract class Particle extends GameObject
 		m_ColourBehaviour = new ColourBehaviour_LerpTo(this, ActivationMode.Continuous);
 		AddColourBehaviour(m_ColourBehaviour);
 
+        m_Model = ModelType.StandardPoint;
+
 		m_DragCoefficient = 0.0;
 		
 		m_FadeIn = 0.6;
@@ -59,19 +61,20 @@ public abstract class Particle extends GameObject
 		
 		m_BaseColour.Alpha = alpha;
 	}
+
 	
 	public void Activate(ParticleEmitter origin)
 	{
-		m_Position.SetVector(origin.GetPosition());
+		m_Position.SetVector(origin.CalculateSpawnPoint());
 		m_Velocity.SetVector(origin.GetVelocity());
 		m_Forward.SetVector(origin.CalculateParticleForward());
 
         m_Scale.I = origin.GetParticleSize();
 		
 		ApplyForce(m_Forward, origin.GetEmissionForce());
-		
-		m_Model = origin.GetParticleModel();
-		SetBaseColour(origin.GetStartColour());
+
+        m_BaseColour.SetColour(origin.GetInitialColour());
+        m_AltColour.SetColour(origin.GetFinalColour());
 		
 		m_DissipationTimer.SetLimit(origin.GetLifeSpan());
 		m_DissipationTimer.ResetTimer();

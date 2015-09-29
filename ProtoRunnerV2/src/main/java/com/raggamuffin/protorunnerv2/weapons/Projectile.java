@@ -3,6 +3,7 @@ package com.raggamuffin.protorunnerv2.weapons;
 import java.util.ArrayList;
 
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
@@ -11,9 +12,9 @@ import com.raggamuffin.protorunnerv2.utils.Vector3;
 public class Projectile extends GameObject
 {
 	private final double DEFAULT_MASS = 1000;
-	
+
 	private double m_BaseDamage;
-	
+
 	private double m_MaxLifeSpan;
 	private double m_LifeSpan;
 	private ProjectileBehaviour m_Behaviour;
@@ -30,7 +31,7 @@ public class Projectile extends GameObject
 		m_Model 			= ModelType.PulseLaser;
 		m_BoundingRadius 	= 0.0;
 		m_Mass 				= DEFAULT_MASS;
-		
+
 		m_BaseDamage = 0.0f;
 		m_LifeSpan   = 0.0f;
 		m_Behaviour  = null;
@@ -89,7 +90,7 @@ public class Projectile extends GameObject
 		SetAffiliation(template.GetAffiliation());
 
 		m_BaseDamage = template.GetBaseDamage();
-		
+
 		m_MaxLifeSpan = template.GetLifeSpan();
 		m_LifeSpan = m_MaxLifeSpan;
 
@@ -161,17 +162,17 @@ public class Projectile extends GameObject
 			behaviour.Deactivate();
 		}
 	}
-	
-	public void CollisionResponse(GameObject Collider)
+
+    public boolean CollidesWith(Vehicle other)
+    {
+        return m_Behaviour.CollidesWith(other);
+    }
+
+	public void CollisionResponse(Vehicle other)
 	{
-		m_Behaviour.CollisionResponce();
+		m_Behaviour.CollisionResponce(other);
 	}
-	
-	public double GetBaseDamage()
-	{
-		return m_BaseDamage;
-	}
-	
+
 	public Weapon GetFiringWeapon()
 	{
 		return m_Origin;
@@ -182,8 +183,8 @@ public class Projectile extends GameObject
 		m_Mass = DEFAULT_MASS;
 	}
 
-    public ProjectileBehaviour GetProjectileBehaviour()
+    public double GetDamageOutput(double deltaTime)
     {
-        return m_Behaviour;
+        return m_Behaviour.CalculateDamageOutput(deltaTime);
     }
 }

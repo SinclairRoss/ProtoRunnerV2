@@ -49,7 +49,8 @@ public class AftermathScreen extends UIScreen
         m_Back = CreateBackButton(UIScreens.MainMenu);
 		
 		m_ScoreLabel = CreateLabel(context.getString(R.string.label_score) + stats.GetScore());
-		
+
+        /*
 		m_PlayTimeLabel = CreateLabel(context.getString(R.string.label_play_time) + stats.GetPlayTimeString());
 		m_TimesRebootedLabel = CreateLabel(context.getString(R.string.label_num_reboots) + Integer.toString(stats.GetLivesUsed()));
 		
@@ -61,6 +62,7 @@ public class AftermathScreen extends UIScreen
 		
 		m_WingmanBLifeBar = CreateProgressBar(context.getString(R.string.label_wingman_b_life), stats.GetPlayTime());	
 		m_WingmanBLifeBar.SetValue(stats.GetWingmanBDuration());
+		*/
 	}
 	
 	@Override

@@ -40,8 +40,9 @@ public class RenderEffectSettings
 	
 	public void SetGlowIntensity(double Intensity)
 	{
-		m_GlowIntensityHoriz = Intensity;
-		m_GlowIntensityVert = Intensity;
+        //TODO: uncomment this.
+		//m_GlowIntensityHoriz = Intensity;
+	//	m_GlowIntensityVert = Intensity;
 	}
 
     public void SetSkyboxColour(Colour colour)

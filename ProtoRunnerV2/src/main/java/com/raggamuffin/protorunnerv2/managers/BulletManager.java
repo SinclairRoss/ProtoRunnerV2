@@ -1,5 +1,6 @@
 package com.raggamuffin.protorunnerv2.managers;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -13,10 +14,10 @@ import com.raggamuffin.protorunnerv2.weapons.ProjectileTemplate;
 
 public class BulletManager
 {
-	private Vector<Projectile> m_ActiveBullets;
-	private Vector<Projectile> m_InvalidBullets;
+	private ArrayList<Projectile> m_ActiveBullets;
+	private ArrayList<Projectile> m_InvalidBullets;
 	
-	private Vector<Explosion> m_Explosions;
+	private ArrayList<Explosion> m_Explosions;
 	
 	private GameLogic m_Game;
 	
@@ -24,10 +25,10 @@ public class BulletManager
 	{
 		m_Game = Game;
 		
-		m_ActiveBullets 	= new Vector<Projectile>();
-		m_InvalidBullets 	= new Vector<Projectile>();
+		m_ActiveBullets 	= new ArrayList<>();
+		m_InvalidBullets 	= new ArrayList<>();
 		
-		m_Explosions = new Vector<Explosion>();
+		m_Explosions = new ArrayList<>();
 	}
 
 	public void Update(double deltaTime)
@@ -109,18 +110,13 @@ public class BulletManager
 		}
 	}
 	
-	public Vector<Projectile> GetActiveBullets()
+	public ArrayList<Projectile> GetActiveBullets()
 	{
 		return m_ActiveBullets;
 	}
 	
-	public Vector<Explosion> GetExplosions()
+	public ArrayList<Explosion> GetExplosions()
 	{
 		return m_Explosions;
-	}
-	
-	public Projectile GetLastBullet()
-	{
-		return m_ActiveBullets.lastElement();
 	}
 }

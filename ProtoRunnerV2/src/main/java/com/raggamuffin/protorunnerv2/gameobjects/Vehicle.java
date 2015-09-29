@@ -9,15 +9,13 @@ import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_Flicker;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_Pulse;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.ParticleManager;
-import com.raggamuffin.protorunnerv2.particles.BurstEmitter;
+import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_Burst;
 import com.raggamuffin.protorunnerv2.pubsub.InternalPubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.InternalTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.utils.DecayCounter;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
-import com.raggamuffin.protorunnerv2.weapons.Explosion;
-import com.raggamuffin.protorunnerv2.weapons.Projectile;
 import com.raggamuffin.protorunnerv2.weapons.Weapon;
 
 public abstract class Vehicle extends GameObject
@@ -46,7 +44,7 @@ public abstract class Vehicle extends GameObject
 	
 	// Particle Emitters.
 	protected ParticleManager m_ParticleManager;
-	protected BurstEmitter m_BurstEmitter;
+	protected ParticleEmitter_Burst m_BurstEmitter;
 
     protected InternalPubSubHub m_InternalPubSub;
     protected Publisher m_InternalDamagedPublisher;
@@ -81,8 +79,7 @@ public abstract class Vehicle extends GameObject
 		
 		m_LasersOn = false;
 		
-		m_BurstEmitter = new BurstEmitter(this, m_ParticleManager);
-		AddChild(m_BurstEmitter);
+		m_BurstEmitter = new ParticleEmitter_Burst(game, m_BaseColour, m_AltColour, 20);
 		
 		m_PostFireAction = new PostFireAction_Null(this);
 
@@ -93,6 +90,9 @@ public abstract class Vehicle extends GameObject
 	public void Update(double deltaTime)
 	{
 		m_Engine.Update(deltaTime);
+
+        m_BurstEmitter.SetPosition(m_Position);
+        m_BurstEmitter.SetVelocity(m_Velocity);
 
 		m_PrimaryWeapon.Update(deltaTime);
 		
@@ -113,22 +113,12 @@ public abstract class Vehicle extends GameObject
 		if(m_LasersOn)
 			m_PrimaryWeapon.LasersOn();
 	}
-	
-	@Override
-	public void CollisionResponse(GameObject collider, double deltaTime)
-	{
-        m_DamageBehaviour.TriggerBehaviour();
-		
-		if(collider instanceof Projectile)
-		{
-			m_HullPoints -= ((Projectile) collider).GetBaseDamage();
-		}
-		
-		if(collider instanceof Explosion)
-		{
-			m_HullPoints -= ((Explosion) collider).GetDamageOutput(deltaTime);
-		}
 
+	public void CollisionResponse(double damage)
+	{
+        DrainEnergy(damage);
+
+        m_DamageBehaviour.TriggerBehaviour();
         UpdateDamageDecayCounter();
         m_InternalDamagedPublisher.Publish();
 	}
