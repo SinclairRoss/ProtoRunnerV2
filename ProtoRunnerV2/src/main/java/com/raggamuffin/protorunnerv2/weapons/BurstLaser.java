@@ -20,7 +20,7 @@ public class BurstLaser extends Weapon
 
 		m_FireMode = new FireControl_Burst(0.8, 12);
 		m_ProjectileTemplate = new ProjectileTemplate(this, ModelType.PulseLaser, GetAffiliation(),
-				m_MuzzleVelocity, m_Damage, m_LifeSpan, m_ProjectileFadeInTime, m_ProjectileFadeOutTime, 0.0,
+				m_MuzzleVelocity, m_Damage, m_LifeSpan, 0.0,
 				ProjectileBehaviourType.Standard, game);
 
 		m_HasLasers = true;

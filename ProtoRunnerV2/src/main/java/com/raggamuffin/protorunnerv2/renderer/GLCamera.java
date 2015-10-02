@@ -38,10 +38,7 @@ public class GLCamera
 	}
 	
 	public void Update()
-	{	
-		m_Position = m_GameCamera.GetPosition();
-		m_LookAt = m_GameCamera.GetLookAt();
-			
+	{
 		Matrix.setLookAtM(m_VMatrix, 0,   (float)m_Position.I, (float)m_Position.J, (float)m_Position.K,   (float)m_LookAt.I, (float)m_LookAt.J, (float)m_LookAt.K,  (float) m_Up.I,(float)m_Up.J, (float)m_Up.K);
 	}
 	

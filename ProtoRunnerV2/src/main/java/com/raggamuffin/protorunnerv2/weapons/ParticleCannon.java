@@ -18,14 +18,11 @@ public class ParticleCannon extends Weapon
         m_MuzzleVelocity = 0.0;
         m_Accuracy = 1.0;
         m_LifeSpan = 0.2;
-        m_ProjectileFadeInTime = 0.1;
-        m_ProjectileFadeOutTime = 0.1;
-
         m_AudioClip = AudioClips.PulseLaserPunk;
 
         m_FireMode = new FireControl_Pulse(0.6, 0.06, 1);
         m_ProjectileTemplate = new ProjectileTemplate(this, ModelType.ParticleLaser, GetAffiliation(),
-                m_MuzzleVelocity, m_Damage, m_LifeSpan, m_ProjectileFadeInTime, m_ProjectileFadeOutTime, 0.0,
+                m_MuzzleVelocity, m_Damage, m_LifeSpan, 0.0,
                 ProjectileBehaviourType.ParticleLaser, game);
 
         m_HasLasers = false;

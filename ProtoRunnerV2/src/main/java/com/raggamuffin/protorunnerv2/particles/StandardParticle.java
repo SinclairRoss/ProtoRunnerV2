@@ -12,7 +12,7 @@ public class StandardParticle extends Particle
 
         m_Gravitons = gravitons;
 
-        m_DragCoefficient = 0.007;
+        m_DragCoefficient = 0.01;
         m_FadeIn = 0.2;
         m_FadeOut = 0.7;
 	}
@@ -32,11 +32,5 @@ public class StandardParticle extends Particle
 	public boolean IsValid()
 	{
 		return !m_DissipationTimer.TimedOut();
-	}
-
-	@Override
-	public ParticleType GetParticleType() 
-	{
-		return ParticleType.Standard;
 	}
 }

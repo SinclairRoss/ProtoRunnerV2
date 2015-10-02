@@ -21,9 +21,6 @@ public class Projectile extends GameObject
 	private ArrayList<SpecialProjectileBehaviour> m_SpecialBehaviours;
 	private Weapon m_Origin;
 
-    private double m_FadeIn;
-    private double m_FadeOut;
-
 	public Projectile()
 	{
 		super(null, null);
@@ -38,9 +35,6 @@ public class Projectile extends GameObject
 		
 		m_BaseColour.SetColour(Colours.Black);
 		SetDragCoefficient(0.0);
-
-        m_FadeIn = 0;
-        m_FadeOut = 0;
 	}
 	
 	public void Update(double deltaTime)
@@ -55,13 +49,7 @@ public class Projectile extends GameObject
 
     private void HandleFade()
     {
-        double normLifeSpan = 1 - MathsHelper.Normalise(m_LifeSpan, 0, m_MaxLifeSpan);
 
-        double alpha = normLifeSpan <= m_FadeIn ? MathsHelper.Normalise(normLifeSpan, 0, m_FadeIn) :
-                1.0 - MathsHelper.Normalise(normLifeSpan, m_FadeOut, 1.0);
-
-        m_BaseColour.Alpha = alpha;
-        m_AltColour.Alpha  = alpha;
     }
 
 	public void ResetLifeSpan()
@@ -78,11 +66,6 @@ public class Projectile extends GameObject
 
 		m_BaseColour.SetColour(m_Origin.GetAnchor().GetColour());
         m_AltColour.SetColour(m_Origin.GetAnchor().GetAltColour());
-        m_BaseColour.Alpha = 0.0;
-        m_AltColour.Alpha  = 0.0;
-
-		m_FadeIn = template.GetFadeInTime();
-        m_FadeOut = template.GetFadeOutTime();
 
         m_BoundingRadius = template.GetBoundingRadius();
 		
@@ -186,5 +169,15 @@ public class Projectile extends GameObject
     public double GetDamageOutput(double deltaTime)
     {
         return m_Behaviour.CalculateDamageOutput(deltaTime);
+    }
+
+    public double GetLifeSpan()
+    {
+        return m_LifeSpan;
+    }
+
+    public double GetMaxLifeSpan()
+    {
+        return m_MaxLifeSpan;
     }
 }

@@ -64,10 +64,6 @@ public class GameLogic extends ApplicationLogic
 
 		m_Camera = packet.GetCamera();
 		m_Control = scheme;
-		
-		m_CameraAnchor = new ExhibitionCameraAnchor();
-		AttachCameraToAnchor();
-		m_Camera.SetInPlace();
 
         m_PubSubHub 			= pubSub;
         m_ColourManager         = new ColourManager(this);
@@ -81,6 +77,10 @@ public class GameLogic extends ApplicationLogic
 		m_SecondWindHandler		= new SecondWindHandler(this);
         m_RenderEffectManager 	= new RenderEffectManager(this, m_Packet.GetRenderEffectSettings());
         m_GooglePlayService     = new GooglePlayService(this);
+
+        m_CameraAnchor = new ExhibitionCameraAnchor();
+        AttachCameraToAnchor();
+        m_Camera.SetInPlace();
 
         m_PubSubHub.SubscribeToTopic(PublishedTopics.PlayerSpawned, new PlayerSpawnedSubscriber());
         m_PubSubHub.SubscribeToTopic(PublishedTopics.PlayerDestroyed, new PlayerDestroyedSubscriber());
@@ -400,6 +400,8 @@ public class GameLogic extends ApplicationLogic
         @Override
         public void Update(int args)
         {
+            m_Camera.NormalCam();
+
             m_UIManager.ShowScreen(UIScreens.Reboot);
 
             ArrayList<Vehicle> wingmen = m_VehicleManager.GetTeam(AffiliationKey.BlueTeam);

@@ -75,9 +75,9 @@ public abstract class GameObject
         m_Pitch = 0.0;
 
 		///// Physics Attributes
-		m_Mass				 = 1000.0f;
-		m_DragCoefficient	 = 0.007f;
-		
+		m_Mass				 = 1000.0;
+		m_DragCoefficient	 = 0.007;
+
 		///// Colour Attributes.
 		m_BaseColour  = new Colour(Colours.Black);
         m_AltColour   = new Colour(Colours.Black);
@@ -199,7 +199,6 @@ public abstract class GameObject
 		m_Force.SetVector(0.0f);
 	}
 
-	
 	// Each subclass must define when it becomes invalid.
 	public abstract boolean IsValid();
 	

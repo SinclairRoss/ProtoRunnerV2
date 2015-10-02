@@ -40,8 +40,6 @@ public abstract class Weapon
 	protected double m_MuzzleVelocity;
 	protected double m_Accuracy;
 	protected double m_LifeSpan;
-	protected double m_ProjectileFadeInTime;
-    protected double m_ProjectileFadeOutTime;
 
 	private ArrayList<Vector3> m_MuzzleOffsets;
 	private Vector3 m_MuzzleOffset;
@@ -75,8 +73,6 @@ public abstract class Weapon
 		m_MuzzleVelocity = 1.0;
 		m_Accuracy = 1.0;
 		m_LifeSpan = 1.0;
-		m_ProjectileFadeInTime = 0.02;
-        m_ProjectileFadeOutTime = 0.9;
 
 		m_MuzzleOffsets = new ArrayList<>();
 		m_MuzzleOffset = new Vector3();

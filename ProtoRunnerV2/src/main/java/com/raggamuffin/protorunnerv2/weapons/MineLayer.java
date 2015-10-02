@@ -17,14 +17,13 @@ public class MineLayer extends Weapon
         m_MuzzleVelocity = 0.0;
         m_Accuracy = 1.0;
         m_LifeSpan = 5.0;
-        m_ProjectileFadeInTime = 1.0;
 
         m_AudioClip = AudioClips.MissileSpawned;
 
         m_FireMode = new FireControl_Pulse(1.5, 0.2, 4);
 
         m_ProjectileTemplate = new ProjectileTemplate(this, ModelType.Mine, GetAffiliation(),
-                m_MuzzleVelocity, m_Damage, m_LifeSpan, m_ProjectileFadeInTime, m_ProjectileFadeOutTime, 2.0,
+                m_MuzzleVelocity, m_Damage, m_LifeSpan, 2.0,
                 ProjectileBehaviourType.Mine, game, SpecialProjectileBehaviourType.Explode);
 
         AddMuzzle(0, 0, -1);

@@ -1,5 +1,6 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
+import com.raggamuffin.protorunnerv2.ai.VehicleInfo;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.master.ControlScheme;
@@ -28,9 +29,13 @@ public class Runner extends Vehicle
 	private Publisher m_DamageTakenPublisher;
 	private Publisher m_SwitchWeaponsPublisher;
 
+    private ChaseCamera m_Camera;
+
 	public Runner(GameLogic game)
 	{
 		super(game);
+
+        m_Camera = game.GetCamera();
 
 		m_Input = game.GetControlScheme();
 		m_Model = ModelType.Runner;
@@ -41,11 +46,14 @@ public class Runner extends Vehicle
         m_BurstEmitter.SetInitialColour(m_BaseColour);
         m_BurstEmitter.SetFinalColour(m_AltColour);
 
+        m_HyperLight.SetInitialColour(m_BaseColour);
+        m_HyperLight.SetFinalColour(m_AltColour);
+
         m_Position.SetVector(0, 0, 0);
 		
 		m_Engine = new Engine_Standard(this, game, new EngineUseBehaviour_Drain(this));
 		m_Engine.SetMaxTurnRate(2.0);//2
-		m_Engine.SetMaxEngineOutput(0);//3000
+		m_Engine.SetMaxEngineOutput(3000);//3000
         m_Engine.SetAfterBurnerOutput(6000);
 		
 		m_MaxHullPoints = 700;
@@ -134,6 +142,20 @@ public class Runner extends Vehicle
 	{
 		return m_CurrentlyUsedSlot;
 	}
+
+    @Override
+    public void EngageAfterBurners()
+    {
+        super.EngageAfterBurners();
+        m_Camera.SprintCam();
+    }
+
+    @Override
+    public void DisengageAfterBurners()
+    {
+        super.DisengageAfterBurners();
+        m_Camera.NormalCam();
+    }
 
     private class FireSubscriber extends Subscriber
     {

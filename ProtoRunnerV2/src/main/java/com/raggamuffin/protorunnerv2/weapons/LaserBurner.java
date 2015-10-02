@@ -12,7 +12,7 @@ public class LaserBurner extends Weapon
 
         m_FireMode = new FireControl_Pulse(0.6, 0.06, 1);
         m_ProjectileTemplate = new ProjectileTemplate(this, ModelType.ParticleLaser, GetAffiliation(),
-                m_MuzzleVelocity, m_Damage, 500, m_ProjectileFadeInTime, m_ProjectileFadeOutTime, 0.0,
+                m_MuzzleVelocity, m_Damage, 5, 0.0,
                 ProjectileBehaviourType.ParticleLaser, game);
 
         AddMuzzle(0,0,0);

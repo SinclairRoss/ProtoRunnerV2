@@ -26,7 +26,7 @@ public abstract class ParticleEmitter
         m_Velocity      = new Vector3();
         m_EmissionForce = emissionForce;
         m_LifeSpan      = lifeSpan;
-        m_ParticleSize  = 30.0f;
+        m_ParticleSize  = 30.0;
 
         m_InitialColour = initialColour;
         m_FinalColour   = finalColour;
@@ -103,5 +103,10 @@ public abstract class ParticleEmitter
     public void SetFinalColour(Colour colour)
     {
         m_FinalColour = colour;
+    }
+
+    public void SetParticleSize(double size)
+    {
+        m_ParticleSize = size;
     }
 }

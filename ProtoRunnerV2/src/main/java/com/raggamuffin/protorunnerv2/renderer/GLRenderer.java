@@ -155,9 +155,9 @@ public class GLRenderer implements GLSurfaceView.Renderer
 		m_UICamera.Update();
 
         DrawSkybox();
+        DrawParticles();
         DrawObjects();
         DrawTrails();
-        DrawParticles();
 		DrawUI();
 
 		// Glow vertical.
@@ -307,7 +307,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
             if(obj == null)
                 continue;
 
-            m_ParticleRenderer.Draw(obj.GetPosition(), obj.GetColour());
+            m_ParticleRenderer.Draw(obj.GetPosition(), obj.GetColour(), (float)obj.GetScale().I);
         }
 
         m_ParticleRenderer.Clean();

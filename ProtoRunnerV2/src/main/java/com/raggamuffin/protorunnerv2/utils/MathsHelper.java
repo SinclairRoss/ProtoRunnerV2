@@ -81,6 +81,8 @@ public class MathsHelper
 		return (Rand.nextDouble() * (max - min)) + min;
 	}
 
+    // Returns a random double between the min-max range with a bias.
+    // Higher bias returns lower average.
     public static double BiasedRandomDouble(double min, double max, double bias)
     {
         return (Math.pow(Rand.nextDouble(), bias) * (max - min)) + min;

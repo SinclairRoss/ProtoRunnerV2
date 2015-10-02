@@ -61,7 +61,6 @@ public abstract class Particle extends GameObject
 		
 		m_BaseColour.Alpha = alpha;
 	}
-
 	
 	public void Activate(ParticleEmitter origin)
 	{
@@ -79,6 +78,4 @@ public abstract class Particle extends GameObject
 		m_DissipationTimer.SetLimit(origin.GetLifeSpan());
 		m_DissipationTimer.ResetTimer();
 	}
-	
-	public abstract ParticleType GetParticleType();
 }

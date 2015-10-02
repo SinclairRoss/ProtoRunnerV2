@@ -2,7 +2,7 @@ package com.raggamuffin.protorunnerv2.weapons;
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
-import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_Burst;
+import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_HyperLight;
 import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_Ray;
 import com.raggamuffin.protorunnerv2.utils.CollisionDetection;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
@@ -18,6 +18,7 @@ public class ProjectileBehaviour_Laser extends ProjectileBehaviour
     private final double m_GrowthRate;
 
     private ParticleEmitter_Ray m_RayEmitter;
+    private ParticleEmitter_HyperLight m_HyperLightEmitter;
     private boolean m_TouchesSurface;
 
     public ProjectileBehaviour_Laser(Projectile anchor, Vector3 muzzlePos, GameLogic game)
@@ -33,8 +34,13 @@ public class ProjectileBehaviour_Laser extends ProjectileBehaviour
 
         m_Anchor.SetScale(0.0);
 
-        m_RayEmitter = new ParticleEmitter_Ray(game, m_Anchor.GetBaseColour(), m_Anchor.GetAltColour(), 1000, 0.3);
+        m_RayEmitter = new ParticleEmitter_Ray(game, m_Anchor.GetBaseColour(), m_Anchor.GetBaseColour(), 1000, 0.3);
+        m_RayEmitter.SetParticleSize(15);
         m_TouchesSurface = false;
+
+        m_HyperLightEmitter = new ParticleEmitter_HyperLight(game, m_Anchor.GetBaseColour(), m_Anchor.GetAltColour(), 4000, 3.0);
+        m_HyperLightEmitter.SetParticleSize(30.0);
+        m_HyperLightEmitter.On();
     }
 
     @Override
@@ -48,19 +54,20 @@ public class ProjectileBehaviour_Laser extends ProjectileBehaviour
         m_RayEmitter.SetRange(m_Scale);
         m_RayEmitter.Update(deltaTime);
 
-        if(m_TouchesSurface)
-            BloomEndPointParticles();
+        BloomEndPointParticles(deltaTime);
 
         m_TouchesSurface = false;
     }
 
-    private void BloomEndPointParticles()
+    private void BloomEndPointParticles(double deltaTime)
     {
         m_EndPoint.SetVector(m_Anchor.GetForward());
         m_EndPoint.Scale(m_Scale);
         m_EndPoint.Add(m_Anchor.GetPosition());
-        //m_Emitter.SetPosition(m_EndPoint);
-       // m_Emitter.Burst();
+
+        m_HyperLightEmitter.SetPosition(m_EndPoint);
+        m_HyperLightEmitter.SetForward(m_Anchor.GetForward());
+        m_HyperLightEmitter.Update(deltaTime);
     }
 
     @Override
@@ -99,6 +106,11 @@ public class ProjectileBehaviour_Laser extends ProjectileBehaviour
     private void ScaleLaser(double deltaTime)
     {
         m_Scale = MathsHelper.Clamp(m_Scale + (deltaTime * m_GrowthRate), 0, m_MaxScale);
+
+        if(m_Scale < m_MaxScale)
+            m_HyperLightEmitter.On();
+        else
+            m_HyperLightEmitter.Off();
 
         double y = m_Anchor.GetPosition().J + 1;
         double j = m_FiringWeapon.GetForward().J * m_Scale;

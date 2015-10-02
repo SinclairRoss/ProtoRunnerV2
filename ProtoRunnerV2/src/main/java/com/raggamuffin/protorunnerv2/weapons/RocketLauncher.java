@@ -16,9 +16,7 @@ public class RocketLauncher extends Weapon
 		m_MuzzleVelocity = 0.0;
 		m_Accuracy = 1.0;
 		m_LifeSpan = 5.0;
-		m_ProjectileFadeInTime = 0.0;
-        m_ProjectileFadeOutTime = 0.0;
-		
+
 		m_AudioClip = AudioClips.MissileSpawned;
 		
 		AddMuzzle( 2, 0, -1);
@@ -28,7 +26,7 @@ public class RocketLauncher extends Weapon
 		
 		m_FireMode = new FireControl_MissileCharge(this, 0.25, GetNumMuzzles());
 		m_ProjectileTemplate = new ProjectileTemplate(this, ModelType.Missile, GetAffiliation(),
-													  m_MuzzleVelocity, m_Damage, m_LifeSpan, m_ProjectileFadeInTime, m_ProjectileFadeOutTime, 0.0,
+													  m_MuzzleVelocity, m_Damage, m_LifeSpan, 0.0,
 													  ProjectileBehaviourType.Missile, game, SpecialProjectileBehaviourType.Explode);
 		
 		m_HasLasers = false;

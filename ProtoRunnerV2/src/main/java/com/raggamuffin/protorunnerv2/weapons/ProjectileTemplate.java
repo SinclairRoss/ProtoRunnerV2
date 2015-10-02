@@ -18,8 +18,6 @@ public class ProjectileTemplate
     private double m_MuzzleVelocity;
     private double m_BaseDamage;
     private double m_LifeSpan;
-    private double m_FadeInTime;
-    private double m_FadeOutTime;
     private double m_BoundingRadius;
 
     private ProjectileBehaviourType m_Behaviour;
@@ -30,7 +28,7 @@ public class ProjectileTemplate
     private BulletManager m_BulletManager;
 
     public ProjectileTemplate(Weapon origin, ModelType model, AffiliationKey affiliation,
-                              double muzzleVelocity, double baseDamage, double lifeSpan, double fadeInTime, double fadeOutTime, double boundingRadius,
+                              double muzzleVelocity, double baseDamage, double lifeSpan, double boundingRadius,
                               ProjectileBehaviourType behaviour, GameLogic game, SpecialProjectileBehaviourType... specialBehaviours)
     {
         m_Origin = origin;
@@ -41,8 +39,6 @@ public class ProjectileTemplate
         m_MuzzleVelocity = muzzleVelocity;
         m_BaseDamage = baseDamage;
         m_LifeSpan = lifeSpan;
-        m_FadeInTime = fadeInTime;
-        m_FadeOutTime = fadeOutTime;
         m_BoundingRadius = boundingRadius;
 
         m_Behaviour = behaviour;
@@ -81,16 +77,6 @@ public class ProjectileTemplate
     public double GetLifeSpan()
     {
         return m_LifeSpan;
-    }
-
-    public double GetFadeInTime()
-    {
-        return m_FadeInTime;
-    }
-
-    public double GetFadeOutTime()
-    {
-        return m_FadeOutTime;
     }
 
     public double GetBoundingRadius()

@@ -256,6 +256,7 @@ public class Shaders
         +   "uniform vec4 u_EyePos;			\n"
 
         +	"attribute vec4 a_Position;  \n"
+        +   "attribute float a_Size;"
         +   "attribute vec4 a_Color;"
 
         +   "varying vec4 v_Color;"
@@ -265,7 +266,7 @@ public class Shaders
         + "	    vec4 toEye;					        \n"
         + " 	toEye = u_EyePos - a_Position;		"
         + "     float distance = length(toEye);	    "
-        + "	    gl_PointSize = 30.0 * inversesqrt(distance);	"
+        + "	    gl_PointSize = a_Size * inversesqrt(distance);	"
 
         +   "   v_Color = a_Color;"
         +	"	gl_Position = u_ProjMatrix * a_Position;"

@@ -1,5 +1,9 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
+import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
+import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
+import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
+import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class ChaseCamera
@@ -33,7 +37,7 @@ public class ChaseCamera
 		m_Up 				= new Vector3(0.0,  1.0,  0.0);
 		m_LookAt 			= new Vector3(0.0);
 		m_RelaxedPosition 	= new Vector3(0.0);		
-		m_PositionOffset 	= new Vector3(-5.0, 5.0, -5.0);
+		m_PositionOffset 	= new Vector3(-5, -5.0, -5);
 		m_Acceleration 		= new Vector3(0.0);		
 		m_Velocity 			= new Vector3(0.0);
 		
@@ -44,7 +48,9 @@ public class ChaseCamera
 		m_Stiffness = 0.08;
 		m_Damping 	= 0.03;
 		m_Mass  	= 0.5;
-	}
+
+        NormalCam();
+    }
 	
 	public void Attach(GameObject chaseObject)
 	{
@@ -148,6 +154,38 @@ public class ChaseCamera
 	{
 		return m_Up;
 	}
+
+    public void SprintCam()
+    {
+        m_Stiffness = 0.1;
+        m_Damping 	= 0.01;
+        m_PositionOffset.SetVector(-3, 1.5, 0);
+    }
+
+    public void NormalCam()
+    {
+        m_Stiffness = 0.08;
+        m_Damping 	= 0.03;
+        m_PositionOffset.SetVector(-5, 5,-5);
+    }
+
+    private class EngageAfterBurnersSubscriber extends Subscriber
+    {
+        @Override
+        public void Update(int args)
+        {
+            SprintCam();
+        }
+    }
+
+    private class DisengageAfterBurnersSubscriber extends Subscriber
+    {
+        @Override
+        public void Update(int args)
+        {
+            NormalCam();
+        }
+    }
 }
 
 

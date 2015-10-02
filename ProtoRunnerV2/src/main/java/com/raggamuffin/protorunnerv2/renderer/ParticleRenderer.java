@@ -22,9 +22,9 @@ public class ParticleRenderer
         m_Point.InitialiseModel(projMatrix, eye);
     }
 
-    public void Draw(Vector3 pos, Colour colour)
+    public void Draw(Vector3 pos, Colour colour, float size)
     {
-        m_Point.AddPoint(pos, colour);
+        m_Point.AddPoint(pos, colour, size);
     }
 
     public void Clean()

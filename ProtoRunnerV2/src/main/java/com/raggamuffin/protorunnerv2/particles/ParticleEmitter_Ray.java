@@ -21,7 +21,7 @@ public class ParticleEmitter_Ray extends ParticleEmitter
 
         m_Accuracy = Math.PI * 0.5;
         m_Range = 0.0;
-        m_MaxDeltaEmission = 0.1;
+        m_MaxDeltaEmission = 0.01;
         m_DeltaEmission = 0.0;
 
         m_SpawnPoint = new Vector3();
@@ -43,6 +43,7 @@ public class ParticleEmitter_Ray extends ParticleEmitter
     public Vector3 CalculateSpawnPoint()
     {
         m_SpawnPoint.SetVector(m_Forward);
+        //m_SpawnPoint.Scale(MathsHelper.BiasedRandomDouble(0, m_Range, 0.3));
         m_SpawnPoint.Scale(MathsHelper.RandomDouble(0, m_Range));
         m_SpawnPoint.Add(m_Position);
 
