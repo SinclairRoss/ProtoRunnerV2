@@ -45,9 +45,9 @@ public class ProjectileBehaviour_Standard extends ProjectileBehaviour
     }
 
     @Override
-    public double CalculateDamageOutput(double deltaTime)
+    public double CalculateDamageOutput(double baseDamage, double deltaTime)
     {
-        return 0;
+        return baseDamage;
     }
 
     @Override

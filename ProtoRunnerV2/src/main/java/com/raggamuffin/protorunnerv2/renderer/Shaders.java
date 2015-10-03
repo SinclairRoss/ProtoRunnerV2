@@ -170,6 +170,7 @@ public class Shaders
         +   "uniform vec4 u_Position;"
         +   "uniform vec3 u_Forward;"
         +   "uniform vec3 u_Scale;"
+        +   "uniform float u_Roll;"
 
         +	"attribute vec4 a_Vertices;"
         +	"attribute vec3 a_Barycentric;"
@@ -190,13 +191,22 @@ public class Shaders
         +   "   rotate[2] = vec4(z.x, z.y, z.z, 0);"
         +   "   rotate[3] = vec4(u_Position.x, u_Position.y, u_Position.z, 1);"
 
+        +   "   float cosTheta = cos(u_Roll);"
+        +   "   float sinTheta = sin(u_Roll);"
+
+        +   "   mat4 roll;"
+        +   "   roll[0] = vec4(cosTheta, -sinTheta, 0, 0);"
+        +   "   roll[1] = vec4(sinTheta,  cosTheta, 0, 0);"
+        +   "   roll[2] = vec4(0, 0, 1, 0);"
+        +   "   roll[3] = vec4(0, 0, 0, 1);"
+
         +   "   mat4 scale;"
         +   "   scale[0] = vec4(u_Scale.x, 0, 0, 0);"
         +   "   scale[1] = vec4(0, u_Scale.y, 0, 0);"
         +   "   scale[2] = vec4(0, 0, u_Scale.z, 0);"
         +   "   scale[3] = vec4(0, 0, 0, 1);"
 
-        +	"	gl_Position = (u_ProjMatrix * (rotate * scale)) * a_Vertices;"
+        +	"	gl_Position = (u_ProjMatrix * (rotate * roll * scale)) * a_Vertices;"
         +	"}";
 
     public static final String fragmentShader_BARYCENTRIC =

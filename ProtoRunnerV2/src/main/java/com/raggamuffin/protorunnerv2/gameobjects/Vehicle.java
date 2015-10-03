@@ -46,7 +46,6 @@ public abstract class Vehicle extends GameObject
 	// Particle Emitters.
 	protected ParticleManager m_ParticleManager;
 	protected ParticleEmitter_Burst m_BurstEmitter;
-    protected ParticleEmitter_HyperLight m_HyperLight;
 
     protected InternalPubSubHub m_InternalPubSub;
     protected Publisher m_InternalDamagedPublisher;
@@ -77,8 +76,6 @@ public abstract class Vehicle extends GameObject
 		m_StressBehaviour = new ColourBehaviour_LerpTo(this, ColourBehaviour.ActivationMode.Continuous);
         AddColourBehaviour(m_StressBehaviour);
 
-        m_HyperLight = new ParticleEmitter_HyperLight(game, m_BaseColour, m_AltColour, 4000, 3.0);
-
 		AddChild(new FloorGrid(m_Colour));
 		
 		m_LasersOn = false;
@@ -97,18 +94,6 @@ public abstract class Vehicle extends GameObject
 
         m_BurstEmitter.SetPosition(m_Position);
         m_BurstEmitter.SetVelocity(m_Velocity);
-
-        Vector3 emitterPos = new Vector3(m_Velocity);
-        emitterPos.Normalise();
-        m_HyperLight.SetForward(emitterPos);
-
-        emitterPos.Scale(3.0);
-        emitterPos.Add(m_Position);
-
-        m_HyperLight.SetPosition(emitterPos);
-        m_HyperLight.SetVelocity(m_Velocity);
-
-        m_HyperLight.Update(deltaTime);
 
 		m_PrimaryWeapon.Update(deltaTime);
 		
@@ -212,14 +197,12 @@ public abstract class Vehicle extends GameObject
 	
 	public void EngageAfterBurners()
 	{
-        m_HyperLight.On();
 		m_Engine.EngageAfterBurners();
 		m_VehicleInfo.SetAfterBurnerState(AfterBurnerStates.Engaged);
     }
 
     public void DisengageAfterBurners()
 	{
-        m_HyperLight.Off();
 		m_Engine.DisengageAfterBurners();
 		m_VehicleInfo.SetAfterBurnerState(AfterBurnerStates.Disengaged);
 	}

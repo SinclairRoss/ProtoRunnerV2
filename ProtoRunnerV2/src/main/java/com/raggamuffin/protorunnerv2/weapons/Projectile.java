@@ -168,8 +168,10 @@ public class Projectile extends GameObject
 
     public double GetDamageOutput(double deltaTime)
     {
-        return m_Behaviour.CalculateDamageOutput(deltaTime);
+        return m_Behaviour.CalculateDamageOutput(m_BaseDamage, deltaTime);
     }
+
+
 
     public double GetLifeSpan()
     {
@@ -179,5 +181,10 @@ public class Projectile extends GameObject
     public double GetMaxLifeSpan()
     {
         return m_MaxLifeSpan;
+    }
+
+    public void MaxOutLifeSpan()
+    {
+        m_LifeSpan = m_MaxLifeSpan;
     }
 }

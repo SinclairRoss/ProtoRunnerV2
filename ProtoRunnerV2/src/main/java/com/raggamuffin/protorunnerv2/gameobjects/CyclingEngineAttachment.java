@@ -29,6 +29,7 @@ public class CyclingEngineAttachment extends GameObject
         m_Colour = anchor.GetColour();
 
         m_Anchor = anchor;
+        m_Forward = m_Anchor.GetForward();
         m_OrbitRange  = orbitRange;
         m_Offset = offset;
 

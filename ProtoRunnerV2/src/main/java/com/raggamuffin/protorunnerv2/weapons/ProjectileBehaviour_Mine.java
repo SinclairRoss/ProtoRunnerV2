@@ -28,7 +28,7 @@ public class ProjectileBehaviour_Mine extends ProjectileBehaviour
     }
 
     @Override
-    public double CalculateDamageOutput(double deltaTime)
+    public double CalculateDamageOutput(double baseDamage, double deltaTime)
     {
         return 0;
     }

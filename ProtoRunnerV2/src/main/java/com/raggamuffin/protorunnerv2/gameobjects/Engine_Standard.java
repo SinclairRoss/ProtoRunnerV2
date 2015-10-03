@@ -8,7 +8,7 @@ public class Engine_Standard extends Engine
 {
     public Engine_Standard(GameObject anchor, GameLogic game, EngineUseBehaviour behaviour)
     {
-        super(anchor, behaviour);
+        super(game, anchor, behaviour);
 
         m_Anchor.AddChild(new TrailEmitter(m_Anchor, game));
     }

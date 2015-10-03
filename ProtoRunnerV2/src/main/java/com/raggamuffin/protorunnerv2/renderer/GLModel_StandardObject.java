@@ -22,6 +22,7 @@ public class GLModel_StandardObject  extends GLModel
     private int m_ProjMatrixHandle;
     private int m_PositionHandle;
     private int m_ForwardHandle;
+    private int m_RollHandle;
     private int m_ScaleHandle;
     private int m_ColourHandle;
     private int m_VertexHandle;
@@ -95,6 +96,8 @@ public class GLModel_StandardObject  extends GLModel
         Vector3 fwd = obj.GetForward();
         GLES20.glUniform3f(m_ForwardHandle, (float) fwd.I, (float) fwd.J, (float) fwd.K);
 
+        GLES20.glUniform1f(m_RollHandle, (float) obj.GetRoll());
+
         Vector3 scale = obj.GetScale();
         GLES20.glUniform3f(m_ScaleHandle, (float)scale.I, (float)scale.J, (float)scale.K);
 
@@ -126,6 +129,7 @@ public class GLModel_StandardObject  extends GLModel
         m_ProjMatrixHandle = GLES20.glGetUniformLocation(m_Program, "u_ProjMatrix");
         m_PositionHandle   = GLES20.glGetUniformLocation(m_Program, "u_Position");
         m_ForwardHandle    = GLES20.glGetUniformLocation(m_Program, "u_Forward");
+        m_RollHandle       = GLES20.glGetUniformLocation(m_Program, "u_Roll");
         m_ScaleHandle      = GLES20.glGetUniformLocation(m_Program, "u_Scale");
         m_ColourHandle 	   = GLES20.glGetUniformLocation(m_Program, "u_Color");
 

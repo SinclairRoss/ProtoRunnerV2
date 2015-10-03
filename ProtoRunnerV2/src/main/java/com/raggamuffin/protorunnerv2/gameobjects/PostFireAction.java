@@ -1,6 +1,5 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
-import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 
 public abstract class PostFireAction
 {

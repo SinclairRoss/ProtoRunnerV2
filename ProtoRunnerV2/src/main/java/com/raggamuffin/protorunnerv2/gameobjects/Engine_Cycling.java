@@ -12,7 +12,7 @@ public class Engine_Cycling extends Engine
 
     public Engine_Cycling(GameObject anchor, GameLogic game, EngineUseBehaviour behaviour)
     {
-        super(anchor, behaviour);
+        super(game, anchor, behaviour);
 
         m_Attachments = new ArrayList<>();
 

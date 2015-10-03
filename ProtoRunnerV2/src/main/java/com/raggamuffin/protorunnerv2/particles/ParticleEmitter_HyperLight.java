@@ -22,7 +22,7 @@ public class ParticleEmitter_HyperLight extends ParticleEmitter
 
         m_ParticleForward = new Vector3();
 
-        m_MaxDeltaEmission = 0.001;
+        m_MaxDeltaEmission = 0.01;
         m_DeltaEmission = 0.0;
 
         m_On = false;
@@ -32,8 +32,6 @@ public class ParticleEmitter_HyperLight extends ParticleEmitter
     {
         if(!m_On)
             return;
-
-        Log.e("what", "EmissionForce" + GetEmissionForce());
 
         m_DeltaEmission += deltaTime;
 

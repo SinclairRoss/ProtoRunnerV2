@@ -46,9 +46,6 @@ public class Runner extends Vehicle
         m_BurstEmitter.SetInitialColour(m_BaseColour);
         m_BurstEmitter.SetFinalColour(m_AltColour);
 
-        m_HyperLight.SetInitialColour(m_BaseColour);
-        m_HyperLight.SetFinalColour(m_AltColour);
-
         m_Position.SetVector(0, 0, 0);
 		
 		m_Engine = new Engine_Standard(this, game, new EngineUseBehaviour_Drain(this));

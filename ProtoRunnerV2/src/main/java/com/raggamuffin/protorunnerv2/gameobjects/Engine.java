@@ -1,5 +1,7 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
+import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
+import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_HyperLight;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
@@ -38,7 +40,9 @@ public abstract class Engine
 
     private EngineUseBehaviour m_UseBehaviour;
 
-    public Engine(GameObject anchor, EngineUseBehaviour behaviour)
+    protected ParticleEmitter_HyperLight m_HyperLight;
+
+    public Engine(GameLogic game, GameObject anchor, EngineUseBehaviour behaviour)
     {
         m_Anchor = anchor;
         m_UseBehaviour = behaviour;
@@ -62,6 +66,9 @@ public abstract class Engine
         m_MaxTurnRate = 1.0f;
 
         m_Exertion = 0.0;
+
+
+        m_HyperLight = new ParticleEmitter_HyperLight(game, m_Anchor.GetBaseColour(), m_Anchor.GetAltColour(), 4000, 3.0);
     }
 
     public void Update(double deltaTime)
@@ -81,6 +88,25 @@ public abstract class Engine
         UpdateExertion(deltaTime);
 
         m_UseBehaviour.Update(deltaTime, GetEngineOutput(), GetDodgeOutput());
+
+        UpdateHyperlightEmitter(deltaTime);
+    }
+
+    private void UpdateHyperlightEmitter(double deltaTime)
+    {
+        Vector3 velocity = m_Anchor.GetVelocity();
+
+        Vector3 emitterPos = new Vector3(velocity);
+        emitterPos.Normalise();
+        m_HyperLight.SetForward(emitterPos);
+
+        emitterPos.Scale(3.0);
+        emitterPos.Add(m_Anchor.GetPosition());
+
+        m_HyperLight.SetPosition(emitterPos);
+        m_HyperLight.SetVelocity(velocity);
+
+        m_HyperLight.Update(deltaTime);
     }
 
     public void Dodge(Vector3 Direction)
@@ -120,11 +146,13 @@ public abstract class Engine
 
     public void EngageAfterBurners()
     {
+        m_HyperLight.On();
         m_AfterBurnerOutput = 1.0;
     }
 
     public void DisengageAfterBurners()
     {
+        m_HyperLight.Off();
         m_AfterBurnerOutput = 0.0;
     }
 

@@ -14,6 +14,6 @@ public abstract class ProjectileBehaviour
 	public abstract void Update(double deltaTime);
     public abstract boolean CollidesWith(Vehicle other);
     public abstract void CollisionResponce(Vehicle other);
-    public abstract double CalculateDamageOutput(double deltaTime);
+    public abstract double CalculateDamageOutput(double baseDamage, double deltaTime);
 	public abstract void CleanUp();
 }

@@ -10,13 +10,29 @@ public class LaserBurner extends Weapon
     {
         super(anchor, game);
 
-        m_FireMode = new FireControl_Pulse(0.6, 0.06, 1);
+        m_FireMode = new FireControl_None();
         m_ProjectileTemplate = new ProjectileTemplate(this, ModelType.ParticleLaser, GetAffiliation(),
-                m_MuzzleVelocity, m_Damage, 5, 0.0,
+                m_MuzzleVelocity, 100, 0.5, 0.0,
                 ProjectileBehaviourType.ParticleLaser, game);
 
         AddMuzzle(0,0,0);
 
         m_HasLasers = true;
+    }
+
+
+    @Override
+    public void OpenFire()
+    {
+        super.OpenFire();
+
+        m_BulletManager.CreateBullet(m_ProjectileTemplate);
+        m_PostFireAction.Update();
+    }
+
+    @Override
+    public void CeaseFire()
+    {
+        super.CeaseFire();
     }
 }

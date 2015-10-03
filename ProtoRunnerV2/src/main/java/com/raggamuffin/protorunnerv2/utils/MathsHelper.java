@@ -74,6 +74,11 @@ public class MathsHelper
 
         return amount;
     }
+
+    public static double Wrap(double amount, double min, double max)
+    {
+        return (amount % (max - min)) + min;
+    }
 	
 	// Returns a random double within in range Min - Max.
 	public static double RandomDouble(double min, double max)

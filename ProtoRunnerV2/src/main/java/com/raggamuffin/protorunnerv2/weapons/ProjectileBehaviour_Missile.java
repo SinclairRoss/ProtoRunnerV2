@@ -173,7 +173,7 @@ public class ProjectileBehaviour_Missile extends ProjectileBehaviour
     }
 
     @Override
-    public double CalculateDamageOutput(double deltaTime)
+    public double CalculateDamageOutput(double baseDamage, double deltaTime)
     {
         return 0;
     }
@@ -238,6 +238,7 @@ public class ProjectileBehaviour_Missile extends ProjectileBehaviour
 
 		m_Anchor.SetYaw(m_FiringWeapon.GetOrientation());
 		m_Anchor.SetPosition(m_DockedPosition);
+        m_Anchor.SetForward(m_FiringWeapon.GetForward());
 		
 		m_Anchor.ResetLifeSpan();
 	}
