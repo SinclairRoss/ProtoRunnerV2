@@ -25,8 +25,8 @@ public class ModelManager
 	private Context m_Context;
 
 	private GLFloorPanel m_FloorPanel;
-	private GLPulseLaser m_PulseLaser;
-	private GLPulseLaser m_RailSlug;
+	//private GLPulseLaser m_PulseLaser;
+	//private GLPulseLaser m_RailSlug;
 	private GLRing		 m_Ring;
 	private GLLine		 m_Pointer;
     //private GLLine       m_Laser;
@@ -68,8 +68,8 @@ public class ModelManager
 	private void LoadModels()
     {
         m_FloorPanel = new GLFloorPanel();
-        m_PulseLaser = new GLPulseLaser(50.0f);
-        m_RailSlug = new GLPulseLaser(100.0f);
+        //m_PulseLaser = new GLPulseLaser(50.0f);
+       // m_RailSlug = new GLPulseLaser(100.0f);
         m_Ring = new GLRing();
         m_Pointer = new GLLine(2.0f);
       //  m_Laser = new GLLine(3.0f);
@@ -169,10 +169,10 @@ public class ModelManager
                 return m_Dummy;
             case FloorPanel:
                 return m_FloorPanel;
-            case PulseLaser:
-                return m_PulseLaser;
-            case RailSlug:
-                return m_RailSlug;
+            //case PulseLaser:
+                //return m_PulseLaser;
+            //case RailSlug:
+            //    return m_RailSlug;
             case Ring:
                 break;
             case LaserPointer:

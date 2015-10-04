@@ -196,7 +196,17 @@ public class GameLogic extends ApplicationLogic
         m_Packet.RemoveObject(particle);
     }
 
-	// Adds a game object and all children of the game object to the renderer.
+    public void AddBulletToRenderer(Projectile particle)
+    {
+        m_Packet.AddObject(particle);
+    }
+
+    public void RemoveBulletFromRenderer(Projectile particle)
+    {
+        m_Packet.RemoveObject(particle);
+    }
+
+    // Adds a game object and all children of the game object to the renderer.
 	public void AddObjectToRenderer(GameObject obj)
 	{
         ArrayList<GameObject> Children = new ArrayList<>(); 	// A vector containing Game Objects not yet added to the Children vector.

@@ -38,6 +38,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
     private ModelManager m_ModelManager;
     private UIRenderManager m_UIManager;
     private TrailRenderer m_TrailRenderer;
+    private BulletRenderer m_BulletRenderer;
     private ParticleRenderer m_ParticleRenderer;
 
     private RenderEffectSettings m_RenderEffectSettings;
@@ -66,6 +67,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
 		m_ModelManager = new ModelManager(m_Context, m_RenderEffectSettings);
 		m_UIManager    = new UIRenderManager(m_Context);
         m_TrailRenderer = new TrailRenderer();
+        m_BulletRenderer = new BulletRenderer();
         m_ParticleRenderer = new ParticleRenderer();
 	}
 
@@ -91,6 +93,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
         m_TrailRenderer.LoadAssets();
         m_UIManager.LoadAssets();
         m_ParticleRenderer.LoadAssets();
+        m_BulletRenderer.LoadAssets();
 
         // FBO
         m_Size = new int [m_NumFBOs];
@@ -154,10 +157,15 @@ public class GLRenderer implements GLSurfaceView.Renderer
 		m_Camera.Update();
 		m_UICamera.Update();
 
-        DrawSkybox();
-        DrawParticles();
-        DrawObjects();
-        DrawTrails();
+        float[] view = new float[16];
+        Matrix.setIdentityM(view, 0);
+        Matrix.multiplyMM(view, 0, m_Camera.m_ProjMatrix, 0, m_Camera.m_VMatrix, 0);
+
+        DrawSkybox(view);
+        DrawParticles(view);
+        DrawBullets(view);
+        DrawObjects(view);
+        DrawTrails(view);
 		DrawUI();
 
 		// Glow vertical.
@@ -203,7 +211,6 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
         if(counter >= maxCount)
         {
-         //   if(totalTime / counter > 32)
             Log.e("testy test", "Time: " + totalTime / counter);
 
             totalTime = 0L;
@@ -223,27 +230,23 @@ public class GLRenderer implements GLSurfaceView.Renderer
 		m_UICamera.ViewPortChanged(m_Width, m_Height);
 	}
 
-    private void DrawSkybox()
+    private void DrawSkybox(float[] view)
     {
-        float[] view = new float[16];
-        Matrix.setIdentityM(view, 0);
-        Matrix.multiplyMM(view, 0, m_Camera.m_ProjMatrix, 0, m_Camera.m_VMatrix, 0);
 
         m_ModelManager.InitialiseModel(ModelType.Skybox, view, m_Camera.GetPosition());
         m_ModelManager.DrawSkyBox(m_Camera.GetPosition(), m_RenderEffectSettings.GetSkyBoxColour(), view);
         m_ModelManager.CleanModel(ModelType.Skybox);
     }
 
-    private void DrawObjects()
+    private void DrawObjects(float[] view)
     {
-        float[] view = new float[16];
-        Matrix.setIdentityM(view, 0);
-        Matrix.multiplyMM(view, 0, m_Camera.m_ProjMatrix, 0, m_Camera.m_VMatrix, 0);
-
         ModelType[] types = ModelType.values();
 
         for (ModelType type : types)
         {
+            if(type == ModelType.PulseLaser)
+                continue;
+
             ArrayList<GameObject> list = (ArrayList<GameObject>)m_Packet.GetModelList(type).clone();
 
             if(list.size() == 0)
@@ -263,12 +266,8 @@ public class GLRenderer implements GLSurfaceView.Renderer
         }
     }
 
-    private void DrawTrails()
+    private void DrawTrails(float[] view)
     {
-        float[] view = new float[16];
-        Matrix.setIdentityM(view, 0);
-        Matrix.multiplyMM(view, 0, m_Camera.m_ProjMatrix, 0, m_Camera.m_VMatrix, 0);
-
         ArrayList<TrailPoint> list = (ArrayList<TrailPoint>)m_Packet.GetTrailPoints().clone();
 
         if(list.size() == 0)
@@ -289,12 +288,8 @@ public class GLRenderer implements GLSurfaceView.Renderer
     //    Log.e("TrailRenderer v2.01", "Count: " + list.size());
     }
 
-    private void DrawParticles()
+    private void DrawParticles(float[] view)
     {
-        float[] view = new float[16];
-        Matrix.setIdentityM(view, 0);
-        Matrix.multiplyMM(view, 0, m_Camera.m_ProjMatrix, 0, m_Camera.m_VMatrix, 0);
-
         ArrayList<GameObject> list = (ArrayList<GameObject>)m_Packet.GetParticles().clone();
 
         if(list.size() == 0)
@@ -311,6 +306,26 @@ public class GLRenderer implements GLSurfaceView.Renderer
         }
 
         m_ParticleRenderer.Clean();
+    }
+
+    private void DrawBullets(float[] view)
+    {
+        ArrayList<GameObject> list = (ArrayList<GameObject>)m_Packet.GetBullets().clone();
+
+        if(list.size() == 0)
+            return;
+
+        m_BulletRenderer.Initialise(view, m_Camera.GetPosition());
+
+        for(GameObject obj : list)
+        {
+            if(obj == null)
+                continue;
+
+            m_BulletRenderer.Draw(obj.GetPosition(), obj.GetColour(), 30.0f);
+        }
+
+        m_BulletRenderer.Clean();
     }
 
     private void DrawUI()

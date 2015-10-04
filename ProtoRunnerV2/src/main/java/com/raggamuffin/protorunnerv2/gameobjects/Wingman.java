@@ -1,9 +1,8 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
+import com.raggamuffin.protorunnerv2.ai.AIBehaviours;
 import com.raggamuffin.protorunnerv2.ai.AIController;
-import com.raggamuffin.protorunnerv2.ai.AIGoalSet;
-import com.raggamuffin.protorunnerv2.ai.AIPersonalityAttributes;
-import com.raggamuffin.protorunnerv2.ai.GoalState;
+import com.raggamuffin.protorunnerv2.ai.FireControlBehaviour;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
@@ -44,27 +43,20 @@ public class Wingman extends Vehicle
 		
 		SelectWeapon(new PulseLaser(this, game));
 
-        AIPersonalityAttributes attributes = new AIPersonalityAttributes(1.0, 0.0, 1.0, 0.2, 1.0);
-        AIGoalSet goalSet = new AIGoalSet(GoalState.EngageTarget);
-        m_AIController = new AIController(this, m_VehicleManager, game.GetBulletManager(), attributes, goalSet);
-		
+        m_AIController = new AIController(this, m_VehicleManager, game.GetBulletManager(), AIBehaviours.FollowTheLeader, FireControlBehaviour.Standard);
+		m_AIController.SetLeader(m_VehicleManager.GetPlayer());
+
 		game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerSpawned, new PlayerSpawnedSubscriber());
-        game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerDestroyed, new PlayerDestroyedSubscriber());
-		
+
 		m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.WingmanDestroyed);
-
-        Runner player = m_VehicleManager.GetPlayer();
-
-        if(player != null)
-            m_AIController.SetLeader(m_VehicleManager.GetPlayer());
 	}
 
 	@Override 
-	public void Update(double DeltaTime)
+	public void Update(double deltaTime)
 	{
-		m_AIController.Update(DeltaTime);
+		m_AIController.Update(deltaTime);
 		
-		super.Update(DeltaTime);	
+		super.Update(deltaTime);
 	}
 	
 	private class PlayerSpawnedSubscriber extends Subscriber
@@ -73,15 +65,6 @@ public class Wingman extends Vehicle
 		public void Update(int args) 
 		{
 			m_AIController.SetLeader(m_VehicleManager.GetPlayer());
-		}	
-	}
-	
-	private class PlayerDestroyedSubscriber extends Subscriber
-	{
-		@Override
-		public void Update(int args) 
-		{
-			m_AIController.RemoveLeader();
 		}	
 	}
 }

@@ -1,9 +1,8 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
+import com.raggamuffin.protorunnerv2.ai.AIBehaviours;
 import com.raggamuffin.protorunnerv2.ai.AIController;
-import com.raggamuffin.protorunnerv2.ai.AIGoalSet;
-import com.raggamuffin.protorunnerv2.ai.AIPersonalityAttributes;
-import com.raggamuffin.protorunnerv2.ai.GoalState;
+import com.raggamuffin.protorunnerv2.ai.FireControlBehaviour;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
@@ -35,15 +34,14 @@ public class Dummy extends Vehicle
         m_Engine.SetAfterBurnerOutput(1);
 
         SelectWeapon(new Weapon_None(this, game));
-        AIPersonalityAttributes attributes = new AIPersonalityAttributes(0.5, 0.0, 1.0, 0.0, 0.0);
-        AIGoalSet goalSet = new AIGoalSet(GoalState.EngageTarget, GoalState.Flee);
-        m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), attributes, goalSet);
+        m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), AIBehaviours.Encircle, FireControlBehaviour.None);
     }
 
     @Override
     public void Update(double deltaTime)
     {
         m_AIController.Update(deltaTime);
+
         super.Update(deltaTime);
     }
 }

@@ -11,12 +11,14 @@ import com.raggamuffin.protorunnerv2.particles.TrailPoint;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
 import com.raggamuffin.protorunnerv2.ui.UIElementType;
+import com.raggamuffin.protorunnerv2.weapons.Projectile;
 
 public class RendererPacket 
 {
 	private final ArrayList<ArrayList<GameObject>> m_GameObjects;
     private final ArrayList<TrailPoint> m_TrailPoints;
     private final ArrayList<Particle> m_Particles;
+    private final ArrayList<Projectile> m_Bullets;
 	private final ArrayList<ArrayList<UIElement>> m_UIElements;
 	private final ChaseCamera m_Camera;
 	private final Context m_Context;
@@ -37,6 +39,7 @@ public class RendererPacket
             m_UIElements.add(new ArrayList<UIElement>());
 
         m_Particles = new ArrayList<>();
+        m_Bullets = new ArrayList<>();
         m_TrailPoints = new ArrayList<>();
 
 		m_Context = context;
@@ -60,6 +63,11 @@ public class RendererPacket
         return m_Particles;
     }
 
+    public ArrayList<Projectile> GetBullets()
+    {
+        return m_Bullets;
+    }
+
     public void AddObject(TrailPoint point)
     {
         m_TrailPoints.add(point);
@@ -75,6 +83,11 @@ public class RendererPacket
         m_Particles.add(particle);
     }
 
+    public void AddObject(Projectile laser)
+    {
+        m_Bullets.add(laser);
+    }
+
     public void RemoveObject(TrailPoint point)
     {
         m_TrailPoints.remove(point);
@@ -88,6 +101,11 @@ public class RendererPacket
     public void RemoveObject(Particle particle)
     {
         m_Particles.remove(particle);
+    }
+
+    public void RemoveObject(Projectile laser)
+    {
+        m_Bullets.remove(laser);
     }
 
 	///// UI Elements.

@@ -35,16 +35,16 @@ public class BulletManager
 	{
 		for(Iterator<Projectile> Iter = m_ActiveBullets.iterator(); Iter.hasNext();)
 		{
-			Projectile Temp = Iter.next();
+			Projectile temp = Iter.next();
 			
-			if(Temp.IsValid())
+			if(temp.IsValid())
 			{
-				Temp.Update(deltaTime);
+                temp.Update(deltaTime);
 			}
 			else
 			{
-				m_InvalidBullets.add(Temp);
-				m_Game.RemoveTrailFromRenderer(Temp);
+				m_InvalidBullets.add(temp);
+				RemoveObjectFromRenderer(temp);
 				Iter.remove();
 			}
 		}
@@ -68,27 +68,27 @@ public class BulletManager
 	// Creates or recycles a projectile and activates it.
 	public void CreateBullet(ProjectileTemplate template)
 	{
-		Projectile NewBullet = null;
+		Projectile newBullet = null;
 
 		if(m_InvalidBullets.size() > 0)
 		{
 			for(Iterator<Projectile> Iter = m_InvalidBullets.iterator(); Iter.hasNext();)
 			{
 				Projectile Invalid 	= Iter.next();
-				NewBullet 			= Invalid;
+				newBullet 			= Invalid;
 				Iter.remove();
 			}
 		}
 
-		if(NewBullet == null)
+		if(newBullet == null)
 		{
-			NewBullet = new Projectile();
+			newBullet = new Projectile();
 		}
-		
-		NewBullet.Activate(template);
-		m_ActiveBullets.add(NewBullet);
-		m_Game.AddObjectToRenderer(NewBullet);
-	}
+
+		newBullet.Activate(template);
+		m_ActiveBullets.add(newBullet);
+        AddObjectToRenderer(newBullet);
+    }
 	
 	public void CreateExplosion(Vector3 position, AffiliationKey affilitation, Colour colour, double maxSize, double rateOfExpansion)
 	{
@@ -109,6 +109,28 @@ public class BulletManager
 			Iter.next().ForceInvalidation();
 		}
 	}
+
+    private void AddObjectToRenderer(Projectile proj)
+    {
+        switch (proj.GetModel())
+        {
+            case PulseLaser:
+                m_Game.AddBulletToRenderer(proj);
+            default:
+                m_Game.AddObjectToRenderer(proj);
+        }
+    }
+
+    private void RemoveObjectFromRenderer(Projectile proj)
+    {
+        switch (proj.GetModel())
+        {
+            case PulseLaser:
+                m_Game.RemoveBulletFromRenderer(proj);
+            default:
+                m_Game.RemoveTrailFromRenderer(proj);
+        }
+    }
 	
 	public ArrayList<Projectile> GetActiveBullets()
 	{

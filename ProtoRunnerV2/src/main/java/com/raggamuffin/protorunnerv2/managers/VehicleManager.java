@@ -181,7 +181,7 @@ public class VehicleManager
 
         tank.SetPosition(m_Spawn.I, m_Spawn.J, m_Spawn.K);
 
-        for(int b = 0; b < 0; b++)
+        for(int b = 0; b < 6; b++)
         {
             Bit bit = new Bit(m_Game);
             m_Vehicles.add(bit);

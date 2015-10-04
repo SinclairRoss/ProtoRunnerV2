@@ -50,6 +50,8 @@ public abstract class Vehicle extends GameObject
     protected InternalPubSubHub m_InternalPubSub;
     protected Publisher m_InternalDamagedPublisher;
 
+    protected boolean m_CanBeTargeted;
+
 	public Vehicle(GameLogic game)
 	{
 		super(game.GetPubSubHub(), game.GetGameAudioManager());
@@ -85,6 +87,8 @@ public abstract class Vehicle extends GameObject
 		m_PostFireAction = new PostFireAction_Null(this);
 
 		m_DamageDecayCounter = new DecayCounter(1.0, DAMAGE_DECAY_RATE);
+
+        m_CanBeTargeted = true;
 	}
 	
 	@Override
@@ -271,6 +275,11 @@ public abstract class Vehicle extends GameObject
     public InternalPubSubHub GetInternalPubSubHub()
     {
         return m_InternalPubSub;
+    }
+
+    public boolean CanBeTargeted()
+    {
+        return m_CanBeTargeted;
     }
 }
 

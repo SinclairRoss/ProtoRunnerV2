@@ -1,9 +1,8 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
+import com.raggamuffin.protorunnerv2.ai.AIBehaviours;
 import com.raggamuffin.protorunnerv2.ai.AIController;
-import com.raggamuffin.protorunnerv2.ai.AIGoalSet;
-import com.raggamuffin.protorunnerv2.ai.AIPersonalityAttributes;
-import com.raggamuffin.protorunnerv2.ai.GoalState;
+import com.raggamuffin.protorunnerv2.ai.FireControlBehaviour;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
@@ -39,18 +38,16 @@ public class Tank extends Vehicle
 		
 		SelectWeapon(new RailGun_Tank(this, game));
 
-        AIPersonalityAttributes attributes = new AIPersonalityAttributes(0.5, 1.0, 0.2, 1.0, 0.2);
-        AIGoalSet goalSet = new AIGoalSet(GoalState.EngageTarget);
-        m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), attributes, goalSet);
+        m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), AIBehaviours.EngageTarget, FireControlBehaviour.Standard);
 
 		m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.EnemyDestroyed);
 	}
 	
 	@Override 
-	public void Update(double DeltaTime)
+	public void Update(double deltaTime)
 	{
-		m_AIController.Update(DeltaTime);
+		m_AIController.Update(deltaTime);
 		
-		super.Update(DeltaTime);	
+		super.Update(deltaTime);
 	}
 } 

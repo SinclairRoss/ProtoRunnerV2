@@ -20,12 +20,12 @@ public class NavigationControl
 	private Vector3 m_SteeringVector;
 	private Vector3 m_ToGoal;
     private Vector3 m_Goal;
-	private Vector3 m_Seperation;
+	private Vector3 m_Separation;
 	private Vector3 m_Alignment;
 	private Vector3 m_Cohesion;
 	private Vector3 m_CenterOfMass;
 	private double m_GoalWeight;
-	private double m_SeperationWeight;
+	private double m_SeparationWeight;
 	private double m_AlignmentWeight;
 	private double m_CohesionWeight;
 	
@@ -40,12 +40,12 @@ public class NavigationControl
 		m_SteeringVector = new Vector3();
 		m_ToGoal 		 = new Vector3();
         m_Goal           = new Vector3();
-		m_Seperation 	 = new Vector3();
+		m_Separation = new Vector3();
 		m_Alignment 	 = new Vector3();
 		m_Cohesion 		 = new Vector3();
 		m_CenterOfMass 	 = new Vector3();
 		m_GoalWeight		= 0.4;
-		m_SeperationWeight	= 1.0;
+		m_SeparationWeight  = 1.0;
 		m_AlignmentWeight	= 0.7;
 		m_CohesionWeight	= 0.6;
 	}
@@ -57,8 +57,7 @@ public class NavigationControl
 		CalculateAlignment();
 		CalculateCohesion(); 
 		CalculateSteeringVector();
-		
-		m_Anchor.SetEngineOutput(CalculateEngineOutput());					 // Set engine output.
+
 		m_Anchor.SetTurnRate(CalculateTurnRate());							 // Set vehicle turn rate.
 	}
 	
@@ -71,7 +70,7 @@ public class NavigationControl
 	
 	private void CalculateSeparation()
 	{
-		m_Seperation.SetVector(0.0);
+		m_Separation.SetVector(0.0);
 
 		// Get surrounding vehicles.
 		ArrayList<Vehicle> SurroundingVehicles = m_SituationalAwareness.GetSurroundingAwarenessSensor().GetVehiclesInNeighbourhood();
@@ -85,11 +84,11 @@ public class NavigationControl
             double j = m_AnchorPosition.J - obstaclePosition.J;
             double k = m_AnchorPosition.K - obstaclePosition.K;
 			
-			m_Seperation.Add(i, j, k);
+			m_Separation.Add(i, j, k);
 		}
 		
-		m_Seperation.Normalise();
-		m_Seperation.Scale(m_SeperationWeight);
+		m_Separation.Normalise();
+		m_Separation.Scale(m_SeparationWeight);
 	}
 	
 	private void CalculateAlignment()
@@ -138,14 +137,9 @@ public class NavigationControl
 	{
 		m_SteeringVector.SetVector(0.0);
 		m_SteeringVector.Add(m_ToGoal);
-		m_SteeringVector.Add(m_Seperation);
+		m_SteeringVector.Add(m_Separation);
 		m_SteeringVector.Add(m_Alignment);
 		m_SteeringVector.Add(m_Cohesion);
-	}
-	
-	private double CalculateEngineOutput()
-	{		
-		return 1.0;
 	}
 	
 	private double CalculateTurnRate()
@@ -158,9 +152,7 @@ public class NavigationControl
 		
 		// Calculate Turn Direction
 		if(Vector3.Determinant(m_AnchorForward,  m_SteeringVector) > 0.0)
-		{
             normalisedTurnRate *= -1;
-		}
 
 		return normalisedTurnRate;
 	}

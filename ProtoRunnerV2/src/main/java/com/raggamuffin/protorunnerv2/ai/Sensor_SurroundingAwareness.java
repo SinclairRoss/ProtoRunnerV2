@@ -51,6 +51,9 @@ public class Sensor_SurroundingAwareness extends Sensor
 			if(object == m_Anchor)
 				continue;
 
+            if(!object.CanBeTargeted())
+                continue;
+
 			m_TempVector.SetVectorDifference(m_Anchor.GetPosition(), object.GetPosition());
 
             if (object.GetAffiliation() == m_Anchor.GetAffiliation())
