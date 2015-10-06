@@ -3,6 +3,7 @@ package com.raggamuffin.protorunnerv2.ai;
 import java.util.ArrayList;
 
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
+import com.raggamuffin.protorunnerv2.gameobjects.Wingman;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
@@ -18,7 +19,7 @@ public class Sensor_Target extends Sensor
 	
 	public Sensor_Target(AIController controller, VehicleManager vManager)
 	{
-		super(controller.GetAnchor(), 50.0);
+		super(controller.GetAnchor(), 1000.0);
 
         m_Controller = controller;
 
@@ -38,6 +39,9 @@ public class Sensor_Target extends Sensor
 
         for(Vehicle possibleTarget : m_Targets)
         {
+            if(!possibleTarget.CanBeTargeted())
+                continue;
+
             m_ToTarget.SetVectorDifference(m_Anchor.GetPosition(), possibleTarget.GetPosition());
 
             // Phase 1: Calculate utility based on distance from target.
@@ -96,12 +100,10 @@ public class Sensor_Target extends Sensor
     @Override
     public void Update()
     {
-        m_Target = null;
-
-        if(m_Controller.GetLeader() == null)
+      //  if(m_Controller.GetLeader() == null)
             m_Target = FindTarget();
-        else
-            m_Target = FindLeaderCompatibleTarget();
+    //    else
+    //        m_Target = FindLeaderCompatibleTarget();
     }
 
     public Vehicle GetTarget()

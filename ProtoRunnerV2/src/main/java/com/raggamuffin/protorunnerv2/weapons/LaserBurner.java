@@ -1,5 +1,7 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
+import android.util.Log;
+
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
@@ -20,19 +22,14 @@ public class LaserBurner extends Weapon
         m_HasLasers = true;
     }
 
-
     @Override
     public void OpenFire()
     {
         super.OpenFire();
 
+        Log.e("Open", "Fire");
+
         m_BulletManager.CreateBullet(m_ProjectileTemplate);
         m_PostFireAction.Update();
-    }
-
-    @Override
-    public void CeaseFire()
-    {
-        super.CeaseFire();
     }
 }

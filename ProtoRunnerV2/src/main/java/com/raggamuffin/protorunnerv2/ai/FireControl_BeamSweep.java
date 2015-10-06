@@ -1,5 +1,7 @@
 package com.raggamuffin.protorunnerv2.ai;
 
+import android.util.Log;
+
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
@@ -11,7 +13,8 @@ public class FireControl_BeamSweep extends FireControl
         Initialising,
         Sweeping,
         Shutdown,
-        Cooldown
+        Cooldown,
+        Idle
     }
 
     private SweepState m_State;
@@ -19,23 +22,21 @@ public class FireControl_BeamSweep extends FireControl
     private Timer m_SweepTimer;
     private Timer m_CooldownTimer;
 
-    private Vector3 m_AimTarget;
+    private Vehicle m_Target;
     private Vector3 m_Aim;
-    private Vector3 m_AimVelocity;
     private Vector3 m_ToTarget;
 
     public FireControl_BeamSweep(AIController controller)
     {
         super(controller);
 
-        m_State = SweepState.Initialising;
+        m_State = SweepState.Idle;
 
-        m_SweepTimer = new Timer(8.0);
+        m_SweepTimer = new Timer(5.0);
         m_CooldownTimer = new Timer(5.0);
 
-        m_AimTarget = new Vector3();
+        m_Target = null;
         m_Aim = new Vector3();
-        m_AimVelocity = new Vector3();
         m_ToTarget = new Vector3();
 
         m_Weapon.SetTargetVector(m_ToTarget);
@@ -44,16 +45,19 @@ public class FireControl_BeamSweep extends FireControl
     @Override
     public void Update(double deltaTime)
     {
-        Vehicle target = m_SituationalAwareness.GetTargetSensor().GetTarget();
-
-        if(target == null)
-            return;
-
         switch(m_State)
         {
+            case Idle:
+            {
+                m_Target =  m_SituationalAwareness.GetTargetSensor().GetTarget();
+
+                if(m_Target != null)
+                    m_State = SweepState.Initialising;
+
+                break;
+            }
             case Initialising:
             {
-                m_Aim = target.GetPosition();
                 m_Weapon.OpenFire();
 
                 m_SweepTimer.ResetTimer();
@@ -61,6 +65,10 @@ public class FireControl_BeamSweep extends FireControl
             }
             case Sweeping:
             {
+                m_Aim.SetVector(m_Target.GetPosition());
+                m_ToTarget.SetVectorDifference(m_Anchor.GetPosition(), m_Aim);
+                m_ToTarget.Normalise();
+
                 m_SweepTimer.Update(deltaTime);
 
                 if (m_SweepTimer.TimedOut())
@@ -77,15 +85,19 @@ public class FireControl_BeamSweep extends FireControl
             }
             case Cooldown:
             {
+                m_Aim.SetVector(m_Target.GetPosition());
+                m_ToTarget.SetVectorDifference(m_Anchor.GetPosition(), m_Aim);
+                m_ToTarget.Normalise();
+
                 m_CooldownTimer.Update(deltaTime);
 
                 if (m_CooldownTimer.TimedOut())
-                    m_State = SweepState.Initialising;
+                    m_State = SweepState.Idle;
 
                 break;
             }
         }
 
-        m_ToTarget.SetVectorDifference(m_Anchor.GetPosition(), m_Aim);
+      //  Log.e("state", "State: " + m_State);
     }
 }

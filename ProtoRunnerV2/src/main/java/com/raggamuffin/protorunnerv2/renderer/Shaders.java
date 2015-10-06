@@ -304,11 +304,13 @@ public class Shaders
         + "	    float Dist = sqrt((x * x) + (y * y)); 		\n"		// Find the Distance of this fragment from the center.
 
         + " 	gl_FragColor = u_Color;    					\n"  	// Set the fragment colour
+              //      +   "       gl_FragColor = u_Color * float(any(lessThan(v_Barycentric, vec3(0.06))));"
+        +   "       gl_FragColor.a = float(Dist > 1.0);"
 
-        + "	    if(Dist > 1.0)								\n"		// if the distance from the center is less than 0.1 we set the alpha value to 1
-        + "	    {                              				\n"		// this creates a solid center for the particle and creates the illusion of glow
-        + "  		gl_FragColor.a = 0.0;					\n"		// without using glow shaders.
-        + "	    }                              				\n"
+//        + "	    if(Dist > 1.0)								\n"		// if the distance from the center is less than 0.1 we set the alpha value to 1
+//        + "	    {                              				\n"		// this creates a solid center for the particle and creates the illusion of glow
+//        + "  		gl_FragColor.a = 0.0;					\n"		// without using glow shaders.
+//        + "	    }                              				\n"
         + "}                              				\n";
 
     public static final String vertexShader_SCROLLTEX =

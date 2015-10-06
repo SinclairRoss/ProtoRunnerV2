@@ -175,6 +175,24 @@ public final class Vector3
         return rad == rad ? rad : 0.0;
 	}
 
+    public static double DistanceBetween(Vector3 a, Vector3 b)
+    {
+        double i = b.I - a.I;
+        double j = b.J - a.J;
+        double k = b.K - a.K;
+
+        return Math.sqrt(i*i + j*j + k*k);
+    }
+
+    public static double DistanceBetweenSqr(Vector3 a, Vector3 b)
+    {
+        double i = b.I - a.I;
+        double j = b.J - a.J;
+        double k = b.K - a.K;
+
+        return i*i + j*j + k*k;
+    }
+
     public double Pitch()
     {
         double val = Math.atan(J / K);

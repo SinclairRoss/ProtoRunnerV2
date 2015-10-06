@@ -33,7 +33,7 @@ public class Projectile extends GameObject
 		m_LifeSpan   = 0.0f;
 		m_Behaviour  = null;
 		
-		m_BaseColour.SetColour(Colours.Black);
+		m_BaseColour.SetColour(Colours.White);
 		SetDragCoefficient(0.0);
 	}
 	
@@ -41,16 +41,10 @@ public class Projectile extends GameObject
 	{
 		m_LifeSpan -= deltaTime;
 
-        HandleFade();
 		m_Behaviour.Update(deltaTime);
 		
 		super.Update(deltaTime);
 	}
-
-    private void HandleFade()
-    {
-
-    }
 
 	public void ResetLifeSpan()
 	{
@@ -64,7 +58,7 @@ public class Projectile extends GameObject
 		
 		m_Origin = template.GetOrigin();
 
-		m_BaseColour.SetColour(m_Origin.GetAnchor().GetColour());
+		m_BaseColour.SetColour(m_Origin.GetAnchor().GetBaseColour());
         m_AltColour.SetColour(m_Origin.GetAnchor().GetAltColour());
 
         m_BoundingRadius = template.GetBoundingRadius();

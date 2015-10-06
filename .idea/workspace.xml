@@ -4,139 +4,39 @@
     <option name="COMMAND_LINE_OPTIONS" value="--offline" />
   </component>
   <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="O" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/particles/TrailPoint.java" line="35" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="797cb068-8cb3-41c1-a736-0fb8546efb2d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIBehaviour_FollowTheLeader.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIBehaviours.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/renderer/BulletRenderer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/FireControlBehaviour.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/FireControl_BeamSweep.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/FireControl_None.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/FireControl_Standard.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/TargetBot.java" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\classes\debug\com\raggamuffin\protorunnerv2\ai\AIGoalSet$1.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\classes\debug\com\raggamuffin\protorunnerv2\ai\AIGoalSet.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\classes\debug\com\raggamuffin\protorunnerv2\ai\AIPersonalityAttributes.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\classes\debug\com\raggamuffin\protorunnerv2\ai\BehaviourControl$1.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\classes\debug\com\raggamuffin\protorunnerv2\ai\BehaviourControl$BehaviourStates.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\classes\debug\com\raggamuffin\protorunnerv2\ai\BehaviourControl.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\classes\debug\com\raggamuffin\protorunnerv2\ai\BraveryFactor.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\classes\debug\com\raggamuffin\protorunnerv2\ai\BraveryFactor_DamageTaken$1.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\classes\debug\com\raggamuffin\protorunnerv2\ai\BraveryFactor_DamageTaken$DamageTakenSubscriber.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\classes\debug\com\raggamuffin\protorunnerv2\ai\BraveryFactor_DamageTaken.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\classes\debug\com\raggamuffin\protorunnerv2\ai\BraveryFactor_Enemies.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\classes\debug\com\raggamuffin\protorunnerv2\ai\BraveryFactor_Friendlies.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\classes\debug\com\raggamuffin\protorunnerv2\ai\Goal.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\classes\debug\com\raggamuffin\protorunnerv2\ai\GoalState.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\classes\debug\com\raggamuffin\protorunnerv2\ai\Goal_Encircle.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\classes\debug\com\raggamuffin\protorunnerv2\ai\Goal_EngageTarget.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\classes\debug\com\raggamuffin\protorunnerv2\ai\Goal_Flee.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\classes\debug\com\raggamuffin\protorunnerv2\ai\IndependentBehaviour.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\classes\debug\com\raggamuffin\protorunnerv2\ai\SituationalAnalysis.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\classes\debug\com\raggamuffin\protorunnerv2\ai\SubmissiveBehaviour$1.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\classes\debug\com\raggamuffin\protorunnerv2\ai\SubmissiveBehaviour.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\java\com\raggamuffin\protorunnerv2\ai\AIGoalSet.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\java\com\raggamuffin\protorunnerv2\ai\AIPersonalityAttributes.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\java\com\raggamuffin\protorunnerv2\ai\BehaviourControl.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\java\com\raggamuffin\protorunnerv2\ai\BraveryFactor.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\java\com\raggamuffin\protorunnerv2\ai\BraveryFactor_DamageTaken.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\java\com\raggamuffin\protorunnerv2\ai\BraveryFactor_Enemies.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\java\com\raggamuffin\protorunnerv2\ai\BraveryFactor_Friendlies.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\java\com\raggamuffin\protorunnerv2\ai\GoalState.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\java\com\raggamuffin\protorunnerv2\ai\Goal_Flee.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\java\com\raggamuffin\protorunnerv2\ai\IndependentBehaviour.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\java\com\raggamuffin\protorunnerv2\ai\SituationalAnalysis.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\java\com\raggamuffin\protorunnerv2\ai\SubmissiveBehaviour.java" afterPath="" />
-      <change type="MOVED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\java\com\raggamuffin\protorunnerv2\ai\Goal.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIBehaviour.java" />
-      <change type="MOVED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\java\com\raggamuffin\protorunnerv2\ai\Goal_Encircle.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIBehaviour_Encircle.java" />
-      <change type="MOVED" beforePath="C:\Users\Sinky\StudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\java\com\raggamuffin\protorunnerv2\ai\Goal_EngageTarget.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIBehaviour_EngageTarget.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ai/AIController.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ai/AIController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/BulletManager.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/BulletManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ai/FireControl.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ai/FireControl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLPulseLaser.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLPulseLaser.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLRenderer.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLRenderer.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$AchievementsPressedSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$AchievementsPressedSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$EndGameSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$EndGameSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$LeaderBoardPressedSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$LeaderBoardPressedSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$PlayerDestroyedSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$PlayerDestroyedSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$PlayerSpawnedSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$PlayerSpawnedSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$StartGameSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$StartGameSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$StartTutorialSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$StartTutorialSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$TutorialCompleteSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$TutorialCompleteSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/GameManager_Exhibition.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/GameManager_Exhibition.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/ModelManager$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/ModelManager$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/ModelManager.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/ModelManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ai/NavigationControl.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ai/NavigationControl.class" />
+    <list default="true" id="797cb068-8cb3-41c1-a736-0fb8546efb2d" name="Default" comment="Loads and loads more polish. &#10;Removed loads of rubbish AI stuff.&#10;Done loads really.">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/Projectile.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/Projectile.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/ProjectileBehaviour_Laser.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/ProjectileBehaviour_Laser.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/outputs/apk/ProtoRunnerV2-debug-unaligned.apk" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/outputs/apk/ProtoRunnerV2-debug-unaligned.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/outputs/apk/ProtoRunnerV2-debug.apk" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/outputs/apk/ProtoRunnerV2-debug.apk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/master/RendererPacket.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/master/RendererPacket.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ai/Sensor_SurroundingAwareness.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ai/Sensor_SurroundingAwareness.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ai/Sensor_Target.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ai/Sensor_Target.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/VehicleManager.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/VehicleManager.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/Shaders.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/Shaders.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/utils/Vector3.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/utils/Vector3.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-06ab37edf61694c22c293dc9ab41bab488406bc9.jar" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-06ab37edf61694c22c293dc9ab41bab488406bc9.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-2c028c378c5528a94357909a18f662698f7f8619.jar" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-2c028c378c5528a94357909a18f662698f7f8619.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-34b4ec3c58d0bc4aadc065e736d4743f8ea1a81c.jar" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-34b4ec3c58d0bc4aadc065e736d4743f8ea1a81c.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-43cf34db71283ff61e360a474b1dc1e4c6d1f7db.jar" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-43cf34db71283ff61e360a474b1dc1e4c6d1f7db.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-45b19e302165e60edda4c2af302b99c3055306bc.jar" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-45b19e302165e60edda4c2af302b99c3055306bc.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-475e55994f5440e819b7988ff0065d4158443666.jar" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-475e55994f5440e819b7988ff0065d4158443666.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-4b868d2563997b30a740fc86f2876df74e30afb9.jar" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-4b868d2563997b30a740fc86f2876df74e30afb9.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-66fdcfc2144d757ac8530a052d47265e07773092.jar" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-66fdcfc2144d757ac8530a052d47265e07773092.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-69ad91f8f351150abae36918005afd1240d401f3.jar" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-69ad91f8f351150abae36918005afd1240d401f3.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-73d15a7b00f0331346d474c1114b3cc0a1b38ce2.jar" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-73d15a7b00f0331346d474c1114b3cc0a1b38ce2.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-749cc7a780e7893ba60c6a8c6a80c2d75fa2dc36.jar" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-749cc7a780e7893ba60c6a8c6a80c2d75fa2dc36.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-74aedc32f7e52ab366857a3ccfc7be7994b2de20.jar" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-74aedc32f7e52ab366857a3ccfc7be7994b2de20.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-76882c3d11b474075c17781ecce8e6ad216d33f7.jar" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-76882c3d11b474075c17781ecce8e6ad216d33f7.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-8e388dcd8b97a09304cc972cb61d3ffff3cfa55d.jar" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-8e388dcd8b97a09304cc972cb61d3ffff3cfa55d.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-93f5a97fc040ab1733116df9f83fe928f712b237.jar" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-93f5a97fc040ab1733116df9f83fe928f712b237.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-a012203e74e6e42a9049d72208fcb2f23c3431b9.jar" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-a012203e74e6e42a9049d72208fcb2f23c3431b9.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-b1808f3250303043d8266c60737bce78fb9eb4b8.jar" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-b1808f3250303043d8266c60737bce78fb9eb4b8.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-b53993833ab07fbfd7d3b51de23eeeca6c4ddeb4.jar" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-b53993833ab07fbfd7d3b51de23eeeca6c4ddeb4.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-b732c20c9a93d8f61a730de1c28f5cdc6066418b.jar" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-b732c20c9a93d8f61a730de1c28f5cdc6066418b.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-b7a255c659b855a7d768177e722332e1ea9e71a8.jar" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-b7a255c659b855a7d768177e722332e1ea9e71a8.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-dd338e0813305341dbe9cb8088ad82996d608f5d.jar" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-dd338e0813305341dbe9cb8088ad82996d608f5d.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-e2113edb41eef538ea4f7f76b41e5fd2fa79cf83.jar" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-e2113edb41eef538ea4f7f76b41e5fd2fa79cf83.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-ef3a8da9d3009bb81003d30ad8db27559487cc20.jar" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-ef3a8da9d3009bb81003d30ad8db27559487cc20.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-f570e0fa6273beb92bed28f43e14ab444eaf059f.jar" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/classes-f570e0fa6273beb92bed28f43e14ab444eaf059f.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/dex/debug/classes.dex" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/dex/debug/classes.dex" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/exploded-aar/ProtoRunnerV2/BaseGameUtils/unspecified/jars/classes.jar" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/exploded-aar/ProtoRunnerV2/BaseGameUtils/unspecified/jars/classes.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/gradle_project_sync_data.bin" afterPath="$PROJECT_DIR$/build/intermediates/gradle_project_sync_data.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/internal_impl-22.0.0-89a57e48793771ae5d65787933a30f0a9fffdc28.jar" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/internal_impl-22.0.0-89a57e48793771ae5d65787933a30f0a9fffdc28.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/internal_impl-22.2.0-256716fac731ae154b746658f217ea71d77d9f03.jar" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/internal_impl-22.2.0-256716fac731ae154b746658f217ea71d77d9f03.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/outputFileStates.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/outputFileStates.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/resources/resources-debug.ap_" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/resources/resources-debug.ap_" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/support-annotations-22.2.0-ce405e005671120865286fbb1a2542953cb92ee2.jar" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/pre-dexed/debug/support-annotations-22.2.0-ce405e005671120865286fbb1a2542953cb92ee2.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIController.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Bit.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Bit.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/managers/BulletManager.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/managers/BulletManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIBehaviour_Encircle.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIBehaviour_Encircle.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Carrier.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Carrier.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Drone.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Drone.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Dummy.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Dummy.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/FireControl.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/FireControl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/renderer/GLPulseLaser.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/renderer/GLPulseLaser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/renderer/GLRenderer.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/renderer/GLRenderer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gamelogic/GameLogic.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gamelogic/GameLogic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/managers/GameManager_Exhibition.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/managers/GameManager_Exhibition.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/renderer/ModelManager.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/renderer/ModelManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/NavigationControl.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/NavigationControl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/particles/ParticleEmitter_Burst.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/particles/ParticleEmitter_Burst.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/master/RendererPacket.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/master/RendererPacket.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/Sensor_SurroundingAwareness.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/Sensor_SurroundingAwareness.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/FireControl_BeamSweep.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/FireControl_BeamSweep.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/LaserBurner.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/LaserBurner.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Projectile.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Projectile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/ProjectileBehaviour_Laser.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/ProjectileBehaviour_Laser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Runner.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Runner.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/Sensor_Target.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/Sensor_Target.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Tank.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Tank.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/renderer/Shaders.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/renderer/Shaders.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/utils/Vector3.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/utils/Vector3.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Vehicle.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Vehicle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/managers/VehicleManager.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/managers/VehicleManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Wingman.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Wingman.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -173,34 +73,61 @@
     <favorites_list name="ProtoRunnerV2" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.42760026">
+    <splitter split-orientation="horizontal" split-proportion="0.46963277">
       <split-first>
         <leaf>
           <file leaf-file-name="Drone.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Drone.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="32" column="36" selection-start-line="32" selection-start-column="25" selection-end-line="32" selection-end-column="36" />
+                  <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Carrier.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Carrier.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="42" column="40" selection-start-line="42" selection-start-column="40" selection-end-line="42" selection-end-column="40" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="GameManager_Exhibition.java" pinned="false" current-in-tab="false">
+          <file leaf-file-name="AIBehaviour_EngageTarget.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIBehaviour_EngageTarget.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="21" column="91" selection-start-line="21" selection-start-column="82" selection-end-line="21" selection-end-column="91" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Sensor_Target.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/Sensor_Target.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="26" column="38" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="38" />
+                  <folding>
+                    <element signature="e#3294#3295#0" expanded="true" />
+                    <element signature="e#3325#3326#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="GameManager_Exhibition.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/managers/GameManager_Exhibition.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="35" column="9" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Dummy.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Dummy.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="42" column="39" selection-start-line="42" selection-start-column="39" selection-end-line="42" selection-end-column="39" />
+                <state vertical-scroll-proportion="0.4883721">
+                  <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -210,29 +137,108 @@
             <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Runner.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+                  <caret line="51" column="39" selection-start-line="51" selection-start-column="39" selection-end-line="51" selection-end-column="39" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Tank.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Tank.java">
+          <file leaf-file-name="AIBehaviour_FollowTheLeader.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIBehaviour_FollowTheLeader.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="48" column="39" selection-start-line="48" selection-start-column="39" selection-end-line="48" selection-end-column="39" />
+                  <caret line="14" column="62" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="62" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="TargetBot.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/TargetBot.java">
+          <file leaf-file-name="AIBehaviour.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIBehaviour.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="11" column="33" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
+                  <caret line="17" column="28" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="FireControl_BeamSweep.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/FireControl_BeamSweep.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
                   <folding>
                     <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Wingman.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Wingman.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="28" column="40" selection-start-line="28" selection-start-column="40" selection-end-line="28" selection-end-column="40" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="ProjectileBehaviour_Laser.java" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/ProjectileBehaviour_Laser.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.60465115">
+                  <caret line="131" column="12" selection-start-line="131" selection-start-column="12" selection-end-line="131" selection-end-column="12" />
+                  <folding>
+                    <element signature="e#4818#4819#0" expanded="true" />
+                    <element signature="e#4856#4857#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Bit.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Bit.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="12" column="32" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="32" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="GameManager_Play.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/managers/GameManager_Play.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="22" column="39" selection-start-line="22" selection-start-column="29" selection-end-line="22" selection-end-column="39" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="VehicleManager.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/managers/VehicleManager.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="198" column="25" selection-start-line="198" selection-start-column="25" selection-end-line="198" selection-end-column="25" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="GameLogic.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gamelogic/GameLogic.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="73" column="24" selection-start-line="73" selection-start-column="8" selection-end-line="73" selection-end-column="24" />
+                  <folding>
+                    <element signature="method#AddObjectToRenderer#0;class#GameLogic#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -242,37 +248,7 @@
             <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Vehicle.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="84" column="50" selection-start-line="84" selection-start-column="29" selection-end-line="84" selection-end-column="50" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Wingman.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Wingman.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="56" column="39" selection-start-line="56" selection-start-column="39" selection-end-line="56" selection-end-column="39" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="FireControl_None.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/FireControl_None.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="FireControl_BeamSweep.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/FireControl_BeamSweep.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.5089409">
-                  <caret line="48" column="26" selection-start-line="48" selection-start-column="26" selection-end-line="48" selection-end-column="26" />
+                  <caret line="22" column="28" selection-start-line="22" selection-start-column="28" selection-end-line="22" selection-end-column="28" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -280,47 +256,31 @@
               </provider>
             </entry>
           </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file leaf-file-name="GameThread.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/master/GameThread.java">
+          <file leaf-file-name="AIController.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIController.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="45" column="4" selection-start-line="45" selection-start-column="4" selection-end-line="45" selection-end-column="49" />
+                  <caret line="18" column="63" selection-start-line="18" selection-start-column="63" selection-end-line="18" selection-end-column="63" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="ProjectileBehaviour_Laser.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/ProjectileBehaviour_Laser.java">
+          <file leaf-file-name="ProjectileTemplate.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/ProjectileTemplate.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.70151305">
-                  <caret line="101" column="54" selection-start-line="101" selection-start-column="44" selection-end-line="101" selection-end-column="54" />
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="36" column="35" selection-start-line="36" selection-start-column="24" selection-end-line="36" selection-end-column="35" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="BulletRenderer.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/renderer/BulletRenderer.java">
+          <file leaf-file-name="LaserBurner.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/LaserBurner.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="GLPulseLaser.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/renderer/GLPulseLaser.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="121" column="16" selection-start-line="121" selection-start-column="16" selection-end-line="121" selection-end-column="16" />
+                  <caret line="17" column="61" selection-start-line="17" selection-start-column="61" selection-end-line="17" selection-end-column="61" />
                   <folding />
                 </state>
               </provider>
@@ -2672,12 +2632,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Engine_Cycling.java" />
-        <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Engine_Standard.java" />
-        <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/ProjectileBehaviour_Missile.java" />
-        <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/ProjectileBehaviour_Laser.java" />
-        <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/particles/ParticleEmitter_Spiral.java" />
-        <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/LaserBurner.java" />
         <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/Goal_EngageTarget.java" />
         <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/Goal.java" />
         <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/Behaviour.java" />
@@ -2692,16 +2646,11 @@
         <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIBehaviours.java" />
         <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/NavigationControl.java" />
         <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIBehaviour_FollowTheLeader.java" />
-        <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Vehicle.java" />
         <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/Sensor_SurroundingAwareness.java" />
         <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/FireControlType.java" />
         <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/FireControlBehaviour.java" />
-        <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/managers/GameManager_Play.java" />
-        <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/managers/VehicleManager.java" />
-        <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/Sensor_Target.java" />
         <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/renderer/ModelManager.java" />
         <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/renderer/BulletRenderer.java" />
-        <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/renderer/GLPulseLaser.java" />
         <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/renderer/ModelType.java" />
         <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/PulseLaser.java" />
         <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/particles/ParticleEmitter_Burst.java" />
@@ -2710,19 +2659,30 @@
         <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/renderer/GLRenderer.java" />
         <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/managers/BulletManager.java" />
         <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/TargetBot.java" />
-        <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIBehaviour_Encircle.java" />
         <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/FireControl.java" />
         <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/FireControl_Standard.java" />
-        <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIController.java" />
         <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Bit.java" />
-        <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Carrier.java" />
-        <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Drone.java" />
         <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Dummy.java" />
         <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Tank.java" />
         <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Wingman.java" />
         <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/FireControl_None.java" />
         <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/managers/GameManager_Exhibition.java" />
+        <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Vehicle.java" />
+        <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/renderer/Shaders.java" />
+        <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/utils/Vector3.java" />
+        <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/renderer/GLPulseLaser.java" />
+        <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Projectile.java" />
+        <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIBehaviour_Encircle.java" />
+        <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIController.java" />
+        <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/LaserBurner.java" />
+        <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/managers/GameManager_Play.java" />
+        <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/managers/VehicleManager.java" />
+        <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Carrier.java" />
+        <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Runner.java" />
+        <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Drone.java" />
         <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/FireControl_BeamSweep.java" />
+        <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/ProjectileBehaviour_Laser.java" />
+        <option value="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/Sensor_Target.java" />
       </list>
     </option>
   </component>
@@ -2758,10 +2718,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -2845,10 +2801,6 @@
               <option name="myItemId" value="protorunnerv2" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="weapons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -2879,9 +2831,17 @@
               <option name="myItemId" value="protorunnerv2" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="managers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -3325,7 +3285,13 @@
       <option name="project" value="LOCAL" />
       <updated>1443846037529</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Loads and loads more polish. &#10;Removed loads of rubbish AI stuff.&#10;Done loads really.">
+      <created>1443982659970</created>
+      <option name="number" value="00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1443982659970</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TodoView">
@@ -3345,26 +3311,26 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32941177" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.0" sideWeight="0.49555555" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34838077" sideWeight="0.48507464" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34851485" sideWeight="0.554371" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3454367" sideWeight="0.554371" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2914622" sideWeight="0.42910448" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27665246" sideWeight="0.5048544" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32875368" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27665246" sideWeight="0.50487804" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3493621" sideWeight="0.37089714" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25907752" sideWeight="0.73741794" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2551521" sideWeight="0.73741794" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32875368" sideWeight="0.48444444" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17110874" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21588486" sideWeight="0.49514562" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29244357" sideWeight="0.5708955" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24520256" sideWeight="0.49514562" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.296369" sideWeight="0.5708955" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34838077" sideWeight="0.48507464" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -3373,11 +3339,11 @@
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32941177" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2914622" sideWeight="0.42910448" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27665246" sideWeight="0.50487804" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32875368" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32875368" sideWeight="0.48444444" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27665246" sideWeight="0.50487804" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17110874" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32875368" sideWeight="0.48444444" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.0" sideWeight="0.49514562" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28712872" sideWeight="0.5708955" order="2" side_tool="false" content_ui="tabs" />
@@ -3433,7 +3399,8 @@
     <MESSAGE value="Rewrote particle emitters.&#10;Upgraded laser beams some more." />
     <MESSAGE value="Polish, polish and polish." />
     <MESSAGE value="Loads and loads more polish." />
-    <option name="LAST_COMMIT_MESSAGE" value="Loads and loads more polish." />
+    <MESSAGE value="Loads and loads more polish. &#10;Removed loads of rubbish AI stuff.&#10;Done loads really." />
+    <option name="LAST_COMMIT_MESSAGE" value="Loads and loads more polish. &#10;Removed loads of rubbish AI stuff.&#10;Done loads really." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3445,88 +3412,15 @@
           <option name="timeStamp" value="50" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="160" />
+      <option name="time" value="163" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/BehaviourState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/particles/ParticleEmitter_Spiral.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="29" column="27" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/NavigationControl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="44" column="41" selection-start-line="44" selection-start-column="41" selection-end-line="44" selection-end-column="41" />
-          <folding>
-            <element signature="e#4842#4843#0" expanded="false" />
-            <element signature="e#4880#4881#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/SituationalAwareness.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="32" column="24" selection-start-line="32" selection-start-column="11" selection-end-line="32" selection-end-column="24" />
-          <folding>
-            <element signature="e#1039#1040#0" expanded="false" />
-            <element signature="e#1076#1077#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/Sensor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIBehaviours.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Engine_Standard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/Sensor_SurroundingAwareness.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="106" column="5" selection-start-line="106" selection-start-column="5" selection-end-line="106" selection-end-column="5" />
-          <folding>
-            <element signature="e#3219#3220#0" expanded="false" />
-            <element signature="e#3261#3262#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/FireControlBehaviour.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="4" column="9" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3534,49 +3428,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="154" column="27" selection-start-line="154" selection-start-column="27" selection-end-line="154" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/managers/GameManager_Play.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="22" column="39" selection-start-line="22" selection-start-column="29" selection-end-line="22" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/managers/VehicleManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="183" column="28" selection-start-line="183" selection-start-column="28" selection-end-line="183" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/Sensor_Target.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="69" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
-          <folding>
-            <element signature="e#3179#3180#0" expanded="false" />
-            <element signature="e#3210#3211#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/utils/Vector3.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33287483">
-          <caret line="170" column="25" selection-start-line="170" selection-start-column="25" selection-end-line="170" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/renderer/Shaders.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="237" column="31" selection-start-line="237" selection-start-column="31" selection-end-line="237" selection-end-column="31" />
           <folding />
         </state>
       </provider>
@@ -3593,7 +3444,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="24" column="16" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3601,7 +3451,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="22" column="4" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3646,7 +3495,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="37" column="24" selection-start-line="37" selection-start-column="12" selection-end-line="37" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3658,68 +3506,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gamelogic/GameLogic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="209" column="35" selection-start-line="209" selection-start-column="16" selection-end-line="209" selection-end-column="35" />
-          <folding>
-            <element signature="e#6692#6693#0" expanded="false" />
-            <element signature="e#6733#6734#0" expanded="false" />
-            <element signature="e#7019#7020#0" expanded="false" />
-            <element signature="e#7066#7067#0" expanded="false" />
-            <element signature="method#AddObjectToRenderer#0;class#GameLogic#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/managers/BulletManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="89" column="37" selection-start-line="89" selection-start-column="37" selection-end-line="89" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/renderer/GLPulseLaser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="121" column="16" selection-start-line="121" selection-start-column="16" selection-end-line="121" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIBehaviour_EngageTarget.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="8" selection-start-line="21" selection-start-column="8" selection-end-line="22" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIBehaviour.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIBehaviour_Encircle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="25" column="25" selection-start-line="25" selection-start-column="25" selection-end-line="25" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIBehaviour_FollowTheLeader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="31" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
           <folding />
         </state>
       </provider>
@@ -3732,35 +3522,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Weapon.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="117" column="36" selection-start-line="117" selection-start-column="36" selection-end-line="117" selection-end-column="36" />
-          <folding>
-            <element signature="e#2642#2643#0" expanded="false" />
-            <element signature="e#2675#2676#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="70" column="38" selection-start-line="70" selection-start-column="38" selection-end-line="70" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Bit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="41" column="39" selection-start-line="41" selection-start-column="39" selection-end-line="41" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/ChaseCamera.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -3769,28 +3530,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Carrier.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="68" column="16" selection-start-line="68" selection-start-column="16" selection-end-line="68" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Dummy.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="42" column="39" selection-start-line="42" selection-start-column="39" selection-end-line="42" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Runner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -3808,24 +3551,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="11" column="33" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Vehicle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="84" column="50" selection-start-line="84" selection-start-column="29" selection-end-line="84" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Wingman.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="56" column="39" selection-start-line="56" selection-start-column="39" selection-end-line="56" selection-end-column="39" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3833,23 +3560,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/managers/GameManager_Exhibition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="35" column="9" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Drone.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="32" column="36" selection-start-line="32" selection-start-column="25" selection-end-line="32" selection-end-column="36" />
-          <folding />
+          <folding>
+            <element signature="e#152#153#0" expanded="false" />
+            <element signature="e#185#186#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -3858,7 +3572,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#251#252#0" expanded="false" />
+            <element signature="e#281#282#0" expanded="false" />
+            <element signature="e#317#318#0" expanded="false" />
+            <element signature="e#361#362#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3868,7 +3585,7 @@
         <state vertical-scroll-proportion="0.21045393">
           <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3877,25 +3594,282 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="45" column="4" selection-start-line="45" selection-start-column="4" selection-end-line="45" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#2113#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/renderer/Shaders.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="296" column="7" selection-start-line="296" selection-start-column="7" selection-end-line="296" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/ProjectileBehaviour_Laser.java">
+    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/utils/Vector3.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.70151305">
-          <caret line="101" column="54" selection-start-line="101" selection-start-column="44" selection-end-line="101" selection-end-column="54" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="192" column="31" selection-start-line="192" selection-start-column="31" selection-end-line="192" selection-end-column="31" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/renderer/GLPulseLaser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="140" column="0" selection-start-line="140" selection-start-column="0" selection-end-line="141" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/SituationalAwareness.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="59" selection-start-line="16" selection-start-column="46" selection-end-line="16" selection-end-column="59" />
+          <folding>
+            <element signature="e#1039#1040#0" expanded="false" />
+            <element signature="e#1076#1077#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIBehaviours.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/ProjectileBehaviour_Mine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="38" column="5" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/particles/ParticleEmitter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="82" column="16" selection-start-line="82" selection-start-column="16" selection-end-line="82" selection-end-column="16" />
+          <folding>
+            <element signature="e#1954#1955#0" expanded="false" />
+            <element signature="e#1998#1999#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/GameObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="282" column="25" selection-start-line="282" selection-start-column="25" selection-end-line="282" selection-end-column="25" />
+          <folding>
+            <element signature="e#8018#8019#0" expanded="true" />
+            <element signature="e#8041#8042#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIBehaviour_Encircle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="8" column="31" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Projectile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="53" column="43" selection-start-line="53" selection-start-column="25" selection-end-line="53" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/ProjectileTemplate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="36" column="35" selection-start-line="36" selection-start-column="24" selection-end-line="36" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Weapon.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="225" column="26" selection-start-line="225" selection-start-column="26" selection-end-line="225" selection-end-column="40" />
+          <folding>
+            <element signature="e#2642#2643#0" expanded="true" />
+            <element signature="e#2675#2676#0" expanded="true" />
+            <element signature="e#4978#4979#0" expanded="true" />
+            <element signature="e#5017#5018#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/LaserBurner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="17" column="61" selection-start-line="17" selection-start-column="61" selection-end-line="17" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/managers/GameManager_Play.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="22" column="39" selection-start-line="22" selection-start-column="29" selection-end-line="22" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Carrier.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="42" column="40" selection-start-line="42" selection-start-column="40" selection-end-line="42" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIBehaviour.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="17" column="28" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIBehaviour_FollowTheLeader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="62" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIBehaviour_EngageTarget.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="21" column="91" selection-start-line="21" selection-start-column="82" selection-end-line="21" selection-end-column="91" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Drone.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/FireControl_BeamSweep.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5089409">
-          <caret line="48" column="26" selection-start-line="48" selection-start-column="26" selection-end-line="48" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Runner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="51" column="39" selection-start-line="51" selection-start-column="39" selection-end-line="51" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Wingman.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="28" column="40" selection-start-line="28" selection-start-column="40" selection-end-line="28" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Bit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="32" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Vehicle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="22" column="28" selection-start-line="22" selection-start-column="28" selection-end-line="22" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/Sensor_Target.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="26" column="38" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="38" />
+          <folding>
+            <element signature="e#3294#3295#0" expanded="true" />
+            <element signature="e#3325#3326#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="63" selection-start-line="18" selection-start-column="63" selection-end-line="18" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/managers/VehicleManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="198" column="25" selection-start-line="198" selection-start-column="25" selection-end-line="198" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gamelogic/GameLogic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="73" column="24" selection-start-line="73" selection-start-column="8" selection-end-line="73" selection-end-column="24" />
+          <folding>
+            <element signature="method#AddObjectToRenderer#0;class#GameLogic#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/ProjectileBehaviour_Laser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.60465115">
+          <caret line="131" column="12" selection-start-line="131" selection-start-column="12" selection-end-line="131" selection-end-column="12" />
+          <folding>
+            <element signature="e#4818#4819#0" expanded="true" />
+            <element signature="e#4856#4857#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/managers/GameManager_Exhibition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4883721">
+          <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

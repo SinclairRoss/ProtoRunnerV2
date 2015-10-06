@@ -1,6 +1,5 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
-import com.raggamuffin.protorunnerv2.ai.VehicleInfo;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.master.ControlScheme;

@@ -10,7 +10,6 @@ import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_Pulse;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.ParticleManager;
 import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_Burst;
-import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_HyperLight;
 import com.raggamuffin.protorunnerv2.pubsub.InternalPubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.InternalTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
@@ -109,10 +108,13 @@ public abstract class Vehicle extends GameObject
 	}
 	
 	public void SelectWeapon(Weapon newWeapon)
-	{
-		if(m_PrimaryWeapon != null)
-			m_PrimaryWeapon.LasersOff();
-		
+    {
+        if (m_PrimaryWeapon != null)
+        {
+            m_PrimaryWeapon.CeaseFire();
+            m_PrimaryWeapon.LasersOff();
+        }
+
 		m_PrimaryWeapon = newWeapon;
 
 		if(m_LasersOn)
@@ -222,6 +224,7 @@ public abstract class Vehicle extends GameObject
 		if(IsForciblyInvalidated())
 		{
             m_BurstEmitter.Burst();
+            m_PrimaryWeapon.CeaseFire();
 
 			return false;
 		}
@@ -230,6 +233,7 @@ public abstract class Vehicle extends GameObject
 		{
 			SendDeathMessage();
 			m_BurstEmitter.Burst();
+            m_PrimaryWeapon.CeaseFire();
 			
 			return false;
 		}

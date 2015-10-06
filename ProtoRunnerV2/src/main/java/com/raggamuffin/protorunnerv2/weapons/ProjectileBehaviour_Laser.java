@@ -136,9 +136,7 @@ public class ProjectileBehaviour_Laser extends ProjectileBehaviour
         double j = m_FiringWeapon.GetForward().J * m_Scale;
 
         if (y + j < 0)
-        {
             m_Scale *= Math.abs(y / j);
-        }
 
         m_Anchor.SetScale(m_LaserWidth, m_LaserWidth, m_Scale);
     }

@@ -3,9 +3,11 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 import com.raggamuffin.protorunnerv2.ai.AIBehaviours;
 import com.raggamuffin.protorunnerv2.ai.AIController;
 import com.raggamuffin.protorunnerv2.ai.FireControlBehaviour;
+import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
+import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.Spring1;
 import com.raggamuffin.protorunnerv2.weapons.LaserBurner;
 
@@ -22,19 +24,18 @@ public class Drone extends Vehicle
 
         m_Anchor = anchor;
 
-        m_BaseColour = anchor.GetBaseColour();
-        m_AltColour = anchor.GetAltColour();
+        SetBaseColour(Colours.PastelRed);
 
         m_Engine = new Engine_Standard(this, game, new EngineUseBehaviour_Null());
         m_Engine.SetMaxTurnRate(2.0);
         m_Engine.SetMaxEngineOutput(3000);
         m_Mass = 100;
 
+        SetAffiliation(AffiliationKey.RedTeam);
+
         SelectWeapon(new LaserBurner(this, game));
 
         m_Model = ModelType.WeaponDrone;
-
-        SetAffiliation(anchor.GetAffiliation());
 
         VehicleManager vehicleManager = game.GetVehicleManager();
         m_AIController = new AIController(this, vehicleManager, game.GetBulletManager(), AIBehaviours.FollowTheLeader, FireControlBehaviour.BeamSweep);

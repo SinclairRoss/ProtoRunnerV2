@@ -19,11 +19,16 @@ public class AIBehaviour_Encircle extends AIBehaviour
     @Override
     public Vector3 GetNavigationCoordinates()
     {
+        m_Goal.SetVector(0,0,0);
+
         Vehicle target = m_Controller.GetSituationalAwareness().GetTargetSensor().GetTarget();
 
-        m_Goal.SetVectorDifference(target.GetForward(), m_Position);
-        m_Goal.Normalise();
-        m_Goal.Scale(20);
+        if(target != null)
+        {
+            m_Goal.SetVectorDifference(target.GetForward(), m_Position);
+            m_Goal.Normalise();
+            m_Goal.Scale(20);
+        }
 
         return m_Goal;
     }
