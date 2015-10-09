@@ -13,7 +13,7 @@ public class LaserBurner extends Weapon
         super(anchor, game);
 
         m_FireMode = new FireControl_None();
-        m_ProjectileTemplate = new ProjectileTemplate(this, ModelType.ParticleLaser, GetAffiliation(),
+        m_ProjectileTemplate = new ProjectileTemplate(this, ModelType.ParticleLaser,
                 m_MuzzleVelocity, 100, 0.5, 0.0,
                 ProjectileBehaviourType.ParticleLaser, game);
 

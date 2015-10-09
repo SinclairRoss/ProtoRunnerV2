@@ -28,8 +28,8 @@ public class GameManager_Play extends GameManager
     @Override
     public void Initialise()
     {
-        m_VehicleManager.SpawnWingmen(-3);
-        m_VehicleManager.SpawnWingmen(3);
+      //  m_VehicleManager.SpawnWingmen(-3);
+     //   m_VehicleManager.SpawnWingmen(3);
         m_VehicleManager.SpawnPlayer();
     }
 

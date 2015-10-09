@@ -217,6 +217,13 @@ public final class Vector3
 	{
 		return ((A.J * B.K) - (A.K * B.J)) - ((A.I * B.K) - (A.K * B.I)) + ((A.I * B.J) - (A.J * B.I));
 	}
+
+    public void Lerp(Vector3 start, Vector3 end, double amount)
+    {
+        I = MathsHelper.Lerp(amount, start.I, end.I);
+        J = MathsHelper.Lerp(amount, start.J, end.J);
+        K = MathsHelper.Lerp(amount, start.K, end.K);
+    }
 	
 	public double GetLengthSqr()
 	{
@@ -227,8 +234,7 @@ public final class Vector3
 	{
 		return  Math.sqrt((I * I) + (J * J) + (K * K));
 	}
-	
-	// Check for Nan errors.
+
 	public boolean IsNan()
 	{
 		if(I != I)

@@ -21,7 +21,7 @@ public class RailGun_Tank extends Weapon
 		m_LifeSpan = 0.5;
 		
 		m_FireMode = new FireControl_Charge(1.0, 1.0);
-		m_ProjectileTemplate = new ProjectileTemplate(this, ModelType.RailSlug, GetAffiliation(),
+		m_ProjectileTemplate = new ProjectileTemplate(this, ModelType.RailSlug,
 							   m_MuzzleVelocity, m_Damage, m_LifeSpan, 2.0,
 							   ProjectileBehaviourType.Standard, game, SpecialProjectileBehaviourType.AddAttractGraviton, SpecialProjectileBehaviourType.Explode);
 		

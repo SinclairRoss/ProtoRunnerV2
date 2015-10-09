@@ -44,7 +44,7 @@ public class ProjectileBehaviour_Laser extends ProjectileBehaviour
 
         m_EndPoint = new Vector3();
         m_Scale = 0.0;
-        m_MaxScale = 50;
+        m_MaxScale = 200;
         m_GrowthRate = 100;
         m_LaserFadeTimer = new Timer(m_Anchor.GetMaxLifeSpan());
         m_MaxLaserWidth = 0.25;
@@ -70,6 +70,9 @@ public class ProjectileBehaviour_Laser extends ProjectileBehaviour
                 m_Anchor.MaxOutLifeSpan();
 
                 if(!m_Anchor.GetFiringWeapon().IsTriggerPulled())
+                    m_State = LaserState.Deactivating;
+
+                if(!m_Anchor.GetFiringWeapon().GetAnchor().IsValid())
                     m_State = LaserState.Deactivating;
 
                 break;
@@ -132,7 +135,7 @@ public class ProjectileBehaviour_Laser extends ProjectileBehaviour
         else
             m_SpiralEmitter.Off();
 
-        double y = m_Anchor.GetPosition().J + 1;
+        double y = m_Anchor.GetPosition().J ;
         double j = m_FiringWeapon.GetForward().J * m_Scale;
 
         if (y + j < 0)

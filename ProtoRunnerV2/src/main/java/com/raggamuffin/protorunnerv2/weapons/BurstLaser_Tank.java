@@ -17,7 +17,7 @@ public class BurstLaser_Tank extends Weapon
 		m_LifeSpan = 2.0;
 		
 		m_FireMode = new FireControl_Burst(3, 30);
-		m_ProjectileTemplate = new ProjectileTemplate(this, ModelType.PulseLaser, GetAffiliation(),
+		m_ProjectileTemplate = new ProjectileTemplate(this, ModelType.PulseLaser,
 													  m_MuzzleVelocity, m_Damage, m_LifeSpan, 0.0,
 													  ProjectileBehaviourType.Standard, game);
 

@@ -27,14 +27,14 @@ public class ProjectileTemplate
     private ParticleManager m_ParticleManager;
     private BulletManager m_BulletManager;
 
-    public ProjectileTemplate(Weapon origin, ModelType model, AffiliationKey affiliation,
+    public ProjectileTemplate(Weapon origin, ModelType model,
                               double muzzleVelocity, double baseDamage, double lifeSpan, double boundingRadius,
                               ProjectileBehaviourType behaviour, GameLogic game, SpecialProjectileBehaviourType... specialBehaviours)
     {
         m_Origin = origin;
 
         m_Model = model;
-        m_Affiliation = affiliation;
+        m_Affiliation = origin.GetAffiliation();
 
         m_MuzzleVelocity = muzzleVelocity;
         m_BaseDamage = baseDamage;

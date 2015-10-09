@@ -165,8 +165,6 @@ public class Projectile extends GameObject
         return m_Behaviour.CalculateDamageOutput(m_BaseDamage, deltaTime);
     }
 
-
-
     public double GetLifeSpan()
     {
         return m_LifeSpan;

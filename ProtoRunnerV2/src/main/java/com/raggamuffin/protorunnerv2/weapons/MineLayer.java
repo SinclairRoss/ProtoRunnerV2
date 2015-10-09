@@ -22,7 +22,7 @@ public class MineLayer extends Weapon
 
         m_FireMode = new FireControl_Pulse(1.5, 0.2, 4);
 
-        m_ProjectileTemplate = new ProjectileTemplate(this, ModelType.Mine, GetAffiliation(),
+        m_ProjectileTemplate = new ProjectileTemplate(this, ModelType.Mine,
                 m_MuzzleVelocity, m_Damage, m_LifeSpan, 2.0,
                 ProjectileBehaviourType.Mine, game, SpecialProjectileBehaviourType.Explode);
 

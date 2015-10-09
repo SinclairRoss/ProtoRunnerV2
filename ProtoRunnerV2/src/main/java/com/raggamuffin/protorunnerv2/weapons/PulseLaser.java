@@ -24,7 +24,7 @@ public class PulseLaser extends Weapon
 
 		m_FireMode = new FireControl_Pulse(0.6, 0.06, 4);
 
-		m_ProjectileTemplate = new ProjectileTemplate(this, ModelType.PulseLaser, GetAffiliation(),
+		m_ProjectileTemplate = new ProjectileTemplate(this, ModelType.PulseLaser,
 													  m_MuzzleVelocity, m_Damage, m_LifeSpan, 0.0,
 													  ProjectileBehaviourType.Standard, game);
 

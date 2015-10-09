@@ -25,7 +25,7 @@ public class RocketLauncher extends Weapon
 		AddMuzzle(-3, 0, -2);
 		
 		m_FireMode = new FireControl_MissileCharge(this, 0.25, GetNumMuzzles());
-		m_ProjectileTemplate = new ProjectileTemplate(this, ModelType.Missile, GetAffiliation(),
+		m_ProjectileTemplate = new ProjectileTemplate(this, ModelType.Missile,
 													  m_MuzzleVelocity, m_Damage, m_LifeSpan, 0.0,
 													  ProjectileBehaviourType.Missile, game, SpecialProjectileBehaviourType.Explode);
 		
