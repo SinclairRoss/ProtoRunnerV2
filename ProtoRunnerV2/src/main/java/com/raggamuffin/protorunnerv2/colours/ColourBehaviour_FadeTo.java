@@ -11,7 +11,7 @@ import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 public class ColourBehaviour_FadeTo extends ColourBehaviour
 {
 	private Colour m_BaseColour;
-	private Colour m_NextColour;
+	private Colour m_PreviousColour;
 	
 	private double m_Counter;
 	private double m_CounterMultiplier;
@@ -21,7 +21,7 @@ public class ColourBehaviour_FadeTo extends ColourBehaviour
 		super(anchor, mode);
 
 		m_BaseColour = m_Anchor.GetBaseColour();
-		m_NextColour = new Colour();
+		m_PreviousColour = new Colour();
 		
 		m_Counter = 0.0;
 		SetTimeFrame(timeFrame);
@@ -39,23 +39,17 @@ public class ColourBehaviour_FadeTo extends ColourBehaviour
 		if(m_Counter >= 1.0)
 		{
 			m_Counter = 1.0;
-			m_Anchor.GetBaseColour().SetColour(m_NextColour);
 			m_Trigger = false;
 		}
 
-		m_DeltaColour.I 	= MathsHelper.Lerp(m_Counter, m_BaseColour.Red,   m_NextColour.Red) 	- m_BaseColour.Red;
-		m_DeltaColour.J 	= MathsHelper.Lerp(m_Counter, m_BaseColour.Green, m_NextColour.Green) 	- m_BaseColour.Green;
-		m_DeltaColour.K 	= MathsHelper.Lerp(m_Counter, m_BaseColour.Blue,  m_NextColour.Blue) 	- m_BaseColour.Blue;
-	}
-	
-	public void SetNextColour(Colour nextColour)
-	{
-		m_NextColour.SetColour(nextColour);
+		m_DeltaColour.I 	= MathsHelper.Lerp(m_Counter, m_PreviousColour.Red,   m_BaseColour.Red) 	- m_PreviousColour.Red;
+		m_DeltaColour.J 	= MathsHelper.Lerp(m_Counter, m_PreviousColour.Green, m_BaseColour.Green) 	- m_PreviousColour.Green;
+		m_DeltaColour.K 	= MathsHelper.Lerp(m_Counter, m_PreviousColour.Blue,  m_BaseColour.Blue) 	- m_PreviousColour.Blue;
 	}
 
-    public void SetNextColour(double[] nextColour)
+    public void SetPreviousColour(Colour previousColour)
     {
-        m_NextColour.SetColour(nextColour);
+        m_PreviousColour.SetColour(previousColour);
     }
 
 	@Override

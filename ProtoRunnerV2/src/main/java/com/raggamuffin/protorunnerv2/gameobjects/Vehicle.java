@@ -81,7 +81,7 @@ public abstract class Vehicle extends GameObject
 		
 		m_LasersOn = false;
 		
-		m_BurstEmitter = new ParticleEmitter_Burst(game, m_BaseColour, m_AltColour, 20);
+		m_BurstEmitter = new ParticleEmitter_Burst(game, m_BaseColour, m_AltColour, 40);
 		
 		m_PostFireAction = new PostFireAction_Null(this);
 
@@ -93,6 +93,7 @@ public abstract class Vehicle extends GameObject
 	@Override
 	public void Update(double deltaTime)
 	{
+        m_HullPoints = m_MaxHullPoints;
 		m_Engine.Update(deltaTime);
 
         m_BurstEmitter.SetPosition(m_Position);

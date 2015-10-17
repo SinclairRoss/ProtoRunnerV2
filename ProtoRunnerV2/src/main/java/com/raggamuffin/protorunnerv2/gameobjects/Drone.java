@@ -9,7 +9,7 @@ import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.Spring1;
-import com.raggamuffin.protorunnerv2.weapons.LaserBurner;
+import com.raggamuffin.protorunnerv2.weapons.Weapon_LaserBurner;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_None;
 
 public class Drone extends Vehicle
@@ -20,7 +20,7 @@ public class Drone extends Vehicle
     protected Spring1 m_HoverSpring;
 
     private Weapon_None m_Unarmed;
-    private LaserBurner m_Laser;
+    private Weapon_LaserBurner m_Laser;
 
     public Drone(GameLogic game, Carrier anchor)
     {
@@ -28,8 +28,7 @@ public class Drone extends Vehicle
 
         m_Anchor = anchor;
 
-        SetBaseColour(Colours.PastelRed);
-        m_Colour.SetColour(m_BaseColour);
+        SetBaseColour(m_Anchor.GetBaseColour());
 
         m_Engine = new Engine_Standard(this, game, new EngineUseBehaviour_Null());
         m_Engine.SetMaxTurnRate(2.0);
@@ -39,7 +38,7 @@ public class Drone extends Vehicle
         SetAffiliation(AffiliationKey.RedTeam);
 
         m_Unarmed = new Weapon_None(this, game);
-        m_Laser = new LaserBurner(this, game);
+        m_Laser = new Weapon_LaserBurner(this, game);
 
         SelectWeapon(m_Laser);
 

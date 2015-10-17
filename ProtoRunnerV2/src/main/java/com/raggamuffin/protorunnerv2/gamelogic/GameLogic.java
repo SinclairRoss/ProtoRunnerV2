@@ -3,6 +3,7 @@ package com.raggamuffin.protorunnerv2.gamelogic;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
@@ -231,7 +232,7 @@ public class GameLogic extends ApplicationLogic
 	}
 
 	// Removes a game object and all of its children from the renderer.
-	public void RemoveTrailFromRenderer(GameObject obj)
+	public void RemoveGameObjectFromRenderer(GameObject obj)
 	{
 		ArrayList<GameObject> children = new ArrayList<>(); 	// A vector containing Game Objects not yet added to the Children vector.
         children.add(obj);
@@ -259,7 +260,7 @@ public class GameLogic extends ApplicationLogic
 		 m_Packet.AddUIElement(element);
 	}
 	
-	public void RemoveTrailFromRenderer(UIElement element)
+	public void RemoveObjectFromRenderer(UIElement element)
 	{
         m_Packet.RemoveUIElement(element);
 	}
@@ -360,7 +361,6 @@ public class GameLogic extends ApplicationLogic
             else
             {
                 SetGameMode(GameMode.Play);
-                m_UIManager.ShowScreen(UIScreens.Play);
                 m_SecondWindHandler.AutoSpawnOff();
             }
         }
@@ -402,6 +402,8 @@ public class GameLogic extends ApplicationLogic
         public void Update(int args)
         {
             m_Camera.Attach(m_VehicleManager.GetPlayer());
+            m_UIManager.ShowScreen(UIScreens.Play);
+            Log.e("REBOOT BUG", "Reboot screen off");
         }
     }
 
@@ -413,6 +415,7 @@ public class GameLogic extends ApplicationLogic
             m_Camera.NormalCam();
 
             m_UIManager.ShowScreen(UIScreens.Reboot);
+            Log.e("REBOOT BUG", "Reboot screen on");
 
             ArrayList<Vehicle> wingmen = m_VehicleManager.GetTeam(AffiliationKey.BlueTeam);
 

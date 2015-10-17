@@ -11,7 +11,7 @@ import com.raggamuffin.protorunnerv2.utils.Timer;
 
 public class SplashScreen extends UIScreen
 {
-	private final double SCREEN_DURATION = 3.0;
+	private final double SCREEN_DURATION = 3.0;//3
 	
 	private Timer m_Timer;
 	private UILabel m_Company;

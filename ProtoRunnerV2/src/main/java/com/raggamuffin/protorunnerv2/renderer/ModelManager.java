@@ -169,7 +169,7 @@ public class ModelManager
                 return m_Dummy;
             case FloorPanel:
                 return m_FloorPanel;
-            //case PulseLaser:
+            //case Weapon_PulseLaser:
                 //return m_PulseLaser;
             //case RailSlug:
             //    return m_RailSlug;

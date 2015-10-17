@@ -84,10 +84,10 @@ public class Colour
 	
 	public void Brighten(double amount)
 	{
-		double DeltaRed 	= 1.0;
-		double DeltaGreen 	= 1.0;
-		double DeltaBlue 	= 1.0;
-		double DeltaAlpha 	= 1.0;
+		double DeltaRed;
+		double DeltaGreen;
+		double DeltaBlue;
+		double DeltaAlpha;
 		
 		if(amount > 0.0)
 		{
@@ -118,6 +118,7 @@ public class Colour
 	public float[] ToFloatArray()
 	{
 		float[] array = new float[4];
+
 		array[0] = (float)Red;
 		array[1] = (float)Green;
 		array[2] = (float)Blue;
@@ -125,6 +126,18 @@ public class Colour
 		
 		return array;
 	}
+
+    public double[] ToDoubleArray()
+    {
+        double[] array = new double[4];
+
+        array[0] = Red;
+        array[1] = Green;
+        array[2] = Blue;
+        array[3] = Alpha;
+
+        return array;
+    }
 	
 	public int ToHex()
 	{

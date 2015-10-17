@@ -20,7 +20,7 @@ public enum ModelType
   //  LaserBeam,
     ParticleLaser,
 
-	PulseLaser,
+    PlasmaShot,
 	RailSlug,
 	Ring,
 	StandardPoint,

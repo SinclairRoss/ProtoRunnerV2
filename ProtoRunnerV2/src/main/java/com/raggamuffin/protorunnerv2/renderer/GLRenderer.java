@@ -8,7 +8,6 @@ import javax.microedition.khronos.opengles.GL10;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.master.RenderEffectSettings;
 import com.raggamuffin.protorunnerv2.master.RendererPacket;
-import com.raggamuffin.protorunnerv2.particles.Particle;
 import com.raggamuffin.protorunnerv2.particles.TrailPoint;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
 import com.raggamuffin.protorunnerv2.ui.UIElementType;
@@ -244,7 +243,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
         for (ModelType type : types)
         {
-            if(type == ModelType.PulseLaser)
+            if(type == ModelType.PlasmaShot)
                 continue;
 
             ArrayList<GameObject> list = (ArrayList<GameObject>)m_Packet.GetModelList(type).clone();

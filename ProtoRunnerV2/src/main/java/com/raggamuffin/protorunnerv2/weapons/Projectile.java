@@ -1,89 +1,44 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
-import java.util.ArrayList;
-
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
-import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
-public class Projectile extends GameObject
+public abstract class Projectile extends GameObject
 {
-	private final double DEFAULT_MASS = 1000;
+	protected Weapon m_Origin;
+    protected double m_BaseDamage;
 
-	private double m_BaseDamage;
-
-	private double m_MaxLifeSpan;
-	private double m_LifeSpan;
-	private ProjectileBehaviour m_Behaviour;
-	private ArrayList<SpecialProjectileBehaviour> m_SpecialBehaviours;
-	private Weapon m_Origin;
-
-	public Projectile()
+	public Projectile(Weapon origin)
 	{
 		super(null, null);
 
-		m_Model 			= ModelType.PulseLaser;
+        m_Origin = origin;
+
+		m_Model 			= ModelType.PlasmaShot;
 		m_BoundingRadius 	= 0.0;
-		m_Mass 				= DEFAULT_MASS;
+		m_Mass 				= 1000;
 
 		m_BaseDamage = 0.0f;
-		m_LifeSpan   = 0.0f;
-		m_Behaviour  = null;
-		
-		m_BaseColour.SetColour(Colours.White);
-		SetDragCoefficient(0.0);
-	}
-	
-	public void Update(double deltaTime)
-	{
-		m_LifeSpan -= deltaTime;
 
-		m_Behaviour.Update(deltaTime);
-		
-		super.Update(deltaTime);
-	}
+        m_Position.SetVector(m_Origin.GetFirePosition());
+        m_Velocity.SetVector(m_Origin.GetVelocity());
+        CalculateForward(m_Origin.GetForward(), m_Origin.GetAccuracy());
+        m_Yaw = m_Origin.GetOrientation();
 
-	public void ResetLifeSpan()
-	{
-		m_LifeSpan = m_MaxLifeSpan;
-	}
-	
-	public void Activate(ProjectileTemplate template)
-	{
-		RemoveAllChildren();
-		ResetForcedInvalidation();
-		
-		m_Origin = template.GetOrigin();
-
-		m_BaseColour.SetColour(m_Origin.GetAnchor().GetBaseColour());
+        m_BaseColour.SetColour(m_Origin.GetAnchor().GetBaseColour());
         m_AltColour.SetColour(m_Origin.GetAnchor().GetAltColour());
 
-        m_BoundingRadius = template.GetBoundingRadius();
-		
-		m_Model = template.GetModel();
-		SetAffiliation(template.GetAffiliation());
+        SetAffiliation(m_Origin.GetAffiliation());
 
-		m_BaseDamage = template.GetBaseDamage();
+		SetDragCoefficient(0.0);
+	}
 
-		m_MaxLifeSpan = template.GetLifeSpan();
-		m_LifeSpan = m_MaxLifeSpan;
-
-		m_Behaviour	= template.GetBehaviour(this);
-		m_SpecialBehaviours = template.GetSpecialBehaviour(this);
-		ActivateSpecialBehaviours();
-
-		m_Position.SetVector(m_Origin.GetFirePosition());
-		m_Velocity.SetVector(m_Origin.GetVelocity());
-		CalculateForward(m_Origin.GetForward(), m_Origin.GetAccuracy());
-		m_Yaw = m_Origin.GetOrientation();
-
-		double muzzleVelocity = template.GetMuzzleVelocity();
-		m_Velocity.I += m_Forward.I * muzzleVelocity;
-		m_Velocity.J += m_Forward.J * muzzleVelocity;
-		m_Velocity.K += m_Forward.K * muzzleVelocity;
+	public void Update(double deltaTime)
+	{
+		super.Update(deltaTime);
 	}
 
 	private void CalculateForward(Vector3 weaponForward, double accuracy)
@@ -106,77 +61,22 @@ public class Projectile extends GameObject
 	public boolean IsValid() 
 	{
 		if(IsForciblyInvalidated())
-		{
-			DeactivateSpecialBehaviours();
-			m_Behaviour.CleanUp();
-			m_BaseColour.SetColour(Colours.Black);
 			return false;
-		}
-		
-		if(m_LifeSpan <= 0.0)
-		{
-			DeactivateSpecialBehaviours();
-			m_Behaviour.CleanUp();
-			m_BaseColour.SetColour(Colours.Black);
-			return false;
-		}
 		
 		return true;
 	}
-	
-	private void ActivateSpecialBehaviours()
-	{
-		for(SpecialProjectileBehaviour behaviour : m_SpecialBehaviours)
-		{
-			behaviour.Activate();
-		}
-	}
-	
-	private void DeactivateSpecialBehaviours()
-	{
-		for(SpecialProjectileBehaviour behaviour : m_SpecialBehaviours)
-		{
-			behaviour.Deactivate();
-		}
-	}
 
-    public boolean CollidesWith(Vehicle other)
-    {
-        return m_Behaviour.CollidesWith(other);
-    }
+    public abstract boolean CollidesWith(Vehicle other);
 
-	public void CollisionResponse(Vehicle other)
-	{
-		m_Behaviour.CollisionResponce(other);
-	}
+	public abstract void CollisionResponse(Vehicle other);
 
-	public Weapon GetFiringWeapon()
+	public Weapon GetOrigin()
 	{
 		return m_Origin;
-	}
-	
-	public void ResetMass()
-	{
-		m_Mass = DEFAULT_MASS;
 	}
 
     public double GetDamageOutput(double deltaTime)
     {
-        return m_Behaviour.CalculateDamageOutput(m_BaseDamage, deltaTime);
-    }
-
-    public double GetLifeSpan()
-    {
-        return m_LifeSpan;
-    }
-
-    public double GetMaxLifeSpan()
-    {
-        return m_MaxLifeSpan;
-    }
-
-    public void MaxOutLifeSpan()
-    {
-        m_LifeSpan = m_MaxLifeSpan;
+        return 0.0;
     }
 }

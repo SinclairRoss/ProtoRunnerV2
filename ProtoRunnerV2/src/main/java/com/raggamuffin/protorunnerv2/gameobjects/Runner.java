@@ -7,10 +7,11 @@ import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
-import com.raggamuffin.protorunnerv2.weapons.BurstLaser;
-import com.raggamuffin.protorunnerv2.weapons.LaserBurner;
-import com.raggamuffin.protorunnerv2.weapons.PulseLaser;
-import com.raggamuffin.protorunnerv2.weapons.RocketLauncher;
+import com.raggamuffin.protorunnerv2.weapons.Weapon_BurstLaser;
+import com.raggamuffin.protorunnerv2.weapons.Weapon_FlareLauncher;
+import com.raggamuffin.protorunnerv2.weapons.Weapon_LaserBurner;
+import com.raggamuffin.protorunnerv2.weapons.Weapon_PulseLaser;
+import com.raggamuffin.protorunnerv2.weapons.Weapon_MissileLauncher;
 import com.raggamuffin.protorunnerv2.weapons.Weapon;
 import com.raggamuffin.protorunnerv2.weapons.WeaponSlot;
 
@@ -61,10 +62,10 @@ public class Runner extends Vehicle
 		
 		SetAffiliation(AffiliationKey.BlueTeam);
 
-		m_WeaponLeft 	= new PulseLaser(this, game);
-		m_WeaponRight 	= new BurstLaser(this, game);
-		m_WeaponUp 		= new RocketLauncher(this, game);
-		m_WeaponDown 	= new LaserBurner(this, game);
+		m_WeaponLeft 	= new Weapon_PulseLaser(this, game);
+		m_WeaponRight 	= new Weapon_LaserBurner(this, game);
+		m_WeaponUp 		= new Weapon_MissileLauncher(this, game);
+		m_WeaponDown 	= new Weapon_FlareLauncher(this, game);
 		
 		m_LasersOn = true;
 			
@@ -94,7 +95,7 @@ public class Runner extends Vehicle
 	@Override
 	public void Update(double deltaTime)
 	{
-        m_HullPoints = m_MaxHullPoints;
+      //  m_HullPoints = m_MaxHullPoints;
         m_Engine.SetTurnRate(m_Input.GetTilt());
 		super.Update(deltaTime);
 	}

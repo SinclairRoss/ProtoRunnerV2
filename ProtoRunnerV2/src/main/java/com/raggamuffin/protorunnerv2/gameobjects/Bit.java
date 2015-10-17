@@ -8,7 +8,7 @@ import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
-import com.raggamuffin.protorunnerv2.weapons.PulseLaser_Punk;
+import com.raggamuffin.protorunnerv2.weapons.Weapon_PunkShot;
 
 public class Bit extends Vehicle
 {
@@ -29,7 +29,7 @@ public class Bit extends Vehicle
 
 		SetAffiliation(AffiliationKey.RedTeam); 
 		
-		SelectWeapon(new PulseLaser_Punk(this, game));
+		SelectWeapon(new Weapon_PunkShot(this, game));
 
 		m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), AIBehaviours.EngageTarget, FireControlBehaviour.Standard);
 

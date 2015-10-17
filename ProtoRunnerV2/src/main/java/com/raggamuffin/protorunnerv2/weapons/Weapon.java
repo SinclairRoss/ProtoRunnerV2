@@ -1,7 +1,5 @@
 // Author:	Sinclair Ross.
 // Date:	22/10/2014.
-// Notes: 	This class represents a weapon. Extend this class to create new weapons.
-//			Subclasses must define where the weapons muzzles are, otherwise there will be an array index out of bounds exception.
 
 package com.raggamuffin.protorunnerv2.weapons;
 
@@ -28,12 +26,13 @@ public abstract class Weapon
 	protected ParticleManager m_ParticleManager;
 	protected GameAudioManager m_AudioService;
 
+    protected ProjectileType m_ProjectileType;
+
     protected Vector3 m_Target;
 		
 	protected AudioClips m_AudioClip;
 	
 	protected FireControl m_FireMode;
-	protected ProjectileTemplate m_ProjectileTemplate;
 
 	protected double m_Damage;
     protected double m_Drain;
@@ -61,12 +60,13 @@ public abstract class Weapon
 		m_ParticleManager = m_Game.GetParticleManager();
 		m_AudioService = m_Game.GetGameAudioManager();
 
+        m_ProjectileType = ProjectileType.PlasmaShot;
+
         m_Target = anchor.GetForward();
 
 		m_AudioClip = AudioClips.PulseLaser;
 		
 		m_FireMode = null;
-		m_ProjectileTemplate = null;
 
 		m_Damage = 1.0;
         m_Drain = 1.0;
@@ -168,7 +168,7 @@ public abstract class Weapon
 	{
 		while(m_FireMode.ShouldFire())
 		{
-			m_BulletManager.CreateBullet(m_ProjectileTemplate);
+			m_BulletManager.CreateProjectile(this);
 			m_FireMode.NotifyOfFire();
 			m_PostFireAction.Update();
 
@@ -266,5 +266,10 @@ public abstract class Weapon
     public Boolean IsFiring()
     {
         return m_IsFiring;
+    }
+
+    public ProjectileType GetProjectileType()
+    {
+        return m_ProjectileType;
     }
 }

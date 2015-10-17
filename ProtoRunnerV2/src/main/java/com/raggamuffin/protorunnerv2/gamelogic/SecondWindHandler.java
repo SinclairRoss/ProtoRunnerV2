@@ -103,7 +103,6 @@ public class SecondWindHandler
 				m_Game.GetVehicleManager().SpawnPlayer();
 				m_SecondWindState = SecondWindState.Idle;
 				m_Player.SelectWeaponBySlot(m_LastSelectedWeapon);
-                m_Game.GetUIManager().ShowPreviousScreen();
 				break;
 			}
 		}

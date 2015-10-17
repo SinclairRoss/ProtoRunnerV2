@@ -22,8 +22,6 @@ public class Carrier extends Vehicle
     private ArrayList<Drone> m_Drones;
     private final int DRONE_CAPACITY = 3;
 
-    private Drone m_ActiveDrone;
-
     private Timer m_SpawnTimer;
 
 	public Carrier(GameLogic game)
@@ -33,9 +31,9 @@ public class Carrier extends Vehicle
 		m_VehicleManager = game.GetVehicleManager();
 		
 		m_Model = ModelType.Carrier;
-        SetBaseColour(Colours.PastelRed);
+        SetBaseColour(Colours.BlockPurple);
 
-        m_MaxHullPoints = 600;
+        m_MaxHullPoints = 300;
         m_HullPoints = m_MaxHullPoints;
 
 		m_Position.SetVector(10, 0, 10);
@@ -44,8 +42,6 @@ public class Carrier extends Vehicle
 		m_Engine.SetMaxTurnRate(1.5);
 		m_Engine.SetMaxEngineOutput(10000); // 10000
         m_BoundingRadius = 5;
-
-        m_ActiveDrone = null;
 
 		SetAffiliation(AffiliationKey.RedTeam);
 
@@ -70,24 +66,8 @@ public class Carrier extends Vehicle
             m_Drones.add(m_VehicleManager.SpawnDrone(this, m_Position));
         }
 
-        DroneMutex();
-
 		m_AIController.Update(deltaTime);
 
 		super.Update(deltaTime);
 	}
-
-    private void DroneMutex()
-    {
-//        Drone activeDrone;
-//
-//        for(Drone drone : m_Drones)
-//        {
-//            if(drone.GetPrimaryWeapon().IsTriggerPulled())
-//            {
-//                activeDrone = drone;
-//                break;
-//            }
-//        }
-    }
 } 

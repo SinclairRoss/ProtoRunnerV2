@@ -305,18 +305,17 @@ public abstract class GameObject
 	
 	public void SetBaseColour(double[] colour)
 	{
-        m_ChangeColourBehaviour.SetNextColour(colour);
+        m_ChangeColourBehaviour.SetPreviousColour(m_BaseColour);
+        m_BaseColour.SetColour(colour);
+
         m_ChangeColourBehaviour.TriggerBehaviour();
 
-        m_AltColour.SetAsInverse(colour);
+        m_AltColour.SetAsInverse(m_BaseColour);
 	}
 	
 	public void SetBaseColour(Colour colour)
-	{
-        m_ChangeColourBehaviour.SetNextColour(colour);
-        m_ChangeColourBehaviour.TriggerBehaviour();
-
-        m_AltColour.SetAsInverse(colour);
+    {
+        SetBaseColour(colour.ToDoubleArray());
 	}
 
 	public Colour GetColour()

@@ -9,7 +9,7 @@ import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
-import com.raggamuffin.protorunnerv2.weapons.PulseLaser;
+import com.raggamuffin.protorunnerv2.weapons.Weapon_PulseLaser;
 
 public class Wingman extends Vehicle
 {
@@ -41,7 +41,7 @@ public class Wingman extends Vehicle
 
 		SetAffiliation(AffiliationKey.BlueTeam);
 		
-		SelectWeapon(new PulseLaser(this, game));
+		SelectWeapon(new Weapon_PulseLaser(this, game));
 
         m_AIController = new AIController(this, m_VehicleManager, game.GetBulletManager(), AIBehaviours.FollowTheLeader, FireControlBehaviour.Standard);
 		m_AIController.SetLeader(m_VehicleManager.GetPlayer());

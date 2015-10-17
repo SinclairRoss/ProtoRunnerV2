@@ -70,7 +70,7 @@ public class VehicleManager
 	// DOES NOT remove vehicle from m_Vehicles.
 	private void RemoveVehicle(Vehicle object)
 	{		
-		m_Game.RemoveTrailFromRenderer(object);
+		m_Game.RemoveGameObjectFromRenderer(object);
 		GetTeam(object.GetAffiliation()).remove(object);
 		
 		if(object == m_Player)
@@ -152,7 +152,7 @@ public class VehicleManager
     public Drone SpawnDrone(Carrier anchor, Vector3 pos)
     {
         Drone spawn = new Drone(m_Game, anchor);
-        spawn.SetPosition(pos);
+        spawn.SetPosition(pos.I, 4.0, pos.K);
 
         m_Vehicles.add(spawn);
         GetTeam(spawn.GetAffiliation()).add(spawn);
@@ -181,7 +181,7 @@ public class VehicleManager
 
         tank.SetPosition(m_Spawn.I, m_Spawn.J, m_Spawn.K);
 
-        for(int b = 0; b < 0; b++)
+        for(int b = 0; b < 6; b++)
         {
             Bit bit = new Bit(m_Game);
             m_Vehicles.add(bit);

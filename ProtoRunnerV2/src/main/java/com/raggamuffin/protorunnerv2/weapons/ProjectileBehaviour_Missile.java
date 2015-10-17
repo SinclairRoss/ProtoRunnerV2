@@ -1,3 +1,4 @@
+/*
 package com.raggamuffin.protorunnerv2.weapons;
 
 import java.util.ArrayList;
@@ -66,7 +67,7 @@ public class ProjectileBehaviour_Missile extends ProjectileBehaviour
 		m_ScratchVector = new Vector3();
 		m_UtilityArk = Math.toRadians(90);
 		
-		m_FiringWeapon = m_Anchor.GetFiringWeapon();
+		m_FiringWeapon = m_Anchor.GetOrigin();
 		m_DockedPosition = new Vector3();
 		m_Offset = new Vector3(muzzlePos);
 		
@@ -74,7 +75,7 @@ public class ProjectileBehaviour_Missile extends ProjectileBehaviour
 		
 		m_Anchor.SetMass(100);
 		
-		Colour altColour = new Colour(m_Anchor.GetFiringWeapon().GetAltColour());
+		Colour altColour = new Colour(m_Anchor.GetOrigin().GetAltColour());
 		
 		m_Engine = new Engine_Standard(anchor, game, new EngineUseBehaviour_Null());
 		m_Engine.SetMaxTurnRate(2.0);
@@ -252,3 +253,4 @@ public class ProjectileBehaviour_Missile extends ProjectileBehaviour
 	}
 
 }
+*/

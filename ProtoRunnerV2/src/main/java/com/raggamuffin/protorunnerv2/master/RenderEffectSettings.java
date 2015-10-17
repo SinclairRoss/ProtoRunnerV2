@@ -23,9 +23,9 @@ public class RenderEffectSettings
 		return m_GlowIntensityHoriz;
 	}
 	
-	public void SetGlowIntensityHoriz(double Intensity)
+	public void SetGlowIntensityHoriz(double intensity)
 	{
-		m_GlowIntensityHoriz = Intensity;
+		m_GlowIntensityHoriz = intensity;
 	}
 	
 	public double GetGlowIntensityVert()
@@ -33,15 +33,15 @@ public class RenderEffectSettings
 		return m_GlowIntensityVert;
 	}
 
-	public void SetGlowIntensityVert(double Intensity)
+	public void SetGlowIntensityVert(double intensity)
 	{
-		m_GlowIntensityVert = Intensity;
+		m_GlowIntensityVert = intensity;
 	}
 	
-	public void SetGlowIntensity(double Intensity)
+	public void SetGlowIntensity(double intensity)
 	{
-		m_GlowIntensityHoriz = Intensity;
-		m_GlowIntensityVert = Intensity;
+		m_GlowIntensityHoriz = intensity;
+		m_GlowIntensityVert = intensity;
 	}
 
     public void SetSkyboxColour(Colour colour)

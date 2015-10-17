@@ -79,20 +79,20 @@ public class AftermathScreen extends UIScreen
 		m_UIManager.RemoveUIElement(m_ScoreLabel);
 		m_ScoreLabel = null;
 		
-		m_UIManager.RemoveUIElement(m_PlayTimeLabel);
-		m_PlayTimeLabel = null;
-		
-		m_UIManager.RemoveUIElement(m_TimesRebootedLabel);
-		m_TimesRebootedLabel = null;
-		
-		m_UIManager.RemoveUIElement(m_AccuracyBar);
-		m_AccuracyBar = null;
-		
-		m_UIManager.RemoveUIElement(m_WingmanALifeBar);
-		m_WingmanALifeBar = null;
-		
-		m_UIManager.RemoveUIElement(m_WingmanBLifeBar);
-		m_WingmanBLifeBar = null;
+//		m_UIManager.RemoveUIElement(m_PlayTimeLabel);
+//		m_PlayTimeLabel = null;
+//
+//		m_UIManager.RemoveUIElement(m_TimesRebootedLabel);
+//		m_TimesRebootedLabel = null;
+//
+//		m_UIManager.RemoveUIElement(m_AccuracyBar);
+//		m_AccuracyBar = null;
+//
+//		m_UIManager.RemoveUIElement(m_WingmanALifeBar);
+//		m_WingmanALifeBar = null;
+//
+//		m_UIManager.RemoveUIElement(m_WingmanBLifeBar);
+//		m_WingmanBLifeBar = null;
 	}
 
 	@Override

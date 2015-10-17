@@ -36,7 +36,7 @@ public class FireControl_BeamSweep extends FireControl
 
         m_State = SweepState.Idle;
 
-        double activeTime = 3.0;
+        double activeTime = 1.0;
 
         m_SweepTimer = new Timer(activeTime);
         m_CooldownTimer = new Timer(5.0);
@@ -68,7 +68,6 @@ public class FireControl_BeamSweep extends FireControl
                 m_State = SweepState.Sweeping;
 
                 Vector3 targetPos = targetVehicle.GetPosition();
-
 
                 m_StartPoint.SetVector(targetVehicle.GetForward());
                 m_StartPoint.Scale(20.0);

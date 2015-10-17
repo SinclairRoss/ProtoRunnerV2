@@ -1,5 +1,6 @@
 package com.raggamuffin.protorunnerv2.managers;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -35,7 +36,7 @@ public class UIManager
 	private Vector2 m_ScreenSize;
 	private double m_ScreenRatio;
 	
-	private Vector<UIElement> m_UIElements;
+	private ArrayList<UIElement> m_UIElements;
 	private UIScreen m_Screen;
 	
 	private SplashScreen m_SplashScreen;
@@ -49,9 +50,6 @@ public class UIManager
     private NewToGameScreen m_NewToGameScreen;
     private NotSignedInScreen m_NotSignedInScreen;
 
-    private UIScreens m_PreviousScreen;
-    private UIScreens m_CurrentScreen;
-
 	public UIManager(GameLogic Game)
 	{
 		m_Game = Game;
@@ -64,7 +62,7 @@ public class UIManager
 		m_ScreenSize = new Vector2(size);
 		m_ScreenRatio = m_ScreenSize.I / m_ScreenSize.J;
 		
-		m_UIElements = new Vector<UIElement>();
+		m_UIElements = new ArrayList<>();
 
 		m_Screen 	 		 = null;
 
@@ -79,22 +77,17 @@ public class UIManager
         m_NewToGameScreen    = new NewToGameScreen(m_Game, this);
         m_NotSignedInScreen  = new NotSignedInScreen(m_Game, this);
 
-        m_CurrentScreen  = UIScreens.None;
-        m_PreviousScreen = UIScreens.None;
-
 		ShowScreen(UIScreens.Splash);
 		
 		m_Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.SwitchScreen, new ButtonPressedSubscriber());
 	}
 	
-	public void Update(double DeltaTime)
+	public void Update(double deltaTime)
 	{
-		m_Screen.Update(DeltaTime);
-		
-		for(Iterator<UIElement> Iter = m_UIElements.iterator(); Iter.hasNext();)
-		{
-			Iter.next().Update(DeltaTime);
-		}
+		m_Screen.Update(deltaTime);
+
+        for(UIElement element : m_UIElements)
+            element.Update(deltaTime);
 	}
 
     public UIScreen GetScreen(UIScreens screen)
@@ -128,25 +121,14 @@ public class UIManager
 	
 	public void ShowScreen(UIScreens screen)
 	{
-		if(screen == UIScreens.None)
-			return;
-
 		if(m_Screen != null)
 			m_Screen.Remove();
 
-        m_PreviousScreen = m_CurrentScreen;
-        m_CurrentScreen = screen;
-
-		m_Screen = GetScreen(m_CurrentScreen);
+		m_Screen = GetScreen(screen);
 		m_Screen.Create();
 	}
 
-    public void ShowPreviousScreen()
-    {
-        ShowScreen(m_PreviousScreen);
-    }
-	
-	public void AddUIElement(UIElement element)
+    public void AddUIElement(UIElement element)
 	{
 		AddUIElement(element, true);
 	}
@@ -162,18 +144,18 @@ public class UIManager
 	
 	public void RemoveUIElement(UIElement Element)
 	{
-		m_Game.RemoveTrailFromRenderer(Element);
+		m_Game.RemoveObjectFromRenderer(Element);
 		m_UIElements.remove(Element);
 	}
 	
 	public void RemoveUIElement(UIProgressBar Element)
 	{
-		m_Game.RemoveTrailFromRenderer(Element);
+		m_Game.RemoveObjectFromRenderer(Element);
 		m_UIElements.remove(Element);
 		
 		UILabel Label = Element.GetLabel();
-		m_Game.RemoveTrailFromRenderer(Label);
-		m_UIElements.remove(Label);
+		m_Game.RemoveObjectFromRenderer(Label);
+        m_UIElements.remove(Label);
 	}
 
 	public Vector2 GetScreenSize()

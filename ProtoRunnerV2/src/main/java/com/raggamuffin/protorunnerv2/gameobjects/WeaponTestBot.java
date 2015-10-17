@@ -7,7 +7,7 @@ import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
-import com.raggamuffin.protorunnerv2.weapons.LaserBurner;
+import com.raggamuffin.protorunnerv2.weapons.Weapon_LaserBurner;
 
 public class WeaponTestBot extends Vehicle
 {
@@ -35,7 +35,7 @@ public class WeaponTestBot extends Vehicle
         m_Target = new Vector3(0, -1, 1);
         m_Target.Normalise();
 
-        LaserBurner burner = new LaserBurner(this, game);
+        Weapon_LaserBurner burner = new Weapon_LaserBurner(this, game);
         SelectWeapon(burner);
         burner.SetTargetVector(m_Target);
 
