@@ -22,6 +22,7 @@ public class Projectile_PlasmaShot extends Projectile
 
         double muzzleVelocity = 50.0;
 
+        m_Velocity.SetVector(m_Origin.GetVelocity());
         m_Velocity.I += m_Forward.I * muzzleVelocity;
         m_Velocity.J += m_Forward.J * muzzleVelocity;
         m_Velocity.K += m_Forward.K * muzzleVelocity;

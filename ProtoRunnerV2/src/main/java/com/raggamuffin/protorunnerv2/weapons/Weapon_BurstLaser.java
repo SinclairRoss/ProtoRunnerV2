@@ -18,8 +18,6 @@ public class Weapon_BurstLaser extends Weapon
 
 		m_FireMode = new FireControl_Burst(0.8, 12);
 
-		m_HasLasers = true;
-
 		AddMuzzle( 1, 0, 0);
 		AddMuzzle(-1, 0, 0);
 	}

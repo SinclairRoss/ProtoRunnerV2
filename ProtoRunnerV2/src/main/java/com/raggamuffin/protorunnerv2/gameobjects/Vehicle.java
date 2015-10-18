@@ -17,6 +17,7 @@ import com.raggamuffin.protorunnerv2.utils.DecayCounter;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 import com.raggamuffin.protorunnerv2.weapons.Weapon;
+import com.raggamuffin.protorunnerv2.weapons.Weapon_None;
 
 public abstract class Vehicle extends GameObject
 {
@@ -31,6 +32,7 @@ public abstract class Vehicle extends GameObject
 	protected int m_MaxHullPoints;		// The maximum available hullpoints.
 
 	///// Misc Attributes
+    protected Weapon m_Utility;
 	protected Weapon m_PrimaryWeapon;
 	protected Boolean m_LasersOn;
 	private VehicleInfo m_VehicleInfo;
@@ -88,6 +90,9 @@ public abstract class Vehicle extends GameObject
 		m_DamageDecayCounter = new DecayCounter(1.0, DAMAGE_DECAY_RATE);
 
         m_CanBeTargeted = true;
+
+        m_PrimaryWeapon = new Weapon_None(this, game);
+        m_Utility = new Weapon_None(this, game);
 	}
 	
 	@Override
@@ -99,6 +104,7 @@ public abstract class Vehicle extends GameObject
         m_BurstEmitter.SetPosition(m_Position);
         m_BurstEmitter.SetVelocity(m_Velocity);
 
+        m_Utility.Update(deltaTime);
 		m_PrimaryWeapon.Update(deltaTime);
 		
 		m_DamageDecayCounter.Update(deltaTime);
@@ -110,16 +116,24 @@ public abstract class Vehicle extends GameObject
 	
 	public void SelectWeapon(Weapon newWeapon)
     {
-        if (m_PrimaryWeapon != null)
+        switch(newWeapon.GetEquipmentType())
         {
-            m_PrimaryWeapon.CeaseFire();
-            m_PrimaryWeapon.LasersOff();
+            case Weapon:
+                m_PrimaryWeapon.CeaseFire();
+                m_PrimaryWeapon.WeaponUnequipped();
+
+                m_PrimaryWeapon = newWeapon;
+
+                m_PrimaryWeapon.WeaponEquipped();
+
+                break;
+
+            case Utility:
+                m_Utility = newWeapon;
+                m_Utility.OpenFire();
+                break;
         }
 
-		m_PrimaryWeapon = newWeapon;
-
-		if(m_LasersOn)
-			m_PrimaryWeapon.LasersOn();
 	}
 
 	public void CollisionResponse(double damage)

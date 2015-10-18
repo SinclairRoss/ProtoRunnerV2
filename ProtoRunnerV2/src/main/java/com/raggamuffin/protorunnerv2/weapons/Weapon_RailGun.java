@@ -22,8 +22,6 @@ public class Weapon_RailGun extends Weapon
 		
 		m_FireMode = new FireControl_Charge(1.0, 1.0);
 
-		m_HasLasers = true;
-		
 		AddMuzzle(0, 0, 1);
 		
 		m_AudioClip = AudioClips.RailGun;

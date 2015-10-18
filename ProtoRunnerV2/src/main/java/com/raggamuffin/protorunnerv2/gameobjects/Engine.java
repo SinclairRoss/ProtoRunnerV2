@@ -67,7 +67,6 @@ public abstract class Engine
 
         m_Exertion = 0.0;
 
-
         m_HyperLight = new ParticleEmitter_HyperLight(game, m_Anchor.GetBaseColour(), m_Anchor.GetAltColour(), 4000, 3.0);
     }
 

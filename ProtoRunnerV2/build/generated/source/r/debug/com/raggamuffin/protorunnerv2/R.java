@@ -2073,16 +2073,18 @@ containing a value of this type.
         public static final int main_menu=0x7f0d0000;
     }
     public static final class raw {
-        public static final int duality_dimrain47=0x7f050000;
-        public static final int explosion=0x7f050001;
-        public static final int gtm_analytics=0x7f050002;
-        public static final int missile_engaged=0x7f050003;
-        public static final int missile_spawn=0x7f050004;
-        public static final int pulse_laser=0x7f050005;
-        public static final int pulse_laser_punk=0x7f050006;
-        public static final int rail_gun=0x7f050007;
-        public static final int ui_click=0x7f050008;
-        public static final int ui_tick=0x7f050009;
+        public static final int cannot_fire=0x7f050000;
+        public static final int duality_dimrain47=0x7f050001;
+        public static final int explosion=0x7f050002;
+        public static final int flare_engaged=0x7f050003;
+        public static final int gtm_analytics=0x7f050004;
+        public static final int missile_engaged=0x7f050005;
+        public static final int missile_spawn=0x7f050006;
+        public static final int pulse_laser=0x7f050007;
+        public static final int pulse_laser_punk=0x7f050008;
+        public static final int rail_gun=0x7f050009;
+        public static final int ui_click_fwd=0x7f05000a;
+        public static final int ui_tick=0x7f05000b;
     }
     public static final class string {
         public static final int abc_action_bar_home_description=0x7f060000;

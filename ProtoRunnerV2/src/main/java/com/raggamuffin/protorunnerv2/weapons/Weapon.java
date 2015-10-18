@@ -4,7 +4,6 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
@@ -40,17 +39,16 @@ public abstract class Weapon
 	protected double m_Accuracy;
 	protected double m_LifeSpan;
 
-	private ArrayList<Vector3> m_MuzzleOffsets;
+	protected ArrayList<Vector3> m_MuzzleOffsets;
 	private Vector3 m_MuzzleOffset;
 	private int m_MuzzleIndex;
-	
-	protected boolean m_HasLasers;
-	private Vector<LaserPointer> m_Lasers;
-	
+
 	protected PostFireAction m_PostFireAction;
 	
 	protected boolean m_TriggerPulled;
     private boolean m_IsFiring;
+
+    protected EquipmentType m_EquipmentType;
 
 	public Weapon(Vehicle anchor, GameLogic game)
 	{
@@ -77,13 +75,13 @@ public abstract class Weapon
 		m_MuzzleOffsets = new ArrayList<>();
 		m_MuzzleOffset = new Vector3();
 		m_MuzzleIndex = 0;
-		m_HasLasers = false;
-		m_Lasers = new Vector<>();
 
 		m_PostFireAction = m_Anchor.GetPostFireAction();
 		
 		m_TriggerPulled = false;
         m_IsFiring = false;
+
+        m_EquipmentType = EquipmentType.Weapon;
 	}
 
     public void SetTargetVector(Vector3 target)
@@ -118,7 +116,17 @@ public abstract class Weapon
 		m_FireMode.ReleaseTrigger();
 		m_TriggerPulled = false;
 	}
-	
+
+    public void WeaponUnequipped()
+    {
+
+    }
+
+    public void WeaponEquipped()
+    {
+
+    }
+
 	public Vector3 GetFirePosition()
 	{
 		m_MuzzleOffset.SetVector(m_MuzzleOffsets.get(m_MuzzleIndex));
@@ -146,22 +154,11 @@ public abstract class Weapon
 		if(m_MuzzleIndex >= m_MuzzleOffsets.size())
 			m_MuzzleIndex = 0;
 	}
-
-	public Vector3 GetMuzzle()
-	{
-		return m_MuzzleOffsets.get(m_MuzzleIndex);
-	}
 	
-	protected void AddMuzzle(double I, double J, double K)
+	protected void AddMuzzle(double i, double j, double k)
 	{
-		Vector3 Muzzle = new Vector3(I,J,K);
+		Vector3 Muzzle = new Vector3(i,j,k);
 		m_MuzzleOffsets.add(Muzzle);
-		
-		if(m_HasLasers)
-		{		
-			LaserPointer Laser = new LaserPointer(this, Muzzle);
-			m_Lasers.add(Laser);
-		}
 	}
 	
 	protected void Fire()
@@ -179,18 +176,6 @@ public abstract class Weapon
 	public void ResetMuzzleIndex()
 	{
 		m_MuzzleIndex = 0;
-	}
-	
-	public void LasersOn()
-	{
-		for(LaserPointer Pointer : m_Lasers)
-            Pointer.On();
-	}
-	
-	public void LasersOff()
-	{
-		for(LaserPointer Pointer : m_Lasers)
-			Pointer.Off();
 	}
 
     public Colour GetBaseColour()
@@ -212,6 +197,11 @@ public abstract class Weapon
 	{
 		return m_Target;
 	}
+
+    public Vector3 GetUp()
+    {
+        return m_Anchor.GetUp();
+    }
 
 	public Vector3 GetPosition()
 	{
@@ -252,11 +242,6 @@ public abstract class Weapon
 	{
 		return m_TriggerPulled;
 	}
-	
-	public int GetMuzzleIndex()
-	{
-		return m_MuzzleIndex;
-	}
 
     public double GetDrain()
     {
@@ -271,5 +256,10 @@ public abstract class Weapon
     public ProjectileType GetProjectileType()
     {
         return m_ProjectileType;
+    }
+
+    public EquipmentType GetEquipmentType()
+    {
+        return m_EquipmentType;
     }
 }

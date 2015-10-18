@@ -25,7 +25,5 @@ public class Weapon_MissileLauncher extends Weapon
 		AddMuzzle(-3, 0, -2);
 		
 		m_FireMode = new FireControl_MissileCharge(this, 0.25, GetNumMuzzles());
-
-		m_HasLasers = false;
 	}
 }

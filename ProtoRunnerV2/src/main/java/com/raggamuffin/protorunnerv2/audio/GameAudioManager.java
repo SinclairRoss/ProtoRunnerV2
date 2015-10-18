@@ -44,11 +44,14 @@ public class GameAudioManager
 		m_IDs[AudioClips.RailGun.ordinal()] 		= m_AudioService.LoadClip(R.raw.rail_gun);
 		m_IDs[AudioClips.Explosion.ordinal()] 		= m_AudioService.LoadClip(R.raw.explosion);	
 		m_IDs[AudioClips.MissileSpawned.ordinal()] 	= m_AudioService.LoadClip(R.raw.missile_spawn);	
-		m_IDs[AudioClips.MissileEngaged.ordinal()] 	= m_AudioService.LoadClip(R.raw.missile_engaged);	
+		m_IDs[AudioClips.MissileEngaged.ordinal()] 	= m_AudioService.LoadClip(R.raw.missile_engaged);
+        m_IDs[AudioClips.FlareEngaged.ordinal()]    = m_AudioService.LoadClip(R.raw.flare_engaged);
+        m_IDs[AudioClips.CannotFire.ordinal()]      = m_AudioService.LoadClip(R.raw.cannot_fire);
 		
 		// UI Sounds.
-		m_IDs[AudioClips.UIClick.ordinal()] 		= m_AudioService.LoadClip(R.raw.ui_click);
-		m_IDs[AudioClips.UITick.ordinal()] 			= m_AudioService.LoadClip(R.raw.ui_tick);
+		m_IDs[AudioClips.UIClickFWD.ordinal()] 		= m_AudioService.LoadClip(R.raw.ui_click_fwd);
+        m_IDs[AudioClips.UIClickBK.ordinal()] 		= m_AudioService.LoadClip(R.raw.ui_click_fwd);
+        m_IDs[AudioClips.UITick.ordinal()] 			= m_AudioService.LoadClip(R.raw.ui_tick);
 		
 		// Music
 		m_AudioService.LoadMusic(R.raw.duality_dimrain47);

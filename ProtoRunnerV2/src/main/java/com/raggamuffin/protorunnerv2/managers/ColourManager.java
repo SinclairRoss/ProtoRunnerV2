@@ -110,11 +110,13 @@ public class ColourManager
         if(player == null)
             return;
 
-
         m_Counter = 0;
         m_PreviousColour.SetColour(m_PrimaryColour);
-        m_NextColour.SetColour(GetColourByWeaponSlot(player.GetWeaponSlot()));
 
+        double[] nextColour = GetColourByWeaponSlot(player.GetWeaponSlot());
+
+        if(nextColour != null)
+            m_NextColour.SetColour(nextColour);
     }
 
     public double[] GetColourByWeaponSlot(WeaponSlot slot)
@@ -124,7 +126,7 @@ public class ColourManager
             case Up:
                 return Colours.Cyan;
             case Down:
-                return Colours.Magenta;
+                break;
             case Left:
                 return Colours.RunnerBlue;
             case Right:

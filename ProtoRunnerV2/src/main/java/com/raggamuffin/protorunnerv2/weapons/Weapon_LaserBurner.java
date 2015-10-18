@@ -16,8 +16,6 @@ public class Weapon_LaserBurner extends Weapon
 
         AddMuzzle(0,0,0);
 
-        m_HasLasers = true;
-
         m_ProjectileType = ProjectileType.Laser;
     }
 

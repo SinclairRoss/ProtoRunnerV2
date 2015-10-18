@@ -45,7 +45,7 @@ public class UIButton extends UILabel
 		if(IsHidden())
 			return;
 		
-		m_GameAudioManager.PlaySound(AudioClips.UIClick);
+		m_GameAudioManager.PlaySound(AudioClips.UIClickFWD);
 		
 		if(m_PressedPublisher != null)
 			m_PressedPublisher.Publish(m_Args);

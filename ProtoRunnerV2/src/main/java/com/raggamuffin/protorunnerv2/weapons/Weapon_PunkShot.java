@@ -19,9 +19,7 @@ public class Weapon_PunkShot extends Weapon
 		m_FireMode = new FireControl_Pulse(0.8, 0.06, 2);
 
 		m_AudioClip = AudioClips.PulseLaser;
-		
-		m_HasLasers = false;
-		
+
 		AddMuzzle( 1, 0, 0);
 		AddMuzzle(-1, 0, 0);
 	}

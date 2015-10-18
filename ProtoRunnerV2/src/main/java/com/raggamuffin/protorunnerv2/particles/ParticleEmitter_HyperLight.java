@@ -1,7 +1,5 @@
 package com.raggamuffin.protorunnerv2.particles;
 
-import android.util.Log;
-
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;

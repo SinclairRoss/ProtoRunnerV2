@@ -24,7 +24,6 @@ public abstract class Projectile extends GameObject
 		m_BaseDamage = 0.0f;
 
         m_Position.SetVector(m_Origin.GetFirePosition());
-        m_Velocity.SetVector(m_Origin.GetVelocity());
         CalculateForward(m_Origin.GetForward(), m_Origin.GetAccuracy());
         m_Yaw = m_Origin.GetOrientation();
 

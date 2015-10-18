@@ -55,10 +55,7 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
 	
 	public void PlayClip(int id, double leftVolume, double rightVolume, boolean loop)
 	{
-		int loopCount = 0;
-		
-		if(loop)
-			loopCount = -1;
+        int loopCount = loop ? -1 : 0;
 		
 		m_SoundPool.play(id, (float) leftVolume * m_MasterVolume, (float) rightVolume * m_MasterVolume, 1, loopCount, 1);
 	}
@@ -93,7 +90,13 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
 		m_MediaPlayer.release();
 		m_MediaPlayer = null;
 	}
-	
+
+    private void UnDuck()
+    {
+        m_MasterVolume = 1.0f;
+        m_MediaPlayer.setVolume(m_MasterVolume, m_MasterVolume);
+    }
+
 	private void Duck()
 	{
 		m_MasterVolume = 0.3f;
@@ -125,14 +128,17 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
 		{
 			case AudioManager.AUDIOFOCUS_GAIN:	
 				Log.e(TAG, "AUDIOFOCUS_GAIN");
+                UnDuck();
 				break;
 				
 			case AudioManager.AUDIOFOCUS_GAIN_TRANSIENT:
 				Log.e(TAG, "AUDIOFOCUS_GAIN_TRANSIENT");
+                UnDuck();
 				break;
 				
 			case AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK:	
 				Log.e(TAG, "AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK");
+                UnDuck();
 				break;
 				
 			case AudioManager.AUDIOFOCUS_LOSS: 

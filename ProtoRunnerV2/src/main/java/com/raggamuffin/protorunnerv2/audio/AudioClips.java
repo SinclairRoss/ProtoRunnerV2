@@ -8,6 +8,9 @@ public enum AudioClips
 	Explosion,
 	MissileSpawned,
 	MissileEngaged,
-	UIClick,
+    FlareEngaged,
+    CannotFire,
+    UIClickFWD,
+    UIClickBK,
 	UITick,
 }
