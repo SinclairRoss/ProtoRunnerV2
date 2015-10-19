@@ -1,25 +1,26 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
-import java.util.ArrayList;
-import java.util.Vector;
+import android.util.Log;
 
+import java.util.ArrayList;
 
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_FadeTo;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
+import com.raggamuffin.protorunnerv2.particles.Particle;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Colours;
+import com.raggamuffin.protorunnerv2.utils.Matrix44;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 import com.raggamuffin.protorunnerv2.utils.Vector4;
-import com.raggamuffin.protorunnerv2.gameobjects.Wingman;
 
 public abstract class GameObject 
 {
 	///// Position and orientation vectors
-	protected Vector3 m_Position;		// Position of the GameObject. 
+    protected Vector3 m_Position;		// Position of the GameObject.
 	private Vector3 m_PreviousPosition;	// Used in collision detection.
 	protected Vector3 m_Forward;		// Forward vector of the GameObject
     protected Vector3 m_Backward;
@@ -59,7 +60,7 @@ public abstract class GameObject
 	public GameObject(PubSubHub PubSub, GameAudioManager audio)
 	{
 		///// Position and orientation vectors.
-		m_Position 			= new Vector3(0,0,0);		
+		m_Position 			= new Vector3(0,0,0);
 		m_PreviousPosition 	= new Vector3(0,0,0);
 		m_Forward 			= new Vector3(0,0,1);
         m_Backward          = new Vector3(0,0,-1);
@@ -76,7 +77,7 @@ public abstract class GameObject
 
 		///// Physics Attributes
 		m_Mass				 = 1000.0;
-		m_DragCoefficient	 = 0.007;
+		m_DragCoefficient	 = 0.9;
 
 		///// Colour Attributes.
 		m_BaseColour  = new Colour(Colours.Black);
@@ -102,17 +103,17 @@ public abstract class GameObject
 	}
 	
 	public void Update(double deltaTime)
-	{	
+	{
 		CalculateAcceleration();
 		CalculateVelocity();
         ApplyDrag();
 		UpdatePosition(deltaTime);
         UpdateColours(deltaTime);
 
-		for (GameObject Child : m_Children)
+		for (GameObject child : m_Children)
         {
-            Child.GetPosition().SetVector(m_Position);
-            Child.Update(deltaTime);
+            child.SetPosition(m_Position);
+            child.Update(deltaTime);
 		}
 		
 		CleanUpForces();
@@ -134,13 +135,7 @@ public abstract class GameObject
 
     private void ApplyDrag()
     {
-        double Speed = m_Velocity.GetLength();
-
-        double i = m_DragCoefficient * -m_Velocity.I * Speed;
-        double j = m_DragCoefficient * -m_Velocity.J * Speed;
-        double k = m_DragCoefficient * -m_Velocity.K * Speed;
-
-        m_Velocity.Add(i, j, k);
+        m_Velocity.Scale(m_DragCoefficient);
     }
 	
 	private void UpdatePosition(double deltaTime)
@@ -154,13 +149,12 @@ public abstract class GameObject
 
 	protected void UpdateVectors()
 	{
-        m_Forward.I = -Math.sin(m_Yaw);
-        m_Forward.K =  Math.cos(m_Yaw);
         m_Backward.SetVectorAsInverse(m_Forward);
 
-        m_Left.I = Math.cos(m_Yaw);
-        m_Left.K = Math.sin(m_Yaw);
-        m_Right.SetVectorAsInverse(m_Left);
+        m_Right.SetAsCrossProduct(Vector3.UP, m_Forward);
+        m_Left.SetVectorAsInverse(m_Right);
+
+        m_Up.SetAsCrossProduct(m_Right, m_Forward);
 	}
 	
 	public void ApplyForce(Vector3 Dir, double Force)
@@ -185,13 +179,13 @@ public abstract class GameObject
     }
 
     public void AddColourBehaviour(ColourBehaviour behaviour)
-	{
-		m_ColourBehaviours.add(behaviour);
+    {
+        m_ColourBehaviours.add(behaviour);
 	}
 	
 	public void RemoveColourBehaviour(ColourBehaviour behaviour)
-	{
-		m_ColourBehaviours.remove(behaviour);
+    {
+        m_ColourBehaviours.remove(behaviour);
     }
 
 	protected void CleanUpForces()
@@ -264,8 +258,8 @@ public abstract class GameObject
 	}
 	
 	public void SetPosition(double x, double y, double z)
-	{
-		m_Position.SetVector(x, y, z);
+    {
+        m_Position.SetVector(x, y, z);
 	}
 	
 	public void SetVelocity(Vector3 velocity)
@@ -283,10 +277,20 @@ public abstract class GameObject
 		return m_Forward;
 	}
 
+    public Vector3 GetBackward()
+    {
+        return m_Backward;
+    }
+
 	public Vector3 GetUp()
 	{
 		return m_Up;
 	}
+
+    public Vector3 GetRight()
+    {
+        return m_Right;
+    }
 
 	public Vector3 GetVelocity()
 	{
@@ -371,8 +375,8 @@ public abstract class GameObject
     }
 	
 	public void SetForward(Vector3 forward)
-	{
-		m_Forward.SetVector(forward);
+    {
+        m_Forward.SetVector(forward);
 	}
 	
 	public void SetDragCoefficient(double drag)

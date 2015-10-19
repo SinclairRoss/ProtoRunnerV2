@@ -40,7 +40,7 @@ public class Carrier extends Vehicle
 
         m_Engine = new Engine_Cycling(this, game, new EngineUseBehaviour_Null());
 		m_Engine.SetMaxTurnRate(1.5);
-		m_Engine.SetMaxEngineOutput(10000); // 10000
+		m_Engine.SetMaxEngineOutput(4000); // 10000
         m_BoundingRadius = 5;
 
 		SetAffiliation(AffiliationKey.RedTeam);

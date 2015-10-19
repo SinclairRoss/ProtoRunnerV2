@@ -169,6 +169,8 @@ public class Shaders
             "uniform mat4 u_ProjMatrix;"
         +   "uniform vec4 u_Position;"
         +   "uniform vec3 u_Forward;"
+        +   "uniform vec3 u_Up;"
+        +   "uniform vec3 u_Right;"
         +   "uniform vec3 u_Scale;"
         +   "uniform float u_Roll;"
 
@@ -181,9 +183,13 @@ public class Shaders
         +	"{"
         +	"	v_Barycentric = a_Barycentric;"
 
-        +   "   vec3 z = normalize(u_Forward);"
-        +   "   vec3 x = normalize(cross(vec3(0,1,0),z));"
-        +   "   vec3 y = cross(z,x);"
+//        +   "   vec3 z = normalize(u_Forward);"
+//        +   "   vec3 x = normalize(cross(vec3(0,1,0),z));"
+//        +   "   vec3 y = cross(z,x);"
+
+        +   "   vec3 z = u_Forward;"
+        +   "   vec3 x = u_Right;"
+        +   "   vec3 y = u_Up;"
 
         +   "   mat4 rotate;"
         +   "   rotate[0] = vec4(x.x, x.y, x.z, 0);"

@@ -79,7 +79,7 @@ public class ChaseCamera
         Vector3 lookPosition = m_LookObject.GetPosition();
         Vector3 lookForward  = m_LookObject.GetForward();
 
-		m_LookAt.I = lookPosition.I + lookForward.I * 10.0;//10
+		m_LookAt.I = lookPosition.I + lookForward.I * 10.0;
 		m_LookAt.J = lookPosition.J + lookForward.J * 10.0;
 		m_LookAt.K = lookPosition.K + lookForward.K * 10.0;
 	}
@@ -158,9 +158,9 @@ public class ChaseCamera
     public void NormalCam()
     {
         m_Up.SetVector(0,1,0);
-        m_Stiffness = 0.2;
+        m_Stiffness = 0.1;
         m_Damping = 0.04;
-        m_PositionOffset.SetVector(-6, 5, -6);
+        m_PositionOffset.SetVector(-5, 5, -5);
     }
 }
 

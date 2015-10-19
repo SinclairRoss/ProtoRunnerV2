@@ -22,7 +22,7 @@ public class Weapon_DeployFlares extends Weapon
         m_Accuracy = 1.0;
         m_LifeSpan = 5.0;
 
-        m_AudioClip = AudioClips.FlareEngaged;
+        m_AudioClip = AudioClips.MissileSpawned;
 
         m_FireMode = new FireControl_UtilityPulse(this, 5, 0.15, 4);
 

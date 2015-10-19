@@ -11,6 +11,8 @@ public class Weapon_MissileLauncher extends Weapon
 	{
 		super(anchor, game);
 
+        m_ProjectileType = ProjectileType.Missile;
+
 		m_Damage = 100;
         m_Drain = 25;
 		m_MuzzleVelocity = 0.0;

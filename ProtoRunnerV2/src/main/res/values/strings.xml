@@ -58,8 +58,9 @@
     <string name="tutorial_burst_fire">Swipe right to equip the Burst Laser</string>
     <string name="tutorial_rocket_equip">Swipe up to equip Homing Rockets</string>
     <string name="tutorial_rocket_fire">Press and hold to charge the rocket launcher, Release to fire</string>
-    <string name="tutorial_mines_equip">Swipe down to select your mines.</string>
-    <string name="tutorial_mines_fire">Touch the left side of the screen to lay mines</string>
+    <string name="tutorial_flare_fire">Swipe down to fire flares</string>
+    <string name="tutorial_flare_about_1">Flares are used to evade incoming missiles</string>
+    <string name="tutorial_flare_about_2">Flares will be covered later in the tutorial</string>
     <string name="tutorial_re_equip_pulse">Swipe left to re-equip the pulse laser</string>
     <string name="tutorial_right_side">Interacting with the right side of the screen performs manoeuvres</string>
     <string name="tutorial_boost">Press and hold the right side of the screen to boost</string>

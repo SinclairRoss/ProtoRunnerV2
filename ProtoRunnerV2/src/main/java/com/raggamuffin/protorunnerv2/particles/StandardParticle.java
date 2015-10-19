@@ -12,7 +12,7 @@ public class StandardParticle extends Particle
 
         m_Gravitons = gravitons;
 
-        m_DragCoefficient = 0.01;
+        m_DragCoefficient = 0.9;
         m_FadeIn = 0.2;
         m_FadeOut = 0.7;
 	}

@@ -32,18 +32,13 @@ public abstract class Projectile extends GameObject
 
         SetAffiliation(m_Origin.GetAffiliation());
 
-		SetDragCoefficient(0.0);
-	}
-
-	public void Update(double deltaTime)
-	{
-		super.Update(deltaTime);
+		SetDragCoefficient(1.0);
 	}
 
 	private void CalculateForward(Vector3 weaponForward, double accuracy)
 	{
 		m_Forward.SetVector(weaponForward);
-		
+
 		double Min = -(Math.PI * 0.5) * (1.0 - accuracy);	// 90 Degrees multiplied by value between 0 and 1.
 		double Max =  (Math.PI * 0.5) * (1.0 - accuracy);
 	 

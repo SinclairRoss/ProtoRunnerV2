@@ -61,7 +61,7 @@ public abstract class Vehicle extends GameObject
         m_InternalDamagedPublisher = m_InternalPubSub.CreatePublisher(InternalTopics.DamageTaken);
 
 		m_ParticleManager = game.GetParticleManager();
-		
+
 		///// Motion Attributes.
 		m_Position 		= new Vector3();
 
@@ -133,7 +133,6 @@ public abstract class Vehicle extends GameObject
                 m_Utility.OpenFire();
                 break;
         }
-
 	}
 
 	public void CollisionResponse(double damage)
@@ -164,12 +163,12 @@ public abstract class Vehicle extends GameObject
 	
 	public void DodgeLeft()
 	{
-		m_Engine.Dodge(m_Left);
+		m_Engine.Dodge(m_Right);
 	}
 	
 	public void DodgeRight()
 	{
-		m_Engine.Dodge(m_Right);
+		m_Engine.Dodge(m_Left);
 	}
 
     public double GetTurnRate()
@@ -194,13 +193,13 @@ public abstract class Vehicle extends GameObject
 	
 	public void StrafeLeft()
 	{
-		m_Engine.SetDirection(m_Left);
+		m_Engine.SetDirection(m_Right);
 		m_VehicleInfo.SetMovementState(MovementStates.StrafeLeft);
 	}
 	
 	public void StrafeRight()
 	{
-		m_Engine.SetDirection(m_Right);
+		m_Engine.SetDirection(m_Left);
 		m_VehicleInfo.SetMovementState(MovementStates.StrafeRight);
 	}
 	
@@ -301,31 +300,3 @@ public abstract class Vehicle extends GameObject
         return m_CanBeTargeted;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

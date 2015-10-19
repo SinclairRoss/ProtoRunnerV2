@@ -20,7 +20,7 @@ public class GameManager_Play extends GameManager
     {
         if(m_VehicleManager.GetTeamCount(AffiliationKey.RedTeam) == 0)
         {
-            m_VehicleManager.SpawnSquad(120);
+           // m_VehicleManager.SpawnSquad(120);
            // m_VehicleManager.SpawnVehicle(VehicleType.WeaponTestBot, new Vector3(0,3,0));
         }
     }
@@ -28,8 +28,8 @@ public class GameManager_Play extends GameManager
     @Override
     public void Initialise()
     {
-        m_VehicleManager.SpawnWingmen(-3);
-        m_VehicleManager.SpawnWingmen(3);
+       // m_VehicleManager.SpawnWingmen(-3);
+       // m_VehicleManager.SpawnWingmen(3);
         m_VehicleManager.SpawnPlayer();
     }
 

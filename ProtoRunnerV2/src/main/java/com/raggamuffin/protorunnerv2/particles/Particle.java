@@ -30,7 +30,7 @@ public abstract class Particle extends GameObject
 
         m_Model = ModelType.StandardPoint;
 
-		m_DragCoefficient = 0.0;
+		m_DragCoefficient = 1.0;
 		
 		m_FadeIn = 0.6;
 		m_FadeOut = 0.7;

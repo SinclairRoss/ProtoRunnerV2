@@ -2,52 +2,41 @@ package com.raggamuffin.protorunnerv2.utils;
 
 public class Matrix44 
 {
-	private double[][] Element;	//[column][row]
+	private double[] Element;
 	
 	public Matrix44()
 	{
-		Element = new double[4][4];
+		Element = new double[16];
 		
 		SetIdentity();
 	}
 	
 	public Matrix44(Matrix44 mat)
 	{
-		Element = new double[4][4];
-		
-		for(int c = 0; c < 4; c++)
-		{
-			for(int r = 0; r < 4; r++)
-			{
-				Element[c][r] = mat.Element[c][r];
-			}
-		}
+		Element = new double[16];
+
+        for(int i = 0; i < 4; i++)
+            Element[i] = mat.Element[i];
 	}
 
-	
 	public void SetIdentity()
 	{
-		for(int c = 0; c < 4; c++)
-		{
-			for(int r = 0; r < 4; r++)
-			{
-				Element[c][r] = 0.0;
-			}
-		}
+        for(int i = 0; i < 4; i++)
+            Element[i] = 0.0;
 
-		Element[0][0] = 1.0;
-		Element[1][1] = 1.0;
-		Element[2][2] = 1.0;
-		Element[3][3] = 1.0;
+		Element[0]  = 1.0;
+		Element[5]  = 1.0;
+		Element[10] = 1.0;
+		Element[15] = 1.0;
 	}
 	
 	public void SetTranslation(Vector3 translation)
 	{
 		SetIdentity();
 		
-		Element[0][3] = translation.I;
-		Element[1][3] = translation.J;
-		Element[2][3] = translation.K;
+		Element[12] = translation.I;
+		Element[13] = translation.J;
+		Element[14] = translation.K;
 	}
 	
 	public void SetRotation(Quaternion rotation)
@@ -66,40 +55,105 @@ public class Matrix44
 		
 		Matrix44 mat = new Matrix44();
 		
-		mat.Element[0][0] = 1.0 - 2.0 * (J2 + K2);
-		mat.Element[1][0] = 2.0 * (IJ - WK);
-		mat.Element[2][0] = 2.0 * (IK + WJ);
-		mat.Element[3][0] = 0.0;
+		mat.Element[0] = 1.0 - 2.0 * (J2 + K2);
+		mat.Element[1] = 2.0 * (IJ - WK);
+		mat.Element[2] = 2.0 * (IK + WJ);
+		mat.Element[3] = 0.0;
 		
-		mat.Element[0][1] = 2.0 * (IJ + WK);
-		mat.Element[1][1] = 1.0 - 2.0 * (I2 + K2);
-		mat.Element[2][1] = 2.0 * (JK - WI);
-		mat.Element[3][1] = 0.0;
+		mat.Element[4] = 2.0 * (IJ + WK);
+		mat.Element[5] = 1.0 - 2.0 * (I2 + K2);
+		mat.Element[6] = 2.0 * (JK - WI);
+		mat.Element[7] = 0.0;
 		
-		mat.Element[0][2] = 2.0 * (IK - WJ);
-		mat.Element[1][2] = 2.0 * (JK + WI);
-		mat.Element[2][2] = 1.0 - 2.0 * (I2 + K2);
-		mat.Element[3][2] = 0.0;
-		
-		mat.Element[0][3] = 0.0;
-		mat.Element[1][3] = 0.0;
-		mat.Element[2][3] = 0.0;
-		mat.Element[3][3] = 1.0;
+		mat.Element[8] = 2.0 * (IK - WJ);
+		mat.Element[9] = 2.0 * (JK + WI);
+		mat.Element[10] = 1.0 - 2.0 * (I2 + K2);
+		mat.Element[11] = 0.0;
+
+//		mat.Element[12] = 0.0;
+//		mat.Element[13] = 0.0;
+//		mat.Element[14] = 0.0;
+//		mat.Element[15] = 1.0;
 	}
 	
 	public void Multiply(final Matrix44 lhs, final Matrix44 rhs)
 	{
-		for(int c = 0; c < 4; c++)
-		{
-			for(int r = 0; r < 4; r++)
-			{
-				Element[c][r] = (lhs.Element[0][r] * rhs.Element[c][0]) + 
-							    (lhs.Element[1][r] * rhs.Element[c][1]) + 
-							    (lhs.Element[2][r] * rhs.Element[c][2]) + 
-							    (lhs.Element[3][r] * rhs.Element[c][3]) ;					
-			}
-		}
+
 	}
-	
-	
+
+    public void Translate(Vector3 translation)
+    {
+        Element[12] += translation.I;
+        Element[13] += translation.J;
+        Element[14] += translation.K;
+    }
+
+    public void Translate(double i, double j, double k)
+    {
+        Element[12] += i;
+        Element[13] += j;
+        Element[14] += k;
+    }
+
+    ///// Setters
+    public void SetRight(Vector3 right)
+    {
+        Element[0] = right.I;
+        Element[1] = right.J;
+        Element[2] = right.K;
+    }
+
+    public void SetUp(Vector3 up)
+    {
+        Element[4] = up.I;
+        Element[5] = up.J;
+        Element[6] = up.K;
+    }
+
+    public void SetForward(Vector3 fwd)
+    {
+        Element[8] = fwd.I;
+        Element[9] = fwd.J;
+        Element[10] = fwd.K;
+    }
+
+    public void SetPosition(Vector3 pos)
+    {
+        Element[12] = pos.I;
+        Element[13] = pos.J;
+        Element[14] = pos.K;
+    }
+
+    public void SetPosition(double i, double j, double k)
+    {
+        Element[12] = i;
+        Element[13] = j;
+        Element[14] = k;
+    }
+
+    ///// Getters
+    public Vector3 GetRight()
+    {
+        return new Vector3(Element[0],Element[1],Element[2]);
+    }
+
+    public Vector3 GetLeft()
+    {
+        return new Vector3(-Element[0],-Element[1],-Element[2]);
+    }
+
+    public Vector3 GetUp()
+    {
+        return new Vector3(Element[4],Element[5],Element[6]);
+    }
+
+    public Vector3 GetForward()
+    {
+        return new Vector3(Element[8],Element[9],Element[10]);
+    }
+
+    public Vector3 GetPosition()
+    {
+        return new Vector3(Element[12],Element[13],Element[14]);
+    }
 }

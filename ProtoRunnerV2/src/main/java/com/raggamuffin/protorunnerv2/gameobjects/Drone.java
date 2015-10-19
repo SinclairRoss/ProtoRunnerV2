@@ -32,7 +32,7 @@ public class Drone extends Vehicle
 
         m_Engine = new Engine_Standard(this, game, new EngineUseBehaviour_Null());
         m_Engine.SetMaxTurnRate(2.0);
-        m_Engine.SetMaxEngineOutput(3000);
+        m_Engine.SetMaxEngineOutput(300);
         m_Mass = 100;
 
         SetAffiliation(AffiliationKey.RedTeam);

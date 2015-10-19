@@ -127,11 +127,12 @@ public class GameManager_Tutorial extends GameManager
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_left_side), TutorialEffect.LeftOverlay_On));
         m_Conditions.add(new TutorialCondition_ShotsFired(m_Game, context.getString(R.string.tutorial_fire_pulse), 16, WeaponSlot.Left));
         m_Conditions.add(new TutorialCondition_SwitchWeapon(m_Game, context.getString(R.string.tutorial_burst_equip), WeaponSlot.Right, TutorialEffect.LockWeapon_Right));
-        m_Conditions.add(new TutorialCondition_ShotsFired(m_Game,context.getString(R.string.tutorial_fire_burst), 4, WeaponSlot.Right));
+        m_Conditions.add(new TutorialCondition_Message(m_Game,context.getString(R.string.tutorial_fire_burst)));    //TODO: FIX THE TUTORIAL.
         m_Conditions.add(new TutorialCondition_SwitchWeapon(m_Game, context.getString(R.string.tutorial_rocket_equip), WeaponSlot.Up, TutorialEffect.LockWeapon_Up));
         m_Conditions.add(new TutorialCondition_ShotsFired(m_Game, context.getString(R.string.tutorial_rocket_fire), 8, WeaponSlot.Up));
-        m_Conditions.add(new TutorialCondition_SwitchWeapon(m_Game, context.getString(R.string.tutorial_mines_equip), WeaponSlot.Down, TutorialEffect.LockWeapon_Down));
-        m_Conditions.add(new TutorialCondition_ShotsFired(m_Game, context.getString(R.string.tutorial_mines_fire), 12, WeaponSlot.Down));
+        m_Conditions.add(new TutorialCondition_ShotsFired(m_Game, context.getString(R.string.tutorial_flare_fire), 12, WeaponSlot.Down));
+        m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_flare_about_1)));
+        m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_flare_about_2)));
         m_Conditions.add(new TutorialCondition_SwitchWeapon(m_Game, context.getString(R.string.tutorial_re_equip_pulse), WeaponSlot.Left, TutorialEffect.UnlockAllWeapons));
         m_Conditions.add(new TutorialCondition_Message(m_Game,context.getString(R.string.tutorial_right_side), TutorialEffect.LeftOverlay_Off, TutorialEffect.RightOverlay_On));
         m_Conditions.add(new TutorialCondition_Boost(m_Game, context.getString(R.string.tutorial_boost), 5));

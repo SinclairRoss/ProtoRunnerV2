@@ -17,6 +17,8 @@ public abstract class Engine
 
     protected GameObject m_Anchor;
 
+    private Vector3 m_AnchorForward;
+
     // Propulsion.
     private Vector3 m_Direction;		// The direction the engine is applying force.
 
@@ -47,13 +49,15 @@ public abstract class Engine
         m_Anchor = anchor;
         m_UseBehaviour = behaviour;
 
+        m_AnchorForward = m_Anchor.GetForward();
+
         m_Direction = m_Anchor.GetForward();
 
         m_EngineOutput = 1.0;
         m_MaxEngineOutput = 700.0;
 
         m_AfterBurnerOutput = 0.0;
-        m_MaxAfterBurnerOutput= 2000;
+        m_MaxAfterBurnerOutput = 2000;
 
         m_DodgeOutput = 0.0;
         m_MaxDodgeForce = 32000.0;
@@ -75,9 +79,12 @@ public abstract class Engine
         UpdateTurnRate(deltaTime);
         UpdateOrientation(deltaTime);
 
-        m_Anchor.UpdateVectors();
-        m_Anchor.ApplyForce(m_Direction, GetEngineOutput());
+        m_AnchorForward.SetVector(0, 0, 1);
+        m_AnchorForward.RotateY(m_Anchor.GetYaw());
 
+        m_Anchor.UpdateVectors();
+
+        m_Anchor.ApplyForce(m_Direction, GetEngineOutput());
         m_Anchor.ApplyForce(m_DodgeDirection, GetDodgeOutput());
 
         // Decay the output of the dodge overtime.
@@ -108,9 +115,9 @@ public abstract class Engine
         m_HyperLight.Update(deltaTime);
     }
 
-    public void Dodge(Vector3 Direction)
+    public void Dodge(Vector3 direction)
     {
-        m_DodgeDirection.SetVector(Direction);
+        m_DodgeDirection.SetVector(direction);
         m_DodgeOutput = 1.0;
     }
 

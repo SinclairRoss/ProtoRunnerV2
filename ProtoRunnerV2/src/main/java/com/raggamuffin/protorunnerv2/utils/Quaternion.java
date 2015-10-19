@@ -100,45 +100,25 @@ public class Quaternion
 		
 		Normalise();
 	}
-	
-	public Quaternion(double pitch, double Jaw, double roll)
-	{
-		double p = pitch * PIOVER180 * 0.5;
-		double J = Jaw   * PIOVER180 * 0.5;
-		double r = roll  * PIOVER180 * 0.5;
-		
-		double sinp = Math.sin(p);
-		double sinJ = Math.sin(J);
-		double sinr = Math.sin(r);
-		double cosp = Math.cos(p);
-		double cosJ = Math.cos(J);
-		double cosr = Math.cos(r);
-		
-		W = cosr * cosp * cosJ + sinr * sinp * sinJ;
-		I = sinr * cosp * cosJ - cosr * sinp * sinJ;
-		J = cosr * sinp * cosJ + sinr * cosp * sinJ;
-		K = cosr * cosp * sinJ - sinr * sinp * cosJ;
-		
-		Normalise();
-	}
+
 	
 	public void Set(double pitch, double Yaw, double roll)
 	{
 		double p = pitch * PIOVER180 * 0.5;
-		double J = Yaw   * PIOVER180 * 0.5;
+		double j = Yaw   * PIOVER180 * 0.5;
 		double r = roll  * PIOVER180 * 0.5;
 		
 		double sinp = Math.sin(p);
-		double sinJ = Math.sin(J);
+		double sinj = Math.sin(j);
 		double sinr = Math.sin(r);
 		double cosp = Math.cos(p);
-		double cosJ = Math.cos(J);
+		double cosj = Math.cos(j);
 		double cosr = Math.cos(r);
 		
-		W = cosr * cosp * cosJ + sinr * sinp * sinJ;
-		I = sinr * cosp * cosJ - cosr * sinp * sinJ;
-		J = cosr * sinp * cosJ + sinr * cosp * sinJ;
-		K = cosr * cosp * sinJ - sinr * sinp * cosJ;
+		W = cosr * cosp * cosj + sinr * sinp * sinj;
+		I = sinr * cosp * cosj - cosr * sinp * sinj;
+		J = cosr * sinp * cosj + sinr * cosp * sinj;
+		K = cosr * cosp * sinj - sinr * sinp * cosj;
 		
 		Normalise();
 	}
@@ -162,43 +142,6 @@ public class Quaternion
 		W = (lhs.W * rhs.W) - (lhs.I * rhs.I) - (lhs.J * rhs.J) - (lhs.K * rhs.K);	
 	}
 	
-	public float[] ToMatrix()
-	{
-		float[] matrix = new float[16];
-		
-		float I2 = (float) (I * I);
-		float J2 = (float) (J * J);
-		float K2 = (float) (K * K);
-		float IJ = (float) (I * J);
-		float IK = (float) (I * K);
-		float JK = (float) (J * K);
-		float WI = (float) (W * I);
-		float WJ = (float) (W * J);
-		float WK = (float) (W * K);
-	 
-		matrix[0]  = 1.0f - 2.0f * (J2 + K2);
-		matrix[1]  = 2.0f * (IJ - WK);
-		matrix[2]  = 2.0f * (IK + WJ);
-		matrix[3]  = 0.0f;
-				
-		matrix[4]  = 2.0f * (IJ + WK);
-		matrix[5]  = 1.0f - 2.0f * (I2 + K2);
-		matrix[6]  = 2.0f * (JK - WI);
-		matrix[7]  = 0.0f;
-				
-		matrix[8]  = 2.0f * (IK - WJ);
-		matrix[9]  = 2.0f * (JK + WI);
-		matrix[10] = 1.0f - 2.0f * (I2 + J2);
-		matrix[11] = 0.0f;
-					
-		matrix[12] = 0.0f;
-		matrix[13] = 0.0f;
-		matrix[14] = 0.0f;
-		matrix[15] = 1.0f;
-		
-		return matrix;
-	}
-	
 	private void CalculateMagnitude()
 	{
 		m_Magnitude = Math.sqrt(W*W + I*I + J*J + K*K);
@@ -215,17 +158,12 @@ public class Quaternion
 		return m_Magnitude;
 	}
 	
-	public Quaternion GetConjugate()
+	public void SetAsConjugate(Quaternion quat)
 	{
-		Quaternion conjugate = new Quaternion();
-		
-		conjugate.W = -this.W;
-		conjugate.I = -this.I;
-		conjugate.J = -this.J;
-		conjugate.K = -this.K;
-
-		
-		return conjugate;
+		W = -quat.W;
+		I = -quat.I;
+		J = -quat.J;
+		K = -quat.K;
 	}
 }
 

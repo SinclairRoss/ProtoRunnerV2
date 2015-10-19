@@ -42,7 +42,7 @@ public class Projectile_Laser extends Projectile
 
         m_EndPoint = new Vector3();
         m_GrowthRate = 100;
-        m_LaserFadeTimer = new Timer(1.0);
+        m_LaserFadeTimer = new Timer(0.5);
 
         m_LaserLength = 0.0;
         m_MaxLength = 200;

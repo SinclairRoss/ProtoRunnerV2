@@ -15,6 +15,7 @@ import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.BulletManager;
 import com.raggamuffin.protorunnerv2.managers.ParticleManager;
+import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public abstract class Weapon 
@@ -136,7 +137,12 @@ public abstract class Weapon
 		
 		return m_MuzzleOffset;
 	}
-	
+
+    public Vector3 GetMuzzleOffset()
+    {
+        return m_MuzzleOffsets.get(m_MuzzleIndex);
+    }
+
 	public Vector3 GetMuzzlePosition(Vector3 Muzzle)
 	{
 		m_MuzzleOffset.SetVector(Muzzle);
