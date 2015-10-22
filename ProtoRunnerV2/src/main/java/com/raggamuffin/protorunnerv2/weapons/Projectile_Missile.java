@@ -4,12 +4,15 @@ import android.util.Log;
 
 import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
+import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_Burst;
 import com.raggamuffin.protorunnerv2.particles.TrailEmitter;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
+
+import java.util.ArrayList;
 
 public class Projectile_Missile extends Projectile
 {
@@ -28,6 +31,7 @@ public class Projectile_Missile extends Projectile
     private Vector3 m_ToTarget;
     private Timer m_LifeSpan;
     private Timer m_ArmingTimer;
+    private double m_EngineOutput;
 
     public Projectile_Missile(Weapon origin, GameLogic game)
     {
@@ -51,6 +55,8 @@ public class Projectile_Missile extends Projectile
         m_ToTarget = new Vector3();
 
         m_DragCoefficient = 0.9;
+
+        m_EngineOutput = 12000;
     }
 
     @Override
@@ -71,12 +77,15 @@ public class Projectile_Missile extends Projectile
                 break;
 
             case Released:
-                ApplyForce(m_Forward, 4000);
+                ApplyForce(m_Forward, m_EngineOutput);
 
                 m_ArmingTimer.Update(deltaTime);
 
                 if (m_ArmingTimer.TimedOut())
+                {
+                    m_Velocity.SetVector(m_Origin.GetVelocity());
                     m_State = MissileState.Armed;
+                }
 
                 break;
 
@@ -84,8 +93,18 @@ public class Projectile_Missile extends Projectile
 
                 m_LifeSpan.Update(deltaTime);
 
-                m_Target.SetVector(m_Origin.GetForward());
-                m_Target.Scale(8);
+                GameObject target = FindTarget();
+
+                if(target != null)
+                {
+                    m_Target.SetVector(target.GetPosition());
+                }
+                else
+                {
+                    m_Target.SetVector(m_Origin.GetForward());
+                    m_Target.Scale(8);
+                }
+
                 m_Target.Add(m_Origin.GetPosition());
 
                 m_ToTarget.SetVectorDifference(m_Position, m_Target);
@@ -97,7 +116,7 @@ public class Projectile_Missile extends Projectile
 
                 UpdateVectors();
 
-                ApplyForce(m_Forward, 4000);
+                ApplyForce(m_Forward, m_EngineOutput);
 
                 if (m_Position.J <= 0)
                 {
@@ -111,9 +130,17 @@ public class Projectile_Missile extends Projectile
                 break;
         }
 
-        Log.e("what", "" + m_State);
-
         super.Update(deltaTime);
+    }
+
+    private GameObject FindTarget()
+    {
+        ArrayList<Projectile_Flare> activeFlares = m_Game.GetBulletManager().GetActiveFlares();
+
+        if(activeFlares.size() > 0)
+            return activeFlares.get(0);
+
+        return null;
     }
 
     @Override

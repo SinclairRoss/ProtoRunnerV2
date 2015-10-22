@@ -21,6 +21,8 @@ public class LaserPointer extends GameObject
 	
 	private Timer m_Timer;
 
+    private final double m_MaxAlpha;
+
 	public LaserPointer(Weapon Anchor, Vector3 Muzzle)
 	{
 		super(null, null);
@@ -38,6 +40,8 @@ public class LaserPointer extends GameObject
 		
 		m_Timer = new Timer(1.0);
 
+        m_MaxAlpha = 0.5;
+
 		Off();
 	}
 	
@@ -50,7 +54,7 @@ public class LaserPointer extends GameObject
 		{
 			case Activating:
 				m_Timer.Update(deltaTime);
-				m_BaseColour.Alpha = m_Timer.GetProgress();
+				m_BaseColour.Alpha = m_Timer.GetProgress() * m_MaxAlpha;
 				
 				if(m_Timer.TimedOut())
 				{
@@ -62,7 +66,7 @@ public class LaserPointer extends GameObject
 				
 			case Deactivating:
 				m_Timer.Update(deltaTime);
-				m_BaseColour.Alpha = m_Timer.GetInverseProgress();
+				m_BaseColour.Alpha = m_Timer.GetInverseProgress() * m_MaxAlpha;
 				
 				if(m_Timer.TimedOut())
 				{

@@ -64,7 +64,12 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
 	{
 		Log.e(TAG, "Pause");
 		m_SoundPool.autoPause();
-		m_MediaPlayer.pause();
+
+        if(m_MediaPlayer != null)
+        {
+            Log.e("AudioService", "Null pointer: m_MediaPlayer");
+            m_MediaPlayer.pause();
+        }
 	}
 	
 	public void Resume()

@@ -14,6 +14,7 @@ import com.raggamuffin.protorunnerv2.weapons.Weapon;
 public class BulletManager
 {
 	private ArrayList<Projectile> m_ActiveBullets;
+    private ArrayList<Projectile_Flare> m_ActiveFlares;
 	
 	private GameLogic m_Game;
 	
@@ -21,25 +22,41 @@ public class BulletManager
 	{
 		m_Game = Game;
 		
-		m_ActiveBullets 	= new ArrayList<>();
+		m_ActiveBullets = new ArrayList<>();
+        m_ActiveFlares = new ArrayList<>();
 	}
 
 	public void Update(double deltaTime)
 	{
-		for(Iterator<Projectile> Iter = m_ActiveBullets.iterator(); Iter.hasNext();)
-		{
-			Projectile temp = Iter.next();
-			
-			if(temp.IsValid())
-			{
+        for(Iterator<Projectile> Iter = m_ActiveBullets.iterator(); Iter.hasNext();)
+        {
+            Projectile temp = Iter.next();
+
+            if(temp.IsValid())
+            {
                 temp.Update(deltaTime);
-			}
-			else
-			{
-				RemoveObjectFromRenderer(temp);
-				Iter.remove();
-			}
-		}
+            }
+            else
+            {
+                RemoveObjectFromRenderer(temp);
+                Iter.remove();
+            }
+        }
+
+        for(Iterator<Projectile_Flare> Iter = m_ActiveFlares.iterator(); Iter.hasNext();)
+        {
+            Projectile_Flare temp = Iter.next();
+
+            if(temp.IsValid())
+            {
+                temp.Update(deltaTime);
+            }
+            else
+            {
+                RemoveObjectFromRenderer(temp);
+                Iter.remove();
+            }
+        }
 	}
 
     public void CreateProjectile(Weapon origin)
@@ -49,7 +66,7 @@ public class BulletManager
         switch(origin.GetProjectileType())
         {
             case PlasmaShot:
-                newProjectile = new Projectile_PlasmaShot(origin);
+                newProjectile = new Projectile_PlasmaShot(origin, m_Game);
                 break;
             case Missile:
                 newProjectile = new Projectile_Missile(origin, m_Game);
@@ -58,10 +75,14 @@ public class BulletManager
                 newProjectile = new Projectile_Laser(origin, m_Game);
                 break;
             case Flare:
-                newProjectile = new Projectile_Flare(origin, m_Game);
+                Projectile_Flare flare = new Projectile_Flare(origin, m_Game);
+                m_ActiveFlares.add(flare);
+                newProjectile = flare;
                 break;
             default:
-                newProjectile = new Projectile_PlasmaShot(origin);
+                newProjectile = new Projectile_PlasmaShot(origin, m_Game);
+                m_ActiveBullets.add(newProjectile);
+                break;
         }
 
         m_ActiveBullets.add(newProjectile);
@@ -102,4 +123,9 @@ public class BulletManager
 	{
 		return m_ActiveBullets;
 	}
+
+    public ArrayList<Projectile_Flare> GetActiveFlares()
+    {
+        return m_ActiveFlares;
+    }
 }

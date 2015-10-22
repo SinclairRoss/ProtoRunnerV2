@@ -25,11 +25,9 @@ public class ModelManager
 	private Context m_Context;
 
 	private GLFloorPanel m_FloorPanel;
-	//private GLPulseLaser m_PulseLaser;
-	//private GLPulseLaser m_RailSlug;
+    private GLModel      m_PlasmaPulse;
 	private GLRing		 m_Ring;
 	private GLLine		 m_Pointer;
-    //private GLLine       m_Laser;
 	private GLScreenQuad m_Screen;
 	private GLSkybox	 m_Skybox;
 	private GLRadarFragment m_RadarFragment;
@@ -68,12 +66,10 @@ public class ModelManager
 	private void LoadModels()
     {
         m_FloorPanel = new GLFloorPanel();
-        //m_PulseLaser = new GLPulseLaser(50.0f);
-       // m_RailSlug = new GLPulseLaser(100.0f);
         m_Ring = new GLRing();
         m_Pointer = new GLLine(2.0f);
-      //  m_Laser = new GLLine(3.0f);
         m_ParticleLaser = new GLModel_LaserBeam();
+        m_PlasmaPulse = new GLModel_PlasmaPulse();
 
         m_Screen = new GLScreenQuad();
         m_Skybox = new GLSkybox();
@@ -169,18 +165,14 @@ public class ModelManager
                 return m_Dummy;
             case FloorPanel:
                 return m_FloorPanel;
-            //case Weapon_PulseLaser:
-                //return m_PulseLaser;
-            //case RailSlug:
-            //    return m_RailSlug;
             case Ring:
                 break;
             case LaserPointer:
                 return m_Pointer;
             case ParticleLaser:
                 return m_ParticleLaser;
-        //    case LaserBeam:
-           //     return m_Laser;
+            case PlasmaPulse:
+                return m_PlasmaPulse;
             case Explosion:
                 return m_Explosion;
             case Skybox:

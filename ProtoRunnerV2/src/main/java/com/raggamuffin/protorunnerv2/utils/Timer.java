@@ -56,4 +56,9 @@ public class Timer
 	{
 		return 1.0 - MathsHelper.Normalise(m_Timer, 0.0, m_Limit);
 	}
+
+    public double GetLimit()
+    {
+        return m_Limit;
+    }
 }

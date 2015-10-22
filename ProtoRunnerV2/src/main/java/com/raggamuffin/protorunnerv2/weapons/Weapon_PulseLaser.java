@@ -26,8 +26,6 @@ public class Weapon_PulseLaser extends Weapon
 
         m_AudioClip = AudioClips.PulseLaserPunk;
 
-        m_FireMode = new FireControl_Pulse(0.6, 0.06, 4);
-
         m_Lasers = new Vector<>();
 
         AddMuzzle( 1, 0, 0);
@@ -35,19 +33,21 @@ public class Weapon_PulseLaser extends Weapon
 
         for(Vector3 muzzle : m_MuzzleOffsets)
             m_Lasers.add(new LaserPointer(this, muzzle));
+
+        m_FireMode = new FireControl_Pulse(0.4, 0.06, 4);
     }
 
     @Override
     public void WeaponEquipped()
     {
-        for(LaserPointer Pointer : m_Lasers)
-            Pointer.On();
+       // for(LaserPointer Pointer : m_Lasers)
+       //     Pointer.On();
     }
 
     @Override
     public void WeaponUnequipped()
     {
-        for(LaserPointer Pointer : m_Lasers)
-            Pointer.Off();
+        //for(LaserPointer Pointer : m_Lasers)
+        //    Pointer.Off();
     }
 }

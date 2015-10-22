@@ -24,7 +24,7 @@ public class Bit extends Vehicle
 
         m_Engine = new Engine_Standard(this, game, new EngineUseBehaviour_Null());
 		m_Engine.SetMaxTurnRate(1.5);
-		m_Engine.SetMaxEngineOutput(1500);
+		m_Engine.SetMaxEngineOutput(2500);
         m_BoundingRadius = 2;
 
 		SetAffiliation(AffiliationKey.RedTeam); 

@@ -118,7 +118,7 @@ public class ParticleManager
             headNode.SetChild(newParticle);
         }
 
-        newParticle.Activate(origin.GetPosition(), origin.GetLifeSpan(), headNode, origin.GetHotColour(), origin.GetColdColour());
+        newParticle.Activate(origin.GetPosition(), origin.GetLifeSpan(), origin.GetFadeInLength(), headNode, origin.GetHotColour(), origin.GetColdColour());
         m_ActiveTrailParticles.add(newParticle);
 
         m_Game.AddTrailToRemderer(newParticle);

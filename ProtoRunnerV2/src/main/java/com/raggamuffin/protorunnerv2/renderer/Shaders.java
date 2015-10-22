@@ -183,10 +183,6 @@ public class Shaders
         +	"{"
         +	"	v_Barycentric = a_Barycentric;"
 
-//        +   "   vec3 z = normalize(u_Forward);"
-//        +   "   vec3 x = normalize(cross(vec3(0,1,0),z));"
-//        +   "   vec3 y = cross(z,x);"
-
         +   "   vec3 z = u_Forward;"
         +   "   vec3 x = u_Right;"
         +   "   vec3 y = u_Up;"

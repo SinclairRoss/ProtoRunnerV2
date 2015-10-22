@@ -22,9 +22,7 @@ public class Projectile_Flare extends Projectile
         m_Model = ModelType.Nothing;
 
         m_LifeSpan = new Timer(3.0);
-
-        SetDragCoefficient(0.001);
-
+        m_DragCoefficient	 = 0.85;
         m_Forward.SetVector(m_Origin.GetForward());
         m_Up.SetVector(m_Origin.GetUp());
 

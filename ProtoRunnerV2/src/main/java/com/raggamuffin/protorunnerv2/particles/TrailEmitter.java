@@ -7,32 +7,43 @@ import com.raggamuffin.protorunnerv2.utils.Colour;
 
 public class TrailEmitter extends GameObject
 {
-    private final GameObject m_Anchor;
-    private final GameLogic m_Game;
-    private final ParticleManager m_ParticleManager;
+    private GameObject m_Anchor;
+    private GameLogic m_Game;
+    private ParticleManager m_ParticleManager;
 
     private double m_Offset;
 
     private TrailPoint m_HeadNode;
 
-    private final double m_LifeSpan;
-    private final double m_EmissionRate;
+    private double m_LifeSpan;
+    private double m_EmissionRate;
     private double m_EmissionCounter;
 
     private Colour m_HotColour;
     private Colour m_ColdColour;
+    private double m_TrailFadeInLength;
+
+    public TrailEmitter(GameObject anchor, GameLogic game, double fadeInLength)
+    {
+        super(null, null);
+
+        Initialise(anchor, game, fadeInLength);
+    }
 
     public TrailEmitter(GameObject anchor, GameLogic game)
     {
         super(null, null);
 
+        Initialise(anchor, game, 0.4);
+    }
+
+    private void Initialise(GameObject anchor, GameLogic game, double fadeInLength)
+    {
         m_Anchor = anchor;
         m_Game = game;
         m_ParticleManager = m_Game.GetParticleManager();
 
         m_Offset = -1.5;
-
-        m_HeadNode = null;
 
         m_LifeSpan = 2.0;
         m_EmissionRate = 0.1;
@@ -40,6 +51,15 @@ public class TrailEmitter extends GameObject
 
         m_HotColour = anchor.GetColour();
         m_ColdColour = anchor.GetColour();
+        m_TrailFadeInLength = fadeInLength;
+
+        m_HotColour.Alpha = 0.0;
+        m_ColdColour.Alpha = 0.0;
+
+        m_Position.SetVector(m_Anchor.GetPosition());
+
+        m_HeadNode = m_ParticleManager.CreateTrailPoint(this);
+        m_HeadNode.SetPosition(m_Position);
     }
 
     @Override
@@ -57,8 +77,7 @@ public class TrailEmitter extends GameObject
             m_HeadNode = m_ParticleManager.CreateTrailPoint(this);
         }
 
-        m_HeadNode.GetPosition().SetVector(m_Position);
-        m_HeadNode.Update(deltaTime);
+        m_HeadNode.SetPosition(m_Position);
     }
 
     @Override
@@ -85,5 +104,16 @@ public class TrailEmitter extends GameObject
     public Colour GetColdColour()
     {
         return m_ColdColour;
+    }
+
+    public double GetFadeInLength()
+    {
+        return m_TrailFadeInLength;
+    }
+
+    public void LowResolutionMode()
+    {
+        m_EmissionRate = 0.05;
+        m_LifeSpan = 0.1;
     }
 }

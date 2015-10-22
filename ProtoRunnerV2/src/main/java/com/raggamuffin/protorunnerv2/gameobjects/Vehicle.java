@@ -248,13 +248,13 @@ public abstract class Vehicle extends GameObject
 			SendDeathMessage();
 			m_BurstEmitter.Burst();
             m_PrimaryWeapon.CeaseFire();
-			
+
 			return false;
 		}
-		
+
 		return true;
 	}
-	
+
 	public void SetHullPoints(double hp)
 	{
 		m_HullPoints = (int) MathsHelper.Clamp(hp, 0, m_MaxHullPoints);

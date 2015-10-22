@@ -8,6 +8,8 @@ import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class CyclingEngineAttachment extends GameObject
 {
+    private GameLogic m_Game;
+
     GameObject m_Anchor;
     private double m_OrbitRange;
     private double m_Offset;
@@ -23,6 +25,8 @@ public class CyclingEngineAttachment extends GameObject
         super(null, null);
 
         m_Model = ModelType.EngineDrone;
+
+        m_Game = game;
 
         m_BaseColour = anchor.GetBaseColour();
         m_AltColour = anchor.GetAltColour();
@@ -67,9 +71,6 @@ public class CyclingEngineAttachment extends GameObject
 
         m_TrailEmitter.SetPosition(m_Position);
         m_TrailEmitter.Update(deltaTime);
-
-
-      //  super.Update(deltaTime);
     }
 
     @Override

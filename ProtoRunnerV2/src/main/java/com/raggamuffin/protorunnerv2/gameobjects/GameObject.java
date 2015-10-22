@@ -77,7 +77,7 @@ public abstract class GameObject
 
 		///// Physics Attributes
 		m_Mass				 = 1000.0;
-		m_DragCoefficient	 = 0.9;
+		m_DragCoefficient	 = 0.85;
 
 		///// Colour Attributes.
 		m_BaseColour  = new Colour(Colours.Black);
@@ -195,7 +195,7 @@ public abstract class GameObject
 
 	// Each subclass must define when it becomes invalid.
 	public abstract boolean IsValid();
-	
+
 	public void ForceInvalidation()
 	{
 		m_ForciblyInvalidated = true;

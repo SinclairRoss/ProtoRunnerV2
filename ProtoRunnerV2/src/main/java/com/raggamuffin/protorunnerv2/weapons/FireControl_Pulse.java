@@ -58,12 +58,7 @@ public class FireControl_Pulse extends FireControl
 			}
 		}
 	}
-	
-	public void PullTrigger()
-	{
-		super.PullTrigger();
-	}
-	
+
 	public void ReleaseTrigger()
 	{
 		super.ReleaseTrigger();
