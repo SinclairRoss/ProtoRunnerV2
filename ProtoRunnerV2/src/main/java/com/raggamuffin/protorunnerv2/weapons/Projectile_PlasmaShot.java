@@ -1,6 +1,7 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
+import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.ParticleManager;
 import com.raggamuffin.protorunnerv2.particles.ParticleEmitter;
@@ -56,13 +57,13 @@ public class Projectile_PlasmaShot extends Projectile
     }
 
     @Override
-    public boolean CollidesWith(Vehicle other)
+    public boolean CollidesWith(GameObject other)
     {
         return CollisionDetection.CheckCollisions(this, other);
     }
 
     @Override
-    public void CollisionResponse(Vehicle other)
+    public void CollisionResponse(GameObject other)
     {
         ForceInvalidation();
     }

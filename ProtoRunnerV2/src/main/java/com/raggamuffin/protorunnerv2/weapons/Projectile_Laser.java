@@ -1,6 +1,7 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
+import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_Ray;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
@@ -124,13 +125,13 @@ public class Projectile_Laser extends Projectile
     }
 
     @Override
-    public boolean CollidesWith(Vehicle other)
+    public boolean CollidesWith(GameObject other)
     {
         return CollisionDetection.RayTrace(GetPosition(), GetForward(), m_LaserLength, other);
     }
 
     @Override
-    public void CollisionResponse(Vehicle other)
+    public void CollisionResponse(GameObject other)
     {
         Vector3 otherPos = other.GetPosition();
         Vector3 pos = GetPosition();

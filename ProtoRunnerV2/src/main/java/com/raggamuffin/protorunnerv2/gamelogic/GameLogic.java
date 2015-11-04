@@ -33,6 +33,7 @@ import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
 import com.raggamuffin.protorunnerv2.ui.UIScreens;
 import com.raggamuffin.protorunnerv2.weapons.Projectile;
+import com.raggamuffin.protorunnerv2.weapons.Projectile_Flare;
 
 public class GameLogic extends ApplicationLogic
 {
@@ -120,14 +121,14 @@ public class GameLogic extends ApplicationLogic
 	
 	private void CheckCollisions(double deltaTime)
 	{
-		ArrayList<Vehicle> vehicles = m_VehicleManager.GetVehicles();
+        ArrayList<Projectile> projectiles = m_BulletManager.GetActiveBullets();
 
-		for(Vehicle vehicle : vehicles)
-		{
-            ArrayList<Projectile> projectiles = m_BulletManager.GetActiveBullets();
-            
-			for(Projectile projectile : projectiles)
-			{
+        for(Projectile projectile : projectiles)
+        {
+		    ArrayList<Vehicle> vehicles = m_VehicleManager.GetVehicles();
+
+		    for(Vehicle vehicle : vehicles)
+		    {
 				// Prevent friendly fire.
 				if(vehicle.GetAffiliation() == projectile.GetAffiliation())
 					continue;
@@ -139,19 +140,18 @@ public class GameLogic extends ApplicationLogic
                 }
 			}
 
-            /*
-			for(Explosion exp : m_BulletManager.GetExplosions())
-			{
-				// Prevent friendly fire.
-				if(vehicle.GetAffiliation() == exp.GetAffiliation())
-					continue;
-				
-				if(CollisionDetection.SimpleCollisionDetection(vehicle, exp))
-				{
-					vehicle.CollisionResponse(exp, deltaTime);
-				}
-			}
-			*/
+            ArrayList<Projectile_Flare> flares = m_BulletManager.GetActiveFlares();
+
+            for(Projectile_Flare flare : flares)
+            {
+                if(flare.GetAffiliation() == projectile.GetAffiliation())
+                    continue;
+
+                if(projectile.CollidesWith(flare))
+                {
+                    projectile.CollisionResponse(flare);
+                }
+            }
 		}
 	}
 

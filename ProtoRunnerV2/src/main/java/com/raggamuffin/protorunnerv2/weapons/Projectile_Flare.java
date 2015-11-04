@@ -1,6 +1,7 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
+import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_Point;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
@@ -61,13 +62,13 @@ public class Projectile_Flare extends Projectile
     }
 
     @Override
-    public boolean CollidesWith(Vehicle other)
+    public boolean CollidesWith(GameObject other)
     {
         return false;
     }
 
     @Override
-    public void CollisionResponse(Vehicle other)
+    public void CollisionResponse(GameObject other)
     {
         ForceInvalidation();
     }

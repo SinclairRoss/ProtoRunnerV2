@@ -1,11 +1,8 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
-import android.util.Log;
-
 import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
-import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_Burst;
 import com.raggamuffin.protorunnerv2.particles.TrailEmitter;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
@@ -19,6 +16,7 @@ public class Projectile_Missile extends Projectile
     private enum MissileState
     {
         Docked,
+        Priming,
         Released,
         Armed
     }
@@ -29,11 +27,14 @@ public class Projectile_Missile extends Projectile
     private Vector3 m_Offset;
     private Vector3 m_Target;
     private Vector3 m_ToTarget;
+    private double m_TurnRate;
     private Timer m_LifeSpan;
     private Timer m_ArmingTimer;
+    private Timer m_PrimingTimer;
     private double m_EngineOutput;
+    private final double LAUNCH_DELAY = 0.15;
 
-    public Projectile_Missile(Weapon origin, GameLogic game)
+    public Projectile_Missile(Weapon origin, GameLogic game, int index)
     {
         super(origin);
 
@@ -50,9 +51,10 @@ public class Projectile_Missile extends Projectile
 
         m_LifeSpan = new Timer(5.0);
         m_ArmingTimer = new Timer(0.65);
-
+        m_PrimingTimer = new Timer(LAUNCH_DELAY * index);
         m_Target = new Vector3();
         m_ToTarget = new Vector3();
+        m_TurnRate = 20.0;
 
         m_DragCoefficient = 0.9;
 
@@ -68,6 +70,16 @@ public class Projectile_Missile extends Projectile
                 LockProjectile();
 
                 if (!m_Origin.IsTriggerPulled())
+                    m_State = MissileState.Priming;
+
+                break;
+
+            case Priming:
+                LockProjectile();
+
+                m_PrimingTimer.Update(deltaTime);
+
+                if(m_PrimingTimer.TimedOut())
                 {
                     m_State = MissileState.Released;
                     AddChild(new TrailEmitter(this, m_Game));
@@ -105,11 +117,9 @@ public class Projectile_Missile extends Projectile
                     m_Target.Scale(8);
                 }
 
-                m_Target.Add(m_Origin.GetPosition());
-
                 m_ToTarget.SetVectorDifference(m_Position, m_Target);
                 m_ToTarget.Normalise();
-                m_ToTarget.Scale(0.1);
+                m_ToTarget.Scale(deltaTime * m_TurnRate);
 
                 m_Forward.Add(m_ToTarget);
                 m_Forward.Normalise();
@@ -140,17 +150,17 @@ public class Projectile_Missile extends Projectile
         if(activeFlares.size() > 0)
             return activeFlares.get(0);
 
-        return null;
+        return m_Game.GetVehicleManager().GetOpposingTeam(m_Origin.GetAffiliation()).get(0);
     }
 
     @Override
-    public boolean CollidesWith(Vehicle other)
+    public boolean CollidesWith(GameObject other)
     {
         return false;
     }
 
     @Override
-    public void CollisionResponse(Vehicle other)
+    public void CollisionResponse(GameObject other)
     {
         Detonate(true);
     }
@@ -162,7 +172,7 @@ public class Projectile_Missile extends Projectile
         m_Position.Add(m_Origin.GetPosition());
 
         m_Forward.SetVector(m_Origin.GetAnchor().GetForward());
-        m_Forward.Add(0,1,0);
+        m_Forward.Add(0,2,0);
         m_Forward.Normalise();
 
         m_Up.SetVector(m_Origin.GetAnchor().GetBackward());

@@ -40,7 +40,7 @@ public class NavigationControl
 		m_SteeringVector = new Vector3();
 		m_ToGoal 		 = new Vector3();
         m_Goal           = new Vector3();
-		m_Separation = new Vector3();
+        m_Separation     = new Vector3();
 		m_Alignment 	 = new Vector3();
 		m_Cohesion 		 = new Vector3();
 		m_CenterOfMass 	 = new Vector3();

@@ -60,9 +60,9 @@ public abstract class Projectile extends GameObject
 		return true;
 	}
 
-    public abstract boolean CollidesWith(Vehicle other);
+    public abstract boolean CollidesWith(GameObject other);
 
-	public abstract void CollisionResponse(Vehicle other);
+	public abstract void CollisionResponse(GameObject other);
 
 	public Weapon GetOrigin()
 	{

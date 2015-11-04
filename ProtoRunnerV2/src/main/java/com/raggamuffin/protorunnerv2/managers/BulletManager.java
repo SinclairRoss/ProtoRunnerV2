@@ -69,7 +69,7 @@ public class BulletManager
                 newProjectile = new Projectile_PlasmaShot(origin, m_Game);
                 break;
             case Missile:
-                newProjectile = new Projectile_Missile(origin, m_Game);
+                newProjectile = new Projectile_Missile(origin, m_Game, origin.GetMuzzleIndex());
                 break;
             case Laser:
                 newProjectile = new Projectile_Laser(origin, m_Game);

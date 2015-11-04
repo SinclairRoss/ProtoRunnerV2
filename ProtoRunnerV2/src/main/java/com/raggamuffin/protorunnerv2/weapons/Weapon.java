@@ -47,7 +47,7 @@ public abstract class Weapon
 	protected PostFireAction m_PostFireAction;
 	
 	protected boolean m_TriggerPulled;
-    private boolean m_IsFiring;
+    protected boolean m_IsFiring;
 
     protected EquipmentType m_EquipmentType;
 
@@ -183,6 +183,11 @@ public abstract class Weapon
 	{
 		m_MuzzleIndex = 0;
 	}
+
+    public int GetMuzzleIndex()
+    {
+        return m_MuzzleIndex;
+    }
 
     public Colour GetBaseColour()
     {

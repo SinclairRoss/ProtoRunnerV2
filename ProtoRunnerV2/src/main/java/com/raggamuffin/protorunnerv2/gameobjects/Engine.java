@@ -1,5 +1,7 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
+import android.util.Log;
+
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_HyperLight;
 import com.raggamuffin.protorunnerv2.utils.Colour;
@@ -37,6 +39,7 @@ public abstract class Engine
     protected double m_TurnSpeed;
     protected double m_TurnRate;		// How forcefully the object is turning.
     protected double m_MaxTurnRate;		// The maximum rate at which an object can turn.
+    protected double m_MaxRoll;
 
     private double m_Exertion;			// How hard the engine is pushing itself.
 
@@ -68,6 +71,7 @@ public abstract class Engine
         m_TurnSpeed = 6.0;
         m_TurnRate = 0.0f;
         m_MaxTurnRate = 1.0f;
+        m_MaxRoll = Math.toRadians(25);
 
         m_Exertion = 0.0;
 
@@ -125,27 +129,27 @@ public abstract class Engine
     {
         double deltaTurn = m_TargetTurnRate - m_TurnRate;
         double turnMultiplier = MathsHelper.SignedNormalise(deltaTurn, -0.1, 0.1);
-
         m_TurnRate += m_TurnSpeed * turnMultiplier * deltaTime;
     }
 
-    private void UpdateOrientation(double DeltaTime)
+    private void UpdateOrientation(double deltaTime)
     {
-        double yaw = m_Anchor.GetYaw() + (m_TurnRate * m_MaxTurnRate * DeltaTime);
+        double yaw = m_Anchor.GetYaw() + (m_TurnRate * m_MaxTurnRate * deltaTime);
         m_Anchor.SetYaw(yaw);
 
-        double roll = Math.toRadians(-m_TurnRate * 25);
+        double roll = m_Anchor.GetRoll() - (m_TurnRate * m_MaxTurnRate * deltaTime);
+        roll = MathsHelper.Clamp(roll, -m_MaxRoll, m_MaxRoll);
         m_Anchor.SetRoll(roll);
     }
 
-    private void UpdateExertion(double DeltaTime)
+    private void UpdateExertion(double deltaTime)
     {
-        m_Exertion += DeltaTime * ((m_EngineOutput * ENGINE_OUTPUT_EXERTION_MULTIPLIER)
+        m_Exertion += deltaTime * ((m_EngineOutput * ENGINE_OUTPUT_EXERTION_MULTIPLIER)
                 +  (m_AfterBurnerOutput * AFTERBURNER_EXERTION_MULTIPLIER)
                 + 	m_DodgeOutput 		* DODGE_EXERTION_MULTIPLIER);
 
 
-        m_Exertion -= DeltaTime * EXERTION_DECAY_MULTIPLIER;
+        m_Exertion -= deltaTime * EXERTION_DECAY_MULTIPLIER;
 
         m_Exertion = MathsHelper.Clamp(m_Exertion, 0, 1);
     }

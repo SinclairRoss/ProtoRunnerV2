@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.raggamuffin.protorunnerv2.gameobjects.Drone;
 import com.raggamuffin.protorunnerv2.gameobjects.Tank;
+import com.raggamuffin.protorunnerv2.gameobjects.TargetBot;
 import com.raggamuffin.protorunnerv2.gameobjects.VehicleType;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
@@ -138,6 +139,9 @@ public class VehicleManager
                 break;
             case WeaponTestBot:
                 spawn = new WeaponTestBot(m_Game);
+                break;
+            case TargetBot:
+                spawn = new TargetBot(m_Game);
                 break;
         }
 

@@ -8,4 +8,5 @@ public enum VehicleType
     Carrier,
     Drone,
     WeaponTestBot,
+    TargetBot
 }
