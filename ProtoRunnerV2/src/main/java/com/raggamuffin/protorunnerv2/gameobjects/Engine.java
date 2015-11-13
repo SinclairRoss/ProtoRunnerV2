@@ -40,6 +40,7 @@ public abstract class Engine
     protected double m_TurnRate;		// How forcefully the object is turning.
     protected double m_MaxTurnRate;		// The maximum rate at which an object can turn.
     protected double m_MaxRoll;
+    private double m_RollSpeed;
 
     private double m_Exertion;			// How hard the engine is pushing itself.
 
@@ -72,6 +73,7 @@ public abstract class Engine
         m_TurnRate = 0.0f;
         m_MaxTurnRate = 1.0f;
         m_MaxRoll = Math.toRadians(25);
+        m_RollSpeed = 1.0;
 
         m_Exertion = 0.0;
 
@@ -136,10 +138,7 @@ public abstract class Engine
     {
         double yaw = m_Anchor.GetYaw() + (m_TurnRate * m_MaxTurnRate * deltaTime);
         m_Anchor.SetYaw(yaw);
-
-        double roll = m_Anchor.GetRoll() - (m_TurnRate * m_MaxTurnRate * deltaTime);
-        roll = MathsHelper.Clamp(roll, -m_MaxRoll, m_MaxRoll);
-        m_Anchor.SetRoll(roll);
+        m_Anchor.SetRoll(m_TargetTurnRate * -m_MaxRoll);
     }
 
     private void UpdateExertion(double deltaTime)
