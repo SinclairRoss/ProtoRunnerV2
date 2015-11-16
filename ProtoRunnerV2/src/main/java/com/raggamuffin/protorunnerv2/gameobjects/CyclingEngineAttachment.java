@@ -79,6 +79,12 @@ public class CyclingEngineAttachment extends GameObject
         return false;
     }
 
+    @Override
+    public void CleanUp()
+    {
+
+    }
+
     public void SetTrailColour(Colour start, Colour end)
     {
       //  m_TrailEmitter.SetStartColour(start);

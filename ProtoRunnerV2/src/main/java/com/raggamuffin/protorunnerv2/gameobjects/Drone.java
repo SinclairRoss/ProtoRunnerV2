@@ -67,7 +67,20 @@ public class Drone extends Vehicle
     @Override
     public boolean IsValid()
     {
-        return m_Anchor.IsValid();
+        if(!m_Anchor.IsValid())
+        {
+            m_BurstEmitter.Burst();
+            m_PrimaryWeapon.CeaseFire();
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public void CleanUp()
+    {
+
     }
 
     public void AllowFiring()

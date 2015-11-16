@@ -28,4 +28,9 @@ public class Topic
 	{
 		m_Subscribers.remove(Sub);
 	}
+
+    public int NumSubscribers()
+    {
+        return m_Subscribers.size();
+    }
 }

@@ -98,7 +98,7 @@ public abstract class Vehicle extends GameObject
 	@Override
 	public void Update(double deltaTime)
 	{
-        m_HullPoints = m_MaxHullPoints;
+       // m_HullPoints = m_MaxHullPoints;
 		m_Engine.Update(deltaTime);
 
         m_BurstEmitter.SetPosition(m_Position);

@@ -57,6 +57,12 @@ public class Projectile_PlasmaShot extends Projectile
     }
 
     @Override
+    public void CleanUp()
+    {
+
+    }
+
+    @Override
     public boolean CollidesWith(GameObject other)
     {
         return CollisionDetection.CheckCollisions(this, other);

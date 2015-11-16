@@ -43,4 +43,11 @@ public class Bit extends Vehicle
 		
 		super.Update(deltaTime);
 	}
+
+
+    @Override
+    public void CleanUp()
+    {
+
+    }
 } 

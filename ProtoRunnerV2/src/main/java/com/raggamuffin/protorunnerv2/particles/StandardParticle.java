@@ -33,4 +33,10 @@ public class StandardParticle extends Particle
 	{
 		return !m_DissipationTimer.TimedOut();
 	}
+
+    @Override
+    public void CleanUp()
+    {
+
+    }
 }

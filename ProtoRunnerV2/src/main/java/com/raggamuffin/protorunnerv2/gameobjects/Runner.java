@@ -30,6 +30,22 @@ public class Runner extends Vehicle
 
     private ChaseCamera m_Camera;
 
+    private Subscriber FireSubscriber;
+    private Subscriber CeaseFireSubscriber;
+    private Subscriber EvadeLeftSubscriber;
+    private Subscriber EvadeRightSubscriber;
+    private Subscriber StrafeLeftSubscriber;
+    private Subscriber StrafeRightSubscriber;
+    private Subscriber EngageAfterBurnersSubscriber;
+    private Subscriber DisengageAfterBurnersSubscriber;
+    private Subscriber WeaponLeftSubscriber;
+    private Subscriber WeaponRightSubscriber;
+    private Subscriber WeaponUpSubscriber;
+    private Subscriber WeaponDownSubscriber;
+    private Subscriber ForwardSubscriber;
+    private Subscriber ReverseSubscriber;
+    private Subscriber EnemyDestroyedSubscriber;
+
 	public Runner(GameLogic game)
 	{
 		super(game);
@@ -72,21 +88,37 @@ public class Runner extends Vehicle
 		m_OnDeathPublisher 			= m_PubSubHub.CreatePublisher(PublishedTopics.PlayerDestroyed);
 		m_SwitchWeaponsPublisher	= m_PubSubHub.CreatePublisher(PublishedTopics.PlayerSwitchedWeapon);
 
-        m_PubSubHub.SubscribeToTopic(PublishedTopics.Fire, new FireSubscriber());
-        m_PubSubHub.SubscribeToTopic(PublishedTopics.CeaseFire, new CeaseFireSubscriber());
-        m_PubSubHub.SubscribeToTopic(PublishedTopics.EvadeLeft, new EvadeLeftSubscriber());
-        m_PubSubHub.SubscribeToTopic(PublishedTopics.EvadeRight, new EvadeRightSubscriber());
-        m_PubSubHub.SubscribeToTopic(PublishedTopics.StrafeLeft, new StrafeLeftSubscriber());
-        m_PubSubHub.SubscribeToTopic(PublishedTopics.StrafeRight, new StrafeRightSubscriber());
-        m_PubSubHub.SubscribeToTopic(PublishedTopics.AfterBurnersEngage, new EngageAfterBurnersSubscriber());
-        m_PubSubHub.SubscribeToTopic(PublishedTopics.AfterBurnersDisengage, new DisengageAfterBurnersSubscriber());
-        m_PubSubHub.SubscribeToTopic(PublishedTopics.WeaponLeft, new WeaponLeftSubscriber());
-        m_PubSubHub.SubscribeToTopic(PublishedTopics.WeaponRight, new WeaponRightSubscriber());
-        m_PubSubHub.SubscribeToTopic(PublishedTopics.WeaponUp, new WeaponUpSubscriber());
-        m_PubSubHub.SubscribeToTopic(PublishedTopics.WeaponDown, new WeaponDownSubscriber());
-        m_PubSubHub.SubscribeToTopic(PublishedTopics.Forward, new ForwardSubscriber());
-        m_PubSubHub.SubscribeToTopic(PublishedTopics.Reverse, new ReverseSubscriber());
-        m_PubSubHub.SubscribeToTopic(PublishedTopics.EnemyDestroyed, new EnemyDestroyedSubscriber());
+        FireSubscriber = new FireSubscriber();
+        CeaseFireSubscriber = new CeaseFireSubscriber();
+        EvadeLeftSubscriber = new EvadeLeftSubscriber();
+        EvadeRightSubscriber =  new EvadeRightSubscriber();
+        StrafeLeftSubscriber = new StrafeLeftSubscriber();
+        StrafeRightSubscriber = new StrafeRightSubscriber();
+        EngageAfterBurnersSubscriber = new EngageAfterBurnersSubscriber();
+        DisengageAfterBurnersSubscriber = new DisengageAfterBurnersSubscriber();
+        WeaponLeftSubscriber = new WeaponLeftSubscriber();
+        WeaponRightSubscriber = new WeaponRightSubscriber();
+        WeaponUpSubscriber = new WeaponUpSubscriber();
+        WeaponDownSubscriber = new WeaponDownSubscriber();
+        ForwardSubscriber = new ForwardSubscriber();
+        ReverseSubscriber = new ReverseSubscriber();
+        EnemyDestroyedSubscriber = new EnemyDestroyedSubscriber();
+
+        m_PubSubHub.SubscribeToTopic(PublishedTopics.Fire, FireSubscriber);
+        m_PubSubHub.SubscribeToTopic(PublishedTopics.CeaseFire, CeaseFireSubscriber);
+        m_PubSubHub.SubscribeToTopic(PublishedTopics.EvadeLeft, EvadeLeftSubscriber);
+        m_PubSubHub.SubscribeToTopic(PublishedTopics.EvadeRight, EvadeRightSubscriber);
+        m_PubSubHub.SubscribeToTopic(PublishedTopics.StrafeLeft, StrafeLeftSubscriber);
+        m_PubSubHub.SubscribeToTopic(PublishedTopics.StrafeRight, StrafeRightSubscriber);
+        m_PubSubHub.SubscribeToTopic(PublishedTopics.AfterBurnersEngage, EngageAfterBurnersSubscriber);
+        m_PubSubHub.SubscribeToTopic(PublishedTopics.AfterBurnersDisengage, DisengageAfterBurnersSubscriber);
+        m_PubSubHub.SubscribeToTopic(PublishedTopics.WeaponLeft, WeaponLeftSubscriber);
+        m_PubSubHub.SubscribeToTopic(PublishedTopics.WeaponRight, WeaponRightSubscriber);
+        m_PubSubHub.SubscribeToTopic(PublishedTopics.WeaponUp, WeaponUpSubscriber);
+        m_PubSubHub.SubscribeToTopic(PublishedTopics.WeaponDown, WeaponDownSubscriber);
+        m_PubSubHub.SubscribeToTopic(PublishedTopics.Forward, ForwardSubscriber);
+        m_PubSubHub.SubscribeToTopic(PublishedTopics.Reverse, ReverseSubscriber);
+        m_PubSubHub.SubscribeToTopic(PublishedTopics.EnemyDestroyed, EnemyDestroyedSubscriber);
 
         SelectWeaponBySlot(WeaponSlot.Left);
     }
@@ -94,12 +126,31 @@ public class Runner extends Vehicle
 	@Override
 	public void Update(double deltaTime)
 	{
-      //  m_HullPoints = m_MaxHullPoints;
         m_Engine.SetTurnRate(m_Input.GetTilt());
 		super.Update(deltaTime);
 	}
-	
-	@Override
+
+    @Override
+    public void CleanUp()
+    {
+        m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.Fire, FireSubscriber);
+        m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.CeaseFire, CeaseFireSubscriber);
+        m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.EvadeLeft, EvadeLeftSubscriber);
+        m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.EvadeRight, EvadeRightSubscriber);
+        m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.StrafeLeft, StrafeLeftSubscriber);
+        m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.StrafeRight, StrafeRightSubscriber);
+        m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.AfterBurnersEngage, EngageAfterBurnersSubscriber);
+        m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.AfterBurnersDisengage, DisengageAfterBurnersSubscriber);
+        m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.WeaponLeft, WeaponLeftSubscriber);
+        m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.WeaponRight, WeaponRightSubscriber);
+        m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.WeaponUp, WeaponUpSubscriber);
+        m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.WeaponDown, WeaponDownSubscriber);
+        m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.Forward, ForwardSubscriber);
+        m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.Reverse, ReverseSubscriber);
+        m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.EnemyDestroyed, EnemyDestroyedSubscriber);
+    }
+
+    @Override
 	public void CollisionResponse(double damage)
 	{
 		super.CollisionResponse(damage);
@@ -287,5 +338,4 @@ public class Runner extends Vehicle
             ChargeEnergy(100);
         }
     }
-
 }

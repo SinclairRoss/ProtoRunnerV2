@@ -90,8 +90,14 @@ public class LaserPointer extends GameObject
 	{
 		return true;
 	}
-	
-	public void On()
+
+    @Override
+    public void CleanUp()
+    {
+
+    }
+
+    public void On()
 	{
         SetBaseColour(m_Anchor.GetAnchor().GetBaseColour());
 

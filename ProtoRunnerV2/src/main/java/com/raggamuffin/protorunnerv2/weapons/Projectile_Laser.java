@@ -104,6 +104,12 @@ public class Projectile_Laser extends Projectile
         return super.IsValid();
     }
 
+    @Override
+    public void CleanUp()
+    {
+
+    }
+
     private void ScaleLaser(double deltaTime)
     {
         m_LaserLength = MathsHelper.Clamp(m_LaserLength + (deltaTime * m_GrowthRate), 0, m_MaxLength);
@@ -141,5 +147,11 @@ public class Projectile_Laser extends Projectile
         double k = otherPos.K - pos.K;
 
         m_LaserLength = Math.sqrt(i*i+j*j+k*k);
+    }
+
+    @Override
+    public double GetDamageOutput(double deltaTime)
+    {
+        return m_BaseDamage * deltaTime;
     }
 }

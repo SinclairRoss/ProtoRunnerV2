@@ -50,4 +50,10 @@ public class Tank extends Vehicle
 		
 		super.Update(deltaTime);
 	}
+
+    @Override
+    public void CleanUp()
+    {
+
+    }
 } 

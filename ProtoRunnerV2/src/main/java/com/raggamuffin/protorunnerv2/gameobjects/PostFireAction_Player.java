@@ -18,8 +18,8 @@ public class PostFireAction_Player extends PostFireAction
 	@Override
 	public void Update() 
 	{
-		double drainAmount = m_Anchor.GetPrimaryWeapon().GetDrain();
-		m_Anchor.DrainEnergy(drainAmount);
+		//double drainAmount = m_Anchor.GetPrimaryWeapon().GetDrain();
+		//m_Anchor.DrainEnergy(drainAmount);
 		m_PlayerShotFiredPublisher.Publish();
 	}
 }

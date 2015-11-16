@@ -41,4 +41,10 @@ public class TargetBot extends Vehicle
 
         super.Update(deltaTime);
     }
+
+    @Override
+    public void CleanUp()
+    {
+
+    }
 }

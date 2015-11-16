@@ -1,10 +1,8 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
-import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
-
 public class EngineUseBehaviour_Drain extends EngineUseBehaviour
 {
-	private final double ENGINE_DRAIN_MULTIPLIER = 0.00007;
+	private final double ENGINE_DRAIN_MULTIPLIER = 0.00004;
 	
 	private Vehicle m_Anchor;
 	

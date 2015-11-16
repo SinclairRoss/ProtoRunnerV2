@@ -21,7 +21,7 @@ public abstract class Projectile extends GameObject
 		m_BoundingRadius 	= 0.0;
 		m_Mass 				= 1000;
 
-		m_BaseDamage = 0.0f;
+        m_BaseDamage = m_Origin.GetBaseDamage();
 
         m_Position.SetVector(m_Origin.GetFirePosition());
         CalculateForward(m_Origin.GetForward(), m_Origin.GetAccuracy());
@@ -71,6 +71,6 @@ public abstract class Projectile extends GameObject
 
     public double GetDamageOutput(double deltaTime)
     {
-        return 0.0;
+        return m_BaseDamage;
     }
 }

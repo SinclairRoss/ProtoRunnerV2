@@ -68,4 +68,10 @@ public class Explosion extends GameObject
 	{
 		return !(m_Theta >= 1.0 || m_ForciblyInvalidated);
 	}
+
+    @Override
+    public void CleanUp()
+    {
+
+    }
 }

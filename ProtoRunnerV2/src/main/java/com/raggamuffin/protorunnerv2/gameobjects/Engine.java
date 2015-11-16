@@ -138,7 +138,10 @@ public abstract class Engine
     {
         double yaw = m_Anchor.GetYaw() + (m_TurnRate * m_MaxTurnRate * deltaTime);
         m_Anchor.SetYaw(yaw);
-        m_Anchor.SetRoll(m_TargetTurnRate * -m_MaxRoll);
+
+        double deltaRoll =  -(m_TargetTurnRate * m_MaxRoll) - m_Anchor.GetRoll();
+        double rollMultiplier = MathsHelper.SignedNormalise(deltaRoll, -0.1, 0.1);
+        m_Anchor.SetRoll(MathsHelper.Clamp(m_Anchor.GetRoll() + (rollMultiplier * deltaTime), -m_MaxRoll, m_MaxRoll));
     }
 
     private void UpdateExertion(double deltaTime)

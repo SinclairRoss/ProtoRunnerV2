@@ -143,6 +143,12 @@ public class Projectile_Missile extends Projectile
         super.Update(deltaTime);
     }
 
+    @Override
+    public void CleanUp()
+    {
+
+    }
+
     private GameObject FindTarget()
     {
         ArrayList<Projectile_Flare> activeFlares = m_Game.GetBulletManager().GetActiveFlares();

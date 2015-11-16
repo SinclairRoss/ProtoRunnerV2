@@ -184,6 +184,11 @@ public abstract class Weapon
 		m_MuzzleIndex = 0;
 	}
 
+    public double GetBaseDamage()
+    {
+        return m_Damage;
+    }
+
     public int GetMuzzleIndex()
     {
         return m_MuzzleIndex;

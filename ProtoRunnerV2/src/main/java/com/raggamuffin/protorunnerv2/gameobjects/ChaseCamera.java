@@ -62,7 +62,7 @@ public class ChaseCamera
 	
 	public void Update(double deltaTime)
 	{
-		m_Up.SetVector(m_ChaseObject.GetUp());
+		//m_Up.SetVector(m_ChaseObject.GetUp());
 		
 		CalculateLookAt();
 		
@@ -80,7 +80,7 @@ public class ChaseCamera
         Vector3 lookForward  = m_LookObject.GetForward();
 
 		m_LookAt.I = lookPosition.I + lookForward.I * 10.0;
-		m_LookAt.J = (lookPosition.J + lookForward.J * 10.0) + 6;
+		m_LookAt.J = lookPosition.J + lookForward.J * 10.0;
 		m_LookAt.K = lookPosition.K + lookForward.K * 10.0;
 	}
 	
@@ -147,9 +147,14 @@ public class ChaseCamera
 		return m_Up;
 	}
 
+    public void SetUp(double i, double j, double k)
+    {
+        m_Up.SetVector(i,j,k);
+    }
+
     public void SprintCam()
     {
-        m_Up.SetVector(1,0,0);
+       // m_Up.SetVector(1,0,0);
         m_Stiffness = 0.4;
         m_Damping 	= 0.07;
         m_PositionOffset.SetVector(0, 1.5, 0);
@@ -157,7 +162,7 @@ public class ChaseCamera
 
     public void NormalCam()
     {
-        m_Up.SetVector(0,1,0);
+       // m_Up.SetVector(0,1,0);
         m_Stiffness = 0.1;
         m_Damping = 0.04;
         m_PositionOffset.SetVector(-5, 5, -5);

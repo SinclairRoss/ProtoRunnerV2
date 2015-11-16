@@ -44,4 +44,10 @@ public class Dummy extends Vehicle
 
         super.Update(deltaTime);
     }
+
+    @Override
+    public void CleanUp()
+    {
+
+    }
 }

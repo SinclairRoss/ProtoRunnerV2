@@ -86,6 +86,12 @@ public class TrailEmitter extends GameObject
         return m_Anchor.IsValid();
     }
 
+    @Override
+    public void CleanUp()
+    {
+
+    }
+
     public TrailPoint GetHeadNode()
     {
         return m_HeadNode;

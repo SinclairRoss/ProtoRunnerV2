@@ -2,6 +2,7 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour.ActivationMode;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_LerpTo;
+import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_LerpToWithAlpha;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colour;
@@ -20,17 +21,16 @@ public class RadarFragment extends GameObject
 	private final double MIN_ALPHA = 0.0;
 	private final double MAX_ALPHA = 0.4;
 	private double m_Depth;
-	
-	private ColourBehaviour_LerpTo m_ColourBehaviour;
+
 	private Vector3 m_NormalisedRadarPos;
 	
 	private Spring3 m_Spring;
 	
 	private RadarSignatureType m_RadarSignatureType;
 
-	private Colour m_FriendlyColour;
-	private Colour m_EnemyColour;
-	private Colour m_NeutralColour;
+	private final Colour m_FriendlyColour;
+	private final Colour m_EnemyColour;
+	private final Colour m_NeutralColour;
 	
 	public RadarFragment(GameLogic game, double min, double max, double x, double y, double radarRadius)
 	{
@@ -38,17 +38,11 @@ public class RadarFragment extends GameObject
 
 		MIN_DEPTH = min;
 		MAX_DEPTH = max;	
-		m_Depth = 0.0;
+		m_Depth = MIN_DEPTH;
 		
 		m_Model = ModelType.RadarFragment;
-		SetBaseColour(Colours.PastelBlue);
-		
-		m_BaseColour = GetBaseColour();
-		m_BaseColour.Alpha = MIN_ALPHA;
-		
-		m_ColourBehaviour = new ColourBehaviour_LerpTo(this, ActivationMode.Continuous);
-		AddColourBehaviour(m_ColourBehaviour);
-		
+		SetBaseColour(Colours.Black);
+
 		m_Heat = 0.0;
 		
 		m_Offset = new Vector3(x, 0 ,y);
@@ -72,18 +66,21 @@ public class RadarFragment extends GameObject
 
 		m_Heat += MathsHelper.RandomDouble(0, 0.4);
 		m_Depth = MathsHelper.Lerp(m_Heat, MIN_DEPTH, MAX_DEPTH);
-		
+
 		m_Spring.SetRelaxedPosition(m_Offset.I, m_Depth, m_Offset.K);
 		m_Spring.Update(deltaTime);
-		
 		m_Position.Add(m_Offset);
 
-		m_ColourBehaviour.SetIntensity(m_Heat);
-		double normalisedDepth = MathsHelper.Normalise(m_Position.J, MIN_DEPTH, MAX_DEPTH);
-		m_BaseColour.Alpha = MathsHelper.Lerp(normalisedDepth, MIN_ALPHA, MAX_ALPHA);
+        double normalisedDepth = MathsHelper.Normalise(m_Offset.J, MIN_DEPTH, MAX_DEPTH);
+
+        m_Colour.Red    = MathsHelper.Lerp(normalisedDepth, m_BaseColour.Red, 	m_AltColour.Red);
+        m_Colour.Green  = MathsHelper.Lerp(normalisedDepth, m_BaseColour.Green, m_AltColour.Green);
+        m_Colour.Blue   = MathsHelper.Lerp(normalisedDepth, m_BaseColour.Blue, 	m_AltColour.Blue);
+        m_Colour.Alpha  = normalisedDepth * 0.4;
+
 	}
 	
-	public void SetSignitureType(RadarSignatureType type)
+	public void SetSignatureType(RadarSignatureType type)
 	{	
 		switch(type)
 		{
@@ -128,8 +125,14 @@ public class RadarFragment extends GameObject
 	{
 		return true;
 	}
-	
-	public Vector3 GetNormalisedRadarPosition()
+
+    @Override
+    public void CleanUp()
+    {
+
+    }
+
+    public Vector3 GetNormalisedRadarPosition()
 	{
 		return m_NormalisedRadarPos;
 	}

@@ -27,4 +27,10 @@ public class FloorGrid extends GameObject
 		// Upon Anchor invalidation this class will be removed.
 		return true;
 	}
+
+    @Override
+    public void CleanUp()
+    {
+
+    }
 }

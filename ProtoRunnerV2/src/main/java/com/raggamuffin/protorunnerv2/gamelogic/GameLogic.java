@@ -298,6 +298,7 @@ public class GameLogic extends ApplicationLogic
 	public void AttachCameraToAnchor()
 	{
 		m_Camera.Attach(m_CameraAnchor);
+        m_Camera.SetUp(0,0,1);
 	}
 	
 	public GameAudioManager GetGameAudioManager()
@@ -402,6 +403,7 @@ public class GameLogic extends ApplicationLogic
         public void Update(int args)
         {
             m_Camera.Attach(m_VehicleManager.GetPlayer());
+            m_Camera.SetUp(0,1,0);
             m_UIManager.ShowScreen(UIScreens.Play);
             Log.e("REBOOT BUG", "Reboot screen off");
         }

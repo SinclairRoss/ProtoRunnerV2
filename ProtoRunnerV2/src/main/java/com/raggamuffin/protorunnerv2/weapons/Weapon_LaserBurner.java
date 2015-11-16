@@ -12,6 +12,8 @@ public class Weapon_LaserBurner extends Weapon
     {
         super(anchor, game);
 
+        m_Damage = 100;
+
         m_FireMode = new FireControl_None();
 
         AddMuzzle(0,0,0);

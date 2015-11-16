@@ -15,6 +15,8 @@ public class Wingman extends Vehicle
 {
 	private AIController m_AIController;
 	private VehicleManager m_VehicleManager;
+
+    private Subscriber m_PlayerSpawnedSubscriber;
 	
 	public Wingman(GameLogic game)
 	{
@@ -46,7 +48,8 @@ public class Wingman extends Vehicle
         m_AIController = new AIController(this, m_VehicleManager, game.GetBulletManager(), AIBehaviours.FollowTheLeader, FireControlBehaviour.Standard);
 		m_AIController.SetLeader(m_VehicleManager.GetPlayer());
 
-		game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerSpawned, new PlayerSpawnedSubscriber());
+        m_PlayerSpawnedSubscriber = new PlayerSpawnedSubscriber();
+		game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerSpawned, m_PlayerSpawnedSubscriber);
 
 		m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.WingmanDestroyed);
 	}
@@ -58,8 +61,14 @@ public class Wingman extends Vehicle
 		
 		super.Update(deltaTime);
 	}
-	
-	private class PlayerSpawnedSubscriber extends Subscriber
+
+    @Override
+    public void CleanUp()
+    {
+        m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.PlayerSpawned, m_PlayerSpawnedSubscriber);
+    }
+
+    private class PlayerSpawnedSubscriber extends Subscriber
 	{
 		@Override
 		public void Update(int args) 

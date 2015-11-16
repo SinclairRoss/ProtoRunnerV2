@@ -2,7 +2,6 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 
 import java.util.ArrayList;
 
-import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
@@ -30,7 +29,7 @@ public class Radar extends GameObject
 		super(game.GetPubSubHub(), game.GetGameAudioManager());
 		
 		m_Model = ModelType.Nothing;
-		m_RadarFragments = new ArrayList<RadarFragment>();
+		m_RadarFragments = new ArrayList<>();
 		m_Vehicles = game.GetVehicleManager().GetVehicles();
 		m_Anchor = anchor;
 		m_ToVehicle = new Vector3();
@@ -62,11 +61,11 @@ public class Radar extends GameObject
 	public void Update(double deltaTime)
 	{
 		super.Update(deltaTime);
-		
+
 		CalmRadar();
-		
+
 		for(Vehicle vehicle : m_Vehicles)
-		{	
+		{
 			m_ToVehicle.SetVectorDifference(m_Position, vehicle.GetPosition());
 
 			// Is within range.
@@ -74,13 +73,13 @@ public class Radar extends GameObject
 				continue;
 
 			// Transform into radar space.
-			m_ToVehicle.Scale(1 / RANGE);	
+			m_ToVehicle.Scale(1 / RANGE);
 
 			for(RadarFragment fragment : m_RadarFragments)
 			{
 				if(CollisionDetection.RadarDetection(fragment.GetNormalisedRadarPosition(), m_ToVehicle, NORMALISED_FRAGMENT_SIZE))				
-				{	
-					fragment.SetSignitureType(GetSignatureType(vehicle));
+				{
+					fragment.SetSignatureType(GetSignatureType(vehicle));
 					fragment.HeatUp();
 				}
 			}
@@ -91,7 +90,7 @@ public class Radar extends GameObject
 			fragment.Update(deltaTime);			
 		}
 	}
-	
+
 	private void CalmRadar()
 	{
 		for(RadarFragment fragment : m_RadarFragments)
@@ -105,8 +104,14 @@ public class Radar extends GameObject
 	{
 		return true;
 	}
-	
-	private RadarSignatureType GetSignatureType(Vehicle vehicle)
+
+    @Override
+    public void CleanUp()
+    {
+
+    }
+
+    private RadarSignatureType GetSignatureType(Vehicle vehicle)
 	{
 		if(vehicle == m_Anchor)
 			return RadarSignatureType.Player;

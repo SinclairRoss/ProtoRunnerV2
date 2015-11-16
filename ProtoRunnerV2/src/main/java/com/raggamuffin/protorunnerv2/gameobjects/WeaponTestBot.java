@@ -58,6 +58,12 @@ public class WeaponTestBot extends Vehicle
     }
 
     @Override
+    public void CleanUp()
+    {
+
+    }
+
+    @Override
     public void Update(double deltaTime)
     {
         m_HullPoints = m_MaxHullPoints;

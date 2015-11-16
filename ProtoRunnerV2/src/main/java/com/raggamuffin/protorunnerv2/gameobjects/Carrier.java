@@ -70,4 +70,10 @@ public class Carrier extends Vehicle
 
 		super.Update(deltaTime);
 	}
+
+    @Override
+    public void CleanUp()
+    {
+
+    }
 } 

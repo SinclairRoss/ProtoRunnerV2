@@ -243,9 +243,6 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
         for (ModelType type : types)
         {
-            if(type == ModelType.PlasmaShot)
-                continue;
-
             ArrayList<GameObject> list = (ArrayList<GameObject>)m_Packet.GetModelList(type).clone();
 
             if(list.size() == 0)

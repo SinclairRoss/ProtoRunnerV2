@@ -124,7 +124,7 @@ public class ColourManager
         switch(slot)
         {
             case Up:
-                return Colours.Cyan;
+                return Colours.Crimson;
             case Down:
                 break;
             case Left:

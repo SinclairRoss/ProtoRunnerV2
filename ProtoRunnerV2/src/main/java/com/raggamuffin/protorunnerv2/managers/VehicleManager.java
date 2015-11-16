@@ -60,6 +60,7 @@ public class VehicleManager
             }
             else
             {
+                object.CleanUp();
                 RemoveVehicle(object);
                 m_Vehicles.remove(object);
                 i--;

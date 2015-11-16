@@ -28,7 +28,13 @@ public class Graviton extends GameObject
 		return m_Anchor.IsValid();
 	}
 
-	public double GetPull()
+    @Override
+    public void CleanUp()
+    {
+
+    }
+
+    public double GetPull()
 	{
 		return m_Pull;
 	}

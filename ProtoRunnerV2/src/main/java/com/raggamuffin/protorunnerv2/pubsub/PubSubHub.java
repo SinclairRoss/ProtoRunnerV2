@@ -1,5 +1,7 @@
 package com.raggamuffin.protorunnerv2.pubsub;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 public class PubSubHub
@@ -9,7 +11,7 @@ public class PubSubHub
 	public PubSubHub()
 	{
         int numTopics = PublishedTopics.values().length;
-        m_Topics = new ArrayList<Topic>(numTopics);
+        m_Topics = new ArrayList<>(numTopics);
 
         for(int i = 0; i < numTopics; i++)
             m_Topics.add(new Topic());
@@ -23,6 +25,8 @@ public class PubSubHub
 	public void SubscribeToTopic(PublishedTopics Topic, Subscriber Sub)
 	{
 		GetTopic(Topic).Subscribe(Sub);
+
+        Log.e("wanker", "subscribers: " + GetTopic(PublishedTopics.Fire).NumSubscribers());
 	}
 
 	public void UnsubscribeFromTopic(PublishedTopics Topic, Subscriber Sub)
