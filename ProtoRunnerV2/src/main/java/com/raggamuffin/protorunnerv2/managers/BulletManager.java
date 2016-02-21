@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.weapons.Projectile;
+import com.raggamuffin.protorunnerv2.weapons.Projectile_EnergyBall;
 import com.raggamuffin.protorunnerv2.weapons.Projectile_Flare;
 import com.raggamuffin.protorunnerv2.weapons.Projectile_Laser;
 import com.raggamuffin.protorunnerv2.weapons.Projectile_Missile;
@@ -67,6 +68,9 @@ public class BulletManager
         {
             case PlasmaShot:
                 newProjectile = new Projectile_PlasmaShot(origin, m_Game);
+                break;
+            case EnergyBall:
+                newProjectile = new Projectile_EnergyBall(origin);
                 break;
             case Missile:
                 newProjectile = new Projectile_Missile(origin, m_Game, origin.GetMuzzleIndex());

@@ -19,7 +19,7 @@ public class Bit extends Vehicle
 		super(game);
 
 		m_Model = ModelType.Bit;
-        SetBaseColour(Colours.CalvinOrange);
+        SetBaseColour(Colours.OrangeRed);
 		m_Position.SetVector(10, 0, 10);
 
         m_Engine = new Engine_Standard(this, game, new EngineUseBehaviour_Null());
@@ -43,7 +43,6 @@ public class Bit extends Vehicle
 		
 		super.Update(deltaTime);
 	}
-
 
     @Override
     public void CleanUp()

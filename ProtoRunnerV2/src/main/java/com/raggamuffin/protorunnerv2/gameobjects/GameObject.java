@@ -389,5 +389,6 @@ public abstract class GameObject
 		m_Mass = mass;
 	}
 
-    public abstract void CleanUp();
+    public abstract
+    void CleanUp();
 }

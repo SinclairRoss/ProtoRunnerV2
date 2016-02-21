@@ -10,6 +10,8 @@ public class Weapon_PunkShot extends Weapon
 	public Weapon_PunkShot(Vehicle anchor, GameLogic game)
 	{
 		super(anchor, game);
+
+        m_ProjectileType = ProjectileType.EnergyBall;
 		
 		m_Damage = 100;
 		m_MuzzleVelocity = 25.0;

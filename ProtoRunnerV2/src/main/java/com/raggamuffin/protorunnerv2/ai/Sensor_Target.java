@@ -32,21 +32,21 @@ public class Sensor_Target extends Sensor
 
     public Vehicle FindTarget()
     {
-        double utility = 0.0;
-        double highestUtility = Double.MIN_VALUE;
-
         m_Target = null;
+        double highestUtility = Double.MIN_VALUE;
 
         for(Vehicle possibleTarget : m_Targets)
         {
             if(!possibleTarget.CanBeTargeted())
                 continue;
 
+            double utility = 0.0;
+
             m_ToTarget.SetVectorDifference(m_Anchor.GetPosition(), possibleTarget.GetPosition());
 
             // Phase 1: Calculate utility based on distance from target.
             double DistanceSqr = m_ToTarget.GetLengthSqr();
-            utility += MathsHelper.Normalise(DistanceSqr, 0.0, m_SensorRadius);
+            utility += 1.0 - MathsHelper.Normalise(DistanceSqr, 0.0, m_SensorRadius * m_SensorRadius);
 
             // Phase 2: Calculate utility base on direction to target
             //double deltaHeading = Vector3.RadiansBetween(m_Anchor.GetForward(), m_ToTarget);
@@ -63,47 +63,10 @@ public class Sensor_Target extends Sensor
         return m_Target;
     }
 
-    public Vehicle FindLeaderCompatibleTarget()
-    {
-        Vehicle leader = m_Controller.GetLeader();
-
-        double utility = 0.0;
-        double highestUtility = 0;
-
-        m_Target = null;
-
-        for(Vehicle possibleTarget : m_Targets)
-        {
-            m_ToTarget.SetVectorDifference(leader.GetPosition(), possibleTarget.GetPosition());
-
-            // Phase 1: Calculate utility based on distance from target.
-            double DistanceSqr = m_ToTarget.GetLengthSqr();
-            utility += MathsHelper.Normalise(DistanceSqr, 0.0, m_SensorRadius);
-
-            // Phase 2: Make sure target is infront of leader.
-            double deltaHeading = Vector3.RadiansBetween(m_Anchor.GetForward(), m_ToTarget);
-
-            if(deltaHeading > m_LeaderTolerance)
-                continue;
-
-            if(utility > highestUtility)
-            {
-                highestUtility 	= utility;
-                m_Target 		= possibleTarget;
-                m_VehicleState.SetTarget(m_Target);
-            }
-        }
-
-        return m_Target;
-    }
-
     @Override
     public void Update()
     {
-      //  if(m_Controller.GetLeader() == null)
             m_Target = FindTarget();
-    //    else
-    //        m_Target = FindLeaderCompatibleTarget();
     }
 
     public Vehicle GetTarget()

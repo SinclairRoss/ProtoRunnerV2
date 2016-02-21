@@ -41,12 +41,12 @@ public abstract class Projectile extends GameObject
 
 		double Min = -(Math.PI * 0.5) * (1.0 - accuracy);	// 90 Degrees multiplied by value between 0 and 1.
 		double Max =  (Math.PI * 0.5) * (1.0 - accuracy);
-	 
+
 		double Theta;
-		
+
 		Theta = MathsHelper.RandomDouble(Min, Max);
 		m_Forward.RotateY(Theta);
-		
+
 		Theta = MathsHelper.RandomDouble(Min, Max);
 		m_Forward.RotateX(Theta * 0.25);
 	}

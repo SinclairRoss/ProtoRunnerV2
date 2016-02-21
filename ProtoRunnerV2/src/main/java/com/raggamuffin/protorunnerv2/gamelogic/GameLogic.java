@@ -139,19 +139,6 @@ public class GameLogic extends ApplicationLogic
                     projectile.CollisionResponse(vehicle);
                 }
 			}
-
-            ArrayList<Projectile_Flare> flares = m_BulletManager.GetActiveFlares();
-
-            for(Projectile_Flare flare : flares)
-            {
-                if(flare.GetAffiliation() == projectile.GetAffiliation())
-                    continue;
-
-                if(projectile.CollidesWith(flare))
-                {
-                    projectile.CollisionResponse(flare);
-                }
-            }
 		}
 	}
 

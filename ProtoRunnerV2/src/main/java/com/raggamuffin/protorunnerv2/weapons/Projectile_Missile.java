@@ -3,9 +3,11 @@ package com.raggamuffin.protorunnerv2.weapons;
 import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_Burst;
 import com.raggamuffin.protorunnerv2.particles.TrailEmitter;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
+import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
@@ -33,6 +35,8 @@ public class Projectile_Missile extends Projectile
     private Timer m_PrimingTimer;
     private double m_EngineOutput;
     private final double LAUNCH_DELAY = 0.15;
+    private final double TARGETING_RANGE = 1000;
+    private final double TARGETING_ARC  = Math.toRadians(90);
 
     public Projectile_Missile(Weapon origin, GameLogic game, int index)
     {
@@ -102,7 +106,6 @@ public class Projectile_Missile extends Projectile
                 break;
 
             case Armed:
-
                 m_LifeSpan.Update(deltaTime);
 
                 GameObject target = FindTarget();
@@ -114,7 +117,7 @@ public class Projectile_Missile extends Projectile
                 else
                 {
                     m_Target.SetVector(m_Origin.GetForward());
-                    m_Target.Scale(8);
+                    m_Target.Scale(10);
                 }
 
                 m_ToTarget.SetVectorDifference(m_Position, m_Target);
@@ -151,12 +154,32 @@ public class Projectile_Missile extends Projectile
 
     private GameObject FindTarget()
     {
-        ArrayList<Projectile_Flare> activeFlares = m_Game.GetBulletManager().GetActiveFlares();
+        GameObject target = null;
 
-        if(activeFlares.size() > 0)
-            return activeFlares.get(0);
+        double highestUtility = Double.MIN_VALUE;
 
-        return m_Game.GetVehicleManager().GetOpposingTeam(m_Origin.GetAffiliation()).get(0);
+        ArrayList<Vehicle> enemyVehicles = m_Game.GetVehicleManager().GetOpposingTeam(m_Origin.GetAffiliation());
+        for(Vehicle possibleTarget : enemyVehicles)
+        {
+            m_ToTarget.SetVectorDifference(GetPosition(), possibleTarget.GetPosition());
+            double utility = 0.0;
+
+            // Phase 1: Calculate utility based on distance from target.
+            double DistanceSqr = m_ToTarget.GetLengthSqr();
+            utility += 1.0 - MathsHelper.Normalise(DistanceSqr, 0.0, TARGETING_RANGE * TARGETING_RANGE);
+
+            // Phase 2: Calculate utility base on direction to target
+            // double deltaHeading = Vector3.RadiansBetween(GetForward(), m_ToTarget);
+            // utility += (1.0 - MathsHelper.Normalise(deltaHeading, 0.0, TARGETING_ARC));
+
+            if(utility > highestUtility)
+            {
+                highestUtility 	= utility;
+                target 		= possibleTarget;
+            }
+        }
+
+        return target;
     }
 
     @Override

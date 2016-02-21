@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.raggamuffin.protorunnerv2.particles.TrailPoint;
 import com.raggamuffin.protorunnerv2.utils.Colour;
-import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 

@@ -262,28 +262,6 @@ public class GLRenderer implements GLSurfaceView.Renderer
         }
     }
 
-    private void DrawTrails(float[] view)
-    {
-        ArrayList<TrailPoint> list = (ArrayList<TrailPoint>)m_Packet.GetTrailPoints().clone();
-
-        if(list.size() == 0)
-            return;
-
-        m_TrailRenderer.Initialise(view, m_Camera.GetPosition());
-
-        for(TrailPoint obj : list)
-        {
-            if(obj == null)
-                continue;
-
-            m_TrailRenderer.Draw(obj);
-        }
-
-        m_TrailRenderer.Clean();
-
-    //    Log.e("TrailRenderer v2.01", "Count: " + list.size());
-    }
-
     private void DrawParticles(float[] view)
     {
         ArrayList<GameObject> list = (ArrayList<GameObject>)m_Packet.GetParticles().clone();
@@ -298,7 +276,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
             if(obj == null)
                 continue;
 
-            m_ParticleRenderer.Draw(obj.GetPosition(), obj.GetColour(), (float)obj.GetScale().I);
+            m_ParticleRenderer.Draw(obj.GetPosition(), obj.GetColour(), (float) obj.GetScale().I);
         }
 
         m_ParticleRenderer.Clean();
@@ -318,10 +296,30 @@ public class GLRenderer implements GLSurfaceView.Renderer
             if(obj == null)
                 continue;
 
-            m_BulletRenderer.Draw(obj.GetPosition(), obj.GetColour(), 30.0f);
+            m_BulletRenderer.Draw(obj.GetPosition(), obj.GetColour(), (float)obj.GetScale().I);
         }
 
         m_BulletRenderer.Clean();
+    }
+
+    private void DrawTrails(float[] view)
+    {
+        ArrayList<TrailPoint> list = (ArrayList<TrailPoint>)m_Packet.GetTrailPoints().clone();
+
+        if(list.size() == 0)
+            return;
+
+        m_TrailRenderer.Initialise(view, m_Camera.GetPosition());
+
+        for(TrailPoint obj : list)
+        {
+            if(obj == null)
+                continue;
+
+            m_TrailRenderer.Draw(obj);
+        }
+
+        m_TrailRenderer.Clean();
     }
 
     private void DrawUI()

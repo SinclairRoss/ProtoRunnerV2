@@ -21,10 +21,10 @@ public class GameManager_Play extends GameManager
         if(m_VehicleManager.GetTeamCount(AffiliationKey.RedTeam) == 0)
         {
             m_VehicleManager.SpawnSquad(120);
-         //   m_VehicleManager.SpawnVehicle(VehicleType.TargetBot, new Vector3(0,0,0));
-         //   m_VehicleManager.SpawnVehicle(VehicleType.TargetBot, new Vector3(5,0,0));
-         //   m_VehicleManager.SpawnVehicle(VehicleType.TargetBot, new Vector3(10,0,0));
-          //  m_VehicleManager.SpawnVehicle(VehicleType.TargetBot, new Vector3(15,0,0));
+          //  m_VehicleManager.SpawnVehicle(VehicleType.TargetBot, new Vector3(-10,0,40));
+         //   m_VehicleManager.SpawnVehicle(VehicleType.TargetBot, new Vector3(-20,0,40));
+         //   m_VehicleManager.SpawnVehicle(VehicleType.TargetBot, new Vector3(10,0,40));
+          //  m_VehicleManager.SpawnVehicle(VehicleType.TargetBot, new Vector3(20,0,40));
 
         }
     }

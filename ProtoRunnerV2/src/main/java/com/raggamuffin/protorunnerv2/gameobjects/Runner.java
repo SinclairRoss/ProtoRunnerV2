@@ -66,7 +66,7 @@ public class Runner extends Vehicle
 		m_Engine = new Engine_Standard(this, game, new EngineUseBehaviour_Drain(this));
 		m_Engine.SetMaxTurnRate(2.0);//2
 		m_Engine.SetMaxEngineOutput(3000);//3000
-        m_Engine.SetAfterBurnerOutput(6000);
+        m_Engine.SetAfterBurnerOutput(0);
 		
 		m_MaxHullPoints = 700;
 		m_HullPoints 	= m_MaxHullPoints;

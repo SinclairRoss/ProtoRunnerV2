@@ -295,25 +295,19 @@ public class Shaders
         +   "}";
 
     public static final String fragmentShader_FADEPOINT =
-            "precision mediump float;       \n"     // Set the default precision to medium. We don't need as high of a
-        + "uniform vec4 u_Color;			\n"     // triangle per fragment.
+            "precision mediump float;"
+        +   "varying vec4 v_Color;"
 
-        + "void main()                    \n"     // The entry point for our fragment shader.
-        + "{                              \n"
-        +	"	float x = (gl_PointCoord.x * 2.0) - 1.0;	\n"		// Find the position of this fragment relative to the center of the glPoint.
-        +	"	float y = (gl_PointCoord.y * 2.0) - 1.0;	\n"
+        +   "void main()"
+        +   "{"
+        +   " 	gl_FragColor = v_Color;"
 
-        + "	    float Dist = sqrt((x * x) + (y * y)); 		\n"		// Find the Distance of this fragment from the center.
+        +	"	float x = (gl_PointCoord.x * 2.0) - 1.0;"		// Find the position of this fragment relative to the center of the glPoint.
+        +	"	float y = (gl_PointCoord.y * 2.0) - 1.0;"
+        +   "   float distSqr = (x * x) + (y * y);"
 
-        + " 	gl_FragColor = u_Color;    					\n"  	// Set the fragment colour
-              //      +   "       gl_FragColor = u_Color * float(any(lessThan(v_Barycentric, vec3(0.06))));"
-        +   "       gl_FragColor.a = float(Dist > 1.0);"
-
-//        + "	    if(Dist > 1.0)								\n"		// if the distance from the center is less than 0.1 we set the alpha value to 1
-//        + "	    {                              				\n"		// this creates a solid center for the particle and creates the illusion of glow
-//        + "  		gl_FragColor.a = 0.0;					\n"		// without using glow shaders.
-//        + "	    }                              				\n"
-        + "}                              				\n";
+        +   "   gl_FragColor.a = float(distSqr < 1.0);"
+        + "}";
 
     public static final String vertexShader_SCROLLTEX =
             "uniform mat4 u_ProjMatrix;"
