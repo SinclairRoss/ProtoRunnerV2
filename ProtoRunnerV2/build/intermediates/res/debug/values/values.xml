@@ -936,6 +936,41 @@
     <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="sign_out">Sign out</string>
+    <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/spear.xml -->
+    <eat-comment/>
+    <string name="spear_vertices">
+        -1.0f,  0.0f, -1.0f,
+        0.0f,  0.75f, -1.5f,
+        0.0f,  0.0f, -0.5f,
+
+        0.0f,  0.75f, -1.5f,
+        1.0f,  0.0f, -1.0f,
+        0.0f,  0.0f, -0.5f,
+
+        1.0f,  0.0f, -1.0f,
+        0.0f, -0.75f, -1.2f,
+        0.0f,  0.0f, -0.5f,
+
+        0.0f, -0.75f, -1.2f,
+        -1.0f,  0.0f, -1.0f,
+        0.0f,  0.0f, -0.5f,
+
+        -1.0f,  0.0f, -1.0f,
+        0.0f,  0.0f,  1.5f,
+        0.0f,  0.75f, -1.5f,
+
+        1.0f,  0.0f, -1.0f,
+        0.0f,  0.75f, -1.5f,
+        0.0f,  0.0f,  1.5f,
+
+        -1.0f,  0.0f, -1.0f,
+        0.0f, -0.75f, -1.2f,
+        0.0f,  0.0f,  1.5f,
+
+        1.0f,  0.0f, -1.0f,
+        0.0f,  0.0f,  1.5f,
+        0.0f, -0.75f, -1.2f
+    </string>
     <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/7.5.0/res/values/admob_strings.xml -->
     <eat-comment/>
     <string name="store_picture_message">"Allow Ad to store image in Picture gallery?"</string>

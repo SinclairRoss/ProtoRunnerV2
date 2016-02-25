@@ -30,9 +30,10 @@ public class Tank extends Vehicle
 
 		m_Position.SetVector(10, 0, 10);
 
-        m_Engine = new Engine_Standard(this, game, new EngineUseBehaviour_Null());
+        m_Engine = new Engine_Standard(this, game);
 		m_Engine.SetMaxTurnRate(1.0);
-		m_Engine.SetMaxEngineOutput(500);
+		m_Engine.SetMaxEngineOutput(5000);
+        m_Engine.SetDodgeOutput(0);
 
 		SetAffiliation(AffiliationKey.RedTeam); 
 		

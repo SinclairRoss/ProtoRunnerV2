@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
+import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class NavigationControl 
@@ -12,7 +13,7 @@ public class NavigationControl
 
 	private Vehicle m_Anchor;
 	private SituationalAwareness m_SituationalAwareness;
-	
+
 	private Vector3 m_AnchorPosition;
 	private Vector3 m_AnchorForward;
 
@@ -58,9 +59,11 @@ public class NavigationControl
 		CalculateCohesion(); 
 		CalculateSteeringVector();
 
-		m_Anchor.SetTurnRate(CalculateTurnRate());							 // Set vehicle turn rate.
+
+
+		m_Anchor.SetTurnRate(CalculateTurnRate());
 	}
-	
+
 	private void CalculateToGoal()
 	{
 		m_ToGoal.SetVectorDifference(m_AnchorPosition, m_Goal); 	// Calculate vector pointing to destination.

@@ -21,12 +21,6 @@ public final class CollisionDetection
 		MovementB.SetVectorDifference(B.GetPreviousPosition(), B.GetPosition());	
 		MovementResultant.SetVectorDifference(MovementA, MovementB);
 
-        if(MovementResultant.IsNan())
-        {
-            for (int i = 0; i < 100; i++)
-                Log.e("badNan", "<----------------- NAN ----------------->");
-        }
-
 		AToB.SetVectorDifference(A.GetPreviousPosition(), B.GetPreviousPosition());
 
 		double ResultantLength = MovementResultant.GetLength();	

@@ -22,9 +22,10 @@ public class Bit extends Vehicle
         SetBaseColour(Colours.OrangeRed);
 		m_Position.SetVector(10, 0, 10);
 
-        m_Engine = new Engine_Standard(this, game, new EngineUseBehaviour_Null());
+        m_Engine = new Engine_Standard(this, game);
 		m_Engine.SetMaxTurnRate(1.5);
 		m_Engine.SetMaxEngineOutput(2500);
+        m_Engine.SetDodgeOutput(16000);
         m_BoundingRadius = 2;
 
 		SetAffiliation(AffiliationKey.RedTeam); 

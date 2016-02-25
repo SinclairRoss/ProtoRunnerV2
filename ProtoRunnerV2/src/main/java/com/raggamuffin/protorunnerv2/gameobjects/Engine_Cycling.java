@@ -10,9 +10,9 @@ public class Engine_Cycling extends Engine
 {
     private ArrayList<CyclingEngineAttachment> m_Attachments;
 
-    public Engine_Cycling(GameObject anchor, GameLogic game, EngineUseBehaviour behaviour)
+    public Engine_Cycling(GameObject anchor, GameLogic game)
     {
-        super(game, anchor, behaviour);
+        super(game, anchor);
 
         m_Attachments = new ArrayList<>();
 
@@ -25,12 +25,5 @@ public class Engine_Cycling extends Engine
             m_Attachments.add(attachment);
             m_Anchor.AddChild(attachment);
         }
-    }
-
-    @Override
-    public void UpdateParticleColours(Colour start, Colour end)
-    {
-        for(CyclingEngineAttachment attachment : m_Attachments)
-            attachment.SetTrailColour(start, end);
     }
 }

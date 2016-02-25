@@ -6,16 +6,10 @@ import com.raggamuffin.protorunnerv2.utils.Colour;
 
 public class Engine_Standard extends Engine
 {
-    public Engine_Standard(GameObject anchor, GameLogic game, EngineUseBehaviour behaviour)
+    public Engine_Standard(GameObject anchor, GameLogic game)
     {
-        super(game, anchor, behaviour);
+        super(game, anchor);
 
         m_Anchor.AddChild(new TrailEmitter(m_Anchor, game));
-    }
-
-    @Override
-    public void UpdateParticleColours(Colour start, Colour end)
-    {
-
     }
 }

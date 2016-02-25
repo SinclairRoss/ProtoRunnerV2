@@ -2,17 +2,9 @@ package com.raggamuffin.protorunnerv2.weapons;
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
-import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
-import com.raggamuffin.protorunnerv2.managers.ParticleManager;
-import com.raggamuffin.protorunnerv2.particles.ParticleEmitter;
-import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_HyperLight;
-import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_Point;
-import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_Spiral;
 import com.raggamuffin.protorunnerv2.particles.TrailEmitter;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.CollisionDetection;
-import com.raggamuffin.protorunnerv2.utils.Colour;
-import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Timer;
 
 public class Projectile_PlasmaShot extends Projectile

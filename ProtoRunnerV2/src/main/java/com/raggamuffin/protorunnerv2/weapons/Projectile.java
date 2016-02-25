@@ -69,7 +69,7 @@ public abstract class Projectile extends GameObject
 		return m_Origin;
 	}
 
-    public double GetDamageOutput(double deltaTime)
+    public double GetDamageOutput()
     {
         return m_BaseDamage;
     }

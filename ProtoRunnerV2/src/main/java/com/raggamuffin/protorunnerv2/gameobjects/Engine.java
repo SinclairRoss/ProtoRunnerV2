@@ -1,10 +1,7 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
-import android.util.Log;
-
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_HyperLight;
-import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
@@ -44,14 +41,11 @@ public abstract class Engine
 
     private double m_Exertion;			// How hard the engine is pushing itself.
 
-    private EngineUseBehaviour m_UseBehaviour;
-
     protected ParticleEmitter_HyperLight m_HyperLight;
 
-    public Engine(GameLogic game, GameObject anchor, EngineUseBehaviour behaviour)
+    public Engine(GameLogic game, GameObject anchor)
     {
         m_Anchor = anchor;
-        m_UseBehaviour = behaviour;
 
         m_AnchorForward = m_Anchor.GetForward();
 
@@ -98,8 +92,6 @@ public abstract class Engine
         m_DodgeOutput = MathsHelper.Clamp(m_DodgeOutput, 0, 1);
 
         UpdateExertion(deltaTime);
-
-        m_UseBehaviour.Update(deltaTime, GetEngineOutput(), GetDodgeOutput());
 
         UpdateHyperlightEmitter(deltaTime);
     }
@@ -168,7 +160,7 @@ public abstract class Engine
         m_AfterBurnerOutput = 0.0;
     }
 
-    ///// Getters.
+    ///// Getters/Setters
     public double GetEngineOutput()
     {
         return (m_EngineOutput * m_MaxEngineOutput) + (m_AfterBurnerOutput * m_MaxAfterBurnerOutput);
@@ -179,7 +171,11 @@ public abstract class Engine
         return (m_DodgeOutput * m_MaxDodgeForce);
     }
 
-    ///// Setters.
+    public void SetDodgeOutput(double max)
+    {
+        m_MaxDodgeForce = max;
+    }
+
     public void SetMaxTurnRate(double TurnRate)
     {
         m_MaxTurnRate = TurnRate;
@@ -219,8 +215,6 @@ public abstract class Engine
     {
         return m_Exertion;
     }
-
-    public abstract void UpdateParticleColours(Colour start, Colour end);
 
     public Vector3 GetPosition()
     {

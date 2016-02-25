@@ -10,6 +10,7 @@ public class AIController
     private AIBehaviour m_Behaviour;
 	private SituationalAwareness m_SituationalAwareness;
 	private NavigationControl m_NavigationControl;
+    private EvasionControl m_EvasionControl;
 	private FireControl m_FireControl;
 
 	private AffiliationKey m_EnemyFaction;
@@ -27,6 +28,7 @@ public class AIController
 		///// AI Subsystems.
 		m_SituationalAwareness 	= new SituationalAwareness(this, vManager, bManager);
         m_NavigationControl 	= new NavigationControl(this);
+        m_EvasionControl        = new EvasionControl(this);
 		m_FireControl 			= GetFireControlBehaviour(fireBehaviour);
         m_Behaviour             = GetBehaviour(behaviour);
     }
@@ -68,6 +70,7 @@ public class AIController
         m_SituationalAwareness.Update();
 	    m_NavigationControl.SetGoal(m_Behaviour.GetNavigationCoordinates());
         m_NavigationControl.Update();
+        m_EvasionControl.Update(deltaTime);
 		m_FireControl.Update(deltaTime);
 	}
 

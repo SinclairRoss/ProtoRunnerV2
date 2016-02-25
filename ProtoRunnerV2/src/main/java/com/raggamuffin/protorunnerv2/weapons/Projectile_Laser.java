@@ -27,9 +27,10 @@ public class Projectile_Laser extends Projectile
 
     private double m_LaserLength;
     private final double m_MaxLength;
-
     private double m_MaxWidth;
     private double m_LaserWidth;
+
+    private double m_DamageOutputPerFrame;
 
     private ParticleEmitter_Ray m_RayEmitter;
 
@@ -92,6 +93,8 @@ public class Projectile_Laser extends Projectile
         m_EndPoint.Scale(m_LaserLength);
         m_EndPoint.Add(GetPosition());
 
+        m_DamageOutputPerFrame = m_BaseDamage * deltaTime;
+
         super.Update(deltaTime);
     }
 
@@ -150,8 +153,8 @@ public class Projectile_Laser extends Projectile
     }
 
     @Override
-    public double GetDamageOutput(double deltaTime)
+    public double GetDamageOutput()
     {
-        return m_BaseDamage * deltaTime;
+        return m_DamageOutputPerFrame;
     }
 }

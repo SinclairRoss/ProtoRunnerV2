@@ -179,7 +179,7 @@ public class VehicleManager
 		if(m_Player != null)
 			m_Spawn.Add(m_Player.GetPosition());
 
-        Carrier tank = new Carrier(m_Game);
+        Tank tank = new Tank(m_Game);
         m_Vehicles.add(tank);
         m_RedTeam.add(tank);
         m_Game.AddObjectToRenderer(tank);

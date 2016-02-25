@@ -28,7 +28,7 @@ public class WeaponTestBot extends Vehicle
         SetBaseColour(Colours.CalvinOrange);
         m_Position.SetVector(0);
 
-        m_Engine = new Engine_Standard(this, game, new EngineUseBehaviour_Drain(this));
+        m_Engine = new Engine_Standard(this, game);
         m_Engine.SetMaxTurnRate(0);//2
         m_Engine.SetMaxEngineOutput(0);
         m_Engine.SetAfterBurnerOutput(0);

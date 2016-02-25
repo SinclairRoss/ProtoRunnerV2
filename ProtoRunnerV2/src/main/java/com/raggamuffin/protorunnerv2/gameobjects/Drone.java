@@ -30,9 +30,10 @@ public class Drone extends Vehicle
 
         SetBaseColour(m_Anchor.GetBaseColour());
 
-        m_Engine = new Engine_Standard(this, game, new EngineUseBehaviour_Null());
+        m_Engine = new Engine_Standard(this, game);
         m_Engine.SetMaxTurnRate(2.0);
         m_Engine.SetMaxEngineOutput(300);
+        m_Engine.SetDodgeOutput(0);
         m_Mass = 100;
 
         SetAffiliation(AffiliationKey.RedTeam);

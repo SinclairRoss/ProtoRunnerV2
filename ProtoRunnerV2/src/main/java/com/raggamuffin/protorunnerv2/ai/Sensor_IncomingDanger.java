@@ -9,10 +9,18 @@ import com.raggamuffin.protorunnerv2.weapons.Projectile;
 
 public class Sensor_IncomingDanger extends Sensor
 {
+    public enum DangerState
+    {
+        NoDanger,
+        DangerLeft,
+        DangerRight
+    }
+
 	private ArrayList<Projectile> m_Bullets;
 	private ArrayList<Projectile> m_IncomingProjectiles;
 	private Vector3 m_ReltivePosition;
 	private Vector3 m_RelativeVelocity;
+    private DangerState m_DangerState;
 	
 	public Sensor_IncomingDanger(AIController controller, BulletManager bManager) 
 	{
@@ -22,36 +30,62 @@ public class Sensor_IncomingDanger extends Sensor
 		m_IncomingProjectiles = new ArrayList<>();
 		m_ReltivePosition = new Vector3();
 		m_RelativeVelocity = new Vector3();
+
+        m_DangerState = DangerState.NoDanger;
 	}
 
 	@Override
 	public void Update() 
 	{
+        Projectile closestProjectile = null;
+        double closetProjectileDistanceSqr = Double.MAX_VALUE;
+
 		m_IncomingProjectiles.clear();
-		
+        m_DangerState = DangerState.NoDanger;
+
 		for(Projectile proj : m_Bullets)
 		{
-			if(proj.GetAffiliation() == m_Anchor.GetAffiliation())
-				continue;
-			
-			m_ReltivePosition.SetVectorDifference(m_Anchor.GetPosition(), proj.GetPosition());
-			
-			if(m_ReltivePosition.GetLengthSqr() > m_SensorRadius * m_SensorRadius)
-				continue;
-			
-			m_ReltivePosition.Normalise();
-			m_RelativeVelocity.SetVectorDifference(m_Anchor.GetVelocity(), proj.GetVelocity());
-			m_RelativeVelocity.Normalise();
-			
-			double dotProduct = Vector3.DotProduct(m_ReltivePosition, m_RelativeVelocity);
-		
-			if(dotProduct > 0)
-				m_IncomingProjectiles.add(proj);
+			if(proj.GetAffiliation() != m_Anchor.GetAffiliation())
+            {
+                m_ReltivePosition.SetVectorDifference(m_Anchor.GetPosition(), proj.GetPosition());
+                double toProjectileLengthSqr = m_ReltivePosition.GetLengthSqr();
+
+                if (toProjectileLengthSqr < m_SensorRadius * m_SensorRadius)
+                {
+                    m_ReltivePosition.Normalise();
+                    m_RelativeVelocity.SetVectorDifference(m_Anchor.GetVelocity(), proj.GetVelocity());
+                    m_RelativeVelocity.Normalise();
+
+                    double dotProduct = Vector3.DotProduct(m_ReltivePosition, m_RelativeVelocity);
+
+                    if (dotProduct < 0)
+                    {
+                        if (toProjectileLengthSqr < closetProjectileDistanceSqr)
+                        {
+                            closestProjectile = proj;
+                            closetProjectileDistanceSqr = toProjectileLengthSqr;
+                            m_IncomingProjectiles.add(proj);
+                        }
+                    }
+                }
+            }
 		}
+
+        if(closestProjectile != null)
+        {
+            if(Vector3.Determinant(m_Anchor.GetForward(), m_ReltivePosition) > 0)
+            {
+                m_DangerState = DangerState.DangerLeft;
+            }
+            else
+            {
+                m_DangerState = DangerState.DangerRight;
+            }
+        }
 	}
-	
-	public ArrayList<Projectile> GetIncomingProjectiles()
-	{
-		return m_IncomingProjectiles;
-	}
+
+	public DangerState GetDangerState()
+    {
+        return m_DangerState;
+    }
 }

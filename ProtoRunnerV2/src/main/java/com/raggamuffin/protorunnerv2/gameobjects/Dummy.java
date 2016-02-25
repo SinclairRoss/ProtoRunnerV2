@@ -29,7 +29,7 @@ public class Dummy extends Vehicle
 
         m_Position.SetVector(x, 0, z);
 
-        m_Engine = new Engine_Standard(this, game, new EngineUseBehaviour_Null());
+        m_Engine = new Engine_Standard(this, game);
         m_Engine.SetMaxEngineOutput(1500);
         m_Engine.SetAfterBurnerOutput(1);
 

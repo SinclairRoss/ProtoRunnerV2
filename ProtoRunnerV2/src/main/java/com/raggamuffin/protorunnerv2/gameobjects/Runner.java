@@ -8,7 +8,7 @@ import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_DeployFlares;
-import com.raggamuffin.protorunnerv2.weapons.Weapon_LaserBurner;
+import com.raggamuffin.protorunnerv2.weapons.Weapon_LaserVampire;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_PulseLaser;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_MissileLauncher;
 import com.raggamuffin.protorunnerv2.weapons.Weapon;
@@ -29,6 +29,7 @@ public class Runner extends Vehicle
 	private Publisher m_SwitchWeaponsPublisher;
 
     private ChaseCamera m_Camera;
+    private final double m_HealthDrainRate;
 
     private Subscriber FireSubscriber;
     private Subscriber CeaseFireSubscriber;
@@ -63,13 +64,16 @@ public class Runner extends Vehicle
 
         m_Position.SetVector(0, 0, 0);
 		
-		m_Engine = new Engine_Standard(this, game, new EngineUseBehaviour_Drain(this));
+		m_Engine = new Engine_Standard(this, game);
 		m_Engine.SetMaxTurnRate(2.0);//2
-		m_Engine.SetMaxEngineOutput(3000);//3000
+		m_Engine.SetMaxEngineOutput(0);//3000
         m_Engine.SetAfterBurnerOutput(0);
 		
-		m_MaxHullPoints = 700;
+		m_MaxHullPoints = 1000;
 		m_HullPoints 	= m_MaxHullPoints;
+
+        double completeHealthDrainTime = 20.0;
+        m_HealthDrainRate = m_MaxHullPoints / completeHealthDrainTime;
 
 		AddChild(new Radar(this, game));
 		
@@ -78,7 +82,7 @@ public class Runner extends Vehicle
 		SetAffiliation(AffiliationKey.BlueTeam);
 
 		m_WeaponLeft 	= new Weapon_PulseLaser(this, game);
-		m_WeaponRight 	= new Weapon_LaserBurner(this, game);
+		m_WeaponRight 	= new Weapon_LaserVampire(this, game);
 		m_WeaponUp 		= new Weapon_MissileLauncher(this, game);
 		m_WeaponDown 	= new Weapon_DeployFlares(this, game);
 		
@@ -126,6 +130,7 @@ public class Runner extends Vehicle
 	@Override
 	public void Update(double deltaTime)
 	{
+      //  DrainEnergy(m_HealthDrainRate * deltaTime);
         m_Engine.SetTurnRate(m_Input.GetTilt());
 		super.Update(deltaTime);
 	}
@@ -335,7 +340,7 @@ public class Runner extends Vehicle
         @Override
         public void Update(int args)
         {
-            ChargeEnergy(100);
+            ChargeEnergy(200);
         }
     }
 }

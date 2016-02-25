@@ -8,6 +8,7 @@ import com.raggamuffin.protorunnerv2.weapons.Projectile;
 import com.raggamuffin.protorunnerv2.weapons.Projectile_EnergyBall;
 import com.raggamuffin.protorunnerv2.weapons.Projectile_Flare;
 import com.raggamuffin.protorunnerv2.weapons.Projectile_Laser;
+import com.raggamuffin.protorunnerv2.weapons.Projectile_LaserVampire;
 import com.raggamuffin.protorunnerv2.weapons.Projectile_Missile;
 import com.raggamuffin.protorunnerv2.weapons.Projectile_PlasmaShot;
 import com.raggamuffin.protorunnerv2.weapons.Weapon;
@@ -77,6 +78,9 @@ public class BulletManager
                 break;
             case Laser:
                 newProjectile = new Projectile_Laser(origin, m_Game);
+                break;
+            case LaserVampire:
+                newProjectile = new Projectile_LaserVampire(origin, m_Game);
                 break;
             case Flare:
                 Projectile_Flare flare = new Projectile_Flare(origin, m_Game);

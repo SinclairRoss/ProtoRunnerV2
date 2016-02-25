@@ -5,6 +5,7 @@ public enum ProjectileType
     PlasmaShot,
     Missile,
     Laser,
+    LaserVampire,
     Flare,
     EnergyBall
 }

@@ -135,7 +135,7 @@ public class GameLogic extends ApplicationLogic
 
                 if(projectile.CollidesWith(vehicle))
                 {
-                    vehicle.CollisionResponse(projectile.GetDamageOutput(deltaTime));
+                    vehicle.CollisionResponse(projectile.GetDamageOutput());
                     projectile.CollisionResponse(vehicle);
                 }
 			}
