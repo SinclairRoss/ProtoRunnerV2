@@ -29,14 +29,16 @@ public class Projectile_Missile extends Projectile
     private Vector3 m_Offset;
     private Vector3 m_Target;
     private Vector3 m_ToTarget;
-    private double m_TurnRate;
     private Timer m_LifeSpan;
     private Timer m_ArmingTimer;
     private Timer m_PrimingTimer;
     private double m_EngineOutput;
-    private final double LAUNCH_DELAY = 0.15;
+    private final double LAUNCH_DELAY = 0.3;
     private final double TARGETING_RANGE = 1000;
-    private final double TARGETING_ARC  = Math.toRadians(90);
+
+    private final double FLARE_DISTRACTION_RANGE = 100;
+    private final double FLARE_DISTRACTION_RANGE_SQR = FLARE_DISTRACTION_RANGE * FLARE_DISTRACTION_RANGE;
+    private Projectile_Flare m_LockedTargetFlare;
 
     public Projectile_Missile(Weapon origin, GameLogic game, int index)
     {
@@ -58,7 +60,6 @@ public class Projectile_Missile extends Projectile
         m_PrimingTimer = new Timer(LAUNCH_DELAY * index);
         m_Target = new Vector3();
         m_ToTarget = new Vector3();
-        m_TurnRate = 20.0;
 
         m_DragCoefficient = 0.9;
 
@@ -71,19 +72,23 @@ public class Projectile_Missile extends Projectile
         switch(m_State)
         {
             case Docked:
+            {
                 LockProjectile();
 
                 if (!m_Origin.IsTriggerPulled())
+                {
                     m_State = MissileState.Priming;
+                }
 
                 break;
-
+            }
             case Priming:
+            {
                 LockProjectile();
 
                 m_PrimingTimer.Update(deltaTime);
 
-                if(m_PrimingTimer.TimedOut())
+                if (m_PrimingTimer.TimedOut())
                 {
                     m_State = MissileState.Released;
                     AddChild(new TrailEmitter(this, m_Game));
@@ -91,8 +96,9 @@ public class Projectile_Missile extends Projectile
                 }
 
                 break;
-
+            }
             case Released:
+            {
                 ApplyForce(m_Forward, m_EngineOutput);
 
                 m_ArmingTimer.Update(deltaTime);
@@ -104,13 +110,14 @@ public class Projectile_Missile extends Projectile
                 }
 
                 break;
-
+            }
             case Armed:
+            {
                 m_LifeSpan.Update(deltaTime);
 
                 GameObject target = FindTarget();
 
-                if(target != null)
+                if (target != null)
                 {
                     m_Target.SetVector(target.GetPosition());
                 }
@@ -122,10 +129,8 @@ public class Projectile_Missile extends Projectile
 
                 m_ToTarget.SetVectorDifference(m_Position, m_Target);
                 m_ToTarget.Normalise();
-                m_ToTarget.Scale(deltaTime * m_TurnRate);
 
-                m_Forward.Add(m_ToTarget);
-                m_Forward.Normalise();
+                m_Forward.SetVector(m_ToTarget);
 
                 UpdateVectors();
 
@@ -137,10 +142,13 @@ public class Projectile_Missile extends Projectile
                     Detonate(false);
                 }
 
-                if(m_LifeSpan.TimedOut())
+                if (m_LifeSpan.TimedOut())
+                {
                     Detonate(true);
+                }
 
                 break;
+            }
         }
 
         super.Update(deltaTime);
@@ -154,32 +162,66 @@ public class Projectile_Missile extends Projectile
 
     private GameObject FindTarget()
     {
+        if(m_LockedTargetFlare == null)
+        {
+            m_LockedTargetFlare = FindTargetFlare();
+        }
+
         GameObject target = null;
 
-        double highestUtility = Double.MIN_VALUE;
-
-        ArrayList<Vehicle> enemyVehicles = m_Game.GetVehicleManager().GetOpposingTeam(m_Origin.GetAffiliation());
-        for(Vehicle possibleTarget : enemyVehicles)
+        if(m_LockedTargetFlare == null)
         {
-            m_ToTarget.SetVectorDifference(GetPosition(), possibleTarget.GetPosition());
-            double utility = 0.0;
+            double highestUtility = Double.MIN_VALUE;
 
-            // Phase 1: Calculate utility based on distance from target.
-            double DistanceSqr = m_ToTarget.GetLengthSqr();
-            utility += 1.0 - MathsHelper.Normalise(DistanceSqr, 0.0, TARGETING_RANGE * TARGETING_RANGE);
-
-            // Phase 2: Calculate utility base on direction to target
-            // double deltaHeading = Vector3.RadiansBetween(GetForward(), m_ToTarget);
-            // utility += (1.0 - MathsHelper.Normalise(deltaHeading, 0.0, TARGETING_ARC));
-
-            if(utility > highestUtility)
+            ArrayList<Vehicle> enemyVehicles = m_Game.GetVehicleManager().GetOpposingTeam(m_Origin.GetAffiliation());
+            for (Vehicle possibleTarget : enemyVehicles)
             {
-                highestUtility 	= utility;
-                target 		= possibleTarget;
+                m_ToTarget.SetVectorDifference(GetPosition(), possibleTarget.GetPosition());
+                double utility = 0.0;
+
+                // Phase 1: Calculate utility based on distance from target.
+                double DistanceSqr = m_ToTarget.GetLengthSqr();
+                utility += 1.0 - MathsHelper.Normalise(DistanceSqr, 0.0, TARGETING_RANGE * TARGETING_RANGE);
+
+                if (utility > highestUtility)
+                {
+                    highestUtility = utility;
+                    target = possibleTarget;
+                }
             }
+        }
+        else
+        {
+            target = m_LockedTargetFlare;
         }
 
         return target;
+    }
+
+    private Projectile_Flare FindTargetFlare()
+    {
+        ArrayList<Projectile_Flare> flares =  m_Game.GetBulletManager().GetActiveFlares();
+
+        double closestTargetDistance = Double.MAX_VALUE;
+        Projectile_Flare closestFlare = null;
+
+        for(Projectile_Flare flare : flares)
+        {
+            if (flare.GetAffiliation() != GetAffiliation())
+            {
+                m_ToTarget.SetVectorDifference(GetPosition(), flare.GetPosition());
+                double toFlareSqr = m_ToTarget.GetLengthSqr();
+
+                if (toFlareSqr < FLARE_DISTRACTION_RANGE_SQR &&
+                        toFlareSqr < closestTargetDistance)
+                {
+                    closestFlare = flare;
+                    closestTargetDistance = toFlareSqr;
+                }
+            }
+        }
+
+        return closestFlare;
     }
 
     @Override
@@ -214,7 +256,9 @@ public class Projectile_Missile extends Projectile
         detonationEmitter.SetPosition(m_Position);
 
         if(!open)
+        {
             detonationEmitter.SetHalfOpenMode();
+        }
 
         detonationEmitter.Burst();
 

@@ -27,7 +27,7 @@ public class Weapon_MissileLauncher extends Weapon
 		AddMuzzle(-2, 0, -1);
 		AddMuzzle( 3, 0, -2);
 		AddMuzzle(-3, 0, -2);
-		
-		m_FireMode = new FireControl_MissileCharge(this, 0.25, GetNumMuzzles());
+
+		m_FireMode = new FireControl_MissileCharge(this, 0.4, GetNumMuzzles());
 	}
 }
