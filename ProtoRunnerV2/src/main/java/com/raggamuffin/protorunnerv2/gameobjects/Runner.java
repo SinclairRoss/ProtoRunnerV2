@@ -47,14 +47,14 @@ public class Runner extends Vehicle
     private Subscriber ReverseSubscriber;
     private Subscriber EnemyDestroyedSubscriber;
 
-	public Runner(GameLogic game)
+    public Runner(GameLogic game)
 	{
 		super(game);
 
         m_Camera = game.GetCamera();
 
 		m_Input = game.GetControlScheme();
-		m_Model = ModelType.Runner;
+		m_Model = ModelType.ThreePointStar;
 
         m_BaseColour = game.GetColourManager().GetPrimaryColour();
         m_AltColour = game.GetColourManager().GetAccentingColour();
@@ -72,7 +72,7 @@ public class Runner extends Vehicle
 		m_MaxHullPoints = 1000;
 		m_HullPoints 	= m_MaxHullPoints;
 
-        double completeHealthDrainTime = 5.62; //20
+        double completeHealthDrainTime = 20.0; //20
         m_HealthDrainRate = m_MaxHullPoints / completeHealthDrainTime;
 
 		AddChild(new Radar(this, game));
@@ -130,7 +130,7 @@ public class Runner extends Vehicle
 	@Override
 	public void Update(double deltaTime)
 	{
-        DrainEnergy(m_HealthDrainRate * deltaTime);
+       // DrainEnergy(m_HealthDrainRate * deltaTime);
         m_Engine.SetTurnRate(m_Input.GetTilt());
 		super.Update(deltaTime);
 	}

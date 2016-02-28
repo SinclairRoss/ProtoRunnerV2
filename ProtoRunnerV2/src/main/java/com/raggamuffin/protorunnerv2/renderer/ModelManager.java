@@ -41,6 +41,7 @@ public class ModelManager
     private GLModel_StandardObject m_Carrier;
     private GLModel_StandardObject m_Dummy;
     private GLModel_StandardObject m_WeaponDrone;
+    private GLModel_StandardObject m_ThreePointStar;
     private GLModel_HollowObject   m_Explosion;
     private GLModel_LaserBeam      m_ParticleLaser;
 
@@ -85,6 +86,7 @@ public class ModelManager
         m_Dummy         = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.dummy_vertices));
         m_Explosion     = new GLModel_HollowObject(ReadFloatArrayFromResource(R.string.explosion_vertices));
         m_WeaponDrone   = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.weapondrone_vertices));
+        m_ThreePointStar = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.three_point_star));
     }
 
     private float[] ReadFloatArrayFromResource(int resource)
@@ -181,6 +183,8 @@ public class ModelManager
                 return m_RadarFragment;
             case WeaponDrone:
                 return m_WeaponDrone;
+            case ThreePointStar:
+                return m_ThreePointStar;
             case Nothing:
                 break;
         }

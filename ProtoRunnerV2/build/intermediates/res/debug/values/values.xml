@@ -942,38 +942,30 @@
     <string name="sign_out">Sign out</string>
     <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/spear.xml -->
     <eat-comment/>
-    <string name="spear_vertices">
-        -1.0f,  0.0f, -1.0f,
-        0.0f,  0.75f, -1.5f,
-        0.0f,  0.0f, -0.5f,
+    <string name="spear">
+        0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, 3.0f,
+        0.433f, 0.0f, 0.25f,
 
-        0.0f,  0.75f, -1.5f,
-        1.0f,  0.0f, -1.0f,
-        0.0f,  0.0f, -0.5f,
+        0.0f, 1.0f, 0.0f,
+        -0.433f, 0.0f, 0.25f,
+        0.0f, 0.0f, 3.0f,
 
-        1.0f,  0.0f, -1.0f,
-        0.0f, -0.75f, -1.2f,
-        0.0f,  0.0f, -0.5f,
+        0.0f, 1.0f, 0.0f,
+        -0.866f, 0.0f, -0.5f,
+        -0.433f, 0.0f, 0.25f,
 
-        0.0f, -0.75f, -1.2f,
-        -1.0f,  0.0f, -1.0f,
-        0.0f,  0.0f, -0.5f,
+        0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, -0.5f,
+        -0.866f, 0.0f, -0.5f,
 
-        -1.0f,  0.0f, -1.0f,
-        0.0f,  0.0f,  1.5f,
-        0.0f,  0.75f, -1.5f,
+        0.0f, 1.0f, 0.0f,
+        0.866f, 0.0f, -0.5f,
+        0.0f, 0.0f, -0.5f,
 
-        1.0f,  0.0f, -1.0f,
-        0.0f,  0.75f, -1.5f,
-        0.0f,  0.0f,  1.5f,
-
-        -1.0f,  0.0f, -1.0f,
-        0.0f, -0.75f, -1.2f,
-        0.0f,  0.0f,  1.5f,
-
-        1.0f,  0.0f, -1.0f,
-        0.0f,  0.0f,  1.5f,
-        0.0f, -0.75f, -1.2f
+        0.0f, 1.0f, 0.0f,
+        0.433f, 0.0f, 0.25f,
+        0.866f, 0.0f, -0.5f
     </string>
     <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/7.5.0/res/values/admob_strings.xml -->
     <eat-comment/>
@@ -1041,6 +1033,58 @@
         0.2f,  0.0f,  0.8f,
         0.0f, -0.2f, -0.33f,
         0.3f,  0.0f, -0.33f,
+    </string>
+    <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/threepointstar.xml -->
+    <eat-comment/>
+    <string name="three_point_star">
+        0.0f, 0.5f, 0.0f,
+        0.0f, 0.0f, 2.0f,
+        0.433f, 0.0f, 0.25f,
+
+        0.0f, 0.5f, 0.0f,
+        -0.433f, 0.0f, 0.25f,
+        0.0f, 0.0f, 2.0f,
+
+        0.0f, 0.5f, 0.0f,
+        -1.732f, 0.0f, -1.0f,
+        -0.433f, 0.0f, 0.25f,
+
+        0.0f, 0.5f, 0.0f,
+        0.0f, 0.0f, -0.5f,
+        -1.732f, 0.0f, -1.0f,
+
+        0.0f, 0.5f, 0.0f,
+        1.732f, 0.0f, -1.0f,
+        0.0f, 0.0f, -0.5f,
+
+        0.0f, 0.5f, 0.0f,
+        0.433f, 0.0f, 0.25f,
+        1.732f, 0.0f, -1.0f,
+
+        0.0f, 0.5f, 0.0f,
+        0.433f, 0.0f, 0.25f,
+        0.0f, 0.0f, 2.0f,
+
+        0.0f, -0.5f, 0.0f,
+        0.0f, 0.0f, 2.0f,
+        -0.433f, 0.0f, 0.25f,
+
+        0.0f, -0.5f, 0.0f,
+        -0.433f, 0.0f, 0.25f,
+        -1.732f, 0.0f, -1.0f,
+
+        0.0f, -0.5f, 0.0f,
+        -1.732f, 0.0f, -1.0f,
+        0.0f, 0.0f, -0.5f,
+
+        0.0f, -0.5f, 0.0f,
+        0.0f, 0.0f, -0.5f,
+        1.732f, 0.0f, -1.0f,
+
+        0.0f, -0.5f, 0.0f,
+        1.732f, 0.0f, -1.0f,
+        0.433f, 0.0f, 0.25f
+
     </string>
     <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/strings.xml -->
     <eat-comment/>

@@ -413,7 +413,7 @@ public final class R {
 		public static final int sign_in_failed = 0x7f060081;
 		public static final int store_picture_message = 0x7f060084;
 		public static final int store_picture_title = 0x7f060085;
-		public static final int unknown_error = 0x7f0600b2;
+		public static final int unknown_error = 0x7f0600b3;
 		public static final int wallet_buy_button_place_holder = 0x7f06003a;
 	}
 	public static final class style {

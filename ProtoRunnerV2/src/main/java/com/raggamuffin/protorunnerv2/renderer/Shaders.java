@@ -24,12 +24,18 @@ public class Shaders
         +   "   vec3 z = normalize(u_Forward);"
         +   "   vec3 x = normalize(cross(vec3(0,1,0),z));"
         +   "   vec3 y = cross(z,x);"
-
-        +   "   mat4 rotate;"
-        +   "   rotate[0] = vec4(x.x, x.y, x.z, 0);"
-        +   "   rotate[1] = vec4(y.x, y.y, y.z, 0);"
-        +   "   rotate[2] = vec4(z.x, z.y, z.z, 0);"
-        +   "   rotate[3] = vec4(u_Position.x, u_Position.y, u_Position.z, 1);"
+    /*
+        +   "   mat4 model;"
+        +   "   model[0] = vec4(x.x, x.y, x.z, 0);"
+        +   "   model[1] = vec4(y.x, y.y, y.z, 0);"
+        +   "   model[2] = vec4(z.x, z.y, z.z, 0);"
+        +   "   model[3] = vec4(u_Position.x, u_Position.y, u_Position.z, 1);"
+*/
+        +   "   mat4 model;"
+        +   "   model[0] = vec4(1, 0, 0, 0);"
+        +   "   model[1] = vec4(0, 1, 0, 0);"
+        +   "   model[2] = vec4(0, 0, 1, 0);"
+        +   "   model[3] = vec4(u_Position.x, u_Position.y, u_Position.z, 1);"
 
         +   "   mat4 scale;"
         +   "   scale[0] = vec4(u_Scale.x, 0, 0, 0);"
@@ -37,7 +43,7 @@ public class Shaders
         +   "   scale[2] = vec4(0, 0, u_Scale.z, 0);"
         +   "   scale[3] = vec4(0, 0, 0, 1);"
 
-        +	"	gl_Position = (u_ProjMatrix * (rotate * scale)) * a_Vertices;"
+        +	"	gl_Position = (u_ProjMatrix * (model * scale)) * a_Vertices;"
         +	"}";
 
     public static final String vertexShader_LINE =
@@ -187,11 +193,18 @@ public class Shaders
         +   "   vec3 x = u_Right;"
         +   "   vec3 y = u_Up;"
 
-        +   "   mat4 rotate;"
-        +   "   rotate[0] = vec4(x.x, x.y, x.z, 0);"
-        +   "   rotate[1] = vec4(y.x, y.y, y.z, 0);"
-        +   "   rotate[2] = vec4(z.x, z.y, z.z, 0);"
-        +   "   rotate[3] = vec4(u_Position.x, u_Position.y, u_Position.z, 1);"
+           /*
+        +   "   mat4 model;"
+        +   "   model[0] = vec4(x.x, x.y, x.z, 0);"
+        +   "   model[1] = vec4(y.x, y.y, y.z, 0);"
+        +   "   model[2] = vec4(z.x, z.y, z.z, 0);"
+        +   "   model[3] = vec4(u_Position.x, u_Position.y, u_Position.z, 1);"
+*/
+                    +   "   mat4 model;"
+                    +   "   model[0] = vec4(1, 0, 0, 0);"
+                    +   "   model[1] = vec4(0, 1, 0, 0);"
+                    +   "   model[2] = vec4(0, 0, 1, 0);"
+                    +   "   model[3] = vec4(u_Position.x, u_Position.y, u_Position.z, 1);"
 
         +   "   float cosTheta = cos(u_Roll);"
         +   "   float sinTheta = sin(u_Roll);"
@@ -208,7 +221,7 @@ public class Shaders
         +   "   scale[2] = vec4(0, 0, u_Scale.z, 0);"
         +   "   scale[3] = vec4(0, 0, 0, 1);"
 
-        +	"	gl_Position = (u_ProjMatrix * (rotate * roll * scale)) * a_Vertices;"
+        +	"	gl_Position = (u_ProjMatrix * (model * roll * scale)) * a_Vertices;"
         +	"}";
 
     public static final String fragmentShader_BARYCENTRIC =

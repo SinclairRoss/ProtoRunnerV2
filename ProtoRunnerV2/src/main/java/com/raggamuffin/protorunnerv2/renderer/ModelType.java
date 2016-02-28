@@ -14,6 +14,7 @@ public enum ModelType
     Carrier,
     EngineDrone,
     WeaponDrone,
+    ThreePointStar,
 
     Trail,
     LaserPointer,
