@@ -2,10 +2,8 @@ package com.raggamuffin.protorunnerv2.managers;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.IntentSender;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -92,15 +90,31 @@ public class GooglePlayService implements GoogleApiClient.ConnectionCallbacks, G
     public void SubmitScore(int score)
     {
         if (IsConnected())
+        {
             Games.Leaderboards.submitScore(m_GoogleApiClient, m_Context.getString(R.string.leaderboard_id), score);
-        else
-            m_Game.GetDatabaseManager().SubmitOfflineScore(score);
+        }
+    }
+
+    public void SubmitTime(int time)
+    {
+        if (IsConnected())
+        {
+            Games.Leaderboards.submitScore(m_GoogleApiClient, m_Context.getString(R.string.play_time_leaderboard_id), time);
+        }
     }
 
     public void DisplayLeaderBoard()
     {
         if (IsConnected())
             m_Activity.startActivityForResult(Games.Leaderboards.getLeaderboardIntent(m_GoogleApiClient, m_Context.getString(R.string.leaderboard_id)), 1);
+        else
+            m_Game.GetUIManager().ShowScreen(UIScreens.NotSignedIn);
+    }
+
+    public void DisplayHighTimeLeaderBoard()
+    {
+        if (IsConnected())
+            m_Activity.startActivityForResult(Games.Leaderboards.getLeaderboardIntent(m_GoogleApiClient, m_Context.getString(R.string.play_time_leaderboard_id)), 1);
         else
             m_Game.GetUIManager().ShowScreen(UIScreens.NotSignedIn);
     }
@@ -119,7 +133,8 @@ public class GooglePlayService implements GoogleApiClient.ConnectionCallbacks, G
         Log.e(TAG, "onConnected");
         m_OnConnectionPublisher.Publish();
 
-        SubmitScore(m_Game.GetDatabaseManager().GetHighestOfflineScore());
+        SubmitScore(m_Game.GetDatabaseManager().GetLocallySavedHighScore());
+        SubmitTime(m_Game.GetDatabaseManager().GetLocallySavedHighestPlayTime());
     }
 
     @Override

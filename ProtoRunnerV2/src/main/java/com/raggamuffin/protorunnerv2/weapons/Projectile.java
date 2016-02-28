@@ -11,11 +11,14 @@ public abstract class Projectile extends GameObject
 	protected Weapon m_Origin;
     protected double m_BaseDamage;
 
+    private ProjectileType m_Type;
+
 	public Projectile(Weapon origin)
 	{
 		super(null, null);
 
         m_Origin = origin;
+        m_Type = origin.GetProjectileType();
 
 		m_Model 			= ModelType.PlasmaShot;
 		m_BoundingRadius 	= 0.0;
@@ -68,6 +71,11 @@ public abstract class Projectile extends GameObject
 	{
 		return m_Origin;
 	}
+
+    public ProjectileType GetProjectileType()
+    {
+        return m_Type;
+    }
 
     public double GetDamageOutput()
     {

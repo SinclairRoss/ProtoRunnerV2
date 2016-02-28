@@ -402,18 +402,18 @@ public final class R {
 		public static final int common_open_on_phone = 0x7f06002d;
 		public static final int common_signin_button_text = 0x7f06002e;
 		public static final int common_signin_button_text_long = 0x7f06002f;
-		public static final int create_calendar_message = 0x7f060054;
-		public static final int create_calendar_title = 0x7f060055;
-		public static final int decline = 0x7f06005a;
-		public static final int gamehelper_app_misconfigured = 0x7f060061;
-		public static final int gamehelper_license_failed = 0x7f060062;
-		public static final int gamehelper_sign_in_failed = 0x7f060063;
-		public static final int gamehelper_unknown_error = 0x7f060064;
-		public static final int license_failed = 0x7f06006e;
-		public static final int sign_in_failed = 0x7f06007d;
-		public static final int store_picture_message = 0x7f060080;
-		public static final int store_picture_title = 0x7f060081;
-		public static final int unknown_error = 0x7f0600ae;
+		public static final int create_calendar_message = 0x7f060052;
+		public static final int create_calendar_title = 0x7f060053;
+		public static final int decline = 0x7f060059;
+		public static final int gamehelper_app_misconfigured = 0x7f060060;
+		public static final int gamehelper_license_failed = 0x7f060061;
+		public static final int gamehelper_sign_in_failed = 0x7f060062;
+		public static final int gamehelper_unknown_error = 0x7f060063;
+		public static final int license_failed = 0x7f060071;
+		public static final int sign_in_failed = 0x7f060081;
+		public static final int store_picture_message = 0x7f060084;
+		public static final int store_picture_title = 0x7f060085;
+		public static final int unknown_error = 0x7f0600b2;
 		public static final int wallet_buy_button_place_holder = 0x7f06003a;
 	}
 	public static final class style {

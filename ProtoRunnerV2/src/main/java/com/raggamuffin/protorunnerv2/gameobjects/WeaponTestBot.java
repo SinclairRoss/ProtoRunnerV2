@@ -69,10 +69,6 @@ public class WeaponTestBot extends Vehicle
         m_HullPoints = m_MaxHullPoints;
         m_Timer.Update(deltaTime);
 
-        Vector3 playerPos = m_VManager.GetPlayer().GetPosition();
-        m_Target.SetVectorDifference(m_Position, playerPos);
-        m_Target.Normalise();
-
         if(m_Timer.TimedOut())
         {
             if(m_On)

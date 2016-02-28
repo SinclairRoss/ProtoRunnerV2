@@ -33,7 +33,6 @@ import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
 import com.raggamuffin.protorunnerv2.ui.UIScreens;
 import com.raggamuffin.protorunnerv2.weapons.Projectile;
-import com.raggamuffin.protorunnerv2.weapons.Projectile_Flare;
 
 public class GameLogic extends ApplicationLogic
 {
@@ -90,8 +89,9 @@ public class GameLogic extends ApplicationLogic
         m_PubSubHub.SubscribeToTopic(PublishedTopics.StartTutorial, new StartTutorialSubscriber());
         m_PubSubHub.SubscribeToTopic(PublishedTopics.EndGame, new EndGameSubscriber());
         m_PubSubHub.SubscribeToTopic(PublishedTopics.TutorialComplete, new TutorialCompleteSubscriber());
-        m_PubSubHub.SubscribeToTopic(PublishedTopics.LeaderboardPressed, new LeaderBoardPressedSubscriber());
+        m_PubSubHub.SubscribeToTopic(PublishedTopics.HighScorePressed, new LeaderBoardPressedSubscriber());
         m_PubSubHub.SubscribeToTopic(PublishedTopics.AchievementsPressed, new AchievementsPressedSubscriber());
+        m_PubSubHub.SubscribeToTopic(PublishedTopics.HighTimePressed, new HighTimeLeaderBoardPressedSubscriber());
 
 		m_GameAudioManager.StartMusic();
 
@@ -113,6 +113,7 @@ public class GameLogic extends ApplicationLogic
 		m_VehicleManager.Update(deltaTime);
 		m_RenderEffectManager.Update(deltaTime);
 		m_SecondWindHandler.Update(deltaTime);
+        m_GameStats.Update(deltaTime);
 
 		CheckCollisions(deltaTime);
 
@@ -333,6 +334,13 @@ public class GameLogic extends ApplicationLogic
         return m_GooglePlayService;
     }
 
+    public void SaveScores()
+    {
+        m_GooglePlayService.SubmitScore(m_GameStats.GetScore());
+        m_GooglePlayService.SubmitTime(m_GameStats.GetPlayTimeMillis());
+        m_DatabaseManager.SaveHighScoreLocally(m_GameStats.GetScore(), m_GameStats.GetPlayTimeMillis());
+    }
+
     private class StartGameSubscriber extends Subscriber
     {
         @Override
@@ -379,8 +387,6 @@ public class GameLogic extends ApplicationLogic
             m_GameStats.Lock();
             m_UIManager.ShowScreen(UIScreens.GameOverScreen);
             AttachCameraToAnchor();
-
-            m_GooglePlayService.SubmitScore(m_GameStats.GetScore());
         }
     }
 
@@ -390,9 +396,8 @@ public class GameLogic extends ApplicationLogic
         public void Update(int args)
         {
             m_Camera.Attach(m_VehicleManager.GetPlayer());
-            m_Camera.SetUp(0,1,0);
+            m_Camera.SetUp(0, 1, 0);
             m_UIManager.ShowScreen(UIScreens.Play);
-            Log.e("REBOOT BUG", "Reboot screen off");
         }
     }
 
@@ -404,7 +409,6 @@ public class GameLogic extends ApplicationLogic
             m_Camera.NormalCam();
 
             m_UIManager.ShowScreen(UIScreens.Reboot);
-            Log.e("REBOOT BUG", "Reboot screen on");
 
             ArrayList<Vehicle> wingmen = m_VehicleManager.GetTeam(AffiliationKey.BlueTeam);
 
@@ -438,6 +442,15 @@ public class GameLogic extends ApplicationLogic
         public void Update(int args)
         {
             m_GooglePlayService.DisplayLeaderBoard();
+        }
+    }
+
+    private class HighTimeLeaderBoardPressedSubscriber extends Subscriber
+    {
+        @Override
+        public void Update(int args)
+        {
+            m_GooglePlayService.DisplayHighTimeLeaderBoard();
         }
     }
 

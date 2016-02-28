@@ -47,7 +47,7 @@ public class DatabaseManager
         m_TutorialOfferedTable.Insert(new TutorialOfferedRow(0, true));
     }
 
-    public int GetHighestOfflineScore()
+    public int GetLocallySavedHighScore()
     {
         ArrayList<TableRow> tableRows = m_OfflineHighScoreTable.Read();
 
@@ -58,13 +58,33 @@ public class DatabaseManager
         return row.GetScore();
     }
 
-    public void SubmitOfflineScore(int score)
+    public void SaveHighScoreLocally(int score, int time)
     {
-        if(GetHighestOfflineScore() > score)
-            return;
+        int highScore = GetLocallySavedHighScore();
+        if(score > highScore)
+        {
+            highScore = score;
+        }
+
+        int longestTimePlayed = GetLocallySavedHighestPlayTime();
+        if(time > longestTimePlayed)
+        {
+            longestTimePlayed = time;
+        }
 
         m_OfflineHighScoreTable.ClearTable();
-        m_OfflineHighScoreTable.Insert(new OfflineHighScoreRow(0, score));
+        m_OfflineHighScoreTable.Insert(new OfflineHighScoreRow(0, highScore, longestTimePlayed));
+    }
+
+    public int GetLocallySavedHighestPlayTime()
+    {
+        ArrayList<TableRow> tableRows = m_OfflineHighScoreTable.Read();
+
+        if(tableRows.size() == 0)
+            return 0;
+
+        OfflineHighScoreRow row = (OfflineHighScoreRow)tableRows.get(0);
+        return row.GetHighestSurvivalTime();
     }
 
     public boolean ShouldAutoSignIn()

@@ -55,7 +55,7 @@ public class Projectile_Missile extends Projectile
 
         m_Velocity.SetVector(0);
 
-        m_LifeSpan = new Timer(5.0);
+        m_LifeSpan = new Timer(2.5);
         m_ArmingTimer = new Timer(0.65);
         m_PrimingTimer = new Timer(LAUNCH_DELAY * index);
         m_Target = new Vector3();

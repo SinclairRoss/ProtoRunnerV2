@@ -17,13 +17,17 @@ public class CreditsScreen extends UIScreen
 	private UILabel m_Line3;
 	private UILabel m_Line4;
 
-	public CreditsScreen(GameLogic Game, UIManager Manager) 
+	public CreditsScreen(GameLogic game, UIManager uiManager)
 	{
-		super(Game, Manager);
+		super(game, uiManager);
 
 		m_Title = null;
 		m_Back  = null;
 		m_Line1 = null;
+        m_Line2 = null;
+        m_Break = null;
+        m_Line3 = null;
+        m_Line4 = null;
 	}
 	
 	@Override
@@ -31,7 +35,7 @@ public class CreditsScreen extends UIScreen
 	{
 		super.Create();
 		
-		m_Title = CreateTitle(m_Game.GetContext().getString(R.string.button_credits));
+		m_Title = CreateTitle(m_Game.GetContext().getString(R.string.credits_screen_title));
 		m_Back  = CreateBackButton(UIScreens.MainMenu);
 		
 		m_Line1 = CreateLabel(m_Game.GetContext().getString(R.string.credits_text1));

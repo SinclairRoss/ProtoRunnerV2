@@ -6,7 +6,7 @@ public final class Vector3
 {
     public static final Vector3 RIGHT   = new Vector3(1,0,0);
     public static final Vector3 UP      = new Vector3(0,1,0);
-    public static final Vector3 DOWN      = new Vector3(0,-1,0);
+    public static final Vector3 DOWN    = new Vector3(0,-1,0);
     public static final Vector3 FORWARD = new Vector3(0,0,1);
 
 	public double I;
@@ -235,13 +235,13 @@ public final class Vector3
 	
 	public double GetLength()
 	{
-		return  Math.sqrt((I * I) + (J * J) + (K * K));
+		return Math.sqrt((I * I) + (J * J) + (K * K));
 	}
 
 	public boolean IsNan()
 	{
 		if(I != I)
-			return false;
+			return true;
 		
 		if(J != J)
 			return true;

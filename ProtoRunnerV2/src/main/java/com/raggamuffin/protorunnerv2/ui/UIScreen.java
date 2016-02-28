@@ -8,10 +8,12 @@ import com.raggamuffin.protorunnerv2.managers.UIManager;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.utils.Colours;
+import com.raggamuffin.protorunnerv2.utils.Vector2;
+import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public abstract class UIScreen 
 {	
-	private final double ButtonX =  0.8;
+	private final double ButtonX =  0.9;
 	private final double ButtonY =  0.65;
 	private final double ButtonPadding = 0.25;
 
@@ -69,23 +71,22 @@ public abstract class UIScreen
 	{
         ColourManager cManager = m_Game.GetColourManager();
         double barLength = 1.1;
-		UIProgressBar Bar = new UIProgressBar(barLength, maxVal, cManager.GetAccentingColour(), cManager.GetAccentTintColour(), cManager.GetPrimaryColour(), Name, UIProgressBar.Alignment.Left, m_Game.GetGameAudioManager(), m_UIManager);
-        Bar.SetPosition(ButtonX - (barLength * 0.5), ButtonY - (ButtonPadding * m_NumElements));
-
+		UIProgressBar bar = new UIProgressBar(barLength, maxVal, cManager.GetAccentingColour(), cManager.GetAccentTintColour(), cManager.GetPrimaryColour(), Name, UIProgressBar.Alignment.Left, m_Game.GetGameAudioManager(), m_UIManager);
+        bar.SetPosition(ButtonX - (barLength * 0.5), ButtonY - (ButtonPadding * m_NumElements));
 		m_NumElements ++;
 
-        m_UIManager.AddUIElement(Bar);
-		m_UIManager.AddUIElement(Bar.GetLabel());
+        m_UIManager.AddUIElement(bar);
+		m_UIManager.AddUIElement(bar.GetLabel());
 		
-		return Bar;
+		return bar;
 	}
 	
-	protected UIButton CreateButton(String Name, UIScreens Screen)
+	protected UIButton CreateButton(String text, UIScreens screen)
 	{
 		Publisher Pub = m_Game.GetPubSubHub().CreatePublisher(PublishedTopics.SwitchScreen);
-		UIButton Button = new UIButton(Pub, m_Game.GetGameAudioManager(), m_UIManager, Screen.ordinal());
+		UIButton Button = new UIButton(Pub, m_Game.GetGameAudioManager(), m_UIManager, screen.ordinal());
 		
-		Button.SetText(Name);
+		Button.SetText(text);
 		Button.SetPosition(ButtonX, ButtonY - (ButtonPadding * m_NumElements));
 		Button.GetFont().SetAlignment(Font.Alignment.Right);
 		
@@ -118,7 +119,7 @@ public abstract class UIScreen
         UIButton Button = new UIButton(Pub, m_Game.GetGameAudioManager(), m_UIManager, screen.ordinal());
 
         Button.SetText(m_Game.GetContext().getString(R.string.button_back));
-        Button.SetPosition(-0.9, -1.0 + ButtonPadding);
+        Button.SetPosition(-0.9, -0.8);
         Button.GetFont().SetAlignment(Font.Alignment.Left);
         Button.GetFont().SetColour(m_Game.GetColourManager().GetAccentingColour());
 
@@ -135,38 +136,44 @@ public abstract class UIScreen
 		UIButton Button = new UIButton(Pub, m_Game.GetGameAudioManager(), m_UIManager, screen.ordinal());
 
         Button.SetText(m_Game.GetContext().getString(R.string.button_next));
-		
-		if(m_HasBackButton)
-		{
-			Button.SetPosition(-0.4, -1.0 + ButtonPadding);
-			Button.GetFont().SetAlignment(Font.Alignment.Right);
-		}
-		else
-		{
-			Button.SetPosition(-0.9, -1.0 + ButtonPadding);
-			Button.GetFont().SetAlignment(Font.Alignment.Left);
-		}
 
-        Button.GetFont().SetColour(m_Game.GetColourManager().GetPrimaryColour());
+        Button.SetPosition(0.9, -0.8);
+        Button.GetFont().SetAlignment(Font.Alignment.Right);
+
+        Button.GetFont().SetColour(m_Game.GetColourManager().GetAccentingColour());
 		
 		m_UIManager.AddUIElement(Button);
 		
 		return Button;
 	}
 
-	protected UILabel CreateLabel(String text)
-	{
-		UILabel label = new UILabel(m_Game.GetGameAudioManager(), m_UIManager);
-		label.SetText(text);
-		label.SetPosition(ButtonX, ButtonY - (ButtonPadding * m_NumElements));
+    protected UILabel CreateLabel(String text)
+    {
+        UILabel label = new UILabel(m_Game.GetGameAudioManager(), m_UIManager);
+        label.SetText(text);
+        label.SetPosition(ButtonX, ButtonY - (ButtonPadding * m_NumElements));
         label.GetFont().SetAlignment(Font.Alignment.Right);
 
         m_UIManager.AddUIElement(label);
-		
-		m_NumElements ++;
-		
-		return label;
-	}
+
+        m_NumElements ++;
+
+        return label;
+    }
+
+    protected UILabel CreateLabelSubtext(UILabel parent, String text)
+    {
+        UILabel label = new UILabel(m_Game.GetGameAudioManager(), m_UIManager);
+        label.SetFontSize(0.075);
+        label.SetText(text);
+        label.SetPosition(ButtonX, parent.GetPosition().J + parent.GetSize().J);
+        label.GetFont().SetAlignment(Font.Alignment.Right);
+        label.GetFont().SetColour(m_Game.GetColourManager().GetAccentingColour());
+
+        m_UIManager.AddUIElement(label);
+
+        return label;
+    }
 
     public InGameMessageHandler GetMessageHandler()
     {

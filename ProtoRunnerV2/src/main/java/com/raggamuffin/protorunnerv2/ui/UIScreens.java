@@ -11,5 +11,6 @@ public enum UIScreens
     Tutorial,
     Reboot,
     NewToGame,
-    NotSignedIn
+    NotSignedIn,
+    Leaderboards
 }

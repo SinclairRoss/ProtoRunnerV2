@@ -43,7 +43,7 @@ public class UILabel extends UIElement
 	{
 		m_OutputText = m_OriginalText;
 	}
-	
+
 	@Override
 	protected void TriggerOpenAnimation(double delay)
 	{
@@ -65,6 +65,12 @@ public class UILabel extends UIElement
 		CalculateSize();
 		m_Font.ReAlign();
 	}
+
+    public void SetFontSize(double size)
+    {
+        m_Font.SetSize(size);
+        CalculateSize();
+    }
 	
 	// Used by animations to update the text without loosing the orignal data.
 	public void SetOutputText(String Text)

@@ -466,11 +466,9 @@
     <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="button_achievements">Achievements</string>
-    <string name="button_back">&lt;&lt;&lt;</string>
-    <string name="button_credits">Credits</string>
-    <string name="button_next">>>></string>
+    <string name="button_back">Return</string>
+    <string name="button_next">Continue</string>
     <string name="button_play">Start</string>
-    <string name="button_scores">Leaderboard</string>
     <string name="button_tutorial">Tutorial</string>
     <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/byte.xml -->
     <eat-comment/>
@@ -609,6 +607,7 @@
     <string name="create_calendar_title">Create calendar event</string>
     <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/strings.xml -->
     <eat-comment/>
+    <string name="credits_screen_title">Credits</string>
     <string name="credits_text1">Raggamuffin Games is</string>
     <string name="credits_text2">Sinclair Ross</string>
     <string name="credits_text3">Special thanks to</string>
@@ -786,9 +785,13 @@
     <string name="gamehelper_unknown_error">Unknown error.</string>
     <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/strings.xml -->
     <eat-comment/>
+    <string name="highscore_picker_screen_title">LeaderBoards</string>
+    <string name="highscore_points_button">Highest Scoring</string>
+    <string name="highscore_time_button">Longest Running</string>
+    <string name="incomming_missile">Missile Inbound</string>
     <string name="label_accuracy">Accuracy</string>
     <string name="label_enter_your_name">Enter your initials</string>
-    <string name="label_new_high_score">New Highscore</string>
+    <string name="label_new_personal_Best">New Personal Best!</string>
     <string name="label_num_reboots">Times rebooted: </string>
     <string name="label_play_time">Play time: </string>
     <string name="label_score">Score: </string>
@@ -886,7 +889,8 @@
     <string name="new_player_2">After watching all my friends play I came to the conclusion that we really need a tutorial </string>
     <string name="new_player_3">It takes 5 minutes and you will have much more fun if you know what you\'re doing.</string>
     <string name="new_player_4">Do you want to play the tutorial?</string>
-    <string name="not_signed_in">You must sign in with your google play account to access google play features. Would you like to sign in?</string>
+    <string name="not_signed_in">You must sign in with your google play account to access the leaderboards. Would you like to sign in?</string>
+    <string name="play_time_leaderboard_id">CgkIyc-S9NEKEAIQCA</string>
     <string name="reboot_1">If your energy drains entirely your runner will be destroyed</string>
     <string name="reboot_2">After being destroyed there is a short period of time where your runner can reboot</string>
     <string name="reboot_3">If an enemy is destroyed by yourself or by one of your wingmen you will reboot</string>
@@ -1089,12 +1093,6 @@
     <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/7.5.0/res/values/wallet_strings.xml -->
     <eat-comment/>
     <string name="wallet_buy_button_place_holder" translation_description="Text on a button that allows a user to make a payment with Google Wallet [CHAR LIMIT=30]">Buy with Google</string>
-    <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/strings.xml -->
-    <eat-comment/>
-    <string name="weapon_burst">Burst Laser</string>
-    <string name="weapon_panic">Panic Switch</string>
-    <string name="weapon_pulse">Pulse Shot</string>
-    <string name="weapon_rocket">Homing Rockets</string>
     <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/weapondrone.xml -->
     <eat-comment/>
     <string name="weapondrone_vertices">
@@ -1132,7 +1130,7 @@
     </string>
     <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/strings.xml -->
     <eat-comment/>
-    <string name="wingman_down">Wingman Destroyed"</string>
+    <string name="wingman_down">Wingman Destroyed</string>
     <!-- From: file:/C:/Users/Sinky/StudioProjects/ProtoRunnerV2/ProtoRunnerV2/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <style name="Animation.AppCompat.DropDownUp" parent="Base.Animation.AppCompat.DropDownUp"/>

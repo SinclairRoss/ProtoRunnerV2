@@ -49,10 +49,10 @@ public class MenuScreen extends UIScreen
 
         m_Title         = CreateTitle(context.getString(R.string.app_name));
 		m_Play 		    = CreateButton(context.getString(R.string.button_play), PublishedTopics.StartGame);
-        m_LeaderBoards  = CreateButton(context.getString(R.string.button_scores), PublishedTopics.LeaderboardPressed);
+        m_LeaderBoards  = CreateButton(context.getString(R.string.highscore_picker_screen_title), UIScreens.Leaderboards);
         m_Achievements  = CreateButton(context.getString(R.string.button_achievements), PublishedTopics.AchievementsPressed);
         m_Tutorial      = CreateButton(context.getString(R.string.button_tutorial), PublishedTopics.StartTutorial);
-        m_Credits	    = CreateButton(context.getString(R.string.button_credits), UIScreens.Credits);
+        m_Credits	    = CreateButton(context.getString(R.string.credits_screen_title), UIScreens.Credits);
 
         PubSubHub pubSub = m_Game.GetPubSubHub();
 
@@ -61,16 +61,15 @@ public class MenuScreen extends UIScreen
 
         m_SignIn = new UIButton(m_Game.GetGameAudioManager(), m_UIManager);
         m_SignIn.SetText(context.getString(R.string.sign_in));
-        m_SignIn.SetPosition(0.8, -0.8);
+        m_SignIn.SetPosition(0.9, -0.8);
         m_SignIn.GetFont().SetAlignment(Font.Alignment.Right);
         m_SignIn.GetFont().SetColour(m_Game.GetColourManager().GetAccentingColour());
 
         m_UIManager.AddUIElement(m_SignIn);
 
         m_SignOut = new UIButton(m_Game.GetGameAudioManager(), m_UIManager);
-
         m_SignOut.SetText(context.getString(R.string.sign_out));
-        m_SignOut.SetPosition(0.8, -0.8);
+        m_SignOut.SetPosition(0.9, -0.8);
         m_SignOut.GetFont().SetAlignment(Font.Alignment.Right);
         m_SignOut.GetFont().SetColour(m_Game.GetColourManager().GetPrimaryColour());
 

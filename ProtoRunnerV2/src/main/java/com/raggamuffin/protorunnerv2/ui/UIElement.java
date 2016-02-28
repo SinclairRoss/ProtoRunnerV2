@@ -75,10 +75,14 @@ public abstract class UIElement
 
 	public void SetPosition(double x, double y)
 	{
-        x *= SCREEN_RATIO;
-		m_OriginalPosition.SetVector(x, y);
-		m_Position.SetVector(x,y);
+        SetPositionRaw(x * SCREEN_RATIO, y);
 	}
+
+    public void SetPositionRaw(double x, double y)
+    {
+        m_OriginalPosition.SetVector(x, y);
+        m_Position.SetVector(x,y);
+    }
 
     public void SetSize(double width, double height)
     {

@@ -125,16 +125,16 @@ public abstract class SQLTable
         switch(type)
         {
             case Integer:
-                return "integer";
+                return "INTEGER";
 
             case String:
-                return "varchar";
+                return "VARCHAR";
 
             case Float:
-                return "float";
+                return "FLOAT";
 
             case Boolean:
-                return "boolean";
+                return "BOOLEAN";
         }
 
         return "";

@@ -1,7 +1,6 @@
 package com.raggamuffin.protorunnerv2.ui;
 
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
-import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.UIManager;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
@@ -20,7 +19,7 @@ public class UIProgressBar extends UIElement
 	private final double ARRIVAL_DISTANCE = 0.1;
 
 	private double m_MaxLength;
-	
+
 	private double m_Progress;
 	private double m_MaxValue;
 	private double m_CurrentValue;
@@ -46,7 +45,7 @@ public class UIProgressBar extends UIElement
         m_Alignment = align;
 
         m_Label = new UILabel(audio, uiManager);
-        m_Label.GetFont().SetSize(0.07);
+        m_Label.GetFont().SetSize(0.075);
         m_Label.SetText(label);
         m_Label.GetFont().SetAlignment(Font.Alignment.Left);
 
@@ -134,8 +133,8 @@ public class UIProgressBar extends UIElement
 	public void SetPosition(double x, double y)
 	{
 		super.SetPosition(x, y);
-        m_UnderBarPosition.SetVector(x,y);
-		m_Label.SetPosition(x - ( m_MaxLength * 0.25), y);
+        m_UnderBarPosition.SetVector(x, y);
+		m_Label.SetPositionRaw(m_Position.I - m_MaxLength * 0.5, m_Position.J);
 	}
 	
 	public void SetValue(double Value)

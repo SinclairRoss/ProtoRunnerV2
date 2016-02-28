@@ -12,6 +12,7 @@ public class OfflineHighScoreTable extends SQLTable
         super("offlineHighScoreTable", db);
 
         AddColumn(new SQLTableColumn("highScore", DataType.Integer, Constraints.None));
+        AddColumn(new SQLTableColumn("highSurvivalTime", DataType.Integer, Constraints.None));
         CreateTable();
     }
 
@@ -29,14 +30,16 @@ public class OfflineHighScoreTable extends SQLTable
             {
                 int id      = cursor.getInt(cursor.getColumnIndex("id"));
                 int score   = cursor.getInt(cursor.getColumnIndex("highScore"));
+                int survivalTime = cursor.getInt(cursor.getColumnIndex("highSurvivalTime"));
 
-                elements.add(new OfflineHighScoreRow(id, score));
+                elements.add(new OfflineHighScoreRow(id, score, survivalTime));
 
                 if (!cursor.moveToNext())
                     break;
             }
         }
 
+        cursor.close();
         return elements;
     }
 }

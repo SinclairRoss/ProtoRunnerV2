@@ -15,6 +15,7 @@ import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.ui.AftermathScreen;
 import com.raggamuffin.protorunnerv2.ui.CreditsScreen;
 import com.raggamuffin.protorunnerv2.ui.GameOverScreen;
+import com.raggamuffin.protorunnerv2.ui.HighScorePickerScreen;
 import com.raggamuffin.protorunnerv2.ui.MenuScreen;
 import com.raggamuffin.protorunnerv2.ui.NewToGameScreen;
 import com.raggamuffin.protorunnerv2.ui.NotSignedInScreen;
@@ -49,6 +50,7 @@ public class UIManager
     private RebootScreen m_RebootScreen;
     private NewToGameScreen m_NewToGameScreen;
     private NotSignedInScreen m_NotSignedInScreen;
+    private HighScorePickerScreen m_HighScorePickerScreen;
 
 	public UIManager(GameLogic Game)
 	{
@@ -76,6 +78,7 @@ public class UIManager
         m_RebootScreen       = new RebootScreen(m_Game, this);
         m_NewToGameScreen    = new NewToGameScreen(m_Game, this);
         m_NotSignedInScreen  = new NotSignedInScreen(m_Game, this);
+        m_HighScorePickerScreen = new HighScorePickerScreen(m_Game, this);
 
 		ShowScreen(UIScreens.Splash);
 		
@@ -114,6 +117,8 @@ public class UIManager
                 return m_NewToGameScreen;
             case NotSignedIn:
                 return m_NotSignedInScreen;
+            case Leaderboards:
+                return m_HighScorePickerScreen;
             default:
                 return null;
         }
