@@ -1,6 +1,6 @@
 package com.raggamuffin.protorunnerv2.gamelogic;
 
-import com.raggamuffin.protorunnerv2.gameobjects.Runner;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Runner;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
@@ -21,7 +21,7 @@ public class SecondWindHandler
 	private SecondWindState m_SecondWindState;
 	
 	private GameLogic m_Game;
-	private Runner m_Player;
+	private Vehicle_Runner m_Player;
 
     public final double SECOND_WIND_DURATION = 5.0;
 	private Timer m_SecondWindTimer;

@@ -26,8 +26,8 @@ public abstract class Projectile extends GameObject
 
         m_BaseDamage = m_Origin.GetBaseDamage();
 
-        m_Position.SetVector(m_Origin.GetFirePosition());
-        CalculateForward(m_Origin.GetForward(), m_Origin.GetAccuracy());
+        m_Origin.GetFirePosition(m_Position);
+        m_Origin.CalculateProjectileHeading(m_Forward);
         m_Yaw = m_Origin.GetOrientation();
 
         m_BaseColour.SetColour(m_Origin.GetAnchor().GetBaseColour());
@@ -36,22 +36,6 @@ public abstract class Projectile extends GameObject
         SetAffiliation(m_Origin.GetAffiliation());
 
 		SetDragCoefficient(1.0);
-	}
-
-	private void CalculateForward(Vector3 weaponForward, double accuracy)
-	{
-		m_Forward.SetVector(weaponForward);
-
-		double Min = -(Math.PI * 0.5) * (1.0 - accuracy);	// 90 Degrees multiplied by value between 0 and 1.
-		double Max =  (Math.PI * 0.5) * (1.0 - accuracy);
-
-		double Theta;
-
-		Theta = MathsHelper.RandomDouble(Min, Max);
-		m_Forward.RotateY(Theta);
-
-		Theta = MathsHelper.RandomDouble(Min, Max);
-		m_Forward.RotateX(Theta * 0.25);
 	}
 
 	@Override

@@ -21,7 +21,6 @@ public class Projectile_Laser extends Projectile
 
     private LaserState m_State;
 
-    private Vector3 m_EndPoint;
     private final double m_GrowthRate;
     private Timer m_LaserFadeTimer;
 
@@ -29,6 +28,8 @@ public class Projectile_Laser extends Projectile
     private final double m_MaxLength;
     private double m_MaxWidth;
     private double m_LaserWidth;
+
+    private WeaponBarrel m_FiringBarrel;
 
     private double m_DamageOutputPerFrame;
 
@@ -38,11 +39,12 @@ public class Projectile_Laser extends Projectile
     {
         super(origin);
 
+        m_FiringBarrel = origin.GetActiveWeaponBarrel();
+
         m_Model = ModelType.ParticleLaser;
 
         m_State = LaserState.Active;
 
-        m_EndPoint = new Vector3();
         m_GrowthRate = 100;
         m_LaserFadeTimer = new Timer(0.5);
 
@@ -63,15 +65,17 @@ public class Projectile_Laser extends Projectile
         switch(m_State)
         {
             case Active:
-
-                if(!m_Origin.IsTriggerPulled())
+            {
+                if (!m_Origin.IsTriggerPulled())
                     m_State = LaserState.Deactivating;
 
-                if(!m_Origin.GetAnchor().IsValid())
+                if (!m_Origin.GetAnchor().IsValid())
                     m_State = LaserState.Deactivating;
 
                 break;
+            }
             case Deactivating:
+            {
                 m_LaserFadeTimer.Update(deltaTime);
                 m_LaserWidth = MathsHelper.Lerp(m_LaserFadeTimer.GetProgress(), m_MaxWidth, 0);
                 m_BaseColour.Alpha = m_LaserFadeTimer.GetInverseProgress();
@@ -79,6 +83,7 @@ public class Projectile_Laser extends Projectile
                 m_RayEmitter.SetInitialColour(m_BaseColour);
                 m_RayEmitter.SetFinalColour(m_BaseColour);
                 break;
+            }
         }
 
         LockProjectile();
@@ -88,10 +93,6 @@ public class Projectile_Laser extends Projectile
         m_RayEmitter.SetForward(GetForward());
         m_RayEmitter.SetRange(m_LaserLength);
         m_RayEmitter.Update(deltaTime);
-
-        m_EndPoint.SetVector(GetForward());
-        m_EndPoint.Scale(m_LaserLength);
-        m_EndPoint.Add(GetPosition());
 
         m_DamageOutputPerFrame = m_BaseDamage * deltaTime;
 
@@ -129,6 +130,7 @@ public class Projectile_Laser extends Projectile
     private void LockProjectile()
     {
         SetForward(m_Origin.GetForward());
+        m_Forward.RotateY(m_FiringBarrel.GetRotation());
         SetPosition(m_Origin.GetPosition());
         GetVelocity().SetVector(0);
     }

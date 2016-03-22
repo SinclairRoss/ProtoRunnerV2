@@ -7,6 +7,7 @@ public enum VehicleType
     Tank,
     Carrier,
     Drone,
+    LaserStar,
     WeaponTestBot,
     TargetBot
 }

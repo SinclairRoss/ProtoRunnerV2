@@ -12,516 +12,102 @@
     <bookmark url="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/particles/TrailPoint.java" line="35" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="797cb068-8cb3-41c1-a736-0fb8546efb2d" name="Default" comment="Made small changes to the score keeping.&#10;Added two new models.">
+    <list default="true" id="797cb068-8cb3-41c1-a736-0fb8546efb2d" name="Default" comment="">
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/FireControl_LaserSpinner.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/Mad_Beast.xml" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Vehicle_LaserStar.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/WeaponBarrel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Weapon_MultiLaser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/res/values/threepointstar.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Vehicle_Tank.java" />
       <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\classes\debug\com\raggamuffin\protorunnerv2\gameobjects\PostFireAction.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\classes\debug\com\raggamuffin\protorunnerv2\gameobjects\PostFireAction_Null.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\classes\debug\com\raggamuffin\protorunnerv2\gameobjects\PostFireAction_Player.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-06ab37edf61694c22c293dc9ab41bab488406bc9.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-2c028c378c5528a94357909a18f662698f7f8619.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-34b4ec3c58d0bc4aadc065e736d4743f8ea1a81c.jar" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-43cf34db71283ff61e360a474b1dc1e4c6d1f7db.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-45b19e302165e60edda4c2af302b99c3055306bc.jar" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-475e55994f5440e819b7988ff0065d4158443666.jar" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-4b868d2563997b30a740fc86f2876df74e30afb9.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-66fdcfc2144d757ac8530a052d47265e07773092.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-69ad91f8f351150abae36918005afd1240d401f3.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-73d15a7b00f0331346d474c1114b3cc0a1b38ce2.jar" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-749cc7a780e7893ba60c6a8c6a80c2d75fa2dc36.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-74aedc32f7e52ab366857a3ccfc7be7994b2de20.jar" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-76882c3d11b474075c17781ecce8e6ad216d33f7.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-8e388dcd8b97a09304cc972cb61d3ffff3cfa55d.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-93f5a97fc040ab1733116df9f83fe928f712b237.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-a012203e74e6e42a9049d72208fcb2f23c3431b9.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-b1808f3250303043d8266c60737bce78fb9eb4b8.jar" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-b53993833ab07fbfd7d3b51de23eeeca6c4ddeb4.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-b732c20c9a93d8f61a730de1c28f5cdc6066418b.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-b7a255c659b855a7d768177e722332e1ea9e71a8.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-dd338e0813305341dbe9cb8088ad82996d608f5d.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-e2113edb41eef538ea4f7f76b41e5fd2fa79cf83.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-ef3a8da9d3009bb81003d30ad8db27559487cc20.jar" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-f570e0fa6273beb92bed28f43e14ab444eaf059f.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\internal_impl-22.0.0-89a57e48793771ae5d65787933a30f0a9fffdc28.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-256716fac731ae154b746658f217ea71d77d9f03.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\support-annotations-22.2.0-ce405e005671120865286fbb1a2542953cb92ee2.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\java\com\raggamuffin\protorunnerv2\gameobjects\PostFireAction.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\java\com\raggamuffin\protorunnerv2\gameobjects\PostFireAction_Null.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\java\com\raggamuffin\protorunnerv2\gameobjects\PostFireAction_Player.java" afterPath="" />
-      <change type="MOVED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\java\com\raggamuffin\protorunnerv2\gameobjects\Bit.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Vehicle_Bit.java" />
-      <change type="MOVED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\java\com\raggamuffin\protorunnerv2\gameobjects\Carrier.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Vehicle_Carrier.java" />
-      <change type="MOVED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\java\com\raggamuffin\protorunnerv2\gameobjects\Drone.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Vehicle_Drone.java" />
-      <change type="MOVED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\java\com\raggamuffin\protorunnerv2\gameobjects\Runner.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Vehicle_Runner.java" />
-      <change type="MOVED" beforePath="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\java\com\raggamuffin\protorunnerv2\gameobjects\Tank.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Vehicle_Tank.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ai/AIController.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ai/AIController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/AchievementListener$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/AchievementListener$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/AchievementListener$TestSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/AchievementListener$TestSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/AchievementListener$TutorialCompleteSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/AchievementListener$TutorialCompleteSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/AchievementListener.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/AchievementListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/AffiliationKey.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/AffiliationKey.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/AftermathScreen.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/AftermathScreen.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/audio/AudioClips.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/audio/AudioClips.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/audio/AudioService.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/audio/AudioService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/BulletManager.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/BulletManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/CharPicker.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/CharPicker.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/colours/ColourBehaviour$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/colours/ColourBehaviour$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/colours/ColourBehaviour$ActivationMode.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/colours/ColourBehaviour$ActivationMode.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/colours/ColourBehaviour.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/colours/ColourBehaviour.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/colours/ColourBehaviour_Pulse.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/colours/ColourBehaviour_Pulse.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/ColourManager$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/ColourManager$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/ColourManager$PlayerSpawnedSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/ColourManager$PlayerSpawnedSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/ColourManager$PlayerSwitchedWeaponSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/ColourManager$PlayerSwitchedWeaponSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/ColourManager.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/ColourManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/data/Constraints.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/data/Constraints.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/master/ControlScheme.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/master/ControlScheme.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/CreditsScreen.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/CreditsScreen.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gameobjects/CyclingEngineAttachment.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gameobjects/CyclingEngineAttachment.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/data/DataType.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/data/DataType.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/DatabaseManager.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/DatabaseManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gameobjects/Engine.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gameobjects/Engine.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/FireControl_Charge$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/FireControl_Charge$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/FireControl_Charge$FireState.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/FireControl_Charge$FireState.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/FireControl_Charge.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/FireControl_Charge.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/FireControl_MissileCharge.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/FireControl_MissileCharge.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/FireControl_Pulse$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/FireControl_Pulse$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/FireControl_Pulse$FireState.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/FireControl_Pulse$FireState.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/FireControl_Pulse.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/FireControl_Pulse.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/master/FlingListener.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/master/FlingListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/master/FlingOutcomeType.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/master/FlingOutcomeType.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gameobjects/FloorGrid.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gameobjects/FloorGrid.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/Font$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/Font$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/Font$Alignment.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/Font$Alignment.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/Font.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/Font.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLCamera.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLCamera.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLFloorPanel.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLFloorPanel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLLine.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLLine.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLModel.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLModel.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLModel_HollowObject.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLModel_HollowObject.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLModel_StandardObject.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLModel_StandardObject.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLOrthoCamera.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLOrthoCamera.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLPulseLaser.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLPulseLaser.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLRadarFragment.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLRadarFragment.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLRenderer.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLRenderer.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLRing.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLRing.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLScreenQuad.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLScreenQuad.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLSkybox.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLSkybox.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLStandardPoint.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLStandardPoint.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLTexQuad.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLTexQuad.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLTextQuad.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/GLTextQuad.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/master/GameActivity$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/master/GameActivity$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/master/GameActivity$2.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/master/GameActivity$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/master/GameActivity.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/master/GameActivity.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/audio/GameAudioManager.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/audio/GameAudioManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$AchievementsPressedSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$AchievementsPressedSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$EndGameSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$EndGameSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$LeaderBoardPressedSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$LeaderBoardPressedSubscriber.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$PlayerDestroyedSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$PlayerDestroyedSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$PlayerSpawnedSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$PlayerSpawnedSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$StartGameSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$StartGameSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$StartTutorialSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$StartTutorialSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$TutorialCompleteSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic$TutorialCompleteSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameLogic.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/GameManager_Play.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/GameManager_Play.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/GameManager_Tutorial$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/GameManager_Tutorial$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/GameManager_Tutorial$NextButtonPressedSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/GameManager_Tutorial$NextButtonPressedSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/GameManager_Tutorial$TutorialState.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/GameManager_Tutorial$TutorialState.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/GameManager_Tutorial.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/GameManager_Tutorial.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/GameMode.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/GameMode.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gameobjects/GameObject.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gameobjects/GameObject.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/GameOverScreen.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/GameOverScreen.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameStats$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameStats$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameStats$EnemyDestroyedSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameStats$EnemyDestroyedSubscriber.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameStats.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/GameStats.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/master/GameThread.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/master/GameThread.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/master/GameView.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/master/GameView.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/GooglePlayService.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/GooglePlayService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/particles/Graviton$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/particles/Graviton$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/particles/Graviton.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/particles/Graviton.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/particles/GravitonBehaviourType.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/particles/GravitonBehaviourType.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/InGameMessageHandler$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/InGameMessageHandler$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/InGameMessageHandler.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/InGameMessageHandler.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/pubsub/InternalTopics.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/pubsub/InternalTopics.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/LaserPointer$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/LaserPointer$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/LaserPointer$LaserState.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/LaserPointer$LaserState.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/LaserPointer.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/LaserPointer.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/utils/MathsHelper.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/utils/MathsHelper.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/MenuScreen$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/MenuScreen$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/MenuScreen$OnConnectSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/MenuScreen$OnConnectSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/MenuScreen$OnDisconnectSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/MenuScreen$OnDisconnectSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/MenuScreen.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/MenuScreen.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/MessageOrientation.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/MessageOrientation.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/ModelManager$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/ModelManager$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/ModelManager.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/ModelManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/ModelType.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/ModelType.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ai/NavigationControl.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ai/NavigationControl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/NewToGameScreen.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/NewToGameScreen.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/NotSignedInScreen.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/NotSignedInScreen.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/data/OfflineHighScoreRow.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/data/OfflineHighScoreRow.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/OptionalElement.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/OptionalElement.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/PlayScreen$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/PlayScreen$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/PlayScreen$PlayerSpawnedSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/PlayScreen$PlayerSpawnedSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/PlayScreen$WingmanDownSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/PlayScreen$WingmanDownSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/PlayScreen.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/PlayScreen.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/ProgressBarAnimation$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/ProgressBarAnimation$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/ProgressBarAnimation$AnimationState.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/ProgressBarAnimation$AnimationState.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/ProgressBarAnimation.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/ProgressBarAnimation.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/ProgressBarAnimation_GrowIn.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/ProgressBarAnimation_GrowIn.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/ProgressBarAnimation_ShrinkOut.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/ProgressBarAnimation_ShrinkOut.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/Projectile.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/Projectile.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/ProjectileBehaviourType.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/ProjectileBehaviourType.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/outputs/apk/ProtoRunnerV2-debug-unaligned.apk" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/outputs/apk/ProtoRunnerV2-debug-unaligned.apk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/outputs/apk/ProtoRunnerV2-debug.apk" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/outputs/apk/ProtoRunnerV2-debug.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/pubsub/PublishedTopics.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/pubsub/PublishedTopics.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/utils/Quaternion.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/utils/Quaternion.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/android/support/v7/appcompat/R.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/android/support/v7/appcompat/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/android/support/v7/mediarouter/R.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/android/support/v7/mediarouter/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/R.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/ads/R.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/ads/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/analytics/R.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/analytics/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/appindexing/R.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/appindexing/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/appinvite/R.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/appinvite/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/appstate/R.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/appstate/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/cast/R.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/cast/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/drive/R.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/drive/R.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/fitness/R.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/fitness/R.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/games/R.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/games/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/gcm/R.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/gcm/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/identity/R.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/identity/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/location/R.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/location/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/maps/R.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/maps/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/nearby/R.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/nearby/R.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/panorama/R.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/panorama/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/plus/R.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/plus/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/safetynet/R.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/safetynet/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/wallet/R.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/wallet/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/wearable/R.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/android/gms/wearable/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/example/games/basegameutils/R.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/google/example/games/basegameutils/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/R.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gameobjects/Radar.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gameobjects/Radar.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gameobjects/RadarFragment$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gameobjects/RadarFragment$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gameobjects/RadarFragment.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gameobjects/RadarFragment.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gameobjects/RadarSignatureType.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gameobjects/RadarSignatureType.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/RebootScreen.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/RebootScreen.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/RenderEffectManager$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/RenderEffectManager$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/RenderEffectManager$PlayerHitSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/RenderEffectManager$PlayerHitSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/RenderEffectManager.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/RenderEffectManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/data/SQLTable$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/data/SQLTable$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/data/SQLTable.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/data/SQLTable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/SecondWindHandler$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/SecondWindHandler$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/SecondWindHandler$EnemyDestroyedSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/SecondWindHandler$EnemyDestroyedSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/SecondWindHandler$PlayerDestroyedSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/SecondWindHandler$PlayerDestroyedSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/SecondWindHandler$PlayerSpawnedSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/SecondWindHandler$PlayerSpawnedSubscriber.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/SecondWindHandler$PlayerSwitchedWeaponSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/SecondWindHandler$PlayerSwitchedWeaponSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/SecondWindHandler$SecondWindState.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/SecondWindHandler$SecondWindState.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/SecondWindHandler.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/gamelogic/SecondWindHandler.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ai/Sensor_IncomingDanger.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ai/Sensor_IncomingDanger.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ai/Sensor_SurroundingAwareness.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ai/Sensor_SurroundingAwareness.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ai/Sensor_Target.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ai/Sensor_Target.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/Shaders.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/Shaders.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/SplashScreen.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/SplashScreen.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/particles/StandardParticle.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/particles/StandardParticle.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/data/TableType.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/data/TableType.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/TextAnimation$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/TextAnimation$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/TextAnimation$ActivationMode.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/TextAnimation$ActivationMode.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/TextAnimation$AnimationState.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/TextAnimation$AnimationState.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/TextAnimation.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/TextAnimation.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/TextAnimation_ForwardIn.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/TextAnimation_ForwardIn.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/TextureLoader.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/TextureLoader.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/pubsub/Topic.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/pubsub/Topic.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_Boost.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_Boost.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_Destroy$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_Destroy$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_Destroy$EnemyDestroyedSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_Destroy$EnemyDestroyedSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_Destroy.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_Destroy.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_Dodge.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_Dodge.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_Movement.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_Movement.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_Reboot$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_Reboot$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_Reboot$PlayerSpawnedSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_Reboot$PlayerSpawnedSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_Reboot.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_Reboot.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_ShotsFired.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_ShotsFired.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_SwitchWeapon$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_SwitchWeapon$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_SwitchWeapon$PlayerSwitchedWeaponSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_SwitchWeapon$PlayerSwitchedWeaponSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_SwitchWeapon.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_SwitchWeapon.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_TurnAmount.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_TurnAmount.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialEffect.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialEffect.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialEvent_Immortality.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialEvent_Immortality.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialEvent_LockStrafing.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/tutorial/TutorialEvent_LockStrafing.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/TutorialScreen$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/TutorialScreen$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/TutorialScreen$PlayerSpawnedSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/TutorialScreen$PlayerSpawnedSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/TutorialScreen.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/TutorialScreen.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/UIElementType.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/UIElementType.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/UIManager$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/UIManager$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/UIManager$ButtonPressedSubscriber.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/UIManager$ButtonPressedSubscriber.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/UIManager.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/UIManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/UIProgressBar$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/UIProgressBar$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/UIProgressBar$Alignment.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/UIProgressBar$Alignment.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/UIProgressBar.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/UIProgressBar.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/UIRenderManager$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/UIRenderManager$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/UIRenderManager.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/renderer/UIRenderManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/UIScreen.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/UIScreen.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/UIScreens.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ui/UIScreens.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/utils/Vector3.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/utils/Vector3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ai/VehicleInfo$AfterBurnerStates.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ai/VehicleInfo$AfterBurnerStates.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ai/VehicleInfo$MovementStates.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ai/VehicleInfo$MovementStates.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ai/VehicleInfo$WeaponStates.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/ai/VehicleInfo$WeaponStates.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/VehicleManager$1.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/VehicleManager$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/VehicleManager.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/managers/VehicleManager.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/Weapon.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/Weapon.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/WeaponSlot.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/WeaponSlot.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/Weapon_None.class" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/classes/debug/com/raggamuffin/protorunnerv2/weapons/Weapon_None.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/dex/debug/classes.dex" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/dex/debug/classes.dex" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/exploded-aar/ProtoRunnerV2/BaseGameUtils/unspecified/jars/classes.jar" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/exploded-aar/ProtoRunnerV2/BaseGameUtils/unspecified/jars/classes.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileHashes.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/resources/resources-debug.ap_" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/resources/resources-debug.ap_" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIController.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/managers/ColourManager.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/managers/ColourManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Engine.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Engine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/FireControlBehaviour.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/FireControlBehaviour.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/FireControl_BothBarrels.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/FireControl_BothBarrels.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/FireControl_TwinLasers.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/FireControl_TwinLasers.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/managers/GameManager_Play.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/managers/GameManager_Play.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gamelogic/IncommingMissileAlarm.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gamelogic/IncommingMissileAlarm.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/LaserPointer.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/LaserPointer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/NavigationControl.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/NavigationControl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Projectile.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Projectile.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Projectile_Laser.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Projectile_Laser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Projectile_Missile.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Projectile_Missile.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/ProtoRunnerV2-ProtoRunnerV2.iml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/ProtoRunnerV2-ProtoRunnerV2.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gamelogic/SecondWindHandler.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gamelogic/SecondWindHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/renderer/Shaders.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/renderer/Shaders.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_Boost.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_Boost.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_Destroy.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_Destroy.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_Dodge.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_Dodge.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_Movement.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_Movement.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_ShotsFired.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_ShotsFired.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_SwitchWeapon.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_SwitchWeapon.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_TurnAmount.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/tutorial/TutorialCondition_TurnAmount.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/tutorial/TutorialEvent_Immortality.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/tutorial/TutorialEvent_Immortality.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/tutorial/TutorialEvent_WeaponLock.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/tutorial/TutorialEvent_WeaponLock.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ui/TutorialScreen.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ui/TutorialScreen.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Vehicle.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Vehicle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/managers/VehicleManager.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/managers/VehicleManager.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/VehicleType.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/VehicleType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Weapon.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Weapon.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Weapon_BurstLaser.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Weapon_BurstLaser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Weapon_DeployFlares.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Weapon_DeployFlares.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Weapon_LaserBurner.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Weapon_LaserBurner.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Weapon_LaserVampire.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Weapon_LaserVampire.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Weapon_MissileLauncher.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Weapon_MissileLauncher.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Weapon_None.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Weapon_None.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Weapon_PulseLaser.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Weapon_PulseLaser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Weapon_PulseLaserWingman.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Weapon_PulseLaserWingman.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Weapon_PunkShot.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Weapon_PunkShot.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Weapon_RailGun.java" afterPath="$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/Weapon_RailGun.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_action_bar_title_item.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_action_bar_title_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_action_bar_up_container.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_action_bar_up_container.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_action_bar_view_list_nav_layout.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_action_bar_view_list_nav_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_action_menu_item_layout.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_action_menu_item_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_action_menu_layout.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_action_menu_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_action_mode_bar.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_action_mode_bar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_action_mode_close_item_material.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_action_mode_close_item_material.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_activity_chooser_view.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_activity_chooser_view.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_activity_chooser_view_list_item.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_activity_chooser_view_list_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/color/abc_background_cache_hint_selector_material_dark.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/color/abc_background_cache_hint_selector_material_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/color/abc_background_cache_hint_selector_material_light.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/color/abc_background_cache_hint_selector_material_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_btn_check_material.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_btn_check_material.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_btn_default_mtrl_shape.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_btn_default_mtrl_shape.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_btn_radio_material.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_btn_radio_material.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_cab_background_internal_bg.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_cab_background_internal_bg.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_cab_background_top_material.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_cab_background_top_material.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_edit_text_material.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_edit_text_material.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_expanded_menu_layout.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_expanded_menu_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/anim/abc_fade_in.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/anim/abc_fade_in.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/anim/abc_fade_out.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/anim/abc_fade_out.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/anim/abc_grow_fade_in_from_bottom.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/anim/abc_grow_fade_in_from_bottom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_item_background_holo_dark.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_item_background_holo_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_item_background_holo_light.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_item_background_holo_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_list_menu_item_checkbox.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_list_menu_item_checkbox.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_list_menu_item_icon.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_list_menu_item_icon.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_list_menu_item_layout.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_list_menu_item_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_list_menu_item_radio.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_list_menu_item_radio.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_list_selector_background_transition_holo_dark.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_list_selector_background_transition_holo_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_list_selector_background_transition_holo_light.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_list_selector_background_transition_holo_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_list_selector_holo_dark.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_list_selector_holo_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_list_selector_holo_light.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_list_selector_holo_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_popup_menu_item_layout.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_popup_menu_item_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/color/abc_primary_text_disable_only_material_dark.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/color/abc_primary_text_disable_only_material_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/color/abc_primary_text_disable_only_material_light.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/color/abc_primary_text_disable_only_material_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/color/abc_primary_text_material_dark.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/color/abc_primary_text_material_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/color/abc_primary_text_material_light.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/color/abc_primary_text_material_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_ratingbar_full_material.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_ratingbar_full_material.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_screen_content_include.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_screen_content_include.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout-v11/abc_screen_content_include.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout-v11/abc_screen_content_include.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_screen_simple.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_screen_simple.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_screen_simple_overlay_action_mode.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_screen_simple_overlay_action_mode.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_screen_toolbar.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_screen_toolbar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_search_dropdown_item_icons_2line.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_search_dropdown_item_icons_2line.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/color/abc_search_url_text.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/color/abc_search_url_text.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_search_view.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_search_view.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/color/abc_secondary_text_material_dark.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/color/abc_secondary_text_material_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/color/abc_secondary_text_material_light.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/color/abc_secondary_text_material_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/anim/abc_shrink_fade_out_from_bottom.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/anim/abc_shrink_fade_out_from_bottom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_simple_dropdown_hint.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/abc_simple_dropdown_hint.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/anim/abc_slide_in_bottom.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/anim/abc_slide_in_bottom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/anim/abc_slide_in_top.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/anim/abc_slide_in_top.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/anim/abc_slide_out_bottom.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/anim/abc_slide_out_bottom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/anim/abc_slide_out_top.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/anim/abc_slide_out_top.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_spinner_textfield_background_material.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_spinner_textfield_background_material.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_switch_thumb_material.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_switch_thumb_material.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_tab_indicator_material.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_tab_indicator_material.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_textfield_search_material.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/abc_textfield_search_material.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_20_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_20_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/cast_ic_notification_connecting.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/cast_ic_notification_connecting.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/common_signin_btn_icon_dark.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/common_signin_btn_icon_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/common_signin_btn_icon_light.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/common_signin_btn_icon_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/color/common_signin_btn_text_dark.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/color/common_signin_btn_text_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/common_signin_btn_text_dark.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/common_signin_btn_text_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/color/common_signin_btn_text_light.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/color/common_signin_btn_text_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/common_signin_btn_text_light.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/common_signin_btn_text_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/menu/main_menu.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/menu/main_menu.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/outputs/logs/manifest-merger-debug-report.txt" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/outputs/logs/manifest-merger-debug-report.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/mediarouter_v7_22_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/mediarouter_v7_22_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/incremental/mergeAssets/debug/merger.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/incremental/mergeAssets/debug/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/incremental/mergeResources/debug/merger.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/incremental/mergeResources/debug/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/mr_ic_media_route_connecting_mono_dark.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/mr_ic_media_route_connecting_mono_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/mr_ic_media_route_connecting_mono_light.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/mr_ic_media_route_connecting_mono_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/mr_ic_media_route_mono_dark.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/mr_ic_media_route_mono_dark.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/mr_ic_media_route_mono_light.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/mr_ic_media_route_mono_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/mr_ic_pause_dark.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/mr_ic_pause_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/mr_ic_pause_light.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/mr_ic_pause_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/mr_ic_play_dark.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/mr_ic_play_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/mr_ic_play_light.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/mr_ic_play_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/mr_ic_settings_dark.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/mr_ic_settings_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/mr_ic_settings_light.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/drawable/mr_ic_settings_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/mr_media_route_chooser_dialog.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/mr_media_route_chooser_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/mr_media_route_controller_material_dialog_b.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/mr_media_route_controller_material_dialog_b.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/mr_media_route_list_item.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/mr_media_route_list_item.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout-v17/mr_media_route_list_item.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout-v17/mr_media_route_list_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/play_services_6_5_87.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_6_5_87.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/play_services_ads_7_5_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_ads_7_5_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/play_services_analytics_7_5_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_analytics_7_5_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/play_services_appstate_7_5_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_appstate_7_5_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/play_services_cast_7_5_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_cast_7_5_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/play_services_fitness_7_5_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_fitness_7_5_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/play_services_games_7_5_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_games_7_5_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/play_services_gcm_7_5_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_gcm_7_5_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/play_services_maps_7_5_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_maps_7_5_0.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/play_services_nearby_7_5_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_nearby_7_5_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/play_services_plus_7_5_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_plus_7_5_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/play_services_wallet_7_5_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_wallet_7_5_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_annotations_21_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_annotations_21_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_annotations_22_2_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_annotations_22_2_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/support_simple_spinner_dropdown_item.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/layout/support_simple_spinner_dropdown_item.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_21_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_21_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_22_2_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_22_2_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-af/values-af.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-af/values-af.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-am/values-am.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-am/values-am.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-ar/values-ar.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-ar/values-ar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-bg/values-bg.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-bg/values-bg.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-bn-rBD/values-bn-rBD.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-bn-rBD/values-bn-rBD.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-ca/values-ca.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-ca/values-ca.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-cs/values-cs.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-cs/values-cs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-da/values-da.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-da/values-da.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-de/values-de.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-de/values-de.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-el/values-el.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-el/values-el.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-en-rAU/values-en-rAU.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-en-rAU/values-en-rAU.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-en-rGB/values-en-rGB.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-en-rGB/values-en-rGB.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-en-rIN/values-en-rIN.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-en-rIN/values-en-rIN.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-es-rUS/values-es-rUS.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-es-rUS/values-es-rUS.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-es/values-es.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-es/values-es.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-et-rEE/values-et-rEE.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-et-rEE/values-et-rEE.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-eu-rES/values-eu-rES.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-eu-rES/values-eu-rES.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-fa/values-fa.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-fa/values-fa.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-fi/values-fi.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-fi/values-fi.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-fr-rCA/values-fr-rCA.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-fr-rCA/values-fr-rCA.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-fr/values-fr.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-fr/values-fr.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-gl-rES/values-gl-rES.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-gl-rES/values-gl-rES.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-hdpi-v4/values-hdpi-v4.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-hdpi-v4/values-hdpi-v4.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-hi/values-hi.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-hi/values-hi.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-hr/values-hr.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-hr/values-hr.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-hu/values-hu.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-hu/values-hu.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-hy-rAM/values-hy-rAM.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-hy-rAM/values-hy-rAM.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-in/values-in.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-in/values-in.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-is-rIS/values-is-rIS.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-is-rIS/values-is-rIS.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-it/values-it.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-it/values-it.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-iw/values-iw.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-iw/values-iw.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-ja/values-ja.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-ja/values-ja.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-ka-rGE/values-ka-rGE.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-ka-rGE/values-ka-rGE.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-kk-rKZ/values-kk-rKZ.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-kk-rKZ/values-kk-rKZ.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-km-rKH/values-km-rKH.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-km-rKH/values-km-rKH.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-kn-rIN/values-kn-rIN.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-kn-rIN/values-kn-rIN.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-ko/values-ko.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-ko/values-ko.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-ky-rKG/values-ky-rKG.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-ky-rKG/values-ky-rKG.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-land/values-land.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-land/values-land.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-large-v4/values-large-v4.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-large-v4/values-large-v4.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-lo-rLA/values-lo-rLA.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-lo-rLA/values-lo-rLA.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-lt/values-lt.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-lt/values-lt.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-lv/values-lv.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-lv/values-lv.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-mk-rMK/values-mk-rMK.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-mk-rMK/values-mk-rMK.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-ml-rIN/values-ml-rIN.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-ml-rIN/values-ml-rIN.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-mn-rMN/values-mn-rMN.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-mn-rMN/values-mn-rMN.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-mr-rIN/values-mr-rIN.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-mr-rIN/values-mr-rIN.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-ms-rMY/values-ms-rMY.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-ms-rMY/values-ms-rMY.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-my-rMM/values-my-rMM.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-my-rMM/values-my-rMM.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-nb/values-nb.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-nb/values-nb.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-ne-rNP/values-ne-rNP.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-ne-rNP/values-ne-rNP.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-nl/values-nl.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-nl/values-nl.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-pl/values-pl.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-pl/values-pl.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-port/values-port.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-port/values-port.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-pt-rBR/values-pt-rBR.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-pt-rBR/values-pt-rBR.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-pt-rPT/values-pt-rPT.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-pt-rPT/values-pt-rPT.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-pt/values-pt.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-pt/values-pt.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-ro/values-ro.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-ro/values-ro.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-ru/values-ru.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-ru/values-ru.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-si-rLK/values-si-rLK.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-si-rLK/values-si-rLK.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-sk/values-sk.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-sk/values-sk.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-sl/values-sl.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-sl/values-sl.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-sr/values-sr.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-sr/values-sr.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-sv/values-sv.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-sv/values-sv.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-sw/values-sw.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-sw/values-sw.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-sw600dp-v13/values-sw600dp-v13.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-sw600dp-v13/values-sw600dp-v13.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-sw720dp-land/values-sw720dp-land.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-sw720dp-land/values-sw720dp-land.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-ta-rIN/values-ta-rIN.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-ta-rIN/values-ta-rIN.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-te-rIN/values-te-rIN.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-te-rIN/values-te-rIN.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-th/values-th.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-th/values-th.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-tl/values-tl.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-tl/values-tl.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-tr/values-tr.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-tr/values-tr.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-uk/values-uk.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-uk/values-uk.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-ur-rPK/values-ur-rPK.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-ur-rPK/values-ur-rPK.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-uz-rUZ/values-uz-rUZ.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-uz-rUZ/values-uz-rUZ.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-v11/values-v11.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-v11/values-v11.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-v14/values-v14.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-v14/values-v14.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-v17/values-v17.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-v17/values-v17.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-v21/values-v21.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-v21/values-v21.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-vi/values-vi.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-vi/values-vi.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-w360dp-v13/values-w360dp-v13.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-w360dp-v13/values-w360dp-v13.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-w480dp-v13/values-w480dp-v13.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-w480dp-v13/values-w480dp-v13.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-w500dp-v13/values-w500dp-v13.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-w500dp-v13/values-w500dp-v13.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-w600dp-v13/values-w600dp-v13.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-w600dp-v13/values-w600dp-v13.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-w720dp-v13/values-w720dp-v13.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-w720dp-v13/values-w720dp-v13.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-xlarge-land-v4/values-xlarge-land-v4.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-xlarge-land-v4/values-xlarge-land-v4.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-xlarge-v4/values-xlarge-v4.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-xlarge-v4/values-xlarge-v4.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-zh-rCN/values-zh-rCN.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-zh-rCN/values-zh-rCN.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-zh-rHK/values-zh-rHK.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-zh-rHK/values-zh-rHK.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-zh-rTW/values-zh-rTW.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-zh-rTW/values-zh-rTW.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-zu/values-zu.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values-zu/values-zu.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/exploded-aar/ProtoRunnerV2/BaseGameUtils/unspecified/res/values/values.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/exploded-aar/ProtoRunnerV2/BaseGameUtils/unspecified/res/values/values.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values/values.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/values/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/color/wallet_primary_text_holo_light.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/color/wallet_primary_text_holo_light.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/color/wallet_secondary_text_holo_dark.xml" afterPath="$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/res/debug/color/wallet_secondary_text_holo_dark.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -664,10 +250,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Engine.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Engine.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Engine.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.69394433">
+            <state vertical-scroll-proportion="0.0">
               <caret line="143" column="44" selection-start-line="143" selection-start-column="44" selection-end-line="143" selection-end-column="44" />
               <folding>
                 <element signature="e#5565#5566#0" expanded="true" />
@@ -697,11 +283,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AIBehaviour_Encircle.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/ai/AIBehaviour_Encircle.java">
+      <file leaf-file-name="GLModel_LaserBeam.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/renderer/GLModel_LaserBeam.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.030630631">
+              <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -3251,10 +2837,9 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="x" value="-7" />
+    <option name="width" value="974" />
+    <option name="height" value="1047" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -3384,6 +2969,36 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="values" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProtoRunnerV2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProtoRunnerV2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProtoRunnerV2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="java" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -3423,6 +3038,40 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="protorunnerv2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProtoRunnerV2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProtoRunnerV2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProtoRunnerV2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="protorunnerv2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="renderer" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -4028,18 +3677,18 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <frame x="-7" y="0" width="974" height="1047" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32814237" sideWeight="0.4824094" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34149054" sideWeight="0.35501066" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.34494382" sideWeight="0.3512035" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27665246" sideWeight="0.50487804" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28921023" sideWeight="0.31556502" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.34494382" sideWeight="0.6487965" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28921023" sideWeight="0.68443495" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28921023" sideWeight="0.68443495" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32814237" sideWeight="0.4978678" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32925472" sideWeight="0.6337953" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32925472" sideWeight="0.4914712" order="8" side_tool="false" content_ui="tabs" />
@@ -4047,7 +3696,7 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25053304" sideWeight="0.49514562" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5142232" sideWeight="0.49514562" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32814237" sideWeight="0.4978678" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.0029036005" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -4109,7 +3758,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <MESSAGE value="improvements to trail rendering" />
     <MESSAGE value="improvements to trail rendering.&#10;Altered some of the colour behaviours.&#10;" />
     <MESSAGE value="Working on new weapon. Super cool laser beam.&#10;Instanced particles." />
     <MESSAGE value="Fixed small issue with laser beams" />
@@ -4134,7 +3782,8 @@
     <MESSAGE value="Missiles now lock on to flares. &#10;Once locked on they are stuck forever." />
     <MESSAGE value="Upgraded the post game stats screen and added a new leaderboard for longest session." />
     <MESSAGE value="Made small changes to the score keeping.&#10;Added two new models." />
-    <option name="LAST_COMMIT_MESSAGE" value="Made small changes to the score keeping.&#10;Added two new models." />
+    <MESSAGE value="Fixed issues with UI text rendering.&#10;UI Improvements.&#10;Removed unnecessary code.&#10;Lots of clean up.&#10;Added new weapons and enemies.&#10;Added new leaderboard highest time played.&#10;Game flow improvements.&#10;UX Improvements." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed issues with UI text rendering.&#10;UI Improvements.&#10;Removed unnecessary code.&#10;Lots of clean up.&#10;Added new weapons and enemies.&#10;Added new leaderboard highest time played.&#10;Game flow improvements.&#10;UX Improvements." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -4245,6 +3894,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -4252,6 +3902,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -4273,6 +3924,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="387" column="25" selection-start-line="387" selection-start-column="25" selection-end-line="387" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -4288,6 +3940,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="23" column="4" selection-start-line="23" selection-start-column="4" selection-end-line="24" selection-end-column="28" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -4295,6 +3948,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="23" column="25" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -4309,17 +3963,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/renderer/GLModel_LaserBeam.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/weapons/WeaponBarrel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <folding>
+            <element signature="e#388#389#0" expanded="true" />
+            <element signature="e#421#422#0" expanded="true" />
+            <element signature="e#460#461#0" expanded="true" />
+            <element signature="e#493#494#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -4327,6 +3980,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="1" column="57" selection-start-line="1" selection-start-column="57" selection-end-line="1" selection-end-column="57" />
+          <folding>
+            <element signature="e#0#2074#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -4342,6 +3998,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="11" column="24" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -4349,6 +4006,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="18" column="22" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -4356,6 +4014,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -4363,6 +4022,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="33" column="9" selection-start-line="33" selection-start-column="9" selection-end-line="33" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -4370,6 +4030,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="15" column="22" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -4377,6 +4040,18 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.5555553">
           <caret line="129" column="45" selection-start-line="129" selection-start-column="24" selection-end-line="129" selection-end-column="45" />
+          <folding>
+            <element signature="e#2127#2128#0" expanded="true" />
+            <element signature="e#2160#2161#0" expanded="true" />
+            <element signature="e#2994#2995#0" expanded="true" />
+            <element signature="e#3051#3052#0" expanded="true" />
+            <element signature="e#3240#3241#0" expanded="true" />
+            <element signature="e#3268#3269#0" expanded="true" />
+            <element signature="e#3803#3804#0" expanded="true" />
+            <element signature="e#3834#3835#0" expanded="true" />
+            <element signature="e#4794#4795#0" expanded="true" />
+            <element signature="e#4823#4824#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -4392,6 +4067,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="9" column="14" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -4399,6 +4075,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="29" column="86" selection-start-line="29" selection-start-column="86" selection-end-line="29" selection-end-column="86" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -4548,7 +4225,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/gameobjects/Engine.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.69394433">
+        <state vertical-scroll-proportion="0.0">
           <caret line="143" column="44" selection-start-line="143" selection-start-column="44" selection-end-line="143" selection-end-column="44" />
           <folding>
             <element signature="e#5565#5566#0" expanded="true" />
@@ -4574,6 +4251,14 @@
             <element signature="e#6687#6688#0" expanded="true" />
             <element signature="e#6724#6725#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProtoRunnerV2/src/main/java/com/raggamuffin/protorunnerv2/renderer/GLModel_LaserBeam.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.030630631">
+          <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

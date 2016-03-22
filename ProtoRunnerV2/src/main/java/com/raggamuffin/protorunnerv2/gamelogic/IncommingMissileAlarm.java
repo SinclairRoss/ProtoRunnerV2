@@ -26,9 +26,9 @@ public class IncommingMissileAlarm
 
     public void Update()
     {
-        double distanceToClosestMissile = CalculateDistanceToClosestMissile();
+        //double distanceToClosestMissile = CalculateDistanceToClosestMissile();
 
-        m_MessageHandler.DisplayMessage("Incomming Missile", MessageOrientation.Center, 1.0, 1, 5, 0);
+  //      m_MessageHandler.DisplayMessage("Incomming Missile", MessageOrientation.Center, 1.0, 1, 5, 0);
     }
 
     private double CalculateDistanceToClosestMissile()
