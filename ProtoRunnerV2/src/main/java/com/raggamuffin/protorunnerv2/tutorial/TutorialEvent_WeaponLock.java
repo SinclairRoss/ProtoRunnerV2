@@ -1,7 +1,7 @@
 package com.raggamuffin.protorunnerv2.tutorial;
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.gameobjects.Runner;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Runner;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.weapons.WeaponSlot;
@@ -53,7 +53,7 @@ public class TutorialEvent_WeaponLock extends TutorialEvent
             if(!m_On)
                 return;
 
-            Runner player = m_Game.GetVehicleManager().GetPlayer();
+            Vehicle_Runner player = m_Game.GetVehicleManager().GetPlayer();
 
             if(player == null)
                 return;

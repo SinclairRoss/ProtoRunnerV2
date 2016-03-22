@@ -4,5 +4,6 @@ public enum FireControlBehaviour
 {
     None,
     Standard,
-    BeamSweep
+    BeamSweep,
+    LaserSpinner
 }

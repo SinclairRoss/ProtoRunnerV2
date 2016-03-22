@@ -13,7 +13,7 @@ public class Weapon_LaserVampire extends Weapon
 
         m_FireMode = new FireControl_None();
 
-        AddMuzzle(0,0,0);
+        AddBarrel(0, 0, 0);
 
         m_ProjectileType = ProjectileType.LaserVampire;
     }
@@ -24,6 +24,5 @@ public class Weapon_LaserVampire extends Weapon
         super.OpenFire();
 
         m_BulletManager.CreateProjectile(this);
-        m_PostFireAction.Update();
     }
 }

@@ -3,7 +3,6 @@ package com.raggamuffin.protorunnerv2.weapons;
 import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
-import com.raggamuffin.protorunnerv2.renderer.ModelType;
 
 public class Weapon_PunkShot extends Weapon
 {
@@ -22,7 +21,7 @@ public class Weapon_PunkShot extends Weapon
 
 		m_AudioClip = AudioClips.PulseLaser;
 
-		AddMuzzle( 1, 0, 0);
-		AddMuzzle(-1, 0, 0);
+		AddBarrel(1, 0, 0);
+		AddBarrel(-1, 0, 0);
 	}
 }

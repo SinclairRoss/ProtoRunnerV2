@@ -1,7 +1,7 @@
 package com.raggamuffin.protorunnerv2.tutorial;
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.gameobjects.Runner;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Runner;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.weapons.WeaponSlot;
 
@@ -23,7 +23,7 @@ public class TutorialCondition_ShotsFired extends TutorialCondition
     @Override
     public void Update(double deltaTime)
     {
-        Runner player = m_Game.GetVehicleManager().GetPlayer();
+        Vehicle_Runner player = m_Game.GetVehicleManager().GetPlayer();
 
         if(player == null)
             return;

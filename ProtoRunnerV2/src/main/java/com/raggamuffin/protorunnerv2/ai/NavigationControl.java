@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
-import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class NavigationControl 
@@ -16,6 +15,8 @@ public class NavigationControl
 
 	private Vector3 m_AnchorPosition;
 	private Vector3 m_AnchorForward;
+
+	private Boolean m_NavigationActive;
 
 	///// Steering Attributes.
 	private Vector3 m_SteeringVector;
@@ -38,6 +39,8 @@ public class NavigationControl
 		m_AnchorPosition 		= m_Anchor.GetPosition();
 		m_AnchorForward 		= m_Anchor.GetForward();
 
+        m_NavigationActive = true;
+
 		m_SteeringVector = new Vector3();
 		m_ToGoal 		 = new Vector3();
         m_Goal           = new Vector3();
@@ -53,15 +56,16 @@ public class NavigationControl
 	
 	public void Update()
 	{
-		CalculateToGoal();
-		CalculateSeparation();
-		CalculateAlignment();
-		CalculateCohesion(); 
-		CalculateSteeringVector();
+        if(m_NavigationActive)
+        {
+            CalculateToGoal();
+            CalculateSeparation();
+            CalculateAlignment();
+            CalculateCohesion();
+            CalculateSteeringVector();
 
-
-
-		m_Anchor.SetTurnRate(CalculateTurnRate());
+            m_Anchor.SetTurnRate(CalculateTurnRate());
+        }
 	}
 
 	private void CalculateToGoal()
@@ -155,7 +159,9 @@ public class NavigationControl
 		
 		// Calculate Turn Direction
 		if(Vector3.Determinant(m_AnchorForward,  m_SteeringVector) > 0.0)
+        {
             normalisedTurnRate *= -1;
+        }
 
 		return normalisedTurnRate;
 	}
@@ -163,5 +169,15 @@ public class NavigationControl
     public void SetGoal(Vector3 goal)
     {
         m_Goal.SetVector(goal);
+    }
+
+    public void Activate()
+    {
+        m_NavigationActive = true;
+    }
+
+    public void Deactivate()
+    {
+        m_NavigationActive = false;
     }
 }

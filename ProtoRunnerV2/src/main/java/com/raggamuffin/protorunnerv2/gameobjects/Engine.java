@@ -7,10 +7,10 @@ import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public abstract class Engine
 {
-    private double ENGINE_OUTPUT_EXERTION_MULTIPLIER 	= 0.0;
-    private double AFTERBURNER_EXERTION_MULTIPLIER 		= 2.0;
-    private double DODGE_EXERTION_MULTIPLIER	  		= 10.0;
-    private double EXERTION_DECAY_MULTIPLIER 			= 0.7;
+    private final double ENGINE_OUTPUT_EXERTION_MULTIPLIER 	= 0.0;
+    private final double AFTERBURNER_EXERTION_MULTIPLIER 		= 2.0;
+    private final double DODGE_EXERTION_MULTIPLIER	  		= 10.0;
+    private final double EXERTION_DECAY_MULTIPLIER 			= 0.7;
 
     private final double DODGE_DECAY_MULTIPLIER 		= 5.0;
 
@@ -37,9 +37,10 @@ public abstract class Engine
     protected double m_TurnRate;		// How forcefully the object is turning.
     protected double m_MaxTurnRate;		// The maximum rate at which an object can turn.
     protected double m_MaxRoll;
-    private double m_RollSpeed;
 
     private double m_Exertion;			// How hard the engine is pushing itself.
+
+    private boolean m_RollEnabled;
 
     protected ParticleEmitter_HyperLight m_HyperLight;
 
@@ -67,11 +68,12 @@ public abstract class Engine
         m_TurnRate = 0.0f;
         m_MaxTurnRate = 1.0f;
         m_MaxRoll = Math.toRadians(25);
-        m_RollSpeed = 1.0;
 
         m_Exertion = 0.0;
 
         m_HyperLight = new ParticleEmitter_HyperLight(game, m_Anchor.GetBaseColour(), m_Anchor.GetAltColour(), 4000, 3.0);
+
+        m_RollEnabled = true;
     }
 
     public void Update(double deltaTime)
@@ -131,7 +133,17 @@ public abstract class Engine
         double yaw = m_Anchor.GetYaw() + (m_TurnRate * m_MaxTurnRate * deltaTime);
         m_Anchor.SetYaw(yaw);
 
-        double deltaRoll =  -(m_TargetTurnRate * m_MaxRoll) - m_Anchor.GetRoll();
+        double deltaRoll;
+
+        if(m_RollEnabled)
+        {
+            deltaRoll =  -(m_TargetTurnRate * m_MaxRoll) - m_Anchor.GetRoll();
+        }
+        else
+        {
+            deltaRoll = -m_Anchor.GetRoll();
+        }
+
         double rollMultiplier = MathsHelper.SignedNormalise(deltaRoll, -0.1, 0.1);
         m_Anchor.SetRoll(MathsHelper.Clamp(m_Anchor.GetRoll() + (rollMultiplier * deltaTime), -m_MaxRoll, m_MaxRoll));
     }
@@ -219,5 +231,15 @@ public abstract class Engine
     public Vector3 GetPosition()
     {
         return m_Anchor.GetPosition();
+    }
+
+    public void EnableRoll()
+    {
+        m_RollEnabled = true;
+    }
+
+    public void DisableRoll()
+    {
+        m_RollEnabled = false;
     }
 }

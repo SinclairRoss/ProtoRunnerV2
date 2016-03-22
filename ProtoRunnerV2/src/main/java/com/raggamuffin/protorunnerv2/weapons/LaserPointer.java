@@ -1,3 +1,6 @@
+// BROKEN.
+// NO LONGER USED BUT KEPT AS MAY BECOME USEFUL LATER ON.
+
 package com.raggamuffin.protorunnerv2.weapons;
 
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
@@ -81,7 +84,7 @@ public class LaserPointer extends GameObject
 				break;
 		}
 		
-		m_Position.SetVector(m_Anchor.GetMuzzlePosition(m_Muzzle));
+	//	m_Position.SetVector(m_Anchor.GetFirePosition(m_Muzzle));
 		m_Yaw = m_Anchor.GetOrientation();
 	}
 

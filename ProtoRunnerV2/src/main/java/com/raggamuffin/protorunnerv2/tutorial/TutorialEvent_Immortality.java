@@ -1,7 +1,7 @@
 package com.raggamuffin.protorunnerv2.tutorial;
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.gameobjects.Runner;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Runner;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 
 public class TutorialEvent_Immortality extends TutorialEvent
@@ -32,7 +32,7 @@ public class TutorialEvent_Immortality extends TutorialEvent
     @Override
     public void Update()
     {
-        Runner player = m_VehicleManager.GetPlayer();
+        Vehicle_Runner player = m_VehicleManager.GetPlayer();
 
         if (player == null)
             return;

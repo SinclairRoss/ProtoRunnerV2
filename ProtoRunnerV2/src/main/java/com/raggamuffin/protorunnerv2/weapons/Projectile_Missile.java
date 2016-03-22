@@ -26,7 +26,7 @@ public class Projectile_Missile extends Projectile
     MissileState m_State;
 
     private GameLogic m_Game;
-    private Vector3 m_Offset;
+    private WeaponBarrel m_Offset;
     private Vector3 m_Target;
     private Vector3 m_ToTarget;
     private Timer m_LifeSpan;
@@ -49,7 +49,7 @@ public class Projectile_Missile extends Projectile
         m_Model = ModelType.Missile;
         m_State = MissileState.Docked;
 
-        m_Offset = new Vector3(m_Origin.GetMuzzleOffset());
+        m_Offset = m_Origin.GetActiveWeaponBarrel();
 
         LockProjectile();
 
@@ -139,12 +139,12 @@ public class Projectile_Missile extends Projectile
                 if (m_Position.J <= 0)
                 {
                     m_Position.J = 0;
-                    Detonate(false);
+                    Detonate();
                 }
 
                 if (m_LifeSpan.TimedOut())
                 {
-                    Detonate(true);
+                    Detonate();
                 }
 
                 break;
@@ -233,12 +233,12 @@ public class Projectile_Missile extends Projectile
     @Override
     public void CollisionResponse(GameObject other)
     {
-        Detonate(true);
+        Detonate();
     }
 
     private void LockProjectile()
     {
-        m_Position.SetVector(m_Offset);
+        m_Position.SetVector(m_Offset.GetPosition());
         m_Position.RotateY(m_Origin.GetOrientation());
         m_Position.Add(m_Origin.GetPosition());
 
@@ -250,16 +250,10 @@ public class Projectile_Missile extends Projectile
         m_Right.SetVector(m_Origin.GetAnchor().GetRight());
     }
 
-    private void Detonate(boolean open)
+    private void Detonate()
     {
-        ParticleEmitter_Burst detonationEmitter = new ParticleEmitter_Burst(m_Game, m_BaseColour, m_AltColour, 50);
+        ParticleEmitter_Burst detonationEmitter = new ParticleEmitter_Burst(m_Game, m_BaseColour, m_AltColour, 70);
         detonationEmitter.SetPosition(m_Position);
-
-        if(!open)
-        {
-            detonationEmitter.SetHalfOpenMode();
-        }
-
         detonationEmitter.Burst();
 
         ForceInvalidation();

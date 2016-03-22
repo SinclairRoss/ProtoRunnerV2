@@ -13,7 +13,7 @@ public class Weapon_LaserBurner extends Weapon
 
         m_FireMode = new FireControl_None();
 
-        AddMuzzle(0,0,0);
+        AddBarrel(0, 0, 0);
 
         m_ProjectileType = ProjectileType.Laser;
     }
@@ -24,6 +24,5 @@ public class Weapon_LaserBurner extends Weapon
         super.OpenFire();
 
         m_BulletManager.CreateProjectile(this);
-        m_PostFireAction.Update();
     }
 }

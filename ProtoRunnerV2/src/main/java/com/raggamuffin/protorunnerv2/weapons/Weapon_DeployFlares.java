@@ -17,7 +17,6 @@ public class Weapon_DeployFlares extends Weapon
         m_ProjectileType = ProjectileType.Flare;
 
         m_Damage = 40;
-        m_Drain = 15;
         m_MuzzleVelocity = 70.0;
         m_Accuracy = 1.0;
         m_LifeSpan = 5.0;
@@ -26,10 +25,10 @@ public class Weapon_DeployFlares extends Weapon
 
         m_FireMode = new FireControl_UtilityPulse(this, 5, 0.15, 4);
 
-        AddMuzzle( 2, 0, 0);
-        AddMuzzle(-2, 0, 0);
-        AddMuzzle( 6, 0, -2);
-        AddMuzzle(-6, 0, -2);
+        AddBarrel(2, 0, 0);
+        AddBarrel(-2, 0, 0);
+        AddBarrel(6, 0, -2);
+        AddBarrel(-6, 0, -2);
     }
 
     @Override

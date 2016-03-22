@@ -3,7 +3,7 @@ package com.raggamuffin.protorunnerv2.renderer;
 public class Shaders
 {
     public static final String fragmentShader_STANDARD =
-            "precision mediump float;"
+            "precision lowp float;"
         +   "uniform vec4 u_Color;"
 
         +   "void main()"
@@ -24,17 +24,11 @@ public class Shaders
         +   "   vec3 z = normalize(u_Forward);"
         +   "   vec3 x = normalize(cross(vec3(0,1,0),z));"
         +   "   vec3 y = cross(z,x);"
-    /*
+
         +   "   mat4 model;"
         +   "   model[0] = vec4(x.x, x.y, x.z, 0);"
         +   "   model[1] = vec4(y.x, y.y, y.z, 0);"
         +   "   model[2] = vec4(z.x, z.y, z.z, 0);"
-        +   "   model[3] = vec4(u_Position.x, u_Position.y, u_Position.z, 1);"
-*/
-        +   "   mat4 model;"
-        +   "   model[0] = vec4(1, 0, 0, 0);"
-        +   "   model[1] = vec4(0, 1, 0, 0);"
-        +   "   model[2] = vec4(0, 0, 1, 0);"
         +   "   model[3] = vec4(u_Position.x, u_Position.y, u_Position.z, 1);"
 
         +   "   mat4 scale;"
@@ -90,7 +84,7 @@ public class Shaders
         +   "}";
 
     public static final String fragmentShader_LINE =
-            "precision mediump float;"
+            "precision lowp float;"
 
         +   "uniform vec4 u_Color;"
         +	"uniform vec4 u_EndPointColor;"
@@ -117,7 +111,7 @@ public class Shaders
         +   "}";
 
     public static final String fragmentShader_TRAIL =
-            "precision mediump float;"
+            "precision lowp float;"
 
         +   "varying vec4 v_Color;"
 
@@ -158,7 +152,7 @@ public class Shaders
         +	"}";
 
     public static final String fragmentShader_TEXTURED =
-            "precision mediump float;"
+            "precision lowp float;"
 
         + 	"uniform sampler2D u_Texture;"
         +   "uniform vec2 u_TexOffset;"
@@ -193,18 +187,11 @@ public class Shaders
         +   "   vec3 x = u_Right;"
         +   "   vec3 y = u_Up;"
 
-           /*
         +   "   mat4 model;"
         +   "   model[0] = vec4(x.x, x.y, x.z, 0);"
         +   "   model[1] = vec4(y.x, y.y, y.z, 0);"
         +   "   model[2] = vec4(z.x, z.y, z.z, 0);"
         +   "   model[3] = vec4(u_Position.x, u_Position.y, u_Position.z, 1);"
-*/
-                    +   "   mat4 model;"
-                    +   "   model[0] = vec4(1, 0, 0, 0);"
-                    +   "   model[1] = vec4(0, 1, 0, 0);"
-                    +   "   model[2] = vec4(0, 0, 1, 0);"
-                    +   "   model[3] = vec4(u_Position.x, u_Position.y, u_Position.z, 1);"
 
         +   "   float cosTheta = cos(u_Roll);"
         +   "   float sinTheta = sin(u_Roll);"
@@ -225,7 +212,7 @@ public class Shaders
         +	"}";
 
     public static final String fragmentShader_BARYCENTRIC =
-            "precision mediump float;"
+            "precision lowp float;"
 
         +	"uniform vec4 u_Color;"
 
@@ -238,7 +225,7 @@ public class Shaders
         +	"}";
 
     public static final String fragmentShader_BARYCENTRIC_HOLLOW =
-            "precision mediump float;"
+            "precision lowp float;"
 
         +	"uniform vec4 u_Color;"
 
@@ -298,7 +285,7 @@ public class Shaders
         +   "}";
 
     public static final String fragmentShader_POINT =
-            "precision mediump float;"
+            "precision lowp float;"
 
         +   "varying vec4 v_Color;"
 
@@ -308,7 +295,7 @@ public class Shaders
         +   "}";
 
     public static final String fragmentShader_FADEPOINT =
-            "precision mediump float;"
+            "precision lowp float;"
         +   "varying vec4 v_Color;"
 
         +   "void main()"
@@ -346,7 +333,7 @@ public class Shaders
         +   "}";
 
     public static final String fragmentShader_SCROLLTEX =
-            "precision mediump float;		\n"
+            "precision lowp float;		\n"
         +   "uniform vec4 u_Color;			\n"
         + 	"uniform sampler2D u_Texture;	\n"
         +   "uniform vec2 u_TexOffset;		\n"
@@ -367,18 +354,18 @@ public class Shaders
 
     public static final String vertexShader_SCREENQUAD =
             "attribute vec4 a_Position;"
-        + "attribute vec2 a_TexCoord;"
+        +   "attribute vec2 a_TexCoord;"
 
-        + "varying vec2 v_TexCoord;"
+        +   "varying vec2 v_TexCoord;"
 
-        + "void main()"
-        + "{"
-        + "  	gl_Position = a_Position;"
-        + "		v_TexCoord = a_TexCoord;"
-        + "}";
+        +   "void main()"
+        +   "{"
+        +   "  	gl_Position = a_Position;"
+        +   "	v_TexCoord = a_TexCoord;"
+        +   "}";
 
     public static final String fragmentShader_ADD =
-          "precision mediump float;"
+          "precision lowp float;"
         + "uniform sampler2D u_TextureA;"
         + "uniform sampler2D u_TextureB;"
         + "varying vec2 v_TexCoord;"
@@ -390,7 +377,7 @@ public class Shaders
 
 
     public static final String fragmentShader_BLURV =
-            "precision mediump float;"
+            "precision lowp float;"
                     + "uniform sampler2D u_Texture;" // this should hold the texture rendered by the horizontal blur pass
                     + "uniform float u_GlowIntensity;"
                     + "varying vec2 v_TexCoord;"
@@ -418,7 +405,7 @@ public class Shaders
                     + "}";
 
     public static final String fragmentShader_BLURH =
-            "  precision mediump float;"
+            "  precision lowp float;"
                     + "  uniform sampler2D u_Texture;" // the texture with the scene you want to blur
                     + "	 uniform float u_GlowIntensity;"
                     + "  varying vec2 v_TexCoord;"
