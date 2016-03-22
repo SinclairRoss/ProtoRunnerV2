@@ -10,12 +10,10 @@ import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
-import com.raggamuffin.protorunnerv2.gameobjects.PostFireAction;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.BulletManager;
 import com.raggamuffin.protorunnerv2.managers.ParticleManager;
-import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public abstract class Weapon 
@@ -35,18 +33,14 @@ public abstract class Weapon
 	protected FireControl m_FireMode;
 
 	protected double m_Damage;
-    protected double m_Drain;
 	protected double m_MuzzleVelocity;
 	protected double m_Accuracy;
 	protected double m_LifeSpan;
 
-	protected ArrayList<Vector3> m_MuzzleOffsets;
-	private Vector3 m_MuzzleOffset;
+	protected ArrayList<WeaponBarrel> m_WeaponBarrels;
 	private int m_MuzzleIndex;
 
-	protected PostFireAction m_PostFireAction;
-	
-	protected boolean m_TriggerPulled;
+    protected boolean m_TriggerPulled;
     protected boolean m_IsFiring;
 
     protected EquipmentType m_EquipmentType;
@@ -68,16 +62,12 @@ public abstract class Weapon
 		m_FireMode = null;
 
 		m_Damage = 1.0;
-        m_Drain = 1.0;
 		m_MuzzleVelocity = 1.0;
 		m_Accuracy = 1.0;
 		m_LifeSpan = 1.0;
 
-		m_MuzzleOffsets = new ArrayList<>();
-		m_MuzzleOffset = new Vector3();
+		m_WeaponBarrels = new ArrayList<>();
 		m_MuzzleIndex = 0;
-
-		m_PostFireAction = m_Anchor.GetPostFireAction();
 		
 		m_TriggerPulled = false;
         m_IsFiring = false;
@@ -100,7 +90,7 @@ public abstract class Weapon
 		if(m_FireMode.ShouldFire())
 		{
 			Fire();
-			NextMuzzle();
+			NextBarrel();
 			
 			m_AudioService.PlaySound(m_Anchor.GetPosition(), m_AudioClip);
 		}
@@ -128,56 +118,53 @@ public abstract class Weapon
 
     }
 
-	public Vector3 GetFirePosition()
+	public void GetFirePosition(Vector3 out)
 	{
-		m_MuzzleOffset.SetVector(m_MuzzleOffsets.get(m_MuzzleIndex));
+		WeaponBarrel barrel = m_WeaponBarrels.get(m_MuzzleIndex);
+		out.SetVector(barrel.GetPosition());
 
-        m_MuzzleOffset.RotateY(m_Anchor.GetYaw());
-		m_MuzzleOffset.Add(m_Anchor.GetPosition());
-		
-		return m_MuzzleOffset;
+		out.RotateY(m_Anchor.GetYaw());
+		out.Add(m_Anchor.GetPosition());
 	}
 
-    public Vector3 GetMuzzleOffset()
+    public WeaponBarrel GetActiveWeaponBarrel()
     {
-        return m_MuzzleOffsets.get(m_MuzzleIndex);
+        return m_WeaponBarrels.get(m_MuzzleIndex);
     }
-
-	public Vector3 GetMuzzlePosition(Vector3 Muzzle)
-	{
-		m_MuzzleOffset.SetVector(Muzzle);
-		
-		m_MuzzleOffset.RotateY(m_Anchor.GetYaw());
-		m_MuzzleOffset.Add(m_Anchor.GetPosition());
-		
-		return m_MuzzleOffset;
-	}
 	
-	protected void NextMuzzle()
+	protected void NextBarrel()
 	{
 		m_MuzzleIndex ++;
 		
-		if(m_MuzzleIndex >= m_MuzzleOffsets.size())
+		if(m_MuzzleIndex >= m_WeaponBarrels.size())
 			m_MuzzleIndex = 0;
 	}
 	
-	protected void AddMuzzle(double i, double j, double k)
+	protected void AddBarrel(double x, double y, double z)
 	{
-		Vector3 Muzzle = new Vector3(i,j,k);
-		m_MuzzleOffsets.add(Muzzle);
+		AddBarrel(x, y, z, 0);
 	}
-	
+
+	protected void AddBarrel(double x, double y, double z, double rotation)
+	{
+		m_WeaponBarrels.add(new WeaponBarrel(x, y, z, rotation));
+	}
+
 	protected void Fire()
 	{
 		while(m_FireMode.ShouldFire())
 		{
 			m_BulletManager.CreateProjectile(this);
 			m_FireMode.NotifyOfFire();
-			m_PostFireAction.Update();
 
             m_IsFiring = true;
 		}
 	}
+
+    protected void CalculateProjectileHeading(Vector3 out)
+    {
+        out.SetVector(m_Anchor.GetForward());
+    }
 
 	public void ResetMuzzleIndex()
 	{
@@ -246,7 +233,7 @@ public abstract class Weapon
 	
 	public int GetNumMuzzles()
 	{
-		return m_MuzzleOffsets.size();
+		return m_WeaponBarrels.size();
 	}
 
 	public Vehicle GetAnchor()
@@ -258,11 +245,6 @@ public abstract class Weapon
 	{
 		return m_TriggerPulled;
 	}
-
-    public double GetDrain()
-    {
-        return m_Drain;
-    }
 
     public Boolean IsFiring()
     {

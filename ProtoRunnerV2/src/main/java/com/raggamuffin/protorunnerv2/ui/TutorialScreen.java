@@ -2,7 +2,7 @@ package com.raggamuffin.protorunnerv2.ui;
 
 import com.raggamuffin.protorunnerv2.R;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.gameobjects.Runner;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Runner;
 import com.raggamuffin.protorunnerv2.managers.ColourManager;
 import com.raggamuffin.protorunnerv2.managers.UIManager;
 import com.raggamuffin.protorunnerv2.master.ControlScheme;
@@ -14,7 +14,7 @@ import com.raggamuffin.protorunnerv2.utils.Colours;
 
 public class TutorialScreen extends UIScreen
 {
-    private Runner m_Player;
+    private Vehicle_Runner m_Player;
     private UIProgressBar m_HealthBar;
     private UIProgressBar m_ConditionProgress;
     private UIButton m_NextButton;
@@ -63,7 +63,7 @@ public class TutorialScreen extends UIScreen
         m_RightPanel.SetHidden(true);
 
         // Health bar
-        Runner player = m_Game.GetVehicleManager().GetPlayer();
+        Vehicle_Runner player = m_Game.GetVehicleManager().GetPlayer();
 
         String HealthString = m_Game.GetContext().getString(R.string.empty);
         m_HealthBar = new UIProgressBar(1.6, player.GetMaxHullPoints(), cManager.GetAccentingColour(), cManager.GetAccentTintColour(), new Colour(Colours.Clear), HealthString, UIProgressBar.Alignment.Center, m_Game.GetGameAudioManager(), m_UIManager);

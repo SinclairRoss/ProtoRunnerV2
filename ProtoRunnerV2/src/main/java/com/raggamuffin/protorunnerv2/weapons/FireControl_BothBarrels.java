@@ -42,7 +42,7 @@ public class FireControl_BothBarrels extends FireControl
     @Override
     public void NotifyOfFire()
     {
-        m_Anchor.NextMuzzle();
+        m_Anchor.NextBarrel();
         m_MuzzleIndex++;
 
         if(m_MuzzleIndex >= m_NumMuzzles)

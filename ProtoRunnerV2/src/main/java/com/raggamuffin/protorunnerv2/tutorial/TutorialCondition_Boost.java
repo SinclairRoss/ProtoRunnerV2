@@ -2,7 +2,7 @@ package com.raggamuffin.protorunnerv2.tutorial;
 
 import com.raggamuffin.protorunnerv2.ai.VehicleInfo;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.gameobjects.Runner;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Runner;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.utils.Timer;
 
@@ -22,7 +22,7 @@ public class TutorialCondition_Boost extends TutorialCondition
     @Override
     public void Update(double deltaTime)
     {
-        Runner player = m_VehicleManager.GetPlayer();
+        Vehicle_Runner player = m_VehicleManager.GetPlayer();
 
         if(player == null)
             return;

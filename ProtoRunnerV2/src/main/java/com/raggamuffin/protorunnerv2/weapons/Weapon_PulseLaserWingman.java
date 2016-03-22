@@ -14,7 +14,6 @@ public class Weapon_PulseLaserWingman extends Weapon
         super(anchor, game);
 
         m_Damage = 40;
-        m_Drain = 15;
         m_MuzzleVelocity = 70.0;
         m_Accuracy = 1.0;
         m_LifeSpan = 5.0;
@@ -23,7 +22,7 @@ public class Weapon_PulseLaserWingman extends Weapon
 
         m_FireMode = new FireControl_Pulse(0.6, 0.06, 4);
 
-        AddMuzzle( 1, 0, 0);
-        AddMuzzle(-1, 0, 0);
+        AddBarrel(1, 0, 0);
+        AddBarrel(-1, 0, 0);
     }
 }

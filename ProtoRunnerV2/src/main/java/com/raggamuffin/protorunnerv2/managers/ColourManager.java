@@ -1,7 +1,7 @@
 package com.raggamuffin.protorunnerv2.managers;
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.gameobjects.Runner;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Runner;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.utils.Colour;
@@ -105,7 +105,7 @@ public class ColourManager
 
     private void PrimaryColourChanged()
     {
-        Runner player = m_Game.GetVehicleManager().GetPlayer();
+        Vehicle_Runner player = m_Game.GetVehicleManager().GetPlayer();
 
         if(player == null)
             return;

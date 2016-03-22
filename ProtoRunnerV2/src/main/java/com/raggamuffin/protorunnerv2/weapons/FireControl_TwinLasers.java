@@ -88,7 +88,7 @@ public class FireControl_TwinLasers extends FireControl
     @Override
     public void NotifyOfFire()
     {
-        m_Anchor.NextMuzzle();
+        m_Anchor.NextBarrel();
 
         m_RoundCount++;
 

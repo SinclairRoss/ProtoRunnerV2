@@ -56,6 +56,8 @@ public class AIController
                 return new FireControl_Standard(this);
             case BeamSweep:
                 return new FireControl_BeamSweep(this);
+            case LaserSpinner:
+                return new FireControl_LaserSpinner(this);
             case None:
                 return new FireControl_None(this);
             default:

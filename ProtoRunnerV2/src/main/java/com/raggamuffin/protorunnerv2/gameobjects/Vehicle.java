@@ -36,7 +36,6 @@ public abstract class Vehicle extends GameObject
 	protected Weapon m_PrimaryWeapon;
 	protected Boolean m_LasersOn;
 	private VehicleInfo m_VehicleInfo;
-	protected PostFireAction m_PostFireAction;
 	private DecayCounter m_DamageDecayCounter;
 	
 	///// Colour Attributes
@@ -84,8 +83,6 @@ public abstract class Vehicle extends GameObject
 		m_LasersOn = false;
 		
 		m_BurstEmitter = new ParticleEmitter_Burst(game, m_BaseColour, m_AltColour, 40);
-		
-		m_PostFireAction = new PostFireAction_Null(this);
 
 		m_DamageDecayCounter = new DecayCounter(1.0, DAMAGE_DECAY_RATE);
 
@@ -180,14 +177,15 @@ public abstract class Vehicle extends GameObject
         return m_Engine.GetDodgeOutput() > 0.0;
     }
 
-	public void SetTurnRate(double TurnRate)
+	public void SetTurnRate(double turnRate)
 	{
-		m_Engine.SetTurnRate(TurnRate);
+		m_Engine.SetTurnRate(turnRate);
 	}
 	
-	public void SetEngineOutput(double Output)
+	public void SetEngineOutput(double output)
 	{
-		m_Engine.SetEngineOutput(Output);
+		output = MathsHelper.Clamp(output, 0, 1);
+		m_Engine.SetEngineOutput(output);
 	}
 	
 	public void StrafeLeft()
@@ -283,11 +281,6 @@ public abstract class Vehicle extends GameObject
 	{
 		return m_VehicleInfo;
 	}
-	
-	public PostFireAction GetPostFireAction()
-	{
-		return m_PostFireAction;
-	}
 
     public InternalPubSubHub GetInternalPubSubHub()
     {
@@ -298,4 +291,14 @@ public abstract class Vehicle extends GameObject
     {
         return m_CanBeTargeted;
     }
+
+	public void EnableRoll()
+	{
+		m_Engine.EnableRoll();
+	}
+
+	public void DisableRoll()
+	{
+		m_Engine.DisableRoll();
+	}
 }

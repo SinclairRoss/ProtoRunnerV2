@@ -5,16 +5,17 @@ import java.util.Iterator;
 
 import android.util.Log;
 
-import com.raggamuffin.protorunnerv2.gameobjects.Drone;
-import com.raggamuffin.protorunnerv2.gameobjects.Tank;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Drone;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_LaserStar;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Tank;
 import com.raggamuffin.protorunnerv2.gameobjects.TargetBot;
 import com.raggamuffin.protorunnerv2.gameobjects.VehicleType;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.gameobjects.Bit;
-import com.raggamuffin.protorunnerv2.gameobjects.Carrier;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Bit;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Carrier;
 import com.raggamuffin.protorunnerv2.gameobjects.Dummy;
-import com.raggamuffin.protorunnerv2.gameobjects.Runner;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Runner;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.gameobjects.WeaponTestBot;
 import com.raggamuffin.protorunnerv2.gameobjects.Wingman;
@@ -26,7 +27,7 @@ import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class VehicleManager
 {	
-	private Runner m_Player;
+	private Vehicle_Runner m_Player;
 	private ArrayList<Vehicle> m_Vehicles;
 	private ArrayList<Vehicle> m_BlueTeam;
 	private ArrayList<Vehicle> m_RedTeam;
@@ -87,7 +88,7 @@ public class VehicleManager
 		
 		Log.e("Player", "Player spawn.");
 		
-		m_Player = new Runner(m_Game);
+		m_Player = new Vehicle_Runner(m_Game);
 		m_Vehicles.add(m_Player);
 		m_BlueTeam.add(m_Player);
 		m_Game.AddObjectToRenderer(m_Player);
@@ -130,14 +131,17 @@ public class VehicleManager
                 spawn = new Wingman(m_Game);
                 break;
             case Bit:
-                spawn = new Bit(m_Game);
+                spawn = new Vehicle_Bit(m_Game);
                 break;
             case Tank:
-                spawn = new Tank(m_Game);
+                spawn = new Vehicle_Tank(m_Game);
                 break;
             case Carrier:
-                spawn = new Carrier(m_Game);
+                spawn = new Vehicle_Carrier(m_Game);
                 break;
+			case LaserStar:
+				spawn = new Vehicle_LaserStar(m_Game);
+				break;
             case WeaponTestBot:
                 spawn = new WeaponTestBot(m_Game);
                 break;
@@ -154,9 +158,9 @@ public class VehicleManager
         return spawn;
     }
 
-    public Drone SpawnDrone(Carrier anchor, Vector3 pos)
+    public Vehicle_Drone SpawnDrone(Vehicle_Carrier anchor, Vector3 pos)
     {
-        Drone spawn = new Drone(m_Game, anchor);
+        Vehicle_Drone spawn = new Vehicle_Drone(m_Game, anchor);
         spawn.SetPosition(pos.I, 4.0, pos.K);
 
         m_Vehicles.add(spawn);
@@ -179,7 +183,7 @@ public class VehicleManager
 		if(m_Player != null)
 			m_Spawn.Add(m_Player.GetPosition());
 
-        Tank tank = new Tank(m_Game);
+        Vehicle_Tank tank = new Vehicle_Tank(m_Game);
         m_Vehicles.add(tank);
         m_RedTeam.add(tank);
         m_Game.AddObjectToRenderer(tank);
@@ -188,7 +192,7 @@ public class VehicleManager
 
         for(int b = 0; b < 6; b++)
         {
-            Bit bit = new Bit(m_Game);
+            Vehicle_Bit bit = new Vehicle_Bit(m_Game);
             m_Vehicles.add(bit);
             m_RedTeam.add(bit);
             m_Game.AddObjectToRenderer(bit);
@@ -255,7 +259,7 @@ public class VehicleManager
 		}
 	}
 		
-	public Runner GetPlayer()
+	public Vehicle_Runner GetPlayer()
 	{
 		return m_Player;
 	}
