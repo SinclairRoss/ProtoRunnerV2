@@ -25,14 +25,16 @@ public class TutorialCondition_ShotsFired extends TutorialCondition
     {
         Vehicle_Runner player = m_Game.GetVehicleManager().GetPlayer();
 
-        if(player == null)
-            return;
-
-        if(player.GetWeaponSlot() != m_WeaponSlot)
-            return;
-
-        if(player.GetPrimaryWeapon().IsFiring())
-            m_Amount ++;
+        if(player != null)
+        {
+            if (player.GetWeaponSlot() == m_WeaponSlot)
+            {
+                if (player.GetPrimaryWeapon().IsFiring())
+                {
+                    m_Amount++;
+                }
+            }
+        }
     }
 
     @Override

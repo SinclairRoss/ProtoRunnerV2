@@ -77,7 +77,22 @@ public final class Vector3
 
         Normalise();
     }
-	
+
+    public void SetAsRandNorm()
+    {
+        SetAsRand(1);
+    }
+
+	public void SetAsRand(double length)
+	{
+		I = MathsHelper.RandomDouble(-1,1);
+		J = MathsHelper.RandomDouble(-1,1);
+		K = MathsHelper.RandomDouble(-1,1);
+
+		Normalise();
+        Scale(length);
+	}
+
 	public void SetVectorDifference(final Vector3 A, final Vector3 B)
 	{
 		I = B.I - A.I;
@@ -117,13 +132,20 @@ public final class Vector3
 		J += j;
 		K += k;
 	}
-	
-	public void Subtract(final Vector3 vec)
-	{
-		I -= vec.I;
-		J -= vec.J;
-		K -= vec.K;
-	}
+
+    public void Subtract(final Vector3 vec)
+    {
+        I -= vec.I;
+        J -= vec.J;
+        K -= vec.K;
+    }
+
+    public void Subtract(double x, double y, double z)
+    {
+        I -= x;
+        J -= y;
+        K -= z;
+    }
 	
 	public void Multiply(final Vector3 vec)
 	{

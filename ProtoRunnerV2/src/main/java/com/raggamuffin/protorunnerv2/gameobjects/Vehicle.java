@@ -1,5 +1,7 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
+import android.util.Log;
+
 import com.raggamuffin.protorunnerv2.ai.VehicleInfo;
 import com.raggamuffin.protorunnerv2.ai.VehicleInfo.AfterBurnerStates;
 import com.raggamuffin.protorunnerv2.ai.VehicleInfo.MovementStates;
@@ -115,19 +117,22 @@ public abstract class Vehicle extends GameObject
         switch(newWeapon.GetEquipmentType())
         {
             case Weapon:
-                m_PrimaryWeapon.CeaseFire();
-                m_PrimaryWeapon.WeaponUnequipped();
+			{
+				m_PrimaryWeapon.CeaseFire();
+				m_PrimaryWeapon.WeaponUnequipped();
 
-                m_PrimaryWeapon = newWeapon;
+				m_PrimaryWeapon = newWeapon;
 
-                m_PrimaryWeapon.WeaponEquipped();
+				m_PrimaryWeapon.WeaponEquipped();
 
-                break;
-
+				break;
+			}
             case Utility:
-                m_Utility = newWeapon;
-                m_Utility.OpenFire();
-                break;
+			{
+				m_Utility = newWeapon;
+				m_Utility.OpenFire();
+				break;
+			}
         }
 	}
 
@@ -265,6 +270,11 @@ public abstract class Vehicle extends GameObject
 	public Weapon GetPrimaryWeapon() 
 	{
 		return m_PrimaryWeapon;
+	}
+
+	public Weapon GetUtility()
+	{
+		return m_Utility;
 	}
 	
 	public int GetHullPoints()

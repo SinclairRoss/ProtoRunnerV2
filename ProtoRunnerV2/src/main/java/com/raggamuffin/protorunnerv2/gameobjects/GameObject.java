@@ -1,6 +1,5 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -8,12 +7,10 @@ import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_FadeTo;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
-import com.raggamuffin.protorunnerv2.particles.Particle;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Colours;
-import com.raggamuffin.protorunnerv2.utils.Matrix44;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 import com.raggamuffin.protorunnerv2.utils.Vector4;
 
@@ -147,8 +144,9 @@ public abstract class GameObject
         m_Position.K += m_Velocity.K * deltaTime;
 	}
 
-	protected void UpdateVectors()
+	protected void UpdateVectorsWithForward(Vector3 forward)
 	{
+        m_Forward.SetVector(forward);
         m_Backward.SetVectorAsInverse(m_Forward);
 
         m_Right.SetAsCrossProduct(Vector3.UP, m_Forward);
@@ -219,7 +217,13 @@ public abstract class GameObject
 	
 	public void SetYaw(double yaw)
 	{
+		yaw = yaw % (Math.PI * 2);
 		m_Yaw = yaw;
+
+		m_Forward.SetVector(0, 0, 1);
+		m_Forward.RotateY(m_Yaw);
+
+        UpdateVectorsWithForward(m_Forward);
 	}
 
     public double GetRoll()

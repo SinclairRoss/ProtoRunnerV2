@@ -8,7 +8,7 @@ import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class NavigationControl 
 {
-	private final double ARRIVAL_ANGLE = MathsHelper.DegToRad(5.0);
+	private final double ARRIVAL_ANGLE = Math.toRadians(5.0);
 
 	private Vehicle m_Anchor;
 	private SituationalAwareness m_SituationalAwareness;
@@ -42,16 +42,16 @@ public class NavigationControl
         m_NavigationActive = true;
 
 		m_SteeringVector = new Vector3();
-		m_ToGoal 		 = new Vector3();
-        m_Goal           = new Vector3();
-        m_Separation     = new Vector3();
-		m_Alignment 	 = new Vector3();
-		m_Cohesion 		 = new Vector3();
-		m_CenterOfMass 	 = new Vector3();
-		m_GoalWeight		= 0.4;
-		m_SeparationWeight  = 1.0;
-		m_AlignmentWeight	= 0.7;
-		m_CohesionWeight	= 0.6;
+		m_ToGoal = new Vector3();
+        m_Goal = new Vector3();
+        m_Separation = new Vector3();
+		m_Alignment = new Vector3();
+		m_Cohesion = new Vector3();
+		m_CenterOfMass = new Vector3();
+		m_GoalWeight = 0.4;
+		m_SeparationWeight = 1.0;
+		m_AlignmentWeight = 0.7;
+		m_CohesionWeight = 0.6;
 	}
 	
 	public void Update()
@@ -79,10 +79,8 @@ public class NavigationControl
 	{
 		m_Separation.SetVector(0.0);
 
-		// Get surrounding vehicles.
 		ArrayList<Vehicle> SurroundingVehicles = m_SituationalAwareness.GetSurroundingAwarenessSensor().GetVehiclesInNeighbourhood();
 
-		// Loop through each surrounding vehicle and create seperation vector.
 		for(Vehicle Obstacle : SurroundingVehicles)
 		{
             Vector3 obstaclePosition = Obstacle.GetPosition();

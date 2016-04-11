@@ -53,6 +53,8 @@ public class Projectile_Laser extends Projectile
         m_MaxWidth = 0.25;
         m_LaserWidth =  0.25;
 
+        m_BaseDamage = 1000;
+
         SetScale(0.0);
 
         m_RayEmitter = new ParticleEmitter_Ray(game, GetBaseColour(), GetBaseColour(), 1000, 0.3);
@@ -67,10 +69,14 @@ public class Projectile_Laser extends Projectile
             case Active:
             {
                 if (!m_Origin.IsTriggerPulled())
+                {
                     m_State = LaserState.Deactivating;
+                }
 
                 if (!m_Origin.GetAnchor().IsValid())
+                {
                     m_State = LaserState.Deactivating;
+                }
 
                 break;
             }
@@ -103,7 +109,9 @@ public class Projectile_Laser extends Projectile
     public boolean IsValid()
     {
         if(m_LaserFadeTimer.TimedOut())
+        {
             return false;
+        }
 
         return super.IsValid();
     }
@@ -118,11 +126,13 @@ public class Projectile_Laser extends Projectile
     {
         m_LaserLength = MathsHelper.Clamp(m_LaserLength + (deltaTime * m_GrowthRate), 0, m_MaxLength);
 
-        double y = GetPosition().J ;
-        double j = m_Origin.GetForward().J * m_LaserLength;
+        double yPos = GetPosition().J ;
+        double jFwd = m_Origin.GetForward().J * m_LaserLength;
 
-        if (y + j < 0)
-            m_LaserLength *= Math.abs(y / j);
+        if (yPos + jFwd < 0)
+        {
+            m_LaserLength *= Math.abs(yPos / jFwd);
+        }
 
         SetScale(m_LaserWidth, m_LaserWidth, m_LaserLength);
     }

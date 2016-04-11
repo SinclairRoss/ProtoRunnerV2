@@ -24,7 +24,15 @@ public class Weapon_MultiLaser extends Weapon
             AddBarrel(0, 0, 0, deltaRotation * i);
         }
 
+        m_WeaponComponent = InitialiseWeaponComponent(EWeaponComponents.LaserPointer);
+
         m_ProjectileType = ProjectileType.Laser;
+    }
+
+    @Override
+    public void Update(double deltaTime)
+    {
+        m_WeaponComponent.Update(deltaTime);
     }
 
     @Override

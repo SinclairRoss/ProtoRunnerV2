@@ -81,11 +81,6 @@ public abstract class Engine
         UpdateTurnRate(deltaTime);
         UpdateOrientation(deltaTime);
 
-        m_AnchorForward.SetVector(0, 0, 1);
-        m_AnchorForward.RotateY(m_Anchor.GetYaw());
-
-        m_Anchor.UpdateVectors();
-
         m_Anchor.ApplyForce(m_Direction, GetEngineOutput());
         m_Anchor.ApplyForce(m_DodgeDirection, GetDodgeOutput());
 

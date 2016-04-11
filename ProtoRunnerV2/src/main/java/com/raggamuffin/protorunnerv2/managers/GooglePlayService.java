@@ -56,30 +56,30 @@ public class GooglePlayService implements GoogleApiClient.ConnectionCallbacks, G
         m_ResolvingConnectionFailure = false;
 
         if (m_Game.GetDatabaseManager().ShouldAutoSignIn())
-            Connect();
-
+        {
+            //Connect();
+        }
     }
 
     public void Connect()
     {
         Log.e(TAG, "Connect");
 
-        if (m_GoogleApiClient == null)
-            return;
-
-        m_GoogleApiClient.connect();
+        if (m_GoogleApiClient != null)
+        {
+            m_GoogleApiClient.connect();
+        }
     }
 
     public void Disconnect()
     {
         Log.e(TAG, "LogOut");
 
-        if (!m_GoogleApiClient.isConnected())
-            return;
-
-        m_OnDisconnectPublisher.Publish();
-
-        m_GoogleApiClient.disconnect();
+        if (m_GoogleApiClient.isConnected())
+        {
+            m_OnDisconnectPublisher.Publish();
+            m_GoogleApiClient.disconnect();
+        }
     }
 
     public boolean IsConnected()
@@ -106,25 +106,37 @@ public class GooglePlayService implements GoogleApiClient.ConnectionCallbacks, G
     public void DisplayLeaderBoard()
     {
         if (IsConnected())
+        {
             m_Activity.startActivityForResult(Games.Leaderboards.getLeaderboardIntent(m_GoogleApiClient, m_Context.getString(R.string.leaderboard_id)), 1);
+        }
         else
+        {
             m_Game.GetUIManager().ShowScreen(UIScreens.NotSignedIn);
+        }
     }
 
     public void DisplayHighTimeLeaderBoard()
     {
         if (IsConnected())
+        {
             m_Activity.startActivityForResult(Games.Leaderboards.getLeaderboardIntent(m_GoogleApiClient, m_Context.getString(R.string.play_time_leaderboard_id)), 1);
+        }
         else
+        {
             m_Game.GetUIManager().ShowScreen(UIScreens.NotSignedIn);
+        }
     }
 
     public void DisplayAchievements()
     {
         if (IsConnected())
+        {
             m_Activity.startActivityForResult(Games.Achievements.getAchievementsIntent(m_GoogleApiClient), 2);
+        }
         else
+        {
             m_Game.GetUIManager().ShowScreen(UIScreens.NotSignedIn);
+        }
     }
 
     @Override
@@ -149,25 +161,31 @@ public class GooglePlayService implements GoogleApiClient.ConnectionCallbacks, G
     {
         Log.e(TAG, "onConnectionFailed: " + connectionResult.toString());
 
-        if (m_ResolvingConnectionFailure)
-            return;
-
-        if (!connectionResult.hasResolution())
-            return;
-
-        if (!BaseGameUtils.resolveConnectionFailure(m_Activity, m_GoogleApiClient, connectionResult, RC_SIGN_IN, "ruin"))
-            m_ResolvingConnectionFailure = false;
-
+        if (!m_ResolvingConnectionFailure)
+        {
+            if (connectionResult.hasResolution())
+            {
+                if (!BaseGameUtils.resolveConnectionFailure(m_Activity, m_GoogleApiClient, connectionResult, RC_SIGN_IN, "ruin"))
+                {
+                    m_ResolvingConnectionFailure = false;
+                }
+            }
+        }
     }
 
     public void UpdateAchievement(String id)
     {
-        Games.Achievements.unlock(m_GoogleApiClient, id);
+        if (IsConnected())
+        {
+            Games.Achievements.unlock(m_GoogleApiClient, id);
+        }
     }
 
     public void UpdateAchievement(String id, int amount)
     {
         if(IsConnected())
+        {
             Games.Achievements.increment(m_GoogleApiClient, id, amount);
+        }
     }
 }

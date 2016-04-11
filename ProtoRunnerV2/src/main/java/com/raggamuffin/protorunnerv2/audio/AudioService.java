@@ -24,17 +24,19 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
 	private float m_MasterVolume;
 	
 	public AudioService(Context context, int numSounds)
-	{
-		m_Context = context;
-		m_MasterVolume = 1.0f;
+    {
+        m_Context = context;
+        m_MasterVolume = 1.0f;
 
-		m_AudioManager =  (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-		int result = m_AudioManager.requestAudioFocus(this, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
+        m_AudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        int result = m_AudioManager.requestAudioFocus(this, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
 
-		if(result != AudioManager.AUDIOFOCUS_REQUEST_GRANTED)
-			new RuntimeException("AudioService.java - Audio focus denied.");
+        if (result != AudioManager.AUDIOFOCUS_REQUEST_GRANTED)
+        {
+            new RuntimeException("AudioService.java - Audio focus denied.");
+        }
 
-		m_SoundPool = new SoundPool(20, AudioManager.STREAM_MUSIC, 0);		
+		m_SoundPool = new SoundPool(20, AudioManager.STREAM_MUSIC, 0);
 	}
 	
 	public void LoadMusic(int id)
@@ -131,35 +133,42 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
 	{
 		switch(focusChange)
 		{
-			case AudioManager.AUDIOFOCUS_GAIN:	
-				Log.e(TAG, "AUDIOFOCUS_GAIN");
+			case AudioManager.AUDIOFOCUS_GAIN:
+            {
+                Log.e(TAG, "AUDIOFOCUS_GAIN");
                 UnDuck();
-				break;
-				
+                break;
+            }
 			case AudioManager.AUDIOFOCUS_GAIN_TRANSIENT:
-				Log.e(TAG, "AUDIOFOCUS_GAIN_TRANSIENT");
+            {
+                Log.e(TAG, "AUDIOFOCUS_GAIN_TRANSIENT");
                 UnDuck();
-				break;
-				
-			case AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK:	
-				Log.e(TAG, "AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK");
+                break;
+            }
+			case AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK:
+            {
+                Log.e(TAG, "AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK");
                 UnDuck();
-				break;
-				
-			case AudioManager.AUDIOFOCUS_LOSS: 
-				Log.e(TAG, "AUDIOFOCUS_LOSS");
-				Stop();
-				break;
-				
+                break;
+            }
+			case AudioManager.AUDIOFOCUS_LOSS:
+            {
+                Log.e(TAG, "AUDIOFOCUS_LOSS");
+                Stop();
+                break;
+            }
 			case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
-				Log.e(TAG, "AUDIOFOCUS_LOSS_TRANSIENT");
-				Pause();
-				break;
-				
-			case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK: 
-				Log.e(TAG, "AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK ");
-				Duck();
-				break;
+            {
+                Log.e(TAG, "AUDIOFOCUS_LOSS_TRANSIENT");
+                Pause();
+                break;
+            }
+			case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
+            {
+                Log.e(TAG, "AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK ");
+                Duck();
+                break;
+            }
 		}
 	}
 }

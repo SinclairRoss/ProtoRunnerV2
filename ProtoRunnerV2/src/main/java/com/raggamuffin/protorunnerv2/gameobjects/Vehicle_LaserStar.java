@@ -37,6 +37,7 @@ public class Vehicle_LaserStar extends Vehicle
         SetAffiliation(AffiliationKey.RedTeam);
 
         SelectWeapon(new Weapon_MultiLaser(this, game, 3));
+        m_PrimaryWeapon.DeactivateComponent();
 
         m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), AIBehaviours.Encircle, FireControlBehaviour.LaserSpinner);
 

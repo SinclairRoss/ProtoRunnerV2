@@ -3,8 +3,6 @@ package com.raggamuffin.protorunnerv2.managers;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import android.util.Log;
-
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Drone;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_LaserStar;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Tank;
@@ -18,11 +16,10 @@ import com.raggamuffin.protorunnerv2.gameobjects.Dummy;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Runner;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.gameobjects.WeaponTestBot;
-import com.raggamuffin.protorunnerv2.gameobjects.Wingman;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Wingman;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
-import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class VehicleManager
@@ -33,7 +30,9 @@ public class VehicleManager
 	private ArrayList<Vehicle> m_RedTeam;
 	
 	private GameLogic m_Game;
-	
+
+    private Vector3 m_PlayerPosition;
+
 	private Publisher m_PlayerSpawnedPublisher;
 	
 	public VehicleManager(GameLogic Game)
@@ -47,10 +46,17 @@ public class VehicleManager
 		PubSubHub PubSub = m_Game.GetPubSubHub();
 		
 		m_PlayerSpawnedPublisher = PubSub.CreatePublisher(PublishedTopics.PlayerSpawned);
+
+        m_PlayerPosition = new Vector3();
 	}
 	
 	public void Update(double deltaTime)
 	{
+        if(m_Player != null)
+        {
+            m_PlayerPosition.SetVector(m_Player.GetPosition());
+        }
+
         for(int i = 0; i < m_Vehicles.size(); i++)
         {
             Vehicle object = m_Vehicles.get(i);
@@ -77,58 +83,33 @@ public class VehicleManager
 		GetTeam(object.GetAffiliation()).remove(object);
 		
 		if(object == m_Player)
+		{
 			m_Player = null;
+		}
 	}
 
 	public void SpawnPlayer()
 	{
-		// Ensures no more than one player is active at any one a time.
-		if(m_Player != null)
-			return;
-		
-		Log.e("Player", "Player spawn.");
-		
-		m_Player = new Vehicle_Runner(m_Game);
-		m_Vehicles.add(m_Player);
-		m_BlueTeam.add(m_Player);
-		m_Game.AddObjectToRenderer(m_Player);
+		if(m_Player == null)
+		{
+			m_Player = new Vehicle_Runner(m_Game);
+			m_Vehicles.add(m_Player);
+			m_BlueTeam.add(m_Player);
+			m_Game.AddObjectToRenderer(m_Player);
 
-		m_PlayerSpawnedPublisher.Publish();
+			m_PlayerSpawnedPublisher.Publish();
+		}
 	}
 
-	public void SpawnWingmen(int i)
-	{
-		Wingman buddy = new Wingman(m_Game);
 
-        if(m_Player != null)
-        {
-            buddy.SetYaw(m_Player.GetYaw());
-        }
-
-        Vector3 pos = new Vector3(i, 0, 0);
-        buddy.SetPosition(pos);
-
-		m_Vehicles.add(buddy);
-		m_BlueTeam.add(buddy);
-		m_Game.AddObjectToRenderer(buddy);
-	}
-
-    public void SpawnDummy(double x, double z)
-    {
-        Dummy dummy = new Dummy(m_Game, x, z);
-        m_Vehicles.add(dummy);
-        m_RedTeam.add(dummy);
-        m_Game.AddObjectToRenderer(dummy);
-    }
-
-    public Vehicle SpawnVehicle(VehicleType type, Vector3 spawnPoint)
+    public Vehicle SpawnVehicle(VehicleType type, double x, double z, double orientation)
     {
         Vehicle spawn = null;
 
         switch(type)
         {
             case Wingman:
-                spawn = new Wingman(m_Game);
+                spawn = new Vehicle_Wingman(m_Game);
                 break;
             case Bit:
                 spawn = new Vehicle_Bit(m_Game);
@@ -148,12 +129,19 @@ public class VehicleManager
             case TargetBot:
                 spawn = new TargetBot(m_Game);
                 break;
+			case TrainingDummy:
+				spawn = new Dummy(m_Game);
+				break;
         }
 
-        spawn.SetPosition(spawnPoint);
-        m_Vehicles.add(spawn);
-        GetTeam(spawn.GetAffiliation()).add(spawn);
-        m_Game.AddObjectToRenderer(spawn);
+		if(spawn != null)
+		{
+			spawn.SetPosition(x, 0, z);
+            spawn.SetYaw(orientation);
+			m_Vehicles.add(spawn);
+			GetTeam(spawn.GetAffiliation()).add(spawn);
+			m_Game.AddObjectToRenderer(spawn);
+		}
 
         return spawn;
     }
@@ -170,52 +158,26 @@ public class VehicleManager
         return spawn;
     }
 	
-	public void SpawnSquad(double maxSpawnDistance)
-	{
-		double I = MathsHelper.RandomDouble(-1.0, 1.0);
-		double J = 0;
-		double K = MathsHelper.RandomDouble(-1.0, 1.0);
-		
-		Vector3 m_Spawn = new Vector3(I,J,K);
-		m_Spawn.Normalise();
-		m_Spawn.Scale(maxSpawnDistance);
-		
-		if(m_Player != null)
-			m_Spawn.Add(m_Player.GetPosition());
-
-        Vehicle_Tank tank = new Vehicle_Tank(m_Game);
-        m_Vehicles.add(tank);
-        m_RedTeam.add(tank);
-        m_Game.AddObjectToRenderer(tank);
-
-        tank.SetPosition(m_Spawn.I, m_Spawn.J, m_Spawn.K);
-
-        for(int b = 0; b < 6; b++)
-        {
-            Vehicle_Bit bit = new Vehicle_Bit(m_Game);
-            m_Vehicles.add(bit);
-            m_RedTeam.add(bit);
-            m_Game.AddObjectToRenderer(bit);
-
-            bit.SetPosition(m_Spawn.I + b * 2,m_Spawn.J,m_Spawn.K);
-        }
-	}
-	
 	public ArrayList<Vehicle> GetTeam(AffiliationKey faction)
 	{
 		switch(faction)
 		{
 			case RedTeam:
+			{
 				return m_RedTeam;
-
+			}
 			case BlueTeam:
+			{
 				return m_BlueTeam;
-
+			}
 			case Neutral:
+			{
 				return null;
-
+			}
 			default:
+			{
 				return null;
+			}
 		}
 	}
 	
@@ -224,39 +186,52 @@ public class VehicleManager
 		switch(faction)
 		{
 			case RedTeam:
+			{
 				return m_BlueTeam;
-
+			}
 			case BlueTeam:
+			{
 				return m_RedTeam;
-
+			}
 			case Neutral:
+			{
 				return null;
-
+			}
 			default:
+			{
 				return null;
+			}
 		}
 	}
 
     public int GetTeamCount(AffiliationKey faction)
     {
         switch(faction)
-        {
-            case BlueTeam:
-                return m_BlueTeam.size();
-            case RedTeam:
-                return m_RedTeam.size();
-            default:
-                return 0;
+		{
+			case BlueTeam:
+			{
+				return m_BlueTeam.size();
+			}
+			case RedTeam:
+			{
+				return m_RedTeam.size();
+			}
+			default:
+			{
+				return 0;
+			}
         }
     }
 	
 	public void Wipe()
 	{
-		for(Iterator<Vehicle> Iter = m_Vehicles.iterator(); Iter.hasNext();)	
+		for(Iterator<Vehicle> iter = m_Vehicles.iterator(); iter.hasNext();)
 		{
-			RemoveVehicle(Iter.next());
-			Iter.remove();
+			RemoveVehicle(iter.next());
+			iter.remove();
 		}
+
+        m_PlayerPosition.SetVector(0);
 	}
 		
 	public Vehicle_Runner GetPlayer()
@@ -268,4 +243,9 @@ public class VehicleManager
 	{
 		return m_Vehicles;
 	}
+
+    public Vector3 GetPlayerPosition()
+    {
+        return m_PlayerPosition;
+    }
 }

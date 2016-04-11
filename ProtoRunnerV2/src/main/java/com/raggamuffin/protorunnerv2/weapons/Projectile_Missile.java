@@ -130,9 +130,7 @@ public class Projectile_Missile extends Projectile
                 m_ToTarget.SetVectorDifference(m_Position, m_Target);
                 m_ToTarget.Normalise();
 
-                m_Forward.SetVector(m_ToTarget);
-
-                UpdateVectors();
+                UpdateVectorsWithForward(m_ToTarget);
 
                 ApplyForce(m_Forward, m_EngineOutput);
 

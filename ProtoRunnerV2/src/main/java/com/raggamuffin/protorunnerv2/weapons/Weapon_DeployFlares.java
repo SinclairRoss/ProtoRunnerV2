@@ -37,6 +37,8 @@ public class Weapon_DeployFlares extends Weapon
         super.OpenFire();
 
         if(!m_FireMode.CanFire())
+        {
             m_AudioService.PlaySound(m_Anchor.GetPosition(), AudioClips.CannotFire);
+        }
     }
 }

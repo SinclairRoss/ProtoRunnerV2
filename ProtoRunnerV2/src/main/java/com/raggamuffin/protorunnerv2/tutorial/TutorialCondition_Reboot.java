@@ -52,10 +52,10 @@ public class TutorialCondition_Reboot extends TutorialCondition
         @Override
         public void Update(int args)
         {
-            if(!m_Active)
-                return;
-
-            m_ConditionComplete = true;
+            if(m_Active)
+            {
+                m_ConditionComplete = true;
+            }
         }
     }
 }

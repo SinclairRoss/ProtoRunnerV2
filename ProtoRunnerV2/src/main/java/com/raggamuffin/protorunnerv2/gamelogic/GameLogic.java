@@ -93,8 +93,6 @@ public class GameLogic extends ApplicationLogic
         m_PubSubHub.SubscribeToTopic(PublishedTopics.AchievementsPressed, new AchievementsPressedSubscriber());
         m_PubSubHub.SubscribeToTopic(PublishedTopics.HighTimePressed, new HighTimeLeaderBoardPressedSubscriber());
 
-		m_GameAudioManager.StartMusic();
-
         m_PlayManager = new GameManager_Play(this);
         m_TutorialManager = new GameManager_Tutorial(this);
         m_ExhibitionManager = new GameManager_Exhibition(this);

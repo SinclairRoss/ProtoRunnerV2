@@ -14,7 +14,7 @@ public class Dummy extends Vehicle
 {
     private AIController m_AIController;
 
-    public Dummy(GameLogic game, double x, double z)
+    public Dummy(GameLogic game)
     {
         super(game);
 
@@ -26,8 +26,6 @@ public class Dummy extends Vehicle
         m_OnDeathPublisher = game.GetPubSubHub().CreatePublisher(PublishedTopics.EnemyDestroyed);
 
         m_BoundingRadius = 2;
-
-        m_Position.SetVector(x, 0, z);
 
         m_Engine = new Engine_Standard(this, game);
         m_Engine.SetMaxEngineOutput(1500);

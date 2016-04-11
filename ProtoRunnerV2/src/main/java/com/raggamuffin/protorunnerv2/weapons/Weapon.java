@@ -16,97 +16,102 @@ import com.raggamuffin.protorunnerv2.managers.BulletManager;
 import com.raggamuffin.protorunnerv2.managers.ParticleManager;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
-public abstract class Weapon 
+public abstract class Weapon
 {
-	protected Vehicle m_Anchor;
+    protected Vehicle m_Anchor;
     protected GameLogic m_Game;
-	protected BulletManager m_BulletManager;
-	protected ParticleManager m_ParticleManager;
-	protected GameAudioManager m_AudioService;
+    protected BulletManager m_BulletManager;
+    protected ParticleManager m_ParticleManager;
+    protected GameAudioManager m_AudioService;
 
     protected ProjectileType m_ProjectileType;
 
     protected Vector3 m_Target;
-		
-	protected AudioClips m_AudioClip;
-	
-	protected FireControl m_FireMode;
 
-	protected double m_Damage;
-	protected double m_MuzzleVelocity;
-	protected double m_Accuracy;
-	protected double m_LifeSpan;
+    protected AudioClips m_AudioClip;
 
-	protected ArrayList<WeaponBarrel> m_WeaponBarrels;
-	private int m_MuzzleIndex;
+    protected FireControl m_FireMode;
+
+    protected double m_Damage;
+    protected double m_MuzzleVelocity;
+    protected double m_Accuracy;
+    protected double m_LifeSpan;
+
+    protected WeaponComponent m_WeaponComponent;
+
+    protected ArrayList<WeaponBarrel> m_WeaponBarrels;
+    private int m_MuzzleIndex;
 
     protected boolean m_TriggerPulled;
     protected boolean m_IsFiring;
 
     protected EquipmentType m_EquipmentType;
 
-	public Weapon(Vehicle anchor, GameLogic game)
-	{
-		m_Anchor = anchor;
+    public Weapon(Vehicle anchor, GameLogic game)
+    {
+        m_Anchor = anchor;
         m_Game = game;
-		m_BulletManager = m_Game.GetBulletManager();
-		m_ParticleManager = m_Game.GetParticleManager();
-		m_AudioService = m_Game.GetGameAudioManager();
+        m_BulletManager = m_Game.GetBulletManager();
+        m_ParticleManager = m_Game.GetParticleManager();
+        m_AudioService = m_Game.GetGameAudioManager();
 
         m_ProjectileType = ProjectileType.PlasmaShot;
 
         m_Target = anchor.GetForward();
 
-		m_AudioClip = AudioClips.PulseLaser;
-		
-		m_FireMode = null;
+        m_AudioClip = AudioClips.PulseLaser;
 
-		m_Damage = 1.0;
-		m_MuzzleVelocity = 1.0;
-		m_Accuracy = 1.0;
-		m_LifeSpan = 1.0;
+        m_FireMode = null;
 
-		m_WeaponBarrels = new ArrayList<>();
-		m_MuzzleIndex = 0;
-		
-		m_TriggerPulled = false;
+        m_Damage = 1.0;
+        m_MuzzleVelocity = 1.0;
+        m_Accuracy = 1.0;
+        m_LifeSpan = 1.0;
+
+        m_WeaponComponent = InitialiseWeaponComponent(EWeaponComponents.None);
+
+        m_WeaponBarrels = new ArrayList<>();
+        m_MuzzleIndex = 0;
+
+        m_TriggerPulled = false;
         m_IsFiring = false;
 
         m_EquipmentType = EquipmentType.Weapon;
-	}
+    }
 
     public void SetTargetVector(Vector3 target)
     {
         m_Target = target;
     }
-	
-	// Override to add functionality.
-	public void Update(double deltaTime)
-	{
+
+    // Override to add functionality.
+    public void Update(double deltaTime)
+    {
         m_IsFiring = false;
 
         m_FireMode.Update(deltaTime);
-		
-		if(m_FireMode.ShouldFire())
-		{
-			Fire();
-			NextBarrel();
-			
-			m_AudioService.PlaySound(m_Anchor.GetPosition(), m_AudioClip);
-		}
-	}
-	
-	public void OpenFire()
-	{	
-		m_FireMode.PullTrigger();
-		m_TriggerPulled = true;
-	}
-	
-	public void CeaseFire()
-	{
-		m_FireMode.ReleaseTrigger();
-		m_TriggerPulled = false;
-	}
+        m_WeaponComponent.Update(deltaTime);
+
+        if (m_FireMode.ShouldFire())
+        {
+            Fire();
+            NextBarrel();
+
+            m_AudioService.PlaySound(m_Anchor.GetPosition(), m_AudioClip);
+        }
+    }
+
+    public void OpenFire()
+    {
+        m_FireMode.PullTrigger();
+        m_TriggerPulled = true;
+    }
+
+    public void CeaseFire()
+    {
+        m_FireMode.ReleaseTrigger();
+        m_TriggerPulled = false;
+    }
 
     public void WeaponUnequipped()
     {
@@ -118,48 +123,88 @@ public abstract class Weapon
 
     }
 
-	public void GetFirePosition(Vector3 out)
-	{
-		WeaponBarrel barrel = m_WeaponBarrels.get(m_MuzzleIndex);
-		out.SetVector(barrel.GetPosition());
+    public void GetFirePosition(Vector3 out)
+    {
+        WeaponBarrel barrel = m_WeaponBarrels.get(m_MuzzleIndex);
+        out.SetVector(barrel.GetPosition());
 
-		out.RotateY(m_Anchor.GetYaw());
-		out.Add(m_Anchor.GetPosition());
-	}
+        out.RotateY(m_Anchor.GetYaw());
+        out.Add(m_Anchor.GetPosition());
+    }
 
     public WeaponBarrel GetActiveWeaponBarrel()
     {
         return m_WeaponBarrels.get(m_MuzzleIndex);
     }
-	
-	protected void NextBarrel()
-	{
-		m_MuzzleIndex ++;
-		
-		if(m_MuzzleIndex >= m_WeaponBarrels.size())
-			m_MuzzleIndex = 0;
-	}
-	
-	protected void AddBarrel(double x, double y, double z)
-	{
-		AddBarrel(x, y, z, 0);
-	}
 
-	protected void AddBarrel(double x, double y, double z, double rotation)
-	{
-		m_WeaponBarrels.add(new WeaponBarrel(x, y, z, rotation));
-	}
+    protected void NextBarrel()
+    {
+        m_MuzzleIndex++;
 
-	protected void Fire()
-	{
-		while(m_FireMode.ShouldFire())
-		{
-			m_BulletManager.CreateProjectile(this);
-			m_FireMode.NotifyOfFire();
+        if (m_MuzzleIndex >= m_WeaponBarrels.size())
+        {
+            m_MuzzleIndex = 0;
+        }
+    }
+
+    protected void AddBarrel(double x, double y, double z)
+    {
+        AddBarrel(x, y, z, 0);
+    }
+
+    protected void AddBarrel(double x, double y, double z, double rotation)
+    {
+        WeaponBarrel barrel = new WeaponBarrel(x, y, z, rotation);
+        m_WeaponBarrels.add(barrel);
+    }
+
+    protected void Fire()
+    {
+        while (m_FireMode.ShouldFire())
+        {
+            m_BulletManager.CreateProjectile(this);
+            m_FireMode.NotifyOfFire();
 
             m_IsFiring = true;
-		}
-	}
+        }
+    }
+
+    protected WeaponComponent InitialiseWeaponComponent(EWeaponComponents component)
+    {
+        WeaponComponent weaponComponent;
+
+        switch(component)
+        {
+            case None:
+            {
+                weaponComponent = new WeaponComponent_None();
+                break;
+            }
+            case LaserPointer:
+            {
+                weaponComponent = new WeaponComponent_LaserPointer(m_Game, this);
+                break;
+            }
+            default:
+            {
+                weaponComponent = new WeaponComponent_None();
+                break;
+            }
+        }
+
+        weaponComponent.Activate();
+        return weaponComponent;
+    }
+
+    public void ActivateComponent()
+    {
+        m_WeaponComponent.Activate();
+    }
+
+    public void DeactivateComponent()
+    {
+        m_WeaponComponent.Deactivate();
+    }
 
     protected void CalculateProjectileHeading(Vector3 out)
     {
@@ -235,6 +280,11 @@ public abstract class Weapon
 	{
 		return m_WeaponBarrels.size();
 	}
+
+    public ArrayList<WeaponBarrel> GetWeaponBarrels()
+    {
+        return m_WeaponBarrels;
+    }
 
 	public Vehicle GetAnchor()
 	{

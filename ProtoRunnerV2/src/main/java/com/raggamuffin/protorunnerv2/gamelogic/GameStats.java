@@ -27,10 +27,10 @@ public class GameStats
 
     public void Update(double deltaTime)
     {
-        if(m_Locked)
-            return;
-
-        m_PlayTime += deltaTime;
+        if(!m_Locked)
+        {
+            m_PlayTime += deltaTime;
+        }
     }
 
     public void ResetStats()
@@ -100,10 +100,10 @@ public class GameStats
 		@Override
 		public void Update(int args)
 		{
-			if(m_Locked)
-				return;
-
-			m_Score += args;
+			if(!m_Locked)
+            {
+                m_Score += args;
+            }
 		}
 	}
 
@@ -112,10 +112,10 @@ public class GameStats
         @Override
         public void Update(int args)
         {
-            if(m_Locked)
-                return;
-
-            m_LivesUsed++;
+            if(!m_Locked)
+            {
+                m_LivesUsed++;
+            }
         }
     }
 
@@ -124,13 +124,17 @@ public class GameStats
         @Override
         public void Update(int args)
         {
-            if(m_Locked)
-                return;
-
-            if(m_WingmanADuration > 0)
-                m_WingmanBDuration = m_PlayTime;
-            else
-                m_WingmanADuration = m_PlayTime;
+            if(!m_Locked)
+            {
+                if (m_WingmanADuration > 0)
+                {
+                    m_WingmanBDuration = m_PlayTime;
+                }
+                else
+                {
+                    m_WingmanADuration = m_PlayTime;
+                }
+            }
         }
     }
 }

@@ -1,8 +1,5 @@
 package com.raggamuffin.protorunnerv2.ai;
 
-
-import android.util.Log;
-
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.utils.Timer;
 
@@ -26,7 +23,9 @@ public class EvasionControl
         switch (m_DangerSensor.GetDangerState())
         {
             case NoDanger:
+            {
                 break;
+            }
             case DangerLeft:
             {
                 if (m_DodgeCooldownTimer.TimedOut())
@@ -49,6 +48,5 @@ public class EvasionControl
                 break;
             }
         }
-
     }
 }

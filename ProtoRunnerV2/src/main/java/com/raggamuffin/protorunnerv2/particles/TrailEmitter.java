@@ -57,9 +57,6 @@ public class TrailEmitter extends GameObject
         m_ColdColour.Alpha = 0.0;
 
         m_Position.SetVector(m_Anchor.GetPosition());
-
-        m_HeadNode = m_ParticleManager.CreateTrailPoint(this);
-        m_HeadNode.SetPosition(m_Position);
     }
 
     @Override

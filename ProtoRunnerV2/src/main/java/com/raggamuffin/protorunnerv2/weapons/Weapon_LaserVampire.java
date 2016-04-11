@@ -23,6 +23,16 @@ public class Weapon_LaserVampire extends Weapon
     {
         super.OpenFire();
 
+        m_IsFiring = true;
+
         m_BulletManager.CreateProjectile(this);
+    }
+
+    @Override
+    public void CeaseFire()
+    {
+        super.CeaseFire();
+
+        m_IsFiring = false;
     }
 }

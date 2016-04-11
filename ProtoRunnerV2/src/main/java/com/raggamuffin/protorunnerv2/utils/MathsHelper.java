@@ -104,18 +104,6 @@ public class MathsHelper
 		return Rand.nextBoolean();
 	}
 
-	// Convert Degrees into radians.
-	public static double DegToRad(double Degrees)
-	{
-		return Degrees * (Math.PI / 180);
-	}
-	
-	// Convert Radians into Degrees.
-	public static double RadToDeg(double Radians)
-	{
-		return Radians * (180 / Math.PI);
-	}
-	
 	public static double FastInverseSqrt(float x)
 	{
 		return (double)Float.intBitsToFloat(0x5f3759d5 - (Float.floatToIntBits(x) >> 1));

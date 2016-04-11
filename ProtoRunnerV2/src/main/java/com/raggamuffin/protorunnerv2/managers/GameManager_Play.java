@@ -3,9 +3,13 @@ package com.raggamuffin.protorunnerv2.managers;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gamelogic.IncommingMissileAlarm;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.gameobjects.VehicleType;
-import com.raggamuffin.protorunnerv2.utils.HelperFunctions;
+import com.raggamuffin.protorunnerv2.utils.FormationHelper;
+import com.raggamuffin.protorunnerv2.utils.SpawnHelper;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
+
+import java.util.ArrayList;
 
 public class GameManager_Play extends GameManager
 {
@@ -24,24 +28,70 @@ public class GameManager_Play extends GameManager
     {
         m_MissileAlarm.Update();
 
-        if(m_VehicleManager.GetTeamCount(AffiliationKey.RedTeam) == 0)
+        if(m_VehicleManager.GetTeam(AffiliationKey.RedTeam).size() == 0)
         {
-           // m_VehicleManager.SpawnSquad(120);
-            m_VehicleManager.SpawnVehicle(VehicleType.LaserStar, new Vector3(0,0,24));
-           // m_VehicleManager.SpawnVehicle(VehicleType.WeaponTestBot, new Vector3(0,0,60));
-            //m_VehicleManager.SpawnVehicle(VehicleType.TargetBot, new Vector3(-10,0,40));
-           // m_VehicleManager.SpawnVehicle(VehicleType.TargetBot, new Vector3(-20,0,40));
-           // m_VehicleManager.SpawnVehicle(VehicleType.TargetBot, new Vector3(10,0,40));
-          //  m_VehicleManager.SpawnVehicle(VehicleType.TargetBot, new Vector3(20,0,40));
+            m_VehicleManager.SpawnVehicle(VehicleType.LaserStar, 0, 5, 10);
+
+            /*
+            double spawnDistance = 100;
+            Vector3 position = SpawnHelper.FindRandomSpawnLocation(m_VehicleManager.GetPlayerPosition(), spawnDistance);
+            Vector3 forward = SpawnHelper.FindSpawnForward(position, m_VehicleManager.GetPlayer().GetPosition());
+
+            double horizSpacing = 7.0;
+            double vertSpacing = 3.0;
+
+            ArrayList<Vector3> formation = FormationHelper.CreateWedgeFormation(position, forward, horizSpacing, vertSpacing, 7);
+
+            for(Vector3 pos : formation)
+            {
+                m_VehicleManager.SpawnVehicle(VehicleType.Bit, pos.I, pos.K, forward.Yaw());
+            }
+
+            formation.clear();
+
+            Vector3 offset = new Vector3(forward);
+            offset.Scale(-3);
+            position.Add(offset);
+
+            formation = FormationHelper.CreateLineFormation(position, forward, horizSpacing, 1);
+
+            for(Vector3 pos : formation)
+            {
+                m_VehicleManager.SpawnVehicle(VehicleType.Carrier, pos.I, pos.K, forward.Yaw());
+            }
+
+            for(Vector3 pos : formation)
+            {
+                m_VehicleManager.SpawnVehicle(VehicleType.Tank, pos.I, pos.K, forward.Yaw());
+            }
+
+            for(Vector3 pos : formation)
+            {
+                m_VehicleManager.SpawnVehicle(VehicleType.LaserStar, pos.I, pos.K, forward.Yaw());
+            }
+            */
         }
     }
 
     @Override
     public void Initialise()
     {
-     //   m_VehicleManager.SpawnWingmen(-3);
-      //  m_VehicleManager.SpawnWingmen(3);
         m_VehicleManager.SpawnPlayer();
+      //  m_VehicleManager.SpawnVehicle(VehicleType.Wingman, 4, 0, 0);
+     //   m_VehicleManager.SpawnVehicle(VehicleType.Wingman, -4, 0, 0);
+
+        Vector3 position = new Vector3(0,0,40);
+        Vector3 forward = new Vector3(0,0,1);
+
+        double horizSpacing = 7.0;
+        double vertSpacing = 3.0;
+
+        ArrayList<Vector3> formation = FormationHelper.CreateWedgeFormation(position, forward, horizSpacing, vertSpacing, 7);
+
+        for(Vector3 pos : formation)
+        {
+       //     m_VehicleManager.SpawnVehicle(VehicleType.Bit, pos.I, pos.K, forward.Yaw());
+        }
     }
 
     @Override
