@@ -3524,12 +3524,6 @@
       <option name="number" value="Default" />
       <updated>1436269132545</updated>
     </task>
-    <task id="LOCAL-00001" summary="Updated google play services">
-      <created>1436287072266</created>
-      <option name="number" value="00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1436287072266</updated>
-    </task>
     <task id="LOCAL-00002" summary="Updated google play services">
       <created>1436287156611</created>
       <option name="number" value="00002" />
@@ -3818,7 +3812,13 @@
       <option name="project" value="LOCAL" />
       <updated>1462231529056</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Enemies can telegraph attacks.&#10;Massive update to laser beams. Can now be split.&#10;Standard lasers look way better.&#10;Fixed small issue with UI audio being cut early.&#10;Added audio emitters.&#10;Various minor visual updates.&#10;Implemented raycasting.&#10;updated collision detection to return collision reports.">
+      <created>1462231818562</created>
+      <option name="number" value="00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1462231818564</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
