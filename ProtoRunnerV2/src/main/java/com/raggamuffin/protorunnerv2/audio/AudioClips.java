@@ -13,4 +13,5 @@ public enum AudioClips
     UIClickFWD,
     UIClickBK,
 	UITick,
+	EnemyDestroyed
 }

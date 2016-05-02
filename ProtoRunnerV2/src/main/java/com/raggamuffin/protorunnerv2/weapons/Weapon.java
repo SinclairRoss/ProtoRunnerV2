@@ -6,6 +6,9 @@ package com.raggamuffin.protorunnerv2.weapons;
 import java.util.ArrayList;
 
 import com.raggamuffin.protorunnerv2.audio.AudioClips;
+import com.raggamuffin.protorunnerv2.audio.AudioEmitter;
+import com.raggamuffin.protorunnerv2.audio.AudioEmitter_Point;
+import com.raggamuffin.protorunnerv2.audio.EAudioRepeatBehaviour;
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
@@ -47,6 +50,8 @@ public abstract class Weapon
 
     protected EquipmentType m_EquipmentType;
 
+    private AudioEmitter m_AudioEmitter;
+
     public Weapon(Vehicle anchor, GameLogic game)
     {
         m_Anchor = anchor;
@@ -60,6 +65,7 @@ public abstract class Weapon
         m_Target = anchor.GetForward();
 
         m_AudioClip = AudioClips.PulseLaser;
+        m_AudioEmitter = new AudioEmitter_Point(m_Anchor, m_Game.GetGameAudioManager(), AudioClips.PulseLaser, EAudioRepeatBehaviour.Single);
 
         m_FireMode = null;
 
@@ -97,7 +103,7 @@ public abstract class Weapon
             Fire();
             NextBarrel();
 
-            m_AudioService.PlaySound(m_Anchor.GetPosition(), m_AudioClip);
+            m_AudioEmitter.Start();
         }
     }
 
@@ -123,13 +129,14 @@ public abstract class Weapon
 
     }
 
-    public void GetFirePosition(Vector3 out)
+    public Vector3 GetFirePosition()
     {
         WeaponBarrel barrel = m_WeaponBarrels.get(m_MuzzleIndex);
-        out.SetVector(barrel.GetPosition());
-
+        Vector3 out = new Vector3(barrel.GetPosition());
         out.RotateY(m_Anchor.GetYaw());
         out.Add(m_Anchor.GetPosition());
+
+        return out;
     }
 
     public WeaponBarrel GetActiveWeaponBarrel()
@@ -206,9 +213,9 @@ public abstract class Weapon
         m_WeaponComponent.Deactivate();
     }
 
-    protected void CalculateProjectileHeading(Vector3 out)
+    public Vector3 CalculateProjectileHeading()
     {
-        out.SetVector(m_Anchor.GetForward());
+        return new Vector3(m_Anchor.GetForward());
     }
 
 	public void ResetMuzzleIndex()

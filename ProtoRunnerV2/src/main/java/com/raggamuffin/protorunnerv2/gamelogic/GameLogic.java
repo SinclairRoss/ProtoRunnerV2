@@ -3,7 +3,6 @@ package com.raggamuffin.protorunnerv2.gamelogic;
 import java.util.ArrayList;
 
 import android.app.Activity;
-import android.util.Log;
 
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
@@ -32,6 +31,7 @@ import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
 import com.raggamuffin.protorunnerv2.ui.UIScreens;
+import com.raggamuffin.protorunnerv2.utils.CollisionReport;
 import com.raggamuffin.protorunnerv2.weapons.Projectile;
 
 public class GameLogic extends ApplicationLogic
@@ -52,6 +52,7 @@ public class GameLogic extends ApplicationLogic
 	private RenderEffectManager m_RenderEffectManager;
 	private GameStats m_GameStats;
 	private SecondWindHandler m_SecondWindHandler;
+    private InGameSoundEffectsManager m_SFXManager;
 
     private GameManager m_GameManager;
     private GameManager_Play m_PlayManager;
@@ -70,6 +71,7 @@ public class GameLogic extends ApplicationLogic
         m_ColourManager         = new ColourManager(this);
 		m_DatabaseManager 	    = new DatabaseManager(this);
 		m_GameAudioManager		= new GameAudioManager(m_Context, m_Camera);
+        m_SFXManager            = new InGameSoundEffectsManager(this);
 		m_ParticleManager 		= new ParticleManager(this);
 		m_BulletManager 		= new BulletManager(this);
 		m_VehicleManager 		= new VehicleManager(this);
@@ -98,7 +100,7 @@ public class GameLogic extends ApplicationLogic
         m_ExhibitionManager = new GameManager_Exhibition(this);
         m_GameManager = m_ExhibitionManager;
         SetGameMode(GameMode.Exhibition);
-	}
+    }
 
 	@Override
 	public void Update(double deltaTime) 
@@ -113,29 +115,31 @@ public class GameLogic extends ApplicationLogic
 		m_SecondWindHandler.Update(deltaTime);
         m_GameStats.Update(deltaTime);
 
-		CheckCollisions(deltaTime);
+		CheckCollisions();
 
 		m_Camera.Update(deltaTime);
 	}
 	
-	private void CheckCollisions(double deltaTime)
+	private void CheckCollisions()
 	{
         ArrayList<Projectile> projectiles = m_BulletManager.GetActiveBullets();
 
-        for(Projectile projectile : projectiles)
+        for(int i = 0; i < projectiles.size(); ++i)
         {
+            Projectile projectile = projectiles.get(i);
 		    ArrayList<Vehicle> vehicles = m_VehicleManager.GetVehicles();
 
 		    for(Vehicle vehicle : vehicles)
 		    {
 				// Prevent friendly fire.
-				if(vehicle.GetAffiliation() == projectile.GetAffiliation())
-					continue;
-
-                if(projectile.CollidesWith(vehicle))
+				if(vehicle.GetAffiliation() != projectile.GetAffiliation())
                 {
-                    vehicle.CollisionResponse(projectile.GetDamageOutput());
-                    projectile.CollisionResponse(vehicle);
+                    CollisionReport report = projectile.CheckForCollision(vehicle);
+                    if (report != null)
+                    {
+                        vehicle.CollisionResponse(projectile.GetDamageOutput());
+                        projectile.CollisionResponse(report);
+                    }
                 }
 			}
 		}
@@ -182,17 +186,6 @@ public class GameLogic extends ApplicationLogic
     {
         m_Packet.RemoveObject(particle);
     }
-
-    public void AddBulletToRenderer(Projectile particle)
-    {
-        m_Packet.AddObject(particle);
-    }
-
-    public void RemoveBulletFromRenderer(Projectile particle)
-    {
-        m_Packet.RemoveObject(particle);
-    }
-
     // Adds a game object and all children of the game object to the renderer.
 	public void AddObjectToRenderer(GameObject obj)
 	{
@@ -290,11 +283,6 @@ public class GameLogic extends ApplicationLogic
 	public GameAudioManager GetGameAudioManager()
 	{
 		return m_GameAudioManager;
-	}
-	
-	public RenderEffectManager GetRenderEffectManager()
-	{
-		return m_RenderEffectManager;
 	}
 
 	public UIManager GetUIManager()
@@ -410,10 +398,10 @@ public class GameLogic extends ApplicationLogic
 
             ArrayList<Vehicle> wingmen = m_VehicleManager.GetTeam(AffiliationKey.BlueTeam);
 
-            if(wingmen.size() == 0)
-                return;
-
-            m_Camera.SetLookAt(wingmen.get(0));
+            if(wingmen.size() > 0)
+            {
+                m_Camera.SetLookAt(wingmen.get(0));
+            }
         }
     }
 
@@ -464,7 +452,7 @@ public class GameLogic extends ApplicationLogic
 	@Override
 	public void Pause()
 	{
-		m_GameAudioManager.Stop();
+		m_GameAudioManager.Pause();
 	}
 
 	@Override
@@ -477,5 +465,6 @@ public class GameLogic extends ApplicationLogic
     public void Destroy()
     {
         m_GooglePlayService.Disconnect();
+        m_GameAudioManager.Stop();
     }
 }

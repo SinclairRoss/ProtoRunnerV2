@@ -1,15 +1,40 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
+import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_Point;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
+import com.raggamuffin.protorunnerv2.utils.CollisionReport;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class Projectile_Flare extends Projectile
 {
+    public Projectile_Flare(Vector3 position, Vector3 initialVelocity, Vector3 forward, Colour colour, double baseDamage, AffiliationKey affiliation, ProjectileType type)
+    {
+        super(position, initialVelocity, forward, colour, baseDamage, affiliation, ModelType.Bit);
+    }
+
+    @Override
+    public CollisionReport CheckForCollision(GameObject object)
+    {
+        return null;
+    }
+
+    @Override
+    public void CollisionResponse(CollisionReport report)
+    {
+
+    }
+
+    @Override
+    public void CleanUp()
+    {
+
+    }
+    /*
     private Timer m_LifeSpan;
     private Vector3 m_Destination;
 
@@ -76,5 +101,5 @@ public class Projectile_Flare extends Projectile
     public void CollisionResponse(GameObject other)
     {
         ForceInvalidation();
-    }
+    }*/
 }

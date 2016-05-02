@@ -3,7 +3,7 @@ package com.raggamuffin.protorunnerv2.tutorial;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.ui.InGameMessageHandler;
 import com.raggamuffin.protorunnerv2.ui.MessageOrientation;
-import com.raggamuffin.protorunnerv2.ui.TutorialScreen;
+import com.raggamuffin.protorunnerv2.ui.UIScreen_Tutorial;
 import com.raggamuffin.protorunnerv2.ui.UIScreens;
 
 public abstract class TutorialCondition
@@ -12,7 +12,7 @@ public abstract class TutorialCondition
     private final String m_Message;
     private final OptionalElement m_OptionalElement;
 
-    private final TutorialScreen m_TutorialScreen;
+    private final UIScreen_Tutorial m_TutorialScreen;
     private final InGameMessageHandler m_MessageHandler;
     private TutorialEffect[] m_Effects;
 
@@ -23,7 +23,7 @@ public abstract class TutorialCondition
         m_OptionalElement = element;
         m_Effects = effects;
 
-        m_TutorialScreen = (TutorialScreen)m_Game.GetUIManager().GetScreen(UIScreens.Tutorial);
+        m_TutorialScreen = (UIScreen_Tutorial)m_Game.GetUIManager().GetScreen(UIScreens.Tutorial);
         m_MessageHandler = m_TutorialScreen.GetMessageHandler();
     }
 
@@ -55,7 +55,6 @@ public abstract class TutorialCondition
                 break;
             case NextButton:
                 m_TutorialScreen.ShowNextButton();
-                break;
         }
     }
 
