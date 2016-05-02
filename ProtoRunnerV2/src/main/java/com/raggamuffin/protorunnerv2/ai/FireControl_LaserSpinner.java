@@ -27,7 +27,7 @@ public class FireControl_LaserSpinner extends FireControl
 
         m_AttackState = AttackState.Wandering;
         m_AttackCooldown = new Timer(5);
-        m_HoldPositionTimer = new Timer(1);
+        m_HoldPositionTimer = new Timer(2);
         m_StartSpinTimer = new Timer(1);
         m_AttackDuration = new Timer(5);
     }
@@ -54,6 +54,7 @@ public class FireControl_LaserSpinner extends FireControl
                 m_Controller.GetNavigationControl().Deactivate();
                 m_Anchor.SetEngineOutput(0.0);
                 m_Anchor.SetTurnRate(0.0);
+                m_Anchor.GetPrimaryWeapon().ActivateComponent();
 
                 m_AttackState = AttackState.HoldingPosition;
             }
@@ -82,7 +83,7 @@ public class FireControl_LaserSpinner extends FireControl
                 if(m_StartSpinTimer.TimedOut())
                 {
                     m_Anchor.DisableRoll();
-                    m_Anchor.SetTurnRate(1.0);
+                    m_Anchor.SetTurnRate(0.5);
                     m_AttackState = AttackState.Attacking;
                     m_StartSpinTimer.ResetTimer();
                 }
@@ -107,6 +108,7 @@ public class FireControl_LaserSpinner extends FireControl
                 m_Controller.GetNavigationControl().Activate();
                 m_Controller.GetAnchor().SetEngineOutput(1.0);
                 m_Anchor.EnableRoll();
+                m_Anchor.GetPrimaryWeapon().DeactivateComponent();
 
                 m_AttackState = AttackState.Wandering;
 

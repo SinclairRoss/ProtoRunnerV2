@@ -1,20 +1,47 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
 import com.raggamuffin.protorunnerv2.audio.AudioClips;
+import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_Burst;
 import com.raggamuffin.protorunnerv2.particles.TrailEmitter;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
+import com.raggamuffin.protorunnerv2.utils.CollisionReport;
+import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
+import com.raggamuffin.protorunnerv2.weapons.Projectile;
+import com.raggamuffin.protorunnerv2.weapons.ProjectileType;
 
 import java.util.ArrayList;
 
 public class Projectile_Missile extends Projectile
 {
+    public Projectile_Missile(Vector3 position, Vector3 initialVelocity, Vector3 forward, Colour colour, double baseDamage, AffiliationKey affiliation, ProjectileType type)
+    {
+        super(position, initialVelocity, forward, colour, baseDamage, affiliation, ModelType.Bit);
+    }
+
+    @Override
+    public CollisionReport CheckForCollision(GameObject object)
+    {
+        return null;
+    }
+
+    @Override
+    public void CollisionResponse(CollisionReport report)
+    {
+
+    }
+
+    @Override
+    public void CleanUp()
+    {
+
+    }/*
     private enum MissileState
     {
         Docked,
@@ -255,5 +282,5 @@ public class Projectile_Missile extends Projectile
         detonationEmitter.Burst();
 
         ForceInvalidation();
-    }
+    } */
 }

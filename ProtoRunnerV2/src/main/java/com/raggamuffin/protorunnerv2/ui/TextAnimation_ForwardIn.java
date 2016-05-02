@@ -22,7 +22,7 @@ public class TextAnimation_ForwardIn extends TextAnimation
 
 		m_OutputText = "";
 		
-		m_CharList = new Vector<Character>();
+		m_CharList = new Vector<>();
 		m_OriginalText 	= "";
 		m_Length 		= 0;	
 	}
@@ -63,7 +63,7 @@ public class TextAnimation_ForwardIn extends TextAnimation
 			m_OutputText = m_OutputText.concat(Character.toString(m_CharList.remove(0)));
 			m_Anchor.SetOutputText(m_OutputText);
 			
-			m_GameAudioManager.PlaySound(AudioClips.UITick);
+			//m_GameAudioManager.PlaySound(AudioClips.UITick);
 			
 			m_Timer -= DeltaActivation;
 			

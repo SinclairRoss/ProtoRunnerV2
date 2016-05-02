@@ -68,12 +68,12 @@ public class SecondWindHandler
 		{
 			case Idle:
 			{	
-				if(m_Player == null)
-					break;
-				
-				m_PlayerPosition.SetVector(m_Player.GetPosition());
-				m_PlayerOrientation = m_Player.GetYaw();
-				
+				if(m_Player != null)
+				{
+					m_PlayerPosition.SetVector(m_Player.GetPosition());
+					m_PlayerOrientation = m_Player.GetYaw();
+				}
+
 				break;
 			}
 			case Active:
