@@ -2,7 +2,14 @@ package com.raggamuffin.protorunnerv2.renderer;
 
 public class Shaders
 {
-    public static final String fragmentShader_STANDARD =
+    public static final String vertexShader_BASIC =
+                "attribute vec4 a_Position;"
+            +   "void main()"
+            +   "{"
+            +   "  	gl_Position = a_Position;"
+            +   "	v_TexCoord = a_TexCoord;"
+            +   "}";
+    public static final String fragmentShader_BLOCKCOLOUR =
             "precision lowp float;"
         +   "uniform vec4 u_Color;"
 
@@ -11,7 +18,7 @@ public class Shaders
         +   "	gl_FragColor = u_Color;"
         +   "}";
 
-    public static final String vertexShader_LOOKAT =
+    public static final String vertexShader_LOOKAT_BASIC =
             "uniform mat4 u_ProjMatrix;"
         +   "uniform vec3 u_Position;"
         +   "uniform vec3 u_Forward;"
@@ -38,6 +45,43 @@ public class Shaders
         +   "   scale[3] = vec4(0, 0, 0, 1);"
 
         +	"	gl_Position = (u_ProjMatrix * (model * scale)) * a_Vertices;"
+        +	"}";
+
+    public static final String vertexShader_STANDARD =
+            "uniform mat4 u_ProjMatrix;"
+        +   "uniform vec4 u_Position;"
+        +   "uniform vec3 u_Forward;"
+        +   "uniform vec3 u_Up;"
+        +   "uniform vec3 u_Right;"
+        +   "uniform vec3 u_Scale;"
+        +   "uniform float u_Roll;"
+
+        +	"attribute vec4 a_Vertices;"
+
+        + 	"void main()"
+        +	"{"
+        +   "   mat4 model;"
+        +   "   model[0] = vec4(u_Right.x, u_Right.y, u_Right.z, 0);"
+        +   "   model[1] = vec4(u_Up.x, u_Up.y, u_Up.z, 0);"
+        +   "   model[2] = vec4(u_Forward.x, u_Forward.y, u_Forward.z, 0);"
+        +   "   model[3] = vec4(u_Position.x, u_Position.y, u_Position.z, 1);"
+
+        +   "   float cosTheta = cos(u_Roll);"
+        +   "   float sinTheta = sin(u_Roll);"
+
+        +   "   mat4 roll;"
+        +   "   roll[0] = vec4(cosTheta, -sinTheta, 0, 0);"
+        +   "   roll[1] = vec4(sinTheta,  cosTheta, 0, 0);"
+        +   "   roll[2] = vec4(0, 0, 1, 0);"
+        +   "   roll[3] = vec4(0, 0, 0, 1);"
+
+        +   "   mat4 scale;"
+        +   "   scale[0] = vec4(u_Scale.x, 0, 0, 0);"
+        +   "   scale[1] = vec4(0, u_Scale.y, 0, 0);"
+        +   "   scale[2] = vec4(0, 0, u_Scale.z, 0);"
+        +   "   scale[3] = vec4(0, 0, 0, 1);"
+
+        +	"	gl_Position = (u_ProjMatrix * (model * roll * scale)) * a_Vertices;"
         +	"}";
 
     public static final String vertexShader_LINE =
@@ -183,15 +227,12 @@ public class Shaders
         +	"{"
         +	"	v_Barycentric = a_Barycentric;"
 
-        +   "   vec3 z = u_Forward;"
-        +   "   vec3 x = u_Right;"
-        +   "   vec3 y = u_Up;"
-
         +   "   mat4 model;"
-        +   "   model[0] = vec4(x.x, x.y, x.z, 0);"
-        +   "   model[1] = vec4(y.x, y.y, y.z, 0);"
-        +   "   model[2] = vec4(z.x, z.y, z.z, 0);"
+        +   "   model[0] = vec4(u_Right.x, u_Right.y, u_Right.z, 0);"
+        +   "   model[1] = vec4(u_Up.x, u_Up.y, u_Up.z, 0);"
+        +   "   model[2] = vec4(u_Forward.x, u_Forward.y, u_Forward.z, 0);"
         +   "   model[3] = vec4(u_Position.x, u_Position.y, u_Position.z, 1);"
+
 
         +   "   float cosTheta = cos(u_Roll);"
         +   "   float sinTheta = sin(u_Roll);"

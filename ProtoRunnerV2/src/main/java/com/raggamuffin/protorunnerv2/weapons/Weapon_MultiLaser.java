@@ -47,11 +47,13 @@ public class Weapon_MultiLaser extends Weapon
         }
     }
 
-    @Override
-    protected void CalculateProjectileHeading(Vector3 out)
+    public Vector3 CalculateProjectileHeading()
     {
         WeaponBarrel barrel = GetActiveWeaponBarrel();
-        out.SetVector(m_Anchor.GetForward());
+
+        Vector3 out = new Vector3(m_Anchor.GetForward());
         out.RotateY(GetMuzzleIndex() * barrel.GetRotation());
+
+        return out;
     }
 }

@@ -9,5 +9,8 @@ public enum VehicleType
     Drone,
     LaserStar,
     WeaponTestBot,
-    TargetBot
+    TrainingDummy,
+    TargetBot,
+    BeeperBot,
+    SweeperBot
 }

@@ -4,11 +4,13 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
+import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.utils.Colour;
+import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 import android.opengl.GLES20;
 
-public class GLRing 
+public class GLRing extends GLModel
 {
     private final float OUTER_RADIUS = 1.0f;
     private final float THICKNESS = 0.1f;
@@ -153,15 +155,25 @@ public class GLRing
         m_Colour[3] = 0.7f;
 	}
 
-    public void SetEndPointColour(Colour colour)
+    @Override
+    public void InitialiseModel(float[] projMatrix, Vector3 eye)
     {
-        m_EndPointColour[0] = (float)colour.Red;
-        m_EndPointColour[1] = (float)colour.Green;
-        m_EndPointColour[2] = (float)colour.Blue;
-        m_EndPointColour[3] = 0.0f;
+
     }
 
-	private void InitShaders()
+    @Override
+    public void Draw(GameObject obj)
+    {
+
+    }
+
+    @Override
+    public void CleanModel()
+    {
+
+    }
+
+    protected void InitShaders()
     {
         int vertexShaderHandler = 0;
         int fragmentShaderHandler = 0;
@@ -181,18 +193,5 @@ public class GLRing
 
         m_PositionHandle = GLES20.glGetAttribLocation(m_Program, "a_Position");
         m_WeightHandle = GLES20.glGetAttribLocation(m_Program, "a_Weight");
-    }
-	
-	public static int loadShader(int type, String shaderCode)
-    {
-        // create a vertex shader type (GLES20.GL_VERTEX_SHADER)
-        // or a fragment shader type (GLES20.GL_FRAGMENT_SHADER)
-        int shader = GLES20.glCreateShader(type);
-
-        // add the source code to the shader and compile it
-        GLES20.glShaderSource(shader, shaderCode);
-        GLES20.glCompileShader(shader);
-
-        return shader;
     }
 }

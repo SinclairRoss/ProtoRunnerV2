@@ -30,7 +30,7 @@ public class GameManager_Play extends GameManager
 
         if(m_VehicleManager.GetTeam(AffiliationKey.RedTeam).size() == 0)
         {
-            m_VehicleManager.SpawnVehicle(VehicleType.LaserStar, 0, 5, 10);
+            m_VehicleManager.SpawnVehicle(VehicleType.SweeperBot, 0, 5, 10);
 
             /*
             double spawnDistance = 100;

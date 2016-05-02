@@ -32,11 +32,11 @@ public class ChaseCamera
 		///// Camera Attributes \\\\\
 		m_Position 			= new Vector3(0.0,  3.0, 5.0);
 		m_Up 				= new Vector3(0.0,  1.0,  0.0);
-		m_LookAt 			= new Vector3(0.0);
-		m_RelaxedPosition 	= new Vector3(0.0);		
-		m_PositionOffset 	= new Vector3(-5, -5.0, -5);
-		m_Acceleration 		= new Vector3(0.0);		
-		m_Velocity 			= new Vector3(0.0);
+		m_LookAt 			= new Vector3();
+		m_RelaxedPosition 	= new Vector3();
+		m_PositionOffset 	= new Vector3();
+		m_Acceleration 		= new Vector3();
+		m_Velocity 			= new Vector3();
 		
 		///// Spring Attributes \\\\\
 		m_Stretch = new Vector3();
@@ -154,7 +154,6 @@ public class ChaseCamera
 
     public void SprintCam()
     {
-       // m_Up.SetVector(1,0,0);
         m_Stiffness = 0.4;
         m_Damping 	= 0.07;
         m_PositionOffset.SetVector(0, 1.5, 0);
@@ -162,10 +161,9 @@ public class ChaseCamera
 
     public void NormalCam()
     {
-       // m_Up.SetVector(0,1,0);
         m_Stiffness = 0.1;
         m_Damping = 0.04;
-        m_PositionOffset.SetVector(-5, 5, -5);
+        m_PositionOffset.SetVector(-5, 5, -2);
     }
 }
 

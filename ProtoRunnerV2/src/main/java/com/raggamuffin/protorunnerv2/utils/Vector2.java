@@ -5,6 +5,9 @@ import android.util.Log;
 
 public class Vector2 
 {
+	public static final Vector2 RIGHT   = new Vector2(1, 0);
+	public static final Vector2 FORWARD = new Vector2(0, 1);
+
 	public double I;
 	public double J;
 
@@ -61,6 +64,47 @@ public class Vector2
 		I = size.x;
 		J = size.y;
 	}
+
+	public void SetAsRandNorm()
+	{
+		SetAsRand(1);
+	}
+
+	public void SetAsRand(double length)
+	{
+		I = MathsHelper.RandomDouble(-1,1);
+		J = MathsHelper.RandomDouble(-1,1);
+
+		Normalise();
+		Scale(length);
+	}
+
+    public void Rotate(double theta)
+    {
+        double x = I;
+        double y = J;
+
+        I = (x  * Math.cos(theta)) - (y * Math.sin(theta));
+        J = (x  * Math.sin(theta)) + (y * Math.cos(theta));
+    }
+
+    public void Scale(double scale)
+    {
+        I *= scale;
+        J *= scale;
+    }
+
+    public void Add(double x, double y)
+    {
+        I += x;
+        J += y;
+    }
+
+    public void Subtract(double x, double y)
+    {
+        I -= x;
+        J -= y;
+    }
 	
 	public void SetVectorAsInverse(Vector2 vector)
 	{

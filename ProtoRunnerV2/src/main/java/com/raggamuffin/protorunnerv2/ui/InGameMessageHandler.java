@@ -35,7 +35,7 @@ public class InGameMessageHandler
         m_Active = false;
 		m_Running = false;
 
-        m_Labels = new ArrayList<UILabel>();
+        m_Labels = new ArrayList<>();
 
 		m_OriginalMessageText = "";
 		m_MessageTimer = new Timer(0.0);
@@ -44,38 +44,44 @@ public class InGameMessageHandler
 
 	public void DisplayMessage(String text, MessageOrientation orientation, double width, int priority, double duration, double delay)
 	{
-		if(!m_Active)
-			return;
+		if(m_Active)
+        {
+            // If the current message is of higher priority than the new incoming message.
+            if (priority > m_Priority)
+            {
+                Clear();
 
-		// If the current message is of higher priority than the new incoming message.
-		if(m_Priority > priority)
-			return;
+                if (duration < 0)
+                {
+                    m_MessageTimer.SetLimit(Double.MAX_VALUE);
+                }
+                else
+                {
+                    m_MessageTimer.SetLimit(duration);
+                }
 
-        Clear();
+                m_Running = true;
+                m_Priority = priority;
 
-        if(duration < 0)
-            m_MessageTimer.SetLimit(Double.MAX_VALUE);
-        else
-            m_MessageTimer.SetLimit(duration);
+                CreateLabels(text, width * m_UIManager.GetScreenRatio() * 2, orientation);
+                ShowLabels(delay);
 
-		m_Running = true;
-        m_Priority = priority;
-
-        CreateLabels(text, width * m_UIManager.GetScreenRatio() * 2, orientation);
-        ShowLabels(delay);
-
-		m_MessageTimer.ResetTimer();
+                m_MessageTimer.ResetTimer();
+            }
+        }
 	}
 
 	public void Update(double deltaTime)
 	{
-		if(!m_Running)
-			return;
+		if(m_Running)
+        {
+            m_MessageTimer.Update(deltaTime);
 
-		m_MessageTimer.Update(deltaTime);
-		
-		if(m_MessageTimer.TimedOut())
-            Clear();
+            if (m_MessageTimer.TimedOut())
+            {
+                Clear();
+            }
+        }
 	}
 
     private void CreateLabels(String text, double width, MessageOrientation orientation)

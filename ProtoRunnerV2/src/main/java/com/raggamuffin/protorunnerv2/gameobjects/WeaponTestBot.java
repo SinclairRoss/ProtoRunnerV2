@@ -7,8 +7,8 @@ import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
-import com.raggamuffin.protorunnerv2.weapons.Weapon_LaserBurner;
-import com.raggamuffin.protorunnerv2.weapons.Weapon_MissileLauncher;
+import com.raggamuffin.protorunnerv2.weapons.Weapon;
+import com.raggamuffin.protorunnerv2.weapons.Weapon_None;
 
 public class WeaponTestBot extends Vehicle
 {
@@ -21,7 +21,8 @@ public class WeaponTestBot extends Vehicle
     {
         super(game);
 
-        m_Model = ModelType.WeaponDrone;
+        m_Model = ModelType.Ring;
+        m_BoundingRadius = 2.0;
 
         SetAffiliation(AffiliationKey.RedTeam);
 
@@ -36,9 +37,9 @@ public class WeaponTestBot extends Vehicle
         m_Target = new Vector3(0, -1, 1);
         m_Target.Normalise();
 
-        Weapon_MissileLauncher burner = new Weapon_MissileLauncher(this, game);
-        SelectWeapon(burner);
-        burner.SetTargetVector(m_Target);
+        Weapon tester = new Weapon_None(this, game);
+        SelectWeapon(tester);
+        tester.SetTargetVector(m_Forward);
 
         m_Timer = new Timer(10.0);
         m_Timer.MaxOutTimer();

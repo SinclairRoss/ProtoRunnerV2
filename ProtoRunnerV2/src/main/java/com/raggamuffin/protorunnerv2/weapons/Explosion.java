@@ -42,7 +42,7 @@ public class Explosion extends GameObject
 		m_MaxSize = maxSize;
 		m_RateOfExpansion = rateOfExpansion;
 		
-		m_GameAudioManager.PlaySound(m_Position, AudioClips.Explosion);	
+		//m_GameAudioManager.PlaySound(m_Position, AudioClips.Explosion);	//TODO: CONVERT TO AUDIO EMITTER.
 	}
 
 	@Override

@@ -1,15 +1,11 @@
 package com.raggamuffin.protorunnerv2.ui;
 
-
 import com.raggamuffin.protorunnerv2.R;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.ColourManager;
 import com.raggamuffin.protorunnerv2.managers.UIManager;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
-import com.raggamuffin.protorunnerv2.utils.Colours;
-import com.raggamuffin.protorunnerv2.utils.Vector2;
-import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public abstract class UIScreen 
 {	

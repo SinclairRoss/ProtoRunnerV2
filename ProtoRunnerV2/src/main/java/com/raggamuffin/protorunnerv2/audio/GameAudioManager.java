@@ -1,6 +1,7 @@
 package com.raggamuffin.protorunnerv2.audio;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.raggamuffin.protorunnerv2.R;
 import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
@@ -25,7 +26,7 @@ public class GameAudioManager
 	public GameAudioManager(Context context, ChaseCamera listener)
 	{
 		m_Listener = listener;
-		m_AudioService = new AudioService(context, NUM_AUDIO_CLIPS);
+		m_AudioService = new AudioService(context);
 		
 		m_IDs = new int[NUM_AUDIO_CLIPS];
 		
@@ -33,7 +34,6 @@ public class GameAudioManager
 		m_RelativePosition = new Vector2();
 		
 		LoadSounds();
-		StartMusic();
 	}
 	
 	private void LoadSounds()
@@ -49,9 +49,10 @@ public class GameAudioManager
         m_IDs[AudioClips.CannotFire.ordinal()]      = m_AudioService.LoadClip(R.raw.cannot_fire);
 		
 		// UI Sounds.
-		m_IDs[AudioClips.UIClickFWD.ordinal()] 		= m_AudioService.LoadClip(R.raw.ui_click_fwd);
+		m_IDs[AudioClips.UIClickFWD.ordinal()] 		= m_AudioService.LoadClip(R.raw.menu_select);
         m_IDs[AudioClips.UIClickBK.ordinal()] 		= m_AudioService.LoadClip(R.raw.ui_click_fwd);
         m_IDs[AudioClips.UITick.ordinal()] 			= m_AudioService.LoadClip(R.raw.ui_tick);
+		m_IDs[AudioClips.EnemyDestroyed.ordinal()]	= m_AudioService.LoadClip(R.raw.enemy_destroyed);
 		
 		// Music
 		m_AudioService.LoadMusic(R.raw.duality_dimrain47);
@@ -61,37 +62,58 @@ public class GameAudioManager
 	{
 		m_AudioService.PlayMusic();
 	}
-	
-	public void PlaySound(AudioClips clip)
+
+	public int PlaySound(AudioClips clip)
 	{
-		PlaySound(clip, 1.0, 1.0);
+		return PlaySound(clip, 1.0, 1.0, false);
 	}
-	
-	public void PlaySound(Vector3 pos, AudioClips clip)
+
+	public int PlaySound(Vector3 pos, AudioClips clip, EAudioRepeatBehaviour repeatBehaviour)
 	{
 		Vector3 listenerPos = m_Listener.GetPosition();
 		m_RelativePosition.SetVector(pos.I - listenerPos.I, pos.K - listenerPos.K);
 		
 		double volume  = CalculateVolume(m_RelativePosition);
-		
-		if(volume <= 0.0)
-			return;
 
-		Vector3 listenerLookat = m_Listener.GetLookAt();
-		m_ListenerForward.SetVector(listenerLookat.I, listenerLookat.K);
+		int streamID = -1;
 
-		double panning = CalculatePanning(m_RelativePosition, m_ListenerForward);
-		
-		double leftVolume  = volume * panning;
-		double rightVolume = volume * (1.0 - panning);
+		if(volume > 0.0)
+		{
+			Vector3 listenerLookat = m_Listener.GetLookAt();
+			m_ListenerForward.SetVector(listenerLookat.I, listenerLookat.K);
 
-		PlaySound(clip, leftVolume, rightVolume);
+			double panning = CalculatePanning(m_RelativePosition, m_ListenerForward);
+
+			double leftVolume = volume * panning;
+			double rightVolume = volume * (1.0 - panning);
+
+            boolean loop = false;
+
+            switch (repeatBehaviour)
+            {
+                case Manual:
+                    loop = true;
+                    break;
+                case Single:
+                    loop = false;
+                    break;
+            }
+
+			streamID = PlaySound(clip, leftVolume, rightVolume, loop);
+		}
+
+        return streamID;
 	}
 	
-	public void PlaySound(AudioClips clip, double left, double right)
+	public int PlaySound(AudioClips clip, double left, double right, boolean loop)
 	{
-		m_AudioService.PlayClip(clip.ordinal() + 1, left, right, false);
+		return m_AudioService.PlayClip(clip.ordinal() + 1, left, right, loop);
 	}
+
+    public void StopSound(int streamID)
+    {
+        m_AudioService.StopClip(streamID);
+    }
 	
 	private double CalculateVolume(Vector2 displacement)
 	{
@@ -104,17 +126,17 @@ public class GameAudioManager
 		double theta = Vector2.RadiansBetween(displacement, forward);	
 		
 		if(theta > MathsHelper.PI_OVER_2)
+		{
 			theta = MathsHelper.PI_OVER_2 -(theta - MathsHelper.PI_OVER_2);
+		}
 		
 		theta = MathsHelper.Normalise(theta, 0, MathsHelper.PI_OVER_2);
 
-		if (Vector2.Determinant(forward, displacement) >= 0.0)
-			return 0.5 - (theta * 0.5);
-		else
-			return 0.5 + (theta * 0.5);
+		return Vector2.Determinant(forward, displacement) >= 0.0 ? 0.5 - (theta * 0.5)
+																 : 0.5 + (theta * 0.5);
 	}
 	
-	public void Stop()
+	public void Pause()
 	{
 		m_AudioService.Pause();
 	}
@@ -122,6 +144,16 @@ public class GameAudioManager
 	public void Resume()
 	{
 		m_AudioService.Resume();
+	}
+
+    public void Stop()
+    {
+        m_AudioService.Stop();
+    }
+
+	public Vector3 GetListenerPosition()
+	{
+		return m_Listener.GetPosition();
 	}
 }	
 

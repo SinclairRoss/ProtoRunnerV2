@@ -12,8 +12,6 @@ import java.util.Vector;
 
 public class Weapon_PulseLaser extends Weapon
 {
-    private Vector<LaserPointer> m_Lasers;
-
     public Weapon_PulseLaser(Vehicle anchor, GameLogic game)
     {
         super(anchor, game);
@@ -25,13 +23,9 @@ public class Weapon_PulseLaser extends Weapon
 
         m_AudioClip = AudioClips.PulseLaserPunk;
 
-        m_Lasers = new Vector<>();
-
         AddBarrel(1, 0, 0);
         AddBarrel(-1, 0, 0);
-
-       // for(Vector3 muzzle : m_MuzzleOffsets)
-       //     m_Lasers.add(new LaserPointer(this, muzzle));
+        //AddBarrel(0,0,0);
 
         m_FireMode = new FireControl_Pulse(0.4, 0.06, 4);
     }
@@ -39,14 +33,10 @@ public class Weapon_PulseLaser extends Weapon
     @Override
     public void WeaponEquipped()
     {
-       // for(LaserPointer Pointer : m_Lasers)
-       //     Pointer.On();
     }
 
     @Override
     public void WeaponUnequipped()
     {
-        //for(LaserPointer Pointer : m_Lasers)
-        //    Pointer.Off();
     }
 }

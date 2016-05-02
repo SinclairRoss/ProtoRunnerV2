@@ -162,7 +162,6 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
         DrawSkybox(view);
         DrawParticles(view);
-        DrawBullets(view);
         DrawObjects(view);
         DrawTrails(view);
 		DrawUI();
@@ -281,7 +280,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
         m_ParticleRenderer.Clean();
     }
-
+/*
     private void DrawBullets(float[] view)
     {
         ArrayList<GameObject> list = (ArrayList<GameObject>)m_Packet.GetBullets().clone();
@@ -300,7 +299,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
         }
 
         m_BulletRenderer.Clean();
-    }
+    }*/
 
     private void DrawTrails(float[] view)
     {

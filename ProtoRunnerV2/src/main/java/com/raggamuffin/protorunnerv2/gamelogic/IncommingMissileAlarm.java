@@ -9,7 +9,7 @@ import com.raggamuffin.protorunnerv2.ui.UIScreens;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 import com.raggamuffin.protorunnerv2.weapons.Projectile;
 import com.raggamuffin.protorunnerv2.weapons.ProjectileType;
-import com.raggamuffin.protorunnerv2.weapons.Projectile_Missile;
+
 
 public class IncommingMissileAlarm
 {
@@ -42,7 +42,7 @@ public class IncommingMissileAlarm
 
             for (Projectile bullet : m_BulletManager.GetActiveBullets())
             {
-                if (bullet.GetProjectileType() == ProjectileType.Missile)
+              //  if (bullet.GetProjectileType() == ProjectileType.Missile)
                 {
                     Vector3 bulletPos = bullet.GetPosition();
                     double i = bulletPos.I - playerPos.I;
