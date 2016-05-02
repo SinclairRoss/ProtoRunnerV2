@@ -16,8 +16,6 @@ public abstract class Engine
 
     protected GameObject m_Anchor;
 
-    private Vector3 m_AnchorForward;
-
     // Propulsion.
     private Vector3 m_Direction;		// The direction the engine is applying force.
 
@@ -47,8 +45,6 @@ public abstract class Engine
     public Engine(GameLogic game, GameObject anchor)
     {
         m_Anchor = anchor;
-
-        m_AnchorForward = m_Anchor.GetForward();
 
         m_Direction = m_Anchor.GetForward();
 

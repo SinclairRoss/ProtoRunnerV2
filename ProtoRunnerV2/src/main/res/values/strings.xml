@@ -39,7 +39,7 @@
     <string name="credits_text1">Raggamuffin Games is</string>
     <string name="credits_text2">Sinclair Ross</string>
     <string name="credits_text3">Special thanks to</string>
-    <string name="credits_text4">Calvin Wylie &amp; Will Sidle</string>
+    <string name="credits_text4">Calvin Wylie</string>
     
     <string name="game_over_message">Session Terminated</string>
     <string name="down_but_not_out_text">System Failing</string>

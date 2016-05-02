@@ -38,7 +38,7 @@ public class Weapon_DeployFlares extends Weapon
 
         if(!m_FireMode.CanFire())
         {
-            m_AudioService.PlaySound(m_Anchor.GetPosition(), AudioClips.CannotFire);
+            // m_AudioService.PlaySound(m_Anchor.GetPosition(), AudioClips.CannotFire); //TODO: CONVERT TO AUDIO EMITTER.
         }
     }
 }
