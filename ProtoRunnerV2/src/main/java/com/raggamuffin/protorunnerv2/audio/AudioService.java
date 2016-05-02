@@ -3,6 +3,7 @@ package com.raggamuffin.protorunnerv2.audio;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioAttributes;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -19,30 +20,34 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
 	private Context m_Context;
 	private AudioManager m_AudioManager;
 	
-	private MediaPlayer m_MediaPlayer;
-	private SoundPool m_SoundPool;
+	private MediaPlayer m_MediaPlayer;	// For game music.
+	private SoundPool m_SoundPool;		// For sound effects.
 	private float m_MasterVolume;
 	
-	public AudioService(Context context, int numSounds)
+	public AudioService(Context context)
     {
         m_Context = context;
         m_MasterVolume = 1.0f;
 
         m_AudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        int result = m_AudioManager.requestAudioFocus(this, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
+      //  m_AudioManager.requestAudioFocus(this, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
 
-        if (result != AudioManager.AUDIOFOCUS_REQUEST_GRANTED)
-        {
-            new RuntimeException("AudioService.java - Audio focus denied.");
-        }
+        AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_GAME)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build();
 
-		m_SoundPool = new SoundPool(20, AudioManager.STREAM_MUSIC, 0);
+        m_SoundPool = new SoundPool.Builder()
+                .setMaxStreams(1024)
+                .setAudioAttributes(audioAttributes)
+                .build();
 	}
 	
 	public void LoadMusic(int id)
 	{
 		m_MediaPlayer = MediaPlayer.create(m_Context, id);
 		m_MediaPlayer.setLooping(true);
+		m_MediaPlayer.pause();
 	}
 	
 	public void PlayMusic()
@@ -55,54 +60,51 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
 		return m_SoundPool.load(m_Context, id, 1);
 	}
 	
-	public void PlayClip(int id, double leftVolume, double rightVolume, boolean loop)
+	public int PlayClip(int id, double leftVolume, double rightVolume, boolean loop)
 	{
         int loopCount = loop ? -1 : 0;
-		
-		m_SoundPool.play(id, (float) leftVolume * m_MasterVolume, (float) rightVolume * m_MasterVolume, 1, loopCount, 1);
+
+		return m_SoundPool.play(id, (float) leftVolume * m_MasterVolume, (float) rightVolume * m_MasterVolume, 1, loopCount, 1);
 	}
-	
+
+	public void StopClip(int streamID)
+	{
+		m_SoundPool.stop(streamID);
+	}
+
 	public void Pause()
 	{
 		Log.e(TAG, "Pause");
-		m_SoundPool.autoPause();
 
-        if(m_MediaPlayer != null)
-        {
-            Log.e("AudioService", "Null pointer: m_MediaPlayer");
-            m_MediaPlayer.pause();
-        }
+		m_SoundPool.autoPause();
+        m_MediaPlayer.pause();
 	}
 	
 	public void Resume()
 	{
 		Log.e(TAG, "Resume");
-		m_MasterVolume = 1.0f;
-		m_SoundPool.autoResume();
 
-        if(m_MediaPlayer != null)
-        {
-            Log.e("AudioService", "Null pointer: m_MediaPlayer");
-            m_MediaPlayer.start();
-            m_MediaPlayer.setVolume(m_MasterVolume, m_MasterVolume);
-        }
+        m_MasterVolume = 1.0f;
+        m_SoundPool.autoResume();
+
+        m_MediaPlayer.start();
+        m_MediaPlayer.setVolume(m_MasterVolume, m_MasterVolume);
 	}
 	
 	public void Stop()
 	{
 		Log.e(TAG, "Stop");
+
 		m_SoundPool.release();
-		m_AudioManager.abandonAudioFocus(this);
+        m_SoundPool = null;
+
 		m_MediaPlayer.stop();
 		m_MediaPlayer.release();
 		m_MediaPlayer = null;
-	}
 
-    private void UnDuck()
-    {
-        m_MasterVolume = 1.0f;
-        m_MediaPlayer.setVolume(m_MasterVolume, m_MasterVolume);
-    }
+        m_AudioManager.abandonAudioFocus(this);
+        m_AudioManager = null;
+	}
 
 	private void Duck()
 	{
@@ -136,19 +138,19 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
 			case AudioManager.AUDIOFOCUS_GAIN:
             {
                 Log.e(TAG, "AUDIOFOCUS_GAIN");
-                UnDuck();
+                Resume();
                 break;
             }
 			case AudioManager.AUDIOFOCUS_GAIN_TRANSIENT:
             {
                 Log.e(TAG, "AUDIOFOCUS_GAIN_TRANSIENT");
-                UnDuck();
+                Resume();
                 break;
             }
 			case AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK:
             {
                 Log.e(TAG, "AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK");
-                UnDuck();
+                Resume();
                 break;
             }
 			case AudioManager.AUDIOFOCUS_LOSS:

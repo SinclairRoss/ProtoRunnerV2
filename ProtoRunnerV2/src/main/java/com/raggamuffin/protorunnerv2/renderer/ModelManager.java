@@ -25,12 +25,14 @@ public class ModelManager
 	private Context m_Context;
 
 	private GLFloorPanel m_FloorPanel;
-    private GLModel      m_PlasmaPulse;
-	private GLRing		 m_Ring;
-	private GLLine		 m_Pointer;
+	private GLModel_Ring m_Ring;
+	private GLLine m_Pointer;
 	private GLScreenQuad m_Screen;
-	private GLSkybox	 m_Skybox;
+	private GLSkybox m_Skybox;
 	private GLRadarFragment m_RadarFragment;
+
+    private GLModel m_ParticleLaser;
+    private GLModel_SolidObject m_PlasmaPulse;
 
     private GLModel_StandardObject m_Runner;
     private GLModel_StandardObject m_Bit;
@@ -42,8 +44,7 @@ public class ModelManager
     private GLModel_StandardObject m_Dummy;
     private GLModel_StandardObject m_WeaponDrone;
     private GLModel_StandardObject m_ThreePointStar;
-    private GLModel_HollowObject   m_Explosion;
-    private GLModel_LaserBeam      m_ParticleLaser;
+    private GLModel_HollowObject m_Explosion;
 
     public ModelManager(Context context, RenderEffectSettings Settings)
 	{		
@@ -67,10 +68,11 @@ public class ModelManager
 	private void LoadModels()
     {
         m_FloorPanel = new GLFloorPanel();
-        m_Ring = new GLRing();
+        m_Ring = new GLModel_Ring();
         m_Pointer = new GLLine(2.0f);
-        m_ParticleLaser = new GLModel_LaserBeam();
-        m_PlasmaPulse = new GLModel_PlasmaPulse();
+        m_ParticleLaser = new GLModel_SolidObject(ReadFloatArrayFromResource(R.string.laser_vertices));
+       // m_ParticleLaser = new GLModel_LaserBeam();
+        m_PlasmaPulse = new GLModel_SolidObject(ReadFloatArrayFromResource(R.string.plasma_vertices));
 
         m_Screen = new GLScreenQuad();
         m_Skybox = new GLSkybox();
@@ -168,7 +170,7 @@ public class ModelManager
             case FloorPanel:
                 return m_FloorPanel;
             case Ring:
-                break;
+                return m_Ring;
             case LaserPointer:
                 return m_Pointer;
             case ParticleLaser:

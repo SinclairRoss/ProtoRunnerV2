@@ -67,7 +67,7 @@ public class Vehicle_Runner extends Vehicle
 		
 		m_Engine = new Engine_Standard(this, game);
 		m_Engine.SetMaxTurnRate(2.0);//2
-		m_Engine.SetMaxEngineOutput(0);//3000
+		m_Engine.SetMaxEngineOutput(3000);//3000
         m_Engine.SetAfterBurnerOutput(0);
 		
 		m_MaxHullPoints = 1000;
@@ -129,7 +129,7 @@ public class Vehicle_Runner extends Vehicle
 	@Override
 	public void Update(double deltaTime)
 	{
-       // DrainEnergy(m_HealthDrainRate * deltaTime);
+     //   DrainEnergy(m_HealthDrainRate * deltaTime);
         m_Engine.SetTurnRate(m_Input.GetTilt());
 		super.Update(deltaTime);
 	}

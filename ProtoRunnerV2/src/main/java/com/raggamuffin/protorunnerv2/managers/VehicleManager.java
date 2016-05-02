@@ -3,8 +3,10 @@ package com.raggamuffin.protorunnerv2.managers;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.raggamuffin.protorunnerv2.gameobjects.BeeperBot;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Drone;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_LaserStar;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_SweeperBot;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Tank;
 import com.raggamuffin.protorunnerv2.gameobjects.TargetBot;
 import com.raggamuffin.protorunnerv2.gameobjects.VehicleType;
@@ -101,7 +103,6 @@ public class VehicleManager
 		}
 	}
 
-
     public Vehicle SpawnVehicle(VehicleType type, double x, double z, double orientation)
     {
         Vehicle spawn = null;
@@ -132,6 +133,12 @@ public class VehicleManager
 			case TrainingDummy:
 				spawn = new Dummy(m_Game);
 				break;
+			case BeeperBot:
+				spawn = new BeeperBot(m_Game);
+				break;
+			case SweeperBot:
+				spawn = new Vehicle_SweeperBot(m_Game);
+				break;
         }
 
 		if(spawn != null)
@@ -142,7 +149,6 @@ public class VehicleManager
 			GetTeam(spawn.GetAffiliation()).add(spawn);
 			m_Game.AddObjectToRenderer(spawn);
 		}
-
         return spawn;
     }
 

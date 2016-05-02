@@ -1,6 +1,7 @@
 package com.raggamuffin.protorunnerv2.tutorial;
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
+import com.raggamuffin.protorunnerv2.gameobjects.VehicleType;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Runner;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
@@ -45,26 +46,26 @@ public class TutorialCondition_Destroy extends TutorialCondition
 
         Vehicle_Runner player = m_Game.GetVehicleManager().GetPlayer();
 
-        if(player == null)
-            return;
-
-        Vector3 playerPos = player.GetPosition();
-
-        double deltaTheta = (Math.PI * 2) / m_NumDummies;
-        double theta = 0.0;
-
-        for(int i = 0; i < m_NumDummies; i++)
+        if(player != null)
         {
-            double distance = 60;
+            Vector3 playerPos = player.GetPosition();
 
-            double x = (Math.cos(theta) * distance) + playerPos.I;
-            double z = (Math.sin(theta) * distance) + playerPos.K;
-            m_Game.GetVehicleManager().SpawnDummy(x, z);
+            double deltaTheta = (Math.PI * 2) / m_NumDummies;
+            double theta = 0.0;
 
-            theta += deltaTheta;
+            for (int i = 0; i < m_NumDummies; i++)
+            {
+                double distance = 60;
+
+                double x = (Math.cos(theta) * distance) + playerPos.I;
+                double z = (Math.sin(theta) * distance) + playerPos.K;
+                m_Game.GetVehicleManager().SpawnVehicle(VehicleType.TrainingDummy, x, z, 0);
+
+                theta += deltaTheta;
+            }
+
+            m_DummiesDestroyed = 0;
         }
-
-        m_DummiesDestroyed = 0;
     }
 
     @Override
@@ -78,7 +79,7 @@ public class TutorialCondition_Destroy extends TutorialCondition
         @Override
         public void Update(int args)
         {
-            m_DummiesDestroyed++;
+            ++m_DummiesDestroyed;
         }
     }
 }

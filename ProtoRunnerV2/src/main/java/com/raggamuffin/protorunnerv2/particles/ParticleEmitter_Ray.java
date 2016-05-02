@@ -8,21 +8,21 @@ import com.raggamuffin.protorunnerv2.utils.Vector3;
 public class ParticleEmitter_Ray extends ParticleEmitter
 {
     private double m_Accuracy;
-    private double m_Range;
-    private double m_MaxDeltaEmission;
-    private double m_DeltaEmission;
+    private double m_Length;
+    private double m_EmissionRate;
+    private double m_EmissionTimer;
 
     private Vector3 m_SpawnPoint;
     private Vector3 m_ParticleForward;
 
-    public ParticleEmitter_Ray(GameLogic game, Colour initialColour, Colour finalColour, double emissionForce, double lifeSpan)
+    public ParticleEmitter_Ray(GameLogic game, Colour initialColour, Colour finalColour, double emissionForce, double emissionRate, double lifeSpan)
     {
         super(game, initialColour, finalColour, emissionForce, lifeSpan);
 
         m_Accuracy = Math.PI * 0.5;
-        m_Range = 0.0;
-        m_MaxDeltaEmission = 0.01;
-        m_DeltaEmission = 0.0;
+        m_Length = 0.0;
+        m_EmissionRate = emissionRate;
+        m_EmissionTimer = 0.0;
 
         m_SpawnPoint = new Vector3();
         m_ParticleForward = new Vector3();
@@ -30,11 +30,11 @@ public class ParticleEmitter_Ray extends ParticleEmitter
 
     public void Update(double deltaTime)
     {
-        m_DeltaEmission += deltaTime;
+        m_EmissionTimer += deltaTime * m_Length;
 
-        while(m_DeltaEmission >= m_MaxDeltaEmission)
+        while(m_EmissionTimer >= m_EmissionRate)
         {
-            m_DeltaEmission -= m_MaxDeltaEmission;
+            m_EmissionTimer -= m_EmissionRate;
             m_ParticleManager.CreateParticle(this);
         }
     }
@@ -44,7 +44,7 @@ public class ParticleEmitter_Ray extends ParticleEmitter
     {
         m_SpawnPoint.SetVector(m_Forward);
         //m_SpawnPoint.Scale(MathsHelper.BiasedRandomDouble(0, m_Range, 0.3));
-        m_SpawnPoint.Scale(MathsHelper.RandomDouble(0, m_Range));
+        m_SpawnPoint.Scale(MathsHelper.RandomDouble(0, m_Length));
         m_SpawnPoint.Add(m_Position);
 
         return m_SpawnPoint;
@@ -61,6 +61,6 @@ public class ParticleEmitter_Ray extends ParticleEmitter
 
     public void SetRange(double range)
     {
-        m_Range = range;
+        m_Length = range;
     }
 }

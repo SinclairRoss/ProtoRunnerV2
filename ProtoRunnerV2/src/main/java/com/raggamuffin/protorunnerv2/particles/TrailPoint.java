@@ -68,20 +68,27 @@ public class TrailPoint
 
     private double CalculateAlpha()
     {
+        double alpha;
         double val = m_LifeTimer.GetProgress();
 
         if(val < m_FadeInLength)
-            return MathsHelper.Normalise(val, 0, m_FadeInLength);
+        {
+            alpha = MathsHelper.Normalise(val, 0, m_FadeInLength);
+        }
         else
-            return 1.0 - MathsHelper.Normalise(val, m_FadeInLength, 1);
+        {
+            alpha = 1.0 - MathsHelper.Normalise(val, m_FadeInLength, 1);
+        }
 
-
+        return alpha;
     }
 
     public void CleanUp()
     {
         if(m_Child != null)
+        {
             m_Child.InvalidateParent();
+        }
     }
 
     public void InvalidateParent()
