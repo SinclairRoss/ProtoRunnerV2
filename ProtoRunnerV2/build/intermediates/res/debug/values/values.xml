@@ -690,85 +690,9 @@
     <!-- From: file:/C:/Users/Mad%20Beast/AndroidStudioProjects/ProtoRunnerV2/ProtoRunnerV2/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.4.0/res/values/admob_strings.xml -->
     <eat-comment/>
     <string name="decline">Decline</string>
-    <!-- From: file:/C:/Users/Mad%20Beast/AndroidStudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/strings.xml -->
+    <!-- From: file:/C:/Users/Mad%20Beast/AndroidStudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/dome.xml -->
     <eat-comment/>
-    <string name="down_but_not_out_text">System Failing</string>
-    <!-- From: file:/C:/Users/Mad%20Beast/AndroidStudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/dummy.xml -->
-    <eat-comment/>
-    <string name="dummy_vertices">
-    0.0f,  1.0f,  0.0f,
-    -2.0f,  0.0f,  0.0f,
-    0.0f,  0.0f,  1.0f,
-
-    0.0f,  1.0f,  0.0f,
-    0.0f,  0.0f,  1.0f,
-    2.0f,  0.0f,  0.0f,
-
-    0.0f,  1.0f,  0.0f,
-    2.0f,  0.0f,  0.0f,
-    0.0f,  0.0f, -1.0f,
-
-    0.0f,  1.0f,  0.0f,
-    0.0f,  0.0f, -1.0f,
-    -2.0f,  0.0f,  0.0f,
-
-    0.0f, -1.0f,  0.0f,
-    0.0f,  0.0f,  1.0f,
-    -2.0f,  0.0f,  0.0f,
-
-    0.0f, -1.0f,  0.0f,
-    2.0f,  0.0f,  0.0f,
-    0.0f,  0.0f,  1.0f,
-
-    0.0f, -1.0f,  0.0f,
-    0.0f,  0.0f, -1.0f,
-    2.0f,  0.0f,  0.0f,
-
-    0.0f, -1.0f,  0.0f,
-    -2.0f,  0.0f,  0.0f,
-    0.0f,  0.0f, -1.0f
-    </string>
-    <!-- From: file:/C:/Users/Mad%20Beast/AndroidStudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/strings.xml -->
-    <eat-comment/>
-    <string name="empty"/>
-    <!-- From: file:/C:/Users/Mad%20Beast/AndroidStudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/enginedrone.xml -->
-    <eat-comment/>
-    <string name="enginedrone_vertices">
-        0.0f,  1.0f,  0.0f,
-        -1.0f,  0.0f,  0.0f,
-        0.0f,  0.0f, 3.0f,
-
-        0.0f,  1.0f,  0.0f,
-        0.0f,  0.0f, 3.0f,
-        1.0f,  0.0f,  0.0f,
-
-        0.0f,  1.0f,  0.0f,
-        1.0f,  0.0f,  0.0f,
-        0.0f,  0.0f, -1.0f,
-
-        0.0f,  1.0f,  0.0f,
-        0.0f,  0.0f, -1.0f,
-        -1.0f,  0.0f,  0.0f,
-
-        0.0f, -1.0f,  0.0f,
-        0.0f,  0.0f, 3.0f,
-        -1.0f,  0.0f,  0.0f,
-
-        0.0f, -1.0f,  0.0f,
-        1.0f,  0.0f,  0.0f,
-        0.0f,  0.0f, 3.0f,
-
-        0.0f, -1.0f,  0.0f,
-        0.0f,  0.0f, -1.0f,
-        1.0f,  0.0f,  0.0f,
-
-        0.0f, -1.0f,  0.0f,
-        -1.0f,  0.0f,  0.0f,
-        0.0f,  0.0f, -1.0f
-    </string>
-    <!-- From: file:/C:/Users/Mad%20Beast/AndroidStudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/explosion.xml -->
-    <eat-comment/>
-    <string name="explosion_vertices">
+    <string name="dome_vertices">
         0.0f, 1.0f, 0.0f,
         0.219f, 0.707f, 0.672f,
         0.707f, 0.707f, 0.0f,
@@ -848,6 +772,82 @@
         0.707f, 0.707f, 0.0f,
         1.0f,   0.0f, 0.0f,
         0.809f, 0.0f, -0.588f,
+    </string>
+    <!-- From: file:/C:/Users/Mad%20Beast/AndroidStudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="down_but_not_out_text">System Failing</string>
+    <!-- From: file:/C:/Users/Mad%20Beast/AndroidStudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/dummy.xml -->
+    <eat-comment/>
+    <string name="dummy_vertices">
+    0.0f,  1.0f,  0.0f,
+    -2.0f,  0.0f,  0.0f,
+    0.0f,  0.0f,  1.0f,
+
+    0.0f,  1.0f,  0.0f,
+    0.0f,  0.0f,  1.0f,
+    2.0f,  0.0f,  0.0f,
+
+    0.0f,  1.0f,  0.0f,
+    2.0f,  0.0f,  0.0f,
+    0.0f,  0.0f, -1.0f,
+
+    0.0f,  1.0f,  0.0f,
+    0.0f,  0.0f, -1.0f,
+    -2.0f,  0.0f,  0.0f,
+
+    0.0f, -1.0f,  0.0f,
+    0.0f,  0.0f,  1.0f,
+    -2.0f,  0.0f,  0.0f,
+
+    0.0f, -1.0f,  0.0f,
+    2.0f,  0.0f,  0.0f,
+    0.0f,  0.0f,  1.0f,
+
+    0.0f, -1.0f,  0.0f,
+    0.0f,  0.0f, -1.0f,
+    2.0f,  0.0f,  0.0f,
+
+    0.0f, -1.0f,  0.0f,
+    -2.0f,  0.0f,  0.0f,
+    0.0f,  0.0f, -1.0f
+    </string>
+    <!-- From: file:/C:/Users/Mad%20Beast/AndroidStudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="empty"/>
+    <!-- From: file:/C:/Users/Mad%20Beast/AndroidStudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/enginedrone.xml -->
+    <eat-comment/>
+    <string name="enginedrone_vertices">
+        0.0f,  1.0f,  0.0f,
+        -1.0f,  0.0f,  0.0f,
+        0.0f,  0.0f, 3.0f,
+
+        0.0f,  1.0f,  0.0f,
+        0.0f,  0.0f, 3.0f,
+        1.0f,  0.0f,  0.0f,
+
+        0.0f,  1.0f,  0.0f,
+        1.0f,  0.0f,  0.0f,
+        0.0f,  0.0f, -1.0f,
+
+        0.0f,  1.0f,  0.0f,
+        0.0f,  0.0f, -1.0f,
+        -1.0f,  0.0f,  0.0f,
+
+        0.0f, -1.0f,  0.0f,
+        0.0f,  0.0f, 3.0f,
+        -1.0f,  0.0f,  0.0f,
+
+        0.0f, -1.0f,  0.0f,
+        1.0f,  0.0f,  0.0f,
+        0.0f,  0.0f, 3.0f,
+
+        0.0f, -1.0f,  0.0f,
+        0.0f,  0.0f, -1.0f,
+        1.0f,  0.0f,  0.0f,
+
+        0.0f, -1.0f,  0.0f,
+        -1.0f,  0.0f,  0.0f,
+        0.0f,  0.0f, -1.0f
     </string>
     <!-- From: file:/C:/Users/Mad%20Beast/AndroidStudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/strings.xml -->
     <eat-comment/>
@@ -1086,6 +1086,94 @@
         1.0f,  0.0f, -1.0f,
         0.0f,  0.0f,  1.5f,
         0.0f, -0.75f, -1.2f
+    </string>
+    <!-- From: file:/C:/Users/Mad%20Beast/AndroidStudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/shield.xml -->
+    <eat-comment/>
+    <string name="shield_vertices">
+        -1.0f, -1.0f, 1.0f,
+        1.0f, -1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f,
+
+        -1.0f, -1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f,
+        -1.0f, -1.0f, -1.0f,
+
+        1.0f, -1.0f, 1.0f,
+        -1.0f, -1.0f, -1.0f,
+        1.0f, 1.0f, 1.0f,
+
+        -1.0f, -1.0f, 1.0f,
+        -1.0f, -1.0f, -1.0f,
+        1.0f, -1.0f, 1.0f,
+    </string>
+    <!-- From: file:/C:/Users/Mad%20Beast/AndroidStudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/shieldbearer.xml -->
+    <eat-comment/>
+    <string name="shieldbearer_vertices">
+
+         0.0,  1.0,  0.0,
+        -0.3, 0.4, -0.3,
+        -1.0,  0.0,  0.0,
+
+         0.0,  1.0,  0.0,
+         0.0,  0.0, -1.0,
+       -0.3, 0.4, -0.3,
+
+         0.0,  1.0,  0.0,
+         0.3, 0.4,  -0.3,
+         0.0,  0.0, -1.0,
+
+         0.0,  1.0,  0.0,
+         1.0,  0.0,  0.0,
+         0.3, 0.4,  -0.3,
+
+         0.0,  1.0,  0.0,
+         0.3, 0.4,  0.3,
+         1.0,  0.0,  0.0,
+
+         0.0,  1.0,  0.0,
+         0.0,  0.0,  1.0,
+         0.3, 0.4,  0.3,
+
+         0.0,  1.0,  0.0,
+        -0.3, 0.4,  0.3,
+         0.0,  0.0,  1.0,
+
+         0.0,  1.0,  0.0,
+        -1.0,  0.0,  0.0,
+        -0.3, 0.4,  0.3,
+
+         0.0,  0.75,  0.0,
+          -1.0,  0.0,  0.0,
+       -0.3, 0.4, -0.3,
+
+         0.0,  0.75,  0.0,
+       -0.3, 0.4, -0.3,
+         0.0,  0.0, -1.0,
+
+         0.0,  0.75,  0.0,
+         0.0,  0.0, -1.0,
+         0.3, 0.4,  -0.3,
+
+         0.0,  0.75,  0.0,
+         0.3, 0.4,  -0.3,
+         1.0,  0.0,  0.0,
+
+         0.0,  0.75,  0.0,
+         1.0,  0.0,  0.0,
+         0.3, 0.4,  0.3,
+
+         0.0,  0.75,  0.0,
+         0.3, 0.4,  0.3,
+         0.0,  0.0,  1.0,
+
+         0.0,  0.75,  0.0,
+         0.0,  0.0,  1.0,
+        -0.3, 0.4,  0.3,
+
+         0.0,  0.75,  0.0,
+        -0.3, 0.4,  0.3,
+        -1.0,  0.0,  0.0,
+
     </string>
     <!-- From: file:/C:/Users/Mad%20Beast/AndroidStudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/strings.xml -->
     <eat-comment/>

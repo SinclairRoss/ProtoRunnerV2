@@ -22,10 +22,11 @@ public class Vehicle_Bit extends Vehicle
         SetBaseColour(Colours.OrangeRed);
 		m_Position.SetVector(10, 0, 10);
 
+		m_Mass = 100;
         m_Engine = new Engine_Standard(this, game);
 		m_Engine.SetMaxTurnRate(1.5);
-		m_Engine.SetMaxEngineOutput(2500);
-        m_Engine.SetDodgeOutput(16000);
+		m_Engine.SetMaxEngineOutput(10000);
+        m_Engine.SetDodgeOutput(50000);
         m_BoundingRadius = 2;
 
 		SetAffiliation(AffiliationKey.RedTeam); 
@@ -48,6 +49,6 @@ public class Vehicle_Bit extends Vehicle
     @Override
     public void CleanUp()
     {
-
+        m_PrimaryWeapon.CleanUp();
     }
 } 

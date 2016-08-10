@@ -1,6 +1,7 @@
 package com.raggamuffin.protorunnerv2.ui;
 
 import com.raggamuffin.protorunnerv2.R;
+import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Runner;
 import com.raggamuffin.protorunnerv2.managers.ColourManager;
@@ -37,7 +38,7 @@ public class UIScreen_Tutorial extends UIScreen
         ColourManager cManager = m_Game.GetColourManager();
 
         // Condition progress bar
-        m_ConditionProgress = new UIProgressBar(1.2, 1.0, cManager.GetAccentingColour(), cManager.GetAccentTintColour(), cManager.GetPrimaryColour(), m_Game.GetContext().getString(R.string.tutorial_progress), UIProgressBar.Alignment.Left, m_Game.GetGameAudioManager(), m_UIManager);
+        m_ConditionProgress = new UIProgressBar(1.2, 1.0, cManager.GetSecondaryColour(), cManager.GetAccentTintColour(), cManager.GetPrimaryColour(), m_Game.GetContext().getString(R.string.tutorial_progress), UIProgressBar.Alignment.Left, m_Game.GetGameAudioManager(), m_UIManager);
         m_ConditionProgress.SetPosition(0.0, 0.3);
 
         m_UIManager.AddUIElement(m_ConditionProgress);
@@ -46,13 +47,13 @@ public class UIScreen_Tutorial extends UIScreen
         m_ConditionProgress.SetHidden(true);
 
         // Next button
-        m_NextButton = CreateButton(m_Game.GetContext().getString(R.string.tutorial_next), PublishedTopics.NextTutorialButtonPressed);
-        m_NextButton.GetFont().SetColour(m_Game.GetColourManager().GetAccentingColour());
+        m_NextButton = CreateButton(m_Game.GetContext().getString(R.string.tutorial_next), PublishedTopics.NextTutorialButtonPressed, AudioClips.UI_Positive);
+        m_NextButton.GetFont().SetColour(m_Game.GetColourManager().GetSecondaryColour());
         m_NextButton.SetPosition(0.85, 0);
         m_NextButton.GetFont().SetAlignment(Font.Alignment.Right);
         m_NextButton.SetHidden(true);
 
-        m_LeftPanel = new UIPanel(m_UIManager, cManager.GetAccentingColour());
+        m_LeftPanel = new UIPanel(m_UIManager, cManager.GetSecondaryColour());
         m_LeftPanel.SetPosition(-0.5, 0.0);
         m_UIManager.AddUIElement(m_LeftPanel);
         m_LeftPanel.SetHidden(true);
@@ -66,7 +67,7 @@ public class UIScreen_Tutorial extends UIScreen
         Vehicle_Runner player = m_Game.GetVehicleManager().GetPlayer();
 
         String HealthString = m_Game.GetContext().getString(R.string.empty);
-        m_HealthBar = new UIProgressBar(1.6, player.GetMaxHullPoints(), cManager.GetAccentingColour(), cManager.GetAccentTintColour(), new Colour(Colours.Clear), HealthString, UIProgressBar.Alignment.Center, m_Game.GetGameAudioManager(), m_UIManager);
+        m_HealthBar = new UIProgressBar(1.6, player.GetMaxHullPoints(), cManager.GetSecondaryColour(), cManager.GetAccentTintColour(), new Colour(Colours.Clear), HealthString, UIProgressBar.Alignment.Center, m_Game.GetGameAudioManager(), m_UIManager);
         m_HealthBar.SetPosition(0.0, 0.9);
 
         m_UIManager.AddUIElement(m_HealthBar);

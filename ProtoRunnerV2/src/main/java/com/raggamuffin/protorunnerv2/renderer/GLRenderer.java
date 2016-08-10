@@ -6,14 +6,17 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
+import com.raggamuffin.protorunnerv2.gameobjects.Rope;
 import com.raggamuffin.protorunnerv2.master.RenderEffectSettings;
 import com.raggamuffin.protorunnerv2.master.RendererPacket;
-import com.raggamuffin.protorunnerv2.particles.TrailPoint;
+import com.raggamuffin.protorunnerv2.particles.RopeNode;
+import com.raggamuffin.protorunnerv2.particles.TrailNode;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
 import com.raggamuffin.protorunnerv2.ui.UIElementType;
 
 import android.content.Context;
 
+import android.graphics.Point;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 
@@ -37,6 +40,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
     private ModelManager m_ModelManager;
     private UIRenderManager m_UIManager;
     private TrailRenderer m_TrailRenderer;
+    private RopeRenderer m_RopeRenderer;
     private BulletRenderer m_BulletRenderer;
     private ParticleRenderer m_ParticleRenderer;
 
@@ -46,7 +50,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
     private final int m_NumFBOs = 3;
     private int m_Textures[];
     private int m_Depth[];
-    private int m_Size[];
+    private Point m_Size[];
     private int m_FrameBuffers[];
 
     private int counter = 0;
@@ -66,6 +70,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
 		m_ModelManager = new ModelManager(m_Context, m_RenderEffectSettings);
 		m_UIManager    = new UIRenderManager(m_Context);
         m_TrailRenderer = new TrailRenderer();
+        m_RopeRenderer = new RopeRenderer();
         m_BulletRenderer = new BulletRenderer();
         m_ParticleRenderer = new ParticleRenderer();
 	}
@@ -90,15 +95,16 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
         m_ModelManager.LoadAssets();
         m_TrailRenderer.LoadAssets();
+        m_RopeRenderer.LoadAssets();
         m_UIManager.LoadAssets();
         m_ParticleRenderer.LoadAssets();
         m_BulletRenderer.LoadAssets();
 
         // FBO
-        m_Size = new int [m_NumFBOs];
-        m_Size[0] = 1024;
-        m_Size[1] = 256;
-        m_Size[2] = 256;
+        m_Size = new Point[m_NumFBOs];
+        m_Size[0] = m_Packet.GetScreenSize();
+        m_Size[1] = new Point(256,256);
+        m_Size[2] = new Point(256,256);
 
         m_Textures 	= new int[m_NumFBOs];
         GLES20.glGenTextures(m_NumFBOs, m_Textures, 0);
@@ -110,7 +116,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
 	        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
 	        GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE);
 	        GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE);
-	        GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_RGBA, m_Size[i], m_Size[i], 0, GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, null);
+	        GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_RGBA, m_Size[i].x, m_Size[i].y, 0, GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, null);
         }
 
         m_Depth = new int[m_NumFBOs];
@@ -123,7 +129,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
 	        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
 	        GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE);
 	        GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE);
-	        GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_DEPTH_COMPONENT, m_Size[i], m_Size[i], 0, GLES20.GL_DEPTH_COMPONENT, GLES20.GL_UNSIGNED_SHORT, null);
+	        GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_DEPTH_COMPONENT, m_Size[i].x, m_Size[i].y, 0, GLES20.GL_DEPTH_COMPONENT, GLES20.GL_UNSIGNED_SHORT, null);
         }
 
         m_FrameBuffers = new int[m_NumFBOs];
@@ -144,12 +150,10 @@ public class GLRenderer implements GLSurfaceView.Renderer
 	@Override
 	public void onDrawFrame(GL10 unused)
 	{
-	//	Log.e(TAG,"onDrawFrame");
-
         Long start = System.currentTimeMillis();
 
 		GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, m_FrameBuffers[0]);
-		GLES20.glViewport(0, 0, m_Size[0], m_Size[0]);
+		GLES20.glViewport(0, 0, m_Size[0].x, m_Size[0].y);
 
 		GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
 
@@ -164,11 +168,12 @@ public class GLRenderer implements GLSurfaceView.Renderer
         DrawParticles(view);
         DrawObjects(view);
         DrawTrails(view);
+        DrawRopes(view);
 		DrawUI();
 
 		// Glow vertical.
 		GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, m_FrameBuffers[1]);
-		GLES20.glViewport(0, 0, m_Size[1], m_Size[1]);
+		GLES20.glViewport(0, 0, m_Size[1].x, m_Size[1].y);
 
 		GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
 
@@ -179,7 +184,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
         // Glow horizontal.
  		GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, m_FrameBuffers[2]);
- 		GLES20.glViewport(0, 0, m_Size[2], m_Size[2]);
+ 		GLES20.glViewport(0, 0, m_Size[2].x, m_Size[2].y);
 
  		GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
 
@@ -280,37 +285,17 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
         m_ParticleRenderer.Clean();
     }
-/*
-    private void DrawBullets(float[] view)
-    {
-        ArrayList<GameObject> list = (ArrayList<GameObject>)m_Packet.GetBullets().clone();
-
-        if(list.size() == 0)
-            return;
-
-        m_BulletRenderer.Initialise(view, m_Camera.GetPosition());
-
-        for(GameObject obj : list)
-        {
-            if(obj == null)
-                continue;
-
-            m_BulletRenderer.Draw(obj.GetPosition(), obj.GetColour(), (float)obj.GetScale().I);
-        }
-
-        m_BulletRenderer.Clean();
-    }*/
 
     private void DrawTrails(float[] view)
     {
-        ArrayList<TrailPoint> list = (ArrayList<TrailPoint>)m_Packet.GetTrailPoints().clone();
+        ArrayList<TrailNode> list = (ArrayList<TrailNode>)m_Packet.GetTrailPoints().clone();
 
         if(list.size() == 0)
             return;
 
         m_TrailRenderer.Initialise(view, m_Camera.GetPosition());
 
-        for(TrailPoint obj : list)
+        for(TrailNode obj : list)
         {
             if(obj == null)
                 continue;
@@ -319,6 +304,27 @@ public class GLRenderer implements GLSurfaceView.Renderer
         }
 
         m_TrailRenderer.Clean();
+    }
+
+    private void DrawRopes(float[] view)
+    {
+        ArrayList<Rope> list = (ArrayList<Rope>)m_Packet.GetRopes().clone();
+
+        if(list.size() == 0)
+            return;
+
+        m_RopeRenderer.Initialise(view, m_Camera.GetPosition());
+
+        for (Rope obj : list)
+        {
+            if (obj != null)
+            {
+                m_RopeRenderer.Draw(obj);
+            }
+        }
+
+        m_RopeRenderer.Clean();
+
     }
 
     private void DrawUI()

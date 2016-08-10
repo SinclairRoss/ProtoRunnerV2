@@ -33,7 +33,7 @@ public class BeeperBot extends Vehicle
         m_OnTimer = new Timer(5.0);
         m_OffTimer = new Timer(1.0);
 
-        m_Beeper = new AudioEmitter_Point(this, game.GetGameAudioManager(), AudioClips.FlareEngaged, EAudioRepeatBehaviour.Manual);
+        m_Beeper = new AudioEmitter_Point(this, game.GetGameAudioManager(), AudioClips.UI_Play, EAudioRepeatBehaviour.Manual);
         m_Beeper.Start();
 
         m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.EnemyDestroyed);

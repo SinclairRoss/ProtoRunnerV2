@@ -32,6 +32,7 @@ public abstract class WeaponComponent
         }
     }
 
+    public abstract void Destroy();
     public abstract void Update(double deltaTime);
     public abstract void OnActivation();
     public abstract void OnDeactivation();

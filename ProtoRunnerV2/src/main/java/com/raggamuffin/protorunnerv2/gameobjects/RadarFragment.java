@@ -1,8 +1,8 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
-import com.raggamuffin.protorunnerv2.colours.ColourBehaviour.ActivationMode;
+import com.raggamuffin.protorunnerv2.colours.ColourBehaviour;
+import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_AlphaController;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_LerpTo;
-import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_LerpToWithAlpha;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colour;
@@ -13,118 +13,112 @@ import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class RadarFragment extends GameObject
 {
-	private Vector3 m_Offset;
-	private double m_Heat;
-	
-	private final double MIN_DEPTH;
-	private final double MAX_DEPTH;	
-	private final double MIN_ALPHA = 0.0;
-	private final double MAX_ALPHA = 0.4;
-	private double m_Depth;
+    private final double MAX_ALPHA = 0.4;
+    private final double MIN_DEPTH;
+    private final double MAX_DEPTH;
 
-	private Vector3 m_NormalisedRadarPos;
-	
-	private Spring3 m_Spring;
-	
-	private RadarSignatureType m_RadarSignatureType;
+    private Vector3 m_RestedPosition;
+    private Vector3 m_Offset;
+    private double m_Heat;
 
-	private final Colour m_FriendlyColour;
-	private final Colour m_EnemyColour;
-	private final Colour m_NeutralColour;
-	
-	public RadarFragment(GameLogic game, double min, double max, double x, double y, double radarRadius)
-	{
-		super(game.GetPubSubHub(), game.GetGameAudioManager());
+    private Vector3 m_NormalisedRadarPos;
+    private Spring3 m_Spring;
 
-		MIN_DEPTH = min;
-		MAX_DEPTH = max;	
-		m_Depth = MIN_DEPTH;
-		
-		m_Model = ModelType.RadarFragment;
-		SetBaseColour(Colours.Black);
+    private final ColourBehaviour_LerpTo m_ColourBehaviour;
+    private final ColourBehaviour_AlphaController m_AlphaController;
 
-		m_Heat = 0.0;
-		
-		m_Offset = new Vector3(x, 0 ,y);
-		
-		m_NormalisedRadarPos = new Vector3(m_Offset);
-		m_NormalisedRadarPos.Scale(1 / radarRadius);
-	
-		m_Spring = new Spring3(m_Offset);
-		
-		m_RadarSignatureType = RadarSignatureType.None;
-		
-		m_FriendlyColour 	= game.GetColourManager().GetPrimaryColour();
-		m_EnemyColour 		= game.GetColourManager().GetAccentingColour();
-		m_NeutralColour 	= new Colour(Colours.PastelGrey);
-	}
-	
-	@Override
-	public void Update(double deltaTime)
-	{
-		super.Update(deltaTime);
+    private final Colour m_FriendlyColour;
+    private final Colour m_EnemyColour;
+    private final Colour m_NeutralColour;
 
-		m_Heat += MathsHelper.RandomDouble(0, 0.4);
-		m_Depth = MathsHelper.Lerp(m_Heat, MIN_DEPTH, MAX_DEPTH);
+    private RadarSignatureType m_SignatureType;
 
-		m_Spring.SetRelaxedPosition(m_Offset.I, m_Depth, m_Offset.K);
-		m_Spring.Update(deltaTime);
-		m_Position.Add(m_Offset);
+    public RadarFragment(GameLogic game, double min, double max, double x, double y, double radarRadius)
+    {
+        super(game.GetPubSubHub(), game.GetGameAudioManager());
 
-        double normalisedDepth = MathsHelper.Normalise(m_Offset.J, MIN_DEPTH, MAX_DEPTH);
+        MIN_DEPTH = min;
+        MAX_DEPTH = max;
 
-        m_Colour.Red    = MathsHelper.Lerp(normalisedDepth, m_BaseColour.Red, 	m_AltColour.Red);
-        m_Colour.Green  = MathsHelper.Lerp(normalisedDepth, m_BaseColour.Green, m_AltColour.Green);
-        m_Colour.Blue   = MathsHelper.Lerp(normalisedDepth, m_BaseColour.Blue, 	m_AltColour.Blue);
-        m_Colour.Alpha  = normalisedDepth * 0.4;
+        m_Model = ModelType.RadarFragment;
+        m_Mass = 1.0;
+        m_DragCoefficient = 0.95;
 
-	}
-	
-	public void SetSignatureType(RadarSignatureType type)
-	{	
-		switch(type)
-		{
-			case Player:
-                m_AltColour = m_FriendlyColour;
-				m_RadarSignatureType = type;
-				break;
-				
-			case Enemy:
-				if(m_RadarSignatureType == RadarSignatureType.Player)
-					break;
+        m_Offset = new Vector3(x, 0, y);
+        m_RestedPosition = new Vector3();
+        m_Spring = new Spring3(5, 0);
 
-                m_AltColour = m_EnemyColour;
-				m_RadarSignatureType = type;
-				break;
-			
-			case Wingman:
-				if(m_RadarSignatureType == RadarSignatureType.Player ||
-				   m_RadarSignatureType == RadarSignatureType.Enemy	)
-					break;
+        m_NormalisedRadarPos = new Vector3(m_Offset);
+        m_NormalisedRadarPos.Scale(1 / radarRadius);
 
-                m_AltColour = m_FriendlyColour;
-				m_RadarSignatureType = type;
-				break;	
-		}
-	}
+        m_Heat = 0.0;
+        m_SignatureType = RadarSignatureType.None;
 
-	public void HeatUp()
-	{
-		m_Heat = 1.0;
-	}
-	
-	public void CoolDown()
-	{
-		m_Heat = 0.0;
-		m_RadarSignatureType = RadarSignatureType.None;
+        m_FriendlyColour = game.GetColourManager().GetPrimaryColour();
+        m_EnemyColour = game.GetColourManager().GetSecondaryColour();
+        m_NeutralColour = new Colour(Colours.PastelGrey);
+        m_BaseColour = m_NeutralColour;
         m_AltColour = m_NeutralColour;
-	}
-	
-	@Override
-	public boolean IsValid() 
-	{
-		return true;
-	}
+
+        m_ColourBehaviour = new ColourBehaviour_LerpTo(this, ColourBehaviour.ActivationMode.Continuous);
+        AddColourBehaviour(m_ColourBehaviour);
+
+        m_AlphaController = new ColourBehaviour_AlphaController(this, ColourBehaviour.ActivationMode.Continuous);
+        AddColourBehaviour(m_AlphaController);
+    }
+
+    @Override
+    public void Update(double deltaTime)
+    {
+        m_Heat += MathsHelper.RandomDouble(0, 0.4);
+        double targetDepth = MathsHelper.Lerp(m_Heat, MIN_DEPTH, MAX_DEPTH);
+
+        m_Position.Add(m_Offset);
+        m_RestedPosition.SetVector(m_Position);
+        m_RestedPosition.J = targetDepth;
+        ApplyForce(m_Spring.CalculateSpringForce(m_Position, m_RestedPosition));
+
+        double normalisedDepth = MathsHelper.Normalise(m_Position.J, MIN_DEPTH, MAX_DEPTH);
+        m_ColourBehaviour.SetIntensity(normalisedDepth);
+        m_AlphaController.SetAlpha(normalisedDepth * MAX_ALPHA);
+
+        super.Update(deltaTime);
+    }
+
+    public void SetSignatureType(RadarSignatureType type)
+    {
+        m_SignatureType = type;
+
+        switch (m_SignatureType)
+        {
+            case Friendly:
+            {
+                m_AltColour = m_FriendlyColour;
+                break;
+            }
+            case Foe:
+            {
+                m_AltColour = m_EnemyColour;
+                break;
+            }
+            case None:
+            {
+                m_AltColour = m_NeutralColour;
+                break;
+            }
+        }
+    }
+
+    public void HeatUp()
+    {
+        m_Heat = 1.0;
+    }
+
+    @Override
+    public boolean IsValid()
+    {
+        return true;
+    }
 
     @Override
     public void CleanUp()
@@ -132,8 +126,19 @@ public class RadarFragment extends GameObject
 
     }
 
+    public void Reset()
+    {
+        SetSignatureType(RadarSignatureType.None);
+        m_Heat = 0.0;
+    }
+
     public Vector3 GetNormalisedRadarPosition()
 	{
 		return m_NormalisedRadarPos;
 	}
+
+    public RadarSignatureType GetRadarSignature()
+    {
+        return m_SignatureType;
+    }
 }

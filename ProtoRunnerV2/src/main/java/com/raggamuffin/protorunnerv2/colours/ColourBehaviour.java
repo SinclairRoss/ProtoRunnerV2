@@ -27,7 +27,9 @@ public abstract class ColourBehaviour
 		m_ActivationBehaviour.UpdateTrigger(DeltaTime);
 		
 		if(m_Trigger)
+		{
 			UpdateBehaviour(DeltaTime);
+		}
 	}
 	
 	protected abstract void UpdateBehaviour(double DeltaTime);
@@ -62,11 +64,6 @@ public abstract class ColourBehaviour
 	public void TriggerBehaviour()
 	{
 		m_Trigger = true;
-	}
-	
-	public boolean IsTriggered()
-	{
-		return m_Trigger;
 	}
 }
  

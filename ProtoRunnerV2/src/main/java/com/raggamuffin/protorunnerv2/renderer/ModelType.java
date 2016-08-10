@@ -15,6 +15,7 @@ public enum ModelType
     EngineDrone,
     WeaponDrone,
     ThreePointStar,
+    ShieldBearer,
 
     Trail,
     LaserPointer,

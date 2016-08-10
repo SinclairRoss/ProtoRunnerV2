@@ -1,5 +1,6 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
+import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
@@ -10,7 +11,7 @@ public class Weapon_MultiLaser extends Weapon
 
     public Weapon_MultiLaser(Vehicle anchor, GameLogic game, int numBeams)
     {
-        super(anchor, game);
+        super(anchor, game, AudioClips.Laser_Enemy);
 
         m_NumBeams = numBeams;
         double deltaRotation = (Math.PI * 2) / m_NumBeams;

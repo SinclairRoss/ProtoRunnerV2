@@ -9,15 +9,16 @@ import com.raggamuffin.protorunnerv2.particles.GravitonBehaviourType;
 import com.raggamuffin.protorunnerv2.particles.ParticleEmitter;
 import com.raggamuffin.protorunnerv2.particles.StandardParticle;
 import com.raggamuffin.protorunnerv2.particles.TrailEmitter;
-import com.raggamuffin.protorunnerv2.particles.TrailPoint;
+import com.raggamuffin.protorunnerv2.particles.TrailNode;
 
 public class ParticleManager
 {
 	private ArrayList<StandardParticle> m_ActiveParticles;
 	private ArrayList<StandardParticle> m_InvalidParticles;
 
-    private ArrayList<TrailPoint> m_ActiveTrailParticles;
-    private ArrayList<TrailPoint> m_InvalidTrailParticles;
+	private ArrayList<TrailNode> m_ActiveTrailParticles;
+	private ArrayList<TrailNode> m_InvalidTrailParticles;
+
 	
 	private ArrayList<Graviton> m_Gravitons;
 	
@@ -38,9 +39,9 @@ public class ParticleManager
 	
 	public void Update(double deltaTime)
 	{		
-		for(Iterator<StandardParticle> Iter = m_ActiveParticles.iterator(); Iter.hasNext();)
+		for(Iterator<StandardParticle> iter = m_ActiveParticles.iterator(); iter.hasNext();)
 		{
-			StandardParticle temp = Iter.next();
+			StandardParticle temp = iter.next();
 			
 			if(temp.IsValid())
 			{
@@ -50,13 +51,13 @@ public class ParticleManager
 			{
 				m_InvalidParticles.add(temp);
 				m_Game.RemoveParticleFromRenderer(temp);
-				Iter.remove();
+				iter.remove();
 			}
 		}
 
-        for(Iterator<TrailPoint> Iter = m_ActiveTrailParticles.iterator(); Iter.hasNext();)
+        for(Iterator<TrailNode> iter = m_ActiveTrailParticles.iterator(); iter.hasNext();)
         {
-            TrailPoint temp = Iter.next();
+            TrailNode temp = iter.next();
 
             if(temp.IsValid())
             {
@@ -67,7 +68,7 @@ public class ParticleManager
                 temp.CleanUp();
                 m_InvalidTrailParticles.add(temp);
                 m_Game.RemoveTrailFromRenderer(temp);
-                Iter.remove();
+				iter.remove();
             }
         }
 	}
@@ -95,9 +96,9 @@ public class ParticleManager
 		return newParticle;
 	}
 
-    public TrailPoint CreateTrailPoint(TrailEmitter origin)
+    public TrailNode CreateTrailPoint(TrailEmitter origin)
     {
-        TrailPoint newParticle;
+        TrailNode newParticle;
 
         // Check to see if there are any particles ready to be recycled.
         if(m_InvalidTrailParticles.size() > 0)
@@ -107,10 +108,10 @@ public class ParticleManager
         }
         else
         {
-            newParticle = new TrailPoint();
+            newParticle = new TrailNode();
         }
 
-        TrailPoint headNode = origin.GetHeadNode();
+        TrailNode headNode = origin.GetHeadNode();
 
         if(headNode != null)
         {
@@ -121,7 +122,7 @@ public class ParticleManager
         newParticle.Activate(origin.GetPosition(), origin.GetLifeSpan(), origin.GetFadeInLength(), headNode, origin.GetHotColour(), origin.GetColdColour());
         m_ActiveTrailParticles.add(newParticle);
 
-        m_Game.AddTrailToRemderer(newParticle);
+        m_Game.AddTrailToRenderer(newParticle);
 
         return newParticle;
     }

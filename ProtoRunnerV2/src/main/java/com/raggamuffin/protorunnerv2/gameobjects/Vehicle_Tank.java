@@ -55,6 +55,6 @@ public class Vehicle_Tank extends Vehicle
     @Override
     public void CleanUp()
     {
-
+		m_PrimaryWeapon.CleanUp();
     }
 } 

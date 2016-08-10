@@ -4,5 +4,6 @@ public enum AIBehaviours
 {
     EngageTarget,
     Encircle,
-    FollowTheLeader
+    FollowTheLeader,
+    StickWithThePack
 }

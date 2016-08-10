@@ -363,10 +363,10 @@ public final class R {
 		public static final int gamehelper_sign_in_failed = 0x7f060064;
 		public static final int gamehelper_unknown_error = 0x7f060065;
 		public static final int license_failed = 0x7f060074;
-		public static final int sign_in_failed = 0x7f060085;
-		public static final int store_picture_message = 0x7f060088;
-		public static final int store_picture_title = 0x7f060089;
-		public static final int unknown_error = 0x7f0600b9;
+		public static final int sign_in_failed = 0x7f060087;
+		public static final int store_picture_message = 0x7f06008a;
+		public static final int store_picture_title = 0x7f06008b;
+		public static final int unknown_error = 0x7f0600bb;
 		public static final int wallet_buy_button_place_holder = 0x7f06003c;
 	}
 	public static final class style {

@@ -1,6 +1,6 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
-import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
+import com.raggamuffin.protorunnerv2.utils.Spring3;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class ChaseCamera
@@ -12,20 +12,18 @@ public class ChaseCamera
 	
 	private Vector3 m_PositionOffset;	// Position of the springs relaxed state relative to the Chase Object.
 	private Vector3 m_RelaxedPosition;	// The Position of the Relaxed Position.
-	private Vector3 m_Acceleration;		// The acceleration of the Camera.
-	private Vector3 m_Velocity;			// The velocity of the camera.
+
+    private Vector3 m_Force;
+    private Vector3 m_Acceleration;
+    private Vector3 m_Velocity;
+    private double m_Mass;
+    private double m_DragCoefficient;
 
 	///// Chase Attributes \\\\\
 	private GameObject m_ChaseObject;	// The object the camera is following.
     private GameObject m_LookObject;       // The object the camera is looking at.
 
-	///// Spring Attributes \\\\\
-	private Vector3 m_Stretch;			// The displacement of the springs current position from the resting position.
-	private Vector3 m_Force;			// The force that is being exerted displacing the spring from it's resting position to its current position.
-	
-	private double m_Stiffness;			// The stiffness of the spring.
-	private double m_Damping;			// The force acting against the spring.
-	private double m_Mass;				// The Mass of the camera.
+	private Spring3 m_Spring;
 
 	public ChaseCamera()
 	{
@@ -35,16 +33,15 @@ public class ChaseCamera
 		m_LookAt 			= new Vector3();
 		m_RelaxedPosition 	= new Vector3();
 		m_PositionOffset 	= new Vector3();
-		m_Acceleration 		= new Vector3();
-		m_Velocity 			= new Vector3();
-		
+
+        m_Force = new Vector3();
+        m_Acceleration = new Vector3();
+        m_Velocity = new Vector3();
+        m_Mass = 0.5;
+        m_DragCoefficient = 0.85;
+
 		///// Spring Attributes \\\\\
-		m_Stretch = new Vector3();
-		m_Force = new Vector3();
-		
-		m_Stiffness = 0.08;
-		m_Damping 	= 0.03;
-		m_Mass  	= 0.5;
+		m_Spring = new Spring3(0.08, 0);
 
         NormalCam();
     }
@@ -62,16 +59,14 @@ public class ChaseCamera
 	
 	public void Update(double deltaTime)
 	{
-		//m_Up.SetVector(m_ChaseObject.GetUp());
-		
-		CalculateLookAt();
-		
-		CalculateRelaxedPosition();
-		CalculateSpringForce();
-		
-		CalculateAcceleration();
-		CalculateVelocity();
-		UpdatePosition(deltaTime);
+        CalculateRelaxedPosition();
+        m_Force.SetVector(m_Spring.CalculateSpringForce(m_Position, m_RelaxedPosition));
+
+        CalculateAcceleration();
+        CalculateVelocity();
+        UpdatePosition(deltaTime);
+
+        CalculateLookAt();
 	}
 	
 	private void CalculateLookAt()
@@ -93,39 +88,26 @@ public class ChaseCamera
 		m_RelaxedPosition.J = chasePosition.J + (m_PositionOffset.J);
 		m_RelaxedPosition.K = chasePosition.K + (chaseForward.K * m_PositionOffset.K);
 	}
-	
-	private void CalculateSpringForce()
-	{
-		m_Stretch.I = m_Position.I - m_RelaxedPosition.I;
-		m_Stretch.J = m_Position.J - m_RelaxedPosition.J;
-		m_Stretch.K = m_Position.K - m_RelaxedPosition.K;
-		
-		// Find the force the spring is exerting in i, j & k using hooke's law.
-		m_Force.I = (-m_Stiffness * m_Stretch.I) - (m_Damping * m_Velocity.I);
-		m_Force.J = (-m_Stiffness * m_Stretch.J) - (m_Damping * m_Velocity.J);
-		m_Force.K = (-m_Stiffness * m_Stretch.K) - (m_Damping * m_Velocity.K);	
-	}
-	
-	private void CalculateAcceleration()
-	{	
-		m_Acceleration.I = (m_Force.I / m_Mass);
-		m_Acceleration.J = (m_Force.J / m_Mass);
-		m_Acceleration.K = (m_Force.K / m_Mass);
-	}
-	
-	private void CalculateVelocity()
-	{
-		m_Velocity.I += m_Acceleration.I;
-		m_Velocity.J += m_Acceleration.J;
-		m_Velocity.K += m_Acceleration.K;
-	}
-	
-	protected void UpdatePosition(double DeltaTime)
+
+    private void CalculateAcceleration()
     {
-		m_Position.I += m_Velocity.I * DeltaTime;
-		m_Position.J += m_Velocity.J * DeltaTime;
-		m_Position.K += m_Velocity.K * DeltaTime;
-	}
+        m_Acceleration.I = (m_Force.I / m_Mass);
+        m_Acceleration.J = (m_Force.J / m_Mass);
+        m_Acceleration.K = (m_Force.K / m_Mass);
+    }
+
+    private void CalculateVelocity()
+    {
+        m_Velocity.Add(m_Acceleration);
+        m_Velocity.Scale(m_DragCoefficient);
+    }
+
+    private void UpdatePosition(double deltaTime)
+    {
+        m_Position.I += m_Velocity.I * deltaTime;
+        m_Position.J += m_Velocity.J * deltaTime;
+        m_Position.K += m_Velocity.K * deltaTime;
+    }
 
 	public void SetInPlace()
 	{
@@ -154,16 +136,14 @@ public class ChaseCamera
 
     public void SprintCam()
     {
-        m_Stiffness = 0.4;
-        m_Damping 	= 0.07;
+        m_Spring.SetStiffness(1.0);
         m_PositionOffset.SetVector(0, 1.5, 0);
     }
 
     public void NormalCam()
     {
-        m_Stiffness = 0.1;
-        m_Damping = 0.04;
-        m_PositionOffset.SetVector(-5, 5, -2);
+        m_Spring.SetStiffness(0.1);
+        m_PositionOffset.SetVector(-5, 10, -5); //-5 10 -2
     }
 }
 

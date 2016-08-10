@@ -1,7 +1,6 @@
 package com.raggamuffin.protorunnerv2.audio;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.raggamuffin.protorunnerv2.R;
 import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
@@ -38,24 +37,37 @@ public class GameAudioManager
 	
 	private void LoadSounds()
 	{
-		// SFX
-		m_IDs[AudioClips.PulseLaser.ordinal()] 		= m_AudioService.LoadClip(R.raw.pulse_laser);
-		m_IDs[AudioClips.PulseLaserPunk.ordinal()] 	= m_AudioService.LoadClip(R.raw.pulse_laser_punk);
-		m_IDs[AudioClips.RailGun.ordinal()] 		= m_AudioService.LoadClip(R.raw.rail_gun);
-		m_IDs[AudioClips.Explosion.ordinal()] 		= m_AudioService.LoadClip(R.raw.explosion);	
-		m_IDs[AudioClips.MissileSpawned.ordinal()] 	= m_AudioService.LoadClip(R.raw.missile_spawn);	
-		m_IDs[AudioClips.MissileEngaged.ordinal()] 	= m_AudioService.LoadClip(R.raw.missile_engaged);
-        m_IDs[AudioClips.FlareEngaged.ordinal()]    = m_AudioService.LoadClip(R.raw.flare_engaged);
-        m_IDs[AudioClips.CannotFire.ordinal()]      = m_AudioService.LoadClip(R.raw.cannot_fire);
-		
+        // Weapons.
+        m_IDs[AudioClips.Blaster_Friendly.ordinal()] = m_AudioService.LoadClip(R.raw.pulse_laser_punk);
+        m_IDs[AudioClips.Blaster_Enemy.ordinal()] = m_AudioService.LoadClip(R.raw.pulse_laser);
+        m_IDs[AudioClips.Laser_Friendly.ordinal()] = m_AudioService.LoadClip(R.raw.pulse_laser_punk);
+        m_IDs[AudioClips.Laser_Enemy.ordinal()] = m_AudioService.LoadClip(R.raw.pulse_laser);
+
+        // Missile.
+        m_IDs[AudioClips.Missile_Spawned.ordinal()] = m_AudioService.LoadClip(R.raw.missile_spawn);
+        m_IDs[AudioClips.Missile_Engaged.ordinal()] = m_AudioService.LoadClip(R.raw.missile_engaged);
+        m_IDs[AudioClips.Missile_Ambient.ordinal()] = m_AudioService.LoadClip(R.raw.missile_engaged);
+
+        // Flare.
+        m_IDs[AudioClips.Flare_Spawned.ordinal()] = m_AudioService.LoadClip(R.raw.missile_spawn);
+        m_IDs[AudioClips.Flare_Engaged.ordinal()] = m_AudioService.LoadClip(R.raw.missile_engaged);
+        m_IDs[AudioClips.Flare_Ambient.ordinal()] = m_AudioService.LoadClip(R.raw.missile_engaged);
+
+        // Misc SFX.
+        m_IDs[AudioClips.Explosion.ordinal()] = m_AudioService.LoadClip(R.raw.explosion);
+        m_IDs[AudioClips.Respawn.ordinal()] = m_AudioService.LoadClip(R.raw.explosion);
+        m_IDs[AudioClips.EnemyDestroyed.ordinal()]= m_AudioService.LoadClip(R.raw.silence);
+        m_IDs[AudioClips.WingmanDestroyed.ordinal()] = m_AudioService.LoadClip(R.raw.explosion);
+		m_IDs[AudioClips.PlayerDamaged.ordinal()] = m_AudioService.LoadClip(R.raw.player_damaged);
+        m_IDs[AudioClips.Silence.ordinal()] = m_AudioService.LoadClip(R.raw.silence);
+
 		// UI Sounds.
-		m_IDs[AudioClips.UIClickFWD.ordinal()] 		= m_AudioService.LoadClip(R.raw.menu_select);
-        m_IDs[AudioClips.UIClickBK.ordinal()] 		= m_AudioService.LoadClip(R.raw.ui_click_fwd);
-        m_IDs[AudioClips.UITick.ordinal()] 			= m_AudioService.LoadClip(R.raw.ui_tick);
-		m_IDs[AudioClips.EnemyDestroyed.ordinal()]	= m_AudioService.LoadClip(R.raw.enemy_destroyed);
+		m_IDs[AudioClips.UI_Positive.ordinal()] = m_AudioService.LoadClip(R.raw.ui_positive);
+        m_IDs[AudioClips.UI_Negative.ordinal()] = m_AudioService.LoadClip(R.raw.ui_negative);
+        m_IDs[AudioClips.UI_Play.ordinal()] = m_AudioService.LoadClip(R.raw.ui_play);
 		
 		// Music
-		m_AudioService.LoadMusic(R.raw.duality_dimrain47);
+		m_AudioService.LoadMusic(R.raw.music_exceeder);
 	}
 	
 	public void StartMusic()

@@ -8,6 +8,8 @@ public enum VehicleType
     Carrier,
     Drone,
     LaserStar,
+    ShieldBearer,
+
     WeaponTestBot,
     TrainingDummy,
     TargetBot,

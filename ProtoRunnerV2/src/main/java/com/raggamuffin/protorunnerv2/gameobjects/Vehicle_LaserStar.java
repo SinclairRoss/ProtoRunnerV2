@@ -10,7 +10,7 @@ import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_LaserBurner;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_MultiLaser;
-import com.raggamuffin.protorunnerv2.weapons.Weapon_PunkShot;
+import com.raggamuffin.protorunnerv2.weapons.Weapon_None;
 
 public class Vehicle_LaserStar extends Vehicle
 {
@@ -26,11 +26,10 @@ public class Vehicle_LaserStar extends Vehicle
 
         m_Model = ModelType.ThreePointStar;
         SetBaseColour(Colours.Orange);
-        m_Position.SetVector(10, 0, 10);
 
         m_Engine = new Engine_Standard(this, game);
         m_Engine.SetMaxTurnRate(1.5);
-        m_Engine.SetMaxEngineOutput(2500);
+        m_Engine.SetMaxEngineOutput(15000);
         m_Engine.SetDodgeOutput(16000);
         m_BoundingRadius = 2;
 
@@ -55,6 +54,6 @@ public class Vehicle_LaserStar extends Vehicle
     @Override
     public void CleanUp()
     {
-
+        m_PrimaryWeapon.CleanUp();
     }
 } 

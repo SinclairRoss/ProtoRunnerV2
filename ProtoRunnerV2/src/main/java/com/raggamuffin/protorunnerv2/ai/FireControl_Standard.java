@@ -6,6 +6,12 @@ import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class FireControl_Standard extends FireControl
 {
+    private enum AttackState
+    {
+        TelegraphAttack,
+        Attack
+    }
+
     private Vector3 m_ToTarget;
 
     private double m_FireArc;
@@ -28,25 +34,25 @@ public class FireControl_Standard extends FireControl
 
         Vehicle target = m_SituationalAwareness.GetTargetSensor().GetTarget();
 
-        if(target == null)
-            return;
+        if(target != null)
+        {
+            if (target.CanBeTargeted())
+            {
+                // Is target within range.
+                m_ToTarget.SetVectorDifference(m_Anchor.GetPosition(), target.GetPosition());
 
-        if(!target.CanBeTargeted())
-            return;
+                if (m_ToTarget.GetLengthSqr() <= m_Range * m_Range)
+                {
+                    // Is target within firing arc.
+                    m_ToTarget.Normalise();
+                    double radiansBetween = Vector3.RadiansBetween(m_ToTarget, m_Anchor.GetForward());
 
-        // Is target within range.
-        m_ToTarget.SetVectorDifference(m_Anchor.GetPosition(), target.GetPosition());
-
-        if(m_ToTarget.GetLengthSqr() > m_Range * m_Range)
-            return;
-
-        // Is target within firing arc.
-        m_ToTarget.Normalise();
-        double radiansBetween = Vector3.RadiansBetween(m_ToTarget, m_Anchor.GetForward());
-
-        if(radiansBetween > m_FireArc)
-            return;
-
-        m_Weapon.OpenFire();
+                    if (radiansBetween <= m_FireArc)
+                    {
+                        m_Weapon.OpenFire();
+                    }
+                }
+            }
+        }
     }
 }

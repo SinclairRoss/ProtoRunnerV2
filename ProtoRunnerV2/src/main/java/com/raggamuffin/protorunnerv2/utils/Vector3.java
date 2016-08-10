@@ -257,7 +257,7 @@ public final class Vector3
 	
 	public double GetLength()
 	{
-		return Math.sqrt((I * I) + (J * J) + (K * K));
+		return Math.sqrt(GetLengthSqr());
 	}
 
 	public boolean IsNan()

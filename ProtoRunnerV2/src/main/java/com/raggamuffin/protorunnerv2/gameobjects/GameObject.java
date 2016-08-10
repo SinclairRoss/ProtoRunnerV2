@@ -73,12 +73,12 @@ public abstract class GameObject
         m_Pitch = 0.0;
 
 		///// Physics Attributes
-		m_Mass				 = 1000.0;
+		m_Mass				 = 100.0;
 		m_DragCoefficient	 = 0.85;
 
 		///// Colour Attributes.
-		m_BaseColour  = new Colour(Colours.Black);
-        m_AltColour   = new Colour(Colours.Black);
+		m_BaseColour  = new Colour(Colours.Cyan);
+        m_AltColour   = new Colour(Colours.Magenta);
 		m_Colour  	  = new Colour(m_BaseColour);
 		m_DeltaColour = new Vector4();
 		m_ColourBehaviours = new ArrayList<>();
@@ -101,26 +101,30 @@ public abstract class GameObject
 	
 	public void Update(double deltaTime)
 	{
-		CalculateAcceleration();
+		CalculateAcceleration(deltaTime);
 		CalculateVelocity();
         ApplyDrag();
 		UpdatePosition(deltaTime);
         UpdateColours(deltaTime);
-
-		for (GameObject child : m_Children)
-        {
-            child.SetPosition(m_Position);
-            child.Update(deltaTime);
-		}
+		UpdateChildren(deltaTime);
 		
 		CleanUpForces();
 	}
 
-    protected void CalculateAcceleration()
+	protected void UpdateChildren(double deltaTime)
+	{
+		for (GameObject child : m_Children)
+		{
+			child.SetPosition(m_Position);
+			child.Update(deltaTime);
+		}
+	}
+
+    protected void CalculateAcceleration(double deltaTime)
     {
-        m_Acceleration.I = m_Force.I / m_Mass;
-        m_Acceleration.J = m_Force.J / m_Mass;
-        m_Acceleration.K = m_Force.K / m_Mass;
+        m_Acceleration.I = (m_Force.I / m_Mass) * deltaTime;
+        m_Acceleration.J = (m_Force.J / m_Mass) * deltaTime;
+        m_Acceleration.K = (m_Force.K / m_Mass) * deltaTime;
     }
 
     protected void CalculateVelocity()
@@ -147,12 +151,17 @@ public abstract class GameObject
 	protected void UpdateVectorsWithForward(Vector3 forward)
 	{
         m_Forward.SetVector(forward);
-        m_Backward.SetVectorAsInverse(m_Forward);
+		UpdateVectors();
+	}
 
-        m_Right.SetAsCrossProduct(Vector3.UP, m_Forward);
-        m_Left.SetVectorAsInverse(m_Right);
+	protected void UpdateVectors()
+	{
+		m_Backward.SetVectorAsInverse(m_Forward);
 
-        m_Up.SetAsCrossProduct(m_Right, m_Forward);
+		m_Right.SetAsCrossProduct(Vector3.UP, m_Forward);
+		m_Left.SetVectorAsInverse(m_Right);
+
+		m_Up.SetAsCrossProduct(m_Right, m_Forward);
 	}
 	
 	public void ApplyForce(Vector3 Dir, double Force)
@@ -160,6 +169,11 @@ public abstract class GameObject
 		m_Force.I += Dir.I * Force;
 		m_Force.J += Dir.J * Force;
 		m_Force.K += Dir.K * Force;
+	}
+
+	public void ApplyForce(Vector3 force)
+	{
+		m_Force.Add(force);
 	}
 
     private void UpdateColours(double deltaTime)
@@ -202,11 +216,6 @@ public abstract class GameObject
 	protected boolean IsForciblyInvalidated()
 	{
 		return m_ForciblyInvalidated;
-	}
-	
-	protected void ResetForcedInvalidation()
-	{
-		m_ForciblyInvalidated = false;
 	}
 
 	///// Getters / Setters.
@@ -265,12 +274,7 @@ public abstract class GameObject
     {
         m_Position.SetVector(x, y, z);
 	}
-	
-	public void SetVelocity(Vector3 velocity)
-	{
-		m_Velocity.SetVector(velocity);
-	}
-	
+
 	public Vector3 GetPreviousPosition()
 	{
 		return m_PreviousPosition;
@@ -393,6 +397,5 @@ public abstract class GameObject
 		m_Mass = mass;
 	}
 
-    public abstract
-    void CleanUp();
+    public abstract void CleanUp();
 }

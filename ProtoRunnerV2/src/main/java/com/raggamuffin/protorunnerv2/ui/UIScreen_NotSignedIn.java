@@ -3,6 +3,7 @@ package com.raggamuffin.protorunnerv2.ui;
 import android.content.Context;
 
 import com.raggamuffin.protorunnerv2.R;
+import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.ColourManager;
@@ -36,9 +37,9 @@ public class UIScreen_NotSignedIn extends UIScreen
 
         // Yes button
         Publisher yesPub = m_Game.GetPubSubHub().CreatePublisher(PublishedTopics.SwitchScreen);
-        m_YesButton = new UIButton(yesPub, audio, m_UIManager, UIScreens.MainMenu.ordinal());
+        m_YesButton = new UIButton(m_UIManager, yesPub, UIScreens.MainMenu.ordinal(), audio, AudioClips.UI_Positive);
         m_YesButton.SetText(context.getString(R.string.tutorial_yes));
-        m_YesButton.GetFont().SetColour(cManager.GetAccentingColour());
+        m_YesButton.GetFont().SetColour(cManager.GetSecondaryColour());
         m_YesButton.SetPosition(0.50, -0.30);
         m_YesButton.GetFont().SetAlignment(Font.Alignment.Right);
 
@@ -46,7 +47,7 @@ public class UIScreen_NotSignedIn extends UIScreen
 
         // No button
         Publisher noPub = m_Game.GetPubSubHub().CreatePublisher(PublishedTopics.SwitchScreen);
-        m_NoButton = new UIButton(noPub, audio, m_UIManager, UIScreens.MainMenu.ordinal());
+        m_NoButton = new UIButton(m_UIManager, noPub, UIScreens.MainMenu.ordinal(), audio, AudioClips.UI_Negative);
         m_NoButton.SetText(context.getString(R.string.tutorial_no));
         m_NoButton.GetFont().SetColour(cManager.GetPrimaryColour());
         m_NoButton.SetPosition(-0.50, -0.30);

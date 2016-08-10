@@ -20,7 +20,7 @@ public abstract class Particle extends GameObject
 	{
 		super(null, null);
 		
-		m_Mass = 100.0;
+		m_Mass = 1.0;
 		
 		m_Model = ModelType.StandardPoint;
 		m_BoundingRadius = 1.0;

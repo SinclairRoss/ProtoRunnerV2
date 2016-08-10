@@ -11,14 +11,12 @@ public class Weapon_PulseLaserWingman extends Weapon
 {
     public Weapon_PulseLaserWingman(Vehicle anchor, GameLogic game)
     {
-        super(anchor, game);
+        super(anchor, game, AudioClips.Blaster_Friendly);
 
         m_Damage = 40;
-        m_MuzzleVelocity = 70.0;
+        m_FiringSpeed = 70.0;
         m_Accuracy = 1.0;
         m_LifeSpan = 5.0;
-
-        m_AudioClip = AudioClips.PulseLaserPunk;
 
         m_FireMode = new FireControl_Pulse(0.6, 0.06, 4);
 

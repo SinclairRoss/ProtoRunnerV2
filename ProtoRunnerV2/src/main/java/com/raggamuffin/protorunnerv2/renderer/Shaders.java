@@ -9,6 +9,7 @@ public class Shaders
             +   "  	gl_Position = a_Position;"
             +   "	v_TexCoord = a_TexCoord;"
             +   "}";
+
     public static final String fragmentShader_BLOCKCOLOUR =
             "precision lowp float;"
         +   "uniform vec4 u_Color;"
@@ -143,16 +144,16 @@ public class Shaders
     public static final String vertexShader_TRAIL =
             "uniform mat4 u_ProjMatrix;"
 
-        +	"attribute vec4 a_Position;  \n"
-        +   "attribute vec4 a_Color;"
+                    +	"attribute vec4 a_Position;  \n"
+                    +   "attribute vec4 a_Color;"
 
-        +   "varying vec4 v_Color;"
+                    +   "varying vec4 v_Color;"
 
-        +   "void main()                 \n"
-        +   "{"
-        +   "   v_Color = a_Color;"
-        +	"	gl_Position = u_ProjMatrix * a_Position;"
-        +   "}";
+                    +   "void main()                 \n"
+                    +   "{"
+                    +   "   v_Color = a_Color;"
+                    +	"	gl_Position = u_ProjMatrix * a_Position;"
+                    +   "}";
 
     public static final String fragmentShader_TRAIL =
             "precision lowp float;"
@@ -162,6 +163,38 @@ public class Shaders
         +   "void main()"
         +   "{"
         +   "	gl_FragColor = v_Color;"
+        +   "}";
+
+        public static final String vertexShader_ROPE =
+            "uniform mat4 u_ProjMatrix;"
+
+        +	"attribute vec4 a_Position;"
+        +   "attribute float a_NormalisedLength;"
+
+        +   "varying float v_NormalisedLength;"
+
+        +   "void main()"
+        +   "{"
+        +   "   v_NormalisedLength = a_NormalisedLength;"
+        +	"	gl_Position = u_ProjMatrix * a_Position;"
+        +   "}";
+
+    public static final String fragmentShader_ROPE =
+            "precision lowp float;"
+
+        +   "uniform vec4 u_HotColor;"
+        +   "uniform vec4 u_ColdColor;"
+        +   "uniform float u_ColorBloomPoint;"
+
+        +   "varying float v_NormalisedLength;"
+
+        +   "void main()"
+        +   "{"
+        +   "   float threshold = 0.1f;"
+        +   "   float min = clamp(u_ColorBloomPoint - threshold, 0.0f, 1.0f);"
+        +   "   float max = clamp(u_ColorBloomPoint + threshold, 0.0f, 1.0f);"
+        +   "   float lerp = sin(clamp((v_NormalisedLength - min) / (max - min),0.0, 1.0) * 3.14159265);"
+        +   "	gl_FragColor = ((u_ColdColor * (1.0f - lerp)) + (u_HotColor * lerp));"
         +   "}";
 
     public static final String vertexShader_TEXTURED =
@@ -232,7 +265,6 @@ public class Shaders
         +   "   model[1] = vec4(u_Up.x, u_Up.y, u_Up.z, 0);"
         +   "   model[2] = vec4(u_Forward.x, u_Forward.y, u_Forward.z, 0);"
         +   "   model[3] = vec4(u_Position.x, u_Position.y, u_Position.z, 1);"
-
 
         +   "   float cosTheta = cos(u_Roll);"
         +   "   float sinTheta = sin(u_Roll);"
