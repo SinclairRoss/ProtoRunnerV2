@@ -1,11 +1,14 @@
 package com.raggamuffin.protorunnerv2.managers;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.raggamuffin.protorunnerv2.gameobjects.BeeperBot;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Drone;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_LaserStar;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_ShieldBearer;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_SweeperBot;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Tank;
 import com.raggamuffin.protorunnerv2.gameobjects.TargetBot;
@@ -105,7 +108,7 @@ public class VehicleManager
 
     public Vehicle SpawnVehicle(VehicleType type, double x, double z, double orientation)
     {
-        Vehicle spawn = null;
+        Vehicle spawn;
 
         switch(type)
         {
@@ -124,6 +127,9 @@ public class VehicleManager
 			case LaserStar:
 				spawn = new Vehicle_LaserStar(m_Game);
 				break;
+            case ShieldBearer:
+                spawn = new Vehicle_ShieldBearer(m_Game);
+                break;
             case WeaponTestBot:
                 spawn = new WeaponTestBot(m_Game);
                 break;
@@ -139,23 +145,23 @@ public class VehicleManager
 			case SweeperBot:
 				spawn = new Vehicle_SweeperBot(m_Game);
 				break;
+            default:
+                Log.e("VehicleManager.java", "Vehicle type: '" + type + "' not found.");
+                return null;
         }
 
-		if(spawn != null)
-		{
-			spawn.SetPosition(x, 0, z);
-            spawn.SetYaw(orientation);
-			m_Vehicles.add(spawn);
-			GetTeam(spawn.GetAffiliation()).add(spawn);
-			m_Game.AddObjectToRenderer(spawn);
-		}
+        spawn.SetPosition(x, 0, z);
+        spawn.SetYaw(orientation);
+        m_Vehicles.add(spawn);
+        GetTeam(spawn.GetAffiliation()).add(spawn);
+        m_Game.AddObjectToRenderer(spawn);
+
         return spawn;
     }
 
-    public Vehicle_Drone SpawnDrone(Vehicle_Carrier anchor, Vector3 pos)
+    public Vehicle_Drone SpawnDrone(Vehicle_Carrier anchor)
     {
         Vehicle_Drone spawn = new Vehicle_Drone(m_Game, anchor);
-        spawn.SetPosition(pos.I, 4.0, pos.K);
 
         m_Vehicles.add(spawn);
         GetTeam(spawn.GetAffiliation()).add(spawn);

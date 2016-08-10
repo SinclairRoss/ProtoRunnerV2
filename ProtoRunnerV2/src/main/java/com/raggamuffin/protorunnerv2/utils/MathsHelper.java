@@ -15,9 +15,9 @@ public class MathsHelper
 	}
 	
 	// Normalise a value in range 0 - 1.
-	public static double Normalise(double Amount, double Min, double Max)
+	public static double Normalise(double val, double min, double max)
 	{
-		return Clamp((Amount - Min) / (Max - Min),0.0, 1.0);
+		return Clamp((val - min) / (max - min),0.0, 1.0);
 	}
 	
 	// Normalise a value in range -1 - 1.

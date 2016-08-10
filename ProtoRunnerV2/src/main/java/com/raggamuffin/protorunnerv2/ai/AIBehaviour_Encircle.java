@@ -6,28 +6,29 @@ import com.raggamuffin.protorunnerv2.utils.Vector3;
 public class AIBehaviour_Encircle extends AIBehaviour
 {
     private Vector3 m_Goal;
-    private Vector3 m_Position;
 
     public AIBehaviour_Encircle(AIController controller)
     {
         super(controller);
 
         m_Goal = new Vector3();
-        m_Position = m_Controller.GetAnchor().GetPosition();
     }
 
     @Override
     public Vector3 GetNavigationCoordinates()
     {
-        m_Goal.SetVector(0,0,0);
+        m_Goal.SetVector(0);
 
         Vehicle target = m_Controller.GetSituationalAwareness().GetTargetSensor().GetTarget();
 
         if(target != null)
         {
-            m_Goal.SetVectorDifference(target.GetForward(), m_Position);
+            Vector3 pos = m_Controller.GetAnchor().GetPosition();
+
+            m_Goal.SetVectorDifference(target.GetPosition(), pos);
             m_Goal.Normalise();
             m_Goal.Scale(20);
+            m_Goal.Add(target.GetPosition());
         }
 
         return m_Goal;

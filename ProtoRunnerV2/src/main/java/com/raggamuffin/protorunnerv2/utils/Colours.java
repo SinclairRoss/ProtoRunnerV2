@@ -97,13 +97,21 @@ public class Colours
 		0.13,
 		1.0
 	};
-	
+
 	public static final double[] Pink70 =
 	{
-		0.96078,
-		0.0,
-		0.47843,
-		1.0
+			0.96078,
+			0.0,
+			0.47843,
+			1.0
+	};
+
+	public static final double[] HotPink =
+	{
+			1.0,
+			0.41176,
+			0.70588,
+			1.0
 	};
 			
 	
@@ -218,6 +226,14 @@ public class Colours
 		0.80392,
 		1.0
 	};
+
+	public static final double[] RunnersCompliment =
+	{
+			1.0,
+			0.592,
+			0.0,
+			1.0
+	};
 	
 	public static final double[] ChaserOrange =
 	{
@@ -312,6 +328,22 @@ public class Colours
             0.12157,
             0.38039,
             0.50196,
+            1.0
+    };
+
+    public static final double[] LauraLynneBlue =
+    {
+            0.12157,
+            0.38039,
+            0.50196,
+            1.0
+    };
+
+    public static final double[] LauraLynneGreen =
+    {
+            0.0,
+            1.0,
+            0.49804,
             1.0
     };
 }

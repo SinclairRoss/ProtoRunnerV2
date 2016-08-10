@@ -2,6 +2,7 @@ package com.raggamuffin.protorunnerv2.renderer;
 
 import android.content.Context;
 import android.opengl.GLES20;
+import android.util.Log;
 
 import com.raggamuffin.protorunnerv2.R;
 import com.raggamuffin.protorunnerv2.master.RenderEffectSettings;
@@ -31,12 +32,13 @@ public class ModelManager
 	private GLSkybox m_Skybox;
 	private GLRadarFragment m_RadarFragment;
 
-    private GLModel m_ParticleLaser;
+    private GLModel_SolidObject m_ParticleLaser;
     private GLModel_SolidObject m_PlasmaPulse;
 
     private GLModel_StandardObject m_Runner;
     private GLModel_StandardObject m_Bit;
     private GLModel_StandardObject m_Byte;
+    private GLModel_StandardObject m_ShieldBearer;
     private GLModel_StandardObject m_Mine;
     private GLModel_StandardObject m_EngineDrone;
     private GLModel_StandardObject m_Missile;
@@ -44,6 +46,8 @@ public class ModelManager
     private GLModel_StandardObject m_Dummy;
     private GLModel_StandardObject m_WeaponDrone;
     private GLModel_StandardObject m_ThreePointStar;
+    private GLModel_StandardObject m_Shield;
+
     private GLModel_HollowObject m_Explosion;
 
     public ModelManager(Context context, RenderEffectSettings Settings)
@@ -71,24 +75,26 @@ public class ModelManager
         m_Ring = new GLModel_Ring();
         m_Pointer = new GLLine(2.0f);
         m_ParticleLaser = new GLModel_SolidObject(ReadFloatArrayFromResource(R.string.laser_vertices));
-       // m_ParticleLaser = new GLModel_LaserBeam();
         m_PlasmaPulse = new GLModel_SolidObject(ReadFloatArrayFromResource(R.string.plasma_vertices));
 
         m_Screen = new GLScreenQuad();
         m_Skybox = new GLSkybox();
         m_RadarFragment = new GLRadarFragment();
 
-        m_Runner        = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.runner_vertices));
-        m_Bit           = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.bit_vertices));
-        m_Byte          = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.byte_vertices));
-        m_Mine          = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.mine_vertices));
-        m_EngineDrone   = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.enginedrone_vertices));
-        m_Missile       = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.missile_vertices));
-        m_Carrier       = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.carrier_vertices));
-        m_Dummy         = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.dummy_vertices));
-        m_Explosion     = new GLModel_HollowObject(ReadFloatArrayFromResource(R.string.explosion_vertices));
-        m_WeaponDrone   = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.weapondrone_vertices));
+        m_Runner = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.runner_vertices));
+        m_Bit = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.bit_vertices));
+        m_Byte = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.byte_vertices));
+        m_Mine = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.mine_vertices));
+        m_ShieldBearer = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.shieldbearer_vertices));
+        m_EngineDrone = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.enginedrone_vertices));
+        m_Missile = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.missile_vertices));
+        m_Carrier = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.carrier_vertices));
+        m_Dummy = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.dummy_vertices));
+        m_Explosion = new GLModel_HollowObject(ReadFloatArrayFromResource(R.string.dome_vertices));
+        m_WeaponDrone = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.weapondrone_vertices));
         m_ThreePointStar = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.three_point_star));
+        m_Shield = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.shield_vertices));
+
     }
 
     private float[] ReadFloatArrayFromResource(int resource)
@@ -101,7 +107,9 @@ public class ModelManager
         float[] array = new float[numValues];
 
         for(int i = 0; i < numValues; i ++)
+        {
             array[i] = Float.parseFloat(rawArray[i]);
+        }
 
         return array;
     }
@@ -110,10 +118,10 @@ public class ModelManager
 	{
         GLModel model = GetModel(object.GetModel());
 
-        if(model == null)
-            return;
-
-        model.Draw(object);
+        if(model != null)
+        {
+            model.Draw(object);
+        }
 	}
 
     public void InitialiseModel(ModelType type, float[] projMatrix, Vector3 eye)
@@ -187,11 +195,14 @@ public class ModelManager
                 return m_WeaponDrone;
             case ThreePointStar:
                 return m_ThreePointStar;
+            case ShieldBearer:
+                return m_ShieldBearer;
             case Nothing:
-                break;
+                return null;
+            default:
+                Log.e("ModelManager.java", "ModelType: '" + type + "' not found.");
+                return null;
         }
-
-        return null;
     }
 
     public void DrawSkyBox(Vector3 pos, Colour colour, final float[] projMatrix)

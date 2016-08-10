@@ -151,33 +151,19 @@ public class Colour
 		return Hex;
 	}
 	
-	public void Add(Colour A)
+	public void Add(Colour a)
 	{
-		Red 	+= A.Red;
-		Green 	+= A.Green;
-		Blue 	+= A.Blue;
-		Alpha 	+= A.Alpha;
-		
-		ClampColour();
+        Add(a.Red, a.Green, a.Blue, a.Alpha);
 	}
 	
-	public void Add(Vector3 A)
+	public void Add(Vector3 a)
 	{
-		Red 	+= A.I;
-		Green 	+= A.J;
-		Blue 	+= A.K;
-		
-		ClampColour();
+		Add(a.I, a.J, a.K, 0);
 	}
 	
-	public void Add(Vector4 A)
+	public void Add(Vector4 a)
 	{
-		Red 	+= A.I;
-		Green 	+= A.J;
-		Blue 	+= A.K;
-		Alpha 	+= A.W;
-		
-		ClampColour();
+		Add(a.I, a.J, a.K, a.W);
 	}
 	
 	public void Add(double red, double green, double blue, double alpha)

@@ -1,5 +1,4 @@
 package com.raggamuffin.protorunnerv2.ai;
-import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.BulletManager;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
@@ -13,17 +12,12 @@ public class AIController
     private EvasionControl m_EvasionControl;
 	private FireControl m_FireControl;
 
-	private AffiliationKey m_EnemyFaction;
 	private Vehicle m_Anchor;
 	private Vehicle m_Leader;
 
 	public AIController(Vehicle anchor, VehicleManager vManager, BulletManager bManager, AIBehaviours behaviour, FireControlBehaviour fireBehaviour)
 	{
 		m_Anchor = anchor;
-
-        m_EnemyFaction = (m_Anchor.GetAffiliation() == AffiliationKey.BlueTeam) ?
-                            AffiliationKey.RedTeam :
-                            AffiliationKey.BlueTeam;
 
 		///// AI Subsystems.
 		m_SituationalAwareness 	= new SituationalAwareness(this, vManager, bManager);
@@ -43,6 +37,8 @@ public class AIController
                 return new AIBehaviour_Encircle(this);
             case FollowTheLeader:
                 return new AIBehaviour_FollowTheLeader(this);
+            case StickWithThePack:
+                return new AIBehaviour_StickWithThePack(this);
             default:
                 return null;
         }
@@ -81,10 +77,10 @@ public class AIController
         if(m_Leader == null)
             return;
 
-        if(m_Leader.IsValid())
-            return;
-
-        m_Leader = null;
+        if(!m_Leader.IsValid())
+        {
+            m_Leader = null;
+        }
     }
 
 	public Vehicle GetAnchor()
@@ -92,11 +88,6 @@ public class AIController
 		return m_Anchor;
 	}
 
-	public AffiliationKey GetEnemyAffiliation()
-	{
-		return m_EnemyFaction;
-	}
-	
 	public NavigationControl GetNavigationControl()
 	{
 		return m_NavigationControl;

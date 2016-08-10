@@ -3,12 +3,12 @@ package com.raggamuffin.protorunnerv2.ui;
 import android.content.Context;
 
 import com.raggamuffin.protorunnerv2.R;
+import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.ColourManager;
 import com.raggamuffin.protorunnerv2.managers.UIManager;
 import com.raggamuffin.protorunnerv2.master.ControlScheme;
-import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.utils.CollisionDetection;
@@ -44,7 +44,7 @@ public class NewToGameScreen extends UIScreen
         ColourManager cManager = m_Game.GetColourManager();
         GameAudioManager audio = m_Game.GetGameAudioManager();
 
-        m_Strings = new ArrayList<String>();
+        m_Strings = new ArrayList<>();
 
         m_Strings.add(context.getString(R.string.new_player_1));
         m_Strings.add(context.getString(R.string.new_player_2));
@@ -52,9 +52,9 @@ public class NewToGameScreen extends UIScreen
         m_Strings.add(context.getString(R.string.new_player_4));
 
         // Next button
-        m_Continue = new UIButton(audio, m_UIManager);
+        m_Continue = new UIButton(m_UIManager, null, 0, audio, AudioClips.UI_Positive);
         m_Continue.SetText(context.getString(R.string.tutorial_next));
-        m_Continue.GetFont().SetColour(cManager.GetAccentingColour());
+        m_Continue.GetFont().SetColour(cManager.GetSecondaryColour());
         m_Continue.SetPosition(0.80, -0.70);
         m_Continue.GetFont().SetAlignment(Font.Alignment.Right);
 
@@ -62,9 +62,9 @@ public class NewToGameScreen extends UIScreen
 
         // Yes button
         Publisher yesPub = m_Game.GetPubSubHub().CreatePublisher(PublishedTopics.StartTutorial);
-        m_YesButton = new UIButton(yesPub, audio, m_UIManager);
+        m_YesButton = new UIButton(m_UIManager, yesPub, 0, audio, AudioClips.UI_Positive);
         m_YesButton.SetText(context.getString(R.string.tutorial_yes));
-        m_YesButton.GetFont().SetColour(cManager.GetAccentingColour());
+        m_YesButton.GetFont().SetColour(cManager.GetSecondaryColour());
         m_YesButton.SetPosition(0.50, -0.30);
         m_YesButton.GetFont().SetAlignment(Font.Alignment.Right);
 
@@ -73,7 +73,7 @@ public class NewToGameScreen extends UIScreen
 
         // No button
         Publisher noPub = m_Game.GetPubSubHub().CreatePublisher(PublishedTopics.StartGame);
-        m_NoButton = new UIButton(noPub, audio, m_UIManager);
+        m_NoButton = new UIButton(m_UIManager, noPub, 0, audio, AudioClips.UI_Negative);
         m_NoButton.SetText(context.getString(R.string.tutorial_no));
         m_NoButton.GetFont().SetColour(cManager.GetPrimaryColour());
         m_NoButton.SetPosition(-0.50, -0.30);

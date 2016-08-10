@@ -25,7 +25,7 @@ public class ColourBehaviour_LerpTo extends ColourBehaviour
 
 		m_DeltaColour.I = MathsHelper.Lerp(m_Intensity, base.Red, 	alt.Red) 	- base.Red;
 		m_DeltaColour.J = MathsHelper.Lerp(m_Intensity, base.Green, alt.Green) 	- base.Green;
-        m_DeltaColour.K = MathsHelper.Lerp(m_Intensity, base.Blue, 	alt.Blue) 	- base.Blue;
+		m_DeltaColour.K = MathsHelper.Lerp(m_Intensity, base.Blue, 	alt.Blue) 	- base.Blue;
 	}
 
 	public void SetIntensity(double intensity)

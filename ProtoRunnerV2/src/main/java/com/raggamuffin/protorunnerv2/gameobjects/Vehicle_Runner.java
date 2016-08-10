@@ -9,7 +9,6 @@ import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_DeployFlares;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_LaserVampire;
-import com.raggamuffin.protorunnerv2.weapons.Weapon_MultiLaser;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_PulseLaser;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_MissileLauncher;
 import com.raggamuffin.protorunnerv2.weapons.Weapon;
@@ -58,17 +57,18 @@ public class Vehicle_Runner extends Vehicle
 		m_Model = ModelType.Runner;
 
         m_BaseColour = game.GetColourManager().GetPrimaryColour();
-        m_AltColour = game.GetColourManager().GetAccentingColour();
+        m_AltColour = game.GetColourManager().GetSecondaryColour();
 
         m_BurstEmitter.SetInitialColour(m_BaseColour);
         m_BurstEmitter.SetFinalColour(m_AltColour);
 
         m_Position.SetVector(0, 0, 0);
-		
+
+        m_Mass = 100;
 		m_Engine = new Engine_Standard(this, game);
 		m_Engine.SetMaxTurnRate(2.0);//2
-		m_Engine.SetMaxEngineOutput(3000);//3000
-        m_Engine.SetAfterBurnerOutput(0);
+		m_Engine.SetMaxEngineOutput(0);//15000
+        m_Engine.SetAfterBurnerOutput(5000); // 45000
 		
 		m_MaxHullPoints = 1000;
 		m_HullPoints 	= m_MaxHullPoints;
@@ -124,12 +124,14 @@ public class Vehicle_Runner extends Vehicle
         m_PubSubHub.SubscribeToTopic(PublishedTopics.EnemyDestroyed, EnemyDestroyedSubscriber);
 
         SelectWeaponBySlot(WeaponSlot.Left);
+
+        m_BoundingRadius = 1.5;
     }
 
 	@Override
 	public void Update(double deltaTime)
 	{
-     //   DrainEnergy(m_HealthDrainRate * deltaTime);
+       // DrainEnergy(m_HealthDrainRate * deltaTime);
         m_Engine.SetTurnRate(m_Input.GetTilt());
 		super.Update(deltaTime);
 	}
@@ -152,6 +154,11 @@ public class Vehicle_Runner extends Vehicle
         m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.Forward, ForwardSubscriber);
         m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.Reverse, ReverseSubscriber);
         m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.EnemyDestroyed, EnemyDestroyedSubscriber);
+
+        m_WeaponLeft.CleanUp();
+        m_WeaponRight.CleanUp();
+        m_WeaponUp.CleanUp();
+        m_WeaponDown.CleanUp();
     }
 
     @Override

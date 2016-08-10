@@ -7,5 +7,4 @@ public enum ProjectileType
     Laser,
     LaserVampire,
     Flare,
-    EnergyBall
 }

@@ -1,6 +1,7 @@
 package com.raggamuffin.protorunnerv2.ui;
 
 import com.raggamuffin.protorunnerv2.R;
+import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.ColourManager;
 import com.raggamuffin.protorunnerv2.managers.UIManager;
@@ -67,7 +68,7 @@ public abstract class UIScreen
 	{
         ColourManager cManager = m_Game.GetColourManager();
         double barLength = 1.1;
-		UIProgressBar bar = new UIProgressBar(barLength, maxVal, cManager.GetAccentingColour(), cManager.GetAccentTintColour(), cManager.GetPrimaryColour(), Name, UIProgressBar.Alignment.Left, m_Game.GetGameAudioManager(), m_UIManager);
+		UIProgressBar bar = new UIProgressBar(barLength, maxVal, cManager.GetSecondaryColour(), cManager.GetAccentTintColour(), cManager.GetPrimaryColour(), Name, UIProgressBar.Alignment.Left, m_Game.GetGameAudioManager(), m_UIManager);
         bar.SetPosition(ButtonX - (barLength * 0.5), ButtonY - (ButtonPadding * m_NumElements));
 		m_NumElements ++;
 
@@ -77,70 +78,70 @@ public abstract class UIScreen
 		return bar;
 	}
 	
-	protected UIButton CreateButton(String text, UIScreens screen)
+	protected UIButton CreateButton(String text, UIScreens screen, AudioClips onPressClip)
 	{
-		Publisher Pub = m_Game.GetPubSubHub().CreatePublisher(PublishedTopics.SwitchScreen);
-		UIButton Button = new UIButton(Pub, m_Game.GetGameAudioManager(), m_UIManager, screen.ordinal());
+		Publisher pub = m_Game.GetPubSubHub().CreatePublisher(PublishedTopics.SwitchScreen);
+		UIButton button = new UIButton(m_UIManager, pub, screen.ordinal(), m_Game.GetGameAudioManager(), onPressClip);
+
+        button.SetText(text);
+        button.SetPosition(ButtonX, ButtonY - (ButtonPadding * m_NumElements));
+        button.GetFont().SetAlignment(Font.Alignment.Right);
 		
-		Button.SetText(text);
-		Button.SetPosition(ButtonX, ButtonY - (ButtonPadding * m_NumElements));
-		Button.GetFont().SetAlignment(Font.Alignment.Right);
-		
-		m_UIManager.AddUIElement(Button);
+		m_UIManager.AddUIElement(button);
 		
 		m_NumElements ++;
 		
-		return Button;
+		return button;
 	}
 
-    protected UIButton CreateButton(String text, PublishedTopics topic)
+    protected UIButton CreateButton(String text, PublishedTopics topic, AudioClips onPressClip)
     {
-        Publisher Pub = m_Game.GetPubSubHub().CreatePublisher(topic);
-        UIButton Button = new UIButton(Pub, m_Game.GetGameAudioManager(), m_UIManager, -1);
+        Publisher pub = m_Game.GetPubSubHub().CreatePublisher(topic);
+        UIButton button = new UIButton(m_UIManager, pub, 0, m_Game.GetGameAudioManager(), onPressClip);
 
-        Button.SetText(text);
-        Button.SetPosition(ButtonX, ButtonY - (ButtonPadding * m_NumElements));
-        Button.GetFont().SetAlignment(Font.Alignment.Right);
+        button.SetText(text);
+        button.SetPosition(ButtonX, ButtonY - (ButtonPadding * m_NumElements));
+        button.GetFont().SetAlignment(Font.Alignment.Right);
 
-        m_UIManager.AddUIElement(Button);
+        m_UIManager.AddUIElement(button);
 
         m_NumElements ++;
 
-        return Button;
+        return button;
     }
 
     protected UIButton CreateBackButton(UIScreens screen)
     {
-        Publisher Pub = m_Game.GetPubSubHub().CreatePublisher(PublishedTopics.SwitchScreen);
-        UIButton Button = new UIButton(Pub, m_Game.GetGameAudioManager(), m_UIManager, screen.ordinal());
+        Publisher pub = m_Game.GetPubSubHub().CreatePublisher(PublishedTopics.SwitchScreen);
+        UIButton button = new UIButton(m_UIManager, pub, screen.ordinal(), m_Game.GetGameAudioManager(), AudioClips.UI_Negative);
 
-        Button.SetText(m_Game.GetContext().getString(R.string.button_back));
-        Button.SetPosition(-0.9, -0.8);
-        Button.GetFont().SetAlignment(Font.Alignment.Left);
-        Button.GetFont().SetColour(m_Game.GetColourManager().GetAccentingColour());
+        button.SetText(m_Game.GetContext().getString(R.string.button_back));
+        button.SetPosition(-0.9, -0.8);
+        button.GetFont().SetAlignment(Font.Alignment.Left);
+        button.GetFont().SetColour(m_Game.GetColourManager().GetSecondaryColour());
 
-        m_UIManager.AddUIElement(Button);
+        m_UIManager.AddUIElement(button);
 
         m_HasBackButton = true;
 
-        return Button;
+        return button;
     }
 	
 	protected UIButton CreateNextButton(UIScreens screen)
 	{
-		Publisher Pub = m_Game.GetPubSubHub().CreatePublisher(PublishedTopics.SwitchScreen);
-		UIButton Button = new UIButton(Pub, m_Game.GetGameAudioManager(), m_UIManager, screen.ordinal());
+		Publisher pub = m_Game.GetPubSubHub().CreatePublisher(PublishedTopics.SwitchScreen);
+        UIButton button = new UIButton(m_UIManager, pub, screen.ordinal(), m_Game.GetGameAudioManager(), AudioClips.UI_Positive);
 
-        Button.SetText(m_Game.GetContext().getString(R.string.button_next));
+        button.SetText(m_Game.GetContext().getString(R.string.button_next));
 
-        Button.SetPosition(0.9, -0.8);
-        Button.GetFont().SetAlignment(Font.Alignment.Right);
+        button.SetPosition(0.9, -0.8);
+        button.GetFont().SetAlignment(Font.Alignment.Right);
 
-        Button.GetFont().SetColour(m_Game.GetColourManager().GetAccentingColour());
+        button.GetFont().SetColour(m_Game.GetColourManager().GetSecondaryColour());
 		
-		m_UIManager.AddUIElement(Button);
+		m_UIManager.AddUIElement(button);
 		
-		return Button;
+		return button;
 	}
 
     protected UILabel CreateLabel(String text)
@@ -164,7 +165,7 @@ public abstract class UIScreen
         label.SetText(text);
         label.SetPosition(ButtonX, parent.GetPosition().J + parent.GetSize().J);
         label.GetFont().SetAlignment(Font.Alignment.Right);
-        label.GetFont().SetColour(m_Game.GetColourManager().GetAccentingColour());
+        label.GetFont().SetColour(m_Game.GetColourManager().GetSecondaryColour());
 
         m_UIManager.AddUIElement(label);
 

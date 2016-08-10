@@ -1,5 +1,6 @@
 package com.raggamuffin.protorunnerv2.managers;
 
+import com.raggamuffin.protorunnerv2.colours.ColourPair;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Runner;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
@@ -13,29 +14,38 @@ public class ColourManager
 {
     private GameLogic m_Game;
 
-    private Colour m_PrimaryColour;
-    private Colour m_AccentingColour;
-    private Colour m_AccentTintColour;
+    private ColourPair m_ActiveColourPair;
+    private ColourPair m_PreviousColourPair;
+    private ColourPair m_Left;
+    private ColourPair m_Right;
+    private ColourPair m_Up;
 
-    private Colour m_NextColour;
-    private Colour m_PreviousColour;
+    private Colour m_PrimaryColour;
+    private Colour m_SecondaryColour;
+    private Colour m_AccentTintColour;
 
     private double m_Counter;
     private double m_CounterMultiplier;
+    private boolean m_ColoursUpdating;
 
     public ColourManager(GameLogic game)
     {
         m_Game = game;
 
-        m_PrimaryColour = new Colour();
-        m_AccentingColour = new Colour();
-        m_AccentTintColour = new Colour();
+        m_Left = new ColourPair(Colours.RunnerBlue, Colours.Pink70);
+        m_Right = new ColourPair(Colours.White, Colours.Crimson);
+        m_Up = new ColourPair(Colours.Azure, Colours.fireBrick);
+        m_PreviousColourPair = new ColourPair();
+        m_ActiveColourPair = m_Left;
 
-        m_NextColour = new Colour(Colours.RunnerBlue);
-        m_PreviousColour = new Colour();
+        m_PrimaryColour = new Colour(m_Left.GetPrimary());
+        m_SecondaryColour = new Colour(m_Left.GetSecondary());
+        m_AccentTintColour = new Colour();
+        UpdateAccentingColours();
 
         m_Counter = 0.0;
         m_CounterMultiplier = 1.0;
+        m_ColoursUpdating = false;
 
         m_Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerSwitchedWeapon, new PlayerSwitchedWeaponSubscriber());
         m_Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerSpawned, new PlayerSpawnedSubscriber());
@@ -43,23 +53,33 @@ public class ColourManager
 
     public void Update(double deltaTime)
     {
-        if(m_Counter >= 1.0)
-            return;
+        if(m_ColoursUpdating)
+        {
+            m_Counter += (deltaTime * m_CounterMultiplier);
 
-        m_Counter += (deltaTime * m_CounterMultiplier);
-        m_Counter = MathsHelper.Clamp(m_Counter, 0, 1);
+            if(m_Counter >= 1.0)
+            {
+                m_Counter = 1.0;
+                m_ColoursUpdating = false;
+            }
 
-        m_PrimaryColour.Red     = MathsHelper.Lerp(m_Counter, m_PreviousColour.Red, m_NextColour.Red);
-        m_PrimaryColour.Green   = MathsHelper.Lerp(m_Counter, m_PreviousColour.Green, m_NextColour.Green);
-        m_PrimaryColour.Blue    = MathsHelper.Lerp(m_Counter, m_PreviousColour.Blue, m_NextColour.Blue);
+            LerpColour(m_PrimaryColour, m_PreviousColourPair.GetPrimary(), m_ActiveColourPair.GetPrimary(), m_Counter);
+            LerpColour(m_SecondaryColour, m_PreviousColourPair.GetSecondary(), m_ActiveColourPair.GetSecondary(), m_Counter);
 
-        UpdateAccentingColours();
+            UpdateAccentingColours();
+        }
+    }
+
+    private void LerpColour(Colour colour, Colour previous, Colour next, double lerpAmount)
+    {
+        colour.Red = MathsHelper.Lerp(lerpAmount, previous.Red, next.Red);
+        colour.Green = MathsHelper.Lerp(lerpAmount, previous.Green, next.Green);
+        colour.Blue = MathsHelper.Lerp(lerpAmount, previous.Blue, next.Blue);
     }
 
     private void UpdateAccentingColours()
     {
-        m_AccentingColour.SetAsInverse(m_PrimaryColour);
-        m_AccentTintColour.SetColour(m_AccentingColour);
+        m_AccentTintColour.SetColour(m_SecondaryColour);
         m_AccentTintColour.Brighten(-0.6);
     }
 
@@ -68,9 +88,9 @@ public class ColourManager
         return m_PrimaryColour;
     }
 
-    public Colour GetAccentingColour()
+    public Colour GetSecondaryColour()
     {
-        return m_AccentingColour;
+        return m_SecondaryColour;
     }
 
     public Colour GetAccentTintColour()
@@ -96,43 +116,41 @@ public class ColourManager
         }
     }
 
-    public void SetColour(double[] colour)
-    {
-        m_Counter = 0;
-        m_PreviousColour.SetColour(colour);
-        m_NextColour.SetColour(colour);
-    }
-
     private void PrimaryColourChanged()
     {
         Vehicle_Runner player = m_Game.GetVehicleManager().GetPlayer();
 
-        if(player == null)
-            return;
+        if(player != null)
+        {
+            m_PreviousColourPair.SetPrimaryColour(m_PrimaryColour);
+            m_PreviousColourPair.SetSecondaryColour(m_SecondaryColour);
 
-        m_Counter = 0;
-        m_PreviousColour.SetColour(m_PrimaryColour);
+            m_ActiveColourPair = GetColourPairByWeaponSlot(player.GetWeaponSlot());
 
-        double[] nextColour = GetColourByWeaponSlot(player.GetWeaponSlot());
-
-        if(nextColour != null)
-            m_NextColour.SetColour(nextColour);
+            ResetColourUpdateCounter();
+        }
     }
 
-    public double[] GetColourByWeaponSlot(WeaponSlot slot)
+    private ColourPair GetColourPairByWeaponSlot(WeaponSlot slot)
     {
         switch(slot)
         {
             case Up:
-                return Colours.Crimson;
+                return m_Up;
             case Down:
-                break;
+                return m_PreviousColourPair;
             case Left:
-                return Colours.RunnerBlue;
+                return m_Left;
             case Right:
-                return Colours.EmeraldGreen;
+                return m_Right;
         }
 
         return null;
+    }
+
+    private void ResetColourUpdateCounter()
+    {
+        m_Counter = 0.0;
+        m_ColoursUpdating = true;
     }
 }

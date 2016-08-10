@@ -10,20 +10,18 @@ public class Weapon_RailGun extends Weapon
 	
 	public Weapon_RailGun(Vehicle anchor, GameLogic game)
 	{
-		super(anchor, game);
+		super(anchor, game, AudioClips.Laser_Friendly);
 		
 		//m_BurstEmitter = new BurstEmitter(m_Anchor, m_ParticleManager);
 		
 		m_Damage = 100;
-		m_MuzzleVelocity = 90.0;
+		m_FiringSpeed = 90.0;
 		m_Accuracy = 1.0;
 		m_LifeSpan = 0.5;
 		
 		m_FireMode = new FireControl_Charge(1.0, 1.0);
 
 		AddBarrel(0, 0, 1);
-		
-		m_AudioClip = AudioClips.RailGun;
 	}
 	
 	@Override
