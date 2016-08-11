@@ -9,57 +9,44 @@ import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class Sensor_Target extends Sensor
 {
-	private Vehicle m_Target;
+    private Vehicle m_Target;
+
 	private ArrayList<Vehicle> m_Targets;
 	private Vector3 m_ToTarget;
-    private AIController m_Controller;
 
-    private double m_LeaderTolerance;
-	
 	public Sensor_Target(AIController controller, VehicleManager vManager)
 	{
 		super(controller.GetAnchor(), 1000.0);
 
-        m_Controller = controller;
-
-		m_Target 	= null;
-		m_Targets 	= vManager.GetTeam(m_Controller.GetEnemyAffiliation());
+		m_Targets 	= vManager.GetOpposingTeam(controller.GetAnchor().GetAffiliation());
 		m_ToTarget 	= new Vector3();
-
-        m_LeaderTolerance = Math.toRadians(45);
 	}
 
     public Vehicle FindTarget()
     {
-        m_Target = null;
-        double highestUtility = Double.MIN_VALUE;
+        Vehicle target = null;
 
-        for(Vehicle possibleTarget : m_Targets)
+        if (m_Targets.size() > 0)
         {
-            if(!possibleTarget.CanBeTargeted())
-                continue;
+            Vector3 anchorPosition = m_Anchor.GetPosition();
+            double distanceToClosestTargetSqr = Double.MAX_VALUE;
 
-            double utility = 0.0;
-
-            m_ToTarget.SetVectorDifference(m_Anchor.GetPosition(), possibleTarget.GetPosition());
-
-            // Phase 1: Calculate utility based on distance from target.
-            double DistanceSqr = m_ToTarget.GetLengthSqr();
-            utility += 1.0 - MathsHelper.Normalise(DistanceSqr, 0.0, m_SensorRadius * m_SensorRadius);
-
-            // Phase 2: Calculate utility base on direction to target
-            //double deltaHeading = Vector3.RadiansBetween(m_Anchor.GetForward(), m_ToTarget);
-            //utility += (1.0 - MathsHelper.Normalise(deltaHeading, 0.0, m_SensorArc));
-
-            if(utility > highestUtility)
+            for(Vehicle enemy : m_Targets)
             {
-                highestUtility 	= utility;
-                m_Target 		= possibleTarget;
-                m_VehicleState.SetTarget(m_Target);
+                if(enemy.CanBeTargeted())
+                {
+                    m_ToTarget.SetVectorDifference(anchorPosition, enemy.GetPosition());
+                    double distanceToEnemySqr = m_ToTarget.GetLengthSqr();
+
+                    if(distanceToEnemySqr < distanceToClosestTargetSqr)
+                    {
+                        target = enemy;
+                    }
+                }
             }
         }
 
-        return m_Target;
+        return target;
     }
 
     @Override

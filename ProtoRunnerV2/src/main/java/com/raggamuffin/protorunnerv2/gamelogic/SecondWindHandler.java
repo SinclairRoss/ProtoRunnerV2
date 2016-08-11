@@ -1,5 +1,6 @@
 package com.raggamuffin.protorunnerv2.gamelogic;
 
+import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Runner;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
@@ -103,6 +104,8 @@ public class SecondWindHandler
 				m_Game.GetVehicleManager().SpawnPlayer();
 				m_SecondWindState = SecondWindState.Idle;
 				m_Player.SelectWeaponBySlot(m_LastSelectedWeapon);
+
+                m_Game.GetGameAudioManager().PlaySound(AudioClips.Respawn);
 				break;
 			}
 		}
@@ -144,10 +147,10 @@ public class SecondWindHandler
 		@Override
 		public void Update(int args) 
 		{
-			if(m_SecondWindState != SecondWindState.Active)
-				return;
-
-			m_SecondWindState = SecondWindState.Respawn;
+			if(m_SecondWindState == SecondWindState.Active)
+			{
+				m_SecondWindState = SecondWindState.Respawn;
+			}
 		}	
 	}
 	
@@ -157,7 +160,9 @@ public class SecondWindHandler
 		public void Update(int args) 
 		{
 			if(m_Player != null)
+			{
 				m_LastSelectedWeapon = m_Player.GetWeaponSlot();
+			}
 		}	
 	}
 

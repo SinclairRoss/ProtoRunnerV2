@@ -2,38 +2,28 @@ package com.raggamuffin.protorunnerv2.weapons;
 
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.utils.CollisionReport;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
-public class Projectile_LaserVampire extends Projectile_Laser_Depricated
+public class Projectile_LaserVampire extends Projectile_Laser
 {
-    public Projectile_LaserVampire(Vector3 position, Vector3 forward, Colour colour, double baseDamage, AffiliationKey affiliation, ProjectileType type)
-    {
-        super(position, forward, colour, baseDamage, affiliation, type);
-    }
-
-    @Override
-    public CollisionReport CheckForCollision(GameObject object)
-    {
-        return null;
-    }
-    /*
+    private Vehicle m_Anchor;
     private final double m_ChargeMultiplier;
 
-    public Projectile_LaserVampire(Weapon origin, GameLogic game)
+    public Projectile_LaserVampire(Vector3 position, Vector3 initialVelocity, Vector3 forward, Colour colour, double baseDamage, AffiliationKey affiliation, Vehicle anchor, Weapon firingWeapon, GameLogic game)
     {
-        super(origin, game);
+        super(position, initialVelocity, forward, colour, baseDamage, affiliation, firingWeapon, game);
 
+        m_Anchor = anchor;
         m_ChargeMultiplier = 5.0;
     }
 
-
     @Override
-    public void CollisionResponse(GameObject other)
+    public void CollisionResponse(CollisionReport report)
     {
-        m_Origin.GetAnchor().ChargeEnergy(GetDamageOutput() * m_ChargeMultiplier);
-        super.CollisionResponse(other);
-    }*/
+        m_Anchor.ChargeEnergy(GetDamageOutput() * m_ChargeMultiplier);
+        super.CollisionResponse(report);
+    }
 }

@@ -7,10 +7,12 @@ import java.util.Iterator;
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 
-import com.raggamuffin.protorunnerv2.utils.Vector3;
 import com.raggamuffin.protorunnerv2.weapons.Projectile;
 import com.raggamuffin.protorunnerv2.weapons.Projectile_Flare;
 import com.raggamuffin.protorunnerv2.weapons.Projectile_Laser;
+import com.raggamuffin.protorunnerv2.weapons.Projectile_Laser_Experimental;
+import com.raggamuffin.protorunnerv2.weapons.Projectile_LaserVampire;
+import com.raggamuffin.protorunnerv2.weapons.Projectile_Missile;
 import com.raggamuffin.protorunnerv2.weapons.Projectile_PlasmaShot;
 import com.raggamuffin.protorunnerv2.weapons.Weapon;
 
@@ -31,9 +33,9 @@ public class BulletManager
 
 	public void Update(double deltaTime)
 	{
-        for(Iterator<Projectile> Iter = m_ActiveBullets.iterator(); Iter.hasNext();)
+        for(Iterator<Projectile> iter = m_ActiveBullets.iterator(); iter.hasNext();)
         {
-            Projectile temp = Iter.next();
+            Projectile temp = iter.next();
 
             if(temp.IsValid())
             {
@@ -42,13 +44,13 @@ public class BulletManager
             else
             {
                 RemoveObjectFromRenderer(temp);
-                Iter.remove();
+                iter.remove();
             }
         }
 
-        for(Iterator<Projectile_Flare> Iter = m_ActiveFlares.iterator(); Iter.hasNext();)
+        for(Iterator<Projectile_Flare> iter = m_ActiveFlares.iterator(); iter.hasNext();)
         {
-            Projectile_Flare temp = Iter.next();
+            Projectile_Flare temp = iter.next();
 
             if(temp.IsValid())
             {
@@ -57,7 +59,7 @@ public class BulletManager
             else
             {
                 RemoveObjectFromRenderer(temp);
-                Iter.remove();
+                iter.remove();
             }
         }
 	}
@@ -69,24 +71,21 @@ public class BulletManager
         switch(origin.GetProjectileType())
         {
             case PlasmaShot:
-                newProjectile = new Projectile_PlasmaShot(origin.GetFirePosition(), origin.GetVelocity(), origin.CalculateProjectileHeading(), origin.GetBaseColour(), origin.GetBaseDamage(), origin.GetAffiliation());
-                break;
-            case EnergyBall:
-             //   newProjectile = new Projectile_EnergyBall(origin);
+                newProjectile = new Projectile_PlasmaShot(origin.GetFirePosition(), origin.GetVelocity(), origin.CalculateProjectileHeading(), origin.GetBaseColour(), origin.GetBaseDamage(), origin.GetFiringSpeed(), origin.GetAffiliation());
                 break;
             case Missile:
-             //   newProjectile = new Projectile_Missile(origin, m_Game, origin.GetMuzzleIndex());
+                newProjectile = new Projectile_Missile(origin.GetFirePosition(), origin.GetVelocity(), origin.CalculateProjectileHeading(), origin.GetBaseColour(), origin.GetBaseDamage(), origin.GetMuzzleIndex(), origin.GetAffiliation(), origin, m_Game);
                 break;
             case Laser:
-                newProjectile = new Projectile_Laser(origin.GetFirePosition(), origin.GetVelocity(), origin.CalculateProjectileHeading(), origin.GetBaseColour(), origin.GetBaseDamage(), origin.GetAffiliation(), m_Game);
+                newProjectile = new Projectile_Laser(origin.GetFirePosition(), origin.GetVelocity(), origin.CalculateProjectileHeading(), origin.GetBaseColour(), origin.GetBaseDamage(), origin.GetAffiliation(), origin, m_Game);
                 break;
             case LaserVampire:
-            //    newProjectile = new Projectile_LaserVampire(origin, m_Game);
+                newProjectile = new Projectile_LaserVampire(origin.GetFirePosition(), origin.GetVelocity(), origin.CalculateProjectileHeading(), origin.GetBaseColour(), origin.GetBaseDamage(), origin.GetAffiliation(), origin.GetAnchor(), origin, m_Game);
                 break;
             case Flare:
-              // Projectile_Flare flare = new Projectile_Flare(origin, m_Game);
-               // m_ActiveFlares.add(flare);
-              //  newProjectile = flare;
+                Projectile_Flare flare = new Projectile_Flare(origin.GetFirePosition(), origin.GetVelocity(), origin.CalculateProjectileHeading(), origin.GetAltColour(), origin.GetBaseDamage(), origin.GetAffiliation(), m_Game);
+                m_ActiveFlares.add(flare);
+                newProjectile = flare;
                 break;
             default:
                 Log.e("BulletManager", "Bullet type not found: " + origin.GetProjectileType().toString());
@@ -112,24 +111,12 @@ public class BulletManager
 
     private void AddObjectToRenderer(Projectile proj)
     {
-      //  switch (proj.GetModel())
-      // {
-          //  case PlasmaShot:
-           //     m_Game.AddBulletToRenderer(proj);
-         //   default:
-                m_Game.AddObjectToRenderer(proj);
-      //  }
+        m_Game.AddObjectToRenderer(proj);
     }
 
     private void RemoveObjectFromRenderer(Projectile proj)
     {
-        //switch (proj.GetModel())
-       // {
-          //  case PlasmaShot:
-          //      m_Game.RemoveBulletFromRenderer(proj);
-         //   default:
-                m_Game.RemoveGameObjectFromRenderer(proj);
-        //}
+        m_Game.RemoveGameObjectFromRenderer(proj);
     }
 	
 	public ArrayList<Projectile> GetActiveBullets()

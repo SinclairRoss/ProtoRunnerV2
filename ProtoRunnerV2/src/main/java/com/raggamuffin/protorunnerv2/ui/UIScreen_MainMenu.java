@@ -3,15 +3,14 @@ package com.raggamuffin.protorunnerv2.ui;
 import android.content.Context;
 
 import com.raggamuffin.protorunnerv2.R;
+import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.UIManager;
 import com.raggamuffin.protorunnerv2.master.ControlScheme;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
-import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.utils.CollisionDetection;
-import com.raggamuffin.protorunnerv2.utils.Colours;
 
 public class UIScreen_MainMenu extends UIScreen
 {
@@ -48,26 +47,26 @@ public class UIScreen_MainMenu extends UIScreen
         Context context = m_Game.GetContext();
 
         m_Title         = CreateTitle(context.getString(R.string.app_name));
-		m_Play 		    = CreateButton(context.getString(R.string.button_play), PublishedTopics.StartGame);
-        m_LeaderBoards  = CreateButton(context.getString(R.string.highscore_picker_screen_title), UIScreens.Leaderboards);
-        m_Achievements  = CreateButton(context.getString(R.string.button_achievements), PublishedTopics.AchievementsPressed);
-        m_Tutorial      = CreateButton(context.getString(R.string.button_tutorial), PublishedTopics.StartTutorial);
-        m_Credits	    = CreateButton(context.getString(R.string.credits_screen_title), UIScreens.Credits);
+		m_Play 		    = CreateButton(context.getString(R.string.button_play), PublishedTopics.StartGame, AudioClips.UI_Play);
+        m_LeaderBoards  = CreateButton(context.getString(R.string.highscore_picker_screen_title), UIScreens.Leaderboards, AudioClips.UI_Positive);
+        m_Achievements  = CreateButton(context.getString(R.string.button_achievements), PublishedTopics.AchievementsPressed, AudioClips.UI_Positive);
+        m_Tutorial      = CreateButton(context.getString(R.string.button_tutorial), PublishedTopics.StartTutorial, AudioClips.UI_Play);
+        m_Credits	    = CreateButton(context.getString(R.string.credits_screen_title), UIScreens.Credits, AudioClips.UI_Positive);
 
         PubSubHub pubSub = m_Game.GetPubSubHub();
 
         pubSub.SubscribeToTopic(PublishedTopics.GooglePlayConnected, new OnConnectSubscriber());
         pubSub.SubscribeToTopic(PublishedTopics.GooglePlayDisconnected, new OnDisconnectSubscriber());
 
-        m_SignIn = new UIButton(m_Game.GetGameAudioManager(), m_UIManager);
+        m_SignIn = new UIButton(m_UIManager, null, 0, m_Game.GetGameAudioManager(), AudioClips.UI_Positive);
         m_SignIn.SetText(context.getString(R.string.sign_in));
         m_SignIn.SetPosition(0.9, -0.8);
         m_SignIn.GetFont().SetAlignment(Font.Alignment.Right);
-        m_SignIn.GetFont().SetColour(m_Game.GetColourManager().GetAccentingColour());
+        m_SignIn.GetFont().SetColour(m_Game.GetColourManager().GetSecondaryColour());
 
         m_UIManager.AddUIElement(m_SignIn);
 
-        m_SignOut = new UIButton(m_Game.GetGameAudioManager(), m_UIManager);
+        m_SignOut = new UIButton(m_UIManager, null, 0, m_Game.GetGameAudioManager(), AudioClips.UI_Negative);
         m_SignOut.SetText(context.getString(R.string.sign_out));
         m_SignOut.SetPosition(0.9, -0.8);
         m_SignOut.GetFont().SetAlignment(Font.Alignment.Right);

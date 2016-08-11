@@ -8,40 +8,17 @@ import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_Burst;
 import com.raggamuffin.protorunnerv2.particles.TrailEmitter;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
+import com.raggamuffin.protorunnerv2.utils.CollisionDetection;
 import com.raggamuffin.protorunnerv2.utils.CollisionReport;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
-import com.raggamuffin.protorunnerv2.weapons.Projectile;
-import com.raggamuffin.protorunnerv2.weapons.ProjectileType;
 
 import java.util.ArrayList;
 
 public class Projectile_Missile extends Projectile
 {
-    public Projectile_Missile(Vector3 position, Vector3 initialVelocity, Vector3 forward, Colour colour, double baseDamage, AffiliationKey affiliation, ProjectileType type)
-    {
-        super(position, initialVelocity, forward, colour, baseDamage, affiliation, ModelType.Bit);
-    }
-
-    @Override
-    public CollisionReport CheckForCollision(GameObject object)
-    {
-        return null;
-    }
-
-    @Override
-    public void CollisionResponse(CollisionReport report)
-    {
-
-    }
-
-    @Override
-    public void CleanUp()
-    {
-
-    }/*
     private enum MissileState
     {
         Docked,
@@ -67,11 +44,14 @@ public class Projectile_Missile extends Projectile
     private final double FLARE_DISTRACTION_RANGE_SQR = FLARE_DISTRACTION_RANGE * FLARE_DISTRACTION_RANGE;
     private Projectile_Flare m_LockedTargetFlare;
 
-    public Projectile_Missile(Weapon origin, GameLogic game, int index)
+    private Weapon m_Origin;
+
+    public Projectile_Missile(Vector3 position, Vector3 initialVelocity, Vector3 forward, Colour colour, double baseDamage, int index, AffiliationKey affiliation, Weapon origin, GameLogic game)
     {
-        super(origin);
+        super(position, initialVelocity, forward, colour, baseDamage, affiliation, ModelType.Missile);
 
         m_Game = game;
+        m_Origin = origin;
 
         m_Model = ModelType.Missile;
         m_State = MissileState.Docked;
@@ -88,9 +68,9 @@ public class Projectile_Missile extends Projectile
         m_Target = new Vector3();
         m_ToTarget = new Vector3();
 
-        m_DragCoefficient = 0.9;
+        m_Mass = 10;
 
-        m_EngineOutput = 12000;
+        m_EngineOutput = 8000;
     }
 
     @Override
@@ -119,7 +99,7 @@ public class Projectile_Missile extends Projectile
                 {
                     m_State = MissileState.Released;
                     AddChild(new TrailEmitter(this, m_Game));
-                    m_Game.GetGameAudioManager().PlaySound(AudioClips.MissileEngaged);
+                    m_Game.GetGameAudioManager().PlaySound(AudioClips.Missile_Engaged); // TODO: Convert to audio emitter.
                 }
 
                 break;
@@ -177,12 +157,6 @@ public class Projectile_Missile extends Projectile
         }
 
         super.Update(deltaTime);
-    }
-
-    @Override
-    public void CleanUp()
-    {
-
     }
 
     private GameObject FindTarget()
@@ -249,16 +223,23 @@ public class Projectile_Missile extends Projectile
         return closestFlare;
     }
 
+
     @Override
-    public boolean CollidesWith(GameObject other)
+    public CollisionReport CheckForCollision(GameObject object)
     {
-        return false;
+        return CollisionDetection.CheckCollisions(this, object);
     }
 
     @Override
-    public void CollisionResponse(GameObject other)
+    public void CollisionResponse(CollisionReport report)
     {
         Detonate();
+    }
+
+    @Override
+    public void CleanUp()
+    {
+
     }
 
     private void LockProjectile()
@@ -282,5 +263,5 @@ public class Projectile_Missile extends Projectile
         detonationEmitter.Burst();
 
         ForceInvalidation();
-    } */
+    }
 }

@@ -34,11 +34,11 @@ public class GameManager_Exhibition extends GameManager
             double horizSpacing = 7.0;
             double vertSpacing = 3.0;
 
-            ArrayList<Vector3> formation = FormationHelper.CreateWedgeFormation(position, forward, horizSpacing, vertSpacing, 7);
+            ArrayList<Vector3> formation = FormationHelper.CreateWedgeFormation(position, forward, horizSpacing, vertSpacing, 1);
 
             for(Vector3 pos : formation)
             {
-              //  m_VehicleManager.SpawnVehicle(VehicleType.Bit, pos.I, pos.K, forward.Yaw());
+                m_VehicleManager.SpawnVehicle(VehicleType.Carrier, pos.I, pos.K, forward.Yaw());
             }
         }
 
@@ -54,7 +54,7 @@ public class GameManager_Exhibition extends GameManager
 
             for(Vector3 pos : formation)
             {
-             //   m_VehicleManager.SpawnVehicle(VehicleType.Wingman, pos.I, pos.K, forward.Yaw());
+                m_VehicleManager.SpawnVehicle(VehicleType.Wingman, pos.I, pos.K, forward.Yaw());
             }
         }
     }
@@ -74,7 +74,7 @@ public class GameManager_Exhibition extends GameManager
 
             for(Vector3 pos : formation)
             {
-              //  m_VehicleManager.SpawnVehicle(VehicleType.Bit, pos.I, pos.K, forward.Yaw());
+                m_VehicleManager.SpawnVehicle(VehicleType.Bit, pos.I, pos.K, forward.Yaw());
             }
         }
 
@@ -90,7 +90,7 @@ public class GameManager_Exhibition extends GameManager
 
             for(Vector3 pos : formation)
             {
-              //  m_VehicleManager.SpawnVehicle(VehicleType.Wingman, pos.I, pos.K, forward.Yaw());
+                m_VehicleManager.SpawnVehicle(VehicleType.Wingman, pos.I, pos.K, forward.Yaw());
             }
         }
     }

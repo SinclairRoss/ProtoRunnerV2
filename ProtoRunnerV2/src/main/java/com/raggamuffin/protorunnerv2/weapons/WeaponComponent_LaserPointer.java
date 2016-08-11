@@ -10,11 +10,13 @@ import java.util.ArrayList;
 public class WeaponComponent_LaserPointer extends WeaponComponent
 {
     private ArrayList<LaserPointer> m_LaserPointers;
+    private GameLogic m_Game;
 
     public WeaponComponent_LaserPointer(GameLogic game, Weapon anchor)
     {
         super(anchor);
 
+        m_Game = game;
         m_LaserPointers = new ArrayList<>();
 
         ArrayList<WeaponBarrel> barrels = m_Anchor.GetWeaponBarrels();
@@ -23,7 +25,16 @@ public class WeaponComponent_LaserPointer extends WeaponComponent
             LaserPointer pointer = new LaserPointer(m_Anchor, barrel);
             m_LaserPointers.add(pointer);
 
-            game.AddObjectToRenderer(pointer);
+            m_Game.AddObjectToRenderer(pointer);
+        }
+    }
+
+    @Override
+    public void Destroy()
+    {
+        for(LaserPointer pointer : m_LaserPointers)
+        {
+            m_Game.RemoveGameObjectFromRenderer(pointer);
         }
     }
 

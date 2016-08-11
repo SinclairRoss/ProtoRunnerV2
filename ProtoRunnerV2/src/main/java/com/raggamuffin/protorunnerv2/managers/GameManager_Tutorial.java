@@ -137,9 +137,9 @@ public class GameManager_Tutorial extends GameManager
         m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_pulse_about)));
 
         //Laser Vampire
-        m_Conditions.add(new TutorialCondition_SwitchWeapon(m_Game, context.getString(R.string.tutorial_vampire_equip), WeaponSlot.Right, TutorialEffect.LockWeapon_Right));
-        m_Conditions.add(new TutorialCondition_LaserFired(m_Game,context.getString(R.string.tutorial_fire_vampire), 3.0, WeaponSlot.Right));
-        m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_vampire_about)));
+       // m_Conditions.add(new TutorialCondition_SwitchWeapon(m_Game, context.getString(R.string.tutorial_vampire_equip), WeaponSlot.Right, TutorialEffect.LockWeapon_Right));
+       // m_Conditions.add(new TutorialCondition_LaserFired(m_Game,context.getString(R.string.tutorial_fire_vampire), 3.0, WeaponSlot.Right));
+       // m_Conditions.add(new TutorialCondition_Message(m_Game, context.getString(R.string.tutorial_vampire_about)));
 
         //Rockets
         m_Conditions.add(new TutorialCondition_SwitchWeapon(m_Game, context.getString(R.string.tutorial_rocket_equip), WeaponSlot.Up, TutorialEffect.LockWeapon_Up));

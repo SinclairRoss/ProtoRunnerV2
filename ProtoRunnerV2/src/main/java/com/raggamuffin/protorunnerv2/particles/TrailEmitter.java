@@ -13,7 +13,7 @@ public class TrailEmitter extends GameObject
 
     private double m_Offset;
 
-    private TrailPoint m_HeadNode;
+    private TrailNode m_HeadNode;
 
     private double m_LifeSpan;
     private double m_EmissionRate;
@@ -89,7 +89,7 @@ public class TrailEmitter extends GameObject
 
     }
 
-    public TrailPoint GetHeadNode()
+    public TrailNode GetHeadNode()
     {
         return m_HeadNode;
     }

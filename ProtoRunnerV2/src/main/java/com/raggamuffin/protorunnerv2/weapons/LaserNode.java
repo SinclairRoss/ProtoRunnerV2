@@ -16,7 +16,7 @@ public class LaserNode
 
         m_Velocity = new Vector3(forward);
         m_Velocity.Scale(speed);
-       // m_Velocity.Add(initialVelocity);
+        m_Velocity.Add(initialVelocity);
 
         m_Speed = speed;
         m_Range = range;

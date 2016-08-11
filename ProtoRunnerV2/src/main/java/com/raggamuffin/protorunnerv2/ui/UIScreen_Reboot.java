@@ -30,7 +30,7 @@ public class UIScreen_Reboot extends UIScreen
 
         ColourManager cManager = m_Game.GetColourManager();
 
-        m_Bar = new UIProgressBar(1.5, 1, cManager.GetAccentingColour(), cManager.GetAccentTintColour(), cManager.GetPrimaryColour(), m_Game.GetContext().getString(R.string.empty), UIProgressBar.Alignment.Center, m_Game.GetGameAudioManager(), m_UIManager);
+        m_Bar = new UIProgressBar(1.5, 1, cManager.GetSecondaryColour(), cManager.GetAccentTintColour(), cManager.GetPrimaryColour(), m_Game.GetContext().getString(R.string.empty), UIProgressBar.Alignment.Center, m_Game.GetGameAudioManager(), m_UIManager);
         m_Bar.SetPosition(0, -0.1);
         m_Bar.SnapToValue(1.0);
 

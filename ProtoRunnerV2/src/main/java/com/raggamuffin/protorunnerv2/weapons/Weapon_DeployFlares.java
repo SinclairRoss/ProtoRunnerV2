@@ -11,19 +11,17 @@ public class Weapon_DeployFlares extends Weapon
 {
     public Weapon_DeployFlares(Vehicle anchor, GameLogic game)
     {
-        super(anchor, game);
+        super(anchor, game, AudioClips.Flare_Spawned);
 
         m_EquipmentType = EquipmentType.Utility;
         m_ProjectileType = ProjectileType.Flare;
 
         m_Damage = 40;
-        m_MuzzleVelocity = 70.0;
+        m_FiringSpeed = 70.0;
         m_Accuracy = 1.0;
         m_LifeSpan = 5.0;
 
-        m_AudioClip = AudioClips.MissileSpawned;
-
-        m_FireMode = new FireControl_UtilityPulse(this, 5, 0.15, 4);
+        m_FireMode = new FireControl_UtilityPulse(this, 2, 0.15, 4);
 
         AddBarrel(2, 0, 0);
         AddBarrel(-2, 0, 0);

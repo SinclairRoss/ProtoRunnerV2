@@ -11,6 +11,12 @@ public class WeaponComponent_None extends WeaponComponent
     }
 
     @Override
+    public void Destroy()
+    {
+
+    }
+
+    @Override
     public void Update(double deltaTime)
     {
         // Do nothing.

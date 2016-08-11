@@ -8,13 +8,9 @@ import java.util.ArrayList;
 
 public class Engine_Cycling extends Engine
 {
-    private ArrayList<CyclingEngineAttachment> m_Attachments;
-
     public Engine_Cycling(GameObject anchor, GameLogic game)
     {
         super(game, anchor);
-
-        m_Attachments = new ArrayList<>();
 
         int numEngines = 3;
         double theta = (Math.PI * 2) / numEngines;
@@ -22,7 +18,6 @@ public class Engine_Cycling extends Engine
         for(int i = 0; i < numEngines; i++)
         {
             CyclingEngineAttachment attachment = new CyclingEngineAttachment(anchor, game, 2, theta * i);
-            m_Attachments.add(attachment);
             m_Anchor.AddChild(attachment);
         }
     }

@@ -84,8 +84,8 @@ public class GLModel_Ring  extends GLModel
         Vector3 fwd = obj.GetForward();
         GLES20.glUniform3f(m_ForwardHandle, (float) fwd.I, (float) fwd.J, (float) fwd.K);
 
-        double scale = obj.GetBoundingRadius();
-        GLES20.glUniform3f(m_ScaleHandle, (float) scale, (float) scale, (float) scale);
+        Vector3 scale = obj.GetScale();
+        GLES20.glUniform3f(m_ScaleHandle, (float) scale.I, (float) scale.J, (float) scale.K);
 
         Colour colour = obj.GetColour();
         GLES20.glUniform4f(m_ColourHandle, (float) colour.Red, (float) colour.Green, (float) colour.Blue, (float) colour.Alpha);

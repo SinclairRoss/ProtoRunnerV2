@@ -9,7 +9,7 @@ import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
-import com.raggamuffin.protorunnerv2.weapons.Weapon_PulseLaserWingman;
+import com.raggamuffin.protorunnerv2.weapons.Weapon_PulseLaser;
 
 public class Vehicle_Wingman extends Vehicle
 {
@@ -29,21 +29,24 @@ public class Vehicle_Wingman extends Vehicle
 		m_Position.SetVector(0, 0, 0);
 
         m_BaseColour = game.GetColourManager().GetPrimaryColour();
-        m_AltColour = game.GetColourManager().GetAccentingColour();
+        m_AltColour = game.GetColourManager().GetSecondaryColour();
 
         m_BurstEmitter.SetInitialColour(m_BaseColour);
         m_BurstEmitter.SetFinalColour(m_AltColour);
 
+		m_Mass = 100;
+
         m_Engine = new Engine_Standard(this, game);
 		m_Engine.SetMaxTurnRate(2.0);
-		m_Engine.SetMaxEngineOutput(3000);
+		m_Engine.SetMaxEngineOutput(15000);
+        m_Engine.SetAfterBurnerOutput(45000);
 		
 		m_MaxHullPoints = 1000;
 		m_HullPoints 	= m_MaxHullPoints;
 
 		SetAffiliation(AffiliationKey.BlueTeam);
 		
-		SelectWeapon(new Weapon_PulseLaserWingman(this, game));
+		SelectWeapon(new Weapon_PulseLaser(this, game));
 
         m_AIController = new AIController(this, m_VehicleManager, game.GetBulletManager(), AIBehaviours.FollowTheLeader, FireControlBehaviour.Standard);
 		m_AIController.SetLeader(m_VehicleManager.GetPlayer());
@@ -66,6 +69,7 @@ public class Vehicle_Wingman extends Vehicle
     public void CleanUp()
     {
         m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.PlayerSpawned, m_PlayerSpawnedSubscriber);
+        m_PrimaryWeapon.CleanUp();
     }
 
     private class PlayerSpawnedSubscriber extends Subscriber

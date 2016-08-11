@@ -1,6 +1,8 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
+import com.raggamuffin.protorunnerv2.gameobjects.BoundingRing;
+import com.raggamuffin.protorunnerv2.gameobjects.FloorGrid;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.CollisionDetection;
@@ -13,21 +15,35 @@ public class Projectile_PlasmaShot extends Projectile
 {
     private Timer m_LifeSpan;
 
-    public Projectile_PlasmaShot(Vector3 position, Vector3 initialVelocity, Vector3 forward, Colour colour, double baseDamage, AffiliationKey affiliation)
+    public Projectile_PlasmaShot(Vector3 position, Vector3 initialVelocity, Vector3 forward, Colour colour, double baseDamage, double firingSpeed, AffiliationKey affiliation)
     {
         super(position, initialVelocity, forward, colour, baseDamage, affiliation, ModelType.PlasmaPulse);
 
-        m_LifeSpan = new Timer(5);
+        m_LifeSpan = new Timer(5); // 5
 
+        //TODO: Make length relative to speed.
         m_Scale.SetVector(0.25, 0.25, 3);
-
-        double muzzleVelocity = 150.0;
 
         m_BoundingRadius = 0.1;
 
-        m_Velocity.I += m_Forward.I * muzzleVelocity;
-        m_Velocity.J += m_Forward.J * muzzleVelocity;
-        m_Velocity.K += m_Forward.K * muzzleVelocity;
+        m_Velocity.I += m_Forward.I * firingSpeed;
+        m_Velocity.J += m_Forward.J * firingSpeed;
+        m_Velocity.K += m_Forward.K * firingSpeed;
+
+        if(m_Velocity.GetLengthSqr() >= 0.1)
+        {
+            // Points the laser to point in the direction it is travelling and not the direction it was fired at.
+            m_Forward.SetVector(m_Velocity);
+            m_Forward.Normalise();
+        }
+        else
+        {
+            m_Forward.SetVector(forward);
+        }
+
+        UpdateVectorsWithForward(m_Forward);
+
+        AddChild(new FloorGrid(m_Colour));
     }
 
     @Override

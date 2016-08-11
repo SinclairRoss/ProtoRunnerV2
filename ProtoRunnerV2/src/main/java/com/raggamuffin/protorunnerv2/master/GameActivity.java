@@ -3,16 +3,15 @@
 
 package com.raggamuffin.protorunnerv2.master;
 
-import java.util.ArrayList;
-
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
-import com.raggamuffin.protorunnerv2.ui.UIElement;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.graphics.Point;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -23,6 +22,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.v4.view.MotionEventCompat;
 import android.util.Log;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -80,7 +80,12 @@ public class GameActivity extends Activity implements SensorEventListener
 
         Log.e("Activity", "Refresh rate: " + getWindowManager().getDefaultDisplay().getRefreshRate());
 
-		RendererPacket rendererPacket = new RendererPacket(this, new ChaseCamera(), new RenderEffectSettings());
+		WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+		Display display = wm.getDefaultDisplay();
+		Point size = new Point();
+		display.getRealSize(size);
+
+		RendererPacket rendererPacket = new RendererPacket(this, new ChaseCamera(), new RenderEffectSettings(), size);
 
         PubSubHub pubSub = new PubSubHub();
 		m_ControlScheme = new ControlScheme(this, pubSub);

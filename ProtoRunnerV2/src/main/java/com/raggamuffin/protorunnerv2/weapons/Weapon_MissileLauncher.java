@@ -8,16 +8,14 @@ public class Weapon_MissileLauncher extends Weapon
 {
 	public Weapon_MissileLauncher(Vehicle anchor, GameLogic game)
 	{
-		super(anchor, game);
+		super(anchor, game, AudioClips.Missile_Spawned);
 
         m_ProjectileType = ProjectileType.Missile;
 
 		m_Damage = 100;
-		m_MuzzleVelocity = 0.0;
+		m_FiringSpeed = 0.0;
 		m_Accuracy = 1.0;
 		m_LifeSpan = 5.0;
-
-		m_AudioClip = AudioClips.MissileSpawned;
 		
 		AddBarrel(2, 0, -1);
 		AddBarrel(-2, 0, -1);

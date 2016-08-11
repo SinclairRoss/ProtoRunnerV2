@@ -8,8 +8,12 @@ import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
 import com.raggamuffin.protorunnerv2.gameobjects.ExhibitionCameraAnchor;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
+import com.raggamuffin.protorunnerv2.gameobjects.Rope;
+import com.raggamuffin.protorunnerv2.managers.GameObjectManager;
+import com.raggamuffin.protorunnerv2.managers.InGameSoundEffectsManager;
 import com.raggamuffin.protorunnerv2.particles.Particle;
-import com.raggamuffin.protorunnerv2.particles.TrailPoint;
+import com.raggamuffin.protorunnerv2.particles.RopeNode;
+import com.raggamuffin.protorunnerv2.particles.TrailNode;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.BulletManager;
 import com.raggamuffin.protorunnerv2.managers.ColourManager;
@@ -48,6 +52,7 @@ public class GameLogic extends ApplicationLogic
 	private ParticleManager m_ParticleManager;
 	private BulletManager m_BulletManager;
 	private VehicleManager m_VehicleManager;
+    private GameObjectManager m_GameObjectManager;
 	private UIManager m_UIManager;
 	private RenderEffectManager m_RenderEffectManager;
 	private GameStats m_GameStats;
@@ -59,6 +64,8 @@ public class GameLogic extends ApplicationLogic
     private GameManager_Tutorial m_TutorialManager;
     private GameManager_Exhibition m_ExhibitionManager;
     private GooglePlayService m_GooglePlayService;
+
+    private GameMode m_GameMode;
 
 	public GameLogic(Activity activity, PubSubHub pubSub, ControlScheme scheme, RendererPacket packet)
 	{
@@ -75,6 +82,7 @@ public class GameLogic extends ApplicationLogic
 		m_ParticleManager 		= new ParticleManager(this);
 		m_BulletManager 		= new BulletManager(this);
 		m_VehicleManager 		= new VehicleManager(this);
+        m_GameObjectManager     = new GameObjectManager(this);
 		m_UIManager 			= new UIManager(this);
 		m_GameStats 			= new GameStats(this);
 		m_SecondWindHandler		= new SecondWindHandler(this);
@@ -99,6 +107,7 @@ public class GameLogic extends ApplicationLogic
         m_TutorialManager = new GameManager_Tutorial(this);
         m_ExhibitionManager = new GameManager_Exhibition(this);
         m_GameManager = m_ExhibitionManager;
+
         SetGameMode(GameMode.Exhibition);
     }
 
@@ -111,6 +120,7 @@ public class GameLogic extends ApplicationLogic
 		m_ParticleManager.Update(deltaTime);
 		m_BulletManager.Update(deltaTime);
 		m_VehicleManager.Update(deltaTime);
+        m_GameObjectManager.Update(deltaTime);
 		m_RenderEffectManager.Update(deltaTime);
 		m_SecondWindHandler.Update(deltaTime);
         m_GameStats.Update(deltaTime);
@@ -164,17 +174,28 @@ public class GameLogic extends ApplicationLogic
                 break;
         }
 
+        m_GameMode = mode;
         m_GameManager.Initialise();
     }
 
-    public void AddTrailToRemderer(TrailPoint point)
+    public void AddTrailToRenderer(TrailNode point)
     {
         m_Packet.AddObject(point);
     }
 
-    public void RemoveTrailFromRenderer(TrailPoint point)
+    public void AddRopeToRenderer(Rope rope)
+    {
+        m_Packet.AddObject(rope);
+    }
+
+    public void RemoveTrailFromRenderer(TrailNode point)
     {
         m_Packet.RemoveObject(point);
+    }
+
+    public void RemoveRopeFromRenderer(Rope rope)
+    {
+        m_Packet.RemoveObject(rope);
     }
 
     public void AddParticleToRenderer(Particle particle)
@@ -186,6 +207,7 @@ public class GameLogic extends ApplicationLogic
     {
         m_Packet.RemoveObject(particle);
     }
+
     // Adds a game object and all children of the game object to the renderer.
 	public void AddObjectToRenderer(GameObject obj)
 	{
@@ -279,6 +301,11 @@ public class GameLogic extends ApplicationLogic
 		m_Camera.Attach(m_CameraAnchor);
         m_Camera.SetUp(0,0,1);
 	}
+
+    public GameObjectManager GetGameObjectManager()
+    {
+        return m_GameObjectManager;
+    }
 	
 	public GameAudioManager GetGameAudioManager()
 	{
@@ -466,5 +493,10 @@ public class GameLogic extends ApplicationLogic
     {
         m_GooglePlayService.Disconnect();
         m_GameAudioManager.Stop();
+    }
+
+    public GameMode GetGameMode()
+    {
+        return m_GameMode;
     }
 }

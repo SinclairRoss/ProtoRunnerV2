@@ -1,5 +1,7 @@
 package com.raggamuffin.protorunnerv2.ui;
 
+import android.provider.MediaStore;
+
 import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.managers.UIManager;
@@ -7,35 +9,21 @@ import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 
 public class UIButton extends UILabel
 {
-	Publisher m_PressedPublisher;
+	Publisher m_OnPressPublisher;
+    int m_Args;
+
 	GameAudioManager m_GameAudioManager;
-	int m_Args;
-	
-	public UIButton(GameAudioManager audio, UIManager uiManager)
-	{
-		super(audio, uiManager);
-		
-		m_GameAudioManager = audio;
-		m_Type = UIElementType.Label;
-	}
+	AudioClips m_OnPressClip;
 
-    public UIButton(Publisher PressedPublisher, GameAudioManager audio, UIManager uiManager, final int args)
+    public UIButton(UIManager uiManager, Publisher onPressPublisher, int publisherArgs, GameAudioManager audioManager, AudioClips onPressClip)
     {
-        super(audio, uiManager);
+        super(audioManager, uiManager);
 
-        m_PressedPublisher = PressedPublisher;
-        m_GameAudioManager = audio;
-        m_Args = args;
+        m_OnPressPublisher = onPressPublisher;
+        m_Args = publisherArgs;
 
-        m_Type = UIElementType.Label;
-    }
-
-    public UIButton(Publisher PressedPublisher, GameAudioManager audio, UIManager uiManager)
-    {
-        super(audio, uiManager);
-
-        m_PressedPublisher = PressedPublisher;
-        m_GameAudioManager = audio;
+        m_GameAudioManager = audioManager;
+        m_OnPressClip = onPressClip;
 
         m_Type = UIElementType.Label;
     }
@@ -44,11 +32,11 @@ public class UIButton extends UILabel
 	{
 		if(!IsHidden())
 		{
-			m_GameAudioManager.PlaySound(AudioClips.UIClickFWD);
+			m_GameAudioManager.PlaySound(m_OnPressClip);
 
-			if (m_PressedPublisher != null)
+			if (m_OnPressPublisher != null)
 			{
-				m_PressedPublisher.Publish(m_Args);
+                m_OnPressPublisher.Publish(m_Args);
 			}
 		}
 	}

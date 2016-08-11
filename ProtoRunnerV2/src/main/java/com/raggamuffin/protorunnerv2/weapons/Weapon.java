@@ -31,12 +31,10 @@ public abstract class Weapon
 
     protected Vector3 m_Target;
 
-    protected AudioClips m_AudioClip;
-
     protected FireControl m_FireMode;
 
     protected double m_Damage;
-    protected double m_MuzzleVelocity;
+    protected double m_FiringSpeed;
     protected double m_Accuracy;
     protected double m_LifeSpan;
 
@@ -52,7 +50,7 @@ public abstract class Weapon
 
     private AudioEmitter m_AudioEmitter;
 
-    public Weapon(Vehicle anchor, GameLogic game)
+    public Weapon(Vehicle anchor, GameLogic game, AudioClips fireClip)
     {
         m_Anchor = anchor;
         m_Game = game;
@@ -64,13 +62,12 @@ public abstract class Weapon
 
         m_Target = anchor.GetForward();
 
-        m_AudioClip = AudioClips.PulseLaser;
-        m_AudioEmitter = new AudioEmitter_Point(m_Anchor, m_Game.GetGameAudioManager(), AudioClips.PulseLaser, EAudioRepeatBehaviour.Single);
+        m_AudioEmitter = new AudioEmitter_Point(m_Anchor, m_Game.GetGameAudioManager(), fireClip, EAudioRepeatBehaviour.Single);
 
         m_FireMode = null;
 
         m_Damage = 1.0;
-        m_MuzzleVelocity = 1.0;
+        m_FiringSpeed = 1.0;
         m_Accuracy = 1.0;
         m_LifeSpan = 1.0;
 
@@ -235,12 +232,12 @@ public abstract class Weapon
 
     public Colour GetBaseColour()
     {
-        return m_Anchor.GetBaseColour();
+        return m_Anchor.GetAltColour();
     }
 
     public Colour GetAltColour()
     {
-        return m_Anchor.GetAltColour();
+        return m_Anchor.GetBaseColour();
     }
 
 	public Vector3 GetVelocity()
@@ -316,5 +313,16 @@ public abstract class Weapon
     public EquipmentType GetEquipmentType()
     {
         return m_EquipmentType;
+    }
+
+    public double GetFiringSpeed()
+    {
+        return m_FiringSpeed;
+    }
+
+    public void CleanUp()
+    {
+        DeactivateComponent();
+        m_WeaponComponent.Destroy();
     }
 }

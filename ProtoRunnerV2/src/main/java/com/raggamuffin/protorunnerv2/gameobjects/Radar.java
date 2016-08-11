@@ -62,25 +62,28 @@ public class Radar extends GameObject
 	{
 		super.Update(deltaTime);
 
-		CalmRadar();
+        ResetRadar();
 
 		for(Vehicle vehicle : m_Vehicles)
 		{
 			m_ToVehicle.SetVectorDifference(m_Position, vehicle.GetPosition());
 
 			// Is within range.
-			if(m_ToVehicle.GetLengthSqr() > RANGE * RANGE)
-				continue;
-
-			// Transform into radar space.
-			m_ToVehicle.Scale(1 / RANGE);
-
-			for(RadarFragment fragment : m_RadarFragments)
+			if(m_ToVehicle.GetLengthSqr() < RANGE * RANGE)
 			{
-				if(CollisionDetection.RadarDetection(fragment.GetNormalisedRadarPosition(), m_ToVehicle, NORMALISED_FRAGMENT_SIZE))				
+				// Transform into radar space.
+				m_ToVehicle.Scale(1 / RANGE);
+
+				for (RadarFragment fragment : m_RadarFragments)
 				{
-					fragment.SetSignatureType(GetSignatureType(vehicle));
-					fragment.HeatUp();
+                    if(fragment.GetRadarSignature() != RadarSignatureType.Friendly)     // Ensures friendly signatures take priority.
+                    {
+                        if (CollisionDetection.RadarDetection(fragment.GetNormalisedRadarPosition(), m_ToVehicle, NORMALISED_FRAGMENT_SIZE))
+                        {
+                            fragment.SetSignatureType(GetSignatureType(vehicle));
+                            fragment.HeatUp();
+                        }
+                    }
 				}
 			}
 		}
@@ -91,37 +94,55 @@ public class Radar extends GameObject
 		}
 	}
 
-	private void CalmRadar()
+    @Override
+    protected void UpdateChildren(double deltaTime)
+    {
+        ArrayList<GameObject> children = GetChildren();
+
+        for(GameObject child : children)
+        {
+            Vector3 pos = child.GetPosition();
+            pos.I = m_Position.I;
+            pos.K = m_Position.K;
+
+            child.Update(deltaTime);
+        }
+    }
+
+    private void ResetRadar()
+    {
+        for(RadarFragment fragment : m_RadarFragments)
+        {
+            fragment.Reset();
+        }
+    }
+
+    private RadarSignatureType GetSignatureType(Vehicle vehicle)
 	{
-		for(RadarFragment fragment : m_RadarFragments)
-		{
-			fragment.CoolDown();
-		}
+        AffiliationKey signatureAffiliation = vehicle.GetAffiliation();
+
+        switch (signatureAffiliation)
+        {
+            case BlueTeam:
+                return RadarSignatureType.Friendly;
+            case RedTeam:
+                return RadarSignatureType.Foe;
+            case Neutral:
+                return RadarSignatureType.None;
+        }
+
+		return RadarSignatureType.None;
 	}
 
-	@Override
-	public boolean IsValid() 
-	{
-		return true;
-	}
+    @Override
+    public boolean IsValid()
+    {
+        return true;
+    }
 
     @Override
     public void CleanUp()
     {
 
     }
-
-    private RadarSignatureType GetSignatureType(Vehicle vehicle)
-	{
-		if(vehicle == m_Anchor)
-			return RadarSignatureType.Player;
-		
-		if(vehicle.GetAffiliation() == AffiliationKey.BlueTeam)
-			return RadarSignatureType.Wingman;
-		
-		if(vehicle.GetAffiliation() == AffiliationKey.RedTeam)
-			return RadarSignatureType.Enemy;
-		
-		return RadarSignatureType.None;
-	}
 }

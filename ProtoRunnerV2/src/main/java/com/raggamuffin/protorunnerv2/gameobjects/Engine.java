@@ -55,7 +55,7 @@ public abstract class Engine
         m_MaxAfterBurnerOutput = 2000;
 
         m_DodgeOutput = 0.0;
-        m_MaxDodgeForce = 32000.0;
+        m_MaxDodgeForce = 120000.0;
 
         m_DodgeDirection = new Vector3();
 
@@ -191,7 +191,7 @@ public abstract class Engine
 
     public void SetEngineOutput(double Output)
     {
-        m_EngineOutput = MathsHelper.Clamp(Output, 0.0, 1.0);
+        m_EngineOutput = MathsHelper.Clamp(Output, -1.0, 1.0);
     }
 
     public void SetAfterBurnerOutput(double output)

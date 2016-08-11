@@ -1,5 +1,7 @@
 package com.raggamuffin.protorunnerv2.ai;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
@@ -64,7 +66,8 @@ public class NavigationControl
             CalculateCohesion();
             CalculateSteeringVector();
 
-            m_Anchor.SetTurnRate(CalculateTurnRate());
+			double turnRate = CalculateTurnRate();
+            m_Anchor.SetTurnRate(turnRate);
         }
 	}
 
@@ -145,18 +148,22 @@ public class NavigationControl
 		m_SteeringVector.Add(m_Separation);
 		m_SteeringVector.Add(m_Alignment);
 		m_SteeringVector.Add(m_Cohesion);
+		m_SteeringVector.Normalise();
 	}
 	
 	private double CalculateTurnRate()
 	{
+		Vector3 a = new Vector3(1,0,0);
+		Vector3 b = new Vector3(-1,0,0);
+
 		// Calculate the difference in bearing to point towards the target.
 		double deltaRadians = Vector3.RadiansBetween(m_AnchorForward, m_SteeringVector);
-		
+
 		// Calculate Turn Rate	
 		double normalisedTurnRate = MathsHelper.Normalise(deltaRadians, 0.0, ARRIVAL_ANGLE);
-		
+
 		// Calculate Turn Direction
-		if(Vector3.Determinant(m_AnchorForward,  m_SteeringVector) > 0.0)
+		if(Vector3.Determinant(m_AnchorForward,  m_SteeringVector) >= 0.0)
         {
             normalisedTurnRate *= -1;
         }

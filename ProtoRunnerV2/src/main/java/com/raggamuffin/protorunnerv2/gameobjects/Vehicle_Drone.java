@@ -7,49 +7,48 @@ import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
-import com.raggamuffin.protorunnerv2.utils.Spring1;
+import com.raggamuffin.protorunnerv2.utils.MathsHelper;
+import com.raggamuffin.protorunnerv2.utils.Spring3;
+import com.raggamuffin.protorunnerv2.utils.Vector3;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_LaserBurner;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_None;
 
 public class Vehicle_Drone extends Vehicle
 {
+    private final double RESTING_HEIGHT = 5.0;
+    private final double BOBBING_SPEED = 1.0;
+    private final double BOBBING_DISTANCE = 4.0;
+
     private Vehicle_Carrier m_Anchor;
     private AIController m_AIController;
 
-    protected Spring1 m_HoverSpring;
-
-    private Weapon_None m_Unarmed;
-    private Weapon_LaserBurner m_Laser;
+    private double m_VerticalMovementTimer;
 
     public Vehicle_Drone(GameLogic game, Vehicle_Carrier anchor)
     {
         super(game);
 
         m_Anchor = anchor;
+        m_Position.SetVector(m_Anchor.GetPosition());
 
-        SetBaseColour(m_Anchor.GetBaseColour());
+        m_BaseColour = game.GetColourManager().GetSecondaryColour();
+        m_AltColour = game.GetColourManager().GetPrimaryColour();
 
         m_Engine = new Engine_Standard(this, game);
         m_Engine.SetMaxTurnRate(2.0);
-        m_Engine.SetMaxEngineOutput(300);
+        m_Engine.SetMaxEngineOutput(15000);
         m_Engine.SetDodgeOutput(0);
         m_Mass = 100;
 
         SetAffiliation(AffiliationKey.RedTeam);
 
-        m_Unarmed = new Weapon_None(this, game);
-        m_Laser = new Weapon_LaserBurner(this, game);
-
-        SelectWeapon(m_Laser);
+        SelectWeapon(new Weapon_LaserBurner(this, game));
 
         m_Model = ModelType.WeaponDrone;
 
         VehicleManager vehicleManager = game.GetVehicleManager();
         m_AIController = new AIController(this, vehicleManager, game.GetBulletManager(), AIBehaviours.FollowTheLeader, FireControlBehaviour.BeamSweep);
         m_AIController.SetLeader(anchor);
-
-        m_HoverSpring = new Spring1(1.0, 0.0, m_Mass);
-        m_HoverSpring.SetRelaxedPosition(5.0);
 
         m_CanBeTargeted = false;
     }
@@ -58,8 +57,7 @@ public class Vehicle_Drone extends Vehicle
     public void Update(double deltaTime)
     {
         m_AIController.Update(deltaTime);
-
-        m_Position.J = m_HoverSpring.Update(deltaTime,  m_Position.J);
+        UpdateBobbing(deltaTime);
 
         super.Update(deltaTime);
     }
@@ -80,16 +78,14 @@ public class Vehicle_Drone extends Vehicle
     @Override
     public void CleanUp()
     {
-
+        m_PrimaryWeapon.CleanUp();
     }
 
-    public void AllowFiring()
+    private void UpdateBobbing(double deltaTime)
     {
-        SelectWeapon(m_Laser);
-    }
+        m_VerticalMovementTimer += deltaTime * BOBBING_SPEED;
+        m_VerticalMovementTimer %= Math.PI * 2;
 
-    public void ForbidFiring()
-    {
-        SelectWeapon(m_Unarmed);
+        m_Position.J = RESTING_HEIGHT + (Math.sin(m_VerticalMovementTimer) * BOBBING_DISTANCE);
     }
 }

@@ -63,11 +63,9 @@ public class CyclingEngineAttachment extends GameObject
         m_TempVector.Scale(-5.0);
         m_Position.Add(m_TempVector);
 
-        m_Anchor.GetPosition();
-
         m_TrailEmitter.Update(deltaTime);
 
-        m_Yaw = m_Anchor.GetYaw();
+        UpdateVectorsWithForward(m_Anchor.GetForward());
 
         m_TrailEmitter.SetPosition(m_Position);
         m_TrailEmitter.Update(deltaTime);
