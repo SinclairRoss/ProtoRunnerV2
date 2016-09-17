@@ -2,7 +2,6 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.particles.TrailEmitter;
-import com.raggamuffin.protorunnerv2.utils.Colour;
 
 public class Engine_Standard extends Engine
 {
@@ -10,6 +9,6 @@ public class Engine_Standard extends Engine
     {
         super(game, anchor);
 
-        m_Anchor.AddChild(new TrailEmitter(m_Anchor, game));
+        m_Anchor.AddChild(new TrailEmitter(game, m_Anchor));
     }
 }

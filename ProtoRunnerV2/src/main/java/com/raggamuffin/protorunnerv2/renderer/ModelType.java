@@ -27,7 +27,8 @@ public enum ModelType
 	Ring,
 	StandardPoint,
 
-	Explosion,
+    Shield,
+
 	Skybox,
 
 	Nothing

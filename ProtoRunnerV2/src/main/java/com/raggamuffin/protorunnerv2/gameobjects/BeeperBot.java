@@ -22,9 +22,8 @@ public class BeeperBot extends Vehicle
 
     public BeeperBot(GameLogic game)
     {
-        super(game);
+        super(game, ModelType.Dummy);
 
-        m_Model = ModelType.Dummy;
         SetBaseColour(Colours.IndianRed);
         SetAffiliation(AffiliationKey.RedTeam);
 
@@ -74,6 +73,7 @@ public class BeeperBot extends Vehicle
     @Override
     public void CleanUp()
     {
+        super.CleanUp();
         m_Beeper.Destroy();
     }
 }

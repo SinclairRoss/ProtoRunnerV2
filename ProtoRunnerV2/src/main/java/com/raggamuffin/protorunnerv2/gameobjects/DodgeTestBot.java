@@ -17,9 +17,7 @@ public class DodgeTestBot extends Vehicle
 
     public DodgeTestBot(GameLogic game)
     {
-        super(game);
-
-        m_Model = ModelType.WeaponDrone;
+        super(game, ModelType.WeaponDrone);
 
         SetAffiliation(AffiliationKey.RedTeam);
 
@@ -41,12 +39,6 @@ public class DodgeTestBot extends Vehicle
     public boolean IsValid()
     {
         return true;
-    }
-
-    @Override
-    public void CleanUp()
-    {
-
     }
 
     @Override
