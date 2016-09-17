@@ -2,7 +2,9 @@ package com.raggamuffin.protorunnerv2.particles;
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
+import com.raggamuffin.protorunnerv2.gameobjects.RenderObjectType;
 import com.raggamuffin.protorunnerv2.managers.ParticleManager;
+import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 
 public class TrailEmitter extends GameObject
@@ -23,21 +25,21 @@ public class TrailEmitter extends GameObject
     private Colour m_ColdColour;
     private double m_TrailFadeInLength;
 
-    public TrailEmitter(GameObject anchor, GameLogic game, double fadeInLength)
+    public TrailEmitter(GameLogic game, GameObject anchor, double fadeInLength)
     {
-        super(null, null);
+        super(game, ModelType.Nothing);
 
-        Initialise(anchor, game, fadeInLength);
+        Initialise(game, anchor, fadeInLength);
     }
 
-    public TrailEmitter(GameObject anchor, GameLogic game)
+    public TrailEmitter(GameLogic game, GameObject anchor)
     {
-        super(null, null);
+        super(game, ModelType.Nothing);
 
-        Initialise(anchor, game, 0.4);
+        Initialise(game, anchor, 0.4);
     }
 
-    private void Initialise(GameObject anchor, GameLogic game, double fadeInLength)
+    private void Initialise(GameLogic game, GameObject anchor, double fadeInLength)
     {
         m_Anchor = anchor;
         m_Game = game;
@@ -86,7 +88,7 @@ public class TrailEmitter extends GameObject
     @Override
     public void CleanUp()
     {
-
+        m_HeadNode = null;
     }
 
     public TrailNode GetHeadNode()

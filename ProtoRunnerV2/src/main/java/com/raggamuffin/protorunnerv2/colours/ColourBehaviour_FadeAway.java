@@ -49,6 +49,4 @@ public class ColourBehaviour_FadeAway extends ColourBehaviour
 		super.TriggerBehaviour();
 		m_Counter = 0.0;
 	}
-
-
 }

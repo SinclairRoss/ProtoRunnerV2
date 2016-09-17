@@ -17,11 +17,9 @@ public class Projectile_Flare extends Projectile
 
     private ParticleEmitter_Point m_PointEmitter;
 
-    public Projectile_Flare(Vector3 position, Vector3 initialVelocity, Vector3 forward, Colour colour, double baseDamage, AffiliationKey affiliation, GameLogic game)
+    public Projectile_Flare(GameLogic game, Vector3 position, Vector3 initialVelocity, Vector3 forward, Colour colour, double baseDamage, AffiliationKey affiliation)
     {
-        super(position, initialVelocity, forward, colour, baseDamage, affiliation, ModelType.Nothing);
-
-        m_Model = ModelType.Nothing;
+        super(game, position, initialVelocity, forward, colour, baseDamage, affiliation, ModelType.Nothing);
 
         m_LifeSpan = new Timer(5.0);
         m_DragCoefficient = 0.85;

@@ -5,5 +5,6 @@ public enum AIBehaviours
     EngageTarget,
     Encircle,
     FollowTheLeader,
-    StickWithThePack
+    StickWithThePack,
+    TentacleSnare
 }

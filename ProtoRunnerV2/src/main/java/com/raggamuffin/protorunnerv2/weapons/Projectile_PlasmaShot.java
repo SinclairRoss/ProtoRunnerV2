@@ -1,7 +1,7 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
-import com.raggamuffin.protorunnerv2.gameobjects.BoundingRing;
+import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.FloorGrid;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
@@ -15,11 +15,11 @@ public class Projectile_PlasmaShot extends Projectile
 {
     private Timer m_LifeSpan;
 
-    public Projectile_PlasmaShot(Vector3 position, Vector3 initialVelocity, Vector3 forward, Colour colour, double baseDamage, double firingSpeed, AffiliationKey affiliation)
+    public Projectile_PlasmaShot(GameLogic game, Vector3 position, Vector3 initialVelocity, Vector3 forward, Colour colour, double baseDamage, double firingSpeed, AffiliationKey affiliation)
     {
-        super(position, initialVelocity, forward, colour, baseDamage, affiliation, ModelType.PlasmaPulse);
+        super(game, position, initialVelocity, forward, colour, baseDamage, affiliation, ModelType.PlasmaPulse);
 
-        m_LifeSpan = new Timer(5); // 5
+        m_LifeSpan = new Timer(4); // 5
 
         //TODO: Make length relative to speed.
         m_Scale.SetVector(0.25, 0.25, 3);
@@ -43,7 +43,7 @@ public class Projectile_PlasmaShot extends Projectile
 
         UpdateVectorsWithForward(m_Forward);
 
-        AddChild(new FloorGrid(m_Colour));
+        AddChild(new FloorGrid(game, this));
     }
 
     @Override

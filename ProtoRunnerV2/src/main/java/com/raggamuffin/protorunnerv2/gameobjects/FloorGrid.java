@@ -1,22 +1,27 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
+import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 
 public class FloorGrid extends GameObject
 {
 	private final double DEPTH = -1.0;
-	
-	public FloorGrid(Colour col)
+
+    private GameObject m_Anchor;
+
+	public FloorGrid(GameLogic game, GameObject anchor)
 	{
-		super(null, null);
-		
-		m_Model = ModelType.FloorPanel;
-		m_Colour = col;
+		super(game, ModelType.FloorPanel);
+
+        m_Anchor = anchor;
+		m_Colour = m_Anchor.GetColour();
+        m_Position.SetVector(m_Anchor.GetPosition());
+		m_Position.J = DEPTH;
 	}
 	
 	@Override
-	public void Update(double DeltaTime)
+	public void Update(double deltaTime)
 	{
 		m_Position.J = DEPTH;
 	}
@@ -27,10 +32,4 @@ public class FloorGrid extends GameObject
 		// Upon Anchor invalidation this class will be removed.
 		return true;
 	}
-
-    @Override
-    public void CleanUp()
-    {
-
-    }
 }

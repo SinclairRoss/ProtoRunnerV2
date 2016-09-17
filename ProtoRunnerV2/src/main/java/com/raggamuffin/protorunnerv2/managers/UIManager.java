@@ -11,11 +11,11 @@ import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_Aftermath;
-import com.raggamuffin.protorunnerv2.ui.CreditsScreen;
+import com.raggamuffin.protorunnerv2.ui.UIScreen_Credits;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_GameOver;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_HighScore;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_MainMenu;
-import com.raggamuffin.protorunnerv2.ui.NewToGameScreen;
+import com.raggamuffin.protorunnerv2.ui.UIScreen_NewToGame;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_NotSignedIn;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_Play;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_Reboot;
@@ -40,13 +40,13 @@ public class UIManager
 	
 	private UIScreen_Splash m_SplashScreen;
 	private UIScreen_MainMenu m_MenuScreen;
-	private CreditsScreen m_CreditsScreen;
+	private UIScreen_Credits m_CreditsScreen;
 	private UIScreen_Play m_PlayScreen;
 	private UIScreen_GameOver m_GameOverScreen;
 	private UIScreen_Aftermath m_AftermathScreen;
 	private UIScreen_Tutorial m_TutorialScreen;
     private UIScreen_Reboot m_RebootScreen;
-    private NewToGameScreen m_NewToGameScreen;
+    private UIScreen_NewToGame m_NewToGameScreen;
     private UIScreen_NotSignedIn m_NotSignedInScreen;
     private UIScreen_HighScore m_HighScoreScreen;
 
@@ -68,13 +68,13 @@ public class UIManager
 
 		m_SplashScreen 		 = new UIScreen_Splash(m_Game, this);
 		m_MenuScreen 		 = new UIScreen_MainMenu(m_Game, this);
-		m_CreditsScreen		 = new CreditsScreen(m_Game, this);
+		m_CreditsScreen		 = new UIScreen_Credits(m_Game, this);
 		m_PlayScreen 		 = new UIScreen_Play(m_Game, this);
 		m_GameOverScreen 	 = new UIScreen_GameOver(m_Game, this);
 		m_AftermathScreen 	 = new UIScreen_Aftermath(m_Game, this);
         m_TutorialScreen     = new UIScreen_Tutorial(m_Game, this);
         m_RebootScreen       = new UIScreen_Reboot(m_Game, this);
-        m_NewToGameScreen    = new NewToGameScreen(m_Game, this);
+        m_NewToGameScreen    = new UIScreen_NewToGame(m_Game, this);
         m_NotSignedInScreen  = new UIScreen_NotSignedIn(m_Game, this);
         m_HighScoreScreen = new UIScreen_HighScore(m_Game, this);
 

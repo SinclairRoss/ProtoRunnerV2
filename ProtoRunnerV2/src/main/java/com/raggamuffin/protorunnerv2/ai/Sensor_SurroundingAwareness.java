@@ -17,8 +17,6 @@ public class Sensor_SurroundingAwareness extends Sensor
     private Vector3 m_CenterOfMassEnemy;
     private Vector3 m_CenterOfMassFriend;
 	
-	private Vector3 m_TempVector;
-	
 	public Sensor_SurroundingAwareness(Vehicle anchor, VehicleManager vManager)
 	{
 		super(anchor, 10.0);
@@ -31,72 +29,74 @@ public class Sensor_SurroundingAwareness extends Sensor
 
         m_CenterOfMassFriend = new Vector3();
         m_CenterOfMassEnemy  = new Vector3();
-
-		m_TempVector = new Vector3();
 	}
 
-	@Override
-	public void Update() 
-	{
+    @Override
+    public void Update()
+    {
         m_VehiclesInNeighbourhood.clear();
         m_FriendlyVehiclesInNeighbourhood.clear();
         m_EnemyVehiclesInNeighbourhood.clear();
 
         m_CenterOfMassFriend.SetVector(0);
         m_CenterOfMassEnemy.SetVector(0);
-		
-		// Iterate through all minions.
-		for(Vehicle object : m_VehiclesInWorld)
-		{
-			if(object == m_Anchor)
-				continue;
 
-            if(!object.CanBeTargeted())
-                continue;
-
-			m_TempVector.SetVectorDifference(m_Anchor.GetPosition(), object.GetPosition());
-
-            if (object.GetAffiliation() == m_Anchor.GetAffiliation())
+        // Iterate through all minions.
+        for(Vehicle object : m_VehiclesInWorld)
+        {
+            if(object != m_Anchor &&
+                object.GetVehicleClass() == m_Anchor.GetVehicleClass())
             {
-                m_CenterOfMassFriend.Add(object.GetPosition());
-
-                if(m_TempVector.GetLengthSqr() <= (m_SensorRadius * m_SensorRadius))
+                if (object.GetAffiliation() == m_Anchor.GetAffiliation())
                 {
-                    m_VehiclesInNeighbourhood.add(object);
-                    m_FriendlyVehiclesInNeighbourhood.add(object);
+                    m_CenterOfMassFriend.Add(object.GetPosition());
+
+                    double distanceToObjectSqr = Vector3.GetDistanceBetweenSqr(m_Anchor.GetPosition(), object.GetPosition());
+                    if (distanceToObjectSqr <= (m_SensorRadius * m_SensorRadius))
+                    {
+                        m_VehiclesInNeighbourhood.add(object);
+                        m_FriendlyVehiclesInNeighbourhood.add(object);
+                    }
+                }
+                else
+                {
+                    m_CenterOfMassEnemy.Add(object.GetPosition());
+
+                    double distanceToObjectSqr = Vector3.GetDistanceBetweenSqr(m_Anchor.GetPosition(), object.GetPosition());
+                    if (distanceToObjectSqr <= (m_SensorRadius * m_SensorRadius))
+                    {
+                        m_VehiclesInNeighbourhood.add(object);
+                        m_EnemyVehiclesInNeighbourhood.add(object);
+                    }
                 }
             }
-            else
-            {
-                m_CenterOfMassEnemy.Add(object.GetPosition());
+        }
 
-                if(m_TempVector.GetLengthSqr() <= (m_SensorRadius * m_SensorRadius))
-                {
-                    m_VehiclesInNeighbourhood.add(object);
-                    m_EnemyVehiclesInNeighbourhood.add(object);
-                }
-            }
-		}
+        CalculateCenterOfMassFriend();
+        CalculateCenterOfMassEnemy();
+    }
 
-        double scale;
-        int size;
+    private void CalculateCenterOfMassFriend()
+    {
+        int numVehiclesInNeighbourhood = m_FriendlyVehiclesInNeighbourhood.size();
 
-        size = m_FriendlyVehiclesInNeighbourhood.size();
+        if(numVehiclesInNeighbourhood == 0)
+            numVehiclesInNeighbourhood = 1;
 
-        if(size == 0)
-            size = 1;
-
-        scale = 1.0 / size;
+        double scale = 1.0 / numVehiclesInNeighbourhood;
         m_CenterOfMassFriend.Scale(scale);
+    }
 
-        size = m_EnemyVehiclesInNeighbourhood.size();
+    private void CalculateCenterOfMassEnemy()
+    {
+        int numVehiclesInNeighbourhood = m_EnemyVehiclesInNeighbourhood.size();
 
-        if(size == 0)
-            size = 1;
+        if(numVehiclesInNeighbourhood == 0)
+            numVehiclesInNeighbourhood = 1;
 
-        scale = 1.0 / size;
+        double scale = 1.0 / numVehiclesInNeighbourhood;
         m_CenterOfMassEnemy.Scale(scale);
-	}
+    }
 
     public ArrayList<Vehicle> GetVehiclesInNeighbourhood()
     {

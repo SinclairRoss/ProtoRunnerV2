@@ -1,16 +1,16 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
+import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 
 public class BoundingRing extends GameObject
 {
-    public BoundingRing(double radius, Colour colour)
+    public BoundingRing(GameLogic game, double radius, Colour colour)
     {
-        super(null, null);
+        super(game, ModelType.Ring);
 
         m_Colour = colour;
-        m_Model = ModelType.Ring;
         m_Scale.SetVector(radius);
     }
 
@@ -24,11 +24,5 @@ public class BoundingRing extends GameObject
     public boolean IsValid()
     {
         return true;
-    }
-
-    @Override
-    public void CleanUp()
-    {
-
     }
 }

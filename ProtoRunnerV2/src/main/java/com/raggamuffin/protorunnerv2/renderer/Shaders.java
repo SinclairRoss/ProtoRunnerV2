@@ -170,12 +170,16 @@ public class Shaders
 
         +	"attribute vec4 a_Position;"
         +   "attribute float a_NormalisedLength;"
+        +   "attribute float a_Alpha;"
 
         +   "varying float v_NormalisedLength;"
+        +   "varying float v_Alpha;"
 
         +   "void main()"
         +   "{"
         +   "   v_NormalisedLength = a_NormalisedLength;"
+        +   "   v_Alpha = a_Alpha;"
+
         +	"	gl_Position = u_ProjMatrix * a_Position;"
         +   "}";
 
@@ -187,14 +191,16 @@ public class Shaders
         +   "uniform float u_ColorBloomPoint;"
 
         +   "varying float v_NormalisedLength;"
+        +   "varying float v_Alpha;"
 
         +   "void main()"
         +   "{"
-        +   "   float threshold = 0.1f;"
+        +   "   float threshold = 0.2f;"
         +   "   float min = clamp(u_ColorBloomPoint - threshold, 0.0f, 1.0f);"
         +   "   float max = clamp(u_ColorBloomPoint + threshold, 0.0f, 1.0f);"
         +   "   float lerp = sin(clamp((v_NormalisedLength - min) / (max - min),0.0, 1.0) * 3.14159265);"
         +   "	gl_FragColor = ((u_ColdColor * (1.0f - lerp)) + (u_HotColor * lerp));"
+        +   "   gl_FragColor.a = v_Alpha;"
         +   "}";
 
     public static final String vertexShader_TEXTURED =
@@ -242,7 +248,7 @@ public class Shaders
         +   "	gl_FragColor = u_Color * texture2D(u_Texture, v_TexCoord + u_TexOffset);"
         +   "}";
 
-    public static final String vertexShader_BARYCENTRIC =
+    public static final String vertexShader_WIREFRAME =
             "uniform mat4 u_ProjMatrix;"
         +   "uniform vec4 u_Position;"
         +   "uniform vec3 u_Forward;"
@@ -265,7 +271,12 @@ public class Shaders
         +   "   model[1] = vec4(u_Up.x, u_Up.y, u_Up.z, 0);"
         +   "   model[2] = vec4(u_Forward.x, u_Forward.y, u_Forward.z, 0);"
         +   "   model[3] = vec4(u_Position.x, u_Position.y, u_Position.z, 1);"
-
+/*
+        +   "   model[0] = vec4(1, 0, 0, 0);"
+        +   "   model[1] = vec4(0, 1, 0, 0);"
+        +   "   model[2] = vec4(0, 0, 1, 0);"
+        +   "   model[3] = vec4(0, 0, 0, 1);"
+*/
         +   "   float cosTheta = cos(u_Roll);"
         +   "   float sinTheta = sin(u_Roll);"
 
@@ -274,7 +285,12 @@ public class Shaders
         +   "   roll[1] = vec4(sinTheta,  cosTheta, 0, 0);"
         +   "   roll[2] = vec4(0, 0, 1, 0);"
         +   "   roll[3] = vec4(0, 0, 0, 1);"
-
+/*
+        +   "   roll[0] = vec4(1, 0, 0, 0);"
+        +   "   roll[1] = vec4(0, 1, 0, 0);"
+        +   "   roll[2] = vec4(0, 0, 1, 0);"
+        +   "   roll[3] = vec4(0, 0, 0, 1);"
+*/
         +   "   mat4 scale;"
         +   "   scale[0] = vec4(u_Scale.x, 0, 0, 0);"
         +   "   scale[1] = vec4(0, u_Scale.y, 0, 0);"
@@ -284,7 +300,7 @@ public class Shaders
         +	"	gl_Position = (u_ProjMatrix * (model * roll * scale)) * a_Vertices;"
         +	"}";
 
-    public static final String fragmentShader_BARYCENTRIC =
+    public static final String fragmentShader_WIREFRAME =
             "precision lowp float;"
 
         +	"uniform vec4 u_Color;"
@@ -295,6 +311,18 @@ public class Shaders
         +	"{"
         +   "       gl_FragColor = u_Color * float(any(lessThan(v_Barycentric, vec3(0.06))));"
         +   "       gl_FragColor.w = u_Color.w;"
+        +	"}";
+
+    public static final String fragmentShader_PHASED =
+            "precision lowp float;"
+
+        +	"uniform vec4 u_Color;"
+
+        +	"varying vec3 v_Barycentric;"
+
+        +	"void main()"
+        +	"{"
+        +   "   gl_FragColor = u_Color * inversesqrt((1.0 - length(v_Barycentric)) * 20.0);"
         +	"}";
 
     public static final String fragmentShader_BARYCENTRIC_HOLLOW =
@@ -309,32 +337,6 @@ public class Shaders
         +   "       gl_FragColor = u_Color * float(any(lessThan(v_Barycentric, vec3(0.06))));"
         +   "       gl_FragColor.w = 0.0;"
         +	"}";
-
-    public static final String vertexShader_BULLET =
-          "uniform mat4 u_ProjMatrix;       \n"     // A constant representing the combined model/view/projection matrix.
-        + "uniform float u_Size;			\n"
-        + "uniform vec4 u_EyePos;			\n"
-        + "uniform vec4 u_WorldPos;		    \n"
-
-        + "attribute vec4 a_vertices;     \n"     // Per-vertex position information we will pass in.
-
-        + "void main()                    \n"
-        + "{                              \n"
-        + "	    vec4 toEye;					        \n"
-        + " 	toEye = u_EyePos - u_WorldPos;		\n"
-        + "     float distance = length(toEye);	    \n"
-        + "	    gl_PointSize = u_Size * inversesqrt(distance);		\n"
-
-        +   "   mat4 world;"
-        +   "   world[0] = vec4(1, 0, 0, 0);"
-        +   "   world[1] = vec4(0, 1, 0, 0);"
-        +   "   world[2] = vec4(0, 0, 1, 0);"
-        +   "   world[3] = u_WorldPos;"
-
-        +   "   mat4 mvp = u_ProjMatrix * world;"
-        +	"	gl_Position = mvp * a_vertices;"
-        + "}                              \n";
-
 
     public static final String vertexShader_POINT =
             "uniform mat4 u_ProjMatrix;"

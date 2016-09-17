@@ -3,6 +3,8 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 import com.raggamuffin.protorunnerv2.ai.AIBehaviours;
 import com.raggamuffin.protorunnerv2.ai.AIController;
 import com.raggamuffin.protorunnerv2.ai.FireControlBehaviour;
+import com.raggamuffin.protorunnerv2.ai.NavigationalBehaviourInfo;
+import com.raggamuffin.protorunnerv2.ai.TargetingBehaviour;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
@@ -16,7 +18,7 @@ public class Vehicle_Tank extends Vehicle
 	
 	public Vehicle_Tank(GameLogic game)
 	{
-		super(game);
+		super(game, ModelType.Byte);
 
 		m_Mass = 2000;
 
@@ -24,22 +26,22 @@ public class Vehicle_Tank extends Vehicle
 		m_HullPoints = m_MaxHullPoints;
 
 		m_BoundingRadius = 2.0;
-		
-		m_Model = ModelType.Byte;
+
         SetBaseColour(Colours.IndianRed);
 
 		m_Position.SetVector(10, 0, 10);
 
         m_Engine = new Engine_Standard(this, game);
 		m_Engine.SetMaxTurnRate(1.0);
-		m_Engine.SetMaxEngineOutput(5000);
+		m_Engine.SetMaxEngineOutput(40000);
         m_Engine.SetDodgeOutput(0);
 
 		SetAffiliation(AffiliationKey.RedTeam); 
 		
 		SelectWeapon(new Weapon_RailGun(this, game));
 
-        m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), AIBehaviours.EngageTarget, FireControlBehaviour.Standard);
+		NavigationalBehaviourInfo navInfo = new NavigationalBehaviourInfo(0.4, 1.0, 0.7, 0.6);
+        m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), navInfo, AIBehaviours.EngageTarget, FireControlBehaviour.Standard, TargetingBehaviour.Standard);
 
 		m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.EnemyDestroyed);
 	}
@@ -55,6 +57,7 @@ public class Vehicle_Tank extends Vehicle
     @Override
     public void CleanUp()
     {
+		super.CleanUp();
 		m_PrimaryWeapon.CleanUp();
     }
 } 

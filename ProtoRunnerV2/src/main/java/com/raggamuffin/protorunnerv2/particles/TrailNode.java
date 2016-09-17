@@ -84,12 +84,12 @@ public class TrailNode
     }
 
     public void CleanUp()
-{
-    if(m_Child != null)
     {
-        m_Child.InvalidateParent();
+        if(m_Child != null)
+        {
+            m_Child.InvalidateParent();
+        }
     }
-}
 
     public void InvalidateParent()
     {

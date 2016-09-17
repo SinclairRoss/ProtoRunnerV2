@@ -20,15 +20,15 @@ public class AIBehaviour_FollowTheLeader extends AIBehaviour
     public Vector3 GetNavigationCoordinates()
     {
         // If vehicle has no leader, fall back to engage target behaviour;
-        if(m_Controller.GetLeader() == null)
-            return m_EngageTargetBehaviour.GetNavigationCoordinates();
+        if (m_Controller.GetLeader() != null)
+        {
+            m_Goal.SetVector(0);
+            Vehicle target = m_Controller.GetLeader();
+            m_Goal.SetVector(target.GetPosition());
 
-        m_Goal.SetVector(0);
+            return m_Goal;
+        }
 
-        Vehicle target = m_Controller.GetLeader();
-
-        m_Goal.SetVector(target.GetPosition());
-
-        return m_Goal;
+        return m_EngageTargetBehaviour.GetNavigationCoordinates();
     }
 }

@@ -44,7 +44,7 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
         m_SFXVolume = m_SFXVolumeStandard;
 
         m_AudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        //m_AudioManager.requestAudioFocus(this, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
+        m_AudioManager.requestAudioFocus(this, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
 
         AudioAttributes audioAttributes = new AudioAttributes.Builder()
                 .setUsage(AudioAttributes.USAGE_GAME)
@@ -61,12 +61,11 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
 	{
 		m_MediaPlayer = MediaPlayer.create(m_Context, id);
 		m_MediaPlayer.setLooping(true);
-		m_MediaPlayer.pause();
 	}
 	
 	public void PlayMusic()
 	{
-		//m_MediaPlayer.start();
+		m_MediaPlayer.start();
 	}
 	
 	public int LoadClip(int id)
@@ -146,7 +145,6 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
 	@Override
 	public void onPrepared(MediaPlayer arg0) 
 	{
-		
 	}
 
 	@Override

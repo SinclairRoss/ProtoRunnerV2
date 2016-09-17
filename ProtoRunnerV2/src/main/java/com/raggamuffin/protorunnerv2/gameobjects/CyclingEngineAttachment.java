@@ -22,9 +22,7 @@ public class CyclingEngineAttachment extends GameObject
 
     public CyclingEngineAttachment(GameObject anchor, GameLogic game, double orbitRange, double offset)
     {
-        super(null, null);
-
-        m_Model = ModelType.EngineDrone;
+        super(game, ModelType.EngineDrone);
 
         m_Game = game;
 
@@ -40,7 +38,7 @@ public class CyclingEngineAttachment extends GameObject
         m_OrbitCounter = 0.0;
         m_OrbitRate = Math.toRadians(270.0);
 
-        m_TrailEmitter = new TrailEmitter(this, game);
+        m_TrailEmitter = new TrailEmitter(game, this);
         AddChild(m_TrailEmitter);
 
         m_TempVector = new Vector3();
@@ -75,17 +73,5 @@ public class CyclingEngineAttachment extends GameObject
     public boolean IsValid()
     {
         return false;
-    }
-
-    @Override
-    public void CleanUp()
-    {
-
-    }
-
-    public void SetTrailColour(Colour start, Colour end)
-    {
-      //  m_TrailEmitter.SetStartColour(start);
-     //   m_TrailEmitter.SetFinalColour(end);
     }
 }

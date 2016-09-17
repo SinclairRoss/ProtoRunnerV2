@@ -3,7 +3,7 @@ package com.raggamuffin.protorunnerv2.renderer;
 // Author: Sinclair Ross
 // Date:   16/06/2016
 
-import com.raggamuffin.protorunnerv2.gameobjects.Rope;
+import com.raggamuffin.protorunnerv2.gameobjects.Tentacle;
 import com.raggamuffin.protorunnerv2.particles.RopeNode;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
@@ -26,17 +26,17 @@ public class RopeRenderer
         m_Rope.InitialiseModel(projMatrix, eye);
     }
 
-    public void Draw(Rope rope)
+    public void Draw(Tentacle tentacle)
     {
-        RopeNode node = rope.GetHeadNode();
+        RopeNode node = tentacle.GetHeadNode();
 
         while (node != null)
         {
-            m_Rope.AddPoint(node.GetPosition(), node.GetNormalisedLength());
+            m_Rope.AddPoint(node.GetPosition(), node.GetNormalisedLength(), node.GetAlpha());
             node = node.GetChild();
         }
 
-        m_Rope.Draw(rope.GetColdColour(), rope.GetHotColour(), rope.GetBloomPoint());
+        m_Rope.Draw(tentacle.GetAltColour(), tentacle.GetBaseColour(), tentacle.GetBloomPoint());
     }
 
     public void Clean()

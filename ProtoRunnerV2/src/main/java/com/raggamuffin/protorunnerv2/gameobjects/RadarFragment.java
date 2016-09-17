@@ -9,11 +9,13 @@ import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Spring3;
+import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class RadarFragment extends GameObject
 {
-    private final double MAX_ALPHA = 0.4;
+    private final double LIT_ALPHA = 0.4;
+    private final double IDLE_ALPHA = 0.1;
     private final double MIN_DEPTH;
     private final double MAX_DEPTH;
 
@@ -35,12 +37,11 @@ public class RadarFragment extends GameObject
 
     public RadarFragment(GameLogic game, double min, double max, double x, double y, double radarRadius)
     {
-        super(game.GetPubSubHub(), game.GetGameAudioManager());
+        super(game, ModelType.RadarFragment);
 
         MIN_DEPTH = min;
         MAX_DEPTH = max;
 
-        m_Model = ModelType.RadarFragment;
         m_Mass = 1.0;
         m_DragCoefficient = 0.95;
 
@@ -70,7 +71,7 @@ public class RadarFragment extends GameObject
     @Override
     public void Update(double deltaTime)
     {
-        m_Heat += MathsHelper.RandomDouble(0, 0.4);
+        m_Heat += MathsHelper.RandomDouble(0, 0.75);
         double targetDepth = MathsHelper.Lerp(m_Heat, MIN_DEPTH, MAX_DEPTH);
 
         m_Position.Add(m_Offset);
@@ -78,11 +79,34 @@ public class RadarFragment extends GameObject
         m_RestedPosition.J = targetDepth;
         ApplyForce(m_Spring.CalculateSpringForce(m_Position, m_RestedPosition));
 
-        double normalisedDepth = MathsHelper.Normalise(m_Position.J, MIN_DEPTH, MAX_DEPTH);
-        m_ColourBehaviour.SetIntensity(normalisedDepth);
-        m_AlphaController.SetAlpha(normalisedDepth * MAX_ALPHA);
+        UpdateColour();
 
         super.Update(deltaTime);
+    }
+
+    private void UpdateColour()
+    {
+        double normalisedDepth = MathsHelper.Normalise(m_Position.J, MIN_DEPTH, MAX_DEPTH);
+        m_ColourBehaviour.SetIntensity(normalisedDepth);
+
+        double maxAlpha = 0;
+
+        switch(m_SignatureType)
+        {
+            case Friendly:
+            case Foe:
+            {
+                maxAlpha = LIT_ALPHA;
+                break;
+            }
+            case None:
+            {
+                maxAlpha = IDLE_ALPHA;
+                break;
+            }
+        }
+
+        m_AlphaController.SetAlpha(normalisedDepth * maxAlpha);
     }
 
     public void SetSignatureType(RadarSignatureType type)
@@ -118,12 +142,6 @@ public class RadarFragment extends GameObject
     public boolean IsValid()
     {
         return true;
-    }
-
-    @Override
-    public void CleanUp()
-    {
-
     }
 
     public void Reset()

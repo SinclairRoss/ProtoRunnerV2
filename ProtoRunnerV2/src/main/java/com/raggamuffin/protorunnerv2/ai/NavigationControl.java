@@ -1,7 +1,5 @@
 package com.raggamuffin.protorunnerv2.ai;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
@@ -33,7 +31,7 @@ public class NavigationControl
 	private double m_AlignmentWeight;
 	private double m_CohesionWeight;
 	
-	public NavigationControl(AIController Controller)
+	public NavigationControl(AIController Controller, NavigationalBehaviourInfo navInfo)
 	{
 		m_Anchor 				= Controller.GetAnchor();
 		m_SituationalAwareness 	= Controller.GetSituationalAwareness();
@@ -50,10 +48,10 @@ public class NavigationControl
 		m_Alignment = new Vector3();
 		m_Cohesion = new Vector3();
 		m_CenterOfMass = new Vector3();
-		m_GoalWeight = 0.4;
-		m_SeparationWeight = 1.0;
-		m_AlignmentWeight = 0.7;
-		m_CohesionWeight = 0.6;
+		m_GoalWeight = navInfo.GetGoalWeight(); // 0.4
+		m_SeparationWeight = navInfo.GetSeperationWeight(); // 1.0
+		m_AlignmentWeight = navInfo.GetAlignmentWeight(); // 0.7
+		m_CohesionWeight = navInfo.GetCohesionWeight(); // 0.6
 	}
 	
 	public void Update()
@@ -153,9 +151,6 @@ public class NavigationControl
 	
 	private double CalculateTurnRate()
 	{
-		Vector3 a = new Vector3(1,0,0);
-		Vector3 b = new Vector3(-1,0,0);
-
 		// Calculate the difference in bearing to point towards the target.
 		double deltaRadians = Vector3.RadiansBetween(m_AnchorForward, m_SteeringVector);
 

@@ -260,6 +260,20 @@ public final class Vector3
 		return Math.sqrt(GetLengthSqr());
 	}
 
+	public static double GetDistanceBetweenSqr(Vector3 a, Vector3 b)
+	{
+		double i = b.I - a.I;
+		double j = b.J - a.J;
+		double k = b.K - a.K;
+
+		return ((i * i) + (j * j) + (k * k));
+	}
+
+	public static double GetDistanceBetween(Vector3 a, Vector3 b)
+	{
+		return Math.sqrt(GetDistanceBetweenSqr(a,b));
+	}
+
 	public boolean IsNan()
 	{
 		if(I != I)

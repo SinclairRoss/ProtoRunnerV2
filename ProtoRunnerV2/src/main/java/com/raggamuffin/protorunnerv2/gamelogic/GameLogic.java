@@ -8,11 +8,12 @@ import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
 import com.raggamuffin.protorunnerv2.gameobjects.ExhibitionCameraAnchor;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
-import com.raggamuffin.protorunnerv2.gameobjects.Rope;
-import com.raggamuffin.protorunnerv2.managers.GameObjectManager;
+import com.raggamuffin.protorunnerv2.gameobjects.StatusEffect;
+import com.raggamuffin.protorunnerv2.gameobjects.Tentacle;
+import com.raggamuffin.protorunnerv2.managers.RopeManager;
 import com.raggamuffin.protorunnerv2.managers.InGameSoundEffectsManager;
+import com.raggamuffin.protorunnerv2.managers.ModelManager;
 import com.raggamuffin.protorunnerv2.particles.Particle;
-import com.raggamuffin.protorunnerv2.particles.RopeNode;
 import com.raggamuffin.protorunnerv2.particles.TrailNode;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.BulletManager;
@@ -52,7 +53,7 @@ public class GameLogic extends ApplicationLogic
 	private ParticleManager m_ParticleManager;
 	private BulletManager m_BulletManager;
 	private VehicleManager m_VehicleManager;
-    private GameObjectManager m_GameObjectManager;
+    private RopeManager m_RopeManager;
 	private UIManager m_UIManager;
 	private RenderEffectManager m_RenderEffectManager;
 	private GameStats m_GameStats;
@@ -74,22 +75,22 @@ public class GameLogic extends ApplicationLogic
 		m_Camera = packet.GetCamera();
 		m_Control = scheme;
 
-        m_PubSubHub 			= pubSub;
-        m_ColourManager         = new ColourManager(this);
-		m_DatabaseManager 	    = new DatabaseManager(this);
-		m_GameAudioManager		= new GameAudioManager(m_Context, m_Camera);
-        m_SFXManager            = new InGameSoundEffectsManager(this);
-		m_ParticleManager 		= new ParticleManager(this);
-		m_BulletManager 		= new BulletManager(this);
-		m_VehicleManager 		= new VehicleManager(this);
-        m_GameObjectManager     = new GameObjectManager(this);
-		m_UIManager 			= new UIManager(this);
-		m_GameStats 			= new GameStats(this);
-		m_SecondWindHandler		= new SecondWindHandler(this);
-        m_RenderEffectManager 	= new RenderEffectManager(this, m_Packet.GetRenderEffectSettings());
-        m_GooglePlayService     = new GooglePlayService(this);
+        m_PubSubHub = pubSub;
+        m_ColourManager = new ColourManager(this);
+		m_DatabaseManager= new DatabaseManager(this);
+		m_GameAudioManager = new GameAudioManager(m_Context, m_Camera);
+        m_SFXManager = new InGameSoundEffectsManager(this);
+		m_ParticleManager = new ParticleManager(this);
+		m_BulletManager = new BulletManager(this);
+		m_VehicleManager = new VehicleManager(this);
+        m_RopeManager = new RopeManager(this);
+		m_UIManager = new UIManager(this);
+		m_GameStats = new GameStats(this);
+		m_SecondWindHandler	= new SecondWindHandler(this);
+        m_RenderEffectManager = new RenderEffectManager(this, m_Packet.GetRenderEffectSettings());
+        m_GooglePlayService = new GooglePlayService(this);
 
-        m_CameraAnchor = new ExhibitionCameraAnchor();
+        m_CameraAnchor = new ExhibitionCameraAnchor(this);
         AttachCameraToAnchor();
         m_Camera.SetInPlace();
 
@@ -120,7 +121,7 @@ public class GameLogic extends ApplicationLogic
 		m_ParticleManager.Update(deltaTime);
 		m_BulletManager.Update(deltaTime);
 		m_VehicleManager.Update(deltaTime);
-        m_GameObjectManager.Update(deltaTime);
+        m_RopeManager.Update(deltaTime);
 		m_RenderEffectManager.Update(deltaTime);
 		m_SecondWindHandler.Update(deltaTime);
         m_GameStats.Update(deltaTime);
@@ -141,8 +142,8 @@ public class GameLogic extends ApplicationLogic
 
 		    for(Vehicle vehicle : vehicles)
 		    {
-				// Prevent friendly fire.
-				if(vehicle.GetAffiliation() != projectile.GetAffiliation())
+                // Prevent friendly fire.
+                if (vehicle.GetAffiliation() != projectile.GetAffiliation())
                 {
                     CollisionReport report = projectile.CheckForCollision(vehicle);
                     if (report != null)
@@ -183,9 +184,9 @@ public class GameLogic extends ApplicationLogic
         m_Packet.AddObject(point);
     }
 
-    public void AddRopeToRenderer(Rope rope)
+    public void AddRopeToRenderer(Tentacle tentacle)
     {
-        m_Packet.AddObject(rope);
+        m_Packet.AddObject(tentacle);
     }
 
     public void RemoveTrailFromRenderer(TrailNode point)
@@ -193,9 +194,9 @@ public class GameLogic extends ApplicationLogic
         m_Packet.RemoveObject(point);
     }
 
-    public void RemoveRopeFromRenderer(Rope rope)
+    public void RemoveRopeFromRenderer(Tentacle tentacle)
     {
-        m_Packet.RemoveObject(rope);
+        m_Packet.RemoveObject(tentacle);
     }
 
     public void AddParticleToRenderer(Particle particle)
@@ -302,9 +303,9 @@ public class GameLogic extends ApplicationLogic
         m_Camera.SetUp(0,0,1);
 	}
 
-    public GameObjectManager GetGameObjectManager()
+    public RopeManager GetGameObjectManager()
     {
-        return m_GameObjectManager;
+        return m_RopeManager;
     }
 	
 	public GameAudioManager GetGameAudioManager()

@@ -117,7 +117,7 @@ public abstract class UIElement
 
     public void SetColour(Colour newColour)
     {
-        m_Colour.SetColour(newColour);
+        SetColour(newColour);
     }
 	
 	public Colour GetColour()

@@ -3,6 +3,8 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 import com.raggamuffin.protorunnerv2.ai.AIBehaviours;
 import com.raggamuffin.protorunnerv2.ai.AIController;
 import com.raggamuffin.protorunnerv2.ai.FireControlBehaviour;
+import com.raggamuffin.protorunnerv2.ai.NavigationalBehaviourInfo;
+import com.raggamuffin.protorunnerv2.ai.TargetingBehaviour;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
@@ -26,13 +28,13 @@ public class Vehicle_Drone extends Vehicle
 
     public Vehicle_Drone(GameLogic game, Vehicle_Carrier anchor)
     {
-        super(game);
+        super(game, ModelType.WeaponDrone);
 
         m_Anchor = anchor;
         m_Position.SetVector(m_Anchor.GetPosition());
 
-        m_BaseColour = game.GetColourManager().GetSecondaryColour();
-        m_AltColour = game.GetColourManager().GetPrimaryColour();
+        m_BaseColour = m_Anchor.GetBaseColour();
+        m_AltColour = m_Anchor.GetAltColour();
 
         m_Engine = new Engine_Standard(this, game);
         m_Engine.SetMaxTurnRate(2.0);
@@ -44,13 +46,17 @@ public class Vehicle_Drone extends Vehicle
 
         SelectWeapon(new Weapon_LaserBurner(this, game));
 
-        m_Model = ModelType.WeaponDrone;
-
         VehicleManager vehicleManager = game.GetVehicleManager();
-        m_AIController = new AIController(this, vehicleManager, game.GetBulletManager(), AIBehaviours.FollowTheLeader, FireControlBehaviour.BeamSweep);
+
+        NavigationalBehaviourInfo navInfo = new NavigationalBehaviourInfo(0.4, 1.0, 0.7, 0.6);
+        m_AIController = new AIController(this, vehicleManager, game.GetBulletManager(), navInfo, AIBehaviours.FollowTheLeader, FireControlBehaviour.BeamSweep, TargetingBehaviour.Standard);
         m_AIController.SetLeader(anchor);
 
         m_CanBeTargeted = false;
+
+        m_VehicleClass = VehicleClass.Drone;
+
+        m_StatusEffectManager.ApplyStatusEffect(StatusEffect.Shielded);
     }
 
     @Override
@@ -78,6 +84,7 @@ public class Vehicle_Drone extends Vehicle
     @Override
     public void CleanUp()
     {
+        super.CleanUp();
         m_PrimaryWeapon.CleanUp();
     }
 

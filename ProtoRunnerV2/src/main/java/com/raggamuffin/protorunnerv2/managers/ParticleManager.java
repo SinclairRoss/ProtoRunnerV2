@@ -7,14 +7,14 @@ import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.particles.Graviton;
 import com.raggamuffin.protorunnerv2.particles.GravitonBehaviourType;
 import com.raggamuffin.protorunnerv2.particles.ParticleEmitter;
-import com.raggamuffin.protorunnerv2.particles.StandardParticle;
+import com.raggamuffin.protorunnerv2.particles.Particle_Standard;
 import com.raggamuffin.protorunnerv2.particles.TrailEmitter;
 import com.raggamuffin.protorunnerv2.particles.TrailNode;
 
 public class ParticleManager
 {
-	private ArrayList<StandardParticle> m_ActiveParticles;
-	private ArrayList<StandardParticle> m_InvalidParticles;
+	private ArrayList<Particle_Standard> m_ActiveParticles;
+	private ArrayList<Particle_Standard> m_InvalidParticles;
 
 	private ArrayList<TrailNode> m_ActiveTrailParticles;
 	private ArrayList<TrailNode> m_InvalidTrailParticles;
@@ -38,11 +38,11 @@ public class ParticleManager
 	}
 	
 	public void Update(double deltaTime)
-	{		
-		for(Iterator<StandardParticle> iter = m_ActiveParticles.iterator(); iter.hasNext();)
+	{
+		for(Iterator<Particle_Standard> iter = m_ActiveParticles.iterator(); iter.hasNext();)
 		{
-			StandardParticle temp = iter.next();
-			
+			Particle_Standard temp = iter.next();
+
 			if(temp.IsValid())
 			{
 				temp.Update(deltaTime);
@@ -73,9 +73,9 @@ public class ParticleManager
         }
 	}
 
-	public StandardParticle CreateParticle(ParticleEmitter origin)
+	public Particle_Standard CreateParticle(ParticleEmitter origin)
 	{
-		StandardParticle newParticle;
+		Particle_Standard newParticle;
 		
 		// Check to see if there are any particles ready to be recycled.
 		if(m_InvalidParticles.size() > 0)
@@ -85,7 +85,7 @@ public class ParticleManager
 		}
 		else
 		{
-			newParticle = new StandardParticle(m_Gravitons);
+			newParticle = new Particle_Standard(m_Game, m_Gravitons);
 		}
 
 		newParticle.Activate(origin);

@@ -20,6 +20,7 @@ import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Carrier;
 import com.raggamuffin.protorunnerv2.gameobjects.Dummy;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Runner;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_TentacleController;
 import com.raggamuffin.protorunnerv2.gameobjects.WeaponTestBot;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Wingman;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
@@ -28,7 +29,7 @@ import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class VehicleManager
-{	
+{
 	private Vehicle_Runner m_Player;
 	private ArrayList<Vehicle> m_Vehicles;
 	private ArrayList<Vehicle> m_BlueTeam;
@@ -169,7 +170,18 @@ public class VehicleManager
 
         return spawn;
     }
-	
+
+	public Vehicle_TentacleController SpawnTentacleController(Vehicle_ShieldBearer anchor)
+    {
+        Vehicle_TentacleController spawn = new Vehicle_TentacleController(m_Game, anchor, anchor.GetTentacleRange());
+
+        m_Vehicles.add(spawn);
+        GetTeam(spawn.GetAffiliation()).add(spawn);
+		m_Game.AddObjectToRenderer(spawn);
+
+        return spawn;
+    }
+
 	public ArrayList<Vehicle> GetTeam(AffiliationKey faction)
 	{
 		switch(faction)
@@ -237,12 +249,11 @@ public class VehicleManager
 	
 	public void Wipe()
 	{
-		for(Iterator<Vehicle> iter = m_Vehicles.iterator(); iter.hasNext();)
+		for(Vehicle obj : m_Vehicles)
 		{
-			RemoveVehicle(iter.next());
-			iter.remove();
+			obj.ForceInvalidation();
 		}
-
+		
         m_PlayerPosition.SetVector(0);
 	}
 		

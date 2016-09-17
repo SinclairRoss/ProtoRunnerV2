@@ -1,7 +1,5 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
-import android.util.Log;
-
 import com.raggamuffin.protorunnerv2.ai.VehicleInfo;
 import com.raggamuffin.protorunnerv2.ai.VehicleInfo.AfterBurnerStates;
 import com.raggamuffin.protorunnerv2.ai.VehicleInfo.MovementStates;
@@ -15,6 +13,7 @@ import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_Burst;
 import com.raggamuffin.protorunnerv2.pubsub.InternalPubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.InternalTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
+import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.DecayCounter;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
@@ -54,9 +53,13 @@ public abstract class Vehicle extends GameObject
 
     protected boolean m_CanBeTargeted;
 
-	public Vehicle(GameLogic game)
+	protected VehicleClass m_VehicleClass;
+
+	protected StatusEffectManager m_StatusEffectManager;
+
+	public Vehicle(GameLogic game, ModelType modeType)
 	{
-		super(game.GetPubSubHub(), game.GetGameAudioManager());
+		super(game, modeType);
 
         m_InternalPubSub = new InternalPubSubHub();
         m_InternalDamagedPublisher = m_InternalPubSub.CreatePublisher(InternalTopics.DamageTaken);
@@ -80,7 +83,7 @@ public abstract class Vehicle extends GameObject
 		m_StressBehaviour = new ColourBehaviour_LerpTo(this, ColourBehaviour.ActivationMode.Continuous);
         AddColourBehaviour(m_StressBehaviour);
 
-		AddChild(new FloorGrid(m_Colour));
+		AddChild(new FloorGrid(game, this));
 		
 		m_LasersOn = false;
 		
@@ -92,6 +95,10 @@ public abstract class Vehicle extends GameObject
 
         m_PrimaryWeapon = new Weapon_None(this, game);
         m_Utility = new Weapon_None(this, game);
+
+		m_VehicleClass = VehicleClass.StandardVehicle;
+
+		m_StatusEffectManager = new StatusEffectManager();
 	}
 	
 	@Override
@@ -138,11 +145,14 @@ public abstract class Vehicle extends GameObject
 
 	public void CollisionResponse(double damage)
 	{
-        DrainEnergy(damage);
+		if(!HasStatusEffect(StatusEffect.Shielded))
+		{
+			DrainEnergy(damage);
+			m_InternalDamagedPublisher.Publish();
+		}
 
         m_DamageBehaviour.TriggerBehaviour();
         UpdateDamageDecayCounter();
-        m_InternalDamagedPublisher.Publish();
 	}
 
     public void UpdateDamageDecayCounter()
@@ -311,4 +321,24 @@ public abstract class Vehicle extends GameObject
 	{
 		m_Engine.DisableRoll();
 	}
+
+	public VehicleClass GetVehicleClass()
+	{
+		return m_VehicleClass;
+	}
+
+    public void ApplyStatusEffect(StatusEffect effect)
+    {
+        m_StatusEffectManager.ApplyStatusEffect(effect);
+    }
+
+    public void RemoveStatusEffect(StatusEffect effect)
+    {
+        m_StatusEffectManager.RemoveStatusEffect(effect);
+    }
+
+    public boolean HasStatusEffect(StatusEffect effect)
+    {
+        return m_StatusEffectManager.HasStatusEffect(effect);
+    }
 }

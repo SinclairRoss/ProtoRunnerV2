@@ -5,10 +5,14 @@ import java.util.ArrayList;
 
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour;
-import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_FadeTo;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
+import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
+import com.raggamuffin.protorunnerv2.managers.ModelManager;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
+import com.raggamuffin.protorunnerv2.renderer.RenderObject;
+import com.raggamuffin.protorunnerv2.renderer.RenderObject_None;
+import com.raggamuffin.protorunnerv2.renderer.RenderObject_WireFrame;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
@@ -42,19 +46,18 @@ public abstract class GameObject
     protected Colour m_AltColour;       // The Alternate colour of the GameObject.
 	private Vector4 m_DeltaColour; 		// The colour to be added to the base colour resulting in the actual colour of the game object. Uses a vector3 because the colour class doesn't support numbers outside of the range 0 - 1.
 	private ArrayList<ColourBehaviour> m_ColourBehaviours;	// Contains all colour behaviours active on this game object.
-    protected ColourBehaviour_FadeTo m_ChangeColourBehaviour;
 
 	///// Misc Attributes.
 	protected double m_BoundingRadius;	// The bounding radius of the game object. Used in collision detection.	
-	protected ModelType m_Model;				// What model the gameobject is using to render.
+	private ModelType m_Model;				// What model the gameobject is using to render.
 	private ArrayList<GameObject> m_Children;	// Other game object that depend on this object. for example reticules and Floor effects.
 	private AffiliationKey m_Faction;
 	protected PubSubHub m_PubSubHub;
 	protected GameAudioManager m_GameAudioManager;
 	
 	protected boolean m_ForciblyInvalidated;
-	
-	public GameObject(PubSubHub PubSub, GameAudioManager audio)
+
+	public GameObject(GameLogic game, ModelType modelType)
 	{
 		///// Position and orientation vectors.
 		m_Position 			= new Vector3(0,0,0);
@@ -79,12 +82,9 @@ public abstract class GameObject
 		///// Colour Attributes.
 		m_BaseColour  = new Colour(Colours.Cyan);
         m_AltColour   = new Colour(Colours.Magenta);
-		m_Colour  	  = new Colour(m_BaseColour);
+		m_Colour  	  = new Colour(Colours.Cyan);
 		m_DeltaColour = new Vector4();
 		m_ColourBehaviours = new ArrayList<>();
-
-        m_ChangeColourBehaviour = new ColourBehaviour_FadeTo(this, ColourBehaviour.ActivationMode.Triggered, 1.0);
-        AddColourBehaviour(m_ChangeColourBehaviour);
 
         ///// Misc Attributes.
 		m_BoundingRadius = 1.0;
@@ -92,13 +92,13 @@ public abstract class GameObject
 
 		SetAffiliation(AffiliationKey.Neutral);
 
-		m_Model = ModelType.Nothing;
-		m_PubSubHub = PubSub;
-		m_GameAudioManager = audio;
+		m_Model = modelType;
+		m_PubSubHub = game.GetPubSubHub();
+		m_GameAudioManager = game.GetGameAudioManager();
 		
 		m_ForciblyInvalidated = false;
 	}
-	
+
 	public void Update(double deltaTime)
 	{
 		CalculateAcceleration(deltaTime);
@@ -317,18 +317,21 @@ public abstract class GameObject
 	
 	public void SetBaseColour(double[] colour)
 	{
-        m_ChangeColourBehaviour.SetPreviousColour(m_BaseColour);
         m_BaseColour.SetColour(colour);
-
-        m_ChangeColourBehaviour.TriggerBehaviour();
-
-        m_AltColour.SetAsInverse(m_BaseColour);
+		m_Colour.SetColour(m_BaseColour);
 	}
-	
+
 	public void SetBaseColour(Colour colour)
     {
         SetBaseColour(colour.ToDoubleArray());
 	}
+
+    public void SetColourScheme(double[] base, double[] alt)
+    {
+        m_BaseColour.SetColour(base);
+        m_AltColour.SetColour(alt);
+        m_Colour.SetColour(m_BaseColour);
+    }
 
 	public Colour GetColour()
 	{
@@ -352,11 +355,16 @@ public abstract class GameObject
 		m_Children.add(obj);
 	}
 
-	public void RemoveAllChildren()
-	{
-		m_Children.clear();
-	}
-	
+    public void RemoveAllChildren()
+    {
+        for(GameObject child : m_Children)
+        {
+            child.CleanUp();
+        }
+
+        m_Children.clear();
+    }
+
 	public void SetAffiliation(AffiliationKey faction)
 	{
 		m_Faction = faction;
@@ -391,11 +399,12 @@ public abstract class GameObject
 	{
 		m_DragCoefficient = drag;
 	}
-	
-	public void SetMass(double mass)
-	{
-		m_Mass = mass;
-	}
 
-    public abstract void CleanUp();
+    public void CleanUp()
+    {
+        for(GameObject child : m_Children)
+        {
+            child.CleanUp();
+        }
+    }
 }

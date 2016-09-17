@@ -1,7 +1,9 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
+import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
+import com.raggamuffin.protorunnerv2.gameobjects.RenderObjectType;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.CollisionReport;
 import com.raggamuffin.protorunnerv2.utils.Colour;
@@ -11,20 +13,20 @@ public abstract class Projectile extends GameObject
 {
     protected double m_BaseDamage;
 
-	public Projectile(Vector3 position, Vector3 initialVelocity, Vector3 forward, Colour colour, double baseDamage, AffiliationKey affiliation, ModelType model)
+	public Projectile(GameLogic game, Vector3 position, Vector3 initialVelocity, Vector3 forward, Colour colour, double baseDamage, AffiliationKey affiliation, ModelType model)
 	{
-		super(null, null);
+		super(game, model);
 
 		m_Position.SetVector(position);
 		m_Velocity.SetVector(initialVelocity);
 		m_Forward.SetVector(forward);
         UpdateVectorsWithForward(m_Forward);
 
-        m_BaseColour.SetColour(colour);
+        SetBaseColour(colour);
         m_AltColour.SetAsInverse(colour);
 
         SetAffiliation(affiliation);
-        m_Model = model;
+
         m_BaseDamage = baseDamage;
 
 		SetDragCoefficient(1.0);

@@ -29,7 +29,6 @@ public class Projectile_Missile extends Projectile
 
     MissileState m_State;
 
-    private GameLogic m_Game;
     private WeaponBarrel m_Offset;
     private Vector3 m_Target;
     private Vector3 m_ToTarget;
@@ -46,14 +45,16 @@ public class Projectile_Missile extends Projectile
 
     private Weapon m_Origin;
 
-    public Projectile_Missile(Vector3 position, Vector3 initialVelocity, Vector3 forward, Colour colour, double baseDamage, int index, AffiliationKey affiliation, Weapon origin, GameLogic game)
+    private GameLogic m_Game;
+
+    public Projectile_Missile(GameLogic game, Vector3 position, Vector3 initialVelocity, Vector3 forward, Colour colour, double baseDamage, int index, AffiliationKey affiliation, Weapon origin)
     {
-        super(position, initialVelocity, forward, colour, baseDamage, affiliation, ModelType.Missile);
+        super(game, position, initialVelocity, forward, colour, baseDamage, affiliation, ModelType.Missile);
 
         m_Game = game;
+
         m_Origin = origin;
 
-        m_Model = ModelType.Missile;
         m_State = MissileState.Docked;
 
         m_Offset = m_Origin.GetActiveWeaponBarrel();
@@ -98,7 +99,7 @@ public class Projectile_Missile extends Projectile
                 if (m_PrimingTimer.TimedOut())
                 {
                     m_State = MissileState.Released;
-                    AddChild(new TrailEmitter(this, m_Game));
+                    AddChild(new TrailEmitter(m_Game, this));
                     m_Game.GetGameAudioManager().PlaySound(AudioClips.Missile_Engaged); // TODO: Convert to audio emitter.
                 }
 

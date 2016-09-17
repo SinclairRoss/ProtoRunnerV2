@@ -346,4 +346,46 @@ public class Colours
             0.49804,
             1.0
     };
+
+	public static final double[] HannahExperimentalAA =
+	{
+            0.23921,
+            0.23921,
+            0.23921,
+            1.0
+	};
+
+	public static final double[] HannahExperimentalAB =
+	{
+        0.88235,
+        0.36863,
+        0.30588,
+        1.0
+	};
+
+	public static final double[] HannahExperimentalBA =
+    {
+        1.0,
+        0.68235,
+        0.13725,
+        1.0
+	};
+
+	public static final double[] HannahExperimentalBB =
+	{
+        0.94902,
+        0.29020,
+        0.0,
+        1.0
+	};
+
+	public static final double[] HannahExperimentalCA =
+	{
+
+	};
+
+	public static final double[] HannahExperimentalCB =
+	{
+
+	};
 }

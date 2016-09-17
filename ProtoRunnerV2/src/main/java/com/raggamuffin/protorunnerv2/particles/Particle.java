@@ -2,7 +2,9 @@ package com.raggamuffin.protorunnerv2.particles;
 
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour.ActivationMode;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_LerpTo;
+import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
+import com.raggamuffin.protorunnerv2.gameobjects.RenderObjectType;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
@@ -16,23 +18,20 @@ public abstract class Particle extends GameObject
 	protected double m_FadeIn;
     protected double m_FadeOut;
 	
-	public Particle()
+	public Particle(GameLogic game, ModelType modelType)
 	{
-		super(null, null);
-		
+        super(game, modelType);
+
 		m_Mass = 1.0;
-		
-		m_Model = ModelType.StandardPoint;
+
 		m_BoundingRadius = 1.0;
 		m_DissipationTimer = new Timer(5);
 		m_ColourBehaviour = new ColourBehaviour_LerpTo(this, ActivationMode.Continuous);
 		AddColourBehaviour(m_ColourBehaviour);
 
-        m_Model = ModelType.StandardPoint;
-
-		m_DragCoefficient = 1.0;
+		m_DragCoefficient = 0.9;
 		
-		m_FadeIn = 0.6;
+		m_FadeIn = 0.2;
 		m_FadeOut = 0.7;
 		
 		m_BaseColour.SetColour(Colours.Black);
@@ -78,4 +77,11 @@ public abstract class Particle extends GameObject
 		m_DissipationTimer.SetLimit(origin.GetLifeSpan());
 		m_DissipationTimer.ResetTimer();
 	}
+
+	@Override
+	public boolean IsValid()
+	{
+		return !m_DissipationTimer.TimedOut();
+	}
+
 }

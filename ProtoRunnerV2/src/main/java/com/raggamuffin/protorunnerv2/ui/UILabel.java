@@ -4,6 +4,7 @@ import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.UIManager;
 import com.raggamuffin.protorunnerv2.ui.TextAnimation.AnimationState;
+import com.raggamuffin.protorunnerv2.utils.Colour;
 
 public class UILabel extends UIElement
 {
@@ -54,6 +55,12 @@ public class UILabel extends UIElement
     protected void TriggerClosingAnimation()
     {
         SetHidden(true);
+    }
+
+	@Override
+    public void SetColour(Colour newColour)
+    {
+        m_Font.SetColour(newColour);
     }
 
     ///// Setters.

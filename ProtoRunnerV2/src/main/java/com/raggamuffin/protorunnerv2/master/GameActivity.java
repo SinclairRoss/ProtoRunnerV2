@@ -28,6 +28,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import java.util.concurrent.TimeUnit;
+
 public class GameActivity extends Activity implements SensorEventListener
 {
 	public static final String TAG = "GameActivity";
@@ -93,13 +95,13 @@ public class GameActivity extends Activity implements SensorEventListener
 		
 		// Game states.
 		m_GameLogic = new GameLogic(this, pubSub, m_ControlScheme, rendererPacket);
-		
-		m_GameThread = new GameThread(m_GameLogic, m_ControlScheme, m_Handler);
-		m_GameThread.start();
+
+        m_GameThread = new GameThread(m_GameLogic, m_ControlScheme, m_Handler);
+        m_GameThread.start();
 
 		m_GameView = new GameView(this, rendererPacket);
-		setContentView(m_GameView);	
-		
+		setContentView(m_GameView);
+
 		m_SensorManager = (SensorManager) getSystemService(GameActivity.SENSOR_SERVICE);
 		m_Accelerometer = m_SensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 		m_SensorManager.registerListener(this, m_Accelerometer, SensorManager.SENSOR_DELAY_GAME);

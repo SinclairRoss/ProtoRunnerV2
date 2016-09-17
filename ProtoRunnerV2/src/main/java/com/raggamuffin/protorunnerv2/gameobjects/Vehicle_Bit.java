@@ -3,6 +3,8 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 import com.raggamuffin.protorunnerv2.ai.AIBehaviours;
 import com.raggamuffin.protorunnerv2.ai.AIController;
 import com.raggamuffin.protorunnerv2.ai.FireControlBehaviour;
+import com.raggamuffin.protorunnerv2.ai.NavigationalBehaviourInfo;
+import com.raggamuffin.protorunnerv2.ai.TargetingBehaviour;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
@@ -16,10 +18,10 @@ public class Vehicle_Bit extends Vehicle
 
 	public Vehicle_Bit(GameLogic game)
 	{
-		super(game);
+		super(game, ModelType.Bit);
 
-		m_Model = ModelType.Bit;
-        SetBaseColour(Colours.OrangeRed);
+        SetColourScheme(Colours.Pink70, Colours.RunnerBlue);
+
 		m_Position.SetVector(10, 0, 10);
 
 		m_Mass = 100;
@@ -33,7 +35,8 @@ public class Vehicle_Bit extends Vehicle
 		
 		SelectWeapon(new Weapon_PunkShot(this, game));
 
-		m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), AIBehaviours.EngageTarget, FireControlBehaviour.Standard);
+		NavigationalBehaviourInfo navInfo = new NavigationalBehaviourInfo(0.4, 1.0, 0.7, 0.6);
+		m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), navInfo, AIBehaviours.EngageTarget, FireControlBehaviour.Standard, TargetingBehaviour.Standard);
 
 		m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.EnemyDestroyed);
 	}
@@ -49,6 +52,7 @@ public class Vehicle_Bit extends Vehicle
     @Override
     public void CleanUp()
     {
+        super.CleanUp();
         m_PrimaryWeapon.CleanUp();
     }
 } 

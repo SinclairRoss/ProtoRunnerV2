@@ -163,8 +163,31 @@ public abstract class UIScreen
         UILabel label = new UILabel(m_Game.GetGameAudioManager(), m_UIManager);
         label.SetFontSize(0.075);
         label.SetText(text);
-        label.SetPosition(ButtonX, parent.GetPosition().J + parent.GetSize().J);
-        label.GetFont().SetAlignment(Font.Alignment.Right);
+
+        Font.Alignment parentAlignment = parent.GetFont().GetAlignment();
+
+        double xPos = parent.GetPosition().I;
+        switch (parentAlignment)
+        {
+            case Right:
+            {
+                xPos += parent.GetSize().I;
+                break;
+            }
+            case Center:
+            {
+                xPos += (parent.GetSize().I * 0.5);
+                break;
+            }
+            case Left:
+            default:
+            {
+                break;
+            }
+        }
+
+        label.SetPositionRaw(xPos, parent.GetPosition().J + parent.GetSize().J);
+        label.GetFont().SetAlignment(parentAlignment);
         label.GetFont().SetColour(m_Game.GetColourManager().GetSecondaryColour());
 
         m_UIManager.AddUIElement(label);

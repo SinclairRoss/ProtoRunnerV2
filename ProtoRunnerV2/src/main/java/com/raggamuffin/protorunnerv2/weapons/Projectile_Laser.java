@@ -38,14 +38,12 @@ public class Projectile_Laser extends Projectile
 
     private ParticleEmitter_Ray m_RayEmitter;
 
-    public Projectile_Laser(Vector3 position, Vector3 initialVelocity, Vector3 forward, Colour colour, double baseDamage, AffiliationKey affiliation, Weapon firingWeapon, GameLogic game)
+    public Projectile_Laser(GameLogic game, Vector3 position, Vector3 initialVelocity, Vector3 forward, Colour colour, double baseDamage, AffiliationKey affiliation, Weapon firingWeapon)
     {
-        super(position, initialVelocity, forward, colour, baseDamage, affiliation, ModelType.ParticleLaser);
+        super(game, position, initialVelocity, forward, colour, baseDamage, affiliation, ModelType.ParticleLaser);
 
         m_FiringWeapon = firingWeapon;
         m_FiringBarrel = m_FiringWeapon.GetActiveWeaponBarrel();
-
-        m_Model = ModelType.ParticleLaser;
 
         m_State = LaserState.Active;
 

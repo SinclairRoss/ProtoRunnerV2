@@ -26,9 +26,8 @@ public class Radar extends GameObject
 
 	public Radar(Vehicle anchor, GameLogic game)
 	{
-		super(game.GetPubSubHub(), game.GetGameAudioManager());
-		
-		m_Model = ModelType.Nothing;
+		super(game, ModelType.Nothing);
+
 		m_RadarFragments = new ArrayList<>();
 		m_Vehicles = game.GetVehicleManager().GetVehicles();
 		m_Anchor = anchor;
@@ -63,36 +62,55 @@ public class Radar extends GameObject
 		super.Update(deltaTime);
 
         ResetRadar();
+        ScanForSignatures();
+        UpdateFragments(deltaTime);
+	}
 
-		for(Vehicle vehicle : m_Vehicles)
-		{
-			m_ToVehicle.SetVectorDifference(m_Position, vehicle.GetPosition());
+    private void ResetRadar()
+    {
+        for(RadarFragment fragment : m_RadarFragments)
+        {
+            fragment.Reset();
+        }
+    }
 
-			// Is within range.
-			if(m_ToVehicle.GetLengthSqr() < RANGE * RANGE)
-			{
-				// Transform into radar space.
-				m_ToVehicle.Scale(1 / RANGE);
+    private void ScanForSignatures()
+    {
+        for(Vehicle vehicle : m_Vehicles)
+        {
+            if(vehicle.GetVehicleClass() == VehicleClass.Drone)
+                continue;
 
-				for (RadarFragment fragment : m_RadarFragments)
-				{
-                    if(fragment.GetRadarSignature() != RadarSignatureType.Friendly)     // Ensures friendly signatures take priority.
+            m_ToVehicle.SetVectorDifference(m_Position, vehicle.GetPosition());
+
+            if(m_ToVehicle.GetLengthSqr() < RANGE * RANGE)  // Is within range.
+            {
+                m_ToVehicle.Scale(1 / RANGE);  // Transform into radar space.
+
+                for (RadarFragment fragment : m_RadarFragments)
+                {
+                    if(fragment.GetRadarSignature() != RadarSignatureType.Friendly) // Ensures friendly signatures take priority.
                     {
                         if (CollisionDetection.RadarDetection(fragment.GetNormalisedRadarPosition(), m_ToVehicle, NORMALISED_FRAGMENT_SIZE))
                         {
                             fragment.SetSignatureType(GetSignatureType(vehicle));
                             fragment.HeatUp();
+
+                            break;
                         }
                     }
-				}
-			}
-		}
-		
-		for(RadarFragment fragment : m_RadarFragments)
-		{
-			fragment.Update(deltaTime);			
-		}
-	}
+                }
+            }
+        }
+    }
+
+    private void UpdateFragments(double deltaTime)
+    {
+        for(RadarFragment fragment : m_RadarFragments)
+        {
+            fragment.Update(deltaTime);
+        }
+    }
 
     @Override
     protected void UpdateChildren(double deltaTime)
@@ -106,14 +124,6 @@ public class Radar extends GameObject
             pos.K = m_Position.K;
 
             child.Update(deltaTime);
-        }
-    }
-
-    private void ResetRadar()
-    {
-        for(RadarFragment fragment : m_RadarFragments)
-        {
-            fragment.Reset();
         }
     }
 
@@ -138,11 +148,5 @@ public class Radar extends GameObject
     public boolean IsValid()
     {
         return true;
-    }
-
-    @Override
-    public void CleanUp()
-    {
-
     }
 }

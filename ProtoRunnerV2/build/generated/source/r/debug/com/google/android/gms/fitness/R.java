@@ -226,15 +226,15 @@ public final class R {
 		public static final int place_autocomplete_progress = 0x7f030026;
 	}
 	public static final class raw {
-		public static final int gtm_analytics = 0x7f050005;
+		public static final int gtm_analytics = 0x7f050004;
 	}
 	public static final class string {
 		public static final int accept = 0x7f06003d;
-		public static final int auth_google_play_services_client_facebook_display_name = 0x7f060045;
-		public static final int auth_google_play_services_client_google_display_name = 0x7f060046;
-		public static final int cast_notification_connected_message = 0x7f060050;
-		public static final int cast_notification_connecting_message = 0x7f060051;
-		public static final int cast_notification_disconnect = 0x7f060052;
+		public static final int auth_google_play_services_client_facebook_display_name = 0x7f060046;
+		public static final int auth_google_play_services_client_google_display_name = 0x7f060047;
+		public static final int cast_notification_connected_message = 0x7f060052;
+		public static final int cast_notification_connecting_message = 0x7f060053;
+		public static final int cast_notification_disconnect = 0x7f060054;
 		public static final int common_google_play_services_api_unavailable_text = 0x7f060011;
 		public static final int common_google_play_services_enable_button = 0x7f060012;
 		public static final int common_google_play_services_enable_text = 0x7f060013;
@@ -264,13 +264,13 @@ public final class R {
 		public static final int common_open_on_phone = 0x7f06002b;
 		public static final int common_signin_button_text = 0x7f06002c;
 		public static final int common_signin_button_text_long = 0x7f06002d;
-		public static final int create_calendar_message = 0x7f060054;
-		public static final int create_calendar_title = 0x7f060055;
-		public static final int decline = 0x7f06005b;
+		public static final int create_calendar_message = 0x7f060056;
+		public static final int create_calendar_title = 0x7f060057;
+		public static final int decline = 0x7f060063;
 		public static final int place_autocomplete_clear_button = 0x7f060039;
 		public static final int place_autocomplete_search_hint = 0x7f06003a;
-		public static final int store_picture_message = 0x7f06008a;
-		public static final int store_picture_title = 0x7f06008b;
+		public static final int store_picture_message = 0x7f060092;
+		public static final int store_picture_title = 0x7f060093;
 		public static final int wallet_buy_button_place_holder = 0x7f06003c;
 	}
 	public static final class style {

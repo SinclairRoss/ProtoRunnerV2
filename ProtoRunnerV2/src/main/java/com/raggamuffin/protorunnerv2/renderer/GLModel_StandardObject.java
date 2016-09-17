@@ -126,8 +126,8 @@ public class GLModel_StandardObject  extends GLModel
     protected void InitShaders()
     {
         // prepare shaders and OpenGL program
-        int vertexShaderHandler = loadShader(GLES20.GL_VERTEX_SHADER,Shaders.vertexShader_BARYCENTRIC);
-        int fragmentShaderHandler = loadShader(GLES20.GL_FRAGMENT_SHADER,Shaders.fragmentShader_BARYCENTRIC);
+        int vertexShaderHandler = loadShader(GLES20.GL_VERTEX_SHADER,Shaders.vertexShader_WIREFRAME);
+        int fragmentShaderHandler = loadShader(GLES20.GL_FRAGMENT_SHADER,Shaders.fragmentShader_WIREFRAME);
 
         m_Program = GLES20.glCreateProgram();             		// create empty OpenGL Program
         GLES20.glAttachShader(m_Program, vertexShaderHandler);   // add the vertex shader to program

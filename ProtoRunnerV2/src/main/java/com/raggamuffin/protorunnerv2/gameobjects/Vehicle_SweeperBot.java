@@ -15,9 +15,8 @@ public class Vehicle_SweeperBot extends Vehicle
 
     public Vehicle_SweeperBot(GameLogic game)
     {
-        super(game);
+        super(game, ModelType.Ring);
 
-        m_Model = ModelType.Ring;
         SetBaseColour(Colours.HannahBlue);
         SetAffiliation(AffiliationKey.RedTeam);
 
@@ -37,11 +36,5 @@ public class Vehicle_SweeperBot extends Vehicle
         m_Position.SetVector(Math.sin(m_ElapsedTime) * SWEEP_LENGTH, 0, DEPTH);
 
         super.Update(deltaTime);
-    }
-
-    @Override
-    public void CleanUp()
-    {
-
     }
 }

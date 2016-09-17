@@ -28,15 +28,15 @@ public class ParticleEmitter_HyperLight extends ParticleEmitter
 
     public void Update(double deltaTime)
     {
-        if(!m_On)
-            return;
-
-        m_DeltaEmission += deltaTime;
-
-        while(m_DeltaEmission >= m_MaxDeltaEmission)
+        if(m_On)
         {
-            m_DeltaEmission -= m_MaxDeltaEmission;
-            m_ParticleManager.CreateParticle(this);
+            m_DeltaEmission += deltaTime;
+
+            while (m_DeltaEmission >= m_MaxDeltaEmission)
+            {
+                m_DeltaEmission -= m_MaxDeltaEmission;
+                m_ParticleManager.CreateParticle(this);
+            }
         }
     }
 

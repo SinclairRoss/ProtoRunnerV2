@@ -9,8 +9,9 @@ public class ChaseCamera
 	private Vector3 m_Position;			// Position of the camera.
 	private Vector3 m_Up;				// The up vector of the camera;
 	private Vector3 m_LookAt;			// Where the camera is looking.
-	
-	private Vector3 m_PositionOffset;	// Position of the springs relaxed state relative to the Chase Object.
+
+    private double m_VerticalOffset;
+    private double m_HorizontalOffset;
 	private Vector3 m_RelaxedPosition;	// The Position of the Relaxed Position.
 
     private Vector3 m_Force;
@@ -32,7 +33,9 @@ public class ChaseCamera
 		m_Up 				= new Vector3(0.0,  1.0,  0.0);
 		m_LookAt 			= new Vector3();
 		m_RelaxedPosition 	= new Vector3();
-		m_PositionOffset 	= new Vector3();
+
+        m_VerticalOffset = 7;
+        m_HorizontalOffset = 2;
 
         m_Force = new Vector3();
         m_Acceleration = new Vector3();
@@ -41,7 +44,7 @@ public class ChaseCamera
         m_DragCoefficient = 0.85;
 
 		///// Spring Attributes \\\\\
-		m_Spring = new Spring3(0.08, 0);
+		m_Spring = new Spring3(0.8, 0);
 
         NormalCam();
     }
@@ -81,12 +84,10 @@ public class ChaseCamera
 	
 	private void CalculateRelaxedPosition()
 	{
-        Vector3 chasePosition = m_ChaseObject.GetPosition();
-        Vector3 chaseForward  = m_ChaseObject.GetForward();
-
-		m_RelaxedPosition.I = chasePosition.I + (chaseForward.I * m_PositionOffset.I);
-		m_RelaxedPosition.J = chasePosition.J + (m_PositionOffset.J);
-		m_RelaxedPosition.K = chasePosition.K + (chaseForward.K * m_PositionOffset.K);
+        m_RelaxedPosition.SetVector(m_ChaseObject.GetForward());
+        m_RelaxedPosition.Scale(-m_HorizontalOffset);
+        m_RelaxedPosition.J += m_VerticalOffset;
+        m_RelaxedPosition.Add(m_ChaseObject.GetPosition());
 	}
 
     private void CalculateAcceleration()
@@ -137,13 +138,15 @@ public class ChaseCamera
     public void SprintCam()
     {
         m_Spring.SetStiffness(1.0);
-        m_PositionOffset.SetVector(0, 1.5, 0);
+        m_VerticalOffset = 1.5;
+        m_HorizontalOffset = 2.5;
     }
 
     public void NormalCam()
     {
         m_Spring.SetStiffness(0.1);
-        m_PositionOffset.SetVector(-5, 10, -5); //-5 10 -2
+        m_VerticalOffset = 7;
+        m_HorizontalOffset = 4; //1
     }
 }
 

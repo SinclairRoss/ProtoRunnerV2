@@ -121,7 +121,7 @@ public class GLModel_HollowObject extends GLModel
     protected void InitShaders()
     {
         // prepare shaders and OpenGL program
-        int vertexShaderHandler = loadShader(GLES20.GL_VERTEX_SHADER,Shaders.vertexShader_BARYCENTRIC);
+        int vertexShaderHandler = loadShader(GLES20.GL_VERTEX_SHADER,Shaders.vertexShader_WIREFRAME);
         int fragmentShaderHandler = loadShader(GLES20.GL_FRAGMENT_SHADER,Shaders.fragmentShader_BARYCENTRIC_HOLLOW);
 
         m_Program = GLES20.glCreateProgram();             		// create empty OpenGL Program

@@ -49,12 +49,13 @@ public class Vehicle_Runner extends Vehicle
 
     public Vehicle_Runner(GameLogic game)
 	{
-		super(game);
+		super(game, ModelType.Runner);
+
+        m_BoundingRadius = 1.5;
 
         m_Camera = game.GetCamera();
 
 		m_Input = game.GetControlScheme();
-		m_Model = ModelType.Runner;
 
         m_BaseColour = game.GetColourManager().GetPrimaryColour();
         m_AltColour = game.GetColourManager().GetSecondaryColour();
@@ -66,8 +67,8 @@ public class Vehicle_Runner extends Vehicle
 
         m_Mass = 100;
 		m_Engine = new Engine_Standard(this, game);
-		m_Engine.SetMaxTurnRate(2.0);//2
-		m_Engine.SetMaxEngineOutput(0);//15000
+        m_Engine.SetMaxTurnRate(2.0);//2
+		m_Engine.SetMaxEngineOutput(10000);//10000
         m_Engine.SetAfterBurnerOutput(5000); // 45000
 		
 		m_MaxHullPoints = 1000;
@@ -77,6 +78,7 @@ public class Vehicle_Runner extends Vehicle
         m_HealthDrainRate = m_MaxHullPoints / completeHealthDrainTime;
 
 		AddChild(new Radar(this, game));
+        //AddChild(new Shield(game, this));
 
 		SetAffiliation(AffiliationKey.BlueTeam);
 
@@ -124,8 +126,6 @@ public class Vehicle_Runner extends Vehicle
         m_PubSubHub.SubscribeToTopic(PublishedTopics.EnemyDestroyed, EnemyDestroyedSubscriber);
 
         SelectWeaponBySlot(WeaponSlot.Left);
-
-        m_BoundingRadius = 1.5;
     }
 
 	@Override
@@ -139,6 +139,7 @@ public class Vehicle_Runner extends Vehicle
     @Override
     public void CleanUp()
     {
+        super.CleanUp();
         m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.Fire, FireSubscriber);
         m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.CeaseFire, CeaseFireSubscriber);
         m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.EvadeLeft, EvadeLeftSubscriber);

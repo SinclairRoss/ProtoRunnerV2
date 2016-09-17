@@ -1,4 +1,5 @@
 package com.raggamuffin.protorunnerv2.ai;
+import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.BulletManager;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
@@ -15,13 +16,17 @@ public class AIController
 	private Vehicle m_Anchor;
 	private Vehicle m_Leader;
 
-	public AIController(Vehicle anchor, VehicleManager vManager, BulletManager bManager, AIBehaviours behaviour, FireControlBehaviour fireBehaviour)
+    private AffiliationKey m_TeamAffiliation;
+
+	public AIController(Vehicle anchor, VehicleManager vManager, BulletManager bManager, NavigationalBehaviourInfo navInfo, AIBehaviours behaviour, FireControlBehaviour fireBehaviour, TargetingBehaviour targetingBehaviour)
 	{
 		m_Anchor = anchor;
 
+        m_TeamAffiliation = m_Anchor.GetAffiliation();
+
 		///// AI Subsystems.
-		m_SituationalAwareness 	= new SituationalAwareness(this, vManager, bManager);
-        m_NavigationControl 	= new NavigationControl(this);
+		m_SituationalAwareness 	= new SituationalAwareness(this, vManager, bManager, targetingBehaviour);
+        m_NavigationControl 	= new NavigationControl(this, navInfo);
         m_EvasionControl        = new EvasionControl(this);
 		m_FireControl 			= GetFireControlBehaviour(fireBehaviour);
         m_Behaviour             = GetBehaviour(behaviour);
@@ -39,6 +44,8 @@ public class AIController
                 return new AIBehaviour_FollowTheLeader(this);
             case StickWithThePack:
                 return new AIBehaviour_StickWithThePack(this);
+            case TentacleSnare:
+                return new AIBehaviour_TentacleSnare(this);
             default:
                 return null;
         }
@@ -74,12 +81,32 @@ public class AIController
 
     public void CheckLeader()
     {
-        if(m_Leader == null)
-            return;
-
-        if(!m_Leader.IsValid())
+        if(m_Leader != null)
         {
-            m_Leader = null;
+            if (!m_Leader.IsValid())
+            {
+                m_Leader = null;
+            }
+        }
+    }
+
+    public AffiliationKey GetTeamAffiliationKey()
+    {
+        return m_TeamAffiliation;
+    }
+
+    public AffiliationKey GetEnemyAffiliationKey()
+    {
+        switch (m_TeamAffiliation)
+        {
+            case BlueTeam:
+                return AffiliationKey.RedTeam;
+            case RedTeam:
+                return AffiliationKey.BlueTeam;
+            case Neutral:
+            default:
+                return AffiliationKey.Neutral;
+
         }
     }
 

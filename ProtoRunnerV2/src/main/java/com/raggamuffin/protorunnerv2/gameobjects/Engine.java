@@ -67,7 +67,7 @@ public abstract class Engine
 
         m_Exertion = 0.0;
 
-        m_HyperLight = new ParticleEmitter_HyperLight(game, m_Anchor.GetBaseColour(), m_Anchor.GetAltColour(), 4000, 3.0);
+        m_HyperLight = new ParticleEmitter_HyperLight(game, m_Anchor.GetBaseColour(), m_Anchor.GetAltColour(), 1000, 3.0);
 
         m_RollEnabled = true;
     }
@@ -93,14 +93,13 @@ public abstract class Engine
     {
         Vector3 velocity = m_Anchor.GetVelocity();
 
-        Vector3 emitterPos = new Vector3(velocity);
-        emitterPos.Normalise();
-        m_HyperLight.SetForward(emitterPos);
+        Vector3 emitterForward = new Vector3(velocity);
+        emitterForward.Normalise();
+        m_HyperLight.SetForward(emitterForward);
 
-        emitterPos.Scale(3.0);
-        emitterPos.Add(m_Anchor.GetPosition());
-
-        m_HyperLight.SetPosition(emitterPos);
+        emitterForward.Scale(3.0);
+        emitterForward.Add(m_Anchor.GetPosition());
+        m_HyperLight.SetPosition(emitterForward);
         m_HyperLight.SetVelocity(velocity);
 
         m_HyperLight.Update(deltaTime);

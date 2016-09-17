@@ -3,6 +3,8 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 import com.raggamuffin.protorunnerv2.ai.AIBehaviours;
 import com.raggamuffin.protorunnerv2.ai.AIController;
 import com.raggamuffin.protorunnerv2.ai.FireControlBehaviour;
+import com.raggamuffin.protorunnerv2.ai.NavigationalBehaviourInfo;
+import com.raggamuffin.protorunnerv2.ai.TargetingBehaviour;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
@@ -16,9 +18,8 @@ public class Dummy extends Vehicle
 
     public Dummy(GameLogic game)
     {
-        super(game);
+        super(game, ModelType.Dummy);
 
-        m_Model = ModelType.Dummy;
         SetAffiliation(AffiliationKey.RedTeam);
 
         SetBaseColour(Colours.ChaserOrange);
@@ -32,7 +33,8 @@ public class Dummy extends Vehicle
         m_Engine.SetAfterBurnerOutput(1);
 
         SelectWeapon(new Weapon_None(this, game));
-        m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), AIBehaviours.Encircle, FireControlBehaviour.None);
+        NavigationalBehaviourInfo navInfo = new NavigationalBehaviourInfo(0.4, 1.0, 0.7, 0.6);
+        m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), navInfo, AIBehaviours.Encircle, FireControlBehaviour.None, TargetingBehaviour.Standard);
     }
 
     @Override
@@ -41,11 +43,5 @@ public class Dummy extends Vehicle
         m_AIController.Update(deltaTime);
 
         super.Update(deltaTime);
-    }
-
-    @Override
-    public void CleanUp()
-    {
-
     }
 }

@@ -466,6 +466,7 @@
     <!-- From: file:/C:/Users/Mad%20Beast/AndroidStudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="app_name">ProtoRunner V2</string>
+    <string name="app_name_syleised">ProtoRunner_V2</string>
     <!-- From: file:/C:/Users/Mad%20Beast/AndroidStudioProjects/ProtoRunnerV2/ProtoRunnerV2/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.4.0/res/values/auth_strings.xml -->
     <eat-comment/>
     <string name="auth_google_play_services_client_facebook_display_name">Facebook</string>
@@ -536,6 +537,46 @@
         0.0f,  0.0f,  0.5f,
         0.5f, -0.5f,  0.0f,
         0.5f,  0.5f,  0.0f,
+    </string>
+    <!-- From: file:/C:/Users/Mad%20Beast/AndroidStudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/box.xml -->
+    <eat-comment/>
+    <string name="box_vertices">
+  -1.0f,-1.0f,-1.0f,
+    -1.0f,-1.0f, 1.0f,
+    -1.0f, 1.0f, 1.0f,
+    1.0f, 1.0f,-1.0f,
+    -1.0f,-1.0f,-1.0f,
+    -1.0f, 1.0f,-1.0f,
+    1.0f,-1.0f, 1.0f,
+    -1.0f,-1.0f,-1.0f,
+    1.0f,-1.0f,-1.0f,
+    1.0f, 1.0f,-1.0f,
+    1.0f,-1.0f,-1.0f,
+    -1.0f,-1.0f,-1.0f,
+    -1.0f,-1.0f,-1.0f,
+    -1.0f, 1.0f, 1.0f,
+    -1.0f, 1.0f,-1.0f,
+    1.0f,-1.0f, 1.0f,
+    -1.0f,-1.0f, 1.0f,
+    -1.0f,-1.0f,-1.0f,
+    -1.0f, 1.0f, 1.0f,
+    -1.0f,-1.0f, 1.0f,
+    1.0f,-1.0f, 1.0f,
+    1.0f, 1.0f, 1.0f,
+    1.0f,-1.0f,-1.0f,
+    1.0f, 1.0f,-1.0f,
+    1.0f,-1.0f,-1.0f,
+    1.0f, 1.0f, 1.0f,
+    1.0f,-1.0f, 1.0f,
+    1.0f, 1.0f, 1.0f,
+    1.0f, 1.0f,-1.0f,
+    -1.0f, 1.0f,-1.0f,
+    1.0f, 1.0f, 1.0f,
+    -1.0f, 1.0f,-1.0f,
+    -1.0f, 1.0f, 1.0f,
+    1.0f, 1.0f, 1.0f,
+    -1.0f, 1.0f, 1.0f,
+    1.0f,-1.0f, 1.0f
     </string>
     <!-- From: file:/C:/Users/Mad%20Beast/AndroidStudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/strings.xml -->
     <eat-comment/>
@@ -685,8 +726,14 @@
     <string name="credits_screen_title">Credits</string>
     <string name="credits_text1">Raggamuffin Games is</string>
     <string name="credits_text2">Sinclair Ross</string>
+    <string name="credits_text2_sub">Programmer</string>
     <string name="credits_text3">Special thanks to</string>
     <string name="credits_text4">Calvin Wylie</string>
+    <string name="credits_text4_sub">QA &amp; Then Some</string>
+    <string name="credits_text5">Hannah Middlemass</string>
+    <string name="credits_text5_sub">Art Consultant</string>
+    <string name="credits_text6">Ryan Scoble</string>
+    <string name="credits_text6_sub">Audio Production</string>
     <!-- From: file:/C:/Users/Mad%20Beast/AndroidStudioProjects/ProtoRunnerV2/ProtoRunnerV2/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.4.0/res/values/admob_strings.xml -->
     <eat-comment/>
     <string name="decline">Decline</string>
@@ -1087,24 +1134,41 @@
         0.0f,  0.0f,  1.5f,
         0.0f, -0.75f, -1.2f
     </string>
-    <!-- From: file:/C:/Users/Mad%20Beast/AndroidStudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/shield.xml -->
+    <!-- From: file:/C:/Users/Mad%20Beast/AndroidStudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/octahedron.xml -->
     <eat-comment/>
     <string name="shield_vertices">
-        -1.0f, -1.0f, 1.0f,
-        1.0f, -1.0f, 1.0f,
-        1.0f, 1.0f, 1.0f,
+        0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, 1.0f,
+        1.0f, 0.0f, 0.0f,
 
-        -1.0f, -1.0f, 1.0f,
-        1.0f, 1.0f, 1.0f,
-        -1.0f, -1.0f, -1.0f,
+        1.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, 1.0f,
+        0.0f,-1.0f, 0.0f,
 
-        1.0f, -1.0f, 1.0f,
-        -1.0f, -1.0f, -1.0f,
-        1.0f, 1.0f, 1.0f,
+        0.0f,-1.0f, 0.0f,
+        0.0f, 0.0f, 1.0f,
+       -1.0f, 0.0f, 0.0f,
 
-        -1.0f, -1.0f, 1.0f,
-        -1.0f, -1.0f, -1.0f,
-        1.0f, -1.0f, 1.0f,
+       -1.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, 1.0f,
+        0.0f, 1.0f, 0.0f,
+
+        0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f,-1.0f,
+       -1.0f, 0.0f, 0.0f,
+
+        0.0f,-1.0f, 0.0f,
+       -1.0f, 0.0f, 0.0f,
+        0.0f, 0.0f,-1.0f,
+
+        1.0f, 0.0f, 0.0f,
+        0.0f,-1.0f, 0.0f,
+        0.0f, 0.0f,-1.0f,
+
+        0.0f, 1.0f, 0.0f,
+        1.0f, 0.0f, 0.0f,
+        0.0f, 0.0f,-1.0f,
+
     </string>
     <!-- From: file:/C:/Users/Mad%20Beast/AndroidStudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/shieldbearer.xml -->
     <eat-comment/>
@@ -1335,6 +1399,7 @@
     </string>
     <!-- From: file:/C:/Users/Mad%20Beast/AndroidStudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/strings.xml -->
     <eat-comment/>
+    <string name="title_subtext">DEVELOPER_EDITION</string>
     <string name="tutorial_boost">Press and hold the right side of the screen to boost</string>
     <string name="tutorial_destroy">Destroy the training dummies</string>
     <string name="tutorial_dodge">Swipe left or right to dodge</string>
@@ -1423,7 +1488,7 @@
     </string>
     <!-- From: file:/C:/Users/Mad%20Beast/AndroidStudioProjects/ProtoRunnerV2/ProtoRunnerV2/src/main/res/values/strings.xml -->
     <eat-comment/>
-    <string name="wingman_down">Wingman Destroyed</string>
+    <string name="wingman_down">Wingman Lost</string>
     <!-- From: file:/C:/Users/Mad%20Beast/AndroidStudioProjects/ProtoRunnerV2/ProtoRunnerV2/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/values/values.xml -->
     <eat-comment/>
     <style name="AlertDialog.AppCompat" parent="Base.AlertDialog.AppCompat"/>

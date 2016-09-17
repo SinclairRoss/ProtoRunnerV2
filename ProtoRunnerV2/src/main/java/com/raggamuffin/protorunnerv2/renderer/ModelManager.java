@@ -25,12 +25,14 @@ public class ModelManager
 
 	private Context m_Context;
 
-	private GLFloorPanel m_FloorPanel;
+	private GLModel_FloorPanel m_FloorPanel;
 	private GLModel_Ring m_Ring;
 	private GLLine m_Pointer;
 	private GLScreenQuad m_Screen;
 	private GLSkybox m_Skybox;
-	private GLRadarFragment m_RadarFragment;
+	private GLModel_RadarFragment m_RadarFragment;
+
+    private GLModel_Rope m_Rope;
 
     private GLModel_SolidObject m_ParticleLaser;
     private GLModel_SolidObject m_PlasmaPulse;
@@ -46,7 +48,7 @@ public class ModelManager
     private GLModel_StandardObject m_Dummy;
     private GLModel_StandardObject m_WeaponDrone;
     private GLModel_StandardObject m_ThreePointStar;
-    private GLModel_StandardObject m_Shield;
+    private GLModel_PhasedObject m_Shield;
 
     private GLModel_HollowObject m_Explosion;
 
@@ -71,7 +73,7 @@ public class ModelManager
 	
 	private void LoadModels()
     {
-        m_FloorPanel = new GLFloorPanel();
+        m_FloorPanel = new GLModel_FloorPanel();
         m_Ring = new GLModel_Ring();
         m_Pointer = new GLLine(2.0f);
         m_ParticleLaser = new GLModel_SolidObject(ReadFloatArrayFromResource(R.string.laser_vertices));
@@ -79,7 +81,9 @@ public class ModelManager
 
         m_Screen = new GLScreenQuad();
         m_Skybox = new GLSkybox();
-        m_RadarFragment = new GLRadarFragment();
+        m_RadarFragment = new GLModel_RadarFragment();
+
+        m_Rope = new GLModel_Rope();
 
         m_Runner = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.runner_vertices));
         m_Bit = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.bit_vertices));
@@ -93,8 +97,7 @@ public class ModelManager
         m_Explosion = new GLModel_HollowObject(ReadFloatArrayFromResource(R.string.dome_vertices));
         m_WeaponDrone = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.weapondrone_vertices));
         m_ThreePointStar = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.three_point_star));
-        m_Shield = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.shield_vertices));
-
+        m_Shield = new GLModel_PhasedObject(ReadFloatArrayFromResource(R.string.shield_vertices));
     }
 
     private float[] ReadFloatArrayFromResource(int resource)
@@ -131,20 +134,20 @@ public class ModelManager
             case FloorPanel:
                 GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
                 GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_TextureHandles[0]);
-
                 break;
 
             case RadarFragment:
                 GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
                 GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_TextureHandles[2]);
-
                 break;
         }
 
         GLModel model = GetModel(type);
 
         if(model != null)
+        {
             model.InitialiseModel(projMatrix, eye);
+        }
     }
 
     public void CleanModel(ModelType type)
@@ -152,7 +155,9 @@ public class ModelManager
         GLModel model = GetModel(type);
 
         if(model != null)
+        {
             model.CleanModel();
+        }
     }
 
     public GLModel GetModel(ModelType type)
@@ -179,14 +184,14 @@ public class ModelManager
                 return m_FloorPanel;
             case Ring:
                 return m_Ring;
+            case Trail:
+                return null;
             case LaserPointer:
                 return m_Pointer;
             case ParticleLaser:
                 return m_ParticleLaser;
             case PlasmaPulse:
                 return m_PlasmaPulse;
-            case Explosion:
-                return m_Explosion;
             case Skybox:
                 return m_Skybox;
             case RadarFragment:
@@ -197,7 +202,15 @@ public class ModelManager
                 return m_ThreePointStar;
             case ShieldBearer:
                 return m_ShieldBearer;
+            case Shield:
+                return m_Shield;
             case Nothing:
+                return null;
+            case PlasmaShot:
+                return null;
+            case RailSlug:
+                return null;
+            case StandardPoint:
                 return null;
             default:
                 Log.e("ModelManager.java", "ModelType: '" + type + "' not found.");

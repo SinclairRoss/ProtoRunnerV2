@@ -7,9 +7,8 @@ import android.graphics.Point;
 
 import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
-import com.raggamuffin.protorunnerv2.gameobjects.Rope;
+import com.raggamuffin.protorunnerv2.gameobjects.Tentacle;
 import com.raggamuffin.protorunnerv2.particles.Particle;
-import com.raggamuffin.protorunnerv2.particles.RopeNode;
 import com.raggamuffin.protorunnerv2.particles.TrailNode;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
@@ -18,9 +17,9 @@ import com.raggamuffin.protorunnerv2.ui.UIElementType;
 public class RendererPacket 
 {
     private final Point m_ScreenSize;
-	private final ArrayList<ArrayList<GameObject>> m_GameObjects;
+	private final ArrayList<ArrayList<GameObject>> m_RenderObjects;
     private final ArrayList<TrailNode> m_TrailNodes;
-    private final ArrayList<Rope> m_Ropes;
+    private final ArrayList<Tentacle> m_Tentacles;
     private final ArrayList<Particle> m_Particles;
 	private final ArrayList<ArrayList<UIElement>> m_UIElements;
 	private final ChaseCamera m_Camera;
@@ -32,11 +31,11 @@ public class RendererPacket
         m_ScreenSize = screenSize;
 
         int numModels = ModelType.values().length;
-		m_GameObjects = new ArrayList<>(numModels);
+		m_RenderObjects = new ArrayList<>(numModels);
 
-        for(int i = 0; i < numModels; i++)
+        for(int i = 0; i < numModels; ++i)
         {
-            m_GameObjects.add(new ArrayList<GameObject>());
+            m_RenderObjects.add(new ArrayList<GameObject>());
         }
 
         int numUIElements = UIElementType.values().length;
@@ -49,27 +48,26 @@ public class RendererPacket
 
         m_Particles = new ArrayList<>();
         m_TrailNodes = new ArrayList<>();
-        m_Ropes = new ArrayList<>();
+        m_Tentacles = new ArrayList<>();
 
 		m_Context = context;
 		m_Camera = camera;
 		m_RenderEffectSettings = settings;
 	}
 
-    ///// Game Objects.
     public ArrayList<TrailNode> GetTrailPoints()
     {
         return m_TrailNodes;
     }
 
-    public ArrayList<Rope> GetRopes()
+    public ArrayList<Tentacle> GetRopes()
     {
-        return m_Ropes;
+        return m_Tentacles;
     }
 
     public ArrayList<GameObject> GetModelList(ModelType type)
     {
-        return m_GameObjects.get(type.ordinal());
+        return m_RenderObjects.get(type.ordinal());
     }
 
     public ArrayList<Particle> GetParticles()
@@ -82,9 +80,9 @@ public class RendererPacket
         m_TrailNodes.add(point);
     }
 
-    public void AddObject(Rope node)
+    public void AddObject(Tentacle node)
     {
-        m_Ropes.add(node);
+        m_Tentacles.add(node);
     }
 
     public void AddObject(GameObject object)
@@ -102,7 +100,7 @@ public class RendererPacket
         m_TrailNodes.remove(point);
     }
 
-    public void RemoveObject(Rope node) { m_Ropes.remove(node);}
+    public void RemoveObject(Tentacle node) { m_Tentacles.remove(node);}
 
     public void RemoveObject(GameObject object)
     {
@@ -114,7 +112,6 @@ public class RendererPacket
         m_Particles.remove(particle);
     }
 
-	///// UI Elements.
     public ArrayList<UIElement> GetUIElementList(UIElementType type)
     {
         return m_UIElements.get(type.ordinal());
@@ -130,25 +127,21 @@ public class RendererPacket
         GetUIElementList(element.GetType()).remove(element);
     }
 
-	///// Context.
 	public Context GetContext()
 	{
 		return m_Context;
 	}
 
-	///// Camera.
 	public ChaseCamera GetCamera()
     {
         return m_Camera;
     }
 
-	///// Render Effect Settings.
 	public RenderEffectSettings GetRenderEffectSettings()
 	{
 		return m_RenderEffectSettings;
 	}
 
-    // Screen Size.
     public Point GetScreenSize()
     {
         return m_ScreenSize;

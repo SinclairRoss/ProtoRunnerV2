@@ -14,7 +14,8 @@ import com.raggamuffin.protorunnerv2.utils.CollisionDetection;
 
 public class UIScreen_MainMenu extends UIScreen
 {
-	private UIElement m_Title;
+	private UILabel m_Title;
+    private UILabel m_TitleSubtext;
 	private UIButton m_Play;
     private UIButton m_LeaderBoards;
     private UIButton m_Achievements;
@@ -47,6 +48,7 @@ public class UIScreen_MainMenu extends UIScreen
         Context context = m_Game.GetContext();
 
         m_Title         = CreateTitle(context.getString(R.string.app_name));
+        m_TitleSubtext  = CreateLabelSubtext(m_Title, context.getString(R.string.title_subtext));
 		m_Play 		    = CreateButton(context.getString(R.string.button_play), PublishedTopics.StartGame, AudioClips.UI_Play);
         m_LeaderBoards  = CreateButton(context.getString(R.string.highscore_picker_screen_title), UIScreens.Leaderboards, AudioClips.UI_Positive);
         m_Achievements  = CreateButton(context.getString(R.string.button_achievements), PublishedTopics.AchievementsPressed, AudioClips.UI_Positive);
@@ -87,6 +89,9 @@ public class UIScreen_MainMenu extends UIScreen
 
         m_UIManager.RemoveUIElement(m_Title);
         m_Title = null;
+
+        m_UIManager.RemoveUIElement(m_TitleSubtext);
+        m_TitleSubtext = null;
 
         m_UIManager.RemoveUIElement(m_LeaderBoards);
         m_LeaderBoards = null;

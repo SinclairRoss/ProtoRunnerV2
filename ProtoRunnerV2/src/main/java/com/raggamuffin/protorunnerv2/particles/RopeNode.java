@@ -3,20 +3,25 @@ package com.raggamuffin.protorunnerv2.particles;
 // Author: Sinclair Ross
 // Date:   16/06/2016
 
-import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.RopeSpring;
+import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class RopeNode
 {
+    private enum NodeState
+    {
+        Alive,
+        Dying,
+        Dead
+    }
+
     private RopeNode m_Parent;
     private RopeNode m_Child;
     private Vector3 m_Position;
 
-    private Colour m_Colour;
-    private Colour m_HotColour;
-    private Colour m_ColdColour;
+    private double m_Alpha;
 
     private double m_Mass;
     private Vector3 m_Force;
@@ -29,15 +34,16 @@ public class RopeNode
     private double m_ToNodeLength;
     private double m_NormalisedLength;
 
-    public RopeNode(Vector3 position, RopeNode parent, Colour hotColour, Colour coldColour, double mass, double springLength, double springStrength, double gravityStrength)
+    private NodeState m_NodeState;
+    private Timer m_LifeSpanTimer;
+
+    public RopeNode(Vector3 position, RopeNode parent, double mass, double springLength, double springStrength, double gravityStrength, double lifeDuration)
     {
         m_Parent = parent;
         m_Child =  null;
         m_Position = new Vector3(position);
 
-        m_Colour = new Colour(hotColour);
-        m_HotColour = new Colour(hotColour);
-        m_ColdColour = new Colour(coldColour);
+        m_Alpha = 1.0;
 
         m_Mass = mass;
         m_Force = new Vector3();
@@ -54,6 +60,9 @@ public class RopeNode
         m_NormalisedLength = 0.0;
         m_ToNodeLength = 0.0;
         m_RopeLengthSqr = 0.0;
+
+        m_NodeState = NodeState.Alive;
+        m_LifeSpanTimer = new Timer(lifeDuration);
     }
 
     public void SetChild(RopeNode child)
@@ -73,13 +82,37 @@ public class RopeNode
 
     public void Update(double deltaTime)
     {
-        CalculateVelocity(deltaTime);
-        UpdatePosition(deltaTime);
+        switch(m_NodeState)
+        {
+            case Alive:
+            {
+                CalculateVelocity(deltaTime);
+                UpdatePosition(deltaTime);
 
-        double lerp = m_NormalisedLength;
-        m_Colour.Red = MathsHelper.Lerp(lerp, m_HotColour.Red, m_ColdColour.Red);
-        m_Colour.Green = MathsHelper.Lerp(lerp, m_HotColour.Green, m_ColdColour.Green);
-        m_Colour.Blue = MathsHelper.Lerp(lerp, m_HotColour.Blue, m_ColdColour.Blue);
+                break;
+            }
+            case Dying:
+            {
+                m_LifeSpanTimer.Update(deltaTime);
+                m_Alpha = m_LifeSpanTimer.GetInverseProgress();
+
+                if(m_LifeSpanTimer.TimedOut())
+                {
+                    if(m_Child != null)
+                    {
+                        m_Child.KillNode();
+                    }
+
+                    m_NodeState = NodeState.Dead;
+                }
+
+                break;
+            }
+            case Dead:
+            {
+                break;
+            }
+        }
     }
 
     private void CalculateVelocity(double deltaTime)
@@ -123,16 +156,6 @@ public class RopeNode
         m_Velocity.SetVector(velocity);
     }
 
-    public Colour GetColour()
-    {
-        return m_Colour;
-    }
-
-    public void SetColour(double[] colour)
-    {
-        m_HotColour.SetColour(colour);
-    }
-
     public RopeNode GetChild()
     {
         return m_Child;
@@ -158,6 +181,11 @@ public class RopeNode
         m_Force.SetVector(0);
     }
 
+    public double GetAlpha()
+    {
+        return m_Alpha;
+    }
+
     public Vector3 GetVelocity()
     {
         return m_Velocity;
@@ -181,6 +209,22 @@ public class RopeNode
     public double GetNormalisedLength()
     {
         return m_NormalisedLength;
+    }
+
+    public void HaltNode()
+    {
+        m_Force.SetVector(0);
+        m_Velocity.SetVector(0);
+    }
+
+    public void KillNode()
+    {
+        m_NodeState = NodeState.Dying;
+    }
+
+    public boolean IsDead()
+    {
+        return m_NodeState == NodeState.Dead;
     }
 }
 

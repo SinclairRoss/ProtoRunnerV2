@@ -22,7 +22,9 @@ public class AIBehaviour_EngageTarget extends AIBehaviour
         Vehicle target = m_Controller.GetSituationalAwareness().GetTargetSensor().GetTarget();
 
         if(target != null)
+        {
             m_Goal.SetVector(target.GetPosition());
+        }
 
         return m_Goal;
     }

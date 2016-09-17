@@ -67,7 +67,8 @@ public class GameAudioManager
         m_IDs[AudioClips.UI_Play.ordinal()] = m_AudioService.LoadClip(R.raw.ui_play);
 		
 		// Music
-		m_AudioService.LoadMusic(R.raw.music_exceeder);
+		m_AudioService.LoadMusic(R.raw.skeletons);
+        StartMusic();
 	}
 	
 	public void StartMusic()

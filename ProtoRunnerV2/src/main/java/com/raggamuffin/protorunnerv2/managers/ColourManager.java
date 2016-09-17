@@ -33,8 +33,8 @@ public class ColourManager
         m_Game = game;
 
         m_Left = new ColourPair(Colours.RunnerBlue, Colours.Pink70);
-        m_Right = new ColourPair(Colours.White, Colours.Crimson);
-        m_Up = new ColourPair(Colours.Azure, Colours.fireBrick);
+        m_Right = new ColourPair(Colours.HannahExperimentalAA, Colours.HannahExperimentalAB);
+        m_Up = new ColourPair(Colours.HannahExperimentalBA, Colours.HannahExperimentalBB);
         m_PreviousColourPair = new ColourPair();
         m_ActiveColourPair = m_Left;
 

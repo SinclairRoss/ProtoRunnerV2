@@ -41,7 +41,9 @@ public class TextureLoader
 	        bitmap.recycle();
 		    
 		    if (textureHandles[n] == 0)
-		        throw new RuntimeException("Error loading texture.");
+			{
+				throw new RuntimeException("Error loading texture.");
+			}
 		    
 		    NumTextures ++;
 	    }

@@ -1,6 +1,8 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
+import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
+import com.raggamuffin.protorunnerv2.gameobjects.RenderObjectType;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Timer;
 
@@ -22,11 +24,9 @@ public class LaserPointer extends GameObject
 
     private final double m_MaxAlpha;
 
-	public LaserPointer(Weapon anchor, WeaponBarrel barrel)
+	public LaserPointer(GameLogic game, Weapon anchor, WeaponBarrel barrel)
 	{
-		super(null, null);
-
-		m_Model = ModelType.LaserPointer;
+		super(game, ModelType.LaserPointer);
 
 		m_Anchor = anchor;
 		m_Barrel = barrel;

@@ -46,7 +46,12 @@ public class Font
 		
 		ReAlign();
 	}
-	
+
+	public Alignment GetAlignment()
+	{
+		return m_Alignment;
+	}
+
 	public void ReAlign()
 	{
 		switch(m_Alignment)

@@ -19,9 +19,8 @@ public class WeaponTestBot extends Vehicle
 
     public WeaponTestBot(GameLogic game)
     {
-        super(game);
+        super(game, ModelType.Ring);
 
-        m_Model = ModelType.Ring;
         m_BoundingRadius = 2.0;
 
         SetAffiliation(AffiliationKey.RedTeam);
@@ -56,12 +55,6 @@ public class WeaponTestBot extends Vehicle
     public boolean IsValid()
     {
         return true;
-    }
-
-    @Override
-    public void CleanUp()
-    {
-
     }
 
     @Override

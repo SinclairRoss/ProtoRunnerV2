@@ -1,6 +1,8 @@
 package com.raggamuffin.protorunnerv2.particles;
 
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
+import com.raggamuffin.protorunnerv2.gameobjects.RenderObjectType;
+import com.raggamuffin.protorunnerv2.renderer.ModelType;
 
 public class Graviton extends GameObject
 {
@@ -10,7 +12,7 @@ public class Graviton extends GameObject
 	
 	public Graviton(double pull, GravitonBehaviourType behaviour) 
 	{
-		super(null, null);
+		super(null, ModelType.Nothing);
 
 		m_Pull = pull;
 		m_Behaviour = GetBehaviourFromType(behaviour);

@@ -3,6 +3,8 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 import com.raggamuffin.protorunnerv2.ai.AIBehaviours;
 import com.raggamuffin.protorunnerv2.ai.AIController;
 import com.raggamuffin.protorunnerv2.ai.FireControlBehaviour;
+import com.raggamuffin.protorunnerv2.ai.NavigationalBehaviourInfo;
+import com.raggamuffin.protorunnerv2.ai.TargetingBehaviour;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
@@ -20,12 +22,11 @@ public class Vehicle_LaserStar extends Vehicle
 
     public Vehicle_LaserStar(GameLogic game)
     {
-        super(game);
+        super(game, ModelType.ThreePointStar);
 
         m_LaserBurners = new Weapon_LaserBurner[3];
 
-        m_Model = ModelType.ThreePointStar;
-        SetBaseColour(Colours.Orange);
+        SetColourScheme(Colours.HannahExperimentalBA, Colours.HannahExperimentalBB);
 
         m_Engine = new Engine_Standard(this, game);
         m_Engine.SetMaxTurnRate(1.5);
@@ -38,7 +39,8 @@ public class Vehicle_LaserStar extends Vehicle
         SelectWeapon(new Weapon_MultiLaser(this, game, 3));
         m_PrimaryWeapon.DeactivateComponent();
 
-        m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), AIBehaviours.Encircle, FireControlBehaviour.LaserSpinner);
+        NavigationalBehaviourInfo navInfo = new NavigationalBehaviourInfo(0.4, 1.0, 0.7, 0.6);
+        m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), navInfo, AIBehaviours.Encircle, FireControlBehaviour.LaserSpinner, TargetingBehaviour.Standard);
 
         m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.EnemyDestroyed);
     }
@@ -54,6 +56,7 @@ public class Vehicle_LaserStar extends Vehicle
     @Override
     public void CleanUp()
     {
+        super.CleanUp();
         m_PrimaryWeapon.CleanUp();
     }
 } 

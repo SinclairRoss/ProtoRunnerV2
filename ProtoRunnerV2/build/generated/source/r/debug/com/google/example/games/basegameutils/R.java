@@ -316,7 +316,7 @@ public final class R {
 		public static final int support_simple_spinner_dropdown_item = 0x7f03002a;
 	}
 	public static final class raw {
-		public static final int gtm_analytics = 0x7f050005;
+		public static final int gtm_analytics = 0x7f050004;
 	}
 	public static final class string {
 		public static final int abc_action_bar_home_description = 0x7f060000;
@@ -355,18 +355,18 @@ public final class R {
 		public static final int common_open_on_phone = 0x7f06002b;
 		public static final int common_signin_button_text = 0x7f06002c;
 		public static final int common_signin_button_text_long = 0x7f06002d;
-		public static final int create_calendar_message = 0x7f060054;
-		public static final int create_calendar_title = 0x7f060055;
-		public static final int decline = 0x7f06005b;
-		public static final int gamehelper_app_misconfigured = 0x7f060062;
-		public static final int gamehelper_license_failed = 0x7f060063;
-		public static final int gamehelper_sign_in_failed = 0x7f060064;
-		public static final int gamehelper_unknown_error = 0x7f060065;
-		public static final int license_failed = 0x7f060074;
-		public static final int sign_in_failed = 0x7f060087;
-		public static final int store_picture_message = 0x7f06008a;
-		public static final int store_picture_title = 0x7f06008b;
-		public static final int unknown_error = 0x7f0600bb;
+		public static final int create_calendar_message = 0x7f060056;
+		public static final int create_calendar_title = 0x7f060057;
+		public static final int decline = 0x7f060063;
+		public static final int gamehelper_app_misconfigured = 0x7f06006a;
+		public static final int gamehelper_license_failed = 0x7f06006b;
+		public static final int gamehelper_sign_in_failed = 0x7f06006c;
+		public static final int gamehelper_unknown_error = 0x7f06006d;
+		public static final int license_failed = 0x7f06007c;
+		public static final int sign_in_failed = 0x7f06008f;
+		public static final int store_picture_message = 0x7f060092;
+		public static final int store_picture_title = 0x7f060093;
+		public static final int unknown_error = 0x7f0600c4;
 		public static final int wallet_buy_button_place_holder = 0x7f06003c;
 	}
 	public static final class style {

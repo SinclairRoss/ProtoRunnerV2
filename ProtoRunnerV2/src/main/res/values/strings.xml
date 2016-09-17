@@ -4,6 +4,8 @@
     <string name="empty"></string>
     
     <string name="app_name">ProtoRunner V2</string>
+    <string name="app_name_syleised">ProtoRunner_V2</string>
+    <string name="title_subtext">DEVELOPER_EDITION</string>
     <string name="app_id">365584230345</string>
     <string name="leaderboard_id">CgkIyc-S9NEKEAIQAQ</string>
     <string name="play_time_leaderboard_id">CgkIyc-S9NEKEAIQCA</string>
@@ -38,13 +40,19 @@
 
     <string name="credits_text1">Raggamuffin Games is</string>
     <string name="credits_text2">Sinclair Ross</string>
+    <string name="credits_text2_sub">Programmer</string>
     <string name="credits_text3">Special thanks to</string>
     <string name="credits_text4">Calvin Wylie</string>
-    
+    <string name="credits_text4_sub">QA &amp; Then Some</string>
+    <string name="credits_text5">Hannah Middlemass</string>
+    <string name="credits_text5_sub">Art Consultant</string>
+    <string name="credits_text6">Ryan Scoble</string>
+    <string name="credits_text6_sub">Audio Production</string>
+
     <string name="game_over_message">Session Terminated</string>
     <string name="down_but_not_out_text">System Failing</string>
     <string name="revive_text">Reboot</string>
-    <string name="wingman_down">Wingman Destroyed</string>
+    <string name="wingman_down">Wingman Lost</string>
     <string name="incomming_missile">Missile Inbound</string>
 
     <string name="tutorial_progress">Progress</string>

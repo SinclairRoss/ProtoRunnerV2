@@ -3,6 +3,8 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 import com.raggamuffin.protorunnerv2.ai.AIBehaviours;
 import com.raggamuffin.protorunnerv2.ai.AIController;
 import com.raggamuffin.protorunnerv2.ai.FireControlBehaviour;
+import com.raggamuffin.protorunnerv2.ai.NavigationalBehaviourInfo;
+import com.raggamuffin.protorunnerv2.ai.TargetingBehaviour;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
@@ -20,11 +22,9 @@ public class Vehicle_Wingman extends Vehicle
 	
 	public Vehicle_Wingman(GameLogic game)
 	{
-		super(game);
+		super(game, ModelType.Runner);
 		
 		m_VehicleManager = game.GetVehicleManager();
-
-		m_Model = ModelType.Runner;
 
 		m_Position.SetVector(0, 0, 0);
 
@@ -48,7 +48,8 @@ public class Vehicle_Wingman extends Vehicle
 		
 		SelectWeapon(new Weapon_PulseLaser(this, game));
 
-        m_AIController = new AIController(this, m_VehicleManager, game.GetBulletManager(), AIBehaviours.FollowTheLeader, FireControlBehaviour.Standard);
+		NavigationalBehaviourInfo navInfo = new NavigationalBehaviourInfo(0.4, 1.0, 0.7, 0.6);
+        m_AIController = new AIController(this, m_VehicleManager, game.GetBulletManager(), navInfo, AIBehaviours.FollowTheLeader, FireControlBehaviour.Standard, TargetingBehaviour.Standard);
 		m_AIController.SetLeader(m_VehicleManager.GetPlayer());
 
         m_PlayerSpawnedSubscriber = new PlayerSpawnedSubscriber();
@@ -68,6 +69,7 @@ public class Vehicle_Wingman extends Vehicle
     @Override
     public void CleanUp()
     {
+		super.CleanUp();
         m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.PlayerSpawned, m_PlayerSpawnedSubscriber);
         m_PrimaryWeapon.CleanUp();
     }

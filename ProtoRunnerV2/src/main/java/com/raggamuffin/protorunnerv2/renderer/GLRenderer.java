@@ -6,10 +6,9 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
-import com.raggamuffin.protorunnerv2.gameobjects.Rope;
+import com.raggamuffin.protorunnerv2.gameobjects.Tentacle;
 import com.raggamuffin.protorunnerv2.master.RenderEffectSettings;
 import com.raggamuffin.protorunnerv2.master.RendererPacket;
-import com.raggamuffin.protorunnerv2.particles.RopeNode;
 import com.raggamuffin.protorunnerv2.particles.TrailNode;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
 import com.raggamuffin.protorunnerv2.ui.UIElementType;
@@ -169,6 +168,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
         DrawObjects(view);
         DrawTrails(view);
         DrawRopes(view);
+
 		DrawUI();
 
 		// Glow vertical.
@@ -235,7 +235,6 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
     private void DrawSkybox(float[] view)
     {
-
         m_ModelManager.InitialiseModel(ModelType.Skybox, view, m_Camera.GetPosition());
         m_ModelManager.DrawSkyBox(m_Camera.GetPosition(), m_RenderEffectSettings.GetSkyBoxColour(), view);
         m_ModelManager.CleanModel(ModelType.Skybox);
@@ -249,20 +248,20 @@ public class GLRenderer implements GLSurfaceView.Renderer
         {
             ArrayList<GameObject> list = (ArrayList<GameObject>)m_Packet.GetModelList(type).clone();
 
-            if(list.size() == 0)
-                continue;
-
-            m_ModelManager.InitialiseModel(type, view, m_Camera.GetPosition());
-
-            for(GameObject obj : list)
+            if(list.size() > 0)
             {
-                if(obj == null)
-                    continue;
+                m_ModelManager.InitialiseModel(type, view, m_Camera.GetPosition());
 
-                m_ModelManager.Draw(obj);
+                for (GameObject obj : list)
+                {
+                    if (obj != null)
+                    {
+                        m_ModelManager.Draw(obj);
+                    }
+                }
+
+                m_ModelManager.CleanModel(type);
             }
-
-            m_ModelManager.CleanModel(type);
         }
     }
 
@@ -270,20 +269,20 @@ public class GLRenderer implements GLSurfaceView.Renderer
     {
         ArrayList<GameObject> list = (ArrayList<GameObject>)m_Packet.GetParticles().clone();
 
-        if(list.size() == 0)
-            return;
-
-        m_ParticleRenderer.Initialise(view, m_Camera.GetPosition());
-
-        for(GameObject obj : list)
+        if(list.size() > 0)
         {
-            if(obj == null)
-                continue;
+            m_ParticleRenderer.Initialise(view, m_Camera.GetPosition());
 
-            m_ParticleRenderer.Draw(obj.GetPosition(), obj.GetColour(), (float) obj.GetScale().I);
+            for (GameObject obj : list)
+            {
+                if (obj != null)
+                {
+                    m_ParticleRenderer.Draw(obj.GetPosition(), obj.GetColour(), (float) obj.GetScale().I);
+                }
+            }
+
+            m_ParticleRenderer.Clean();
         }
-
-        m_ParticleRenderer.Clean();
     }
 
     private void DrawTrails(float[] view)
@@ -308,23 +307,22 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
     private void DrawRopes(float[] view)
     {
-        ArrayList<Rope> list = (ArrayList<Rope>)m_Packet.GetRopes().clone();
+        ArrayList<Tentacle> list = (ArrayList<Tentacle>)m_Packet.GetRopes().clone();
 
-        if(list.size() == 0)
-            return;
-
-        m_RopeRenderer.Initialise(view, m_Camera.GetPosition());
-
-        for (Rope obj : list)
+        if(list.size() > 0)
         {
-            if (obj != null)
+            m_RopeRenderer.Initialise(view, m_Camera.GetPosition());
+
+            for (Tentacle obj : list)
             {
-                m_RopeRenderer.Draw(obj);
+                if (obj != null)
+                {
+                    m_RopeRenderer.Draw(obj);
+                }
             }
+
+            m_RopeRenderer.Clean();
         }
-
-        m_RopeRenderer.Clean();
-
     }
 
     private void DrawUI()

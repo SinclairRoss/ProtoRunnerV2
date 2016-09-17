@@ -3,6 +3,8 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 import com.raggamuffin.protorunnerv2.ai.AIBehaviours;
 import com.raggamuffin.protorunnerv2.ai.AIController;
 import com.raggamuffin.protorunnerv2.ai.FireControlBehaviour;
+import com.raggamuffin.protorunnerv2.ai.NavigationalBehaviourInfo;
+import com.raggamuffin.protorunnerv2.ai.TargetingBehaviour;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
@@ -18,12 +20,10 @@ public class TargetBot extends Vehicle
 
     public TargetBot(GameLogic game)
     {
-        super(game);
+        super(game, ModelType.Dummy);
 
-        m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), AIBehaviours.EngageTarget, FireControlBehaviour.Standard);
-
-
-        m_Model = ModelType.Dummy;
+        NavigationalBehaviourInfo navInfo = new NavigationalBehaviourInfo(0.4, 1.0, 0.7, 0.6);
+        m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), navInfo, AIBehaviours.EngageTarget, FireControlBehaviour.Standard, TargetingBehaviour.Standard);
 
         SetAffiliation(AffiliationKey.RedTeam);
 
@@ -49,11 +49,5 @@ public class TargetBot extends Vehicle
         m_AIController.Update(deltaTime);
 
         super.Update(deltaTime);
-    }
-
-    @Override
-    public void CleanUp()
-    {
-
     }
 }
