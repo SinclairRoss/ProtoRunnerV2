@@ -11,10 +11,13 @@ public class RenderEffectManager
 {
 	private final double BASE_GLOW_INTENSITY   = 1.5;
 	private final double MAX_GLOW_INTENSITY    = 4.0;
-	private final double GLOW_DECAY_MULTIPLIER = 4.0;
+    private final double BASE_FILMGRAIN_INTENSITY = 0.05;
+    private final double MAX_FILMGRAIN_INTENSITY = 0.1;
+    private final double DECAY_MULTIPLIER = 4.0;
 	
 	private double m_GlowIntensity;
-	
+	private double m_FilmGrainIntensity;
+
 	private RenderEffectSettings m_RenderEffectSettings;
 
 	public RenderEffectManager(GameLogic Game, RenderEffectSettings Settings) 
@@ -23,6 +26,10 @@ public class RenderEffectManager
         m_RenderEffectSettings.SetSkyboxColour(Game.GetColourManager().GetPrimaryColour());
 
 		m_GlowIntensity = BASE_GLOW_INTENSITY;
+        m_RenderEffectSettings.SetGlowIntensity(m_GlowIntensity);
+
+        m_FilmGrainIntensity = BASE_FILMGRAIN_INTENSITY;
+        m_RenderEffectSettings.SetFilmGrainIntensity(m_FilmGrainIntensity);
 
         PubSubHub pubSub = Game.GetPubSubHub();
         pubSub.SubscribeToTopic(PublishedTopics.PlayerHit, new PlayerHitSubscriber());
@@ -35,10 +42,13 @@ public class RenderEffectManager
 
     private void UpdateGlow(double deltaTime)
     {
-        m_GlowIntensity -= deltaTime * GLOW_DECAY_MULTIPLIER;
+        m_GlowIntensity -= deltaTime * DECAY_MULTIPLIER;
         m_GlowIntensity = MathsHelper.Clamp(m_GlowIntensity, BASE_GLOW_INTENSITY, MAX_GLOW_INTENSITY);
-
         m_RenderEffectSettings.SetGlowIntensity(m_GlowIntensity);
+
+        m_FilmGrainIntensity -= deltaTime * DECAY_MULTIPLIER;
+        m_FilmGrainIntensity = MathsHelper.Clamp(m_FilmGrainIntensity, BASE_FILMGRAIN_INTENSITY, MAX_FILMGRAIN_INTENSITY);
+		m_RenderEffectSettings.SetFilmGrainIntensity(m_FilmGrainIntensity);
     }
 
 	private class PlayerHitSubscriber extends Subscriber
@@ -46,8 +56,11 @@ public class RenderEffectManager
 		@Override
 		public void Update(final int args)
 		{
-			m_GlowIntensity += 10.0;
+			m_GlowIntensity = MAX_GLOW_INTENSITY;
 			m_GlowIntensity = MathsHelper.Clamp(m_GlowIntensity, BASE_GLOW_INTENSITY, MAX_GLOW_INTENSITY);
+
+            m_FilmGrainIntensity = MAX_FILMGRAIN_INTENSITY;
+            m_FilmGrainIntensity = MathsHelper.Clamp(m_FilmGrainIntensity, BASE_FILMGRAIN_INTENSITY, MAX_FILMGRAIN_INTENSITY);
 		}
 	}
 }

@@ -443,66 +443,79 @@ public class Shaders
           "precision lowp float;"
         + "uniform sampler2D u_TextureA;"
         + "uniform sampler2D u_TextureB;"
+        + "uniform sampler2D u_TextureC;"
         + "varying vec2 v_TexCoord;"
 
         + "void main(void)"
         + "{"
-        + "		gl_FragColor = texture2D(u_TextureA, v_TexCoord) + texture2D(u_TextureB, v_TexCoord);"
+        + "		gl_FragColor = texture2D(u_TextureA, v_TexCoord) + texture2D(u_TextureB, v_TexCoord) + texture2D(u_TextureC, v_TexCoord);"
         + "}";
 
+    public static final String fragmentShader_FILMGRAIN =
+            "precision highp float;"
+
+        +   "uniform vec2 u_RandomOffset;"
+        +   "uniform float u_Intensity;"
+        +   "varying vec2 v_TexCoord;"
+
+        +   "void main()"
+        +   "{"
+        +   "   float rand = u_Intensity * fract(sin(dot((v_TexCoord + u_RandomOffset) * 0.5, vec2(12.9898, 78.233)))* 43758.5453);"
+        +   "   gl_FragColor = vec4(1.0, 1.0, 1.0, rand);"
+        +   "}";
 
     public static final String fragmentShader_BLURV =
             "precision lowp float;"
-                    + "uniform sampler2D u_Texture;" // this should hold the texture rendered by the horizontal blur pass
-                    + "uniform float u_GlowIntensity;"
-                    + "varying vec2 v_TexCoord;"
+        +   "uniform sampler2D u_Texture;" // this should hold the texture rendered by the horizontal blur pass
+        +   "uniform float u_GlowIntensity;"
+        +   "varying vec2 v_TexCoord;"
 
-                    + "const float blurSize = 1.0/256.0;"
+        +   "const float blurSize = 1.0/256.0;"
 
-                    + "void main(void)"
-                    + "{"
-                    + "   vec4 sum = vec4(0.0);"
+        +   "void main(void)"
+        +   "{"
+        +   "   vec4 sum = vec4(0.0);"
 
-                    // blur in y (vertical)
-                    // take nine samples, with the distance blurSize between them
-                    + "   sum += texture2D(u_Texture, vec2(v_TexCoord.x, v_TexCoord.y - 4.0*blurSize)) * 0.05;"
-                    + "   sum += texture2D(u_Texture, vec2(v_TexCoord.x, v_TexCoord.y - 3.0*blurSize)) * 0.09;"
-                    + "   sum += texture2D(u_Texture, vec2(v_TexCoord.x, v_TexCoord.y - 2.0*blurSize)) * 0.12;"
-                    + "   sum += texture2D(u_Texture, vec2(v_TexCoord.x, v_TexCoord.y - blurSize)) * 0.15;"
-                    + "   sum += texture2D(u_Texture, vec2(v_TexCoord.x, v_TexCoord.y)) * 0.16;"
-                    + "   sum += texture2D(u_Texture, vec2(v_TexCoord.x, v_TexCoord.y + blurSize)) * 0.15;"
-                    + "   sum += texture2D(u_Texture, vec2(v_TexCoord.x, v_TexCoord.y + 2.0*blurSize)) * 0.12;"
-                    + "   sum += texture2D(u_Texture, vec2(v_TexCoord.x, v_TexCoord.y + 3.0*blurSize)) * 0.09;"
-                    + "   sum += texture2D(u_Texture, vec2(v_TexCoord.x, v_TexCoord.y + 4.0*blurSize)) * 0.05;"
+        // blur in y (vertical)
+        // take nine samples, with the distance blurSize between them
+        +   "   sum += texture2D(u_Texture, vec2(v_TexCoord.x, v_TexCoord.y - 4.0*blurSize)) * 0.05;"
+        +   "   sum += texture2D(u_Texture, vec2(v_TexCoord.x, v_TexCoord.y - 3.0*blurSize)) * 0.09;"
+        +   "   sum += texture2D(u_Texture, vec2(v_TexCoord.x, v_TexCoord.y - 2.0*blurSize)) * 0.12;"
+        +   "   sum += texture2D(u_Texture, vec2(v_TexCoord.x, v_TexCoord.y - blurSize)) * 0.15;"
+        +   "   sum += texture2D(u_Texture, vec2(v_TexCoord.x, v_TexCoord.y)) * 0.16;"
+        +   "   sum += texture2D(u_Texture, vec2(v_TexCoord.x, v_TexCoord.y + blurSize)) * 0.15;"
+        +   "   sum += texture2D(u_Texture, vec2(v_TexCoord.x, v_TexCoord.y + 2.0*blurSize)) * 0.12;"
+        +   "   sum += texture2D(u_Texture, vec2(v_TexCoord.x, v_TexCoord.y + 3.0*blurSize)) * 0.09;"
+        +   "   sum += texture2D(u_Texture, vec2(v_TexCoord.x, v_TexCoord.y + 4.0*blurSize)) * 0.05;"
 
-                    + "   gl_FragColor = sum * u_GlowIntensity;"
+        + "     gl_FragColor = sum * u_GlowIntensity;"
 
-                    + "}";
+        + "}";
 
     public static final String fragmentShader_BLURH =
-            "  precision lowp float;"
-                    + "  uniform sampler2D u_Texture;" // the texture with the scene you want to blur
-                    + "	 uniform float u_GlowIntensity;"
-                    + "  varying vec2 v_TexCoord;"
+          "  precision lowp float;"
+        + "  uniform sampler2D u_Texture;" // the texture with the scene you want to blur
+        + "	    uniform float u_GlowIntensity;"
+        + "     varying vec2 v_TexCoord;"
 
-                    + "const float blurSize = 1.0/256.0;"
+        + "     const float blurSize = 1.0/256.0;"
 
-                    + "   void main(void)"
-                    + "   {"
-                    + "      vec4 sum = vec4(0.0);"
+        + "   void main(void)"
+        + "   {"
+        + "      vec4 sum = vec4(0.0);"
 
-                    // blur in x (Horizontal)
-                    // take nine samples, with the distance blurSize between them
-                    + "      sum += texture2D(u_Texture, vec2(v_TexCoord.x - 4.0*blurSize, v_TexCoord.y)) * 0.05;"
-                    + "      sum += texture2D(u_Texture, vec2(v_TexCoord.x - 3.0*blurSize, v_TexCoord.y)) * 0.09;"
-                    + "      sum += texture2D(u_Texture, vec2(v_TexCoord.x - 2.0*blurSize, v_TexCoord.y)) * 0.12;"
-                    + "      sum += texture2D(u_Texture, vec2(v_TexCoord.x - blurSize, v_TexCoord.y)) * 0.15;"
-                    + "      sum += texture2D(u_Texture, vec2(v_TexCoord.x, v_TexCoord.y)) * 0.16;"
-                    + "      sum += texture2D(u_Texture, vec2(v_TexCoord.x + blurSize, v_TexCoord.y)) * 0.15;"
-                    + "      sum += texture2D(u_Texture, vec2(v_TexCoord.x + 2.0*blurSize, v_TexCoord.y)) * 0.12;"
-                    + "      sum += texture2D(u_Texture, vec2(v_TexCoord.x + 3.0*blurSize, v_TexCoord.y)) * 0.09;"
-                    + "      sum += texture2D(u_Texture, vec2(v_TexCoord.x + 4.0*blurSize, v_TexCoord.y)) * 0.05;"
+        // blur in x (Horizontal)
+        // take nine samples, with the distance blurSize between them
+        + "      sum += texture2D(u_Texture, vec2(v_TexCoord.x - 4.0*blurSize, v_TexCoord.y)) * 0.05;"
+        + "      sum += texture2D(u_Texture, vec2(v_TexCoord.x - 3.0*blurSize, v_TexCoord.y)) * 0.09;"
+        + "      sum += texture2D(u_Texture, vec2(v_TexCoord.x - 2.0*blurSize, v_TexCoord.y)) * 0.12;"
+        + "      sum += texture2D(u_Texture, vec2(v_TexCoord.x - blurSize, v_TexCoord.y)) * 0.15;"
+        + "      sum += texture2D(u_Texture, vec2(v_TexCoord.x, v_TexCoord.y)) * 0.16;"
+        + "      sum += texture2D(u_Texture, vec2(v_TexCoord.x + blurSize, v_TexCoord.y)) * 0.15;"
+        + "      sum += texture2D(u_Texture, vec2(v_TexCoord.x + 2.0*blurSize, v_TexCoord.y)) * 0.12;"
+        + "      sum += texture2D(u_Texture, vec2(v_TexCoord.x + 3.0*blurSize, v_TexCoord.y)) * 0.09;"
+        + "      sum += texture2D(u_Texture, vec2(v_TexCoord.x + 4.0*blurSize, v_TexCoord.y)) * 0.05;"
 
-                    + "      gl_FragColor = sum * u_GlowIntensity;"
-                    + "   }";
+        + "      gl_FragColor = sum * u_GlowIntensity;"
+        + "   }";
 }

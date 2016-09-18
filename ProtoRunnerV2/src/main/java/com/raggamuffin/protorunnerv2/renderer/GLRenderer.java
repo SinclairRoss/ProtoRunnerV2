@@ -36,6 +36,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
     private GLOrthoCamera m_UICamera;
     private GLCamera m_Camera;
 
+    private FrameBufferEffectRenderer m_FrameBufferRenderer;
     private ModelManager m_ModelManager;
     private UIRenderManager m_UIManager;
     private TrailRenderer m_TrailRenderer;
@@ -46,7 +47,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
     private RenderEffectSettings m_RenderEffectSettings;
 
     // FBO
-    private final int m_NumFBOs = 3;
+    private final int m_NumFBOs = 4;
     private int m_Textures[];
     private int m_Depth[];
     private Point m_Size[];
@@ -66,6 +67,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
 		m_UICamera 				= new GLOrthoCamera();
 		m_RenderEffectSettings 	= m_Packet.GetRenderEffectSettings();
 
+        m_FrameBufferRenderer = new FrameBufferEffectRenderer();
 		m_ModelManager = new ModelManager(m_Context, m_RenderEffectSettings);
 		m_UIManager    = new UIRenderManager(m_Context);
         m_TrailRenderer = new TrailRenderer();
@@ -92,6 +94,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
         GLES20.glEnable(GLES20.GL_BLEND);
         GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
 
+        m_FrameBufferRenderer.LoadAssets(m_Packet);
         m_ModelManager.LoadAssets();
         m_TrailRenderer.LoadAssets();
         m_RopeRenderer.LoadAssets();
@@ -101,9 +104,10 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
         // FBO
         m_Size = new Point[m_NumFBOs];
-        m_Size[0] = m_Packet.GetScreenSize();
-        m_Size[1] = new Point(256,256);
-        m_Size[2] = new Point(256,256);
+        m_Size[0] = m_Packet.GetScreenSize();   // Final Image.
+        m_Size[1] = new Point(256,256);         // Glow Vertical.
+        m_Size[2] = new Point(256,256);         // Glow Horizontal.
+        m_Size[3] = new Point(256,256);         // Film Grain.
 
         m_Textures 	= new int[m_NumFBOs];
         GLES20.glGenTextures(m_NumFBOs, m_Textures, 0);
@@ -151,10 +155,14 @@ public class GLRenderer implements GLSurfaceView.Renderer
 	{
         Long start = System.currentTimeMillis();
 
+        /*
 		GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, m_FrameBuffers[0]);
 		GLES20.glViewport(0, 0, m_Size[0].x, m_Size[0].y);
 
 		GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
+*/
+
+        m_FrameBufferRenderer.BindFrameBuffer(FrameBufferName.RawRender);
 
 		m_Camera.Update();
 		m_UICamera.Update();
@@ -171,39 +179,35 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
 		DrawUI();
 
-		// Glow vertical.
-		GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, m_FrameBuffers[1]);
-		GLES20.glViewport(0, 0, m_Size[1].x, m_Size[1].y);
+        // Glow horizontal.
+        m_FrameBufferRenderer.BindFrameBuffer(FrameBufferName.GlowHorizontal);
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_FrameBufferRenderer.GetTextureHandle(FrameBufferName.RawRender));
+        m_ModelManager.DrawFBOGlowHoriz();
 
-		GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
-
-		GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-	    GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_Textures[0]);
-
+        // Glow vertical.
+        m_FrameBufferRenderer.BindFrameBuffer(FrameBufferName.GlowVertical);
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_FrameBufferRenderer.GetTextureHandle(FrameBufferName.GlowHorizontal));
         m_ModelManager.DrawFBOGlowVert();
 
-        // Glow horizontal.
- 		GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, m_FrameBuffers[2]);
- 		GLES20.glViewport(0, 0, m_Size[2].x, m_Size[2].y);
-
- 		GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
-
- 		GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
- 	    GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_Textures[1]);
-
-         m_ModelManager.DrawFBOGlowHoriz();
+        // Film grain
+        m_FrameBufferRenderer.BindFrameBuffer(FrameBufferName.FilmGrain);
+        m_ModelManager.DrawFBOFilmGrain();
 
 		// Render to screen.
 		GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, 0);
 		GLES20.glViewport(0, 0, m_Width, m_Height);
-
 		GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
 
-    	GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-	    GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_Textures[0]);
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_FrameBufferRenderer.GetTextureHandle(FrameBufferName.RawRender));
 
-    	GLES20.glActiveTexture(GLES20.GL_TEXTURE1);
-	    GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_Textures[2]);
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE1);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_FrameBufferRenderer.GetTextureHandle(FrameBufferName.GlowVertical));
+
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE2);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_FrameBufferRenderer.GetTextureHandle(FrameBufferName.FilmGrain));
 
         m_ModelManager.DrawFBOFinal();
 
@@ -220,6 +224,8 @@ public class GLRenderer implements GLSurfaceView.Renderer
             counter = 0;
         }
 	}
+
+    static FrameBufferName hackText = FrameBufferName.RawRender;
 
 	@Override
 	public void onSurfaceChanged(GL10 unused, int width, int height)

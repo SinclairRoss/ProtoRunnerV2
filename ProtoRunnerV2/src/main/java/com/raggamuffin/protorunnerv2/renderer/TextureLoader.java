@@ -45,7 +45,7 @@ public class TextureLoader
 				throw new RuntimeException("Error loading texture.");
 			}
 		    
-		    NumTextures ++;
+		    ++NumTextures;
 	    }
 	}
 	

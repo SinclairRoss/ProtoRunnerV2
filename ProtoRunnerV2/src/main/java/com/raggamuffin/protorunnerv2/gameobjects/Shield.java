@@ -3,8 +3,6 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 // Author: Sinclair Ross
 // Date:   17/08/2016
 
-import com.raggamuffin.protorunnerv2.colours.ColourBehaviour;
-import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_AlphaController;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
@@ -17,8 +15,6 @@ public class Shield extends GameObject
     private double m_NormalisedScale;
     private double m_GrowthRate;
     private Vehicle m_Target;
-
-    private ColourBehaviour_AlphaController m_AlphaController;
 
     public Shield(GameLogic game)
     {
@@ -62,6 +58,11 @@ public class Shield extends GameObject
         double horizontalScale = MathsHelper.Lerp(m_NormalisedScale, 0, m_TargetScale);
         double verticalScale = horizontalScale * 0.5;
         m_Scale.SetVector(horizontalScale, verticalScale, horizontalScale);
+
+        if(m_Target != null)
+        {
+            this.UpdateVectorsWithForward(m_Target.GetForward());
+        }
     }
 
     @Override

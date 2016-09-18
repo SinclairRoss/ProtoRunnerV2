@@ -7,6 +7,7 @@ public class RenderEffectSettings
 {
 	private double m_GlowIntensityVert;
 	private double m_GlowIntensityHoriz;
+	private double m_FilmGrainIntensity;
 
     private Colour m_SkyBoxColour;
 	
@@ -14,6 +15,7 @@ public class RenderEffectSettings
 	{
 		m_GlowIntensityVert  = 0.0;
 		m_GlowIntensityHoriz = 0.0;
+		m_FilmGrainIntensity = 0.0;
 
         m_SkyBoxColour = null;
 	}
@@ -42,6 +44,16 @@ public class RenderEffectSettings
 	{
 		m_GlowIntensityHoriz = intensity;
 		m_GlowIntensityVert = intensity;
+	}
+
+	public void SetFilmGrainIntensity(double grain)
+	{
+		m_FilmGrainIntensity = grain;
+	}
+
+	public double GetFilmGrainIntensity()
+	{
+		return m_FilmGrainIntensity;
 	}
 
     public void SetSkyboxColour(Colour colour)

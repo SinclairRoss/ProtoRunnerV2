@@ -86,6 +86,11 @@ public class MathsHelper
 		return (Rand.nextDouble() * (max - min)) + min;
 	}
 
+	public static float RandomFloat(float min, float max)
+	{
+		return (Rand.nextFloat() * (max - min)) + min;
+	}
+
     // Returns a random double between the min-max range with a bias.
     // Higher bias returns lower average.
     public static double BiasedRandomDouble(double min, double max, double bias)

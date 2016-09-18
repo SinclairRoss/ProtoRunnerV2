@@ -14,7 +14,8 @@ public class ModelManager
 {
 	public static final int HORIZ = 0;
 	public static final int VERT  = 1;
-	public static final int NORM  = 2;
+    public static final int GRAIN = 2;
+	public static final int NORM  = 3;
 	
 	public final int NUM_TEXTURES = 3;
 	
@@ -118,7 +119,7 @@ public class ModelManager
     }
 	
 	public void Draw(GameObject object)
-	{
+    {
         GLModel model = GetModel(object.GetModel());
 
         if(model != null)
@@ -239,12 +240,18 @@ public class ModelManager
 	
 	public void DrawFBOGlowVert()
 	{
-		m_Screen.SetVerticalGlowIntensity((float) m_RenderEffectSettings.GetGlowIntensityVert());
+        m_Screen.SetVerticalGlowIntensity((float) m_RenderEffectSettings.GetGlowIntensityVert());
 		m_Screen.draw(VERT);
 	}
-	
+
+    public void DrawFBOFilmGrain()
+    {
+        m_Screen.draw(GRAIN);
+    }
+
 	public void DrawFBOFinal()
 	{
+        m_Screen.SetFilmGrainIntensity((float) m_RenderEffectSettings.GetFilmGrainIntensity());
 		m_Screen.draw(NORM);
 	}
 }
