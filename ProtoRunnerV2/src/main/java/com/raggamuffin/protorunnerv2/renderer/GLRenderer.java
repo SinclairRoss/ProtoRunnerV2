@@ -81,7 +81,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
 	{
 		Log.e(TAG, "onSurfaceCreated");
 
-		GLES20.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		GLES20.glEnable(GLES20.GL_CULL_FACE);
 		GLES20.glCullFace(GLES20.GL_BACK);
 
@@ -155,13 +155,6 @@ public class GLRenderer implements GLSurfaceView.Renderer
 	{
         Long start = System.currentTimeMillis();
 
-        /*
-		GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, m_FrameBuffers[0]);
-		GLES20.glViewport(0, 0, m_Size[0].x, m_Size[0].y);
-
-		GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
-*/
-
         m_FrameBufferRenderer.BindFrameBuffer(FrameBufferName.RawRender);
 
 		m_Camera.Update();
@@ -195,6 +188,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
         m_FrameBufferRenderer.BindFrameBuffer(FrameBufferName.FilmGrain);
         m_ModelManager.DrawFBOFilmGrain();
 
+
 		// Render to screen.
 		GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, 0);
 		GLES20.glViewport(0, 0, m_Width, m_Height);
@@ -225,8 +219,6 @@ public class GLRenderer implements GLSurfaceView.Renderer
         }
 	}
 
-    static FrameBufferName hackText = FrameBufferName.RawRender;
-
 	@Override
 	public void onSurfaceChanged(GL10 unused, int width, int height)
 	{
@@ -241,9 +233,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
     private void DrawSkybox(float[] view)
     {
-        m_ModelManager.InitialiseModel(ModelType.Skybox, view, m_Camera.GetPosition());
         m_ModelManager.DrawSkyBox(m_Camera.GetPosition(), m_RenderEffectSettings.GetSkyBoxColour(), view);
-        m_ModelManager.CleanModel(ModelType.Skybox);
     }
 
     private void DrawObjects(float[] view)

@@ -67,7 +67,18 @@ public class GameAudioManager
         m_IDs[AudioClips.UI_Play.ordinal()] = m_AudioService.LoadClip(R.raw.ui_play);
 		
 		// Music
-		m_AudioService.LoadMusic(R.raw.skeletons);
+		int music;
+
+		if(MathsHelper.RandomBoolean())
+		{
+			music = R.raw.skeletons;
+		}
+		else
+		{
+			music = R.raw.passion;
+		}
+
+		m_AudioService.LoadMusic(music);
         StartMusic();
 	}
 	

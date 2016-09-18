@@ -29,7 +29,7 @@ public enum ModelType
 
     Shield,
 
-	Skybox,
+	HorizonRing,
 
 	Nothing
 }

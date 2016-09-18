@@ -22,6 +22,8 @@ public class Vehicle_Carrier extends Vehicle
 
     private final int DRONE_CAPACITY = 3;
 
+    private boolean m_DronesSpawned;
+
 	public Vehicle_Carrier(GameLogic game)
 	{
 		super(game, ModelType.Carrier);
@@ -32,8 +34,6 @@ public class Vehicle_Carrier extends Vehicle
 
         m_MaxHullPoints = 300;
         m_HullPoints = m_MaxHullPoints;
-
-		m_Position.SetVector(10, 0, 10);
 
         m_Mass = 100;
         m_Engine = new Engine_Cycling(this, game);
@@ -51,14 +51,21 @@ public class Vehicle_Carrier extends Vehicle
 
 		m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.EnemyDestroyed);
 
-        CreateDrones(DRONE_CAPACITY);
+        m_DronesSpawned = false;
     }
 	
 	@Override 
 	public void Update(double deltaTime)
 	{
 		m_AIController.Update(deltaTime);
-		super.Update(deltaTime);
+
+        if(!m_DronesSpawned)
+        {
+            CreateDrones(DRONE_CAPACITY);
+            m_DronesSpawned = true;
+        }
+
+        super.Update(deltaTime);
 	}
 
     private void CreateDrones(int count)

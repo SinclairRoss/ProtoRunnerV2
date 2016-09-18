@@ -3,12 +3,21 @@ package com.raggamuffin.protorunnerv2.renderer;
 public class Shaders
 {
     public static final String vertexShader_BASIC =
-                "attribute vec4 a_Position;"
-            +   "void main()"
-            +   "{"
-            +   "  	gl_Position = a_Position;"
-            +   "	v_TexCoord = a_TexCoord;"
-            +   "}";
+            "uniform mat4 u_ProjMatrix;"
+        +   "uniform vec3 u_Position;"
+
+        +   "attribute vec4 a_Vertices;"
+
+        +   "void main()"
+        +   "{"
+        +   "   mat4 model;"
+        +   "   model[0] = vec4(1,0,0,0);"
+        +   "   model[1] = vec4(0,1,0,0);"
+        +   "   model[2] = vec4(0,0,1,0);"
+        +   "   model[3] = vec4(u_Position.x, u_Position.y, u_Position.z, 1);"
+
+        +	"	gl_Position = (u_ProjMatrix * model) * a_Vertices;"
+        +   "}";
 
     public static final String fragmentShader_BLOCKCOLOUR =
             "precision lowp float;"

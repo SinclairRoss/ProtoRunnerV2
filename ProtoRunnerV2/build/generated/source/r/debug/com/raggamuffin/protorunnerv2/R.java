@@ -2506,15 +2506,16 @@ containing a value of this type.
         public static final int gtm_analytics=0x7f050004;
         public static final int missile_engaged=0x7f050005;
         public static final int missile_spawn=0x7f050006;
-        public static final int player_damaged=0x7f050007;
-        public static final int pulse_laser=0x7f050008;
-        public static final int pulse_laser_punk=0x7f050009;
-        public static final int rail_gun=0x7f05000a;
-        public static final int silence=0x7f05000b;
-        public static final int skeletons=0x7f05000c;
-        public static final int ui_negative=0x7f05000d;
-        public static final int ui_play=0x7f05000e;
-        public static final int ui_positive=0x7f05000f;
+        public static final int passion=0x7f050007;
+        public static final int player_damaged=0x7f050008;
+        public static final int pulse_laser=0x7f050009;
+        public static final int pulse_laser_punk=0x7f05000a;
+        public static final int rail_gun=0x7f05000b;
+        public static final int silence=0x7f05000c;
+        public static final int skeletons=0x7f05000d;
+        public static final int ui_negative=0x7f05000e;
+        public static final int ui_play=0x7f05000f;
+        public static final int ui_positive=0x7f050010;
     }
     public static final class string {
         public static final int abc_action_bar_home_description=0x7f060000;

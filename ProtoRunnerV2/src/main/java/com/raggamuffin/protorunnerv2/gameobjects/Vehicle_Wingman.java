@@ -35,11 +35,10 @@ public class Vehicle_Wingman extends Vehicle
         m_BurstEmitter.SetFinalColour(m_AltColour);
 
 		m_Mass = 100;
-
         m_Engine = new Engine_Standard(this, game);
 		m_Engine.SetMaxTurnRate(2.0);
-		m_Engine.SetMaxEngineOutput(15000);
-        m_Engine.SetAfterBurnerOutput(45000);
+		m_Engine.SetMaxEngineOutput(10000);
+        m_Engine.SetAfterBurnerOutput(5000);
 		
 		m_MaxHullPoints = 1000;
 		m_HullPoints 	= m_MaxHullPoints;

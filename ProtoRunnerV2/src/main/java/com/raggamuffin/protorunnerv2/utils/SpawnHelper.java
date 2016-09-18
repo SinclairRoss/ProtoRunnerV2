@@ -2,12 +2,12 @@ package com.raggamuffin.protorunnerv2.utils;
 
 public class SpawnHelper
 {
-    public static Vector3 FindRandomSpawnLocation(Vector3 playerPos, double spawnRange)
+    public static Vector3 FindRandomSpawnLocation(Vector3 playerPos, Vector3 playerForward, double spawnRange)
     {
-        Vector3 spawnPoint = new Vector3();
-        spawnPoint.I = MathsHelper.RandomDouble(-1, 1);
-        spawnPoint.K = MathsHelper.RandomDouble(-1, 1);
-        spawnPoint.Normalise();
+        final double spawnArc = Math.PI * 0.25;
+
+        Vector3 spawnPoint = new Vector3(playerForward);
+        spawnPoint.RotateY(MathsHelper.RandomDouble(-spawnArc, spawnArc));
         spawnPoint.Scale(spawnRange);
         spawnPoint.Add(playerPos);
 
@@ -16,7 +16,13 @@ public class SpawnHelper
 
     public static Vector3 FindRandomSpawnLocation(double spawnRange)
     {
-        return FindRandomSpawnLocation(new Vector3(), spawnRange);
+        Vector3 spawnPoint = new Vector3();
+        spawnPoint.I = MathsHelper.RandomDouble(-1, 1);
+        spawnPoint.K = MathsHelper.RandomDouble(-1, 1);
+        spawnPoint.Normalise();
+        spawnPoint.Scale(spawnRange);
+
+        return spawnPoint;
     }
 
     public static Vector3 FindSpawnForward(Vector3 position, Vector3 targetPoint)

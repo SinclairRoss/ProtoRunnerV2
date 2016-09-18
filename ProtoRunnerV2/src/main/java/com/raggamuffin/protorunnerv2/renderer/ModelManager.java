@@ -30,7 +30,7 @@ public class ModelManager
 	private GLModel_Ring m_Ring;
 	private GLLine m_Pointer;
 	private GLScreenQuad m_Screen;
-	private GLSkybox m_Skybox;
+	private GLModel_HorizonRing m_HorizonRing;
 	private GLModel_RadarFragment m_RadarFragment;
 
     private GLModel_Rope m_Rope;
@@ -50,8 +50,6 @@ public class ModelManager
     private GLModel_StandardObject m_WeaponDrone;
     private GLModel_StandardObject m_ThreePointStar;
     private GLModel_PhasedObject m_Shield;
-
-    private GLModel_HollowObject m_Explosion;
 
     public ModelManager(Context context, RenderEffectSettings Settings)
 	{		
@@ -81,7 +79,7 @@ public class ModelManager
         m_PlasmaPulse = new GLModel_SolidObject(ReadFloatArrayFromResource(R.string.plasma_vertices));
 
         m_Screen = new GLScreenQuad();
-        m_Skybox = new GLSkybox();
+        m_HorizonRing = new GLModel_HorizonRing();
         m_RadarFragment = new GLModel_RadarFragment();
 
         m_Rope = new GLModel_Rope();
@@ -95,7 +93,6 @@ public class ModelManager
         m_Missile = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.missile_vertices));
         m_Carrier = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.carrier_vertices));
         m_Dummy = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.dummy_vertices));
-        m_Explosion = new GLModel_HollowObject(ReadFloatArrayFromResource(R.string.dome_vertices));
         m_WeaponDrone = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.weapondrone_vertices));
         m_ThreePointStar = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.three_point_star));
         m_Shield = new GLModel_PhasedObject(ReadFloatArrayFromResource(R.string.shield_vertices));
@@ -193,8 +190,6 @@ public class ModelManager
                 return m_ParticleLaser;
             case PlasmaPulse:
                 return m_PlasmaPulse;
-            case Skybox:
-                return m_Skybox;
             case RadarFragment:
                 return m_RadarFragment;
             case WeaponDrone:
@@ -221,15 +216,9 @@ public class ModelManager
 
     public void DrawSkyBox(Vector3 pos, Colour colour, final float[] projMatrix)
     {
-        GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_TextureHandles[1]);
-
-        m_Skybox.InitialiseModel(projMatrix, pos);
-
-        m_Skybox.SetColour(colour);
-        m_Skybox.draw(pos);
-
-        m_Skybox.CleanModel();
+        m_HorizonRing.InitialiseModel(projMatrix);
+        m_HorizonRing.Draw(pos, colour);
+        m_HorizonRing.CleanModel();
     }
 
 	public void DrawFBOGlowHoriz()
