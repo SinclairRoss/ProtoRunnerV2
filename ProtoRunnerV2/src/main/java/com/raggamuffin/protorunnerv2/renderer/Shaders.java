@@ -313,12 +313,19 @@ public class Shaders
             "precision lowp float;"
 
         +	"uniform vec4 u_Color;"
+        +   "uniform float u_InnerIntensity;"
 
         +	"varying vec3 v_Barycentric;"
 
         +	"void main()"
         +	"{"
-        +   "       gl_FragColor = u_Color * float(any(lessThan(v_Barycentric, vec3(0.06))));"
+        +   "       float outerMultiplier = float(any(lessThan(v_Barycentric, vec3(0.06))));"
+        +   "       float innerMultiplier = u_InnerIntensity * (1.0 - outerMultiplier);"
+
+        +   "       vec4 outerColor = u_Color * outerMultiplier;"
+        +   "       vec4 innerColor = u_Color * innerMultiplier;"
+
+        +   "       gl_FragColor = outerColor + innerColor;"
         +   "       gl_FragColor.w = u_Color.w;"
         +	"}";
 

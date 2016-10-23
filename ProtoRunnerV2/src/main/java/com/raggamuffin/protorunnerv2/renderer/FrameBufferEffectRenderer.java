@@ -35,7 +35,7 @@ public class FrameBufferEffectRenderer
         m_TextureSize[0] = new Point(packet.GetScreenSize());
         m_TextureSize[1] = new Point(256, 256);
         m_TextureSize[2] = new Point(256, 256);
-        m_TextureSize[3] = new Point(256, 256);
+        m_TextureSize[3] = new Point(512, 512);
 
         int numFBOs = FrameBufferName.values().length;
 
@@ -47,8 +47,8 @@ public class FrameBufferEffectRenderer
         {
             int i = name.ordinal();
 
-            CreateTexture(m_TextureHandles[i], m_TextureSize[i]);
             CreateDepthTexture(m_DepthBufferHandles[i], m_TextureSize[i]);
+            CreateTexture(m_TextureHandles[i], m_TextureSize[i]);
             CreateFrameBufferObject(m_FrameBufferHandles[i], m_TextureHandles[i], m_DepthBufferHandles[i]);
         }
     }

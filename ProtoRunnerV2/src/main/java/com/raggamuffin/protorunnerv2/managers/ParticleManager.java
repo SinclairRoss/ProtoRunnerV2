@@ -75,24 +75,27 @@ public class ParticleManager
 
 	public Particle_Standard CreateParticle(ParticleEmitter origin)
 	{
-		Particle_Standard newParticle;
-		
-		// Check to see if there are any particles ready to be recycled.
-		if(m_InvalidParticles.size() > 0)
+		Particle_Standard newParticle = null;
+
+		if(false)
 		{
-			newParticle = m_InvalidParticles.get(0);
-			m_InvalidParticles.remove(newParticle);	
-		}
-		else
-		{
-			newParticle = new Particle_Standard(m_Game, m_Gravitons);
+			// Check to see if there are any particles ready to be recycled.
+			if (m_InvalidParticles.size() > 0)
+			{
+				newParticle = m_InvalidParticles.get(0);
+				m_InvalidParticles.remove(newParticle);
+			}
+			else
+			{
+				newParticle = new Particle_Standard(m_Game, m_Gravitons);
+			}
+
+			newParticle.Activate(origin);
+			m_ActiveParticles.add(newParticle);
+
+			m_Game.AddParticleToRenderer(newParticle);
 		}
 
-		newParticle.Activate(origin);
-		m_ActiveParticles.add(newParticle);
-		
-		m_Game.AddParticleToRenderer(newParticle);
-		
 		return newParticle;
 	}
 

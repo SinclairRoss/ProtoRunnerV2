@@ -24,28 +24,16 @@ public class WeaponComponent_LaserPointer extends WeaponComponent
         {
             LaserPointer pointer = new LaserPointer(game, m_Anchor, barrel);
             m_LaserPointers.add(pointer);
-
-            m_Game.AddObjectToRenderer(pointer);
         }
     }
 
     @Override
     public void Destroy()
-    {
-        for(LaserPointer pointer : m_LaserPointers)
-        {
-            m_Game.RemoveGameObjectFromRenderer(pointer);
-        }
-    }
+    {}
 
     @Override
     public void Update(double deltaTime)
-    {
-        for(LaserPointer pointer : m_LaserPointers)
-        {
-            pointer.Update(deltaTime);
-        }
-    }
+    {}
 
     @Override
     public void OnActivation()

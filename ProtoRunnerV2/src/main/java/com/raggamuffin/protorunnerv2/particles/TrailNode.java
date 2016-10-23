@@ -13,6 +13,7 @@ public class TrailNode
     private Vector3 m_Position;
     private Timer m_LifeTimer;
 
+    private double m_MaxAlpha;
     private Colour m_Colour;
     private Colour m_HotColour;
     private Colour m_ColdColour;
@@ -26,6 +27,7 @@ public class TrailNode
         m_Position = new Vector3();
         m_LifeTimer = new Timer(0);
 
+        m_MaxAlpha = 0.6;
         m_Colour = new Colour(Colours.VioletRed);
         m_HotColour = new Colour(Colours.VioletRed);
         m_ColdColour = new Colour(Colours.PastelBlueDark);
@@ -80,7 +82,7 @@ public class TrailNode
             alpha = 1.0 - MathsHelper.Normalise(val, m_FadeInLength, 1);
         }
 
-        return alpha;
+        return alpha * m_MaxAlpha;
     }
 
     public void CleanUp()
@@ -118,9 +120,7 @@ public class TrailNode
 
     public boolean IsValid()
     {
-        if(m_LifeTimer.TimedOut())
-            return false;
+        return !m_LifeTimer.TimedOut();
 
-        return true;
     }
 }

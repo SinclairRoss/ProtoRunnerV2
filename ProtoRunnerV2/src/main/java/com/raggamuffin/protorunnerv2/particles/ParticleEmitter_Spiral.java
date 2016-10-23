@@ -34,17 +34,17 @@ public class ParticleEmitter_Spiral extends ParticleEmitter
 
     public void Update(double deltaTime)
     {
-        if(!m_On)
-            return;
-
-        m_Theta = MathsHelper.Wrap(m_Theta + (m_RotationRate * deltaTime), 0, Math.PI * 2);
-
-        m_DeltaEmission += deltaTime;
-
-        while(m_DeltaEmission >= m_MaxDeltaEmission)
+        if(m_On)
         {
-            m_DeltaEmission -= m_MaxDeltaEmission;
-            m_ParticleManager.CreateParticle(this);
+            m_Theta = MathsHelper.Wrap(m_Theta + (m_RotationRate * deltaTime), 0, Math.PI * 2);
+
+            m_DeltaEmission += deltaTime;
+
+            while (m_DeltaEmission >= m_MaxDeltaEmission)
+            {
+                m_DeltaEmission -= m_MaxDeltaEmission;
+                m_ParticleManager.CreateParticle(this);
+            }
         }
     }
 

@@ -50,7 +50,7 @@ public class Vehicle_ShieldBearer extends Vehicle
         SetAffiliation(AffiliationKey.RedTeam);
 
         NavigationalBehaviourInfo navInfo = new NavigationalBehaviourInfo(0.4, 1.0, 0.7, 0.6);
-        m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), navInfo, AIBehaviours.StickWithThePack, FireControlBehaviour.None, TargetingBehaviour.None);
+        m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), navInfo, AIBehaviours.StickWithThePack, FireControlBehaviour.None, TargetingBehaviour.Standard);
 
         m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.EnemyDestroyed);
 
@@ -86,7 +86,7 @@ public class Vehicle_ShieldBearer extends Vehicle
             Tentacle tentacle = new Tentacle(m_Game, this, controller, m_BaseColour, m_AltColour);
             m_Tentacles.add(tentacle);
 
-            game.GetGameObjectManager().AddObject(tentacle);
+            game.GetRopeManager().AddObject(tentacle);
         }
     }
 

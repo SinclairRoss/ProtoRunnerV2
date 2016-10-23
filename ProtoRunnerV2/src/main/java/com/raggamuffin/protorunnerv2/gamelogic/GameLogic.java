@@ -9,6 +9,8 @@ import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
 import com.raggamuffin.protorunnerv2.gameobjects.ExhibitionCameraAnchor;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.gameobjects.Tentacle;
+import com.raggamuffin.protorunnerv2.managers.GameManager_Test;
+import com.raggamuffin.protorunnerv2.managers.GameObjectManager;
 import com.raggamuffin.protorunnerv2.managers.RopeManager;
 import com.raggamuffin.protorunnerv2.managers.InGameSoundEffectsManager;
 import com.raggamuffin.protorunnerv2.particles.Particle;
@@ -51,6 +53,7 @@ public class GameLogic extends ApplicationLogic
 	private ParticleManager m_ParticleManager;
 	private BulletManager m_BulletManager;
 	private VehicleManager m_VehicleManager;
+    private GameObjectManager m_GameObjectManager;
     private RopeManager m_RopeManager;
 	private UIManager m_UIManager;
 	private RenderEffectManager m_RenderEffectManager;
@@ -59,10 +62,11 @@ public class GameLogic extends ApplicationLogic
     private InGameSoundEffectsManager m_SFXManager;
 
     private GameManager m_GameManager;
-    private GameManager_Play m_PlayManager;
-    private GameManager_Tutorial m_TutorialManager;
-    private GameManager_Exhibition m_ExhibitionManager;
-    private GooglePlayService m_GooglePlayService;
+    private final GameManager_Play m_PlayManager;
+    private final GameManager_Tutorial m_TutorialManager;
+    private final GameManager_Exhibition m_ExhibitionManager;
+    private final GameManager_Test m_TestManager;
+    private final GooglePlayService m_GooglePlayService;
 
     private GameMode m_GameMode;
 
@@ -81,6 +85,7 @@ public class GameLogic extends ApplicationLogic
 		m_ParticleManager = new ParticleManager(this);
 		m_BulletManager = new BulletManager(this);
 		m_VehicleManager = new VehicleManager(this);
+        m_GameObjectManager = new GameObjectManager(this);
         m_RopeManager = new RopeManager(this);
 		m_UIManager = new UIManager(this);
 		m_GameStats = new GameStats(this);
@@ -101,10 +106,12 @@ public class GameLogic extends ApplicationLogic
         m_PubSubHub.SubscribeToTopic(PublishedTopics.HighScorePressed, new LeaderBoardPressedSubscriber());
         m_PubSubHub.SubscribeToTopic(PublishedTopics.AchievementsPressed, new AchievementsPressedSubscriber());
         m_PubSubHub.SubscribeToTopic(PublishedTopics.HighTimePressed, new HighTimeLeaderBoardPressedSubscriber());
+        m_PubSubHub.SubscribeToTopic(PublishedTopics.StartTest, new StartTestSubscriber());
 
         m_PlayManager = new GameManager_Play(this);
         m_TutorialManager = new GameManager_Tutorial(this);
         m_ExhibitionManager = new GameManager_Exhibition(this);
+        m_TestManager = new GameManager_Test(this);
         m_GameManager = m_ExhibitionManager;
 
         SetGameMode(GameMode.Exhibition);
@@ -119,6 +126,7 @@ public class GameLogic extends ApplicationLogic
 		m_ParticleManager.Update(deltaTime);
 		m_BulletManager.Update(deltaTime);
 		m_VehicleManager.Update(deltaTime);
+        m_GameObjectManager.Update(deltaTime);
         m_RopeManager.Update(deltaTime);
 		m_RenderEffectManager.Update(deltaTime);
 		m_SecondWindHandler.Update(deltaTime);
@@ -171,6 +179,9 @@ public class GameLogic extends ApplicationLogic
             case Exhibition:
                 m_GameManager = m_ExhibitionManager;
                 break;
+            case Test:
+                m_GameManager = m_TestManager;
+                break;
         }
 
         m_GameMode = mode;
@@ -210,49 +221,13 @@ public class GameLogic extends ApplicationLogic
     // Adds a game object and all children of the game object to the renderer.
 	public void AddObjectToRenderer(GameObject obj)
 	{
-        ArrayList<GameObject> Children = new ArrayList<>(); 	// A vector containing Game Objects not yet added to the Children vector.
-		Children.add(obj);
-
-		for(int c = 0; c < Children.size(); c ++)
-		{
-			GameObject child = Children.get(c);
-
-            ArrayList<GameObject> Investigated = child.GetChildren();
-
-			for(GameObject Temp : Investigated)
-			{
-				Children.add(Temp);
-			}
-
-            m_Packet.AddObject(child);
-
-			Children.remove(c);
-			c--;
-		}
+        m_Packet.AddObject(obj);
 	}
 
 	// Removes a game object and all of its children from the renderer.
 	public void RemoveGameObjectFromRenderer(GameObject obj)
 	{
-		ArrayList<GameObject> children = new ArrayList<>(); 	// A vector containing Game Objects not yet added to the Children vector.
-        children.add(obj);
-
-		for(int c = 0; c < children.size(); c ++)
-		{
-			GameObject child = children.get(c);
-
-            ArrayList<GameObject> Investigated = child.GetChildren();
-
-			for(GameObject Temp : Investigated)
-			{
-                children.add(Temp);
-			}
-
-            m_Packet.RemoveObject(child);
-
-            children.remove(c);
-			c--;
-		}
+        m_Packet.RemoveObject(obj);
 	}
 
 	public void AddObjectToRenderer(UIElement element)
@@ -274,7 +249,12 @@ public class GameLogic extends ApplicationLogic
 	{
 		return m_VehicleManager;
 	}
-	
+
+    public GameObjectManager GetGameObjectManager()
+    {
+        return m_GameObjectManager;
+    }
+
 	public BulletManager GetBulletManager()
 	{
 		return m_BulletManager;
@@ -301,7 +281,7 @@ public class GameLogic extends ApplicationLogic
         m_Camera.SetUp(0,0,1);
 	}
 
-    public RopeManager GetGameObjectManager()
+    public RopeManager GetRopeManager()
     {
         return m_RopeManager;
     }
@@ -360,6 +340,7 @@ public class GameLogic extends ApplicationLogic
         {
             m_BulletManager.Wipe();
             m_VehicleManager.Wipe();
+            m_GameObjectManager.Wipe();
             m_GameStats.ResetStats();
 
             if(!m_DatabaseManager.HasTheTutorialBeenOffered())
@@ -371,6 +352,21 @@ public class GameLogic extends ApplicationLogic
                 SetGameMode(GameMode.Play);
                 m_SecondWindHandler.AutoSpawnOff();
             }
+        }
+    }
+
+    private class StartTestSubscriber extends Subscriber
+    {
+        @Override
+        public void Update(int args)
+        {
+            m_BulletManager.Wipe();
+            m_VehicleManager.Wipe();
+            m_GameStats.ResetStats();
+
+            SetGameMode(GameMode.Test);
+            m_SecondWindHandler.AutoSpawnOff();
+            m_UIManager.ShowScreen(UIScreens.TestMode);
         }
     }
 

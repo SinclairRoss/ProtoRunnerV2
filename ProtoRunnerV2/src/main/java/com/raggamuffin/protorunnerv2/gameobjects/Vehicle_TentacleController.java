@@ -39,8 +39,6 @@ public class Vehicle_TentacleController extends Vehicle
     {
         super(game, ModelType.Nothing);
 
-        RemoveAllChildren();
-
         m_Anchor = anchor;
         m_Position = new Vector3(m_Anchor.GetPosition());
         ANCHOR_ATTACK_RANGE = anchorAttackRange;
@@ -67,13 +65,14 @@ public class Vehicle_TentacleController extends Vehicle
 
         m_VehicleClass = VehicleClass.Drone;
 
-        m_Shield = new Shield(game);
-        AddChild(m_Shield);
+        m_Shield = new Shield(game, this);
+        AddObjectToGameObjectManager(m_Shield);
     }
 
     public void Update(double deltaTime)
     {
         m_AIController.Update(deltaTime);
+
         UpdateLatchBehaviour();
         ConfineTentacleWithinAttackRange();
 

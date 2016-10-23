@@ -43,7 +43,7 @@ public class Projectile_PlasmaShot extends Projectile
 
         UpdateVectorsWithForward(m_Forward);
 
-        AddChild(new FloorGrid(game, this));
+        AddObjectToGameObjectManager(new FloorGrid(game, this));
     }
 
     @Override

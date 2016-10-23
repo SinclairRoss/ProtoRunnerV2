@@ -5,8 +5,8 @@ import com.raggamuffin.protorunnerv2.utils.Vector4;
 
 public abstract class ColourBehaviour 
 {
-	public static enum ActivationMode {Continuous, Triggered, Random};
-	
+	public enum ActivationMode {Continuous, Triggered, Random}
+
 	private ActivationBehaviour m_ActivationBehaviour;
 	
 	protected GameObject m_Anchor;

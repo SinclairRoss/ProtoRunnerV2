@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.raggamuffin.protorunnerv2.gameobjects.BeeperBot;
+import com.raggamuffin.protorunnerv2.gameobjects.SpawnEffect;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Drone;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_LaserStar;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_ShieldBearer;
@@ -156,6 +157,9 @@ public class VehicleManager
         m_Vehicles.add(spawn);
         GetTeam(spawn.GetAffiliation()).add(spawn);
         m_Game.AddObjectToRenderer(spawn);
+
+		SpawnEffect effect = new SpawnEffect(m_Game, spawn.GetBaseColour(), spawn.GetPosition());
+        m_Game.GetGameObjectManager().AddObject(effect);
 
         return spawn;
     }

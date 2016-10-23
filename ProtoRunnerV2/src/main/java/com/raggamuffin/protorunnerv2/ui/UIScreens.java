@@ -12,5 +12,6 @@ public enum UIScreens
     Reboot,
     NewToGame,
     NotSignedIn,
-    Leaderboards
+    Leaderboards,
+	TestMode
 }

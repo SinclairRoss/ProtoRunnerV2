@@ -9,6 +9,7 @@ import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 import com.raggamuffin.protorunnerv2.weapons.Weapon;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_None;
+import com.raggamuffin.protorunnerv2.weapons.Weapon_PunkShot;
 
 public class WeaponTestBot extends Vehicle
 {
@@ -36,7 +37,7 @@ public class WeaponTestBot extends Vehicle
         m_Target = new Vector3(0, -1, 1);
         m_Target.Normalise();
 
-        Weapon tester = new Weapon_None(this, game);
+        Weapon tester = new Weapon_PunkShot(this, game);
         SelectWeapon(tester);
         tester.SetTargetVector(m_Forward);
 

@@ -90,10 +90,8 @@ public final class CollisionDetection
 		if(i < ElementPosition.I || i > (ElementPosition.I + ElementSize.I))
 			return false;
 
-		if(j < ElementPosition.J || j > (ElementPosition.J + ElementSize.J))
-			return false;
+		return !(j < ElementPosition.J || j > (ElementPosition.J + ElementSize.J));
 
-		return true;
 	}
 	
 	public static boolean RadarDetection(Vector3 radarFragmentPosition, Vector3 vehiclePosition, double fragmentBounds)
@@ -106,11 +104,9 @@ public final class CollisionDetection
 		
 		if(vehiclePosition.K < (radarFragmentPosition.K - fragmentBounds))
 			return false;
-		
-		if(vehiclePosition.K > (radarFragmentPosition.K + fragmentBounds))
-			return false;
-	
-		return true;
+
+		return vehiclePosition.K <= (radarFragmentPosition.K + fragmentBounds);
+
 	}
 }
 

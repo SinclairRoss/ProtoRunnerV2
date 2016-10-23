@@ -6,23 +6,28 @@ import com.raggamuffin.protorunnerv2.utils.Colour;
 
 public class BoundingRing extends GameObject
 {
-    public BoundingRing(GameLogic game, double radius, Colour colour)
+    public GameObject m_Anchor;
+
+    public BoundingRing(GameLogic game, GameObject anchor, double radius, Colour colour)
     {
         super(game, ModelType.Ring);
 
+        m_Anchor = anchor;
         m_Colour = colour;
         m_Scale.SetVector(radius);
     }
 
     @Override
     public void Update(double DeltaTime)
-    {
-        // Do nothing.
-    }
+    {}
 
     @Override
     public boolean IsValid()
     {
-        return true;
+        return m_Anchor.IsValid();
     }
+
+    @Override
+    public void CleanUp()
+    {}
 }

@@ -35,12 +35,8 @@ public abstract class Projectile extends GameObject
 	@Override
 	public boolean IsValid() 
 	{
-		if(IsForciblyInvalidated())
-        {
-            return false;
-        }
-		
-		return true;
+		return !IsForciblyInvalidated();
+
 	}
 
     public abstract CollisionReport CheckForCollision(GameObject object);

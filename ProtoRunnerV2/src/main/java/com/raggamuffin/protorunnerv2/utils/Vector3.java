@@ -202,11 +202,7 @@ public final class Vector3
 
     public static double DistanceBetween(Vector3 a, Vector3 b)
     {
-        double i = b.I - a.I;
-        double j = b.J - a.J;
-        double k = b.K - a.K;
-
-        return Math.sqrt(i*i + j*j + k*k);
+        return Math.sqrt(DistanceBetweenSqr(a, b));
     }
 
     public static double DistanceBetweenSqr(Vector3 a, Vector3 b)
@@ -281,11 +277,9 @@ public final class Vector3
 		
 		if(J != J)
 			return true;
-		
-		if(K != K)
-			return true;
-		
-		return false;
+
+		return K != K;
+
 	}
 	
 	public void Output(String tag)

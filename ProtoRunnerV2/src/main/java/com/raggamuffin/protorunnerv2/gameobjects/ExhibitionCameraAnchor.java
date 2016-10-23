@@ -19,4 +19,8 @@ public class ExhibitionCameraAnchor extends GameObject
 	{
 		return true;
 	}
+
+	@Override
+	public void CleanUp()
+	{}
 }

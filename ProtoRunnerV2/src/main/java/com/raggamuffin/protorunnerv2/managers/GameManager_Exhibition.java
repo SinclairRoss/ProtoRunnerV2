@@ -61,12 +61,12 @@ public class GameManager_Exhibition extends GameManager
 
             for(Vector3 pos : formation)
             {
-                 //  m_VehicleManager.SpawnVehicle(VehicleType.Tank, pos.I, pos.K, forward.Yaw());
+               m_VehicleManager.SpawnVehicle(VehicleType.Tank, pos.I, pos.K, forward.Yaw());
             }
 
             for(Vector3 pos : formation)
             {
-                   m_VehicleManager.SpawnVehicle(VehicleType.LaserStar, pos.I, pos.K, forward.Yaw());
+               m_VehicleManager.SpawnVehicle(VehicleType.LaserStar, pos.I, pos.K, forward.Yaw());
             }
         }
 

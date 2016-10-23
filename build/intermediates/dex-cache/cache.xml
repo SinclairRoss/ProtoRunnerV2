@@ -2,221 +2,283 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\8.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="fef2b3e4b6b1b0e5fe7b69fa137a5fa55a3182ab">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-9f281c62b57fed6b91e2b0e25ad0d610b3aca890.jar" />
-    </item>
-    <item
-        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\8.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="2d7fe76982677315c4dc4edfb459c8ca718a9d4c">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-c41485655d09faeb7dd5105295bdb8a84564583f.jar" />
-    </item>
-    <item
-        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\8.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="1c9f35e952b212c843f7bd2c7eec8e82ad95602e">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-dc34383a5f22ba66996bfcab6ac4a7b3bc89ae20.jar" />
-    </item>
-    <item
-        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\23.0.0\jars\libs\internal_impl-23.0.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="03d38bb042efe3e5ce27ba66b729a9523c36d8fe">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\internal_impl-23.0.0-d300cd45857085e4747bf1ae1e4833d063b067bb.jar" />
-    </item>
-    <item
-        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\8.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="e167a34eaca0b31704212f43f9576ea84e05046f">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-cdf3dc5b2bd124928eb5848de0d470511a439d3f.jar" />
-    </item>
-    <item
-        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\8.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="a8412b654dab86d57bf90683367488211c8a81f1">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-93c8709e01e5816c40f069294e0a5270ee57e177.jar" />
-    </item>
-    <item
-        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\23.0.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="d358b3dd49a7c67844622dcbc9cf4339e13952ce">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-829af0f53a1a70c407e6070984c827d4a2d61121.jar" />
-    </item>
-    <item
-        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\8.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="b5e7892fb0708e792e0e933c4c0a0ca0ac7831fb">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-96f75c3846c0ff8130a4a41d6a470e6c5a0a9bb0.jar" />
-    </item>
-    <item
-        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-identity\8.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="b82b8e847173c28efffcd291b2a0b1ae9ad17fa4">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-6ab55f5f5dbfcad1a9ae00677f5ab4ef1b1e5f0d.jar" />
-    </item>
-    <item
-        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.0\jars\libs\internal_impl-23.0.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="8bd336eeae661e8311330284897ee07f8ebaa297">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\internal_impl-23.0.0-04041d3126100cc82c0561c7c7282791d32a2f75.jar" />
-    </item>
-    <item
-        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\8.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="3a364cc6b698d1b3b2d284f64618daaa7fe77ddf">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-1403ae07248bd6429287296511aa519e1f7ca652.jar" />
-    </item>
-    <item
-        jar="C:\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.0.0\support-annotations-23.0.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="990e7f98a7bad86a40b1f0bcfeb039023afd0839">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\support-annotations-23.0.0-3f77e93e5ed0a0d7276beffe8309c2818d2dc483.jar" />
-    </item>
-    <item
-        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.0.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="4fcf0b1879f8caf497c073e1432d398e9e2988c1">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-8dc6c660c2f1ff82d5b885a35ab58d30b544aab3.jar" />
-    </item>
-    <item
-        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\8.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="1a78298e7724d5440d210bcb946b3493250d354d">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-c1c55362b4469159d82222aba808a996b6eafc4e.jar" />
-    </item>
-    <item
-        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\8.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="9fe026fb4c7fce21bc5142f6e1bdf844f28061ac">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-0ac29e74b97570055934290d650ce29282309578.jar" />
-    </item>
-    <item
-        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-vision\8.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="dfecc4d835cdabcdecf7e95f0d20a3ef1e9d8ef4">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-187778ffb18a516a7ac0f7766e638406a37d9246.jar" />
-    </item>
-    <item
+        is-multidex="true"
         jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\8.4.0\jars\classes.jar"
-        jumboMode="false"
+        jumboMode="true"
+        optimize="true"
         revision="22.0.1"
         sha1="f2df436a8f02ce7e4d7d209671fc45f97c470f0e">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-b7f93d58fa445ac98caf6d574eee370e48db6af6.jar" />
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-wallet-8.4.0_b7f93d58fa445ac98caf6d574eee370e48db6af6\classes.dex" />
     </item>
     <item
-        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\ProtoRunnerV2\BaseGameUtils\unspecified\jars\classes.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\8.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
         revision="22.0.1"
-        sha1="af56c40ba59dc619d8a4c7e6d3d27e0dc879a94a">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-4f7f35cb04a38145ba7f9001ff64af2587e08ab0.jar" />
+        sha1="2d7fe76982677315c4dc4edfb459c8ca718a9d4c">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-gcm-8.4.0_c41485655d09faeb7dd5105295bdb8a84564583f\classes.dex" />
     </item>
     <item
-        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\8.4.0\jars\classes.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\8.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
         revision="22.0.1"
-        sha1="08d34b2d135c1cc96ab506fd8bf6916d1e2f391a">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-13bdba2066f2b90d47f94a702503129dc66aef2f.jar" />
+        sha1="1c9f35e952b212c843f7bd2c7eec8e82ad95602e">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-analytics-8.4.0_dc34383a5f22ba66996bfcab6ac4a7b3bc89ae20\classes.dex" />
     </item>
     <item
-        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\8.4.0\jars\classes.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\8.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
         revision="22.0.1"
-        sha1="551e78f21acf69ebfb489c0e79647824c838013e">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-318b7c98fc1c517d409c15c41b3eaba60df7999e.jar" />
+        sha1="1a78298e7724d5440d210bcb946b3493250d354d">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-plus-8.4.0_c1c55362b4469159d82222aba808a996b6eafc4e\classes.dex" />
     </item>
     <item
-        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-auth\8.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="966e5771a5a2ebfb31bf00d7cd6cd2546d245517">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-46ef3321e16711f5e84a1d9aef3251fb306ffb5d.jar" />
-    </item>
-    <item
-        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-drive\8.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="b36f30ac5ee5d5214f4b1e2ac49f11889d58e71a">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-b12072a77fa30643b28b48d2de7c902e736c86e1.jar" />
-    </item>
-    <item
-        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="8413c27b45b7fe61dca4a98159f65e2cee215f5a">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-39d1610b0b7473ab86a64d552d5eaca4cb09f33e.jar" />
-    </item>
-    <item
-        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\8.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="9cad249cf62751a323d9af568caf12284b7d6062">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-a9a8d967a38b3610de0050370e9ad7b58200755b.jar" />
-    </item>
-    <item
-        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-fitness\8.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="c54246475c1bb64ac6857d1320364bfbfeda2c46">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-f2601d7a885024205fca5b1810d39c8d9965c191.jar" />
-    </item>
-    <item
+        is-multidex="true"
         jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\jars\classes.jar"
-        jumboMode="false"
+        jumboMode="true"
+        optimize="true"
         revision="22.0.1"
         sha1="613298b7aa012f121ce542881c0a599ebd8078f2">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-dc01e8129a8acdfc9793ce70457cf40e79dcb5ad.jar" />
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-measurement-8.4.0_dc01e8129a8acdfc9793ce70457cf40e79dcb5ad\classes.dex" />
     </item>
     <item
-        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-appstate\8.4.0\jars\classes.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\8.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
         revision="22.0.1"
-        sha1="62209cacb78ffe64f71ed8527fd08d8fbb9fd433">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-de52ae645a2460851a3b2b10d65eef46c6734f75.jar" />
+        sha1="3a364cc6b698d1b3b2d284f64618daaa7fe77ddf">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-games-8.4.0_1403ae07248bd6429287296511aa519e1f7ca652\classes.dex" />
     </item>
     <item
-        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\jars\classes.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\23.0.0\jars\libs\internal_impl-23.0.0.jar"
+        jumboMode="true"
+        optimize="true"
         revision="22.0.1"
-        sha1="8e673cdfadd8f2d98fdb2fda2285c30f6e449782">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-4d7f1abc82e71cfa24add7b7d325cea06c792c25.jar" />
+        sha1="03d38bb042efe3e5ce27ba66b729a9523c36d8fe">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.0.0_d300cd45857085e4747bf1ae1e4833d063b067bb\classes.dex" />
     </item>
     <item
-        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\8.4.0\jars\classes.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-drive\8.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
         revision="22.0.1"
-        sha1="04de44f90606c77f3b28cf44861f306290505aac">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-3bcd251da8d7fc5f7476b9dc6796950ffa6d29d2.jar" />
+        sha1="b36f30ac5ee5d5214f4b1e2ac49f11889d58e71a">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-drive-8.4.0_b12072a77fa30643b28b48d2de7c902e736c86e1\classes.dex" />
     </item>
     <item
+        is-multidex="true"
         jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-safetynet\8.4.0\jars\classes.jar"
-        jumboMode="false"
+        jumboMode="true"
+        optimize="true"
         revision="22.0.1"
         sha1="0194a7409c40de94fb539d4ad9928ec5d47afeb7">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-dee0557e3e5d09e63bc80f79dcacdef24949fb0b.jar" />
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-safetynet-8.4.0_dee0557e3e5d09e63bc80f79dcacdef24949fb0b\classes.dex" />
     </item>
     <item
+        is-multidex="true"
+        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="8413c27b45b7fe61dca4a98159f65e2cee215f5a">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.0.0_39d1610b0b7473ab86a64d552d5eaca4cb09f33e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\8.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="9cad249cf62751a323d9af568caf12284b7d6062">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-nearby-8.4.0_a9a8d967a38b3610de0050370e9ad7b58200755b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\8.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="551e78f21acf69ebfb489c0e79647824c838013e">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-cast-8.4.0_318b7c98fc1c517d409c15c41b3eaba60df7999e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\23.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="d358b3dd49a7c67844622dcbc9cf4339e13952ce">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-mediarouter-v7-23.0.0_829af0f53a1a70c407e6070984c827d4a2d61121\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\8.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="04de44f90606c77f3b28cf44861f306290505aac">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-maps-8.4.0_3bcd251da8d7fc5f7476b9dc6796950ffa6d29d2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.0.0\support-annotations-23.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="990e7f98a7bad86a40b1f0bcfeb039023afd0839">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.0.0_3f77e93e5ed0a0d7276beffe8309c2818d2dc483\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="8e673cdfadd8f2d98fdb2fda2285c30f6e449782">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-basement-8.4.0_4d7f1abc82e71cfa24add7b7d325cea06c792c25\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\8.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="9fe026fb4c7fce21bc5142f6e1bdf844f28061ac">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-appinvite-8.4.0_0ac29e74b97570055934290d650ce29282309578\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\8.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="e167a34eaca0b31704212f43f9576ea84e05046f">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-wearable-8.4.0_cdf3dc5b2bd124928eb5848de0d470511a439d3f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-identity\8.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="b82b8e847173c28efffcd291b2a0b1ae9ad17fa4">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-identity-8.4.0_6ab55f5f5dbfcad1a9ae00677f5ab4ef1b1e5f0d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="b2b6fe6892d4b8abaaec0dd9cc840fa80668f7ad">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_d2cb813805d570028fd79f17d31a32a25028da77\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="4fcf0b1879f8caf497c073e1432d398e9e2988c1">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.0.0_8dc6c660c2f1ff82d5b885a35ab58d30b544aab3\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\8.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="fef2b3e4b6b1b0e5fe7b69fa137a5fa55a3182ab">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-base-8.4.0_9f281c62b57fed6b91e2b0e25ad0d610b3aca890\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-fitness\8.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="c54246475c1bb64ac6857d1320364bfbfeda2c46">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-fitness-8.4.0_f2601d7a885024205fca5b1810d39c8d9965c191\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\8.4.0\jars\classes.jar"
-        jumboMode="false"
+        jumboMode="true"
+        optimize="true"
         revision="22.0.1"
         sha1="65d086ee9daaf87b5af62ad24471edafa433354c">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes-d1fbc966a4a875a075948f7c0e2fb8acf4c0fb30.jar" />
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-appindexing-8.4.0_d1fbc966a4a875a075948f7c0e2fb8acf4c0fb30\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.0\jars\libs\internal_impl-23.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="8bd336eeae661e8311330284897ee07f8ebaa297">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.0.0_04041d3126100cc82c0561c7c7282791d32a2f75\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\8.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="b5e7892fb0708e792e0e933c4c0a0ca0ac7831fb">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-ads-8.4.0_96f75c3846c0ff8130a4a41d6a470e6c5a0a9bb0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="5e546d3e042428a2c46543d8f2b3654cda8371ae">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_6a9e03b2f4c33a4647ab3b9bb941bc109600cd8e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\8.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="08d34b2d135c1cc96ab506fd8bf6916d1e2f391a">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-panorama-8.4.0_13bdba2066f2b90d47f94a702503129dc66aef2f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-auth\8.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="966e5771a5a2ebfb31bf00d7cd6cd2546d245517">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-auth-8.4.0_46ef3321e16711f5e84a1d9aef3251fb306ffb5d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-vision\8.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="dfecc4d835cdabcdecf7e95f0d20a3ef1e9d8ef4">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-vision-8.4.0_187778ffb18a516a7ac0f7766e638406a37d9246\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\8.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="a8412b654dab86d57bf90683367488211c8a81f1">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-location-8.4.0_93c8709e01e5816c40f069294e0a5270ee57e177\classes.dex" />
     </item>
 
 </items>

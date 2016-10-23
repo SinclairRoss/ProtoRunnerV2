@@ -20,6 +20,7 @@ public enum ModelType
     Trail,
     LaserPointer,
     PlasmaPulse,
+    SpawnPillar,
     ParticleLaser,
 
     PlasmaShot,

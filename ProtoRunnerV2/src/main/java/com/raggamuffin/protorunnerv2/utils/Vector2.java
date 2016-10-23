@@ -150,7 +150,7 @@ public class Vector2
 	
 	public double GetLength()
 	{
-		return (double)Math.sqrt((I * I) + (J * J));
+		return Math.sqrt((I * I) + (J * J));
 	}
 	
 	public void Output()

@@ -24,14 +24,13 @@ public class SecondWindHandler
 	private GameLogic m_Game;
 	private Vehicle_Runner m_Player;
 
-    public final double SECOND_WIND_DURATION = 5.0;
+    private final double SECOND_WIND_DURATION = 5.0;
 	private Timer m_SecondWindTimer;
 	
 	private Publisher m_GameOverPublisher;
 	
 	private Vector3 m_PlayerPosition;
 	private double m_PlayerOrientation;
-	private int m_HealthDivider;
 	
 	private WeaponSlot m_LastSelectedWeapon;
 
@@ -56,8 +55,6 @@ public class SecondWindHandler
 		m_PlayerPosition = new Vector3();
 		m_PlayerOrientation = 0.0;
 		
-		m_HealthDivider = 1;
-		
 		m_LastSelectedWeapon = WeaponSlot.Left;
 
         m_AutoRespawn = false;
@@ -68,13 +65,7 @@ public class SecondWindHandler
 		switch(m_SecondWindState)
 		{
 			case Idle:
-			{	
-				if(m_Player != null)
-				{
-					m_PlayerPosition.SetVector(m_Player.GetPosition());
-					m_PlayerOrientation = m_Player.GetYaw();
-				}
-
+			{
 				break;
 			}
 			case Active:
@@ -92,8 +83,6 @@ public class SecondWindHandler
                         m_GameOverPublisher.Publish();
                         m_SecondWindState = SecondWindState.Idle;
                     }
-
-					return;
 				}
 				
 				break;
@@ -106,6 +95,7 @@ public class SecondWindHandler
 				m_Player.SelectWeaponBySlot(m_LastSelectedWeapon);
 
                 m_Game.GetGameAudioManager().PlaySound(AudioClips.Respawn);
+
 				break;
 			}
 		}
@@ -115,7 +105,6 @@ public class SecondWindHandler
     {
         m_PlayerPosition.SetVector(0);
         m_PlayerOrientation = 0.0;
-        m_HealthDivider = 1;
     }
 	
 	private class PlayerSpawnedSubscriber extends Subscriber
@@ -127,8 +116,6 @@ public class SecondWindHandler
 			m_Player = m_Game.GetVehicleManager().GetPlayer();
 			m_Player.SetPosition(m_PlayerPosition);
 			m_Player.SetYaw(m_PlayerOrientation);
-			m_Player.SetHullPoints(m_Player.GetMaxHullPoints() / m_HealthDivider);
-			m_HealthDivider = 2;
 		}	
 	}
 	
@@ -137,8 +124,13 @@ public class SecondWindHandler
 		@Override
 		public void Update(int args) 
 		{
-			m_SecondWindState = SecondWindState.Active;
-			m_Player = null;
+            if(m_Player != null)
+            {
+                m_SecondWindState = SecondWindState.Active;
+                m_PlayerPosition.SetVector(m_Player.GetPosition());
+                m_PlayerOrientation = m_Player.GetYaw();
+                m_Player = null;
+            }
 		}	
 	}
 	

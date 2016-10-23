@@ -12,7 +12,7 @@ public class FlingListener
 	
 	public FlingListener(final float thresholdX, final float thresholdY)
 	{
-		m_Events = new ArrayList<FlingEvent>();
+		m_Events = new ArrayList<>();
 		
 		m_ThresholdX = thresholdX;
 		m_ThresholdY = thresholdY;

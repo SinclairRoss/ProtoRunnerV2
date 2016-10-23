@@ -166,29 +166,6 @@ public class Projectile_Laser extends Projectile
         m_Position.SetVector(m_FiringWeapon.GetPosition());
     }
 
-    /*
-    @Override
-    public boolean CollidesWith(GameObject other)
-    {
-       // return CollisionDetection.RayCastSphere(GetPosition(), GetForward(), m_LaserLength, other);
-        return false;
-    }
-
-    @Override
-    public void CollisionResponse(GameObject other)
-    {
-        Vector3 otherPos = other.GetPosition();
-        Vector3 pos = GetPosition();
-
-        double i = otherPos.I - pos.I;
-        double j = otherPos.J - pos.J;
-        double k = otherPos.K - pos.K;
-
-        m_LaserLength = Math.sqrt(i*i+j*j+k*k);
-    }
-
-*/
-
     @Override
     public double GetDamageOutput()
     {

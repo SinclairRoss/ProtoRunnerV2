@@ -51,7 +51,7 @@ public class Radar extends GameObject
 				fragment.SetScale(FRAGMENT_SCALE);
 				
 				m_RadarFragments.add(fragment);
-				AddChild(fragment);
+				AddObjectToGameObjectManager(fragment);
 			}
 		}
 	}
@@ -59,6 +59,8 @@ public class Radar extends GameObject
 	@Override
 	public void Update(double deltaTime)
 	{
+        m_Position.SetVector(m_Anchor.GetPosition());
+
 		super.Update(deltaTime);
 
         ResetRadar();
@@ -70,6 +72,8 @@ public class Radar extends GameObject
     {
         for(RadarFragment fragment : m_RadarFragments)
         {
+            fragment.GetPosition().I = m_Position.I;
+            fragment.GetPosition().K = m_Position.K;
             fragment.Reset();
         }
     }
@@ -112,21 +116,6 @@ public class Radar extends GameObject
         }
     }
 
-    @Override
-    protected void UpdateChildren(double deltaTime)
-    {
-        ArrayList<GameObject> children = GetChildren();
-
-        for(GameObject child : children)
-        {
-            Vector3 pos = child.GetPosition();
-            pos.I = m_Position.I;
-            pos.K = m_Position.K;
-
-            child.Update(deltaTime);
-        }
-    }
-
     private RadarSignatureType GetSignatureType(Vehicle vehicle)
 	{
         AffiliationKey signatureAffiliation = vehicle.GetAffiliation();
@@ -147,6 +136,15 @@ public class Radar extends GameObject
     @Override
     public boolean IsValid()
     {
-        return true;
+        return m_Anchor.IsValid();
+    }
+
+    @Override
+    public void CleanUp()
+    {
+        for(RadarFragment fragment : m_RadarFragments)
+        {
+            fragment.ForceInvalidation();
+        }
     }
 }

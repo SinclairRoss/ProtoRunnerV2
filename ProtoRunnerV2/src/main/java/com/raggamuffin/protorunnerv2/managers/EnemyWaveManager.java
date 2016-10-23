@@ -51,7 +51,7 @@ public class EnemyWaveManager
 
     public void Update(double deltaTime)
     {
-        m_SpawnTimer.Update(deltaTime);
+       m_SpawnTimer.Update(deltaTime);
 
         if(m_SpawnTimer.TimedOut())
         {
@@ -60,9 +60,20 @@ public class EnemyWaveManager
         }
     }
 
+    private void test()
+    {
+        m_VManager.SpawnVehicle(VehicleType.WeaponTestBot, 0, 0, 0);
+    }
+
     private void SpawnSquad()
     {
         Vector3 spawnForward = (m_VManager.GetPlayer() != null) ? m_VManager.GetPlayer().GetForward() : new Vector3(0,0,1);
+
+        if(MathsHelper.RandomBoolean())
+        {
+            spawnForward.Scale(-1);
+        }
+
         Vector3 position = SpawnHelper.FindRandomSpawnLocation(m_VManager.GetPlayerPosition(), spawnForward, 100);
         Vector3 forward = SpawnHelper.FindSpawnForward(position, m_VManager.GetPlayerPosition());
         ArrayList<Vector3> formation = FormationHelper.CreateWedgeFormation(position, forward, 7, 3, m_RegularsPerSquad);

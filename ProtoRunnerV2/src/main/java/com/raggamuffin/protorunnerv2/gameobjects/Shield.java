@@ -15,8 +15,9 @@ public class Shield extends GameObject
     private double m_NormalisedScale;
     private double m_GrowthRate;
     private Vehicle m_Target;
+    private GameObject m_Anchor;
 
-    public Shield(GameLogic game)
+    public Shield(GameLogic game, GameObject anchor)
     {
         super(game, ModelType.Shield);
         m_Scale.SetVector(0);
@@ -24,6 +25,7 @@ public class Shield extends GameObject
         m_TargetScale = 1.0;
         m_NormalisedScale = 0.0;
         m_GrowthRate = 0.0;
+        m_Anchor = anchor;
 
         m_Target = null;
     }
@@ -52,11 +54,13 @@ public class Shield extends GameObject
     @Override
     public void Update(double deltaTime)
     {
+        m_Position.SetVector(m_Anchor.GetPosition());
+
         m_NormalisedScale += m_GrowthRate * deltaTime;
         m_NormalisedScale = MathsHelper.Clamp(m_NormalisedScale, 0, 1);
 
         double horizontalScale = MathsHelper.Lerp(m_NormalisedScale, 0, m_TargetScale);
-        double verticalScale = horizontalScale * 0.5;
+        double verticalScale = horizontalScale;// * 0.5;
         m_Scale.SetVector(horizontalScale, verticalScale, horizontalScale);
 
         if(m_Target != null)
@@ -68,14 +72,12 @@ public class Shield extends GameObject
     @Override
     public boolean IsValid()
     {
-        return true;
+        return m_Anchor.IsValid();
     }
 
     @Override
     public void CleanUp()
     {
-        super.CleanUp();
-
         DetachFromObject();
     }
 }

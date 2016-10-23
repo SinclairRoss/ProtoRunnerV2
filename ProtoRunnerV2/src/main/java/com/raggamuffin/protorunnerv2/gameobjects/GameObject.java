@@ -7,6 +7,7 @@ import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
+import com.raggamuffin.protorunnerv2.managers.GameObjectManager;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colour;
@@ -45,11 +46,11 @@ public abstract class GameObject
 
 	///// Misc Attributes.
 	protected double m_BoundingRadius;	// The bounding radius of the game object. Used in collision detection.	
-	private ModelType m_Model;				// What model the gameobject is using to render.
-	private ArrayList<GameObject> m_Children;	// Other game object that depend on this object. for example reticules and Floor effects.
+	protected ModelType m_Model;				// What model the gameobject is using to render.
 	private AffiliationKey m_Faction;
 	protected PubSubHub m_PubSubHub;
 	protected GameAudioManager m_GameAudioManager;
+	private final GameObjectManager m_GameObjectManager;
 	
 	protected boolean m_ForciblyInvalidated;
 
@@ -84,13 +85,13 @@ public abstract class GameObject
 
         ///// Misc Attributes.
 		m_BoundingRadius = 1.0;
-		m_Children = new ArrayList<>();
 
 		SetAffiliation(AffiliationKey.Neutral);
 
 		m_Model = modelType;
 		m_PubSubHub = game.GetPubSubHub();
 		m_GameAudioManager = game.GetGameAudioManager();
+		m_GameObjectManager = game.GetGameObjectManager();
 		
 		m_ForciblyInvalidated = false;
 	}
@@ -102,18 +103,8 @@ public abstract class GameObject
         ApplyDrag();
 		UpdatePosition(deltaTime);
         UpdateColours(deltaTime);
-		UpdateChildren(deltaTime);
 		
 		CleanUpForces();
-	}
-
-	protected void UpdateChildren(double deltaTime)
-	{
-		for (GameObject child : m_Children)
-		{
-			child.SetPosition(m_Position);
-			child.Update(deltaTime);
-		}
 	}
 
     protected void CalculateAcceleration(double deltaTime)
@@ -186,7 +177,7 @@ public abstract class GameObject
         m_Colour.Add(m_DeltaColour);
     }
 
-    public void AddColourBehaviour(ColourBehaviour behaviour)
+    protected void AddColourBehaviour(ColourBehaviour behaviour)
     {
         m_ColourBehaviours.add(behaviour);
 	}
@@ -196,7 +187,7 @@ public abstract class GameObject
         m_ColourBehaviours.remove(behaviour);
     }
 
-	protected void CleanUpForces()
+	private void CleanUpForces()
 	{
 		m_Force.SetVector(0.0f);
 	}
@@ -317,6 +308,11 @@ public abstract class GameObject
 		m_Colour.SetColour(m_BaseColour);
 	}
 
+	public void SetColourByReference(Colour colour)
+	{
+		m_Colour = colour;
+	}
+
 	public void SetBaseColour(Colour colour)
     {
         SetBaseColour(colour.ToDoubleArray());
@@ -340,26 +336,11 @@ public abstract class GameObject
 	{
 		return m_BoundingRadius;
 	}
-	
-	public ArrayList<GameObject> GetChildren()
-	{
-		return m_Children;
-	}
-	
-	public void AddChild(GameObject obj)
-	{
-		m_Children.add(obj);
-	}
 
-    public void RemoveAllChildren()
-    {
-        for(GameObject child : m_Children)
-        {
-            child.CleanUp();
-        }
-
-        m_Children.clear();
-    }
+	public void AddObjectToGameObjectManager(GameObject obj)
+	{
+		m_GameObjectManager.AddObject(obj);
+	}
 
 	public void SetAffiliation(AffiliationKey faction)
 	{
@@ -396,11 +377,10 @@ public abstract class GameObject
 		m_DragCoefficient = drag;
 	}
 
-    public void CleanUp()
-    {
-        for(GameObject child : m_Children)
-        {
-            child.CleanUp();
-        }
-    }
+	public double CalculateStress()
+	{
+		return 0.0;
+	}
+
+    public abstract void CleanUp();
 }

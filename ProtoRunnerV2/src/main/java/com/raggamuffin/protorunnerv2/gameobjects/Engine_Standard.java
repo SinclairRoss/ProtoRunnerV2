@@ -9,6 +9,6 @@ public class Engine_Standard extends Engine
     {
         super(game, anchor);
 
-        m_Anchor.AddChild(new TrailEmitter(game, m_Anchor));
+        m_Anchor.AddObjectToGameObjectManager(new TrailEmitter(game, m_Anchor));
     }
 }

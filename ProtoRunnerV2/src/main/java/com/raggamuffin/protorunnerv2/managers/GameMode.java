@@ -4,5 +4,6 @@ public enum GameMode
 {
     Play,
     Tutorial,
-    Exhibition
+    Exhibition,
+    Test
 }

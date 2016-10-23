@@ -3,13 +3,10 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.particles.TrailEmitter;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
-import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class CyclingEngineAttachment extends GameObject
 {
-    private GameLogic m_Game;
-
     GameObject m_Anchor;
     private double m_OrbitRange;
     private double m_Offset;
@@ -24,8 +21,6 @@ public class CyclingEngineAttachment extends GameObject
     {
         super(game, ModelType.EngineDrone);
 
-        m_Game = game;
-
         m_BaseColour = anchor.GetBaseColour();
         m_AltColour = anchor.GetAltColour();
         m_Colour = anchor.GetColour();
@@ -39,7 +34,7 @@ public class CyclingEngineAttachment extends GameObject
         m_OrbitRate = Math.toRadians(270.0);
 
         m_TrailEmitter = new TrailEmitter(game, this);
-        AddChild(m_TrailEmitter);
+        AddObjectToGameObjectManager(m_TrailEmitter);
 
         m_TempVector = new Vector3();
     }
@@ -47,10 +42,11 @@ public class CyclingEngineAttachment extends GameObject
     @Override
     public void Update(double deltaTime)
     {
+        m_Position.SetVector(m_Anchor.GetPosition());
+
         m_OrbitCounter += (deltaTime * m_OrbitRate);
 
-        if(m_OrbitCounter > Math.PI * 2)
-            m_OrbitCounter -= Math.PI * 2;
+        m_OrbitCounter %= Math.PI * 2;
 
         m_TempVector.SetVector(m_OrbitRange, 0.0, 0.0);
         m_TempVector.RotateZ(m_OrbitCounter + m_Offset);
@@ -70,8 +66,18 @@ public class CyclingEngineAttachment extends GameObject
     }
 
     @Override
+    public double CalculateStress()
+    {
+        return m_Anchor.CalculateStress();
+    }
+
+    @Override
     public boolean IsValid()
     {
-        return false;
+        return m_Anchor.IsValid();
     }
+
+    @Override
+    public void CleanUp()
+    {}
 }

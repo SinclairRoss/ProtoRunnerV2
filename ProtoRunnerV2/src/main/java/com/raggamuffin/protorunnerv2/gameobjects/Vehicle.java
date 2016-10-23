@@ -41,7 +41,6 @@ public abstract class Vehicle extends GameObject
 	
 	///// Colour Attributes
 	protected ColourBehaviour m_AmbientBehaviour;
-	protected ColourBehaviour m_DamageBehaviour;
 	protected ColourBehaviour_LerpTo m_StressBehaviour;
 	
 	// Particle Emitters.
@@ -57,9 +56,9 @@ public abstract class Vehicle extends GameObject
 
 	protected StatusEffectManager m_StatusEffectManager;
 
-	public Vehicle(GameLogic game, ModelType modeType)
+	public Vehicle(GameLogic game, ModelType modelType)
 	{
-		super(game, modeType);
+		super(game, modelType);
 
         m_InternalPubSub = new InternalPubSubHub();
         m_InternalDamagedPublisher = m_InternalPubSub.CreatePublisher(InternalTopics.DamageTaken);
@@ -76,14 +75,14 @@ public abstract class Vehicle extends GameObject
 
 		m_AmbientBehaviour = new ColourBehaviour_Pulse(this, ColourBehaviour.ActivationMode.Continuous);	
 		AddColourBehaviour(m_AmbientBehaviour);
-		
-		m_DamageBehaviour = new ColourBehaviour_Flicker(this, ColourBehaviour.ActivationMode.Triggered);
-		AddColourBehaviour(m_DamageBehaviour);
 
 		m_StressBehaviour = new ColourBehaviour_LerpTo(this, ColourBehaviour.ActivationMode.Continuous);
         AddColourBehaviour(m_StressBehaviour);
 
-		AddChild(new FloorGrid(game, this));
+        if(modelType != ModelType.Nothing)
+        {
+            AddObjectToGameObjectManager(new FloorGrid(game, this));
+        }
 		
 		m_LasersOn = false;
 		
@@ -114,7 +113,7 @@ public abstract class Vehicle extends GameObject
 		
 		m_DamageDecayCounter.Update(deltaTime);
 		
-		m_StressBehaviour.SetIntensity(m_Engine.GetExertion() + m_DamageDecayCounter.GetValue());
+		m_StressBehaviour.SetIntensity(m_Engine.GetExertion());
 
 		super.Update(deltaTime);
 	}
@@ -151,7 +150,6 @@ public abstract class Vehicle extends GameObject
 			m_InternalDamagedPublisher.Publish();
 		}
 
-        m_DamageBehaviour.TriggerBehaviour();
         UpdateDamageDecayCounter();
 	}
 
@@ -241,7 +239,10 @@ public abstract class Vehicle extends GameObject
 	
 	protected void SendDeathMessage()
 	{
-		m_OnDeathPublisher.Publish(m_MaxHullPoints);
+        if(m_OnDeathPublisher != null)
+        {
+            m_OnDeathPublisher.Publish(m_MaxHullPoints);
+        }
 	}
 	
 	@Override
@@ -249,18 +250,11 @@ public abstract class Vehicle extends GameObject
 	{
 		if(IsForciblyInvalidated())
 		{
-            m_BurstEmitter.Burst();
-            m_PrimaryWeapon.CeaseFire();
-
 			return false;
 		}
 		
 		if(m_HullPoints <= 0)
 		{
-			SendDeathMessage();
-			m_BurstEmitter.Burst();
-            m_PrimaryWeapon.CeaseFire();
-
 			return false;
 		}
 
@@ -341,4 +335,19 @@ public abstract class Vehicle extends GameObject
     {
         return m_StatusEffectManager.HasStatusEffect(effect);
     }
+
+    @Override
+	public double CalculateStress()
+	{
+        return m_DamageDecayCounter.GetValue();
+	}
+
+	@Override
+	public void CleanUp()
+	{
+		SendDeathMessage();
+		m_BurstEmitter.Burst();
+		m_PrimaryWeapon.CeaseFire();
+
+	}
 }

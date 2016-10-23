@@ -23,13 +23,17 @@ public class FloorGrid extends GameObject
 	@Override
 	public void Update(double deltaTime)
 	{
-		m_Position.J = DEPTH;
+        m_Position.SetVector(m_Anchor.GetPosition());
+        m_Position.J = DEPTH;
 	}
 
 	@Override
 	public boolean IsValid() 
 	{
-		// Upon Anchor invalidation this class will be removed.
-		return true;
+		return m_Anchor.IsValid();
 	}
+
+	@Override
+	public void CleanUp()
+	{}
 }

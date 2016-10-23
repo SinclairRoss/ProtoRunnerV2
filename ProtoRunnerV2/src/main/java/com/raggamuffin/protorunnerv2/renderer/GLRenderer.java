@@ -12,6 +12,7 @@ import com.raggamuffin.protorunnerv2.master.RendererPacket;
 import com.raggamuffin.protorunnerv2.particles.TrailNode;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
 import com.raggamuffin.protorunnerv2.ui.UIElementType;
+import com.raggamuffin.protorunnerv2.utils.FrameRateCounter;
 
 import android.content.Context;
 
@@ -46,16 +47,8 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
     private RenderEffectSettings m_RenderEffectSettings;
 
-    // FBO
-    private final int m_NumFBOs = 4;
-    private int m_Textures[];
-    private int m_Depth[];
-    private Point m_Size[];
-    private int m_FrameBuffers[];
-
-    private int counter = 0;
-    private final int maxCount = 100;
-    private Long totalTime = 0L;
+    private FrameRateCounter m_RenderDurationCounter;
+    private FrameRateCounter m_DeltaRender;
 
 	public GLRenderer(RendererPacket packet)
 	{
@@ -74,6 +67,9 @@ public class GLRenderer implements GLSurfaceView.Renderer
         m_RopeRenderer = new RopeRenderer();
         m_BulletRenderer = new BulletRenderer();
         m_ParticleRenderer = new ParticleRenderer();
+
+        m_RenderDurationCounter = new FrameRateCounter();
+        m_DeltaRender = new FrameRateCounter();
 	}
 
 	@Override
@@ -101,59 +97,12 @@ public class GLRenderer implements GLSurfaceView.Renderer
         m_UIManager.LoadAssets();
         m_ParticleRenderer.LoadAssets();
         m_BulletRenderer.LoadAssets();
-
-        // FBO
-        m_Size = new Point[m_NumFBOs];
-        m_Size[0] = m_Packet.GetScreenSize();   // Final Image.
-        m_Size[1] = new Point(256,256);         // Glow Vertical.
-        m_Size[2] = new Point(256,256);         // Glow Horizontal.
-        m_Size[3] = new Point(256,256);         // Film Grain.
-
-        m_Textures 	= new int[m_NumFBOs];
-        GLES20.glGenTextures(m_NumFBOs, m_Textures, 0);
-
-        for(int i = 0; i < m_NumFBOs; i ++)
-        {
-	        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_Textures[i]);
-	        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
-	        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
-	        GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE);
-	        GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE);
-	        GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_RGBA, m_Size[i].x, m_Size[i].y, 0, GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, null);
-        }
-
-        m_Depth = new int[m_NumFBOs];
-        GLES20.glGenTextures(m_NumFBOs, m_Depth, 0);
-
-        for(int i = 0; i < m_NumFBOs; i ++)
-        {
-	        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_Depth[i]);
-	        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
-	        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
-	        GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE);
-	        GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE);
-	        GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_DEPTH_COMPONENT, m_Size[i].x, m_Size[i].y, 0, GLES20.GL_DEPTH_COMPONENT, GLES20.GL_UNSIGNED_SHORT, null);
-        }
-
-        m_FrameBuffers = new int[m_NumFBOs];
-        GLES20.glGenFramebuffers(m_NumFBOs, m_FrameBuffers, 0);
-
-        for(int i = 0; i < m_NumFBOs; i ++)
-        {
-        	GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, m_FrameBuffers[i]);
-        	GLES20.glFramebufferTexture2D(GLES20.GL_FRAMEBUFFER, GLES20.GL_COLOR_ATTACHMENT0, GLES20.GL_TEXTURE_2D, m_Textures[i], 0);
-        	GLES20.glFramebufferTexture2D(GLES20.GL_FRAMEBUFFER, GLES20.GL_DEPTH_ATTACHMENT,  GLES20.GL_TEXTURE_2D, m_Depth[i], 0);
-
-        	int status = GLES20.glCheckFramebufferStatus(GLES20.GL_FRAMEBUFFER);
-        	if (status != GLES20.GL_FRAMEBUFFER_COMPLETE)
-        		Log.e(TAG,"Error on FrameBuffer " + i);
-        }
     }
 
 	@Override
 	public void onDrawFrame(GL10 unused)
 	{
-        Long start = System.currentTimeMillis();
+        m_RenderDurationCounter.StartFrame();
 
         m_FrameBufferRenderer.BindFrameBuffer(FrameBufferName.RawRender);
 
@@ -205,18 +154,12 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
         m_ModelManager.DrawFBOFinal();
 
-        Long end = System.currentTimeMillis();
+        m_RenderDurationCounter.EndFrame();
+        m_RenderDurationCounter.LogFrameDuration("Renderer", 16L);
 
-        totalTime += end - start;
-        counter++;
-
-        if(counter >= maxCount)
-        {
-            Log.e("testy test", "Time: " + totalTime / counter);
-
-            totalTime = 0L;
-            counter = 0;
-        }
+        m_DeltaRender.EndFrame();
+        m_DeltaRender.LogFrameDuration("Delta", 30L);
+        m_DeltaRender.StartFrame();
 	}
 
 	@Override

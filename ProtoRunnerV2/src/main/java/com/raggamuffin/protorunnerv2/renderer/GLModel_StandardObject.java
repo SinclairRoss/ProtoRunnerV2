@@ -27,6 +27,7 @@ public class GLModel_StandardObject  extends GLModel
     private int m_RollHandle;
     private int m_ScaleHandle;
     private int m_ColourHandle;
+    private int m_InnerIntensityHandle;
     private int m_VertexHandle;
     private int m_BarycentricHandle;
 
@@ -69,6 +70,7 @@ public class GLModel_StandardObject  extends GLModel
         m_PositionHandle    = 0;
 
         m_ColourHandle		= 0;
+        m_InnerIntensityHandle = 0;
         m_VertexHandle	    = 0;
         m_BarycentricHandle = 0;
 
@@ -107,10 +109,12 @@ public class GLModel_StandardObject  extends GLModel
         GLES20.glUniform1f(m_RollHandle, (float) obj.GetRoll());
 
         Vector3 scale = obj.GetScale();
-        GLES20.glUniform3f(m_ScaleHandle, (float)scale.I, (float)scale.J, (float)scale.K);
+        GLES20.glUniform3f(m_ScaleHandle, (float) scale.I, (float) scale.J, (float) scale.K);
 
         Colour colour = obj.GetColour();
         GLES20.glUniform4f(m_ColourHandle, (float) colour.Red, (float) colour.Green, (float) colour.Blue, (float) colour.Alpha);
+
+        GLES20.glUniform1f(m_InnerIntensityHandle, (float)obj.CalculateStress());
 
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, m_NumVertices);
     }
@@ -142,6 +146,7 @@ public class GLModel_StandardObject  extends GLModel
         m_RollHandle       = GLES20.glGetUniformLocation(m_Program, "u_Roll");
         m_ScaleHandle      = GLES20.glGetUniformLocation(m_Program, "u_Scale");
         m_ColourHandle 	   = GLES20.glGetUniformLocation(m_Program, "u_Color");
+        m_InnerIntensityHandle = GLES20.glGetUniformLocation(m_Program, "u_InnerIntensity");
 
         m_VertexHandle      = GLES20.glGetAttribLocation(m_Program, "a_Vertices");
         m_BarycentricHandle = GLES20.glGetAttribLocation(m_Program, "a_Barycentric");

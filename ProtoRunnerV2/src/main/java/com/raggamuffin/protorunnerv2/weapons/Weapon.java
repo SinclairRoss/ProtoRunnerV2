@@ -117,14 +117,10 @@ public abstract class Weapon
     }
 
     public void WeaponUnequipped()
-    {
-
-    }
+    {}
 
     public void WeaponEquipped()
-    {
-
-    }
+    {}
 
     public Vector3 GetFirePosition()
     {
@@ -196,7 +192,6 @@ public abstract class Weapon
             }
         }
 
-        weaponComponent.Activate();
         return weaponComponent;
     }
 
@@ -250,20 +245,11 @@ public abstract class Weapon
 		return m_Target;
 	}
 
-    public Vector3 GetUp()
-    {
-        return m_Anchor.GetUp();
-    }
-
 	public Vector3 GetPosition()
 	{
 		return m_Anchor.GetPosition();
 	}
 
-	public double GetAccuracy()
-	{
-		return m_Accuracy;
-	}
 
 	public AffiliationKey GetAffiliation()
 	{
@@ -272,7 +258,7 @@ public abstract class Weapon
 
 	public void AddChild(GameObject obj)
 	{
-		m_Anchor.AddChild(obj);
+		m_Anchor.AddObjectToGameObjectManager(obj);
 	}
 	
 	public double GetOrientation()

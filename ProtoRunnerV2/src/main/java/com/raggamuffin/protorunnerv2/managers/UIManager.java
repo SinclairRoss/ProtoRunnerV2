@@ -20,6 +20,7 @@ import com.raggamuffin.protorunnerv2.ui.UIScreen_NotSignedIn;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_Play;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_Reboot;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_Splash;
+import com.raggamuffin.protorunnerv2.ui.UIScreen_TestMode;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_Tutorial;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
 import com.raggamuffin.protorunnerv2.ui.UILabel;
@@ -49,6 +50,7 @@ public class UIManager
     private UIScreen_NewToGame m_NewToGameScreen;
     private UIScreen_NotSignedIn m_NotSignedInScreen;
     private UIScreen_HighScore m_HighScoreScreen;
+	private UIScreen_TestMode m_TestModeScreen;
 
 	public UIManager(GameLogic Game)
 	{
@@ -76,7 +78,8 @@ public class UIManager
         m_RebootScreen       = new UIScreen_Reboot(m_Game, this);
         m_NewToGameScreen    = new UIScreen_NewToGame(m_Game, this);
         m_NotSignedInScreen  = new UIScreen_NotSignedIn(m_Game, this);
-        m_HighScoreScreen = new UIScreen_HighScore(m_Game, this);
+        m_HighScoreScreen    = new UIScreen_HighScore(m_Game, this);
+        m_TestModeScreen     = new UIScreen_TestMode(m_Game, this);
 
 		ShowScreen(UIScreens.Splash);
 		
@@ -117,6 +120,8 @@ public class UIManager
                 return m_NotSignedInScreen;
             case Leaderboards:
                 return m_HighScoreScreen;
+            case TestMode:
+                return m_TestModeScreen;
             default:
                 return null;
         }
@@ -125,7 +130,9 @@ public class UIManager
 	public void ShowScreen(UIScreens screen)
 	{
 		if(m_Screen != null)
-			m_Screen.Remove();
+        {
+            m_Screen.Remove();
+        }
 
 		m_Screen = GetScreen(screen);
 		m_Screen.Create();
@@ -142,7 +149,9 @@ public class UIManager
 		m_UIElements.add(Element);
 		
 		if(visible)
-			Element.Show();
+        {
+            Element.Show();
+        }
 	}
 	
 	public void RemoveUIElement(UIElement Element)

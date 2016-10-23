@@ -177,7 +177,7 @@ public class NavigationControl
     }
 
     public void Deactivate()
-    {
+	{
         m_NavigationActive = false;
     }
 }

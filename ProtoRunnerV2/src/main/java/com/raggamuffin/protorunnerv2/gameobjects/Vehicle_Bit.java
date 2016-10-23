@@ -26,8 +26,8 @@ public class Vehicle_Bit extends Vehicle
 
 		m_Mass = 100;
         m_Engine = new Engine_Standard(this, game);
-		m_Engine.SetMaxTurnRate(1.5);
-		m_Engine.SetMaxEngineOutput(10000);
+		m_Engine.SetMaxTurnRate(1.5); //1.5
+		m_Engine.SetMaxEngineOutput(10000); //10000
         m_Engine.SetDodgeOutput(50000);
         m_BoundingRadius = 2;
 
@@ -36,7 +36,7 @@ public class Vehicle_Bit extends Vehicle
 		SelectWeapon(new Weapon_PunkShot(this, game));
 
 		NavigationalBehaviourInfo navInfo = new NavigationalBehaviourInfo(0.4, 1.0, 0.7, 0.6);
-		m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), navInfo, AIBehaviours.EngageTarget, FireControlBehaviour.Standard, TargetingBehaviour.Standard);
+		m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), navInfo, AIBehaviours.EngageTarget, FireControlBehaviour.Telegraphed, TargetingBehaviour.Standard);
 
 		m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.EnemyDestroyed);
 	}

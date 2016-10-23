@@ -91,7 +91,7 @@ public class GameActivity extends Activity implements SensorEventListener
 
         PubSubHub pubSub = new PubSubHub();
 		m_ControlScheme = new ControlScheme(this, pubSub);
-		m_FlingListener = new FlingListener(2000.0f, 2000.0f);
+		m_FlingListener = new FlingListener(1000.0f, 1000.0f);
 		
 		// Game states.
 		m_GameLogic = new GameLogic(this, pubSub, m_ControlScheme, rendererPacket);

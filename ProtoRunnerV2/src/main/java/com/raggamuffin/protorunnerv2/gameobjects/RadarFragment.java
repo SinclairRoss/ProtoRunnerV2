@@ -141,8 +141,12 @@ public class RadarFragment extends GameObject
     @Override
     public boolean IsValid()
     {
-        return true;
+        return !m_ForciblyInvalidated;
     }
+
+    @Override
+    public void CleanUp()
+    {}
 
     public void Reset()
     {

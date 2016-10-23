@@ -4,6 +4,7 @@ public enum PublishedTopics
 {
 	SwitchScreen,
 	StartGame,
+    StartTest,
     StartTutorial,
     NextTutorialButtonPressed,
     TutorialComplete,

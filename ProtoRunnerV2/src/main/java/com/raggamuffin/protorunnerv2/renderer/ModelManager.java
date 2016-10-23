@@ -33,10 +33,9 @@ public class ModelManager
 	private GLModel_HorizonRing m_HorizonRing;
 	private GLModel_RadarFragment m_RadarFragment;
 
-    private GLModel_Rope m_Rope;
-
     private GLModel_SolidObject m_ParticleLaser;
     private GLModel_SolidObject m_PlasmaPulse;
+    private GLModel_SolidObject m_SpawnPillar;
 
     private GLModel_StandardObject m_Runner;
     private GLModel_StandardObject m_Bit;
@@ -77,12 +76,11 @@ public class ModelManager
         m_Pointer = new GLLine(2.0f);
         m_ParticleLaser = new GLModel_SolidObject(ReadFloatArrayFromResource(R.string.laser_vertices));
         m_PlasmaPulse = new GLModel_SolidObject(ReadFloatArrayFromResource(R.string.plasma_vertices));
+        m_SpawnPillar = new GLModel_SolidObject(ReadFloatArrayFromResource(R.string.spawn_pillar));
 
         m_Screen = new GLScreenQuad();
         m_HorizonRing = new GLModel_HorizonRing();
         m_RadarFragment = new GLModel_RadarFragment();
-
-        m_Rope = new GLModel_Rope();
 
         m_Runner = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.runner_vertices));
         m_Bit = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.bit_vertices));
@@ -190,6 +188,8 @@ public class ModelManager
                 return m_ParticleLaser;
             case PlasmaPulse:
                 return m_PlasmaPulse;
+            case SpawnPillar:
+                return m_SpawnPillar;
             case RadarFragment:
                 return m_RadarFragment;
             case WeaponDrone:

@@ -131,6 +131,6 @@ public class Vector4
 	
 	public double GetLength()
 	{
-		return (double)Math.sqrt((I * I) + (J * J) + (K * K) + (W * W));
+		return Math.sqrt((I * I) + (J * J) + (K * K) + (W * W));
 	}
 }

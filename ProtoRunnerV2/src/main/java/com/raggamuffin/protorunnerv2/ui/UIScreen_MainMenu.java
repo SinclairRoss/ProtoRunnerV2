@@ -21,6 +21,7 @@ public class UIScreen_MainMenu extends UIScreen
     private UIButton m_Achievements;
     private UIButton m_Tutorial;
     private UIButton m_Credits;
+    private UIButton m_TestMode;
 
     private UIButton m_SignIn;
     private UIButton m_SignOut;
@@ -34,6 +35,7 @@ public class UIScreen_MainMenu extends UIScreen
         m_LeaderBoards = null;
         m_Achievements = null;
 		m_Credits   = null;
+        m_TestMode = null;
         m_Tutorial  = null;
 
         m_SignIn = null;
@@ -54,6 +56,7 @@ public class UIScreen_MainMenu extends UIScreen
         m_Achievements  = CreateButton(context.getString(R.string.button_achievements), PublishedTopics.AchievementsPressed, AudioClips.UI_Positive);
         m_Tutorial      = CreateButton(context.getString(R.string.button_tutorial), PublishedTopics.StartTutorial, AudioClips.UI_Play);
         m_Credits	    = CreateButton(context.getString(R.string.credits_screen_title), UIScreens.Credits, AudioClips.UI_Positive);
+        m_TestMode      = CreateButton("Test_Mode", PublishedTopics.StartTest, AudioClips. UI_Play);
 
         PubSubHub pubSub = m_Game.GetPubSubHub();
 
@@ -113,6 +116,9 @@ public class UIScreen_MainMenu extends UIScreen
 
         m_UIManager.RemoveUIElement(m_SignOut);
         m_SignOut = null;
+
+        m_UIManager.RemoveUIElement(m_TestMode);
+        m_TestMode = null;
 	}
 
 	@Override
@@ -123,6 +129,13 @@ public class UIScreen_MainMenu extends UIScreen
         if(CollisionDetection.UIElementInteraction(Scheme.GetTouchCoordinates(), m_UIManager.GetScreenSize(), m_Play))
         {
             m_Play.Pressed();
+            Scheme.ResetTouchCoordinates();
+            return;
+        }
+
+        if(CollisionDetection.UIElementInteraction(Scheme.GetTouchCoordinates(), m_UIManager.GetScreenSize(), m_TestMode))
+        {
+            m_TestMode.Pressed();
             Scheme.ResetTouchCoordinates();
             return;
         }

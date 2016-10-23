@@ -9,9 +9,6 @@ import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
-import com.raggamuffin.protorunnerv2.utils.Timer;
-import com.raggamuffin.protorunnerv2.utils.Vector3;
-import com.raggamuffin.protorunnerv2.weapons.Weapon_LaserBurner;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_None;
 
 public class TargetBot extends Vehicle
@@ -23,7 +20,7 @@ public class TargetBot extends Vehicle
         super(game, ModelType.Dummy);
 
         NavigationalBehaviourInfo navInfo = new NavigationalBehaviourInfo(0.4, 1.0, 0.7, 0.6);
-        m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), navInfo, AIBehaviours.EngageTarget, FireControlBehaviour.Standard, TargetingBehaviour.Standard);
+        m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), navInfo, AIBehaviours.EngageTarget, FireControlBehaviour.Telegraphed, TargetingBehaviour.Standard);
 
         SetAffiliation(AffiliationKey.RedTeam);
 

@@ -64,6 +64,7 @@ public class TrailEmitter extends GameObject
     @Override
     public void Update(double deltaTime)
     {
+        m_Position.SetVector(m_Anchor.GetPosition());
         m_Position.I += m_Offset * m_Anchor.GetForward().I;
         m_Position.J += m_Offset * m_Anchor.GetForward().J;
         m_Position.K += m_Offset * m_Anchor.GetForward().K;

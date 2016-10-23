@@ -99,7 +99,7 @@ public class Projectile_Missile extends Projectile
                 if (m_PrimingTimer.TimedOut())
                 {
                     m_State = MissileState.Released;
-                    AddChild(new TrailEmitter(m_Game, this));
+                    AddObjectToGameObjectManager(new TrailEmitter(m_Game, this));
                     m_Game.GetGameAudioManager().PlaySound(AudioClips.Missile_Engaged); // TODO: Convert to audio emitter.
                 }
 

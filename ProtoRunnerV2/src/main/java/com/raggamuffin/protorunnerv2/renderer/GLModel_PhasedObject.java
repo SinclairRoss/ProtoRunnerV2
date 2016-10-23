@@ -113,7 +113,7 @@ public class GLModel_PhasedObject  extends GLModel
         GLES20.glUniform3f(m_ScaleHandle, (float)scale.I, (float)scale.J, (float)scale.K);
 
         Colour colour = obj.GetColour();
-        GLES20.glUniform4f(m_ColourHandle, (float) colour.Red, (float) colour.Green, (float) colour.Blue, (float) colour.Alpha * 0.4f);
+        GLES20.glUniform4f(m_ColourHandle, (float) colour.Red, (float) colour.Green, (float) colour.Blue, (float) colour.Alpha * 0.6f);
 
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, m_NumVertices);
     }

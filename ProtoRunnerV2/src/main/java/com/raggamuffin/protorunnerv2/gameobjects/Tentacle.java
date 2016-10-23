@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class Tentacle extends GameObject
 {
-    public enum TentacleState
+    private enum TentacleState
     {
         Normal,
         Frozen
@@ -146,12 +146,8 @@ public class Tentacle extends GameObject
             return false;
         }
 
-        if(m_ForciblyInvalidated)
-        {
-            return false;
-        }
+        return !m_ForciblyInvalidated;
 
-        return true;
     }
 
     private void UpdateNormalisedNodeLength()
@@ -186,8 +182,6 @@ public class Tentacle extends GameObject
 
     public void CleanUp()
     {
-        super.CleanUp();
-
         m_HeadAnchor = null;
         m_TailAnchor = null;
 

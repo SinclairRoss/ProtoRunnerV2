@@ -22,6 +22,8 @@ public class Weapon_RailGun extends Weapon
 		m_FireMode = new FireControl_Charge(1.0, 1.0);
 
 		AddBarrel(0, 0, 1);
+
+		m_WeaponComponent = InitialiseWeaponComponent(EWeaponComponents.LaserPointer);
 	}
 	
 	@Override

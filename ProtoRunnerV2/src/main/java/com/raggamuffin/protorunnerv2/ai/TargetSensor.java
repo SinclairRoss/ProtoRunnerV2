@@ -26,7 +26,7 @@ public abstract class TargetSensor extends Sensor
     @Override
     public void Update()
     {
-            m_Target = FindTarget();
+        m_Target = FindTarget();
     }
 
     public Vehicle GetTarget()

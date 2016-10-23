@@ -3,7 +3,6 @@ package com.raggamuffin.protorunnerv2.managers;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 
@@ -32,33 +31,36 @@ public class BulletManager
 
 	public void Update(double deltaTime)
 	{
-        for(Iterator<Projectile> iter = m_ActiveBullets.iterator(); iter.hasNext();)
+        for(int i = 0; i < m_ActiveBullets.size(); ++i)
         {
-            Projectile temp = iter.next();
-
-            if(temp.IsValid())
+            Projectile bullet = m_ActiveBullets.get(i);
+            if(bullet.IsValid())
             {
-                temp.Update(deltaTime);
+                bullet.Update(deltaTime);
             }
             else
             {
-                RemoveObjectFromRenderer(temp);
-                iter.remove();
+                bullet.CleanUp();
+                m_ActiveBullets.remove(bullet);
+                m_Game.RemoveGameObjectFromRenderer(bullet);
+                --i;
             }
         }
 
-        for(Iterator<Projectile_Flare> iter = m_ActiveFlares.iterator(); iter.hasNext();)
+        for(int i = 0; i < m_ActiveFlares.size(); ++i)
         {
-            Projectile_Flare temp = iter.next();
+            Projectile_Flare flare = m_ActiveFlares.get(i);
 
-            if(temp.IsValid())
+            if(flare.IsValid())
             {
-                temp.Update(deltaTime);
+                flare.Update(deltaTime);
             }
             else
             {
-                RemoveObjectFromRenderer(temp);
-                iter.remove();
+                flare.CleanUp();
+                m_ActiveFlares.remove(flare);
+                m_Game.RemoveGameObjectFromRenderer(flare);
+                --i;
             }
         }
 	}
@@ -102,20 +104,20 @@ public class BulletManager
 
 	public void Wipe()
 	{
-		for(Iterator<Projectile> iter = m_ActiveBullets.iterator(); iter.hasNext();)
-		{
-			iter.next().ForceInvalidation();
-		}
+        for (Projectile proj : m_ActiveBullets)
+        {
+            proj.ForceInvalidation();
+        }
+
+        for(Projectile proj : m_ActiveFlares)
+        {
+            proj.ForceInvalidation();
+        }
 	}
 
     private void AddObjectToRenderer(Projectile proj)
     {
         m_Game.AddObjectToRenderer(proj);
-    }
-
-    private void RemoveObjectFromRenderer(Projectile proj)
-    {
-        m_Game.RemoveGameObjectFromRenderer(proj);
     }
 	
 	public ArrayList<Projectile> GetActiveBullets()

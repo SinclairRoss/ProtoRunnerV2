@@ -57,6 +57,8 @@ public class AIController
         {
             case Standard:
                 return new FireControl_Standard(this);
+            case Telegraphed:
+                return new FireControl_Telegraphed(this);
             case BeamSweep:
                 return new FireControl_BeamSweep(this);
             case LaserSpinner:

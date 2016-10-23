@@ -8,117 +8,88 @@ import com.raggamuffin.protorunnerv2.utils.Timer;
 
 public class LaserPointer extends GameObject
 {
-	private enum LaserState
-	{
-		Activating,
-		Idle,
-		Deactivating,
-	}
-	
-	private LaserState m_State;
+    private boolean m_On;
+    private Timer m_FadeTimer;
 
 	private Weapon m_Anchor;
 	private WeaponBarrel m_Barrel;
-	
-	private Timer m_Timer;
-
-    private final double m_MaxAlpha;
 
 	public LaserPointer(GameLogic game, Weapon anchor, WeaponBarrel barrel)
 	{
-		super(game, ModelType.LaserPointer);
+		super(game, ModelType.ParticleLaser);
+
+        m_FadeTimer = new Timer(0.5);
 
 		m_Anchor = anchor;
 		m_Barrel = barrel;
 
-		m_Timer = new Timer(1.0);
-
 		SetForward(m_Anchor.GetForward());
-		
-		m_Scale.SetVector(100.0);
+
+        m_Scale.SetVector(0.1, 0.1, 1000);
 		
 		m_Anchor.AddChild(this);
 
-        m_MaxAlpha = 0.5;
-
-		Off();
-	}
+        SetBaseColour(m_Anchor.GetAnchor().GetBaseColour());
+        m_FadeTimer.MaxOutTimer();
+        m_Colour.Alpha = 0;
+        m_Model = ModelType.Nothing;
+    }
 	
 	@Override
 	public void Update(double deltaTime)
 	{
-		super.Update(deltaTime);
-		
-		switch(m_State)
-		{
-			case Activating:
+        if(m_On)
+        {
+            UpdateOrientation();
+        }
+        else
+        {
+            if(!m_FadeTimer.TimedOut())
             {
-                m_Timer.Update(deltaTime);
-                m_BaseColour.Alpha = m_Timer.GetProgress() * m_MaxAlpha;
+                m_FadeTimer.Update(deltaTime);
+                m_Colour.Alpha = m_FadeTimer.GetInverseProgress();
 
-                if (m_Timer.TimedOut())
+                if(m_FadeTimer.TimedOut())
                 {
-                    m_BaseColour.Alpha = 1.0;
-                    m_State = LaserState.Idle;
+                    m_Model = ModelType.Nothing;
                 }
-
-                break;
             }
-			case Deactivating:
-            {
-                m_Timer.Update(deltaTime);
-                m_BaseColour.Alpha = m_Timer.GetInverseProgress() * m_MaxAlpha;
-
-                if (m_Timer.TimedOut())
-                {
-                    m_BaseColour.Alpha = 0.0;
-                    m_State = LaserState.Idle;
-                }
-
-                break;
-            }
-			case Idle:
-            {
-                // Do nothing.
-                break;
-            }
-		}
-
-        UpdateOrientation();
+        }
 	}
 
     private void UpdateOrientation()
     {
-        SetForward(m_Anchor.GetForward());
+        m_Forward.SetVector(m_Anchor.GetForward());
         m_Forward.RotateY(m_Barrel.GetRotation());
-        m_Yaw = m_Forward.Yaw();
-        SetPosition(m_Anchor.GetPosition());
+        UpdateVectors();
+
+        m_Velocity.SetVector(0);
+        m_Position.SetVector(m_Anchor.GetPosition());
     }
 
 	@Override
 	public boolean IsValid() 
 	{
-		return true;
-	}
+        return m_Anchor.GetAnchor().IsValid() ||
+               !m_FadeTimer.TimedOut();
+    }
 
     @Override
     public void CleanUp()
-    {
-
-    }
+    {}
 
     public void On()
 	{
-        SetBaseColour(m_Anchor.GetAnchor().GetBaseColour());
+        m_On = true;
+        m_Colour.Alpha = 0.2;
 
-        GetAltColour().Alpha = 0.0;
-		m_State = LaserState.Activating;
-		m_Timer.ResetTimer();
+        UpdateOrientation();
+        m_Model = ModelType.ParticleLaser;
 	}
 	
 	public void Off()
 	{
-		m_State = LaserState.Deactivating;
-		m_Timer.ResetTimer();	
+        m_On = false;
+        m_FadeTimer.ResetTimer();
 	}	
 }

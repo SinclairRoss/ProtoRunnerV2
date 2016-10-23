@@ -29,7 +29,6 @@ public class Vehicle_Runner extends Vehicle
 	private Publisher m_SwitchWeaponsPublisher;
 
     private ChaseCamera m_Camera;
-    private final double m_HealthDrainRate;
 
     private Subscriber FireSubscriber;
     private Subscriber CeaseFireSubscriber;
@@ -69,16 +68,12 @@ public class Vehicle_Runner extends Vehicle
 		m_Engine = new Engine_Standard(this, game);
         m_Engine.SetMaxTurnRate(2.0);//2
 		m_Engine.SetMaxEngineOutput(10000);//10000
-        m_Engine.SetAfterBurnerOutput(5000); // 45000
+        m_Engine.SetAfterBurnerOutput(15000); // 15000
 		
-		m_MaxHullPoints = 1000;
+		m_MaxHullPoints = 1;
 		m_HullPoints 	= m_MaxHullPoints;
 
-        double completeHealthDrainTime = 20.0; //20
-        m_HealthDrainRate = m_MaxHullPoints / completeHealthDrainTime;
-
-		AddChild(new Radar(this, game));
-        //AddChild(new Shield(game, this));
+		AddObjectToGameObjectManager(new Radar(this, game));
 
 		SetAffiliation(AffiliationKey.BlueTeam);
 
@@ -140,6 +135,7 @@ public class Vehicle_Runner extends Vehicle
     public void CleanUp()
     {
         super.CleanUp();
+
         m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.Fire, FireSubscriber);
         m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.CeaseFire, CeaseFireSubscriber);
         m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.EvadeLeft, EvadeLeftSubscriber);

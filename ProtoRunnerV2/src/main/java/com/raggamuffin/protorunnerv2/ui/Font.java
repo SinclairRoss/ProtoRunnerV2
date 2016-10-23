@@ -5,7 +5,8 @@ import com.raggamuffin.protorunnerv2.utils.Colours;
 
 public class Font 
 {
-	public enum Alignment { Left, Center, Right };
+	public enum Alignment { Left, Center, Right }
+
 	public Alignment m_Alignment;
 	
 	private UIElement m_Anchor;

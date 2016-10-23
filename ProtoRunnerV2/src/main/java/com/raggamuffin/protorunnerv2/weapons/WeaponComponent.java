@@ -6,7 +6,7 @@ package com.raggamuffin.protorunnerv2.weapons;
 public abstract class WeaponComponent
 {
     protected Weapon m_Anchor;
-    protected boolean m_Active;
+    private boolean m_Active;
 
     public WeaponComponent(Weapon anchor)
     {
