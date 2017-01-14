@@ -12,7 +12,7 @@ public abstract class UIScreen
 {	
 	private final double ButtonX =  0.9;
 	private final double ButtonY =  0.65;
-	private final double ButtonPadding = 0.25;
+	protected final double ButtonPadding = 0.25;
 
 	protected GameLogic m_Game;
 	protected UIManager m_UIManager;
@@ -68,7 +68,7 @@ public abstract class UIScreen
 	{
         ColourManager cManager = m_Game.GetColourManager();
         double barLength = 1.1;
-		UIProgressBar bar = new UIProgressBar(barLength, maxVal, cManager.GetSecondaryColour(), cManager.GetAccentTintColour(), cManager.GetPrimaryColour(), Name, UIProgressBar.Alignment.Left, m_Game.GetGameAudioManager(), m_UIManager);
+		UIProgressBar bar = new UIProgressBar(barLength, maxVal, cManager.GetUISecondaryColour(), cManager.GetUISecondaryColour(), cManager.GetUIAccentColour(), Name, UIProgressBar.Alignment.Left, m_Game.GetGameAudioManager(), m_UIManager);
         bar.SetPosition(ButtonX - (barLength * 0.5), ButtonY - (ButtonPadding * m_NumElements));
 		m_NumElements ++;
 
@@ -102,6 +102,7 @@ public abstract class UIScreen
         button.SetText(text);
         button.SetPosition(ButtonX, ButtonY - (ButtonPadding * m_NumElements));
         button.GetFont().SetAlignment(Font.Alignment.Right);
+        button.GetFont().SetColour(m_Game.GetColourManager().GetUIPrimaryColour());
 
         m_UIManager.AddUIElement(button);
 
@@ -118,8 +119,7 @@ public abstract class UIScreen
         button.SetText(m_Game.GetContext().getString(R.string.button_back));
         button.SetPosition(-0.9, -0.8);
         button.GetFont().SetAlignment(Font.Alignment.Left);
-        button.GetFont().SetColour(m_Game.GetColourManager().GetSecondaryColour());
-
+        button.GetFont().SetColour(m_Game.GetColourManager().GetUIAccentColour());
         m_UIManager.AddUIElement(button);
 
         m_HasBackButton = true;
@@ -150,6 +150,7 @@ public abstract class UIScreen
         label.SetText(text);
         label.SetPosition(ButtonX, ButtonY - (ButtonPadding * m_NumElements));
         label.GetFont().SetAlignment(Font.Alignment.Right);
+        label.GetFont().SetColour(m_Game.GetColourManager().GetPrimaryColour());
 
         m_UIManager.AddUIElement(label);
 
@@ -188,7 +189,7 @@ public abstract class UIScreen
 
         label.SetPositionRaw(xPos, parent.GetPosition().J + parent.GetSize().J);
         label.GetFont().SetAlignment(parentAlignment);
-        label.GetFont().SetColour(m_Game.GetColourManager().GetSecondaryColour());
+        label.GetFont().SetColour(m_Game.GetColourManager().GetUISecondaryColour());
 
         m_UIManager.AddUIElement(label);
 

@@ -1,6 +1,6 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
-import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 
 public class FireControl_TwinLasers extends FireControl
 {
@@ -14,8 +14,8 @@ public class FireControl_TwinLasers extends FireControl
     private FireState m_FireState;
 
     private Weapon m_Anchor;
-    private Timer m_FireTimer;
-    private Timer m_BurstTimer;
+    private Timer_Accumulation m_FireTimer;
+    private Timer_Accumulation m_BurstTimer;
 
     private int m_RoundsInBurst;
     private int m_RoundCount;
@@ -28,8 +28,8 @@ public class FireControl_TwinLasers extends FireControl
         super();
 
         m_Anchor        = anchor;
-        m_FireTimer  	= new Timer(fireRate);
-        m_BurstTimer 	= new Timer(burstRate);
+        m_FireTimer  	= new Timer_Accumulation(fireRate);
+        m_BurstTimer 	= new Timer_Accumulation(burstRate);
         m_BurstTimer.MaxOutTimer();
 
         m_RoundsInBurst = anchor.GetNumMuzzles();

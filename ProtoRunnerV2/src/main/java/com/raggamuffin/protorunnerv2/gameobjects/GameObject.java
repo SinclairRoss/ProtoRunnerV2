@@ -151,11 +151,11 @@ public abstract class GameObject
 		m_Up.SetAsCrossProduct(m_Right, m_Forward);
 	}
 	
-	public void ApplyForce(Vector3 Dir, double Force)
+	public void ApplyForce(Vector3 direction, double force)
 	{
-		m_Force.I += Dir.I * Force;
-		m_Force.J += Dir.J * Force;
-		m_Force.K += Dir.K * Force;
+		m_Force.I += direction.I * force;
+		m_Force.J += direction.J * force;
+		m_Force.K += direction.K * force;
 	}
 
 	public void ApplyForce(Vector3 force)
@@ -340,6 +340,11 @@ public abstract class GameObject
 	public void AddObjectToGameObjectManager(GameObject obj)
 	{
 		m_GameObjectManager.AddObject(obj);
+	}
+
+	public void RemoveObjectFromGameObjectManager(GameObject obj)
+	{
+		m_GameObjectManager.RemoveObject(obj);
 	}
 
 	public void SetAffiliation(AffiliationKey faction)

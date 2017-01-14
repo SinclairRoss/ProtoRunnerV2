@@ -7,7 +7,7 @@ import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
-import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class SpawnEffect extends GameObject
@@ -15,7 +15,7 @@ public class SpawnEffect extends GameObject
     private final double MAX_HEIGHT = 150.0;
     private final double MAX_WIDTH = 2.0;
 
-    private Timer m_LifeTimer;
+    private Timer_Accumulation m_LifeTimer;
 
     public SpawnEffect(GameLogic game, Colour colour, Vector3 pos)
     {
@@ -24,7 +24,7 @@ public class SpawnEffect extends GameObject
         m_Colour.SetColour(colour);
         m_Position = pos;
 
-        m_LifeTimer = new Timer(0.7);
+        m_LifeTimer = new Timer_Accumulation(0.7);
 
         m_Scale.SetVector(0);
     }

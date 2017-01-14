@@ -6,7 +6,7 @@ import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
-import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 import com.raggamuffin.protorunnerv2.weapons.WeaponSlot;
 
@@ -25,7 +25,7 @@ public class SecondWindHandler
 	private Vehicle_Runner m_Player;
 
     private final double SECOND_WIND_DURATION = 5.0;
-	private Timer m_SecondWindTimer;
+	private Timer_Accumulation m_SecondWindTimer;
 	
 	private Publisher m_GameOverPublisher;
 	
@@ -39,7 +39,7 @@ public class SecondWindHandler
 	public SecondWindHandler(GameLogic game)
 	{
 		m_Game = game;
-		m_SecondWindTimer = new Timer(SECOND_WIND_DURATION);
+		m_SecondWindTimer = new Timer_Accumulation(SECOND_WIND_DURATION);
 
 		m_SecondWindState = SecondWindState.Idle;
 		
@@ -50,7 +50,7 @@ public class SecondWindHandler
 		pubSubHub.SubscribeToTopic(PublishedTopics.PlayerDestroyed, new PlayerDestroyedSubscriber());	
 		pubSubHub.SubscribeToTopic(PublishedTopics.EnemyDestroyed, new EnemyDestroyedSubscriber());
 		pubSubHub.SubscribeToTopic(PublishedTopics.PlayerSpawned, new PlayerSpawnedSubscriber());
-		pubSubHub.SubscribeToTopic(PublishedTopics.PlayerSwitchedWeapon, new PlayerSwitchedWeaponSubscriber());
+		//pubSubHub.SubscribeToTopic(PublishedTopics.PlayerSwitchedWeapon, new PlayerSwitchedWeaponSubscriber());
 		
 		m_PlayerPosition = new Vector3();
 		m_PlayerOrientation = 0.0;
@@ -92,7 +92,7 @@ public class SecondWindHandler
 			{
 				m_Game.GetVehicleManager().SpawnPlayer();
 				m_SecondWindState = SecondWindState.Idle;
-				m_Player.SelectWeaponBySlot(m_LastSelectedWeapon);
+			//	m_Player.SelectWeaponBySlot(m_LastSelectedWeapon);
 
                 m_Game.GetGameAudioManager().PlaySound(AudioClips.Respawn);
 
@@ -153,7 +153,7 @@ public class SecondWindHandler
 		{
 			if(m_Player != null)
 			{
-				m_LastSelectedWeapon = m_Player.GetWeaponSlot();
+				//m_LastSelectedWeapon = m_Player.GetWeaponSlot();
 			}
 		}	
 	}

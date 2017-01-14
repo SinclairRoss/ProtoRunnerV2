@@ -24,6 +24,8 @@
     
     <string name="button_back">Return</string>
     <string name="button_next">Continue</string>
+
+    <string name="label_points_ui">Score</string>
     
     <string name="label_score">Score: </string>
     <string name="label_new_personal_Best">New Personal Best!</string>

@@ -348,6 +348,5 @@ public abstract class Vehicle extends GameObject
 		SendDeathMessage();
 		m_BurstEmitter.Burst();
 		m_PrimaryWeapon.CeaseFire();
-
 	}
 }

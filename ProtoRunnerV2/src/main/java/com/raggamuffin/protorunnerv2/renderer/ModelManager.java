@@ -28,7 +28,6 @@ public class ModelManager
 
 	private GLModel_FloorPanel m_FloorPanel;
 	private GLModel_Ring m_Ring;
-	private GLLine m_Pointer;
 	private GLScreenQuad m_Screen;
 	private GLModel_HorizonRing m_HorizonRing;
 	private GLModel_RadarFragment m_RadarFragment;
@@ -36,6 +35,7 @@ public class ModelManager
     private GLModel_SolidObject m_ParticleLaser;
     private GLModel_SolidObject m_PlasmaPulse;
     private GLModel_SolidObject m_SpawnPillar;
+    private GLModel_SolidObjectPriority m_LaserPointer;
 
     private GLModel_StandardObject m_Runner;
     private GLModel_StandardObject m_Bit;
@@ -73,7 +73,7 @@ public class ModelManager
     {
         m_FloorPanel = new GLModel_FloorPanel();
         m_Ring = new GLModel_Ring();
-        m_Pointer = new GLLine(2.0f);
+        m_LaserPointer = new GLModel_SolidObjectPriority(ReadFloatArrayFromResource(R.string.laser_vertices));
         m_ParticleLaser = new GLModel_SolidObject(ReadFloatArrayFromResource(R.string.laser_vertices));
         m_PlasmaPulse = new GLModel_SolidObject(ReadFloatArrayFromResource(R.string.plasma_vertices));
         m_SpawnPillar = new GLModel_SolidObject(ReadFloatArrayFromResource(R.string.spawn_pillar));
@@ -183,7 +183,7 @@ public class ModelManager
             case Trail:
                 return null;
             case LaserPointer:
-                return m_Pointer;
+                return m_LaserPointer;
             case ParticleLaser:
                 return m_ParticleLaser;
             case PlasmaPulse:

@@ -6,7 +6,7 @@ import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
-import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 
 public class RenderEffectManager
 {
@@ -16,7 +16,7 @@ public class RenderEffectManager
     private final double MAX_FILMGRAIN_INTENSITY = 0.3;
     private final double DAMAGE_EFFECT_DURATION = 1.0;
 
-    private Timer m_DamageEffectTimer;
+    private Timer_Accumulation m_DamageEffectTimer;
 
 	private RenderEffectSettings m_RenderEffectSettings;
 
@@ -28,7 +28,7 @@ public class RenderEffectManager
         m_RenderEffectSettings.SetGlowIntensity(BASE_GLOW_INTENSITY);
         m_RenderEffectSettings.SetFilmGrainIntensity(BASE_FILMGRAIN_INTENSITY);
 
-        m_DamageEffectTimer = new Timer(DAMAGE_EFFECT_DURATION);
+        m_DamageEffectTimer = new Timer_Accumulation(DAMAGE_EFFECT_DURATION);
 
         PubSubHub pubSub = Game.GetPubSubHub();
         pubSub.SubscribeToTopic(PublishedTopics.PlayerHit, new PlayerHitSubscriber());

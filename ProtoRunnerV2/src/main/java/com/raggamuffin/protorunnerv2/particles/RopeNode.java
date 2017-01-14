@@ -5,7 +5,7 @@ package com.raggamuffin.protorunnerv2.particles;
 
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.RopeSpring;
-import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class RopeNode
@@ -35,7 +35,7 @@ public class RopeNode
     private double m_NormalisedLength;
 
     private NodeState m_NodeState;
-    private Timer m_LifeSpanTimer;
+    private Timer_Accumulation m_LifeSpanTimer;
 
     public RopeNode(Vector3 position, RopeNode parent, double mass, double springLength, double springStrength, double gravityStrength, double lifeDuration)
     {
@@ -62,7 +62,7 @@ public class RopeNode
         m_RopeLengthSqr = 0.0;
 
         m_NodeState = NodeState.Alive;
-        m_LifeSpanTimer = new Timer(lifeDuration);
+        m_LifeSpanTimer = new Timer_Accumulation(lifeDuration);
     }
 
     public void SetChild(RopeNode child)

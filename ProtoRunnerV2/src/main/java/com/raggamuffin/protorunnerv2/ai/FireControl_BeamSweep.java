@@ -1,9 +1,8 @@
 package com.raggamuffin.protorunnerv2.ai;
 
-
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
-import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class FireControl_BeamSweep extends FireControl
@@ -18,14 +17,13 @@ public class FireControl_BeamSweep extends FireControl
 
     private SweepState m_State;
 
-    private Timer m_SweepTimer;
-    private Timer m_CooldownTimer;
+    private Timer_Accumulation m_SweepTimer;
+    private Timer_Accumulation m_CooldownTimer;
 
     private Vector3 m_StartPoint;
     private Vector3 m_EndPoint;
     private Vector3 m_Aim;
     private double m_Amount;
-    private final double m_InitialOffset;
     private final double m_Speed;
 
     private Vector3 m_ToTarget;
@@ -38,14 +36,13 @@ public class FireControl_BeamSweep extends FireControl
 
         double activeTime = 1.0;
 
-        m_SweepTimer = new Timer(activeTime);
-        m_CooldownTimer = new Timer(5.0);
+        m_SweepTimer = new Timer_Accumulation(activeTime);
+        m_CooldownTimer = new Timer_Accumulation(5.0);
 
         m_StartPoint = new Vector3();
         m_EndPoint = new Vector3();
         m_Aim = new Vector3();
         m_Amount = 0.0;
-        m_InitialOffset = Math.toRadians(30);
         m_Speed = 1.0 / activeTime;
 
         m_ToTarget = new Vector3();
@@ -62,7 +59,7 @@ public class FireControl_BeamSweep extends FireControl
             {
                 Vehicle targetVehicle =  m_SituationalAwareness.GetTargetSensor().GetTarget();
 
-                if(targetVehicle == null)
+                if(targetVehicle != null)
                     break;
 
                 m_State = SweepState.Sweeping;

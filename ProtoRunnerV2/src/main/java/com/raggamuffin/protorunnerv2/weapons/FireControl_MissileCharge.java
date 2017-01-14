@@ -1,10 +1,10 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
-import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 
 public class FireControl_MissileCharge extends FireControl
 {
-	private Timer m_SpawnTimer;
+	private Timer_Accumulation m_SpawnTimer;
 	
 	private Weapon m_Anchor;
 	private int m_MaxChargeCount;
@@ -14,7 +14,7 @@ public class FireControl_MissileCharge extends FireControl
 	{
 		super();
 
-		m_SpawnTimer = new Timer(fireRate);
+		m_SpawnTimer = new Timer_Accumulation(fireRate);
 		
 		m_Anchor = anchor;
 		m_MaxChargeCount = maxCount;

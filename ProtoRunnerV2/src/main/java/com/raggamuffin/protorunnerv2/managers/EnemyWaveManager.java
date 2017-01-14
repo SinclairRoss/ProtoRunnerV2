@@ -3,14 +3,12 @@ package com.raggamuffin.protorunnerv2.managers;
 // Author: Sinclair Ross
 // Date:   18/09/2016
 
-import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.gameobjects.VehicleType;
 import com.raggamuffin.protorunnerv2.utils.FormationHelper;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.SpawnHelper;
-import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 import java.util.ArrayList;
@@ -19,7 +17,7 @@ public class EnemyWaveManager
 {
     private final double MAX_ENEMIES_IN_GAME = 20;
 
-    private Timer m_SpawnTimer;
+    private Timer_Accumulation m_SpawnTimer;
 
     private int m_RegularsPerSquad;
     private int m_ElitesPerSquad;
@@ -31,7 +29,7 @@ public class EnemyWaveManager
 
     public EnemyWaveManager(GameLogic game)
     {
-        m_RegularsPerSquad = 3;
+        m_RegularsPerSquad = 5;
         m_ElitesPerSquad = 1;
 
         m_Regulars = new ArrayList<>();
@@ -46,7 +44,7 @@ public class EnemyWaveManager
 
         m_VManager = game.GetVehicleManager();
 
-        m_SpawnTimer = new Timer(8);
+        m_SpawnTimer = new Timer_Accumulation(8);
     }
 
     public void Update(double deltaTime)
@@ -68,11 +66,6 @@ public class EnemyWaveManager
     private void SpawnSquad()
     {
         Vector3 spawnForward = (m_VManager.GetPlayer() != null) ? m_VManager.GetPlayer().GetForward() : new Vector3(0,0,1);
-
-        if(MathsHelper.RandomBoolean())
-        {
-            spawnForward.Scale(-1);
-        }
 
         Vector3 position = SpawnHelper.FindRandomSpawnLocation(m_VManager.GetPlayerPosition(), spawnForward, 100);
         Vector3 forward = SpawnHelper.FindSpawnForward(position, m_VManager.GetPlayerPosition());

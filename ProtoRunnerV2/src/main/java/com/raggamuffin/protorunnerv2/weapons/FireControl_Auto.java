@@ -1,16 +1,16 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
-import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 
 public class FireControl_Auto extends FireControl
 {
-	private Timer m_FireTimer;
+	private Timer_Accumulation m_FireTimer;
 	
 	public FireControl_Auto(double fireRate)
 	{
 		super();
 		
-		m_FireTimer = new Timer(fireRate);
+		m_FireTimer = new Timer_Accumulation(fireRate);
 	}
 
 	@Override

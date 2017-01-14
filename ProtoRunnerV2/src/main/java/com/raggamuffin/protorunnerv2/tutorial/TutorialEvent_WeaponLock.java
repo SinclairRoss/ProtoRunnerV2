@@ -50,18 +50,18 @@ public class TutorialEvent_WeaponLock extends TutorialEvent
         @Override
         public void Update(int args)
         {
-            if(!m_On)
-                return;
+            if(m_On)
+            {
+                Vehicle_Runner player = m_Game.GetVehicleManager().GetPlayer();
 
-            Vehicle_Runner player = m_Game.GetVehicleManager().GetPlayer();
-
-            if(player == null)
-                return;
-
-            if(player.GetWeaponSlot() == m_LockedSlot)
-                return;
-
-            player.SelectWeaponBySlot(m_LockedSlot);
+                if (player != null)
+                {
+                    //if (player.GetWeaponSlot() != m_LockedSlot)
+                    //{
+                    //    player.SelectWeaponBySlot(m_LockedSlot);
+                    //}
+                }
+            }
         }
     }
 }

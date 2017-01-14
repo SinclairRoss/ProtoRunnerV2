@@ -1,6 +1,6 @@
 package com.raggamuffin.protorunnerv2.ui;
 
-import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 
 public abstract class ProgressBarAnimation
 {
@@ -15,13 +15,13 @@ public abstract class ProgressBarAnimation
     protected AnimationState m_State;
 
     protected UIProgressBar m_Bar;
-    private Timer m_DelayTimer;
+    private Timer_Accumulation m_DelayTimer;
 
     public ProgressBarAnimation(UIProgressBar bar)
     {
         m_Bar = bar;
         m_State = AnimationState.Idle;
-        m_DelayTimer = new Timer(0.0);
+        m_DelayTimer = new Timer_Accumulation(0.0);
     }
 
     public void Update(double deltaTime)

@@ -1,6 +1,6 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
-import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 
 public class FireControl_Charge extends FireControl
 {
@@ -12,8 +12,8 @@ public class FireControl_Charge extends FireControl
 	
 	private FireState m_FireState;
 	
-	private Timer m_FireTimer;
-	private Timer m_ChargeTimer;
+	private Timer_Accumulation m_FireTimer;
+	private Timer_Accumulation m_ChargeTimer;
 	
 	public FireControl_Charge(double fireRate, double ChargeRate)
 	{
@@ -21,8 +21,8 @@ public class FireControl_Charge extends FireControl
 		
 		m_FireState = FireState.Idle;
 		
-		m_FireTimer 	= new Timer(fireRate);
-		m_ChargeTimer 	= new Timer(ChargeRate);
+		m_FireTimer 	= new Timer_Accumulation(fireRate);
+		m_ChargeTimer 	= new Timer_Accumulation(ChargeRate);
 	}
 	
 	@Override

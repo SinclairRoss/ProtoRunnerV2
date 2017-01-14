@@ -1,11 +1,9 @@
 package com.raggamuffin.protorunnerv2.ui;
 
-import android.util.Log;
-
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.UIManager;
-import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -23,7 +21,7 @@ public class InGameMessageHandler
 
 	private ArrayList<UILabel> m_Labels;
 	private String m_OriginalMessageText;
-	private Timer m_MessageTimer;
+	private Timer_Accumulation m_MessageTimer;
 	private int m_Priority;
 	
 	public InGameMessageHandler(GameLogic game, UIManager uiManager)
@@ -38,7 +36,7 @@ public class InGameMessageHandler
         m_Labels = new ArrayList<>();
 
 		m_OriginalMessageText = "";
-		m_MessageTimer = new Timer(0.0);
+		m_MessageTimer = new Timer_Accumulation(0.0);
         m_Priority = Integer.MIN_VALUE;
 	}
 

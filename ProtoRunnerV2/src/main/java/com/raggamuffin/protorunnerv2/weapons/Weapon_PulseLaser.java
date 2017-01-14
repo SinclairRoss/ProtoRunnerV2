@@ -19,19 +19,9 @@ public class Weapon_PulseLaser extends Weapon
         m_Accuracy = 1.0;
         m_LifeSpan = 5.0;
 
+        m_FireMode = new FireControl_Pulse(0.4, 0.06, 4);
+
         AddBarrel(1, 0, 0);
         AddBarrel(-1, 0, 0);
-
-        m_FireMode = new FireControl_Pulse(0.4, 0.06, 4);
-    }
-
-    @Override
-    public void WeaponEquipped()
-    {
-    }
-
-    @Override
-    public void WeaponUnequipped()
-    {
     }
 }

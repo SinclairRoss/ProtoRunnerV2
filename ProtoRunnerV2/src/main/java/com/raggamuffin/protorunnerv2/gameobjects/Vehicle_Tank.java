@@ -10,6 +10,7 @@ import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
+import com.raggamuffin.protorunnerv2.weapons.Weapon_PunkShot;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_RailGun;
 
 public class Vehicle_Tank extends Vehicle
@@ -38,7 +39,7 @@ public class Vehicle_Tank extends Vehicle
 
 		SetAffiliation(AffiliationKey.RedTeam); 
 		
-		SelectWeapon(new Weapon_RailGun(this, game));
+		SelectWeapon(new Weapon_PunkShot(this, game));
 
 		NavigationalBehaviourInfo navInfo = new NavigationalBehaviourInfo(0.4, 1.0, 0.7, 0.6);
         m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), navInfo, AIBehaviours.EngageTarget, FireControlBehaviour.Telegraphed, TargetingBehaviour.Standard);

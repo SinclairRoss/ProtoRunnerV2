@@ -53,15 +53,26 @@ public class MathsHelper
     }
 
 	// Clamp a value between two values.
-	public static double Clamp(double Amount, double Min, double Max)
+	public static double Clamp(double amount, double min, double max)
 	{
-		if(Amount > Max)
-			return Max;
-		
-		if(Amount < Min)
-			return Min;
-			
-		return Amount;
+		if(amount > max)
+			return max;
+
+		if(amount < min)
+			return min;
+
+		return amount;
+	}
+
+	public static long Clamp(long amount, long min, long max)
+	{
+		if(amount > max)
+			return max;
+
+		if(amount < min)
+			return min;
+
+		return amount;
 	}
 
     public static int ClampInt(int amount, int min, int max)

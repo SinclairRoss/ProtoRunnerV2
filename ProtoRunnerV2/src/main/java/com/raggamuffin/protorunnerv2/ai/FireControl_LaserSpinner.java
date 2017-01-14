@@ -1,6 +1,7 @@
 package com.raggamuffin.protorunnerv2.ai;
 
-import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.MathsHelper;
+import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 
 public class FireControl_LaserSpinner extends FireControl
 {
@@ -16,20 +17,21 @@ public class FireControl_LaserSpinner extends FireControl
     }
 
     private AttackState m_AttackState;
-    private Timer m_AttackCooldown;
-    private Timer m_HoldPositionTimer;
-    private Timer m_StartSpinTimer;
-    private Timer m_AttackDuration;
+    private Timer_Accumulation m_AttackCooldown;
+    private Timer_Accumulation m_HoldPositionTimer;
+    private Timer_Accumulation m_StartSpinTimer;
+    private Timer_Accumulation m_AttackDuration;
+    private final double TURN_RATE = 0.2;
 
     public FireControl_LaserSpinner(AIController controller)
     {
         super(controller);
 
         m_AttackState = AttackState.Wandering;
-        m_AttackCooldown = new Timer(5);
-        m_HoldPositionTimer = new Timer(2);
-        m_StartSpinTimer = new Timer(1);
-        m_AttackDuration = new Timer(5);
+        m_AttackCooldown = new Timer_Accumulation(5);
+        m_HoldPositionTimer = new Timer_Accumulation(2);
+        m_StartSpinTimer = new Timer_Accumulation(1);
+        m_AttackDuration = new Timer_Accumulation(5);
     }
 
     @Override
@@ -83,7 +85,9 @@ public class FireControl_LaserSpinner extends FireControl
                 if(m_StartSpinTimer.TimedOut())
                 {
                     m_Anchor.DisableRoll();
-                    m_Anchor.SetTurnRate(0.5);
+
+                    double turnRate = MathsHelper.RandomBoolean() ? TURN_RATE : - TURN_RATE;
+                    m_Anchor.SetTurnRate(turnRate);
                     m_AttackState = AttackState.Attacking;
                     m_StartSpinTimer.ResetTimer();
                 }

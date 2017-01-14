@@ -20,7 +20,7 @@ public class Vehicle_Bit extends Vehicle
 	{
 		super(game, ModelType.Bit);
 
-        SetColourScheme(Colours.Pink70, Colours.RunnerBlue);
+        SetColourScheme(Colours.Pink70, Colours.HotPink);
 
 		m_Position.SetVector(10, 0, 10);
 

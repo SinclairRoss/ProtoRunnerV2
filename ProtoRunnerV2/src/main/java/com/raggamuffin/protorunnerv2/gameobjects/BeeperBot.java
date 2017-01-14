@@ -9,12 +9,12 @@ import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
-import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 
 public class BeeperBot extends Vehicle
 {
-    Timer m_OnTimer;
-    Timer m_OffTimer;
+    Timer_Accumulation m_OnTimer;
+    Timer_Accumulation m_OffTimer;
 
     boolean m_On;
 
@@ -29,8 +29,8 @@ public class BeeperBot extends Vehicle
 
         m_On = true;
 
-        m_OnTimer = new Timer(5.0);
-        m_OffTimer = new Timer(1.0);
+        m_OnTimer = new Timer_Accumulation(5.0);
+        m_OffTimer = new Timer_Accumulation(1.0);
 
         m_Beeper = new AudioEmitter_Point(this, game.GetGameAudioManager(), AudioClips.UI_Play, EAudioRepeatBehaviour.Manual);
         m_Beeper.Start();

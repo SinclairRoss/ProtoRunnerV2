@@ -3,7 +3,7 @@ package com.raggamuffin.protorunnerv2.particles;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
-import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class TrailNode
@@ -11,7 +11,7 @@ public class TrailNode
     private TrailNode m_Parent;
     private TrailNode m_Child;
     private Vector3 m_Position;
-    private Timer m_LifeTimer;
+    private Timer_Accumulation m_LifeTimer;
 
     private double m_MaxAlpha;
     private Colour m_Colour;
@@ -25,7 +25,7 @@ public class TrailNode
         m_Parent = null;
         m_Child = null;
         m_Position = new Vector3();
-        m_LifeTimer = new Timer(0);
+        m_LifeTimer = new Timer_Accumulation(0);
 
         m_MaxAlpha = 0.6;
         m_Colour = new Colour(Colours.VioletRed);

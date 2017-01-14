@@ -12,7 +12,7 @@ public class UIScreen_GameOver extends UIScreen
 {
 	private final double SCREEN_DURATION = 2.0;
 
-	private Timer m_Timer;	
+	private Timer m_Timer;
 	private UILabel m_GameOverMessage;
 	
 	private Publisher m_GameOverScreenOverPublisher;
@@ -55,12 +55,9 @@ public class UIScreen_GameOver extends UIScreen
 	@Override
 	public void Update(double deltaTime) 
 	{
-		m_Timer.Update(deltaTime);
-			
-		if(m_Timer.TimedOut())
+		if(m_Timer.HasTimerElapsed())
 		{
-			m_GameOverScreenOverPublisher.Publish(UIScreens.Aftermath
-					.ordinal());
+			m_GameOverScreenOverPublisher.Publish(UIScreens.Aftermath.ordinal());
 		}
 	}
 }

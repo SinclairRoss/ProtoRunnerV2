@@ -209,7 +209,7 @@ public class Shaders
         +   "   float max = clamp(u_ColorBloomPoint + threshold, 0.0f, 1.0f);"
         +   "   float lerp = sin(clamp((v_NormalisedLength - min) / (max - min),0.0, 1.0) * 3.14159265);"
         +   "	gl_FragColor = ((u_ColdColor * (1.0f - lerp)) + (u_HotColor * lerp));"
-        +   "   gl_FragColor.a = v_Alpha;"
+        +   "   gl_FragColor.a *= v_Alpha;"
         +   "}";
 
     public static final String vertexShader_TEXTURED =
@@ -359,7 +359,6 @@ public class Shaders
         +   "uniform vec4 u_EyePos;			\n"
 
         +	"attribute vec4 a_Position;  \n"
-        +   "attribute float a_Size;"
         +   "attribute vec4 a_Color;"
 
         +   "varying vec4 v_Color;"
@@ -369,7 +368,7 @@ public class Shaders
         + "	    vec4 toEye;					        \n"
         + " 	toEye = u_EyePos - a_Position;		"
         + "     float distance = length(toEye);	    "
-        + "	    gl_PointSize = a_Size * inversesqrt(distance);	"
+        + "	    gl_PointSize = 30.0 * inversesqrt(distance);	"
 
         +   "   v_Color = a_Color;"
         +	"	gl_Position = u_ProjMatrix * a_Position;"

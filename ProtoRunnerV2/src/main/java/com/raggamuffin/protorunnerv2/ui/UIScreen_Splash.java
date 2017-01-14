@@ -7,13 +7,13 @@ import com.raggamuffin.protorunnerv2.managers.UIManager;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
-import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 
 public class UIScreen_Splash extends UIScreen
 {
 	private final double SCREEN_DURATION = 3.0;//3
 	
-	private Timer m_Timer;
+	private Timer_Accumulation m_Timer;
 	private UILabel m_Company;
 	
 	private Publisher m_SplashScreenOverPublisher;
@@ -24,7 +24,7 @@ public class UIScreen_Splash extends UIScreen
 
 		m_Company = null;
 		
-		m_Timer = new Timer(SCREEN_DURATION);
+		m_Timer = new Timer_Accumulation(SCREEN_DURATION);
 		
 		PubSubHub pubSub = m_Game.GetPubSubHub();
 		m_SplashScreenOverPublisher = pubSub.CreatePublisher(PublishedTopics.SwitchScreen);

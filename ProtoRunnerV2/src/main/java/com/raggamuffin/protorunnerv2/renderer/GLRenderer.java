@@ -9,6 +9,7 @@ import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.gameobjects.Tentacle;
 import com.raggamuffin.protorunnerv2.master.RenderEffectSettings;
 import com.raggamuffin.protorunnerv2.master.RendererPacket;
+import com.raggamuffin.protorunnerv2.particles.Particle;
 import com.raggamuffin.protorunnerv2.particles.TrailNode;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
 import com.raggamuffin.protorunnerv2.ui.UIElementType;
@@ -206,17 +207,17 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
     private void DrawParticles(float[] view)
     {
-        ArrayList<GameObject> list = (ArrayList<GameObject>)m_Packet.GetParticles().clone();
+        ArrayList<Particle> list = (ArrayList<Particle>)m_Packet.GetParticles().clone();
 
         if(list.size() > 0)
         {
             m_ParticleRenderer.Initialise(view, m_Camera.GetPosition());
 
-            for (GameObject obj : list)
+            for (Particle obj : list)
             {
                 if (obj != null)
                 {
-                    m_ParticleRenderer.Draw(obj.GetPosition(), obj.GetColour(), (float) obj.GetScale().I);
+                    m_ParticleRenderer.Draw(obj.GetPosition(), obj.GetColour());
                 }
             }
 

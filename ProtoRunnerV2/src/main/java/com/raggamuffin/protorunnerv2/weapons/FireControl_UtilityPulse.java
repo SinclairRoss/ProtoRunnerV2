@@ -1,6 +1,6 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
-import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 
 public class FireControl_UtilityPulse extends FireControl
 {
@@ -13,8 +13,8 @@ public class FireControl_UtilityPulse extends FireControl
     private FireState m_FireState;
 
     private Weapon m_Anchor;
-    private Timer m_FireTimer;
-    private Timer m_BurstTimer;
+    private Timer_Accumulation m_FireTimer;
+    private Timer_Accumulation m_BurstTimer;
     private int m_RoundsInBurst;
 
     private int m_BurstCount;
@@ -27,10 +27,10 @@ public class FireControl_UtilityPulse extends FireControl
 
         m_Anchor = anchor;
 
-        m_FireTimer  	= new Timer(FireRate);
+        m_FireTimer  	= new Timer_Accumulation(FireRate);
         m_FireTimer.MaxOutTimer();
 
-        m_BurstTimer 	= new Timer(BurstRate);
+        m_BurstTimer 	= new Timer_Accumulation(BurstRate);
         m_RoundsInBurst = RoundsInBurst;
 
         m_FireState 	= FireState.Idle;

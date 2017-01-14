@@ -18,7 +18,7 @@ public enum ModelType
     ShieldBearer,
 
     Trail,
-    LaserPointer,
+
     PlasmaPulse,
     SpawnPillar,
     ParticleLaser,
@@ -29,6 +29,8 @@ public enum ModelType
 	StandardPoint,
 
     Shield,
+
+    LaserPointer,
 
 	HorizonRing,
 

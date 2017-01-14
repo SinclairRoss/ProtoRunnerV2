@@ -7,12 +7,13 @@ import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_Point;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.CollisionReport;
 import com.raggamuffin.protorunnerv2.utils.Colour;
-import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.Colours;
+import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class Projectile_Flare extends Projectile
 {
-    private Timer m_LifeSpan;
+    private Timer_Accumulation m_LifeSpan;
     private Vector3 m_Destination;
 
     private ParticleEmitter_Point m_PointEmitter;
@@ -21,7 +22,7 @@ public class Projectile_Flare extends Projectile
     {
         super(game, position, initialVelocity, forward, colour, baseDamage, affiliation, ModelType.Nothing);
 
-        m_LifeSpan = new Timer(5.0);
+        m_LifeSpan = new Timer_Accumulation(5.0);
         m_DragCoefficient = 0.85;
 
         m_Mass = 100;
@@ -32,7 +33,8 @@ public class Projectile_Flare extends Projectile
         m_Destination.Normalise();
         m_Destination.Scale(50.0);
 
-        m_PointEmitter = new ParticleEmitter_Point(game, new Colour(), m_BaseColour, 200, 1.0);
+
+        m_PointEmitter = new ParticleEmitter_Point(game, new Colour(Colours.IndianRed), new Colour(Colours.Blue), 5, 1.0);
     }
 
     @Override
@@ -45,7 +47,7 @@ public class Projectile_Flare extends Projectile
         m_Forward.Add(m_Destination);
         m_Forward.Normalise();
 
-        ApplyForce(m_Forward, 9000);
+        ApplyForce(m_Forward, 12000);
 
         super.Update(deltaTime);
     }
@@ -69,13 +71,9 @@ public class Projectile_Flare extends Projectile
 
     @Override
     public void CollisionResponse(CollisionReport report)
-    {
-
-    }
+    {}
 
     @Override
     public void CleanUp()
-    {
-
-    }
+    {}
 }

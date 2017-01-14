@@ -144,8 +144,7 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
 
 	@Override
 	public void onPrepared(MediaPlayer arg0) 
-	{
-	}
+	{}
 
 	@Override
 	public void onAudioFocusChange(int focusChange) 

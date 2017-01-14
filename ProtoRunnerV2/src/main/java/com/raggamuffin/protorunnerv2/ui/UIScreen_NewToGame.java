@@ -65,7 +65,7 @@ public class UIScreen_NewToGame extends UIScreen
         Publisher yesPub = m_Game.GetPubSubHub().CreatePublisher(PublishedTopics.StartTutorial);
         m_YesButton = new UIButton(m_UIManager, yesPub, 0, audio, AudioClips.UI_Positive);
         m_YesButton.SetText(context.getString(R.string.tutorial_yes));
-        m_YesButton.GetFont().SetColour(cManager.GetPrimaryColour());
+        m_YesButton.GetFont().SetColour(cManager.GetUISecondaryColour());
         m_YesButton.SetPosition(0.50, -0.30);
         m_YesButton.GetFont().SetAlignment(Font.Alignment.Right);
 
@@ -76,7 +76,7 @@ public class UIScreen_NewToGame extends UIScreen
         Publisher noPub = m_Game.GetPubSubHub().CreatePublisher(PublishedTopics.StartGame);
         m_NoButton = new UIButton(m_UIManager, noPub, 0, audio, AudioClips.UI_Negative);
         m_NoButton.SetText(context.getString(R.string.tutorial_no));
-        m_NoButton.GetFont().SetColour(cManager.GetSecondaryColour());
+        m_NoButton.GetFont().SetColour(cManager.GetUIAccentColour());
         m_NoButton.SetPosition(-0.50, -0.30);
         m_NoButton.GetFont().SetAlignment(Font.Alignment.Left);
 

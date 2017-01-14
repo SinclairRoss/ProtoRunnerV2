@@ -6,15 +6,15 @@ import java.util.Iterator;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.particles.Graviton;
 import com.raggamuffin.protorunnerv2.particles.GravitonBehaviourType;
+import com.raggamuffin.protorunnerv2.particles.Particle;
 import com.raggamuffin.protorunnerv2.particles.ParticleEmitter;
-import com.raggamuffin.protorunnerv2.particles.Particle_Standard;
 import com.raggamuffin.protorunnerv2.particles.TrailEmitter;
 import com.raggamuffin.protorunnerv2.particles.TrailNode;
 
 public class ParticleManager
 {
-	private ArrayList<Particle_Standard> m_ActiveParticles;
-	private ArrayList<Particle_Standard> m_InvalidParticles;
+	private ArrayList<Particle> m_ActiveParticles;
+	private ArrayList<Particle> m_InvalidParticles;
 
 	private ArrayList<TrailNode> m_ActiveTrailParticles;
 	private ArrayList<TrailNode> m_InvalidTrailParticles;
@@ -39,18 +39,18 @@ public class ParticleManager
 	
 	public void Update(double deltaTime)
 	{
-		for(Iterator<Particle_Standard> iter = m_ActiveParticles.iterator(); iter.hasNext();)
+		for(Iterator<Particle> iter = m_ActiveParticles.iterator(); iter.hasNext();)
 		{
-			Particle_Standard temp = iter.next();
+			Particle particle = iter.next();
 
-			if(temp.IsValid())
+			if(particle.IsValid())
 			{
-				temp.Update(deltaTime);
+				particle.Update(deltaTime);
 			}
 			else
 			{
-				m_InvalidParticles.add(temp);
-				m_Game.RemoveParticleFromRenderer(temp);
+				m_InvalidParticles.add(particle);
+				m_Game.RemoveParticleFromRenderer(particle);
 				iter.remove();
 			}
 		}
@@ -73,28 +73,25 @@ public class ParticleManager
         }
 	}
 
-	public Particle_Standard CreateParticle(ParticleEmitter origin)
+	public Particle CreateParticle(ParticleEmitter origin)
 	{
-		Particle_Standard newParticle = null;
+		Particle newParticle;
 
-		if(false)
-		{
-			// Check to see if there are any particles ready to be recycled.
-			if (m_InvalidParticles.size() > 0)
-			{
-				newParticle = m_InvalidParticles.get(0);
-				m_InvalidParticles.remove(newParticle);
-			}
-			else
-			{
-				newParticle = new Particle_Standard(m_Game, m_Gravitons);
-			}
+        // Check to see if there are any particles ready to be recycled.
+        if (m_InvalidParticles.size() > 0)
+        {
+            newParticle = m_InvalidParticles.get(0);
+            m_InvalidParticles.remove(newParticle);
+        }
+        else
+        {
+            newParticle = new Particle();
+        }
 
-			newParticle.Activate(origin);
-			m_ActiveParticles.add(newParticle);
+        newParticle.Activate(origin.CalculateSpawnPoint(), origin.GetVelocity(), origin.CalculateParticleForward(), origin.GetEmissionForce(), origin.GetInitialColour(), origin.GetFinalColour(), origin.GetLifeSpan());
+        m_ActiveParticles.add(newParticle);
 
-			m_Game.AddParticleToRenderer(newParticle);
-		}
+        m_Game.AddParticleToRenderer(newParticle);
 
 		return newParticle;
 	}

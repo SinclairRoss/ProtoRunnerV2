@@ -1,16 +1,7 @@
 package com.raggamuffin.protorunnerv2.managers;
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.gamelogic.IncommingMissileAlarm;
-import com.raggamuffin.protorunnerv2.gameobjects.SpawnEffect;
 import com.raggamuffin.protorunnerv2.gameobjects.VehicleType;
-import com.raggamuffin.protorunnerv2.utils.Colour;
-import com.raggamuffin.protorunnerv2.utils.Colours;
-import com.raggamuffin.protorunnerv2.utils.FormationHelper;
-import com.raggamuffin.protorunnerv2.utils.Timer;
-import com.raggamuffin.protorunnerv2.utils.Vector3;
-
-import java.util.ArrayList;
 
 public class GameManager_Play extends GameManager
 {
@@ -30,16 +21,24 @@ public class GameManager_Play extends GameManager
     {
         m_VehicleManager.SpawnPlayer();
 
-        m_VehicleManager.SpawnVehicle(VehicleType.Wingman, 5, 0, 0);
-        m_VehicleManager.SpawnVehicle(VehicleType.Wingman, -5, 0, 0);
-
-       // m_VehicleManager.SpawnVehicle(VehicleType.Bit, 10, 0, 0);
+        if(GameLogic.TEST_MODE)
+        {
+            m_VehicleManager.SpawnVehicle(VehicleType.WeaponTestBot, 0, 0, 15);
+        }
+        else
+        {
+            m_VehicleManager.SpawnVehicle(VehicleType.Wingman, 5, 0, 0);
+            m_VehicleManager.SpawnVehicle(VehicleType.Wingman, -5, 0, 0);
+        }
     }
 
     @Override
     public void Update(double deltaTime)
     {
-        m_WaveManager.Update(deltaTime);
+        if(!GameLogic.TEST_MODE)
+        {
+            m_WaveManager.Update(deltaTime);
+        }
     }
 
     @Override

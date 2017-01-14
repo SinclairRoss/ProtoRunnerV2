@@ -22,11 +22,9 @@ public class GLParticle
     private int m_ProjMatrixHandle;
     private int m_EyePosHandle;
     private int m_PositionHandle;
-    private int m_SizeHandle;
     private int m_ColourHandle;
 
     private ArrayList<Vector3> m_Points;
-    private ArrayList<Float> m_Size;
     private ArrayList<Colour> m_Colours;
 
     public GLParticle()
@@ -36,11 +34,9 @@ public class GLParticle
         m_ProjMatrixHandle = 0;
         m_EyePosHandle = 0;
         m_PositionHandle = 0;
-        m_SizeHandle = 0;
         m_ColourHandle = 0;
 
         m_Points = new ArrayList<>();
-        m_Size = new ArrayList<>();
         m_Colours = new ArrayList<>();
 
         InitShaders();
@@ -55,11 +51,10 @@ public class GLParticle
         GLES20.glUniform4f(m_EyePosHandle, (float) eye.I, (float) eye.J, (float) eye.K, 1.0f);
     }
 
-    public void AddPoint(Vector3 point, Colour colour, float size)
+    public void AddPoint(Vector3 point, Colour colour)
     {
         m_Points.add(point);
         m_Colours.add(colour);
-        m_Size.add(size);
     }
 
     public void Draw()
@@ -75,8 +70,6 @@ public class GLParticle
             vertices[i*3]   = (float)pos.I;
             vertices[i*3+1] = (float)pos.J;
             vertices[i*3+2] = (float)pos.K;
-
-            size[i] = m_Size.get(i);
 
             Colour colour   = m_Colours.get(i);
             colours[i*4]   = (float)colour.Red;
@@ -106,16 +99,12 @@ public class GLParticle
         GLES20.glEnableVertexAttribArray(m_PositionHandle);
         GLES20.glVertexAttribPointer(m_PositionHandle, 3, GLES20.GL_FLOAT, false, 12, m_VertexBuffer);
 
-        GLES20.glEnableVertexAttribArray(m_SizeHandle);
-        GLES20.glVertexAttribPointer(m_SizeHandle, 1, GLES20.GL_FLOAT, false, 4, m_SizeBuffer);
-
         GLES20.glEnableVertexAttribArray(m_ColourHandle);
         GLES20.glVertexAttribPointer(m_ColourHandle, 4, GLES20.GL_FLOAT, false, 16, m_ColourBuffer);
 
         GLES20.glDrawArrays(GLES20.GL_POINTS, 0, numPoints);
 
         m_Points.clear();
-        m_Size.clear();
         m_Colours.clear();
     }
 
@@ -139,7 +128,6 @@ public class GLParticle
         m_ProjMatrixHandle      = GLES20.glGetUniformLocation(m_Program, "u_ProjMatrix");
         m_EyePosHandle          = GLES20.glGetUniformLocation(m_Program, "u_EyePos");
         m_PositionHandle        = GLES20.glGetAttribLocation(m_Program, "a_Position");
-        m_SizeHandle            = GLES20.glGetAttribLocation(m_Program, "a_Size");
         m_ColourHandle 			= GLES20.glGetAttribLocation(m_Program, "a_Color");
     }
 

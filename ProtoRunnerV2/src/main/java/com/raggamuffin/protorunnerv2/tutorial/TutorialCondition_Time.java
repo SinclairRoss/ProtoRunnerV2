@@ -1,17 +1,17 @@
 package com.raggamuffin.protorunnerv2.tutorial;
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 
 public class TutorialCondition_Time extends TutorialCondition
 {
-    private Timer m_Timer;
+    private Timer_Accumulation m_Timer;
 
     public TutorialCondition_Time(GameLogic game, String message, double time, TutorialEffect... effects)
     {
         super(game, message, OptionalElement.None, effects);
 
-        m_Timer = new Timer(time);
+        m_Timer = new Timer_Accumulation(time);
     }
 
     @Override

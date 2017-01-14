@@ -2,13 +2,9 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
-import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
-import com.raggamuffin.protorunnerv2.weapons.Weapon_LaserBurner;
-import com.raggamuffin.protorunnerv2.weapons.Weapon_MissileLauncher;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_None;
 
 public class DodgeTestBot extends Vehicle

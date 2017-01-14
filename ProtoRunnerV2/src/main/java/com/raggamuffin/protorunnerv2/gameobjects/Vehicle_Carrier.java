@@ -11,18 +11,13 @@ import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
-import com.raggamuffin.protorunnerv2.weapons.Weapon_None;
+import com.raggamuffin.protorunnerv2.weapons.Weapon_MissileLauncher;
 
-import java.util.ArrayList;
 
 public class Vehicle_Carrier extends Vehicle
 {
 	private AIController m_AIController;
 	private VehicleManager m_VehicleManager;
-
-    private final int DRONE_CAPACITY = 3;
-
-    private boolean m_DronesSpawned;
 
 	public Vehicle_Carrier(GameLogic game)
 	{
@@ -44,14 +39,12 @@ public class Vehicle_Carrier extends Vehicle
 
 		SetAffiliation(AffiliationKey.RedTeam);
 
-        SelectWeapon(new Weapon_None(this, game));
+        SelectWeapon(new Weapon_MissileLauncher(this, game));
 
         NavigationalBehaviourInfo navInfo = new NavigationalBehaviourInfo(0.4, 1.0, 0.7, 0.6);
-		m_AIController = new AIController(this, m_VehicleManager, game.GetBulletManager(), navInfo, AIBehaviours.Encircle, FireControlBehaviour.None, TargetingBehaviour.Standard);
+		m_AIController = new AIController(this, m_VehicleManager, game.GetBulletManager(), navInfo, AIBehaviours.Encircle, FireControlBehaviour.MissileLauncher, TargetingBehaviour.Standard);
 
 		m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.EnemyDestroyed);
-
-        m_DronesSpawned = false;
     }
 	
 	@Override 
@@ -59,22 +52,8 @@ public class Vehicle_Carrier extends Vehicle
 	{
 		m_AIController.Update(deltaTime);
 
-        if(!m_DronesSpawned)
-        {
-            CreateDrones(DRONE_CAPACITY);
-            m_DronesSpawned = true;
-        }
-
         super.Update(deltaTime);
 	}
-
-    private void CreateDrones(int count)
-    {
-        for(int i = 0; i < count; i++)
-        {
-            m_VehicleManager.SpawnDrone(this);
-        }
-    }
 
     @Override
     public void CleanUp()

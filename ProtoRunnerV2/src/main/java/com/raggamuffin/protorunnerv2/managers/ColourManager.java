@@ -14,6 +14,13 @@ public class ColourManager
 {
     private GameLogic m_Game;
 
+    private Colour m_UIPrimaryColour;
+    private Colour m_UISecondaryColour;
+    private Colour m_UIAccentColour;
+
+    private Colour m_DangerColour;
+    private Colour m_SafeColour;
+
     private ColourPair m_ActiveColourPair;
     private ColourPair m_PreviousColourPair;
     private ColourPair m_Left;
@@ -31,8 +38,14 @@ public class ColourManager
     public ColourManager(GameLogic game)
     {
         m_Game = game;
+        m_UIPrimaryColour = new Colour(Colours.White);
+        m_UISecondaryColour = new Colour(Colours.Pink70);
+        m_UIAccentColour = new Colour(Colours.RunnerBlue);
 
-        m_Left = new ColourPair(Colours.RunnerBlue, Colours.Pink70);
+        m_DangerColour = new Colour(Colours.Pink70);
+        m_SafeColour = new Colour(Colours.RunnerBlue);
+
+        m_Left = new ColourPair(Colours.RunnerBlue, Colours.PastelBlueDark);
         m_Right = new ColourPair(Colours.HannahExperimentalAA, Colours.HannahExperimentalAB);
         m_Up = new ColourPair(Colours.HannahExperimentalBA, Colours.HannahExperimentalBB);
         m_PreviousColourPair = new ColourPair();
@@ -47,7 +60,7 @@ public class ColourManager
         m_CounterMultiplier = 1.0;
         m_ColoursUpdating = false;
 
-        m_Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerSwitchedWeapon, new PlayerSwitchedWeaponSubscriber());
+        //m_Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerSwitchedWeapon, new PlayerSwitchedWeaponSubscriber());
         m_Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerSpawned, new PlayerSpawnedSubscriber());
     }
 
@@ -81,6 +94,31 @@ public class ColourManager
     {
         m_AccentTintColour.SetColour(m_SecondaryColour);
         m_AccentTintColour.Brighten(-0.6);
+    }
+
+    public Colour GetUIPrimaryColour()
+    {
+        return m_UIPrimaryColour;
+    }
+
+    public Colour GetUISecondaryColour()
+    {
+        return m_UISecondaryColour;
+    }
+
+    public Colour GetUIAccentColour()
+    {
+        return m_UIAccentColour;
+    }
+
+    public Colour GetDangerColour()
+    {
+        return m_DangerColour;
+    }
+
+    public Colour GetSafeColour()
+    {
+        return m_SafeColour;
     }
 
     public Colour GetPrimaryColour()
@@ -125,7 +163,7 @@ public class ColourManager
             m_PreviousColourPair.SetPrimaryColour(m_PrimaryColour);
             m_PreviousColourPair.SetSecondaryColour(m_SecondaryColour);
 
-            m_ActiveColourPair = GetColourPairByWeaponSlot(player.GetWeaponSlot());
+            //m_ActiveColourPair = GetColourPairByWeaponSlot(player.GetWeaponSlot());
 
             ResetColourUpdateCounter();
         }

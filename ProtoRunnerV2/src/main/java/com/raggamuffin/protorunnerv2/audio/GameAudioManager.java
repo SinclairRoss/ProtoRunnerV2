@@ -69,14 +69,14 @@ public class GameAudioManager
 		// Music
 		int music;
 
-		if(MathsHelper.RandomBoolean())
-		{
+		//if(MathsHelper.RandomBoolean())
+		//{
 			music = R.raw.skeletons;
-		}
-		else
-		{
-			music = R.raw.passion;
-		}
+		//}
+		//else
+		//{
+		//	music = R.raw.passion;
+		//}
 
 		m_AudioService.LoadMusic(music);
         StartMusic();

@@ -1,10 +1,10 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
-import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 
 public class FireControl_Burst extends FireControl
 {
-	private Timer m_FireTimer;
+	private Timer_Accumulation m_FireTimer;
 	private int m_ShotsInBurst;
 	private int m_ShotsFired;
 	
@@ -12,7 +12,7 @@ public class FireControl_Burst extends FireControl
 	{
 		super();
 	
-		m_FireTimer 	= new Timer(fireRate);
+		m_FireTimer 	= new Timer_Accumulation(fireRate);
 		m_ShotsInBurst 	= shotsInBurst;
 		m_ShotsFired 	= m_ShotsInBurst;
 	}

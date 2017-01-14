@@ -12,7 +12,7 @@ public class Shield extends GameObject
     private final double GROWTH_RATE = 3.0;
 
     private double m_TargetScale;
-    private double m_NormalisedScale;
+    protected double m_NormalisedScale;
     private double m_GrowthRate;
     private Vehicle m_Target;
     private GameObject m_Anchor;
@@ -51,6 +51,11 @@ public class Shield extends GameObject
         }
     }
 
+    public boolean IsDetached()
+    {
+        return m_NormalisedScale <= 0 && m_GrowthRate < 0;
+    }
+
     @Override
     public void Update(double deltaTime)
     {
@@ -60,7 +65,7 @@ public class Shield extends GameObject
         m_NormalisedScale = MathsHelper.Clamp(m_NormalisedScale, 0, 1);
 
         double horizontalScale = MathsHelper.Lerp(m_NormalisedScale, 0, m_TargetScale);
-        double verticalScale = horizontalScale;// * 0.5;
+        double verticalScale = horizontalScale;
         m_Scale.SetVector(horizontalScale, verticalScale, horizontalScale);
 
         if(m_Target != null)
@@ -72,7 +77,7 @@ public class Shield extends GameObject
     @Override
     public boolean IsValid()
     {
-        return m_Anchor.IsValid();
+        return m_Anchor.IsValid() || m_NormalisedScale > 0;
     }
 
     @Override

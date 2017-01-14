@@ -23,6 +23,8 @@ public class Vehicle_Wingman extends Vehicle
 	public Vehicle_Wingman(GameLogic game)
 	{
 		super(game, ModelType.Runner);
+
+		m_BoundingRadius = 1.5;
 		
 		m_VehicleManager = game.GetVehicleManager();
 
@@ -55,6 +57,9 @@ public class Vehicle_Wingman extends Vehicle
 		game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerSpawned, m_PlayerSpawnedSubscriber);
 
 		m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.WingmanDestroyed);
+
+		Shield_Timed shield = new Shield_Timed(game, this);
+		AddObjectToGameObjectManager(shield);
 	}
 
 	@Override 

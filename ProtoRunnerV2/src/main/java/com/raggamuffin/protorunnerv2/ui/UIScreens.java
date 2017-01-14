@@ -9,7 +9,6 @@ public enum UIScreens
 	GameOverScreen,
 	Aftermath,
     Tutorial,
-    Reboot,
     NewToGame,
     NotSignedIn,
     Leaderboards,

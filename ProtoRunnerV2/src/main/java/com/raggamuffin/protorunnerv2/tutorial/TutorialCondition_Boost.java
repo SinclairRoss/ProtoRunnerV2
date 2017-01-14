@@ -4,19 +4,19 @@ import com.raggamuffin.protorunnerv2.ai.VehicleInfo;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Runner;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
-import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 
 public class TutorialCondition_Boost extends TutorialCondition
 {
     private VehicleManager m_VehicleManager;
-    private Timer m_BoostTimer;
+    private Timer_Accumulation m_BoostTimer;
 
     public TutorialCondition_Boost(GameLogic game, String message, double time, TutorialEffect... effects)
     {
         super(game, message, OptionalElement.ProgressBar, effects);
 
         m_VehicleManager = m_Game.GetVehicleManager();
-        m_BoostTimer = new Timer(time);
+        m_BoostTimer = new Timer_Accumulation(time);
     }
 
     @Override

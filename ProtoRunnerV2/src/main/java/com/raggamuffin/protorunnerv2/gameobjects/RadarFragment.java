@@ -9,7 +9,6 @@ import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Spring3;
-import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class RadarFragment extends GameObject
@@ -55,8 +54,9 @@ public class RadarFragment extends GameObject
         m_Heat = 0.0;
         m_SignatureType = RadarSignatureType.None;
 
-        m_FriendlyColour = game.GetColourManager().GetPrimaryColour();
-        m_EnemyColour = game.GetColourManager().GetSecondaryColour();
+        m_FriendlyColour = game.GetColourManager().GetSafeColour();
+        m_EnemyColour = game.GetColourManager().GetDangerColour();
+
         m_NeutralColour = new Colour(Colours.PastelGrey);
         m_BaseColour = m_NeutralColour;
         m_AltColour = m_NeutralColour;

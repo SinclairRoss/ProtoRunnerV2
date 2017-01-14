@@ -193,7 +193,7 @@ public class GLModel_RadarFragment extends GLModel
         GLES20.glEnableVertexAttribArray(m_TexCoordHandle);
         GLES20.glVertexAttribPointer(m_TexCoordHandle, TEX_COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, TEX_STRIDE, textureBuffer);
 
-	  	GLES20.glDisable(GLES20.GL_DEPTH_TEST);
+	  //	GLES20.glDisable(GLES20.GL_DEPTH_TEST);
     }
 
     @Override
@@ -214,7 +214,7 @@ public class GLModel_RadarFragment extends GLModel
     @Override
     public void CleanModel()
     {
-        GLES20.glEnable(GLES20.GL_DEPTH_TEST);
+     //   GLES20.glEnable(GLES20.GL_DEPTH_TEST);
 
         GLES20.glDisableVertexAttribArray(m_PositionHandle);
         GLES20.glDisableVertexAttribArray(m_TexCoordHandle);

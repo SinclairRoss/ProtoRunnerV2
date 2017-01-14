@@ -33,6 +33,7 @@ import com.raggamuffin.protorunnerv2.managers.GooglePlayService;
 import com.raggamuffin.protorunnerv2.master.RendererPacket;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
+import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
 import com.raggamuffin.protorunnerv2.ui.UIScreens;
@@ -68,7 +69,11 @@ public class GameLogic extends ApplicationLogic
     private final GameManager_Test m_TestManager;
     private final GooglePlayService m_GooglePlayService;
 
+    private Publisher m_GameReadyPublisher;
+
     private GameMode m_GameMode;
+
+    public static boolean TEST_MODE = false;
 
 	public GameLogic(Activity activity, PubSubHub pubSub, ControlScheme scheme, RendererPacket packet)
 	{
@@ -107,6 +112,8 @@ public class GameLogic extends ApplicationLogic
         m_PubSubHub.SubscribeToTopic(PublishedTopics.AchievementsPressed, new AchievementsPressedSubscriber());
         m_PubSubHub.SubscribeToTopic(PublishedTopics.HighTimePressed, new HighTimeLeaderBoardPressedSubscriber());
         m_PubSubHub.SubscribeToTopic(PublishedTopics.StartTest, new StartTestSubscriber());
+
+        m_GameReadyPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.GameReady);
 
         m_PlayManager = new GameManager_Play(this);
         m_TutorialManager = new GameManager_Tutorial(this);
@@ -350,7 +357,10 @@ public class GameLogic extends ApplicationLogic
             else
             {
                 SetGameMode(GameMode.Play);
+                m_UIManager.ShowScreen(UIScreens.Play);
+
                 m_SecondWindHandler.AutoSpawnOff();
+                m_GameReadyPublisher.Publish();
             }
         }
     }
@@ -405,7 +415,6 @@ public class GameLogic extends ApplicationLogic
         {
             m_Camera.Attach(m_VehicleManager.GetPlayer());
             m_Camera.SetUp(0, 1, 0);
-            m_UIManager.ShowScreen(UIScreens.Play);
         }
     }
 
@@ -416,7 +425,7 @@ public class GameLogic extends ApplicationLogic
         {
             m_Camera.NormalCam();
 
-            m_UIManager.ShowScreen(UIScreens.Reboot);
+            //m_UIManager.ShowScreen(UIScreens.Reboot);
 
             ArrayList<Vehicle> wingmen = m_VehicleManager.GetTeam(AffiliationKey.BlueTeam);
 

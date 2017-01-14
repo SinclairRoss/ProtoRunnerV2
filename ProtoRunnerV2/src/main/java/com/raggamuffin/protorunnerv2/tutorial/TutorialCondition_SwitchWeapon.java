@@ -46,9 +46,7 @@ public class TutorialCondition_SwitchWeapon extends TutorialCondition
 
     @Override
     public void Update(double deltaTime)
-    {
-
-    }
+    {}
 
     @Override
     public void Reset()
@@ -64,18 +62,15 @@ public class TutorialCondition_SwitchWeapon extends TutorialCondition
         @Override
         public void Update(int args)
         {
-            if(!m_Active)
-                return;
+            if(m_Active)
+            {
+                Vehicle_Runner player = m_Game.GetVehicleManager().GetPlayer();
 
-            Vehicle_Runner player = m_Game.GetVehicleManager().GetPlayer();
-
-            if(player == null)
-                return;
-
-            if(player.GetWeaponSlot() != m_Slot)
-                return;
-
-            m_CondtionComplete = true;
+                if (player != null)
+                {
+                    m_CondtionComplete = true;
+                }
+            }
         }
     }
 }

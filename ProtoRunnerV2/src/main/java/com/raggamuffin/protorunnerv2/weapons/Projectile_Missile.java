@@ -1,3 +1,5 @@
+//TODO: THESE MISSILES ARE SHIT... PLEASE FIX THIS.
+
 package com.raggamuffin.protorunnerv2.weapons;
 
 import com.raggamuffin.protorunnerv2.audio.AudioClips;
@@ -12,7 +14,7 @@ import com.raggamuffin.protorunnerv2.utils.CollisionDetection;
 import com.raggamuffin.protorunnerv2.utils.CollisionReport;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
-import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 import java.util.ArrayList;
@@ -27,14 +29,14 @@ public class Projectile_Missile extends Projectile
         Armed
     }
 
-    MissileState m_State;
+    private MissileState m_State;
 
     private WeaponBarrel m_Offset;
     private Vector3 m_Target;
     private Vector3 m_ToTarget;
-    private Timer m_LifeSpan;
-    private Timer m_ArmingTimer;
-    private Timer m_PrimingTimer;
+    private Timer_Accumulation m_LifeSpan;
+    private Timer_Accumulation m_ArmingTimer;
+    private Timer_Accumulation m_PrimingTimer;
     private double m_EngineOutput;
     private final double LAUNCH_DELAY = 0.3;
     private final double TARGETING_RANGE = 1000;
@@ -63,15 +65,15 @@ public class Projectile_Missile extends Projectile
 
         m_Velocity.SetVector(0);
 
-        m_LifeSpan = new Timer(2.5);
-        m_ArmingTimer = new Timer(0.65);
-        m_PrimingTimer = new Timer(LAUNCH_DELAY * index);
+        m_LifeSpan = new Timer_Accumulation(2.5);
+        m_ArmingTimer = new Timer_Accumulation(0.6);
+        m_PrimingTimer = new Timer_Accumulation(LAUNCH_DELAY * index);
         m_Target = new Vector3();
         m_ToTarget = new Vector3();
 
         m_Mass = 10;
 
-        m_EngineOutput = 8000;
+        m_EngineOutput = 2000;
     }
 
     @Override
@@ -132,12 +134,12 @@ public class Projectile_Missile extends Projectile
                 else
                 {
                     m_Target.SetVector(m_Origin.GetForward());
-                    m_Target.Scale(10);
+                    m_Target.Scale(50);
+                    m_Target.Add(m_Position);
                 }
 
                 m_ToTarget.SetVectorDifference(m_Position, m_Target);
                 m_ToTarget.Normalise();
-
                 UpdateVectorsWithForward(m_ToTarget);
 
                 ApplyForce(m_Forward, m_EngineOutput);
@@ -162,37 +164,33 @@ public class Projectile_Missile extends Projectile
 
     private GameObject FindTarget()
     {
-        if(m_LockedTargetFlare == null)
+        GameObject target = m_LockedTargetFlare;
+
+        if(target == null)
         {
-            m_LockedTargetFlare = FindTargetFlare();
-        }
+            target = FindTargetFlare();
 
-        GameObject target = null;
-
-        if(m_LockedTargetFlare == null)
-        {
-            double highestUtility = Double.MIN_VALUE;
-
-            ArrayList<Vehicle> enemyVehicles = m_Game.GetVehicleManager().GetOpposingTeam(m_Origin.GetAffiliation());
-            for (Vehicle possibleTarget : enemyVehicles)
+            if (target == null)
             {
-                m_ToTarget.SetVectorDifference(GetPosition(), possibleTarget.GetPosition());
-                double utility = 0.0;
+                double highestUtility = Double.MIN_VALUE;
 
-                // Phase 1: Calculate utility based on distance from target.
-                double DistanceSqr = m_ToTarget.GetLengthSqr();
-                utility += 1.0 - MathsHelper.Normalise(DistanceSqr, 0.0, TARGETING_RANGE * TARGETING_RANGE);
-
-                if (utility > highestUtility)
+                ArrayList<Vehicle> enemyVehicles = m_Game.GetVehicleManager().GetOpposingTeam(m_Origin.GetAffiliation());
+                for (Vehicle possibleTarget : enemyVehicles)
                 {
-                    highestUtility = utility;
-                    target = possibleTarget;
+                    m_ToTarget.SetVectorDifference(GetPosition(), possibleTarget.GetPosition());
+                    double utility = 0.0;
+
+                    // Phase 1: Calculate utility based on distance from target.
+                    double DistanceSqr = m_ToTarget.GetLengthSqr();
+                    utility += 1.0 - MathsHelper.Normalise(DistanceSqr, 0.0, TARGETING_RANGE * TARGETING_RANGE);
+
+                    if (utility > highestUtility)
+                    {
+                        highestUtility = utility;
+                        target = possibleTarget;
+                    }
                 }
             }
-        }
-        else
-        {
-            target = m_LockedTargetFlare;
         }
 
         return target;
@@ -207,7 +205,7 @@ public class Projectile_Missile extends Projectile
 
         for(Projectile_Flare flare : flares)
         {
-            if (flare.GetAffiliation() != GetAffiliation())
+            if (true)//flare.GetAffiliation() != GetAffiliation())
             {
                 m_ToTarget.SetVectorDifference(GetPosition(), flare.GetPosition());
                 double toFlareSqr = m_ToTarget.GetLengthSqr();

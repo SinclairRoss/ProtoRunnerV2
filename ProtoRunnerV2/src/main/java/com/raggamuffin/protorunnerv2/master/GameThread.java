@@ -6,6 +6,7 @@ package com.raggamuffin.protorunnerv2.master;
 
 import com.raggamuffin.protorunnerv2.gamelogic.ApplicationLogic;
 import com.raggamuffin.protorunnerv2.utils.FrameRateCounter;
+import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 
 import android.os.Handler;
 import android.os.Message;
@@ -52,26 +53,28 @@ public class GameThread extends Thread
         
         while(m_Running)
         {
-            if (m_Paused)
-                continue;
-
-            m_EndTime = m_StartTime;
-            m_StartTime = System.currentTimeMillis();
-            m_DeltaTime += m_StartTime - m_EndTime;
-
-            if (m_DeltaTime >= m_FrameRate)
+            if (!m_Paused)
             {
-                double deltaTime = ((double) m_DeltaTime) * 0.001;
+                m_EndTime = m_StartTime;
+                m_StartTime = System.currentTimeMillis();
+                m_DeltaTime += m_StartTime - m_EndTime;
 
-                m_ControlScheme.Update(deltaTime);
+                if (m_DeltaTime >= m_FrameRate)
+                {
+                    m_DeltaTime = MathsHelper.Clamp(m_DeltaTime, 0, m_FrameRate * 2);
 
-                m_LogicDurationCounter.StartFrame();
-                m_Logic.Update(deltaTime);
-                m_LogicDurationCounter.EndFrame();
-                m_LogicDurationCounter.LogFrameDuration("Logic", 16L);
-                m_DeltaTime = 0L;
+                    double deltaTime = ((double) m_DeltaTime) * 0.001;
 
-                m_Handler.sendMessage(ComposeMessage(GameActivity.REQUEST_RENDER));
+                    m_ControlScheme.Update(deltaTime);
+
+                    m_LogicDurationCounter.StartFrame();
+                    m_Logic.Update(deltaTime);
+                    m_LogicDurationCounter.EndFrame();
+                    m_LogicDurationCounter.LogFrameDuration("Logic", 16L);
+                    m_DeltaTime = 0L;
+
+                    m_Handler.sendMessage(ComposeMessage(GameActivity.REQUEST_RENDER));
+                }
             }
         }
     } 

@@ -9,7 +9,7 @@ import com.raggamuffin.protorunnerv2.utils.CollisionDetection;
 import com.raggamuffin.protorunnerv2.utils.CollisionReport;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
-import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class Projectile_Laser extends Projectile
@@ -24,7 +24,7 @@ public class Projectile_Laser extends Projectile
     private LaserState m_State;
 
     private final double m_GrowthRate;
-    private Timer m_LaserFadeTimer;
+    private Timer_Accumulation m_LaserFadeTimer;
 
     private double m_LaserLength;
     private final double m_MaxLength;
@@ -48,7 +48,7 @@ public class Projectile_Laser extends Projectile
         m_State = LaserState.Active;
 
         m_GrowthRate = 100;
-        m_LaserFadeTimer = new Timer(0.5);
+        m_LaserFadeTimer = new Timer_Accumulation(0.5);
 
         m_LaserLength = 0.0;
         m_MaxLength = 100;
@@ -61,7 +61,6 @@ public class Projectile_Laser extends Projectile
 
         m_RayEmitter = new ParticleEmitter_Ray(game, GetBaseColour(), GetBaseColour(), 500, 0.35, 0.3);
         m_RayEmitter.SetForward(forward);
-        m_RayEmitter.SetParticleSize(15);
     }
 
     @Override
@@ -93,15 +92,20 @@ public class Projectile_Laser extends Projectile
                 m_RayEmitter.SetFinalColour(m_BaseColour);
                 break;
             }
+            case Deactivated:
+            {
+                // Do nothing.
+                break;
+            }
         }
 
         LockProjectile();
         ScaleLaser(deltaTime);
 
-        m_RayEmitter.SetPosition(GetPosition());
-        m_RayEmitter.SetForward(GetForward());
-        m_RayEmitter.SetRange(m_LaserLength);
-        m_RayEmitter.Update(deltaTime);
+        //m_RayEmitter.SetPosition(GetPosition());
+        //m_RayEmitter.SetForward(GetForward());
+       // m_RayEmitter.SetRange(m_LaserLength);
+        //m_RayEmitter.Update(deltaTime);
 
         m_DamageOutputPerFrame = m_BaseDamage * deltaTime;
 
@@ -126,7 +130,14 @@ public class Projectile_Laser extends Projectile
         endPoint.Scale(m_LaserLength);
         endPoint.Add(m_Position);
 
-        return CollisionDetection.RayCastSphere(m_Position, endPoint, object.GetPosition(), object.GetBoundingRadius());
+        CollisionReport report = null;
+
+        if(m_State == LaserState.Active)
+        {
+            report = CollisionDetection.RayCastSphere(m_Position, endPoint, object.GetPosition(), object.GetBoundingRadius());
+        }
+
+        return report;
     }
 
     @Override

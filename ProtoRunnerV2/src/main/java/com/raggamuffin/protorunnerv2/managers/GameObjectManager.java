@@ -45,6 +45,12 @@ public class GameObjectManager
         m_GameLogic.AddObjectToRenderer(object);
     }
 
+    public void RemoveObject(GameObject object)
+    {
+        m_GameObjects.remove(object);
+        m_GameLogic.RemoveGameObjectFromRenderer(object);
+    }
+
     public void Wipe()
     {
         for(GameObject object : m_GameObjects)

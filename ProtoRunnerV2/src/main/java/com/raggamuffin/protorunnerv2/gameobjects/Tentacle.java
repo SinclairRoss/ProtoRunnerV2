@@ -46,8 +46,11 @@ public class Tentacle extends GameObject
 
         m_TentacleState = TentacleState.Normal;
 
-        m_BaseColour = hotColour;
-        m_AltColour = coldColour;
+        m_BaseColour.SetColour(hotColour);
+        m_BaseColour.Alpha = 0.4;
+
+        m_AltColour.SetColour(coldColour);
+        m_AltColour.Alpha = 0.2;
 
         m_BloomPoint = 0;
 

@@ -137,15 +137,15 @@ public class UIProgressBar extends UIElement
 		m_Label.SetPositionRaw(m_Position.I - m_MaxLength * 0.5, m_Position.J);
 	}
 	
-	public void SetValue(double Value)
+	public void SetValue(double value)
 	{
-		Value = MathsHelper.Clamp(Value, 0.0, m_MaxValue);
-		m_CurrentValue = Value;
+        value = MathsHelper.Clamp(value, 0.0, m_MaxValue);
+		m_CurrentValue = value;
 	}
 
-    public void SnapToValue(double val)
+    public void SnapToValue(double value)
     {
-        m_Progress = val;
+        m_Progress = MathsHelper.Clamp(value, 0.0, 1.0);
     }
 	
 	@Override

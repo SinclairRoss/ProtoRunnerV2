@@ -178,4 +178,11 @@ public class Vehicle_TentacleController extends Vehicle
     {
         return m_Anchor.IsValid();
     }
+
+    @Override
+    public void CleanUp()
+    {
+        m_Shield.DetachFromObject();
+        SendDeathMessage();
+    }
 }

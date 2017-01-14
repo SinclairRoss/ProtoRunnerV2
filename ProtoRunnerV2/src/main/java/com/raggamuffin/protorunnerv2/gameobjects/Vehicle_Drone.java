@@ -73,8 +73,6 @@ public class Vehicle_Drone extends Vehicle
     {
         if(!m_Anchor.IsValid())
         {
-            m_BurstEmitter.Burst();
-            m_PrimaryWeapon.CeaseFire();
             return false;
         }
 

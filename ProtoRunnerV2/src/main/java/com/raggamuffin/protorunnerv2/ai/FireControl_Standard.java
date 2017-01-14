@@ -2,7 +2,7 @@ package com.raggamuffin.protorunnerv2.ai;
 
 
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
-import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class FireControl_Standard extends FireControl
@@ -12,8 +12,8 @@ public class FireControl_Standard extends FireControl
     private double m_FireArc;
     private double m_Range;
 
-    private Timer m_TelegraphTimer;
-    private Timer m_CooldownTimer;
+    private Timer_Accumulation m_TelegraphTimer;
+    private Timer_Accumulation m_CooldownTimer;
 
     public FireControl_Standard(AIController controller)
     {

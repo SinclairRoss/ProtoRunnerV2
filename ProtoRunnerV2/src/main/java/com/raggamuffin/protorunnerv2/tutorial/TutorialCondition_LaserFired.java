@@ -1,23 +1,20 @@
 package com.raggamuffin.protorunnerv2.tutorial;
 
-import android.util.Log;
-
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Runner;
-import com.raggamuffin.protorunnerv2.utils.MathsHelper;
-import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 import com.raggamuffin.protorunnerv2.weapons.WeaponSlot;
 
 public class TutorialCondition_LaserFired extends TutorialCondition
 {
-    private Timer m_FireDuration;
+    private Timer_Accumulation m_FireDuration;
     private WeaponSlot m_WeaponSlot;
 
     public TutorialCondition_LaserFired(GameLogic game, String message, double duration, WeaponSlot slot, TutorialEffect... effects)
     {
         super(game, message, OptionalElement.ProgressBar, effects);
 
-        m_FireDuration = new Timer(duration);
+        m_FireDuration = new Timer_Accumulation(duration);
         m_WeaponSlot = slot;
     }
 
@@ -28,12 +25,9 @@ public class TutorialCondition_LaserFired extends TutorialCondition
 
         if(player != null)
         {
-            if (player.GetWeaponSlot() == m_WeaponSlot)
+            if (player.GetPrimaryWeapon().IsTriggerPulled())
             {
-                if (player.GetPrimaryWeapon().IsTriggerPulled())
-                {
-                    m_FireDuration.Update(deltaTime);
-                }
+                m_FireDuration.Update(deltaTime);
             }
         }
     }

@@ -3,19 +3,19 @@ package com.raggamuffin.protorunnerv2.tutorial;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Runner;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
-import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 
 public class TutorialCondition_Dodge extends TutorialCondition
 {
     private VehicleManager m_VehicleManager;
-    private Timer m_DodgeTimer;
+    private Timer_Accumulation m_DodgeTimer;
 
     public TutorialCondition_Dodge(GameLogic game, String message, double time, TutorialEffect... effects)
     {
         super(game, message, OptionalElement.ProgressBar, effects);
 
         m_VehicleManager = m_Game.GetVehicleManager();
-        m_DodgeTimer = new Timer(time);
+        m_DodgeTimer = new Timer_Accumulation(time);
     }
 
     @Override

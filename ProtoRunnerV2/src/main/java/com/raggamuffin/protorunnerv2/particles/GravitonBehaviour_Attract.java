@@ -13,7 +13,7 @@ public class GravitonBehaviour_Attract extends GravitonBehaviour
 	@Override
 	public void ApplyGravitonForce(Particle particle) 
 	{
-		m_ToParticle.SetVectorDifference(particle.GetPosition(), m_Anchor.GetPosition());
+	//	m_ToParticle.SetVectorDifference(particle.GetPosition(), m_Anchor.GetPosition());
 		
 		double length = m_ToParticle.GetLength();
 		double inverse;

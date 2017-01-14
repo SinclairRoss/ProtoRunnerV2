@@ -71,9 +71,7 @@ public class GLModel_Rope extends GLModel
 
     @Override
     public void Draw(GameObject obj)
-    {
-
-    }
+    {}
 
     public void AddPoint(Vector3 position, double normalisedLength, double alpha)
     {

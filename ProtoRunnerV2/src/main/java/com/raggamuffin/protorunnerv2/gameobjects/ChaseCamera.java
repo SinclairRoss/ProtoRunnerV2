@@ -137,9 +137,9 @@ public class ChaseCamera
 
     public void SprintCam()
     {
-        m_Spring.SetStiffness(1.0);
-        m_VerticalOffset = 1.5;
-        m_HorizontalOffset = 2.5;
+        m_Spring.SetStiffness(0.1);
+        m_VerticalOffset = 7;
+        m_HorizontalOffset = 4; //1
     }
 
     public void NormalCam()

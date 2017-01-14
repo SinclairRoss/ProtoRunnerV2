@@ -259,6 +259,8 @@ public class VehicleManager
 		}
 		
         m_PlayerPosition.SetVector(0);
+
+		Update(0);
 	}
 		
 	public Vehicle_Runner GetPlayer()

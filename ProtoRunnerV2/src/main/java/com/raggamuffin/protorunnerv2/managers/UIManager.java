@@ -18,7 +18,6 @@ import com.raggamuffin.protorunnerv2.ui.UIScreen_MainMenu;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_NewToGame;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_NotSignedIn;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_Play;
-import com.raggamuffin.protorunnerv2.ui.UIScreen_Reboot;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_Splash;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_TestMode;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_Tutorial;
@@ -46,7 +45,6 @@ public class UIManager
 	private UIScreen_GameOver m_GameOverScreen;
 	private UIScreen_Aftermath m_AftermathScreen;
 	private UIScreen_Tutorial m_TutorialScreen;
-    private UIScreen_Reboot m_RebootScreen;
     private UIScreen_NewToGame m_NewToGameScreen;
     private UIScreen_NotSignedIn m_NotSignedInScreen;
     private UIScreen_HighScore m_HighScoreScreen;
@@ -75,7 +73,6 @@ public class UIManager
 		m_GameOverScreen 	 = new UIScreen_GameOver(m_Game, this);
 		m_AftermathScreen 	 = new UIScreen_Aftermath(m_Game, this);
         m_TutorialScreen     = new UIScreen_Tutorial(m_Game, this);
-        m_RebootScreen       = new UIScreen_Reboot(m_Game, this);
         m_NewToGameScreen    = new UIScreen_NewToGame(m_Game, this);
         m_NotSignedInScreen  = new UIScreen_NotSignedIn(m_Game, this);
         m_HighScoreScreen    = new UIScreen_HighScore(m_Game, this);
@@ -112,8 +109,6 @@ public class UIManager
                 return m_AftermathScreen;
             case Tutorial:
                 return m_TutorialScreen;
-            case Reboot:
-                return m_RebootScreen;
             case NewToGame:
                 return m_NewToGameScreen;
             case NotSignedIn:

@@ -10,10 +10,10 @@ import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class Radar extends GameObject
 {
-	private final double MIN_DEPTH = -2.5;
+	private final double MIN_DEPTH = -3.0;
 	private final double MAX_DEPTH = -2.0;
 	private final double FRAGMENT_SCALE = 0.5;
-	private final double FRAGMENT_PADDING = 0.1;
+	private final double FRAGMENT_PADDING = 0.8;
 	private final double RANGE = 150.0;
 	private final double NORMALISED_FRAGMENT_SIZE;
 	private final int RESOLUTION = 7;
@@ -82,25 +82,25 @@ public class Radar extends GameObject
     {
         for(Vehicle vehicle : m_Vehicles)
         {
-            if(vehicle.GetVehicleClass() == VehicleClass.Drone)
-                continue;
-
-            m_ToVehicle.SetVectorDifference(m_Position, vehicle.GetPosition());
-
-            if(m_ToVehicle.GetLengthSqr() < RANGE * RANGE)  // Is within range.
+            if(vehicle.GetVehicleClass() != VehicleClass.Drone)
             {
-                m_ToVehicle.Scale(1 / RANGE);  // Transform into radar space.
+                m_ToVehicle.SetVectorDifference(m_Position, vehicle.GetPosition());
 
-                for (RadarFragment fragment : m_RadarFragments)
+                if (m_ToVehicle.GetLengthSqr() < RANGE * RANGE)  // Is within range.
                 {
-                    if(fragment.GetRadarSignature() != RadarSignatureType.Friendly) // Ensures friendly signatures take priority.
-                    {
-                        if (CollisionDetection.RadarDetection(fragment.GetNormalisedRadarPosition(), m_ToVehicle, NORMALISED_FRAGMENT_SIZE))
-                        {
-                            fragment.SetSignatureType(GetSignatureType(vehicle));
-                            fragment.HeatUp();
+                    m_ToVehicle.Scale(1 / RANGE);  // Transform into radar space.
 
-                            break;
+                    for (RadarFragment fragment : m_RadarFragments)
+                    {
+                        if (fragment.GetRadarSignature() != RadarSignatureType.Friendly) // Ensures friendly signatures take priority.
+                        {
+                            if (CollisionDetection.RadarDetection(fragment.GetNormalisedRadarPosition(), m_ToVehicle, NORMALISED_FRAGMENT_SIZE))
+                            {
+                                fragment.SetSignatureType(GetSignatureType(vehicle));
+                                fragment.HeatUp();
+
+                                break;
+                            }
                         }
                     }
                 }

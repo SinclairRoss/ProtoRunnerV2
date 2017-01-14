@@ -30,13 +30,13 @@ public class UIScreen_MainMenu extends UIScreen
 	{
 		super(Game, Manager);
 
-		m_Title 	= null;
-		m_Play 		= null;
+		m_Title	= null;
+		m_Play = null;
         m_LeaderBoards = null;
         m_Achievements = null;
-		m_Credits   = null;
+		m_Credits = null;
         m_TestMode = null;
-        m_Tutorial  = null;
+        m_Tutorial = null;
 
         m_SignIn = null;
         m_SignOut = null;
@@ -67,7 +67,7 @@ public class UIScreen_MainMenu extends UIScreen
         m_SignIn.SetText(context.getString(R.string.sign_in));
         m_SignIn.SetPosition(0.9, -0.8);
         m_SignIn.GetFont().SetAlignment(Font.Alignment.Right);
-        m_SignIn.GetFont().SetColour(m_Game.GetColourManager().GetSecondaryColour());
+        m_SignIn.GetFont().SetColour(m_Game.GetColourManager().GetUISecondaryColour());
 
         m_UIManager.AddUIElement(m_SignIn);
 
@@ -75,14 +75,18 @@ public class UIScreen_MainMenu extends UIScreen
         m_SignOut.SetText(context.getString(R.string.sign_out));
         m_SignOut.SetPosition(0.9, -0.8);
         m_SignOut.GetFont().SetAlignment(Font.Alignment.Right);
-        m_SignOut.GetFont().SetColour(m_Game.GetColourManager().GetPrimaryColour());
+        m_SignOut.GetFont().SetColour(m_Game.GetColourManager().GetUIAccentColour());
 
         m_UIManager.AddUIElement(m_SignOut);
 
         if(m_Game.GetGooglePlayService().IsConnected())
+        {
             ShowSignOut();
+        }
         else
+        {
             ShowSignIn();
+        }
     }
 
 	@Override

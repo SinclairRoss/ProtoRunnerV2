@@ -10,7 +10,7 @@ public class Weapon_PunkShot extends Weapon
 	{
 		super(anchor, game, AudioClips.Blaster_Enemy);
 
-        m_ProjectileType = ProjectileType.PlasmaShot;
+        m_ProjectileType = ProjectileType.PlasmaShot_Telegraphed;
 		
 		m_Damage = 450;
 		m_FiringSpeed = 140.0;

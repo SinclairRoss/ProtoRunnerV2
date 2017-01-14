@@ -1,11 +1,11 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
-import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 
 public class FireControl_BothBarrels extends FireControl
 {
     private Weapon m_Anchor;
-    private Timer m_FireTimer;
+    private Timer_Accumulation m_FireTimer;
     private final int m_NumMuzzles;
     private int m_MuzzleIndex;
     private boolean m_TriggerLocked;
@@ -13,7 +13,7 @@ public class FireControl_BothBarrels extends FireControl
     public FireControl_BothBarrels(Weapon anchor, double fireRate)
     {
         m_Anchor = anchor;
-        m_FireTimer = new Timer(fireRate);
+        m_FireTimer = new Timer_Accumulation(fireRate);
 
         m_NumMuzzles = m_Anchor.GetNumMuzzles();
         m_MuzzleIndex = 0;

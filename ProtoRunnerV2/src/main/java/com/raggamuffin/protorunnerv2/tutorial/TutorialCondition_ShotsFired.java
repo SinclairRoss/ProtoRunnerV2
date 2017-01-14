@@ -27,13 +27,13 @@ public class TutorialCondition_ShotsFired extends TutorialCondition
 
         if(player != null)
         {
-            if (player.GetWeaponSlot() == m_WeaponSlot)
-            {
+            //if (player.GetWeaponSlot() == m_WeaponSlot)
+            //{
                 if (player.GetPrimaryWeapon().IsFiring())
                 {
                     m_Amount++;
                 }
-            }
+            //}
         }
     }
 

@@ -12,7 +12,6 @@ import com.raggamuffin.protorunnerv2.tutorial.TutorialCondition;
 import com.raggamuffin.protorunnerv2.tutorial.TutorialCondition_Boost;
 import com.raggamuffin.protorunnerv2.tutorial.TutorialCondition_Destroy;
 import com.raggamuffin.protorunnerv2.tutorial.TutorialCondition_Dodge;
-import com.raggamuffin.protorunnerv2.tutorial.TutorialCondition_LaserFired;
 import com.raggamuffin.protorunnerv2.tutorial.TutorialCondition_Message;
 import com.raggamuffin.protorunnerv2.tutorial.TutorialCondition_Movement;
 import com.raggamuffin.protorunnerv2.tutorial.TutorialCondition_Reboot;
@@ -29,7 +28,7 @@ import com.raggamuffin.protorunnerv2.tutorial.TutorialEvent_LockStrafing;
 import com.raggamuffin.protorunnerv2.tutorial.TutorialEvent_WeaponLock;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_Tutorial;
 import com.raggamuffin.protorunnerv2.ui.UIScreens;
-import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 import com.raggamuffin.protorunnerv2.weapons.WeaponSlot;
 
@@ -49,7 +48,7 @@ public class GameManager_Tutorial extends GameManager
 
     private ArrayList<TutorialCondition> m_Conditions;
     private TutorialCondition m_ActiveCondition;
-    private Timer m_InbetweenTimer;
+    private Timer_Accumulation m_InbetweenTimer;
     private int m_TutorialIndex;
 
     UIScreen_Tutorial m_TutorialScreen;
@@ -69,7 +68,7 @@ public class GameManager_Tutorial extends GameManager
         m_TutorialIndex = 0;
         m_Conditions = new ArrayList<>();
 
-        m_InbetweenTimer = new Timer(1.0);
+        m_InbetweenTimer = new Timer_Accumulation(1.0);
         m_TutorialCompletePublisher = m_Game.GetPubSubHub().CreatePublisher(PublishedTopics.TutorialComplete);
         m_Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.NextTutorialButtonPressed, new NextButtonPressedSubscriber());
     }

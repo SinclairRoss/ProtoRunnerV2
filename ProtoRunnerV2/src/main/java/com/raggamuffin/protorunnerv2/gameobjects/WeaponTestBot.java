@@ -1,85 +1,58 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
+import com.raggamuffin.protorunnerv2.ai.AIBehaviours;
+import com.raggamuffin.protorunnerv2.ai.AIController;
+import com.raggamuffin.protorunnerv2.ai.FireControlBehaviour;
+import com.raggamuffin.protorunnerv2.ai.NavigationalBehaviourInfo;
+import com.raggamuffin.protorunnerv2.ai.TargetingBehaviour;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.managers.VehicleManager;
+import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
-import com.raggamuffin.protorunnerv2.utils.Timer;
-import com.raggamuffin.protorunnerv2.utils.Vector3;
-import com.raggamuffin.protorunnerv2.weapons.Weapon;
-import com.raggamuffin.protorunnerv2.weapons.Weapon_None;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_PunkShot;
 
 public class WeaponTestBot extends Vehicle
 {
-    private Timer m_Timer;
-    private boolean m_On;
-    private Vector3 m_Target;
-    private VehicleManager m_VManager;
+    private AIController m_AIController;
 
     public WeaponTestBot(GameLogic game)
     {
-        super(game, ModelType.Ring);
+        super(game, ModelType.Bit);
 
-        m_BoundingRadius = 2.0;
+        SetColourScheme(Colours.Pink70, Colours.RunnerBlue);
+
+        m_Position.SetVector(10, 0, 10);
+
+        m_Mass = 100;
+        m_Engine = new Engine_Standard(this, game);
+        m_Engine.SetMaxTurnRate(0); //1.5
+        m_Engine.SetMaxEngineOutput(0); //10000
+        m_Engine.SetDodgeOutput(0);
+        m_BoundingRadius = 2;
 
         SetAffiliation(AffiliationKey.RedTeam);
 
-        SetBaseColour(Colours.CalvinOrange);
-        m_Position.SetVector(0);
+        SelectWeapon(new Weapon_PunkShot(this, game));
 
-        m_Engine = new Engine_Standard(this, game);
-        m_Engine.SetMaxTurnRate(0);//2
-        m_Engine.SetMaxEngineOutput(0);
-        m_Engine.SetAfterBurnerOutput(0);
+        NavigationalBehaviourInfo navInfo = new NavigationalBehaviourInfo(0.4, 1.0, 0.7, 0.6);
+        m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), navInfo, AIBehaviours.EngageTarget, FireControlBehaviour.Telegraphed, TargetingBehaviour.Standard);
 
-        m_Target = new Vector3(0, -1, 1);
-        m_Target.Normalise();
-
-        Weapon tester = new Weapon_PunkShot(this, game);
-        SelectWeapon(tester);
-        tester.SetTargetVector(m_Forward);
-
-        m_Timer = new Timer(10.0);
-        m_Timer.MaxOutTimer();
-        m_On = false;
-
-        m_PrimaryWeapon.OpenFire();
-
-        m_LasersOn = true;
-
-        m_VManager = game.GetVehicleManager();
-    }
-
-    @Override
-    public boolean IsValid()
-    {
-        return true;
+        m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.EnemyDestroyed);
     }
 
     @Override
     public void Update(double deltaTime)
     {
-        m_HullPoints = m_MaxHullPoints;
-        m_Timer.Update(deltaTime);
-
-        if(m_Timer.TimedOut())
-        {
-            if(m_On)
-            {
-                m_PrimaryWeapon.CeaseFire();
-                m_On = false;
-            }
-            else
-            {
-                m_PrimaryWeapon.OpenFire();
-                m_On = true;
-            }
-
-            m_Timer.ResetTimer();
-        }
+        m_AIController.Update(deltaTime);
 
         super.Update(deltaTime);
+    }
+
+    @Override
+    public void CleanUp()
+    {
+        super.CleanUp();
+        m_PrimaryWeapon.CleanUp();
     }
 }

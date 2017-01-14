@@ -3,6 +3,7 @@ import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.BulletManager;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
+import com.raggamuffin.protorunnerv2.weapons.FireControl_MissileCharge;
 
 public class AIController 
 {
@@ -63,6 +64,8 @@ public class AIController
                 return new FireControl_BeamSweep(this);
             case LaserSpinner:
                 return new FireControl_LaserSpinner(this);
+            case MissileLauncher:
+                return new FireControl_MissileLauncher(this);
             case None:
                 return new FireControl_None(this);
             default:
@@ -121,7 +124,12 @@ public class AIController
 	{
 		return m_NavigationControl;
 	}
-	
+
+    public EvasionControl GetEvasionControl()
+    {
+        return m_EvasionControl;
+    }
+
 	public SituationalAwareness GetSituationalAwareness()
 	{
 		return m_SituationalAwareness;
