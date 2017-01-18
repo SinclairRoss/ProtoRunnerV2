@@ -7,6 +7,7 @@ import com.raggamuffin.protorunnerv2.ai.NavigationalBehaviourInfo;
 import com.raggamuffin.protorunnerv2.ai.TargetingBehaviour;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
+import com.raggamuffin.protorunnerv2.managers.MultiplierHoover;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
@@ -17,6 +18,8 @@ public class Vehicle_Wingman extends Vehicle
 {
 	private AIController m_AIController;
 	private VehicleManager m_VehicleManager;
+
+    private MultiplierHoover m_MultiplierHoover;
 
     private Subscriber m_PlayerSpawnedSubscriber;
 	
@@ -60,12 +63,15 @@ public class Vehicle_Wingman extends Vehicle
 
 		Shield_Timed shield = new Shield_Timed(game, this);
 		AddObjectToGameObjectManager(shield);
+
+		m_MultiplierHoover = new MultiplierHoover(m_Position, game);
 	}
 
 	@Override 
 	public void Update(double deltaTime)
 	{
 		m_AIController.Update(deltaTime);
+        m_MultiplierHoover.Update();
 		
 		super.Update(deltaTime);
 	}

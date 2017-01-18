@@ -33,7 +33,9 @@ public class MathsHelper
         for(double d : args)
         {
             if(d > max)
-                max = d;
+			{
+				max = d;
+			}
         }
 
         return max;

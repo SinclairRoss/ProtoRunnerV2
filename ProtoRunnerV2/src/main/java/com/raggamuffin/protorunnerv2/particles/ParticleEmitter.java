@@ -9,7 +9,7 @@ public abstract class ParticleEmitter
 {
     protected final Vector3 m_Position;
     protected final Vector3 m_Forward;
-    private final Vector3 m_Velocity;
+    protected final Vector3 m_Velocity;
     private double m_EmissionForce;
     private double m_LifeSpan;
 
@@ -18,7 +18,9 @@ public abstract class ParticleEmitter
 
     protected final ParticleManager m_ParticleManager;
 
-    public ParticleEmitter(GameLogic game, Colour initialColour, Colour finalColour, double emissionForce, double lifeSpan)
+    ParticleType m_ParticleType;
+
+    public ParticleEmitter(GameLogic game, Colour initialColour, Colour finalColour, double emissionForce, double lifeSpan, ParticleType particleType)
     {
         m_Position      = new Vector3();
         m_Forward       = new Vector3();
@@ -29,6 +31,8 @@ public abstract class ParticleEmitter
         m_InitialColour = initialColour;
         m_FinalColour   = finalColour;
 
+        m_ParticleType = particleType;
+
         m_ParticleManager = game.GetParticleManager();
     }
 
@@ -37,6 +41,20 @@ public abstract class ParticleEmitter
     public Vector3 CalculateSpawnPoint()
     {
         return m_Position;
+    }
+
+
+    protected void CreateParticle()
+    {
+        switch(m_ParticleType)
+        {
+            case Standard:
+                m_ParticleManager.CreateParticle(this);
+                break;
+            case Multiplier:
+                m_ParticleManager.CreateParticleMultiplier(this);
+                break;
+        }
     }
 
     // Getters.
@@ -65,6 +83,7 @@ public abstract class ParticleEmitter
     {
         return m_LifeSpan;
     }
+
 
     // Setters.
 

@@ -6,6 +6,7 @@ package com.raggamuffin.protorunnerv2.ui;
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.managers.UIManager;
 import com.raggamuffin.protorunnerv2.utils.Colour;
+import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 
 public class UINumericMeter
@@ -36,10 +37,14 @@ public class UINumericMeter
 
     public void Update(double deltaTime)
     {
-        if(m_CurrentValue < m_TargetValue)
+        m_NumericMeter.Update(deltaTime);
+
+        if(m_CurrentValue != m_TargetValue)
         {
+            int polarityMultiplier = (m_CurrentValue < m_TargetValue) ? 1 : -1;
+
             double incrementSpeed = CalculateIncrementSpeed();
-            m_CurrentValue += incrementSpeed * deltaTime;
+            m_CurrentValue += incrementSpeed * deltaTime * polarityMultiplier;
             m_CurrentValue = MathsHelper.Clamp(m_CurrentValue, 0, m_TargetValue);
 
             UpdateText();
@@ -63,10 +68,10 @@ public class UINumericMeter
         {
             case Left:
             case Center:
-                m_NumericMeter.SetText(m_Label + ":" + (int)m_CurrentValue);
+                m_NumericMeter.SetText(m_Label + (int)m_CurrentValue);
                 break;
             case Right:
-                m_NumericMeter.SetText((int)m_CurrentValue + ":" + m_Label);
+                m_NumericMeter.SetText((int)m_CurrentValue + m_Label);
                 break;
         }
     }
@@ -74,5 +79,10 @@ public class UINumericMeter
     public UILabel GetLabel()
     {
         return m_NumericMeter;
+    }
+
+    public void SetColour(double[] colour)
+    {
+        m_NumericMeter.GetFont().SetColour(colour);
     }
 }

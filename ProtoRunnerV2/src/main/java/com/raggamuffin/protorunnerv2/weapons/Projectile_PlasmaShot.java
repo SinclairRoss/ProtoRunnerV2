@@ -8,18 +8,20 @@ import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.CollisionDetection;
 import com.raggamuffin.protorunnerv2.utils.CollisionReport;
 import com.raggamuffin.protorunnerv2.utils.Colour;
-import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
+import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class Projectile_PlasmaShot extends Projectile
 {
-    private Timer_Accumulation m_LifeSpan;
+    private Timer m_LifeSpan;
+
+    private FloorGrid m_FloorGrid;
 
     public Projectile_PlasmaShot(GameLogic game, Vector3 position, Vector3 initialVelocity, Vector3 forward, Colour colour, double baseDamage, double firingSpeed, AffiliationKey affiliation)
     {
         super(game, position, initialVelocity, forward, colour, baseDamage, affiliation, ModelType.PlasmaPulse);
 
-        m_LifeSpan = new Timer_Accumulation(4); // 5
+        m_LifeSpan = new Timer(4); // 5
 
         //TODO: Make length relative to speed. maybe.
         m_Scale.SetVector(0.25, 0.25, 3);
@@ -43,20 +45,20 @@ public class Projectile_PlasmaShot extends Projectile
 
         UpdateVectorsWithForward(m_Forward);
 
-        AddObjectToGameObjectManager(new FloorGrid(game, this));
+        m_FloorGrid = new FloorGrid(m_Position, m_Colour, 10.0);
+        m_Game.AddObjectToRenderer(m_FloorGrid);
     }
 
     @Override
     public void Update(double deltaTime)
     {
-        m_LifeSpan.Update(deltaTime);
         super.Update(deltaTime);
     }
 
     @Override
     public boolean IsValid()
     {
-        if(m_LifeSpan.TimedOut())
+        if(m_LifeSpan.HasElapsed())
             return false;
 
         return super.IsValid();
@@ -76,5 +78,7 @@ public class Projectile_PlasmaShot extends Projectile
 
     @Override
     public void CleanUp()
-    {}
+    {
+        m_Game.RemoveObjectFromRenderer(m_FloorGrid);
+    }
 }

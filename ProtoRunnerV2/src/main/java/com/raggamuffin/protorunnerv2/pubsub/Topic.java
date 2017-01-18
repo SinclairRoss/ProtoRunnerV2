@@ -8,7 +8,7 @@ public class Topic
 	
 	public Topic()
 	{
-		m_Subscribers = new Vector<Subscriber>();
+		m_Subscribers = new Vector<>();
 	}
 	
 	public void Update(final int args)

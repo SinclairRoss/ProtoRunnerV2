@@ -1,39 +1,50 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
-import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.renderer.ModelType;
+// Author: Sinclair Ross
+// Date:   16/01/2017
+
 import com.raggamuffin.protorunnerv2.utils.Colour;
+import com.raggamuffin.protorunnerv2.utils.Vector3;
 
-public class FloorGrid extends GameObject
+public class FloorGrid
 {
-	private final double DEPTH = -1.0;
+    private final double DEPTH = -1.0;
 
-    private GameObject m_Anchor;
+    private final Vector3 m_AnchorPosition;
+    private final Colour m_AnchorColour;
 
-	public FloorGrid(GameLogic game, GameObject anchor)
-	{
-		super(game, ModelType.FloorPanel);
+    private Vector3 m_Position;
+    private double m_Attenuation;
 
-        m_Anchor = anchor;
-		m_Colour = m_Anchor.GetColour();
-        m_Position.SetVector(m_Anchor.GetPosition());
-		m_Position.J = DEPTH;
-	}
-	
-	@Override
-	public void Update(double deltaTime)
-	{
-        m_Position.SetVector(m_Anchor.GetPosition());
-        m_Position.J = DEPTH;
-	}
+    public FloorGrid(Vector3 anchorPosition, Colour anchorColour, double attenuation)
+    {
+        m_AnchorPosition = anchorPosition;
+        m_AnchorColour = anchorColour;
 
-	@Override
-	public boolean IsValid() 
-	{
-		return m_Anchor.IsValid();
-	}
+        m_Position = new Vector3();
+        UpdatePosition();
 
-	@Override
-	public void CleanUp()
-	{}
+        m_Attenuation = attenuation;
+    }
+
+    private void UpdatePosition()
+    {
+        m_Position.SetVector(m_AnchorPosition.I, DEPTH, m_AnchorPosition.K);
+    }
+
+    public Vector3 GetPosition()
+    {
+        UpdatePosition();
+        return m_Position;
+    }
+
+    public Colour GetColour()
+    {
+        return m_AnchorColour;
+    }
+
+    public double GetAttenuation()
+    {
+        return m_Attenuation;
+    }
 }

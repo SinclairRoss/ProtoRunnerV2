@@ -1,7 +1,11 @@
 package com.raggamuffin.protorunnerv2.gamelogic;
 
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
+import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
+import com.raggamuffin.protorunnerv2.utils.Timer;
+
+import java.util.Locale;
 
 public class GameStats 
 {
@@ -11,16 +15,25 @@ public class GameStats
     private double m_PlayTime;
     private int m_LivesUsed;
 
+    MultiplierController m_MultiplierController;
+
     private double m_WingmanADuration;
     private double m_WingmanBDuration;
 
-	public GameStats(GameLogic Game)
+	public GameStats(GameLogic game)
 	{
-        Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.EnemyDestroyed, new EnemyDestroyedSubscriber());
-        Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerSpawned, new PlayerSpawnedSubscriber());
-        Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.WingmanDestroyed, new WingmanDestroyedSubscriber());
+        game.GetPubSubHub().SubscribeToTopic(PublishedTopics.EnemyDestroyed, new EnemyDestroyedSubscriber());
+        game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerSpawned, new PlayerSpawnedSubscriber());
+        game.GetPubSubHub().SubscribeToTopic(PublishedTopics.WingmanDestroyed, new WingmanDestroyedSubscriber());
 
-        ResetStats();
+        m_MultiplierController = new MultiplierController(game);
+
+        m_Score = 0;
+        m_PlayTime = 0;
+        m_LivesUsed = 0;
+
+        m_WingmanADuration = 0;
+        m_WingmanBDuration = 0;
 		
 		m_Locked = true;
 	}
@@ -30,10 +43,11 @@ public class GameStats
         if(!m_Locked)
         {
             m_PlayTime += deltaTime;
+            m_MultiplierController.Update();
         }
     }
 
-    public void ResetStats()
+    public void Start()
     {
         m_Score = 0;
         m_PlayTime = 0;
@@ -42,11 +56,14 @@ public class GameStats
         m_WingmanADuration = 0;
         m_WingmanBDuration = 0;
 
+        m_MultiplierController.Start();
+
         m_Locked = false;
     }
 
-    public void Lock()
+    public void Stop()
     {
+        m_MultiplierController.Stop();
         m_Locked = true;
     }
 	
@@ -55,12 +72,17 @@ public class GameStats
 		return m_Score;
 	}
 
+    public int GetMultiplier()
+    {
+        return m_MultiplierController.GetMultiplier();
+    }
+
     public String GetPlayTimeString()
     {
         int min = (int)m_PlayTime / 60;
         int sec = (int)m_PlayTime % 60;
 
-        return min + "." + String.format("%02d", sec);
+        return min + "." + String.format(Locale.UK, "%02d", sec);
     }
 
     public double GetWingmanADuration()
@@ -102,7 +124,7 @@ public class GameStats
 		{
 			if(!m_Locked)
             {
-                m_Score += args;
+                m_Score += args * m_MultiplierController.GetMultiplier();
             }
 		}
 	}

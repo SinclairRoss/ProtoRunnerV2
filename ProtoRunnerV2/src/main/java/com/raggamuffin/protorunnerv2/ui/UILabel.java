@@ -64,9 +64,9 @@ public class UILabel extends UIElement
     }
 
     ///// Setters.
-	public void SetText(String Text)
+	public void SetText(String text)
 	{
-		m_OriginalText = Text;
+		m_OriginalText = text;
 		m_OutputText = m_OriginalText;
 		
 		CalculateSize();
@@ -98,10 +98,5 @@ public class UILabel extends UIElement
 	public String GetText()
 	{
 		return m_OutputText;
-	}
-	
-	public boolean IsAnimationComplete()
-	{
-		return m_OpeningAnimation.GetState() == AnimationState.Idle;
 	}
 }

@@ -40,6 +40,8 @@ public class UIScreen_GameOver extends UIScreen
 
 		m_UIManager.AddUIElement(m_GameOverMessage, false);
 
+		m_Timer.Start();
+
 		m_GameOverMessage.Show();
 	}
 
@@ -55,7 +57,7 @@ public class UIScreen_GameOver extends UIScreen
 	@Override
 	public void Update(double deltaTime) 
 	{
-		if(m_Timer.HasTimerElapsed())
+		if(m_Timer.HasElapsed())
 		{
 			m_GameOverScreenOverPublisher.Publish(UIScreens.Aftermath.ordinal());
 		}

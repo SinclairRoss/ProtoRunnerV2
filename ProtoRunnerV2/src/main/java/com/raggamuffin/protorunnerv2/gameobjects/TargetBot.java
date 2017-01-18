@@ -35,8 +35,6 @@ public class TargetBot extends Vehicle
         SelectWeapon(new Weapon_None(this, game));
 
         m_PrimaryWeapon.OpenFire();
-
-        m_LasersOn = true;
     }
 
     @Override

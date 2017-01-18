@@ -17,7 +17,7 @@ public class ModelManager
     public static final int GRAIN = 2;
 	public static final int NORM  = 3;
 	
-	public final int NUM_TEXTURES = 3;
+	public final int NUM_TEXTURES = 2;
 	
 	private int m_TextureHandles[];
 	private int m_ResourceIDs[];
@@ -50,22 +50,28 @@ public class ModelManager
     private GLModel_StandardObject m_ThreePointStar;
     private GLModel_PhasedObject m_Shield;
 
-    public ModelManager(Context context, RenderEffectSettings Settings)
+    public ModelManager(Context context, RenderEffectSettings settings)
 	{		
 		m_TextureHandles 	= new int[NUM_TEXTURES];
 		m_ResourceIDs  		= new int[NUM_TEXTURES];
 		m_ResourceIDs[0] 	= R.drawable.floor_grid;
-		m_ResourceIDs[1] 	= R.drawable.horizon;
-		m_ResourceIDs[2]	= R.drawable.radar_fragment;
+		m_ResourceIDs[1]	= R.drawable.radar_fragment;
 		
-		m_RenderEffectSettings = Settings;
+		m_RenderEffectSettings = settings;
 
-		m_Context 	 = context;
+		m_Context = context;
 	}
 	
 	public void LoadAssets()
 	{      
 		TextureLoader.LoadTextures(m_Context, m_ResourceIDs, m_TextureHandles);
+
+        //GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
+       // GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_TextureHandles[0]);
+
+        //GLES20.glActiveTexture(GLES20.GL_TEXTURE1);
+        //GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_TextureHandles[1]);
+
 		LoadModels();
 	}
 	
@@ -127,14 +133,14 @@ public class ModelManager
     {
         switch(type)
         {
-            case FloorPanel:
-                GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-                GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_TextureHandles[0]);
-                break;
+           // case FloorPanel:
+           //     GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
+           //     GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_TextureHandles[0]);
+            //    break;
 
             case RadarFragment:
                 GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-                GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_TextureHandles[2]);
+                GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_TextureHandles[1]);
                 break;
         }
 
@@ -176,8 +182,6 @@ public class ModelManager
                 return m_Carrier;
             case Dummy:
                 return m_Dummy;
-            case FloorPanel:
-                return m_FloorPanel;
             case Ring:
                 return m_Ring;
             case Trail:
@@ -243,4 +247,22 @@ public class ModelManager
         m_Screen.SetFilmGrainIntensity((float) m_RenderEffectSettings.GetFilmGrainIntensity());
 		m_Screen.draw(NORM);
 	}
+
+    public void InitialiseFloorPanel(float[] projMatrix)
+    {
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_TextureHandles[0]);
+
+        m_FloorPanel.InitialiseModel(projMatrix);
+    }
+
+    public void DrawFloorPanel(Vector3 position, Colour colour, double attenuation)
+    {
+        m_FloorPanel.Draw(position, colour, attenuation);
+    }
+
+    public void CleanFloorPanel()
+    {
+        m_FloorPanel.CleanModel();
+    }
 }

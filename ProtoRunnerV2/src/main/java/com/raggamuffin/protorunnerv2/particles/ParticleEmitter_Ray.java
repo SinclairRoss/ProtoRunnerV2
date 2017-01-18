@@ -17,7 +17,7 @@ public class ParticleEmitter_Ray extends ParticleEmitter
 
     public ParticleEmitter_Ray(GameLogic game, Colour initialColour, Colour finalColour, double emissionForce, double emissionRate, double lifeSpan)
     {
-        super(game, initialColour, finalColour, emissionForce, lifeSpan);
+        super(game, initialColour, finalColour, emissionForce, lifeSpan, ParticleType.Standard);
 
         m_Accuracy = Math.PI * 0.5;
         m_Length = 0.0;
@@ -35,7 +35,7 @@ public class ParticleEmitter_Ray extends ParticleEmitter
         while(m_EmissionTimer >= m_EmissionRate)
         {
             m_EmissionTimer -= m_EmissionRate;
-            m_ParticleManager.CreateParticle(this);
+            CreateParticle();
         }
     }
 
@@ -43,7 +43,6 @@ public class ParticleEmitter_Ray extends ParticleEmitter
     public Vector3 CalculateSpawnPoint()
     {
         m_SpawnPoint.SetVector(m_Forward);
-        //m_SpawnPoint.Scale(MathsHelper.BiasedRandomDouble(0, m_Range, 0.3));
         m_SpawnPoint.Scale(MathsHelper.RandomDouble(0, m_Length));
         m_SpawnPoint.Add(m_Position);
 
@@ -57,10 +56,5 @@ public class ParticleEmitter_Ray extends ParticleEmitter
         m_ParticleForward.RotateZ(MathsHelper.RandomDouble(-m_Accuracy, m_Accuracy));
         m_ParticleForward.RotateY(m_Forward.Yaw());
         return m_ParticleForward;
-    }
-
-    public void SetRange(double range)
-    {
-        m_Length = range;
     }
 }

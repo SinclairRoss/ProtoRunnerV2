@@ -31,7 +31,7 @@ public class Shield_Timed extends Shield
     {
         super.Update(deltaTime);
 
-        if(m_DurationTimer.HasTimerElapsed())
+        if(m_DurationTimer.HasElapsed())
         {
             DetachFromObject();
         }
@@ -40,7 +40,7 @@ public class Shield_Timed extends Shield
     @Override
     public boolean IsValid()
     {
-        boolean isValid = m_NormalisedScale > 0 || !m_DurationTimer.HasTimerElapsed();
+        boolean isValid = m_NormalisedScale > 0 || !m_DurationTimer.HasElapsed();
         return isValid;
     }
 }

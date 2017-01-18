@@ -1,18 +1,13 @@
 package com.raggamuffin.protorunnerv2.ui;
 
 import com.raggamuffin.protorunnerv2.R;
-import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.ColourManager;
 import com.raggamuffin.protorunnerv2.managers.UIManager;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
-import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Colours;
-
-import java.util.ArrayList;
 
 public class UIScreen_Play extends UIScreen
 {
@@ -21,12 +16,12 @@ public class UIScreen_Play extends UIScreen
 	private String m_RespawnText;
 	private String m_WingmanDownText;
 
-	private UINumericMeter m_ScoreMeter;
+    private UINumericMeter m_ScoreMeter;
+    private UINumericMeter m_MultiplierMeter;
 
     private UILabel m_SystemFailingLabel;
     private UIProgressBar m_SystemFailingBar;
 
-    private boolean m_ShowRebootMessage;
     private boolean m_ShowMessages;
 
     private boolean m_SystemFailing;
@@ -45,11 +40,11 @@ public class UIScreen_Play extends UIScreen
         PubSubHub pubSub = m_Game.GetPubSubHub();
         pubSub.SubscribeToTopic(PublishedTopics.GameReady, new GameReadySubscriber());
         pubSub.SubscribeToTopic(PublishedTopics.WingmanDestroyed, new WingmanDownSubscriber());
-        pubSub.SubscribeToTopic(PublishedTopics.EndGame, new EndGameSubscriber());
         pubSub.SubscribeToTopic(PublishedTopics.PlayerDestroyed, new PlayerDestroyedSubscriber());
         pubSub.SubscribeToTopic(PublishedTopics.PlayerSpawned, new PlayerSpawnedSubscriber());
+        pubSub.SubscribeToTopic(PublishedTopics.MultiplierIncreased, new MultiplierIncreasedSubscriber());
+        pubSub.SubscribeToTopic(PublishedTopics.MultiplierDecreased, new MultiplierDecreasedSubscriber());
 
-        m_ShowRebootMessage = false;
         m_ShowMessages = false;
         m_SystemFailing = false;
     }
@@ -60,6 +55,7 @@ public class UIScreen_Play extends UIScreen
 		super.Create();
 
         m_ScoreMeter = new UINumericMeter(m_Game.GetGameAudioManager(), m_UIManager, Font.Alignment.Left, 0.075, -0.9, 0.8, m_Game.GetContext().getString(R.string.label_points_ui), m_Game.GetColourManager().GetUIPrimaryColour());
+        m_MultiplierMeter = new UINumericMeter(m_Game.GetGameAudioManager(), m_UIManager, Font.Alignment.Left, 0.075, -0.9, 0.7, m_Game.GetContext().getString(R.string.label_multiplier_ui), m_Game.GetColourManager().GetUIPrimaryColour());
 
         m_SystemFailingLabel = new UILabel(m_Game.GetGameAudioManager(), m_UIManager);
         m_SystemFailingLabel.SetText(m_Game.GetContext().getString(R.string.down_but_not_out_text));
@@ -73,12 +69,12 @@ public class UIScreen_Play extends UIScreen
         m_SystemFailingBar.SnapToValue(1.0);
 
         m_UIManager.AddUIElement(m_ScoreMeter.GetLabel());
+        m_UIManager.AddUIElement(m_MultiplierMeter.GetLabel());
         m_UIManager.AddUIElement(m_SystemFailingLabel);
         m_UIManager.AddUIElement(m_SystemFailingBar);
 
         HideSystemFailingUI();
 
-        m_ShowRebootMessage = true;
         m_ShowMessages = false;
 	}
 
@@ -89,6 +85,9 @@ public class UIScreen_Play extends UIScreen
 
         m_UIManager.RemoveUIElement(m_ScoreMeter.GetLabel());
         m_ScoreMeter = null;
+
+        m_UIManager.RemoveUIElement(m_MultiplierMeter.GetLabel());
+        m_MultiplierMeter = null;
 
         m_UIManager.RemoveUIElement(m_SystemFailingBar);
         m_SystemFailingBar = null;
@@ -105,6 +104,8 @@ public class UIScreen_Play extends UIScreen
         int score = m_Game.GetGameStats().GetScore();
         m_ScoreMeter.SetValue(score);
         m_ScoreMeter.Update(deltaTime);
+
+        m_MultiplierMeter.Update(deltaTime);
 
         if(m_SystemFailing)
         {
@@ -123,15 +124,6 @@ public class UIScreen_Play extends UIScreen
             }
 		}
 	}
-
-    private class EndGameSubscriber extends Subscriber
-    {
-        @Override
-        public void Update(int args)
-        {
-            m_ShowRebootMessage = false;
-        }
-    }
 
     private class GameReadySubscriber extends Subscriber
     {
@@ -160,6 +152,30 @@ public class UIScreen_Play extends UIScreen
             m_SystemFailing = false;
             HideSystemFailingUI();
             m_MessageHandler.DisplayMessage(m_RespawnText, MessageOrientation.Center, 0.9, 1, LABEL_DURATION, 0.0);
+        }
+    }
+
+    private class MultiplierIncreasedSubscriber extends Subscriber
+    {
+        @Override
+        public void Update(int args)
+        {
+            int multiplier = m_Game.GetGameStats().GetMultiplier();
+            m_MultiplierMeter.SetValue(multiplier);
+
+            m_MultiplierMeter.SetColour(Colours.White);
+        }
+    }
+
+    private class MultiplierDecreasedSubscriber extends Subscriber
+    {
+        @Override
+        public void Update(int args)
+        {
+            int multiplier = m_Game.GetGameStats().GetMultiplier();
+            m_MultiplierMeter.SetValue(multiplier);
+
+            m_MultiplierMeter.SetColour(Colours.Pink70);
         }
     }
 

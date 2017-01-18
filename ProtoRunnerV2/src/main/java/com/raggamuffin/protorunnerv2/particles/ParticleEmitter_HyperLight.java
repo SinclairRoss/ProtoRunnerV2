@@ -16,7 +16,7 @@ public class ParticleEmitter_HyperLight extends ParticleEmitter
 
     public ParticleEmitter_HyperLight(GameLogic game, Colour initialColour, Colour finalColour, double emissionForce, double lifeSpan)
     {
-        super(game, initialColour, finalColour, emissionForce, lifeSpan);
+        super(game, initialColour, finalColour, emissionForce, lifeSpan, ParticleType.Standard);
 
         m_ParticleForward = new Vector3();
 
@@ -35,7 +35,7 @@ public class ParticleEmitter_HyperLight extends ParticleEmitter
             while (m_DeltaEmission >= m_MaxDeltaEmission)
             {
                 m_DeltaEmission -= m_MaxDeltaEmission;
-                m_ParticleManager.CreateParticle(this);
+                CreateParticle();
             }
         }
     }

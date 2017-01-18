@@ -7,13 +7,16 @@ import android.app.Activity;
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
 import com.raggamuffin.protorunnerv2.gameobjects.ExhibitionCameraAnchor;
+import com.raggamuffin.protorunnerv2.gameobjects.FloorGrid;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.gameobjects.Tentacle;
 import com.raggamuffin.protorunnerv2.managers.GameManager_Test;
 import com.raggamuffin.protorunnerv2.managers.GameObjectManager;
+import com.raggamuffin.protorunnerv2.managers.MultiplierPopperController;
 import com.raggamuffin.protorunnerv2.managers.RopeManager;
 import com.raggamuffin.protorunnerv2.managers.InGameSoundEffectsManager;
-import com.raggamuffin.protorunnerv2.particles.Particle;
+import com.raggamuffin.protorunnerv2.particles.Particle_Multiplier;
+import com.raggamuffin.protorunnerv2.particles.Particle_Standard;
 import com.raggamuffin.protorunnerv2.particles.TrailNode;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.BulletManager;
@@ -61,6 +64,7 @@ public class GameLogic extends ApplicationLogic
 	private GameStats m_GameStats;
 	private SecondWindHandler m_SecondWindHandler;
     private InGameSoundEffectsManager m_SFXManager;
+    private MultiplierPopperController m_PopperController;
 
     private GameManager m_GameManager;
     private final GameManager_Play m_PlayManager;
@@ -73,7 +77,7 @@ public class GameLogic extends ApplicationLogic
 
     private GameMode m_GameMode;
 
-    public static boolean TEST_MODE = false;
+    public static boolean TEST_MODE = true;
 
 	public GameLogic(Activity activity, PubSubHub pubSub, ControlScheme scheme, RendererPacket packet)
 	{
@@ -97,6 +101,8 @@ public class GameLogic extends ApplicationLogic
 		m_SecondWindHandler	= new SecondWindHandler(this);
         m_RenderEffectManager = new RenderEffectManager(this, m_Packet.GetRenderEffectSettings());
         m_GooglePlayService = new GooglePlayService(this);
+        m_PopperController = new MultiplierPopperController(this);
+        m_PopperController.Off();
 
         m_CameraAnchor = new ExhibitionCameraAnchor(this);
         AttachCameraToAnchor();
@@ -138,6 +144,7 @@ public class GameLogic extends ApplicationLogic
 		m_RenderEffectManager.Update(deltaTime);
 		m_SecondWindHandler.Update(deltaTime);
         m_GameStats.Update(deltaTime);
+        m_PopperController.Update();
 
 		CheckCollisions();
 
@@ -215,12 +222,22 @@ public class GameLogic extends ApplicationLogic
         m_Packet.RemoveObject(tentacle);
     }
 
-    public void AddParticleToRenderer(Particle particle)
+    public void AddParticleToRenderer(Particle_Standard particle)
     {
         m_Packet.AddObject(particle);
     }
 
-    public void RemoveParticleFromRenderer(Particle particle)
+    public void RemoveParticleFromRenderer(Particle_Standard particle)
+    {
+        m_Packet.RemoveObject(particle);
+    }
+
+    public void AddParticleToRenderer(Particle_Multiplier particle)
+    {
+        m_Packet.AddObject(particle);
+    }
+
+    public void RemoveParticleFromRenderer(Particle_Multiplier particle)
     {
         m_Packet.RemoveObject(particle);
     }
@@ -230,6 +247,11 @@ public class GameLogic extends ApplicationLogic
 	{
         m_Packet.AddObject(obj);
 	}
+
+    public void AddObjectToRenderer(FloorGrid floorGrid)
+    {
+        m_Packet.AddObject(floorGrid);
+    }
 
 	// Removes a game object and all of its children from the renderer.
 	public void RemoveGameObjectFromRenderer(GameObject obj)
@@ -246,7 +268,12 @@ public class GameLogic extends ApplicationLogic
 	{
         m_Packet.RemoveUIElement(element);
 	}
-	
+
+    public void RemoveObjectFromRenderer(FloorGrid floorGrid)
+    {
+        m_Packet.RemoveObject(floorGrid);
+    }
+
 	public PubSubHub GetPubSubHub()
 	{
 		return m_PubSubHub;
@@ -287,6 +314,11 @@ public class GameLogic extends ApplicationLogic
 		m_Camera.Attach(m_CameraAnchor);
         m_Camera.SetUp(0,0,1);
 	}
+
+    public MultiplierPopperController GetPopperController()
+    {
+        return m_PopperController;
+    }
 
     public RopeManager GetRopeManager()
     {
@@ -348,7 +380,7 @@ public class GameLogic extends ApplicationLogic
             m_BulletManager.Wipe();
             m_VehicleManager.Wipe();
             m_GameObjectManager.Wipe();
-            m_GameStats.ResetStats();
+            m_GameStats.Start();
 
             if(!m_DatabaseManager.HasTheTutorialBeenOffered())
             {
@@ -372,7 +404,7 @@ public class GameLogic extends ApplicationLogic
         {
             m_BulletManager.Wipe();
             m_VehicleManager.Wipe();
-            m_GameStats.ResetStats();
+            m_GameStats.Start();
 
             SetGameMode(GameMode.Test);
             m_SecondWindHandler.AutoSpawnOff();
@@ -387,7 +419,7 @@ public class GameLogic extends ApplicationLogic
         {
             m_BulletManager.Wipe();
             m_VehicleManager.Wipe();
-            m_GameStats.ResetStats();
+            m_GameStats.Start();
 
             SetGameMode(GameMode.Tutorial);
             m_UIManager.ShowScreen(UIScreens.Tutorial);
@@ -402,7 +434,7 @@ public class GameLogic extends ApplicationLogic
         {
             SetGameMode(GameMode.Exhibition);
             m_SecondWindHandler.Reset();
-            m_GameStats.Lock();
+            m_GameStats.Stop();
             m_UIManager.ShowScreen(UIScreens.GameOverScreen);
             AttachCameraToAnchor();
         }
@@ -425,11 +457,8 @@ public class GameLogic extends ApplicationLogic
         {
             m_Camera.NormalCam();
 
-            //m_UIManager.ShowScreen(UIScreens.Reboot);
-
             ArrayList<Vehicle> wingmen = m_VehicleManager.GetTeam(AffiliationKey.BlueTeam);
-
-            if(wingmen.size() > 0)
+            if(!wingmen.isEmpty())
             {
                 m_Camera.SetLookAt(wingmen.get(0));
             }
@@ -447,7 +476,7 @@ public class GameLogic extends ApplicationLogic
 
             SetGameMode(GameMode.Exhibition);
             m_SecondWindHandler.Reset();
-            m_GameStats.Lock();
+            m_GameStats.Stop();
             m_UIManager.ShowScreen(UIScreens.MainMenu);
             AttachCameraToAnchor();
         }

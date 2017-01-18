@@ -9,16 +9,32 @@ public class Timer
     private double m_EndTime;
     private double m_StartTime;
 
+    private boolean m_Active;
+
     public Timer(double durationSeconds)
     {
-        m_Duration = durationSeconds * 1000;
+        SetDuration(durationSeconds);
         m_EndTime = 0;
+
+        m_Active = false;
     }
 
     public void Start()
     {
         m_StartTime = GetTime();
         m_EndTime = m_StartTime + m_Duration;
+
+        m_Active = true;
+    }
+
+    public void Stop()
+    {
+        m_Active = false;
+    }
+
+    public void SetDuration(double durationSeconds)
+    {
+        m_Duration = durationSeconds * 1000;
     }
 
     public void ElapseTimer()
@@ -26,9 +42,9 @@ public class Timer
         m_EndTime = 0;
     }
 
-    public Boolean HasTimerElapsed()
+    public Boolean HasElapsed()
     {
-        return GetTime() >= m_EndTime;
+        return GetTime() >= m_EndTime && m_Active;
     }
 
     public double GetProgress()

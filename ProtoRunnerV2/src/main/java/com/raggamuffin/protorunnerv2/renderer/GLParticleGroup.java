@@ -1,5 +1,8 @@
 package com.raggamuffin.protorunnerv2.renderer;
 
+// Author: Sinclair Ross
+// Date:   15/01/2017
+
 import android.opengl.GLES20;
 import android.util.Log;
 
@@ -11,39 +14,33 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 
-public class GLPulseLaser
+public abstract class GLParticleGroup
 {
     private FloatBuffer m_VertexBuffer;
     private FloatBuffer m_SizeBuffer;
     private FloatBuffer m_ColourBuffer;
 
     private int m_Program;
-
     private int m_ProjMatrixHandle;
     private int m_EyePosHandle;
-    private int m_PositionHandle;
-    private int m_SizeHandle;
-    private int m_ColourHandle;
+    protected int m_PositionHandle;
+    protected int m_ColourHandle;
 
     private ArrayList<Vector3> m_Points;
-    private ArrayList<Float> m_Size;
     private ArrayList<Colour> m_Colours;
 
-    public GLPulseLaser()
+    public GLParticleGroup(String vertexShader, String fragmentShader)
     {
         m_Program = 0;
-
         m_ProjMatrixHandle = 0;
         m_EyePosHandle = 0;
         m_PositionHandle = 0;
-        m_SizeHandle = 0;
         m_ColourHandle = 0;
 
         m_Points = new ArrayList<>();
-        m_Size = new ArrayList<>();
         m_Colours = new ArrayList<>();
 
-        InitShaders();
+        CreateProgram(vertexShader, fragmentShader);
     }
 
     public void InitialiseModel(float[] projMatrix, Vector3 eye)
@@ -55,11 +52,17 @@ public class GLPulseLaser
         GLES20.glUniform4f(m_EyePosHandle, (float) eye.I, (float) eye.J, (float) eye.K, 1.0f);
     }
 
-    public void AddPoint(Vector3 point, Colour colour, float size)
+    public void CleanModel()
+    {
+        GLES20.glDisableVertexAttribArray(m_PositionHandle);
+        GLES20.glDisableVertexAttribArray(m_ColourHandle);
+        GLES20.glEnable(GLES20.GL_DEPTH_TEST);
+    }
+
+    public void AddPoint(Vector3 point, Colour colour)
     {
         m_Points.add(point);
         m_Colours.add(colour);
-        m_Size.add(size);
     }
 
     public void Draw()
@@ -71,15 +74,13 @@ public class GLPulseLaser
 
         for(int i = 0; i < numPoints; i++)
         {
-            Vector3 pos     = m_Points.get(i);
-            vertices[i*3]   = (float)pos.I;
+            Vector3 pos = m_Points.get(i);
+            vertices[i*3] = (float)pos.I;
             vertices[i*3+1] = (float)pos.J;
             vertices[i*3+2] = (float)pos.K;
 
-            size[i] = m_Size.get(i);
-
-            Colour colour   = m_Colours.get(i);
-            colours[i*4]   = (float)colour.Red;
+            Colour colour = m_Colours.get(i);
+            colours[i*4] = (float)colour.Red;
             colours[i*4+1] = (float)colour.Green;
             colours[i*4+2] = (float)colour.Blue;
             colours[i*4+3] = (float)colour.Alpha;
@@ -106,44 +107,16 @@ public class GLPulseLaser
         GLES20.glEnableVertexAttribArray(m_PositionHandle);
         GLES20.glVertexAttribPointer(m_PositionHandle, 3, GLES20.GL_FLOAT, false, 12, m_VertexBuffer);
 
-        GLES20.glEnableVertexAttribArray(m_SizeHandle);
-        GLES20.glVertexAttribPointer(m_SizeHandle, 1, GLES20.GL_FLOAT, false, 4, m_SizeBuffer);
-
         GLES20.glEnableVertexAttribArray(m_ColourHandle);
         GLES20.glVertexAttribPointer(m_ColourHandle, 4, GLES20.GL_FLOAT, false, 16, m_ColourBuffer);
 
         GLES20.glDrawArrays(GLES20.GL_POINTS, 0, numPoints);
 
         m_Points.clear();
-        m_Size.clear();
         m_Colours.clear();
     }
 
-    public void CleanModel()
-    {
-        GLES20.glDisableVertexAttribArray(m_PositionHandle);
-        GLES20.glDisableVertexAttribArray(m_ColourHandle);
-        GLES20.glEnable(GLES20.GL_DEPTH_TEST);
-    }
-
-    private void InitShaders()
-    {
-        int vertexShaderHandler 	= loadShader(GLES20.GL_VERTEX_SHADER,Shaders.vertexShader_POINT);
-        int fragmentShaderHandler 	= loadShader(GLES20.GL_FRAGMENT_SHADER,Shaders.fragmentShader_FADEPOINT);
-
-        m_Program = GLES20.glCreateProgram();             		// create empty OpenGL Program
-        GLES20.glAttachShader(m_Program, vertexShaderHandler);   // add the vertex shader to program
-        GLES20.glAttachShader(m_Program, fragmentShaderHandler); // add the fragment shader to program
-        GLES20.glLinkProgram(m_Program);                  		// create OpenGL program executables
-
-        m_ProjMatrixHandle      = GLES20.glGetUniformLocation(m_Program, "u_ProjMatrix");
-        m_EyePosHandle          = GLES20.glGetUniformLocation(m_Program, "u_EyePos");
-        m_PositionHandle        = GLES20.glGetAttribLocation(m_Program, "a_Position");
-        m_SizeHandle            = GLES20.glGetAttribLocation(m_Program, "a_Size");
-        m_ColourHandle 			= GLES20.glGetAttribLocation(m_Program, "a_Color");
-    }
-
-    private int loadShader(int type, String shaderCode)
+    protected int loadShader(int type, String shaderCode)
     {
         int shader = GLES20.glCreateShader(type);
 
@@ -158,9 +131,29 @@ public class GLPulseLaser
         {
             Log.e("shader particle", "Shader failed to compile");
         }
-
-        Log.e("GLPulseLaser", "Shader A-OK.");
+        else
+        {
+            Log.e("shader particle", "Shader A-OK.");
+        }
 
         return shader;
+    }
+
+    private int CreateProgram(String vertexShader, String fragmentShader)
+    {
+        int vertexShaderHandler = loadShader(GLES20.GL_VERTEX_SHADER, vertexShader);
+        int fragmentShaderHandler = loadShader(GLES20.GL_FRAGMENT_SHADER, fragmentShader);
+
+        m_Program = GLES20.glCreateProgram();             		// create empty OpenGL Program
+        GLES20.glAttachShader(m_Program, vertexShaderHandler);   // add the vertex shader to program
+        GLES20.glAttachShader(m_Program, fragmentShaderHandler); // add the fragment shader to program
+        GLES20.glLinkProgram(m_Program);                  		// create OpenGL program executables
+
+        m_ProjMatrixHandle = GLES20.glGetUniformLocation(m_Program, "u_ProjMatrix");
+        m_EyePosHandle = GLES20.glGetUniformLocation(m_Program, "u_EyePos");
+        m_PositionHandle = GLES20.glGetAttribLocation(m_Program, "a_Position");
+        m_ColourHandle = GLES20.glGetAttribLocation(m_Program, "a_Color");
+
+        return m_Program;
     }
 }

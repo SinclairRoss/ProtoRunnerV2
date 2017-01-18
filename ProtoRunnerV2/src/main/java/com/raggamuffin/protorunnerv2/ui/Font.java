@@ -38,7 +38,7 @@ public class Font
 
     public void SetColour(Colour colour)
     {
-        m_Colour = colour;
+        m_Colour.SetColour(colour);
     }
 	
 	public void SetAlignment(Alignment Align)

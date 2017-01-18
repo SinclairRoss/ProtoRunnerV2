@@ -12,10 +12,10 @@ public class TextureLoader
 	
 	public static void LoadTextures(final Context context, int[] resourceIds, int[] textureHandles)
 	{
-		int NumNewTextures = resourceIds.length;
-	    GLES20.glGenTextures(NumNewTextures, textureHandles, 0);
+		int numNewTextures = resourceIds.length;
+	    GLES20.glGenTextures(numNewTextures, textureHandles, 0);
 	    
-	    for(int n = 0; n < NumNewTextures; n++)
+	    for(int n = 0; n < numNewTextures; n++)
 	    {
 	        final BitmapFactory.Options options = new BitmapFactory.Options();
 	        options.inScaled = false;   // No pre-scaling

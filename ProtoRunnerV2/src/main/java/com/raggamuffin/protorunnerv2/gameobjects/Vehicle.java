@@ -5,11 +5,12 @@ import com.raggamuffin.protorunnerv2.ai.VehicleInfo.AfterBurnerStates;
 import com.raggamuffin.protorunnerv2.ai.VehicleInfo.MovementStates;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_LerpTo;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour;
-import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_Flicker;
 import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_Pulse;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.ParticleManager;
+import com.raggamuffin.protorunnerv2.particles.ParticleEmitter;
 import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_Burst;
+import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_MultiplierPopper;
 import com.raggamuffin.protorunnerv2.pubsub.InternalPubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.InternalTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
@@ -35,7 +36,6 @@ public abstract class Vehicle extends GameObject
 	///// Misc Attributes
     protected Weapon m_Utility;
 	protected Weapon m_PrimaryWeapon;
-	protected Boolean m_LasersOn;
 	private VehicleInfo m_VehicleInfo;
 	private DecayCounter m_DamageDecayCounter;
 	
@@ -55,6 +55,8 @@ public abstract class Vehicle extends GameObject
 	protected VehicleClass m_VehicleClass;
 
 	protected StatusEffectManager m_StatusEffectManager;
+
+	private FloorGrid m_FloorGrid;
 
 	public Vehicle(GameLogic game, ModelType modelType)
 	{
@@ -81,10 +83,9 @@ public abstract class Vehicle extends GameObject
 
         if(modelType != ModelType.Nothing)
         {
-            AddObjectToGameObjectManager(new FloorGrid(game, this));
+			m_FloorGrid = new FloorGrid(m_Position, m_Colour, 20.0);
+            m_Game.AddObjectToRenderer(m_FloorGrid);
         }
-		
-		m_LasersOn = false;
 		
 		m_BurstEmitter = new ParticleEmitter_Burst(game, m_BaseColour, m_AltColour, 40);
 
@@ -252,7 +253,7 @@ public abstract class Vehicle extends GameObject
 		{
 			return false;
 		}
-		
+
 		if(m_HullPoints <= 0)
 		{
 			return false;
@@ -346,7 +347,14 @@ public abstract class Vehicle extends GameObject
 	public void CleanUp()
 	{
 		SendDeathMessage();
+
+        m_Game.GetPopperController().Pop(m_Position, m_Velocity);
 		m_BurstEmitter.Burst();
 		m_PrimaryWeapon.CeaseFire();
+
+		if(m_FloorGrid != null)
+		{
+			m_Game.RemoveObjectFromRenderer(m_FloorGrid);
+		}
 	}
 }

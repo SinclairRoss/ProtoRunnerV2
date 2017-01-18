@@ -2,6 +2,7 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
+import com.raggamuffin.protorunnerv2.managers.MultiplierHoover;
 import com.raggamuffin.protorunnerv2.master.ControlScheme;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
@@ -18,9 +19,9 @@ public class Vehicle_Runner extends Vehicle
 	private Weapon m_PrimaryWeapon;
 	
 	private Publisher m_DamageTakenPublisher;
-	//private Publisher m_SwitchWeaponsPublisher;
 
     private ChaseCamera m_Camera;
+    private MultiplierHoover m_MultiplierHoover;
 
     private Subscriber FireSubscriber;
     private Subscriber CeaseFireSubscriber;
@@ -73,8 +74,6 @@ public class Vehicle_Runner extends Vehicle
         m_PrimaryWeapon	= new Weapon_PulseLaser(this, game);
         SelectWeapon(m_PrimaryWeapon);
 
-		m_LasersOn = true;
-			
 		m_DamageTakenPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.PlayerHit);
 		m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.PlayerDestroyed);
 
@@ -101,11 +100,15 @@ public class Vehicle_Runner extends Vehicle
         m_PubSubHub.SubscribeToTopic(PublishedTopics.Forward, ForwardSubscriber);
         m_PubSubHub.SubscribeToTopic(PublishedTopics.Reverse, ReverseSubscriber);
         m_PubSubHub.SubscribeToTopic(PublishedTopics.EnemyDestroyed, EnemyDestroyedSubscriber);
+
+        m_MultiplierHoover = new MultiplierHoover(m_Position, game);
     }
 
 	@Override
 	public void Update(double deltaTime)
 	{
+        m_MultiplierHoover.Update();
+
         m_Engine.SetTurnRate(m_Input.GetTilt());
 		super.Update(deltaTime);
 	}

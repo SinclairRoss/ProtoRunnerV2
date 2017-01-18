@@ -2,29 +2,31 @@ package com.raggamuffin.protorunnerv2.particles;
 
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
-import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
+import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
-public class Particle
+public abstract class Particle
 {
-    private Timer_Accumulation m_LifeTimer;
+    private ParticleType m_ParticleType;
+    private Timer m_LifeTimer;
 
     private final double m_DragCoefficient;
     private final double m_Mass;
 
-    private Vector3 m_Position;
-    private Vector3 m_Velocity;
+    protected Vector3 m_Position;
+    protected Vector3 m_Velocity;
 
     private final double m_FadeIn;
     private final double m_FadeOut;
 
-    private Colour m_Colour;
+    protected Colour m_Colour;
     private Colour m_HotColour;
     private Colour m_ColdColour;
 
-    public Particle()
+    public Particle(ParticleType particleType, double lifeSpan, double fadeIn, double fadeOut)
     {
-        m_LifeTimer = new Timer_Accumulation(5);
+        m_ParticleType = particleType;
+        m_LifeTimer = new Timer(lifeSpan);
 
         m_DragCoefficient = 0.9;
         m_Mass = 1.0;
@@ -32,8 +34,8 @@ public class Particle
         m_Position = new Vector3();
         m_Velocity = new Vector3();
 
-        m_FadeIn = 0.2;
-        m_FadeOut = 0.7;
+        m_FadeIn = fadeIn;
+        m_FadeOut = fadeOut;
 
         m_Colour = new Colour();
         m_HotColour = new Colour();
@@ -42,7 +44,7 @@ public class Particle
 
     public void Update(double deltaTime)
     {
-        m_LifeTimer.Update(deltaTime);
+        AdditionalBehaviour(deltaTime);
 
         ApplyDrag();
         UpdatePosition(deltaTime);
@@ -50,6 +52,8 @@ public class Particle
         UpdateColour();
         UpdateTransparency();
     }
+
+    protected abstract void AdditionalBehaviour(double deltaTime);
 
     private void ApplyDrag()
     {
@@ -65,9 +69,11 @@ public class Particle
 
     private void UpdateColour()
     {
-        m_Colour.Red = MathsHelper.Lerp(0, m_HotColour.Red, m_ColdColour.Red);
-        m_Colour.Green = MathsHelper.Lerp(0, m_HotColour.Green, m_ColdColour.Green);
-        m_Colour.Blue = MathsHelper.Lerp(0, m_HotColour.Blue, m_ColdColour.Blue);
+        double normLifeSpan = m_LifeTimer.GetProgress();
+
+        m_Colour.Red = MathsHelper.Lerp(normLifeSpan, m_HotColour.Red, m_ColdColour.Red);
+        m_Colour.Green = MathsHelper.Lerp(normLifeSpan, m_HotColour.Green, m_ColdColour.Green);
+        m_Colour.Blue = MathsHelper.Lerp(normLifeSpan, m_HotColour.Blue, m_ColdColour.Blue);
     }
 
     private void UpdateTransparency()
@@ -76,10 +82,14 @@ public class Particle
         double alpha = 1.0;
 
         if (normLifeSpan <= m_FadeIn)
+        {
             alpha = MathsHelper.Normalise(normLifeSpan, 0, m_FadeIn);
+        }
 
         if (normLifeSpan >= m_FadeOut)
+        {
             alpha = 1.0 - MathsHelper.Normalise(normLifeSpan, m_FadeOut, 1.0);
+        }
 
         m_Colour.Alpha = alpha;
     }
@@ -93,21 +103,35 @@ public class Particle
         m_HotColour.SetColour(hot);
         m_ColdColour.SetColour(cold);
 
-        m_LifeTimer.SetLimit(lifeSpan);
-        m_LifeTimer.ResetTimer();
+        m_LifeTimer.SetDuration(lifeSpan);
+        m_LifeTimer.Start();
     }
 
-    void ApplyForce(Vector3 direction, double force)
+    public void ApplyForce(Vector3 direction, double force)
     {
         m_Velocity.I += (direction.I * force) / m_Mass;
         m_Velocity.J += (direction.J * force) / m_Mass;
         m_Velocity.K += (direction.K * force) / m_Mass;
     }
 
+    public void ApplyForce(Vector3 force)
+    {
+        m_Velocity.I += force.I / m_Mass;
+        m_Velocity.J += force.J / m_Mass;
+        m_Velocity.K += force.K / m_Mass;
+    }
+
+    public void ForceInvalidation()
+    {
+        m_LifeTimer.ElapseTimer();
+    }
+
     public boolean IsValid()
     {
-        return !m_LifeTimer.TimedOut();
+        return !m_LifeTimer.HasElapsed();
     }
+
+    public abstract void OnInvalidation();
 
     public Vector3 GetPosition()
     {
@@ -117,5 +141,10 @@ public class Particle
     public Colour GetColour()
     {
         return m_Colour;
+    }
+
+    public ParticleType GetType()
+    {
+        return m_ParticleType;
     }
 }

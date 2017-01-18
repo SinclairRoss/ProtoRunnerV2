@@ -26,6 +26,11 @@ public enum PublishedTopics
     GooglePlayConnected,
     GooglePlayDisconnected,
 
+    // Game events
+    MultiplierCollected,
+    MultiplierIncreased,
+    MultiplierDecreased,
+
     // Controls
     EvadeLeft,
     EvadeRight,

@@ -178,7 +178,7 @@
         jumboMode="true"
         optimize="true"
         revision="22.0.1"
-        sha1="0518cc71bb3cd00dff3f24bbf232a2fa82536cb8">
+        sha1="b856f63c44c11dedc53cc749dddab9ce85269cdd">
         <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_d2cb813805d570028fd79f17d31a32a25028da77\classes.dex" />
     </item>
     <item
@@ -241,7 +241,7 @@
         jumboMode="true"
         optimize="true"
         revision="22.0.1"
-        sha1="2041137561b8247d19c6595957a21660cfdc54fe">
+        sha1="10c4064c9f9a10c70a4c2132a78ad356553438f0">
         <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_6a9e03b2f4c33a4647ab3b9bb941bc109600cd8e\classes.dex" />
     </item>
     <item

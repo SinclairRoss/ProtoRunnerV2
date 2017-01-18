@@ -347,6 +347,14 @@ public class Colours
             1.0
     };
 
+	public static final double[] OrbGreen =
+	{
+		0.773,
+		0.965,
+		0.824,
+        1.0
+	};
+
 	public static final double[] HannahExperimentalAA =
 	{
             0.23921,

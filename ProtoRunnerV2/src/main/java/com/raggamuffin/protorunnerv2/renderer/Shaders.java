@@ -356,19 +356,19 @@ public class Shaders
 
     public static final String vertexShader_POINT =
             "uniform mat4 u_ProjMatrix;"
-        +   "uniform vec4 u_EyePos;			\n"
+        +   "uniform vec4 u_EyePos;"
 
-        +	"attribute vec4 a_Position;  \n"
+        +	"attribute vec4 a_Position;"
         +   "attribute vec4 a_Color;"
 
         +   "varying vec4 v_Color;"
 
-        +   "void main()                 \n"
+        +   "void main()"
         +   "{"
-        + "	    vec4 toEye;					        \n"
-        + " 	toEye = u_EyePos - a_Position;		"
-        + "     float distance = length(toEye);	    "
-        + "	    gl_PointSize = 30.0 * inversesqrt(distance);	"
+        + "	    vec4 toEye;"
+        + " 	toEye = u_EyePos - a_Position;"
+        + "     float distance = length(toEye);"
+        + "	    gl_PointSize = 30.0 * inversesqrt(distance);"
 
         +   "   v_Color = a_Color;"
         +	"	gl_Position = u_ProjMatrix * a_Position;"
@@ -384,7 +384,27 @@ public class Shaders
         +   "	gl_FragColor = v_Color;"
         +   "}";
 
-    public static final String fragmentShader_FADEPOINT =
+    public static final String vertexShader_POINTMULTIPLIER =
+            "uniform mat4 u_ProjMatrix;"
+        +   "uniform vec4 u_EyePos;"
+
+        +	"attribute vec4 a_Position;"
+        +   "attribute vec4 a_Color;"
+
+        +   "varying vec4 v_Color;"
+
+        +   "void main()"
+        +   "{"
+        + "	    vec4 toEye;"
+        + " 	toEye = u_EyePos - a_Position;		"
+        + "     float distance = length(toEye);	    "
+        + "	    gl_PointSize = 90.0 * inversesqrt(distance);	"
+
+        +   "   v_Color = a_Color;"
+        +	"	gl_Position = u_ProjMatrix * a_Position;"
+        +   "}";
+
+    public static final String fragmentShader_POINTMULTIPLIER =
             "precision lowp float;"
         +   "varying vec4 v_Color;"
 
@@ -396,7 +416,7 @@ public class Shaders
         +	"	float y = (gl_PointCoord.y * 2.0) - 1.0;"
         +   "   float distSqr = (x * x) + (y * y);"
 
-        +   "   gl_FragColor.a = float(distSqr < 1.0);"
+        +   "   gl_FragColor.a *= float(distSqr < 1.0);"
         + "}";
 
     public static final String vertexShader_SCROLLTEX =
@@ -423,24 +443,28 @@ public class Shaders
         +   "}";
 
     public static final String fragmentShader_SCROLLTEX =
-            "precision lowp float;		\n"
-        +   "uniform vec4 u_Color;			\n"
-        + 	"uniform sampler2D u_Texture;	\n"
-        +   "uniform vec2 u_TexOffset;		\n"
+            "precision lowp float;"
+        +   "uniform vec4 u_Color;"
+        + 	"uniform sampler2D u_Texture;"
+        +   "uniform vec2 u_TexOffset;"
+        +   "uniform float u_AttenuationCoefficient;"
 
-        +   "varying vec2 v_TexCoord;    	\n"
+        +   "varying vec2 v_TexCoord; "
 
         +   "void main()"
         +   "{"
-        +   "	gl_FragColor = u_Color * texture2D(u_Texture, v_TexCoord + u_TexOffset);"
 
-        +   "   float x = 2.0 - v_TexCoord.x;		\n"
-        +   "   float y = 2.0 - v_TexCoord.y;		\n"
+        +   "   gl_FragColor = u_Color * texture2D(u_Texture, v_TexCoord + u_TexOffset);"
 
-        + 	"	float Dist = (sqrt((x * x) + (y * y)) * 0.5); 		\n"		// Find the Distance of this fragment from the center.
-        +	"	float Alpha = 1.0 - ((Dist - 0.4) / 0.6);			\n"
-        + 	"	gl_FragColor.a *= Alpha * 0.5;	\n"
+        +   "   float x = 4.0 - v_TexCoord.x;"
+        +   "   float y = 4.0 - v_TexCoord.y;"
+
+        + 	"	float dist = sqrt((x * x) + (y * y)) * 0.5;"		// Find the Distance of this fragment from the center.
+        +   "   float attenuation = 1.0 / (1.0 + (u_AttenuationCoefficient * (dist * dist)));"
+        + 	"	gl_FragColor.a *= attenuation;"
         +   "}";
+
+
 
     public static final String vertexShader_SCREENQUAD =
             "attribute vec4 a_Position;"

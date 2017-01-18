@@ -20,7 +20,6 @@ public abstract class UIScreen
     protected InGameMessageHandler m_MessageHandler;
 
     private int m_NumElements;
-	private boolean m_HasBackButton;
 	
 	public UIScreen(GameLogic Game, UIManager uiManager)
 	{
@@ -30,14 +29,11 @@ public abstract class UIScreen
         m_MessageHandler = new InGameMessageHandler(m_Game, m_UIManager);
 
         m_NumElements = 0;
-		
-		m_HasBackButton = false;
 	}
 	
 	public void Create()
 	{
 		m_NumElements = 0;
-		m_HasBackButton = false;
         m_MessageHandler.Activate();
 	}
 	
@@ -121,8 +117,6 @@ public abstract class UIScreen
         button.GetFont().SetAlignment(Font.Alignment.Left);
         button.GetFont().SetColour(m_Game.GetColourManager().GetUIAccentColour());
         m_UIManager.AddUIElement(button);
-
-        m_HasBackButton = true;
 
         return button;
     }

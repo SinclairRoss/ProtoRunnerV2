@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import com.raggamuffin.protorunnerv2.gameobjects.FloorGrid;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.gameobjects.Tentacle;
 import com.raggamuffin.protorunnerv2.master.RenderEffectSettings;
 import com.raggamuffin.protorunnerv2.master.RendererPacket;
-import com.raggamuffin.protorunnerv2.particles.Particle;
+import com.raggamuffin.protorunnerv2.particles.ParticleType;
+import com.raggamuffin.protorunnerv2.particles.Particle_Multiplier;
+import com.raggamuffin.protorunnerv2.particles.Particle_Standard;
 import com.raggamuffin.protorunnerv2.particles.TrailNode;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
 import com.raggamuffin.protorunnerv2.ui.UIElementType;
@@ -17,7 +20,6 @@ import com.raggamuffin.protorunnerv2.utils.FrameRateCounter;
 
 import android.content.Context;
 
-import android.graphics.Point;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 
@@ -43,7 +45,6 @@ public class GLRenderer implements GLSurfaceView.Renderer
     private UIRenderManager m_UIManager;
     private TrailRenderer m_TrailRenderer;
     private RopeRenderer m_RopeRenderer;
-    private BulletRenderer m_BulletRenderer;
     private ParticleRenderer m_ParticleRenderer;
 
     private RenderEffectSettings m_RenderEffectSettings;
@@ -66,7 +67,6 @@ public class GLRenderer implements GLSurfaceView.Renderer
 		m_UIManager    = new UIRenderManager(m_Context);
         m_TrailRenderer = new TrailRenderer();
         m_RopeRenderer = new RopeRenderer();
-        m_BulletRenderer = new BulletRenderer();
         m_ParticleRenderer = new ParticleRenderer();
 
         m_RenderDurationCounter = new FrameRateCounter();
@@ -97,7 +97,6 @@ public class GLRenderer implements GLSurfaceView.Renderer
         m_RopeRenderer.LoadAssets();
         m_UIManager.LoadAssets();
         m_ParticleRenderer.LoadAssets();
-        m_BulletRenderer.LoadAssets();
     }
 
 	@Override
@@ -115,7 +114,9 @@ public class GLRenderer implements GLSurfaceView.Renderer
         Matrix.multiplyMM(view, 0, m_Camera.m_ProjMatrix, 0, m_Camera.m_VMatrix, 0);
 
         DrawSkybox(view);
+        DrawFloorPanels(view);
         DrawParticles(view);
+        DrawParticles_Multiplier(view);
         DrawObjects(view);
         DrawTrails(view);
         DrawRopes(view);
@@ -207,13 +208,13 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
     private void DrawParticles(float[] view)
     {
-        ArrayList<Particle> list = (ArrayList<Particle>)m_Packet.GetParticles().clone();
+        ArrayList<Particle_Standard> list = (ArrayList<Particle_Standard>)m_Packet.GetParticles().clone();
 
         if(list.size() > 0)
         {
-            m_ParticleRenderer.Initialise(view, m_Camera.GetPosition());
+            m_ParticleRenderer.Initialise(ParticleType.Standard, view, m_Camera.GetPosition());
 
-            for (Particle obj : list)
+            for (Particle_Standard obj : list)
             {
                 if (obj != null)
                 {
@@ -225,24 +226,64 @@ public class GLRenderer implements GLSurfaceView.Renderer
         }
     }
 
+    private void DrawParticles_Multiplier(float[] view)
+    {
+        ArrayList<Particle_Multiplier> list = (ArrayList<Particle_Multiplier>)m_Packet.GetParticles_Multiplier().clone();
+
+        if(list.size() > 0)
+        {
+            m_ParticleRenderer.Initialise(ParticleType.Multiplier, view, m_Camera.GetPosition());
+
+            for (Particle_Multiplier obj : list)
+            {
+                if (obj != null)
+                {
+                    m_ParticleRenderer.Draw(obj.GetPosition(), obj.GetColour());
+                }
+            }
+
+            m_ParticleRenderer.Clean();
+        }
+    }
+
+    private void DrawFloorPanels(float[] view)
+    {
+        ArrayList<FloorGrid> list = (ArrayList<FloorGrid>)m_Packet.GetFloorGrids().clone();
+
+        if(!list.isEmpty())
+        {
+            m_ModelManager.InitialiseFloorPanel(view);
+
+            for (FloorGrid obj : list)
+            {
+                if (obj != null)
+                {
+                    m_ModelManager.DrawFloorPanel(obj.GetPosition(), obj.GetColour(), obj.GetAttenuation());
+                }
+            }
+
+            m_ModelManager.CleanFloorPanel();
+        }
+    }
+
     private void DrawTrails(float[] view)
     {
         ArrayList<TrailNode> list = (ArrayList<TrailNode>)m_Packet.GetTrailPoints().clone();
 
-        if(list.size() == 0)
-            return;
-
-        m_TrailRenderer.Initialise(view, m_Camera.GetPosition());
-
-        for(TrailNode obj : list)
+        if(!list.isEmpty())
         {
-            if(obj == null)
-                continue;
+            m_TrailRenderer.Initialise(view, m_Camera.GetPosition());
 
-            m_TrailRenderer.Draw(obj);
+            for (TrailNode obj : list)
+            {
+                if (obj != null)
+                {
+                    m_TrailRenderer.Draw(obj);
+                }
+            }
+
+            m_TrailRenderer.Clean();
         }
-
-        m_TrailRenderer.Clean();
     }
 
     private void DrawRopes(float[] view)
