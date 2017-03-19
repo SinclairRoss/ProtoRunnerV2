@@ -24,8 +24,11 @@ public class TargetSensor_Standard extends TargetSensor
             Vector3 anchorPosition = m_Anchor.GetPosition();
             double distanceToClosestTargetSqr = Double.MAX_VALUE;
 
-            for(Vehicle enemy : m_Targets)
+            int numEnemies = m_Targets.size();
+            for(int i = 0; i < numEnemies; ++i)
             {
+                Vehicle enemy = m_Targets.get(i);
+
                 if(enemy.CanBeTargeted())
                 {
                     double distanceToEnemySqr = Vector3.DistanceBetweenSqr(anchorPosition, enemy.GetPosition());

@@ -5,7 +5,6 @@ public enum FireControlBehaviour
     None,
     Standard,
     Telegraphed,
-    BeamSweep,
     LaserSpinner,
     MissileLauncher
 }

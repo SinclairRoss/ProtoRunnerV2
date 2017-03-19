@@ -13,12 +13,11 @@ public class DodgeTestBot extends Vehicle
 
     public DodgeTestBot(GameLogic game)
     {
-        super(game, ModelType.WeaponDrone);
+        super(game, ModelType.WeaponDrone, 1);
 
         SetAffiliation(AffiliationKey.RedTeam);
 
-        SetBaseColour(Colours.CalvinOrange);
-        m_Position.SetVector(0);
+        SetColour(Colours.CalvinOrange);
 
         m_Engine = new Engine_Standard(this, game);
         m_Engine.SetMaxTurnRate(0);//2

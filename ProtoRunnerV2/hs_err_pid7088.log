@@ -83,7 +83,7 @@ R15=0x00000000003cf000 is a thread
 
 
 Stack: [0x00000000023c0000,0x00000000024c0000],  sp=0x00000000024bef70,  free space=1019k
-Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+Native frames: (J=compiled Java code, y=interpreted, Vv=VM code, C=native code)
 J  com.android.dx.io.instructions.InstructionCodec$6.decode(ILcom/android/dx/io/instructions/CodeInput;)Lcom/android/dx/io/instructions/DecodedInstruction;
 
 [error occurred during error reporting (printing native stack), id 0xc0000005]

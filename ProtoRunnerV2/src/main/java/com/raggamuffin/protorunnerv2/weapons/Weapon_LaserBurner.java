@@ -11,7 +11,6 @@ public class Weapon_LaserBurner extends Weapon
         super(anchor, game, AudioClips.Silence);
 
         m_Damage = 100;
-
         m_FireMode = new FireControl_None();
 
         AddBarrel(0, 0, 0);

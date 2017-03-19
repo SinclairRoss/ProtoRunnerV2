@@ -1,13 +1,16 @@
 package com.raggamuffin.protorunnerv2.ai;
 
+import android.util.Log;
+
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
+import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 
 public class EvasionControl
 {
     private Sensor_IncomingDanger m_DangerSensor;
     private Vehicle m_Anchor;
-    private Timer_Accumulation m_DodgeCooldownTimer;
+    private Timer m_DodgeCooldownTimer;
 
     private Boolean m_Enabled;
 
@@ -15,15 +18,14 @@ public class EvasionControl
     {
         m_DangerSensor = controller.GetSituationalAwareness().GetDangerSensor();
         m_Anchor = controller.GetAnchor();
-        m_DodgeCooldownTimer = new Timer_Accumulation(3.0);
+        m_DodgeCooldownTimer = new Timer(3.0);
+        m_DodgeCooldownTimer.ElapseTimer();
 
         m_Enabled = true;
     }
 
-    public void Update(double deltaTime)
+    public void Update()
     {
-        m_DodgeCooldownTimer.Update(deltaTime);
-
         if(m_Enabled)
         {
             switch (m_DangerSensor.GetDangerState())
@@ -34,20 +36,20 @@ public class EvasionControl
                 }
                 case DangerLeft:
                 {
-                    if (m_DodgeCooldownTimer.TimedOut())
+                    if (m_DodgeCooldownTimer.HasElapsed())
                     {
                         m_Anchor.DodgeRight();
-                        m_DodgeCooldownTimer.ResetTimer();
+                        m_DodgeCooldownTimer.Start();
                     }
 
                     break;
                 }
                 case DangerRight:
                 {
-                    if (m_DodgeCooldownTimer.TimedOut())
+                    if (m_DodgeCooldownTimer.HasElapsed())
                     {
                         m_Anchor.DodgeLeft();
-                        m_DodgeCooldownTimer.ResetTimer();
+                        m_DodgeCooldownTimer.Start();
                     }
 
                     break;
@@ -56,13 +58,6 @@ public class EvasionControl
         }
     }
 
-    public void Disable()
-    {
-        m_Enabled = false;
-    }
-
-    public void Enable()
-    {
-        m_Enabled = true;
-    }
+    public void Disable() { m_Enabled = false; }
+    public void Enable() { m_Enabled = true; }
 }

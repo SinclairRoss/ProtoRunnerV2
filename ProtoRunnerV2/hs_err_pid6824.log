@@ -85,7 +85,7 @@ R15=0x00000000020af000 is a thread
 
 
 Stack: [0x0000000002410000,0x0000000002510000],  sp=0x000000000250e2e0,  free space=1016k
-Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+Native frames: (J=compiled Java code, y=interpreted, Vv=VM code, C=native code)
 J  com.android.dx.ssa.SsaMethod.makeExitBlock()V
 
 

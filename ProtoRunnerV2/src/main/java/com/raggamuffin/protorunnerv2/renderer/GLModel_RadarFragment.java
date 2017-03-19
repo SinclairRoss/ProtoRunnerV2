@@ -1,14 +1,14 @@
 package com.raggamuffin.protorunnerv2.renderer;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
+import android.opengl.GLES20;
 
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
-import android.opengl.GLES20;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
 
 public class GLModel_RadarFragment extends GLModel
 {
@@ -32,48 +32,58 @@ public class GLModel_RadarFragment extends GLModel
 	{	
 		 // FRONT.
 		-1.0f,	 1.0f,	 1.0f, // A
+			1.0f,	-3.0f,	 1.0f, // C
 		-1.0f,	-3.0f,	 1.0f, // B
-		 1.0f,	-3.0f,	 1.0f, // C
+
 		
 		-1.0f,	 1.0f,	 1.0f, // A
+			1.0f,	 1.0f,	 1.0f, // D
 		 1.0f,	-3.0f,	 1.0f, // C
-		 1.0f,	 1.0f,	 1.0f, // D
+
 		 
 		// BACK
 		1.0f,	 1.0f,	-1.0f, // E
+			-1.0f,	-3.0f,	-1.0f, // G
 		1.0f,	-3.0f,	-1.0f, // F
-	   -1.0f,	-3.0f,	-1.0f, // G
+
 		
 		1.0f,	 1.0f,	-1.0f, // E
+			-1.0f,	 1.0f,	-1.0f, // H
 	   -1.0f,	-3.0f,	-1.0f, // G
-	   -1.0f,	 1.0f,	-1.0f, // H
+
 		
 		// LEFT.
 	   -1.0f,	 1.0f,	-1.0f, // H
+			-1.0f,	-3.0f,	 1.0f, // B
 	   -1.0f,	-3.0f,	-1.0f, // G
-	   -1.0f,	-3.0f,	 1.0f, // B
+
 		
 	   -1.0f,	 1.0f,	-1.0f, // H
+			-1.0f,	 1.0f,	 1.0f, // A
 	   -1.0f,	-3.0f,	 1.0f, // B
-	   -1.0f,	 1.0f,	 1.0f, // A
+
 		
 		// RIGHT.
 		1.0f,	 1.0f,	 1.0f, // D
+			1.0f,	-2.0f,	-1.0f, // F
 		1.0f,	-2.0f,	 1.0f, // C
-		1.0f,	-2.0f,	-1.0f, // F
+
 		
 		1.0f,	 1.0f,	 1.0f, // D
+			1.0f,	 1.0f,	-1.0f, // E
 		1.0f,	-2.0f,	-1.0f, // F
-		1.0f,	 1.0f,	-1.0f, // E
+
 		
 		// TOP.
 	   -1.0f,	 1.0f,	-1.0f, // H
+			1.0f,	 1.0f,	 1.0f, // D
 	   -1.0f,	 1.0f,	 1.0f, // A
-		1.0f,	 1.0f,	 1.0f, // D
+
 		
 	   -1.0f,	 1.0f,	-1.0f, // H
+			1.0f,	 1.0f,	-1.0f, // E
 		1.0f,	 1.0f,	 1.0f, // D
-		1.0f,	 1.0f,	-1.0f, // E
+
 	};
 	
 	static final int TEX_COORDS_PER_VERTEX = 2;
@@ -83,48 +93,58 @@ public class GLModel_RadarFragment extends GLModel
 	{	
 		// FRONT.
 		0.0f,	0.0f, // A
+			1.0f,	1.0f, // C
 		0.0f,	1.0f, // B
-		1.0f,	1.0f, // C
+
 		
 		0.0f,	0.0f, // A
+			1.0f,	0.0f, // D
 		1.0f,	1.0f, // C
-		1.0f,	0.0f, // D
+
 		 
 		// BACK
 		0.0f,	 0.0f, // E
+			1.0f,	 1.0f, // G
 		0.0f,	 1.0f, // F
-		1.0f,	 1.0f, // G
+
 		
 	   	0.0f,	 0.0f, // E
+			1.0f,	 0.0f, // H
 	    1.0f,	 1.0f, // G
-	    1.0f,	 0.0f, // H
+
 		
 		// LEFT.
 	    1.0f,	 0.0f, // H
+			0.0f,	 1.0f, // B
 	    1.0f,	 1.0f, // G
-	    0.0f,	 1.0f, // B
+
 		
 	    1.0f,	 0.0f, // H
+			0.0f,	 0.0f, // A
 	    0.0f,	 1.0f, // B
-	    0.0f,	 0.0f, // A
+
 		
 		// RIGHT.
 	   	1.0f,	0.0f, // D
+			0.0f,	1.0f, // F
 		1.0f,	1.0f, // C
-		0.0f,	1.0f, // F
+
 		
 		1.0f,	0.0f, // D
+			0.0f,	0.0f, // E
 		0.0f,	1.0f, // F
-		0.0f,	0.0f, // E
+
 		
 		// TOP.
 		1.0f,	0.0f, // H
+			1.0f,	0.0f, // D
 	    0.0f,	0.0f, // A
-   		1.0f,	0.0f, // D
+
 		
    		1.0f,	0.0f, // H
+			0.0f,	0.0f, // E
 	   	1.0f,	0.0f, // D
-	   	0.0f,	0.0f, // E
+
 		
 	};
 	
@@ -200,10 +220,10 @@ public class GLModel_RadarFragment extends GLModel
     public void Draw(GameObject obj)
     {
         Vector3 pos = obj.GetPosition();
-        GLES20.glUniform4f(m_WorldPosHandle, (float) pos.I, (float) pos.J, (float) pos.K, 1.0f);
+        GLES20.glUniform4f(m_WorldPosHandle, (float) pos.X, (float) pos.Y, (float) pos.Z, 1.0f);
 
         Vector3 scale = obj.GetScale();
-        GLES20.glUniform3f(m_ScaleHandle, (float)scale.I, (float)scale.J, (float)scale.K);
+        GLES20.glUniform3f(m_ScaleHandle, (float)scale.X, (float)scale.Y, (float)scale.Z);
 
         Colour colour = obj.GetColour();
         GLES20.glUniform4f(m_ColourHandle, (float)colour.Red, (float)colour.Green, (float)colour.Blue, (float)colour.Alpha);

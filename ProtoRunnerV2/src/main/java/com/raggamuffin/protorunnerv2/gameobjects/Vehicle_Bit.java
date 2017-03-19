@@ -10,6 +10,7 @@ import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
+import com.raggamuffin.protorunnerv2.weapons.Weapon_BitLaser;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_PunkShot;
 
 public class Vehicle_Bit extends Vehicle
@@ -18,22 +19,20 @@ public class Vehicle_Bit extends Vehicle
 
 	public Vehicle_Bit(GameLogic game)
 	{
-		super(game, ModelType.Bit);
+		super(game, ModelType.Bit, 2);
 
-        SetColourScheme(Colours.Pink70, Colours.HotPink);
+       // SetColourScheme(Colours.Pink70, Colours.HotPink);
 
-		m_Position.SetVector(10, 0, 10);
+		SetColour(Colours.Pink70);
 
-		m_Mass = 100;
         m_Engine = new Engine_Standard(this, game);
 		m_Engine.SetMaxTurnRate(1.5); //1.5
-		m_Engine.SetMaxEngineOutput(10000); //10000
-        m_Engine.SetDodgeOutput(50000);
-        m_BoundingRadius = 2;
+		m_Engine.SetMaxEngineOutput(50); //10000
+		m_Engine.SetDodgeOutput(700);
 
 		SetAffiliation(AffiliationKey.RedTeam); 
 		
-		SelectWeapon(new Weapon_PunkShot(this, game));
+		SelectWeapon(new Weapon_BitLaser(this, game));
 
 		NavigationalBehaviourInfo navInfo = new NavigationalBehaviourInfo(0.4, 1.0, 0.7, 0.6);
 		m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), navInfo, AIBehaviours.EngageTarget, FireControlBehaviour.Telegraphed, TargetingBehaviour.Standard);

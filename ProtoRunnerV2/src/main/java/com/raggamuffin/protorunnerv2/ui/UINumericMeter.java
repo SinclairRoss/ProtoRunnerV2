@@ -6,7 +6,6 @@ package com.raggamuffin.protorunnerv2.ui;
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.managers.UIManager;
 import com.raggamuffin.protorunnerv2.utils.Colour;
-import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 
 public class UINumericMeter
@@ -45,7 +44,21 @@ public class UINumericMeter
 
             double incrementSpeed = CalculateIncrementSpeed();
             m_CurrentValue += incrementSpeed * deltaTime * polarityMultiplier;
-            m_CurrentValue = MathsHelper.Clamp(m_CurrentValue, 0, m_TargetValue);
+
+            if(polarityMultiplier > 0)
+            {
+                if(m_CurrentValue > m_TargetValue)
+                {
+                    m_CurrentValue = m_TargetValue;
+                }
+            }
+            else
+            {
+                if(m_CurrentValue < m_TargetValue)
+                {
+                    m_CurrentValue = m_TargetValue;
+                }
+            }
 
             UpdateText();
         }

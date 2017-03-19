@@ -1,11 +1,12 @@
 package com.raggamuffin.protorunnerv2.ai;
 
-import java.util.ArrayList;
-import java.util.Vector;
+import android.util.Log;
 
 import com.raggamuffin.protorunnerv2.managers.BulletManager;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 import com.raggamuffin.protorunnerv2.weapons.Projectile;
+
+import java.util.ArrayList;
 
 public class Sensor_IncomingDanger extends Sensor
 {
@@ -43,8 +44,11 @@ public class Sensor_IncomingDanger extends Sensor
 		m_IncomingProjectiles.clear();
         m_DangerState = DangerState.NoDanger;
 
-		for(Projectile proj : m_Bullets)
+        int numProjectiles = m_Bullets.size();
+        for(int i = 0; i < numProjectiles; ++i)
 		{
+            Projectile proj = m_Bullets.get(i);
+
 			if(proj.GetAffiliation() != m_Anchor.GetAffiliation())
             {
                 m_ReltivePosition.SetVectorDifference(m_Anchor.GetPosition(), proj.GetPosition());
@@ -75,11 +79,11 @@ public class Sensor_IncomingDanger extends Sensor
         {
             if(Vector3.Determinant(m_Anchor.GetForward(), m_ReltivePosition) > 0)
             {
-                m_DangerState = DangerState.DangerLeft;
+                m_DangerState = DangerState.DangerRight;
             }
             else
             {
-                m_DangerState = DangerState.DangerRight;
+                m_DangerState = DangerState.DangerLeft;
             }
         }
 	}

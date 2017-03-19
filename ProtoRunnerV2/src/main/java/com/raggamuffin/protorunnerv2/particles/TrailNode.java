@@ -3,6 +3,7 @@ package com.raggamuffin.protorunnerv2.particles;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
+import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
@@ -11,7 +12,7 @@ public class TrailNode
     private TrailNode m_Parent;
     private TrailNode m_Child;
     private Vector3 m_Position;
-    private Timer_Accumulation m_LifeTimer;
+    private Timer m_LifeTimer;
 
     private double m_MaxAlpha;
     private Colour m_Colour;
@@ -25,7 +26,7 @@ public class TrailNode
         m_Parent = null;
         m_Child = null;
         m_Position = new Vector3();
-        m_LifeTimer = new Timer_Accumulation(0);
+        m_LifeTimer = new Timer(0);
 
         m_MaxAlpha = 0.6;
         m_Colour = new Colour(Colours.VioletRed);
@@ -38,8 +39,8 @@ public class TrailNode
     public void Activate(Vector3 position, double lifeSpan, double fadeInLength, TrailNode parent, Colour hotColour, Colour coldColour)
     {
         m_Position.SetVector(position);
-        m_LifeTimer.SetLimit(lifeSpan);
-        m_LifeTimer.ResetTimer();
+        m_LifeTimer.SetDuration(lifeSpan);
+        m_LifeTimer.Start();
         m_Parent = parent;
         m_Child =  null;
 
@@ -57,10 +58,8 @@ public class TrailNode
         m_Child = child;
     }
 
-    public void Update(double deltaTime)
+    public void Update()
     {
-        m_LifeTimer.Update(deltaTime);
-
         double lerp = m_LifeTimer.GetProgress();
         m_Colour.Red = MathsHelper.Lerp(lerp, m_HotColour.Red, m_ColdColour.Red);
         m_Colour.Green = MathsHelper.Lerp(lerp, m_HotColour.Green, m_ColdColour.Green);
@@ -70,17 +69,8 @@ public class TrailNode
 
     private double CalculateAlpha()
     {
-        double alpha;
         double val = m_LifeTimer.GetProgress();
-
-        if(val < m_FadeInLength)
-        {
-            alpha = MathsHelper.Normalise(val, 0, m_FadeInLength);
-        }
-        else
-        {
-            alpha = 1.0 - MathsHelper.Normalise(val, m_FadeInLength, 1);
-        }
+        double alpha = val < m_FadeInLength ? MathsHelper.Normalise(val, 0, m_FadeInLength) : 1.0 - MathsHelper.Normalise(val, m_FadeInLength, 1);
 
         return alpha * m_MaxAlpha;
     }
@@ -120,7 +110,7 @@ public class TrailNode
 
     public boolean IsValid()
     {
-        return !m_LifeTimer.TimedOut();
+        return !m_LifeTimer.HasElapsed();
 
     }
 }

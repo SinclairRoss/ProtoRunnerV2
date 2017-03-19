@@ -13,20 +13,17 @@ public class LaserPointer extends GameObject
 
 	public LaserPointer(GameLogic game, Weapon anchor, WeaponBarrel barrel)
 	{
-		super(game, ModelType.LaserPointer);
+		super(ModelType.LaserPointer, 1.0);
 
 		m_Anchor = anchor;
 		m_Barrel = barrel;
 
 		SetForward(m_Anchor.GetForward());
 
-        m_Scale.SetVector(0.3, 0.3, 1000);
-		
-		m_Anchor.AddChild(this);
+        SetScale(0.05, 0.05, 1000);
+        ;
 
-        SetBaseColour(game.GetColourManager().GetDangerColour());
-        m_Colour.Alpha = 0;
-        m_Model = ModelType.Nothing;
+        SetColour(game.GetColourManager().GetDangerColour());
     }
 	
 	@Override
@@ -40,12 +37,9 @@ public class LaserPointer extends GameObject
 
     private void UpdateOrientation()
     {
-        m_Forward.SetVector(m_Anchor.GetForward());
-        m_Forward.RotateY(m_Barrel.GetRotation());
-        UpdateVectors();
-
-        m_Velocity.SetVector(0);
-        m_Position.SetVector(m_Anchor.GetPosition());
+        SetPosition(m_Anchor.GetPosition());
+        SetForward(m_Anchor.GetForward());
+        GetForward().RotateY(m_Barrel.GetRotation());
     }
 
 	@Override
@@ -55,21 +49,19 @@ public class LaserPointer extends GameObject
     }
 
     @Override
-    public void CleanUp()
-    {}
+    public void CleanUp(){}
 
     public void On()
 	{
         m_On = true;
-        m_Colour.Alpha = 0.4;
 
         UpdateOrientation();
-        m_Model = ModelType.ParticleLaser;
+        SetAlpha(0.4);
 	}
 	
 	public void Off()
 	{
         m_On = false;
-        m_Model = ModelType.Nothing;
+        SetAlpha(0);
 	}	
 }

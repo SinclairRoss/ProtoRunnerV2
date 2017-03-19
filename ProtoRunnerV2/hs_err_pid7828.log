@@ -84,7 +84,7 @@ R15=0x0000000000010000 is an unknown value
 
 
 Stack: [0x0000000005b20000,0x0000000005c20000],  sp=0x0000000005c1f710,  free space=1021k
-Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+Native frames: (J=compiled Java code, y=interpreted, Vv=VM code, C=native code)
 V  [jvm.dll+0xf03e8]
 
 

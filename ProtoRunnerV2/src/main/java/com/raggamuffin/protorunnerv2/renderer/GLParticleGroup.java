@@ -6,28 +6,31 @@ package com.raggamuffin.protorunnerv2.renderer;
 import android.opengl.GLES20;
 import android.util.Log;
 
+import com.raggamuffin.protorunnerv2.particles.Particle;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public abstract class GLParticleGroup
 {
+    private int m_MaxParticleCount;
+    private int m_ParticleCount;
+
     private FloatBuffer m_VertexBuffer;
-    private FloatBuffer m_SizeBuffer;
     private FloatBuffer m_ColourBuffer;
+
+    private float[] m_Vertices;
+    private float[] m_Colours;
 
     private int m_Program;
     private int m_ProjMatrixHandle;
     private int m_EyePosHandle;
     protected int m_PositionHandle;
     protected int m_ColourHandle;
-
-    private ArrayList<Vector3> m_Points;
-    private ArrayList<Colour> m_Colours;
 
     public GLParticleGroup(String vertexShader, String fragmentShader)
     {
@@ -37,8 +40,8 @@ public abstract class GLParticleGroup
         m_PositionHandle = 0;
         m_ColourHandle = 0;
 
-        m_Points = new ArrayList<>();
-        m_Colours = new ArrayList<>();
+        m_MaxParticleCount = 1000;
+        ResizeBuffers(m_MaxParticleCount);
 
         CreateProgram(vertexShader, fragmentShader);
     }
@@ -49,7 +52,7 @@ public abstract class GLParticleGroup
         GLES20.glUseProgram(m_Program);
 
         GLES20.glUniformMatrix4fv(m_ProjMatrixHandle, 1, false, projMatrix, 0);
-        GLES20.glUniform4f(m_EyePosHandle, (float) eye.I, (float) eye.J, (float) eye.K, 1.0f);
+        GLES20.glUniform4f(m_EyePosHandle, (float) eye.X, (float) eye.Y, (float) eye.Z, 1.0f);
     }
 
     public void CleanModel()
@@ -59,61 +62,80 @@ public abstract class GLParticleGroup
         GLES20.glEnable(GLES20.GL_DEPTH_TEST);
     }
 
-    public void AddPoint(Vector3 point, Colour colour)
+    public void AddPoints(CopyOnWriteArrayList<Particle> particles)
     {
-        m_Points.add(point);
-        m_Colours.add(colour);
+        int numParticles = particles.size();
+        if(numParticles > m_MaxParticleCount)
+        {
+            m_MaxParticleCount = numParticles;
+            ResizeBuffers(m_MaxParticleCount);
+        }
+
+        int i = 0;
+        for(Particle particle : particles)
+        {
+            // Performing this check a second time protects against a bug triggered by
+            // the size of the particles list changing while resizing the buffers.
+            if(i >= m_MaxParticleCount)
+            {
+                m_MaxParticleCount = i+1;
+                ResizeBuffers(m_MaxParticleCount);
+            }
+
+            Vector3 position = particle.GetPosition();
+            Colour colour = particle.GetColour();
+
+            try
+            {
+                m_Vertices[(i * 3)] = (float) position.X;
+                m_Vertices[(i * 3) + 1] = (float) position.Y;
+                m_Vertices[(i * 3) + 2] = (float) position.Z;
+
+                m_Colours[(i * 4)] = (float) colour.Red;
+                m_Colours[(i * 4) + 1] = (float) colour.Green;
+                m_Colours[(i * 4) + 2] = (float) colour.Blue;
+                m_Colours[(i * 4) + 3] = (float) colour.Alpha;
+            }
+            catch(IndexOutOfBoundsException e)
+            {
+                Log.e("particle", "Shits fucked");
+            }
+            ++i;
+        }
+
+        m_ParticleCount = i;
+
+        m_VertexBuffer.put(m_Vertices);
+        m_VertexBuffer.position(0);
+
+        m_ColourBuffer.put(m_Colours);
+        m_ColourBuffer.position(0);
     }
 
     public void Draw()
     {
-        int numPoints = m_Points.size();
-        float[] vertices = new float[numPoints * 3];
-        float[] size = new float[numPoints];
-        float[] colours = new float[numPoints * 4];
-
-        for(int i = 0; i < numPoints; i++)
-        {
-            Vector3 pos = m_Points.get(i);
-            vertices[i*3] = (float)pos.I;
-            vertices[i*3+1] = (float)pos.J;
-            vertices[i*3+2] = (float)pos.K;
-
-            Colour colour = m_Colours.get(i);
-            colours[i*4] = (float)colour.Red;
-            colours[i*4+1] = (float)colour.Green;
-            colours[i*4+2] = (float)colour.Blue;
-            colours[i*4+3] = (float)colour.Alpha;
-        }
-
-        ByteBuffer vb = ByteBuffer.allocateDirect(numPoints * 12);
-        vb.order(ByteOrder.nativeOrder());
-        m_VertexBuffer = vb.asFloatBuffer();
-        m_VertexBuffer.put(vertices);
-        m_VertexBuffer.position(0);
-
-        ByteBuffer sb = ByteBuffer.allocateDirect(numPoints * 4);
-        sb.order(ByteOrder.nativeOrder());
-        m_SizeBuffer = sb.asFloatBuffer();
-        m_SizeBuffer.put(size);
-        m_SizeBuffer.position(0);
-
-        ByteBuffer cb = ByteBuffer.allocateDirect(numPoints * 16);
-        cb.order(ByteOrder.nativeOrder());
-        m_ColourBuffer = cb.asFloatBuffer();
-        m_ColourBuffer.put(colours);
-        m_ColourBuffer.position(0);
-
         GLES20.glEnableVertexAttribArray(m_PositionHandle);
         GLES20.glVertexAttribPointer(m_PositionHandle, 3, GLES20.GL_FLOAT, false, 12, m_VertexBuffer);
 
         GLES20.glEnableVertexAttribArray(m_ColourHandle);
         GLES20.glVertexAttribPointer(m_ColourHandle, 4, GLES20.GL_FLOAT, false, 16, m_ColourBuffer);
 
-        GLES20.glDrawArrays(GLES20.GL_POINTS, 0, numPoints);
+        GLES20.glDrawArrays(GLES20.GL_POINTS, 0, m_ParticleCount);
+    }
 
-        m_Points.clear();
-        m_Colours.clear();
+    private void ResizeBuffers(int size)
+    {
+        ByteBuffer byteBuffer_Vertex = ByteBuffer.allocateDirect(size * 12);
+        byteBuffer_Vertex.order(ByteOrder.nativeOrder());
+        m_VertexBuffer = byteBuffer_Vertex.asFloatBuffer();
+
+        m_Vertices = new float[size * 3];
+
+        ByteBuffer byteBuffer_Colour = ByteBuffer.allocateDirect(size * 16);
+        byteBuffer_Colour.order(ByteOrder.nativeOrder());
+        m_ColourBuffer = byteBuffer_Colour.asFloatBuffer();
+
+        m_Colours = new float[size * 4];
     }
 
     protected int loadShader(int type, String shaderCode)

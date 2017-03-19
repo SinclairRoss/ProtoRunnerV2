@@ -25,11 +25,11 @@ public class FormationHelper
 
             if((i % 2) == 1)
             {
-                verticalOffsetI -= verticalSpacing * forward.I;
-                verticalOffsetK -= verticalSpacing * forward.K;
+                verticalOffsetI -= verticalSpacing * forward.X;
+                verticalOffsetK -= verticalSpacing * forward.Z;
 
-                horizontalOffsetI -= horizontalSpacing * right.I;
-                horizontalOffsetK -= horizontalSpacing * right.K;
+                horizontalOffsetI -= horizontalSpacing * right.X;
+                horizontalOffsetK -= horizontalSpacing * right.Z;
 
                 actualHorizontalOffsetI = -horizontalOffsetI;
                 actualHorizontalOffsetK = -horizontalOffsetK;
@@ -53,8 +53,8 @@ public class FormationHelper
         right.SetAsCrossProduct(Vector3.UP, forward);
 
         double formationWidth = spacing * (count - 1);
-        double xOffset = right.I * formationWidth * 0.5;
-        double zOffset = right.K * formationWidth * 0.5;
+        double xOffset = right.X * formationWidth * 0.5;
+        double zOffset = right.Z * formationWidth * 0.5;
 
         for(int i = 0; i < count; ++i)
         {

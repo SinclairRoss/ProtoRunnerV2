@@ -25,16 +25,16 @@ public final class CollisionDetection
 	public static CollisionReport RayCastSphere(Vector3 rayStart, Vector3 rayEnd, Vector3 spherePos, double sphereRadius)
 	{
         // Calculate discriminant
-		double lengthX = rayEnd.I - rayStart.I;
-		double lengthY = rayEnd.J - rayStart.J;
-		double lengthZ = rayEnd.K - rayStart.K;
-        double paraX = -spherePos.I + rayStart.I;
-        double paraY = -spherePos.J + rayStart.J;
-        double paraZ = -spherePos.K + rayStart.K;
+		double lengthX = rayEnd.X - rayStart.X;
+		double lengthY = rayEnd.Y - rayStart.Y;
+		double lengthZ = rayEnd.Z - rayStart.Z;
+        double paraX = -spherePos.X + rayStart.X;
+        double paraY = -spherePos.Y + rayStart.Y;
+        double paraZ = -spherePos.Z + rayStart.Z;
 
 		double a = lengthX*lengthX + lengthY*lengthY + lengthZ*lengthZ;
 		double b = (lengthX * paraX)*2 + (lengthY * paraY)*2 + (lengthZ * paraZ)*2;
-		double c = paraX*paraX + paraY*paraY + paraZ*paraZ - sphereRadius*sphereRadius;
+		double c = (paraX*paraX) + (paraY*paraY) + (paraZ*paraZ) - (sphereRadius*sphereRadius);
 
 		double discriminantSqr = (b*b) - (4*a*c);
 
@@ -70,42 +70,48 @@ public final class CollisionDetection
 	
 	public static boolean UIElementInteraction(final Vector2 Touch, final Vector2 ScreenSize, final UIElement Element)
 	{
-        if(Element.IsHidden())
-            return false;
+		boolean hitDetected = false;
 
-		// PHASE 1: Convert Touch coords into screen space coords.
-		double ratio = ScreenSize.I / ScreenSize.J;
+        if(!Element.IsHidden())
+		{
+			// PHASE 1: Convert Touch coords into screen space coords.
+			double ratio = ScreenSize.I / ScreenSize.J;
 
-		// Normalised screen space.
-		double i = MathsHelper.Normalise(Touch.I, 0, ScreenSize.I);
-		double j = MathsHelper.Normalise(Touch.J, 0, ScreenSize.J);
+			// Normalised screen space.
+			double i = MathsHelper.Normalise(Touch.I, 0, ScreenSize.I);
+			double j = MathsHelper.Normalise(Touch.J, 0, ScreenSize.J);
 
-		i = MathsHelper.Lerp(i, -ratio, ratio);
-		j = MathsHelper.Lerp(j, 1, -1);
+			i = MathsHelper.Lerp(i, -ratio, ratio);
+			j = MathsHelper.Lerp(j, 1, -1);
 
-		// Compare normalised screen poition agains the UIElement.
-		Vector2 ElementPosition = Element.GetPosition();
-		Vector2 ElementSize	    = Element.GetSize();
+			// Compare normalised screen position against the UIElement.
+			Vector2 ElementPosition = Element.GetPosition();
+			Vector2 ElementSize = Element.GetSize();
 
-		if(i < ElementPosition.I || i > (ElementPosition.I + ElementSize.I))
-			return false;
+			if (i >= ElementPosition.I && i <= (ElementPosition.I + ElementSize.I))
+			{
+				if(j >= ElementPosition.J && j <= (ElementPosition.J + ElementSize.J))
+				{
+					hitDetected = true;
+				}
+			}
+		}
 
-		return !(j < ElementPosition.J || j > (ElementPosition.J + ElementSize.J));
-
+		return hitDetected;
 	}
 	
 	public static boolean RadarDetection(Vector3 radarFragmentPosition, Vector3 vehiclePosition, double fragmentBounds)
 	{
-		if(vehiclePosition.I < (radarFragmentPosition.I - fragmentBounds))
+		if(vehiclePosition.X < (radarFragmentPosition.X - fragmentBounds))
 			return false;
 		
-		if(vehiclePosition.I > (radarFragmentPosition.I + fragmentBounds))
+		if(vehiclePosition.X > (radarFragmentPosition.X + fragmentBounds))
 			return false;
 		
-		if(vehiclePosition.K < (radarFragmentPosition.K - fragmentBounds))
+		if(vehiclePosition.Z < (radarFragmentPosition.Z - fragmentBounds))
 			return false;
 
-		return vehiclePosition.K <= (radarFragmentPosition.K + fragmentBounds);
+		return vehiclePosition.Z <= (radarFragmentPosition.Z + fragmentBounds);
 
 	}
 }

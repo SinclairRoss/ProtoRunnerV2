@@ -92,7 +92,7 @@ R15=0x000000000218f000 is a thread
 
 
 Stack: [0x00000000023f0000,0x00000000024f0000],  sp=0x00000000024ee560,  free space=1017k
-Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+Native frames: (J=compiled Java code, y=interpreted, Vv=VM code, C=native code)
 J  java.util.Vector.size()I
 
 

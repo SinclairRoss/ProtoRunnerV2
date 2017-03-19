@@ -15,7 +15,7 @@ import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class Vehicle_TentacleController extends Vehicle
 {
-    private final double LATCHING_DISTANCE = 3.0;
+    private static final double LATCHING_DISTANCE = 3.0;
     private final double ANCHOR_ATTACK_RANGE;
 
     private enum LatchState
@@ -37,10 +37,10 @@ public class Vehicle_TentacleController extends Vehicle
 
     public Vehicle_TentacleController(GameLogic game, Vehicle anchor, double anchorAttackRange)
     {
-        super(game, ModelType.Nothing);
+        super(game, ModelType.Nothing, 0);
 
         m_Anchor = anchor;
-        m_Position = new Vector3(m_Anchor.GetPosition());
+        SetPosition(m_Anchor.GetPosition());
         ANCHOR_ATTACK_RANGE = anchorAttackRange;
 
         m_LatchState = LatchState.Free;
@@ -48,11 +48,10 @@ public class Vehicle_TentacleController extends Vehicle
 
         m_ClampingVector = new Vector3();
 
-        m_Engine = new Engine_NoTrail(game, this);
-        m_Engine.SetMaxTurnRate(6.0);
-        m_Engine.SetMaxEngineOutput(15000);
+        m_Engine = new Engine(game, this);
+        m_Engine.SetMaxTurnRate(15.0);
+        m_Engine.SetMaxEngineOutput(40);
         m_Engine.SetDodgeOutput(0);
-        m_Mass = 50;
 
         SetAffiliation(AffiliationKey.RedTeam);
 
@@ -65,8 +64,8 @@ public class Vehicle_TentacleController extends Vehicle
 
         m_VehicleClass = VehicleClass.Drone;
 
-        m_Shield = new Shield(game, this);
-        AddObjectToGameObjectManager(m_Shield);
+        m_Shield = new Shield(this);
+        game.GetGameObjectManager().AddObject(m_Shield);
     }
 
     public void Update(double deltaTime)
@@ -123,10 +122,9 @@ public class Vehicle_TentacleController extends Vehicle
 
     private void LatchedBehaviour()
     {
-        if(IsTargetWithinAnchorAttackRange(m_LatchTarget) &&
-           m_Anchor.IsValid())
+        if(IsTargetWithinAnchorAttackRange(m_LatchTarget) && m_Anchor.IsValid())
         {
-            m_Position.SetVector(m_LatchTarget.GetPosition());
+            SetPosition(m_LatchTarget.GetPosition());
         }
         else
         {
@@ -139,9 +137,8 @@ public class Vehicle_TentacleController extends Vehicle
 
     private void SnappingOffBehaviour()
     {
-        m_Forward.SetVectorDifference(m_Position, m_Anchor.GetPosition());
-        m_Forward.Normalise();
-        UpdateVectors();
+        LookAt(m_Anchor.GetPosition());
+        ApplyForce(GetForward(), 50);
 
         m_LatchTarget = null;
         m_LatchState = LatchState.Free;
@@ -149,27 +146,27 @@ public class Vehicle_TentacleController extends Vehicle
 
     private void ConfineTentacleWithinAttackRange()
     {
-        double distanceToAnchorSqr = Vector3.GetDistanceBetweenSqr(m_Anchor.GetPosition(), m_Position);
+        double distanceToAnchorSqr = Vector3.GetDistanceBetweenSqr(m_Anchor.GetPosition(), GetPosition());
 
         if(distanceToAnchorSqr >= ANCHOR_ATTACK_RANGE * ANCHOR_ATTACK_RANGE)
         {
-            m_ClampingVector.SetVectorDifference(m_Anchor.GetPosition(), m_Position);
+            m_ClampingVector.SetVectorDifference(m_Anchor.GetPosition(), GetPosition());
             m_ClampingVector.Normalise();
             m_ClampingVector.Scale(ANCHOR_ATTACK_RANGE);
             m_ClampingVector.Add(m_Anchor.GetPosition());
-            m_Position.SetVector(m_ClampingVector);
+            SetPosition(m_ClampingVector);
         }
     }
 
-    private boolean IsTargetWithinAnchorAttackRange(GameObject target)
+    private boolean IsTargetWithinAnchorAttackRange(Vehicle target)
     {
         double anchorDistanceToTargetSqr = Vector3.GetDistanceBetweenSqr(m_Anchor.GetPosition(), target.GetPosition());
         return (anchorDistanceToTargetSqr <= ANCHOR_ATTACK_RANGE * ANCHOR_ATTACK_RANGE);
     }
 
-    private boolean IsTargetWithinLatchingRange(GameObject target)
+    private boolean IsTargetWithinLatchingRange(Vehicle target)
     {
-        double distanceToTargetSqr = Vector3.GetDistanceBetweenSqr(m_Position, target.GetPosition());
+        double distanceToTargetSqr = Vector3.GetDistanceBetweenSqr(GetPosition(), target.GetPosition());
         return (distanceToTargetSqr <= LATCHING_DISTANCE * LATCHING_DISTANCE);
     }
 

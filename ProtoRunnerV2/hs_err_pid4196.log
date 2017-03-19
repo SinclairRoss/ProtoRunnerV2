@@ -82,7 +82,7 @@ R15=0x000000000226f000 is a thread
 
 
 Stack: [0x00000000024d0000,0x00000000025d0000],  sp=0x00000000025ce4c0,  free space=1017k
-Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+Native frames: (J=compiled Java code, y=interpreted, Vv=VM code, C=native code)
 J  com.android.dx.cf.code.BytecodeArray.processWorkSet([ILcom/android/dx/cf/code/BytecodeArray$Visitor;)V
 
 

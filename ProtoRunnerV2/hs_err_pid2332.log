@@ -85,7 +85,7 @@ R15=0x00000000020af000 is a thread
 
 
 Stack: [0x00000000022a0000,0x00000000023a0000],  sp=0x000000000239df90,  free space=1015k
-Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+Native frames: (J=compiled Java code, y=interpreted, Vv=VM code, C=native code)
 J  com.android.dx.cf.direct.AttributeListParser.parse()V
 
 

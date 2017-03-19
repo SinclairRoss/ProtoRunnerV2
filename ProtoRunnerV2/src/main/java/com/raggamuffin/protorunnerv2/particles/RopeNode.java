@@ -3,8 +3,11 @@ package com.raggamuffin.protorunnerv2.particles;
 // Author: Sinclair Ross
 // Date:   16/06/2016
 
+import android.util.Log;
+
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.RopeSpring;
+import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
@@ -13,6 +16,7 @@ public class RopeNode
     private enum NodeState
     {
         Alive,
+        Frozen,
         Dying,
         Dead
     }
@@ -23,8 +27,6 @@ public class RopeNode
 
     private double m_Alpha;
 
-    private double m_Mass;
-    private Vector3 m_Force;
     private Vector3 m_Velocity;
     private RopeSpring m_Spring;
     private double m_DragCoefficient;
@@ -35,9 +37,9 @@ public class RopeNode
     private double m_NormalisedLength;
 
     private NodeState m_NodeState;
-    private Timer_Accumulation m_LifeSpanTimer;
+    private Timer m_LifeSpanTimer;
 
-    public RopeNode(Vector3 position, RopeNode parent, double mass, double springLength, double springStrength, double gravityStrength, double lifeDuration)
+    public RopeNode(Vector3 position, RopeNode parent, double springLength, double springStrength, double gravityStrength, double lifeDuration)
     {
         m_Parent = parent;
         m_Child =  null;
@@ -45,8 +47,6 @@ public class RopeNode
 
         m_Alpha = 1.0;
 
-        m_Mass = mass;
-        m_Force = new Vector3();
         m_Velocity = new Vector3();
         m_Gravity = new Vector3(0, gravityStrength, 0);
 
@@ -55,29 +55,19 @@ public class RopeNode
             m_Spring = new RopeSpring(this, m_Parent, springStrength, springLength);
         }
 
-        m_DragCoefficient = 0.85;
+        m_DragCoefficient = 5;
 
         m_NormalisedLength = 0.0;
         m_ToNodeLength = 0.0;
         m_RopeLengthSqr = 0.0;
 
         m_NodeState = NodeState.Alive;
-        m_LifeSpanTimer = new Timer_Accumulation(lifeDuration);
+        m_LifeSpanTimer = new Timer(lifeDuration);
     }
 
     public void SetChild(RopeNode child)
     {
         m_Child = child;
-    }
-
-    public void UpdatePhysics()
-    {
-        if(m_Spring != null)
-        {
-            m_Spring.Update();
-        }
-
-        m_Force.Add(m_Gravity);
     }
 
     public void Update(double deltaTime)
@@ -86,17 +76,32 @@ public class RopeNode
         {
             case Alive:
             {
-                CalculateVelocity(deltaTime);
+                if(m_Spring != null)
+                {
+                    m_Spring.Update(deltaTime);
+                }
+
+                ApplyForce(m_Gravity, deltaTime);
+                ApplyDrag(deltaTime);
+
                 UpdatePosition(deltaTime);
+
+                break;
+            }
+            case Frozen:
+            {
+                if(m_Parent.IsDead())
+                {
+                    m_NodeState = NodeState.Dying;
+                }
 
                 break;
             }
             case Dying:
             {
-                m_LifeSpanTimer.Update(deltaTime);
                 m_Alpha = m_LifeSpanTimer.GetInverseProgress();
 
-                if(m_LifeSpanTimer.TimedOut())
+                if(m_LifeSpanTimer.HasElapsed())
                 {
                     if(m_Child != null)
                     {
@@ -115,20 +120,28 @@ public class RopeNode
         }
     }
 
-    private void CalculateVelocity(double deltaTime)
+    public void ApplyForce(Vector3 force, double deltaTime) { ApplyForce(force.X, force.Y, force.Z, deltaTime); }
+    public void ApplyForce(double force_x, double force_y, double force_z, double deltaTime)
     {
-        m_Velocity.I += (m_Force.I / m_Mass) * deltaTime;
-        m_Velocity.J += (m_Force.J / m_Mass) * deltaTime;
-        m_Velocity.K += (m_Force.K / m_Mass) * deltaTime;
+        m_Velocity.X += force_x * deltaTime;
+        m_Velocity.Y += force_y * deltaTime;
+        m_Velocity.Z += force_z * deltaTime;
+    }
 
-        m_Velocity.Scale(m_DragCoefficient);
+    private void ApplyDrag(double deltaTime)
+    {
+        double drag_x = (m_DragCoefficient * m_Velocity.X);
+        double drag_y = (m_DragCoefficient * m_Velocity.Y);
+        double drag_z = (m_DragCoefficient * m_Velocity.Z);
+
+        ApplyForce(-drag_x, -drag_y, -drag_z, deltaTime);
     }
 
     private void UpdatePosition(double deltaTime)
     {
-        m_Position.I += m_Velocity.I * deltaTime;
-        m_Position.J += m_Velocity.J * deltaTime;
-        m_Position.K += m_Velocity.K * deltaTime;
+        m_Position.X += m_Velocity.X * deltaTime;
+        m_Position.Y += m_Velocity.Y * deltaTime;
+        m_Position.Z += m_Velocity.Z * deltaTime;
     }
 
     public void CleanUp()
@@ -166,60 +179,32 @@ public class RopeNode
         m_Parent = null;
     }
 
-    public void ApplyForce(Vector3 force)
-    {
-        ApplyForce(force.I, force.J, force.K);
-    }
+    public double GetAlpha() { return m_Alpha; }
 
-    public void ApplyForce(double i, double j, double k)
-    {
-        m_Force.Add(i, j, k);
-    }
+    public Vector3 GetVelocity() { return m_Velocity; }
 
-    public void ClearForces()
-    {
-        m_Force.SetVector(0);
-    }
+    public void CalculateNormalisedLength() { m_NormalisedLength = MathsHelper.Normalise(m_ToNodeLength, 0, m_RopeLengthSqr); }
 
-    public double GetAlpha()
-    {
-        return m_Alpha;
-    }
+    public void SetRopeLengthSqr(double ropeLengthSqr) { m_RopeLengthSqr = ropeLengthSqr; }
 
-    public Vector3 GetVelocity()
-    {
-        return m_Velocity;
-    }
-
-    public void CalculateNormalisedLength()
-    {
-        m_NormalisedLength = MathsHelper.Normalise(m_ToNodeLength, 0, m_RopeLengthSqr);
-    }
-
-    public void SetRopeLengthSqr(double ropeLengthSqr)
-    {
-        m_RopeLengthSqr = ropeLengthSqr;
-    }
-
-    public void SetToNodeLength(double toNodeLength)
-    {
-        m_ToNodeLength = toNodeLength;
-    }
+    public void SetToNodeLength(double toNodeLength) { m_ToNodeLength = toNodeLength; }
 
     public double GetNormalisedLength()
     {
         return m_NormalisedLength;
     }
 
-    public void HaltNode()
+    public void FreezeNode()
     {
-        m_Force.SetVector(0);
-        m_Velocity.SetVector(0);
+        m_NodeState = NodeState.Frozen;
     }
 
     public void KillNode()
     {
+        m_LifeSpanTimer.Start();
         m_NodeState = NodeState.Dying;
+
+        Log.e("ten", "Ded");
     }
 
     public boolean IsDead()

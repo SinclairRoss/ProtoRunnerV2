@@ -29,7 +29,7 @@ public class FloorGrid
 
     private void UpdatePosition()
     {
-        m_Position.SetVector(m_AnchorPosition.I, DEPTH, m_AnchorPosition.K);
+        m_Position.SetVector(m_AnchorPosition.X, DEPTH, m_AnchorPosition.Z);
     }
 
     public Vector3 GetPosition()

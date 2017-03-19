@@ -1,15 +1,14 @@
 package com.raggamuffin.protorunnerv2.renderer;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
+import android.opengl.GLES20;
+import android.util.Log;
 
-import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
-import android.opengl.GLES20;
-import android.util.Log;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
 
 public class GLModel_FloorPanel
 {
@@ -134,12 +133,12 @@ public class GLModel_FloorPanel
 
     public void Draw(Vector3 pos, Colour colour, double attenuation)
     {
-        GLES20.glUniform4f(m_WorldPosHandle, (float)pos.I, (float)pos.J, (float)pos.K, 1.0f);
+        GLES20.glUniform4f(m_WorldPosHandle, (float)pos.X, (float)pos.Y, (float)pos.Z, 1.0f);
         GLES20.glUniform4f(m_ColourHandle, (float)colour.Red, (float)colour.Green, (float)colour.Blue, (float)colour.Alpha);
         GLES20.glUniform1f(m_AttenuationCoefficientHandle, (float)attenuation);
 
-        double offsetX = (pos.I / m_RepeatStride) % m_RepeatStride;
-        double offsetY = (pos.K / m_RepeatStride) % m_RepeatStride;
+        double offsetX = (pos.X / m_RepeatStride) % m_RepeatStride;
+        double offsetY = (pos.Z / m_RepeatStride) % m_RepeatStride;
         GLES20.glUniform2f(m_TexOffsetHandle, (float)offsetX, (float)offsetY);
 
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);

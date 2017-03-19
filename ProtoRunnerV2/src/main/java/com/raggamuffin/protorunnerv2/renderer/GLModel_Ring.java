@@ -10,7 +10,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
-public class GLModel_Ring  extends GLModel
+public class GLModel_Ring extends GLModel
 {
     private final FloatBuffer m_VertexBuffer;
 
@@ -79,13 +79,13 @@ public class GLModel_Ring  extends GLModel
     public void Draw(GameObject obj)
     {
         Vector3 pos = obj.GetPosition();
-        GLES20.glUniform3f(m_PositionHandle, (float) pos.I, (float) pos.J, (float) pos.K);
+        GLES20.glUniform3f(m_PositionHandle, (float) pos.X, (float) pos.Y, (float) pos.Z);
 
         Vector3 fwd = obj.GetForward();
-        GLES20.glUniform3f(m_ForwardHandle, (float) fwd.I, (float) fwd.J, (float) fwd.K);
+        GLES20.glUniform3f(m_ForwardHandle, (float) fwd.X, (float) fwd.Y, (float) fwd.Z);
 
         Vector3 scale = obj.GetScale();
-        GLES20.glUniform3f(m_ScaleHandle, (float) scale.I, (float) scale.J, (float) scale.K);
+        GLES20.glUniform3f(m_ScaleHandle, (float) scale.X, (float) scale.Y, (float) scale.Z);
 
         Colour colour = obj.GetColour();
         GLES20.glUniform4f(m_ColourHandle, (float) colour.Red, (float) colour.Green, (float) colour.Blue, (float) colour.Alpha);

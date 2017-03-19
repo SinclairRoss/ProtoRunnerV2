@@ -27,7 +27,7 @@ public class AIBehaviour_Encircle extends AIBehaviour
 
             m_Goal.SetVectorDifference(target.GetPosition(), pos);
             m_Goal.Normalise();
-            m_Goal.Scale(20);
+            m_Goal.Scale(40);
             m_Goal.Add(target.GetPosition());
         }
 

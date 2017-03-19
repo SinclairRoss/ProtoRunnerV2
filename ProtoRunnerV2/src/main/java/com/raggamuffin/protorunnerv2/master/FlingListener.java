@@ -2,8 +2,6 @@ package com.raggamuffin.protorunnerv2.master;
 
 import java.util.ArrayList;
 
-import android.util.Log;
-
 public class FlingListener 
 {
 	private ArrayList<FlingEvent> m_Events;

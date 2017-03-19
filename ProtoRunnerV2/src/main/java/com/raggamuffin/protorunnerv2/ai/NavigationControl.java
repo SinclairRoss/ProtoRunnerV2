@@ -1,10 +1,10 @@
 package com.raggamuffin.protorunnerv2.ai;
 
-import java.util.ArrayList;
-
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
+
+import java.util.ArrayList;
 
 public class NavigationControl 
 {
@@ -33,11 +33,11 @@ public class NavigationControl
 	
 	public NavigationControl(AIController Controller, NavigationalBehaviourInfo navInfo)
 	{
-		m_Anchor 				= Controller.GetAnchor();
-		m_SituationalAwareness 	= Controller.GetSituationalAwareness();
+		m_Anchor = Controller.GetAnchor();
+		m_SituationalAwareness = Controller.GetSituationalAwareness();
 		
-		m_AnchorPosition 		= m_Anchor.GetPosition();
-		m_AnchorForward 		= m_Anchor.GetForward();
+		m_AnchorPosition = m_Anchor.GetPosition();
+		m_AnchorForward = m_Anchor.GetForward();
 
         m_NavigationActive = true;
 
@@ -80,17 +80,19 @@ public class NavigationControl
 	{
 		m_Separation.SetVector(0.0);
 
-		ArrayList<Vehicle> SurroundingVehicles = m_SituationalAwareness.GetSurroundingAwarenessSensor().GetVehiclesInNeighbourhood();
+		ArrayList<Vehicle> surroundingVehicles = m_SituationalAwareness.GetSurroundingAwarenessSensor().GetVehiclesInNeighbourhood();
 
-		for(Vehicle Obstacle : SurroundingVehicles)
+		int numSurroundingVehicles = surroundingVehicles.size();
+		for(int i = 0; i < numSurroundingVehicles; ++i)
 		{
-            Vector3 obstaclePosition = Obstacle.GetPosition();
+			Vehicle obstacle = surroundingVehicles.get(i);
+            Vector3 obstaclePosition = obstacle.GetPosition();
 
-            double i = m_AnchorPosition.I - obstaclePosition.I;
-            double j = m_AnchorPosition.J - obstaclePosition.J;
-            double k = m_AnchorPosition.K - obstaclePosition.K;
+            double x = m_AnchorPosition.X - obstaclePosition.X;
+            double y = m_AnchorPosition.Y - obstaclePosition.Y;
+            double z = m_AnchorPosition.Z - obstaclePosition.Z;
 			
-			m_Separation.Add(i, j, k);
+			m_Separation.Add(x, y, z);
 		}
 		
 		m_Separation.Normalise();
@@ -102,11 +104,15 @@ public class NavigationControl
 		m_Alignment.SetVector(0.0);
 
 		// Get surrounding vehicles.
-        ArrayList<Vehicle> SurroundingVehicles = m_SituationalAwareness.GetSurroundingAwarenessSensor().GetFriendliesInNeighbourhood();
+        ArrayList<Vehicle> surroundingVehicles = m_SituationalAwareness.GetSurroundingAwarenessSensor().GetFriendliesInNeighbourhood();
 
         // Loop through each surrounding vehicle and create seperation vector.
-		for(Vehicle Squaddie : SurroundingVehicles)
-            m_Alignment.Add(Squaddie.GetForward());
+        int numSquaddies = surroundingVehicles.size();
+        for(int i = 0; i < numSquaddies; ++i)
+        {
+            Vehicle squaddie = surroundingVehicles.get(i);
+			m_Alignment.Add(squaddie.GetForward());
+		}
 
 		m_Alignment.Normalise();
 		m_Alignment.Scale(m_AlignmentWeight);
@@ -118,25 +124,29 @@ public class NavigationControl
 		m_CenterOfMass.SetVector(0.0);
 
 		// Get surrounding vehicles.
-        ArrayList<Vehicle> SurroundingVehicles = m_SituationalAwareness.GetSurroundingAwarenessSensor().GetFriendliesInNeighbourhood();
+        ArrayList<Vehicle> surroundingVehicles = m_SituationalAwareness.GetSurroundingAwarenessSensor().GetFriendliesInNeighbourhood();
 		
 		// If there is no surrounding vehicles break from function.
 		// Not doing this could result in cohesion vector pointing towards origin instead of being 0.
-		if(SurroundingVehicles.size() == 0)
-			return;
-				
-		// Loop through each surrounding vehicle and create seperation vector.
-		for(Vehicle Squaddie : SurroundingVehicles)
-            m_CenterOfMass.Add(Squaddie.GetPosition());
-		
-		// Get average position of squaddies as center of mass.
-		double scale = 1.0 / SurroundingVehicles.size();
-		m_CenterOfMass.Scale(scale);
-		
-		// Set cohesion vector.
-		m_Cohesion.SetVectorDifference(m_AnchorPosition, m_CenterOfMass);
-		m_Cohesion.Normalise();
-		m_Cohesion.Scale(m_CohesionWeight);
+		if(surroundingVehicles.size() > 0)
+		{
+			// Loop through each surrounding vehicle and create seperation vector.
+            int numSquaddies = surroundingVehicles.size();
+            for(int i = 0; i < numSquaddies; ++i)
+			{
+                Vehicle squaddie = surroundingVehicles.get(i);
+				m_CenterOfMass.Add(squaddie.GetPosition());
+			}
+
+			// Get average position of squaddies as center of mass.
+			double scale = 1.0 / surroundingVehicles.size();
+			m_CenterOfMass.Scale(scale);
+
+			// Set cohesion vector.
+			m_Cohesion.SetVectorDifference(m_AnchorPosition, m_CenterOfMass);
+			m_Cohesion.Normalise();
+			m_Cohesion.Scale(m_CohesionWeight);
+		}
 	}
 	
 	private void CalculateSteeringVector()
@@ -158,7 +168,7 @@ public class NavigationControl
 		double normalisedTurnRate = MathsHelper.Normalise(deltaRadians, 0.0, ARRIVAL_ANGLE);
 
 		// Calculate Turn Direction
-		if(Vector3.Determinant(m_AnchorForward,  m_SteeringVector) >= 0.0)
+		if(Vector3.Determinant(m_AnchorForward,  m_SteeringVector) < 0.0)
         {
             normalisedTurnRate *= -1;
         }

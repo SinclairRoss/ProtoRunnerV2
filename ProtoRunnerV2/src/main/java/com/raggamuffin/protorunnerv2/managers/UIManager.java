@@ -1,7 +1,5 @@
 package com.raggamuffin.protorunnerv2.managers;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.graphics.Point;
 import android.view.Display;
@@ -10,6 +8,10 @@ import android.view.WindowManager;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
+import com.raggamuffin.protorunnerv2.ui.UIElement;
+import com.raggamuffin.protorunnerv2.ui.UILabel;
+import com.raggamuffin.protorunnerv2.ui.UIProgressBar;
+import com.raggamuffin.protorunnerv2.ui.UIScreen;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_Aftermath;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_Credits;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_GameOver;
@@ -21,12 +23,10 @@ import com.raggamuffin.protorunnerv2.ui.UIScreen_Play;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_Splash;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_TestMode;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_Tutorial;
-import com.raggamuffin.protorunnerv2.ui.UIElement;
-import com.raggamuffin.protorunnerv2.ui.UILabel;
-import com.raggamuffin.protorunnerv2.ui.UIProgressBar;
-import com.raggamuffin.protorunnerv2.ui.UIScreen;
 import com.raggamuffin.protorunnerv2.ui.UIScreens;
 import com.raggamuffin.protorunnerv2.utils.Vector2;
+
+import java.util.ArrayList;
 
 public class UIManager
 {	
@@ -87,8 +87,12 @@ public class UIManager
 	{
 		m_Screen.Update(deltaTime);
 
-        for(UIElement element : m_UIElements)
-            element.Update(deltaTime);
+		int numUIElements = m_UIElements.size();
+		for(int i = 0; i < numUIElements; ++i)
+		{
+			UIElement element = m_UIElements.get(i);
+			element.Update(deltaTime);
+		}
 	}
 
     public UIScreen GetScreen(UIScreens screen)

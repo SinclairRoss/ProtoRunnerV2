@@ -86,7 +86,7 @@ R15=0x000000000bb91800 is a thread
 
 
 Stack: [0x000000000d7a0000,0x000000000d8a0000],  sp=0x000000000d89c410,  free space=1009k
-Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+Native frames: (J=compiled Java code, y=interpreted, Vv=VM code, C=native code)
 J  com.sun.tools.javac.comp.Flow.visitClassDef(Lcom/sun/tools/javac/tree/JCTree$JCClassDecl;)V
 
 

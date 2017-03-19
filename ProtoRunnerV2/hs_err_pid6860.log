@@ -134,7 +134,7 @@ R15=0x0000000009e7f310 is an unknown value
 
 
 Stack: [0x0000000009d80000,0x0000000009e80000],  sp=0x0000000009e7f0b0,  free space=1020k
-Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+Native frames: (J=compiled Java code, y=interpreted, Vv=VM code, C=native code)
 V  [jvm.dll+0x5f857]
 
 VM_Operation (0x00000000025aec60): ParallelGCFailedAllocation, mode: safepoint, requested by thread 0x000000000217f000

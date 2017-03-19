@@ -17,8 +17,8 @@ public class SpawnHelper
     public static Vector3 FindRandomSpawnLocation(double spawnRange)
     {
         Vector3 spawnPoint = new Vector3();
-        spawnPoint.I = MathsHelper.RandomDouble(-1, 1);
-        spawnPoint.K = MathsHelper.RandomDouble(-1, 1);
+        spawnPoint.X = MathsHelper.RandomDouble(-1, 1);
+        spawnPoint.Z = MathsHelper.RandomDouble(-1, 1);
         spawnPoint.Normalise();
         spawnPoint.Scale(spawnRange);
 

@@ -1,15 +1,15 @@
 package com.raggamuffin.protorunnerv2.renderer;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
+import android.opengl.GLES20;
 
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Vector2;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
-import android.opengl.GLES20;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
 
 public class GLTexQuad extends GLModel
 {
@@ -142,9 +142,7 @@ public class GLTexQuad extends GLModel
 
     @Override
     public void Draw(GameObject obj)
-    {
-
-    }
+    {}
 
     @Override
     public void CleanModel()

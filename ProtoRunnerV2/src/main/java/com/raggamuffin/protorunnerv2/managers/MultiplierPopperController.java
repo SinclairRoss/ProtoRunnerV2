@@ -27,8 +27,10 @@ public class MultiplierPopperController
 
     public void Update()
     {
-        for(ParticleEmitter_MultiplierPopper popper : m_Poppers)
+        int numPoppers = m_Poppers.size();
+        for(int i = 0; i < numPoppers; ++i)
         {
+            ParticleEmitter_MultiplierPopper popper = m_Poppers.get(i);
             if(popper.IsActive())
             {
                 popper.Update();
@@ -42,8 +44,11 @@ public class MultiplierPopperController
         {
             ParticleEmitter_MultiplierPopper activePopper = null;
 
-            for (ParticleEmitter_MultiplierPopper popper : m_Poppers)
+            int numPoppers = m_Poppers.size();
+            for(int i = 0; i < numPoppers; ++i)
             {
+                ParticleEmitter_MultiplierPopper popper = m_Poppers.get(i);
+
                 if (!popper.IsActive())
                 {
                     activePopper = popper;
@@ -59,6 +64,11 @@ public class MultiplierPopperController
 
             activePopper.Start(position, velocity);
         }
+    }
+
+    public void MassPopping(Vector3 position)
+    {
+
     }
 
     public void On()

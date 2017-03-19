@@ -32,11 +32,12 @@ public class RopeRenderer
 
         while (node != null)
         {
-            m_Rope.AddPoint(node.GetPosition(), node.GetNormalisedLength(), node.GetAlpha());
+            //m_Rope.AddPoint(node.GetPosition(), node.GetNormalisedLength(), node.GetAlpha());
+            m_Rope.AddPoint(node);
             node = node.GetChild();
         }
 
-        m_Rope.Draw(tentacle.GetAltColour(), tentacle.GetBaseColour(), tentacle.GetBloomPoint());
+        m_Rope.Draw(tentacle.GetColour(), tentacle.GetColdColour(), tentacle.GetBloomPoint());
     }
 
     public void Clean()

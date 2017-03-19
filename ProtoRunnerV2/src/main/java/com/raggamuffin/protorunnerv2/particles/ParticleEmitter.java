@@ -84,18 +84,12 @@ public abstract class ParticleEmitter
         return m_LifeSpan;
     }
 
+    public void SetPosition(Vector3 position) { m_Position.SetVector(position); }
+    public void SetPosition(double x, double y, double z) { m_Position.SetVector(x, y, z);}
+    public Vector3 GetPosition() { return m_Position; }
 
-    // Setters.
-
-    public void SetPosition(Vector3 position)
-    {
-        m_Position.SetVector(position);
-    }
-
-    public void SetForward(Vector3 forward)
-    {
-        m_Forward.SetVector(forward);
-    }
+    public void SetForward(Vector3 forward) { m_Forward.SetVector(forward); }
+    public Vector3 GetForward() { return m_Forward; }
 
     public void SetForward(double i, double j, double k)
     {

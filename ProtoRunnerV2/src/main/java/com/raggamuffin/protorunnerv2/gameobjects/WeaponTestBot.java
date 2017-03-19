@@ -18,18 +18,14 @@ public class WeaponTestBot extends Vehicle
 
     public WeaponTestBot(GameLogic game)
     {
-        super(game, ModelType.Bit);
+        super(game, ModelType.Bit, 2);
 
-        SetColourScheme(Colours.Pink70, Colours.RunnerBlue);
+        //SetColourScheme(Colours.Pink70, Colours.RunnerBlue);
 
-        m_Position.SetVector(10, 0, 10);
-
-        m_Mass = 100;
         m_Engine = new Engine_Standard(this, game);
         m_Engine.SetMaxTurnRate(0); //1.5
         m_Engine.SetMaxEngineOutput(0); //10000
         m_Engine.SetDodgeOutput(0);
-        m_BoundingRadius = 2;
 
         SetAffiliation(AffiliationKey.RedTeam);
 

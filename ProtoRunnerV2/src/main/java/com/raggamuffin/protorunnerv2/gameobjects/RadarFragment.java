@@ -1,48 +1,47 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
-import com.raggamuffin.protorunnerv2.colours.ColourBehaviour;
-import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_AlphaController;
-import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_LerpTo;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Spring3;
+import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class RadarFragment extends GameObject
 {
-    private final double LIT_ALPHA = 0.4;
-    private final double IDLE_ALPHA = 0.1;
+    private final double MAX_IMPULSE_PERIOD = 2.0;
+    private final double MAX_IMPULSE_FORCE = 0.5;
+    private final double MAX_ALPHA = 0.4;
+
     private final double MIN_DEPTH;
     private final double MAX_DEPTH;
 
     private Vector3 m_RestedPosition;
     private Vector3 m_Offset;
-    private double m_Heat;
+    private double m_RestingHeight;
 
     private Vector3 m_NormalisedRadarPos;
     private Spring3 m_Spring;
-
-    private final ColourBehaviour_LerpTo m_ColourBehaviour;
-    private final ColourBehaviour_AlphaController m_AlphaController;
 
     private final Colour m_FriendlyColour;
     private final Colour m_EnemyColour;
     private final Colour m_NeutralColour;
 
+    private boolean m_ForciblyInvalidated;
+
     private RadarSignatureType m_SignatureType;
+    private Timer m_RandomImpulseTimer;
 
     public RadarFragment(GameLogic game, double min, double max, double x, double y, double radarRadius)
     {
-        super(game, ModelType.RadarFragment);
+        super(ModelType.RadarFragment, 0);
 
         MIN_DEPTH = min;
         MAX_DEPTH = max;
 
-        m_Mass = 1.0;
-        m_DragCoefficient = 0.95;
+        m_ForciblyInvalidated = false;
 
         m_Offset = new Vector3(x, 0, y);
         m_RestedPosition = new Vector3();
@@ -51,33 +50,36 @@ public class RadarFragment extends GameObject
         m_NormalisedRadarPos = new Vector3(m_Offset);
         m_NormalisedRadarPos.Scale(1 / radarRadius);
 
-        m_Heat = 0.0;
+        m_RestingHeight = 0.25;
         m_SignatureType = RadarSignatureType.None;
 
         m_FriendlyColour = game.GetColourManager().GetSafeColour();
         m_EnemyColour = game.GetColourManager().GetDangerColour();
 
         m_NeutralColour = new Colour(Colours.PastelGrey);
-        m_BaseColour = m_NeutralColour;
-        m_AltColour = m_NeutralColour;
+        SetColour(m_NeutralColour);
 
-        m_ColourBehaviour = new ColourBehaviour_LerpTo(this, ColourBehaviour.ActivationMode.Continuous);
-        AddColourBehaviour(m_ColourBehaviour);
-
-        m_AlphaController = new ColourBehaviour_AlphaController(this, ColourBehaviour.ActivationMode.Continuous);
-        AddColourBehaviour(m_AlphaController);
+        m_RandomImpulseTimer = new Timer(1.0);
+        m_RandomImpulseTimer.Start();
     }
 
     @Override
     public void Update(double deltaTime)
     {
-        m_Heat += MathsHelper.RandomDouble(0, 0.75);
-        double targetDepth = MathsHelper.Lerp(m_Heat, MIN_DEPTH, MAX_DEPTH);
+        if(m_RandomImpulseTimer.HasElapsed())
+        {
+            ApplyForce(Vector3.UP, MathsHelper.RandomDouble(-MAX_IMPULSE_FORCE, MAX_IMPULSE_FORCE));
 
-        m_Position.Add(m_Offset);
-        m_RestedPosition.SetVector(m_Position);
-        m_RestedPosition.J = targetDepth;
-        ApplyForce(m_Spring.CalculateSpringForce(m_Position, m_RestedPosition));
+            m_RandomImpulseTimer.SetDuration(MathsHelper.RandomDouble(0, MAX_IMPULSE_PERIOD));
+            m_RandomImpulseTimer.Start();
+        }
+
+        double targetDepth = MathsHelper.Lerp(m_RestingHeight, MIN_DEPTH, MAX_DEPTH);
+
+        Translate(m_Offset);
+        m_RestedPosition.SetVector(GetPosition());
+        m_RestedPosition.Y = targetDepth;
+        ApplyForce(m_Spring.CalculateSpringForce(GetPosition(), m_RestedPosition), deltaTime);
 
         UpdateColour();
 
@@ -86,27 +88,9 @@ public class RadarFragment extends GameObject
 
     private void UpdateColour()
     {
-        double normalisedDepth = MathsHelper.Normalise(m_Position.J, MIN_DEPTH, MAX_DEPTH);
-        m_ColourBehaviour.SetIntensity(normalisedDepth);
+        double alpha = MathsHelper.Normalise(GetPosition().Y, MIN_DEPTH, MAX_DEPTH) * MAX_ALPHA;
 
-        double maxAlpha = 0;
-
-        switch(m_SignatureType)
-        {
-            case Friendly:
-            case Foe:
-            {
-                maxAlpha = LIT_ALPHA;
-                break;
-            }
-            case None:
-            {
-                maxAlpha = IDLE_ALPHA;
-                break;
-            }
-        }
-
-        m_AlphaController.SetAlpha(normalisedDepth * maxAlpha);
+        SetAlpha(alpha);
     }
 
     public void SetSignatureType(RadarSignatureType type)
@@ -117,25 +101,28 @@ public class RadarFragment extends GameObject
         {
             case Friendly:
             {
-                m_AltColour = m_FriendlyColour;
+                SetColour(m_FriendlyColour);
+                m_RestingHeight = 1.0;
                 break;
             }
             case Foe:
             {
-                m_AltColour = m_EnemyColour;
+                SetColour(m_EnemyColour);
+                m_RestingHeight = 1.0;
                 break;
             }
             case None:
             {
-                m_AltColour = m_NeutralColour;
+                SetColour(m_NeutralColour);
+                m_RestingHeight = 0.1;
                 break;
             }
         }
     }
 
-    public void HeatUp()
+    public void ForceInvalidation()
     {
-        m_Heat = 1.0;
+        m_ForciblyInvalidated = true;
     }
 
     @Override
@@ -151,7 +138,6 @@ public class RadarFragment extends GameObject
     public void Reset()
     {
         SetSignatureType(RadarSignatureType.None);
-        m_Heat = 0.0;
     }
 
     public Vector3 GetNormalisedRadarPosition()

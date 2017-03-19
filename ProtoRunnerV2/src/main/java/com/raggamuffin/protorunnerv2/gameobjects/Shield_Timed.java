@@ -3,16 +3,15 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 // Author: Sinclair Ross
 // Date:   12/01/2017
 
-import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.utils.Timer;
 
 public class Shield_Timed extends Shield
 {
     private Timer m_DurationTimer;
 
-    public Shield_Timed(GameLogic game, Vehicle anchor)
+    public Shield_Timed(Vehicle anchor)
     {
-        super(game, anchor);
+        super(anchor);
 
         m_DurationTimer = new Timer(3);
 

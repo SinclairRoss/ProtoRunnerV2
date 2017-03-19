@@ -75,7 +75,7 @@ R15=0x0000000000000000 is an unknown value
 
 
 Stack: [0x000000000a7d0000,0x000000000a8d0000],  sp=0x000000000a8ce080,  free space=1016k
-Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+Native frames: (J=compiled Java code, y=interpreted, Vv=VM code, C=native code)
 V  [jvm.dll+0x5f1c8]
 
 [error occurred during error reporting (printing native stack), id 0xc0000005]

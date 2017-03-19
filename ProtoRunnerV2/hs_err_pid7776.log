@@ -88,7 +88,7 @@ R15=0x00000000020bf000 is a thread
 
 
 Stack: [0x00000000021d0000,0x00000000022d0000],  sp=0x00000000022ce368,  free space=1016k
-Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+Native frames: (J=compiled Java code, y=interpreted, Vv=VM code, C=native code)
 v  ~BufferBlob::vtable chunks
 
 

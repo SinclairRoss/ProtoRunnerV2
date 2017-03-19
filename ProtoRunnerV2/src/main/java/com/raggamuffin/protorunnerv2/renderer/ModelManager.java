@@ -5,8 +5,8 @@ import android.opengl.GLES20;
 import android.util.Log;
 
 import com.raggamuffin.protorunnerv2.R;
-import com.raggamuffin.protorunnerv2.master.RenderEffectSettings;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
+import com.raggamuffin.protorunnerv2.master.RenderEffectSettings;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 

@@ -3,7 +3,7 @@ package com.raggamuffin.protorunnerv2.ai;
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
-import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
+import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class FireControl_Telegraphed extends FireControl
@@ -24,8 +24,8 @@ public class FireControl_Telegraphed extends FireControl
     private double m_FireArc;
 	private double m_Range;
 
-    private Timer_Accumulation m_TelegraphTimer;
-    private Timer_Accumulation m_CooldownTimer;
+    private Timer m_TelegraphTimer;
+    private Timer m_CooldownTimer;
 	
 	public FireControl_Telegraphed(AIController controller)
 	{
@@ -37,8 +37,8 @@ public class FireControl_Telegraphed extends FireControl
 
         m_Range = 100.0f;
         m_FireArc = Math.toRadians(1);
-        m_TelegraphTimer = new Timer_Accumulation(0.75);
-        m_CooldownTimer = new Timer_Accumulation(1.5);
+        m_TelegraphTimer = new Timer(1);
+        m_CooldownTimer = new Timer(1.5);
 	}
 
     @Override
@@ -57,6 +57,7 @@ public class FireControl_Telegraphed extends FireControl
                     m_Anchor.SetTurnRate(0);
                     m_Weapon.ActivateComponent();
 
+                    m_TelegraphTimer.Start();
                     m_AttackState = AttackState.Telegraph;
                 }
 
@@ -64,12 +65,9 @@ public class FireControl_Telegraphed extends FireControl
             }
             case Telegraph:
             {
-                m_TelegraphTimer.Update(deltaTime);
-
-                if(m_TelegraphTimer.TimedOut())
+                if(m_TelegraphTimer.HasElapsed())
                 {
                     m_AttackState = AttackState.Fire;
-                    m_TelegraphTimer.ResetTimer();
                 }
 
                 break;
@@ -78,24 +76,22 @@ public class FireControl_Telegraphed extends FireControl
             {
                 m_Weapon.OpenFire();
                 m_Weapon.DeactivateComponent();
-                m_Controller.GetNavigationControl().Activate();
-                m_Controller.GetEvasionControl().Enable();
                 m_AttackState = AttackState.PostFire;
 
                 break;
             }
             case PostFire:
             {
-                m_Weapon.CeaseFire();
+                m_CooldownTimer.Start();
                 m_AttackState = AttackState.Cooldown;
             }
             case Cooldown:
             {
-                m_CooldownTimer.Update(deltaTime);
-
-                if(m_CooldownTimer.TimedOut())
+                if(m_CooldownTimer.HasElapsed())
                 {
-                    m_CooldownTimer.ResetTimer();
+                    m_Controller.GetNavigationControl().Activate();
+                    m_Controller.GetEvasionControl().Enable();
+
                     m_AttackState = AttackState.Idle;
                 }
 

@@ -18,40 +18,35 @@ public class Projectile_TelegraphedPlasmaShot extends Projectile
 
     private GameLogic m_Game;
 
+    private boolean m_HasColided;
+
     public Projectile_TelegraphedPlasmaShot(GameLogic game, Vector3 position, Vector3 initialVelocity, Vector3 forward, Colour colour, double baseDamage, double firingSpeed, AffiliationKey affiliation)
     {
-        super(game, position, initialVelocity, forward, colour, baseDamage, affiliation, ModelType.PlasmaPulse);
+        super(position, initialVelocity, forward, colour, baseDamage, affiliation, ModelType.PlasmaPulse);
 
         m_Game = game;
 
-        m_LifeSpan = new Timer(4); // 5
+        m_LifeSpan = new Timer(4);
+        m_LifeSpan.Start();
 
-        //TODO: Make length relative to speed. maybe.
-        m_Scale.SetVector(0.25, 0.25, 3);
+        SetScale(0.25, 0.25, 3);
 
-        m_BoundingRadius = 0.1;
+        SetVelocity(GetForward(), firingSpeed);
 
-        m_Velocity.I += m_Forward.I * firingSpeed;
-        m_Velocity.J += m_Forward.J * firingSpeed;
-        m_Velocity.K += m_Forward.K * firingSpeed;
-
-        if(m_Velocity.GetLengthSqr() >= 0.1)
+        if(GetVelocity().GetLengthSqr() >= 0.1)
         {
-            // Points the laser to point in the direction it is travelling and not the direction it was fired at.
-            m_Forward.SetVector(m_Velocity);
-            m_Forward.Normalise();
+            SetForward(GetVelocity());
         }
         else
         {
-            m_Forward.SetVector(forward);
+            SetForward(forward);
         }
 
-        UpdateVectorsWithForward(m_Forward);
+        game.GetGameObjectManager().AddObject(new ProjectileLaserPointer(game, this));
 
-        AddObjectToGameObjectManager(new ProjectileLaserPointer(game, this));
-
-        m_FloorGrid = new FloorGrid(m_Position, m_Colour, 10.0);
+        m_FloorGrid = new FloorGrid(GetPosition(), GetColour(), 10.0);
         m_Game.AddObjectToRenderer(m_FloorGrid);
+        m_HasColided = false;
     }
 
     @Override
@@ -64,12 +59,18 @@ public class Projectile_TelegraphedPlasmaShot extends Projectile
     public boolean IsValid()
     {
         if(m_LifeSpan.HasElapsed())
+        {
             return false;
+        }
 
-        return super.IsValid();
+        if(m_HasColided)
+        {
+            return false;
+        }
+
+        return true;
     }
 
-    @Override
     public CollisionReport CheckForCollision(GameObject object)
     {
         return CollisionDetection.CheckCollisions(this, object);
@@ -78,7 +79,7 @@ public class Projectile_TelegraphedPlasmaShot extends Projectile
     @Override
     public void CollisionResponse(CollisionReport report)
     {
-        ForceInvalidation();
+        m_HasColided = true;
     }
 
     @Override

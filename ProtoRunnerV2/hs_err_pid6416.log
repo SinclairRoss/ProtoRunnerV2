@@ -84,7 +84,7 @@ R15=0x000000000234f000 is a thread
 
 
 Stack: [0x0000000002380000,0x0000000002480000],  sp=0x000000000247ee00,  free space=1019k
-Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+Native frames: (J=compiled Java code, y=interpreted, Vv=VM code, C=native code)
 J  com.android.dx.merge.InstructionTransformer.transform([S)[S
 
 

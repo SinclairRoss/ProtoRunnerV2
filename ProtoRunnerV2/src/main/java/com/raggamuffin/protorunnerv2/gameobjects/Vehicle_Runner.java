@@ -8,8 +8,9 @@ import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
-import com.raggamuffin.protorunnerv2.weapons.Weapon_PulseLaser;
 import com.raggamuffin.protorunnerv2.weapons.Weapon;
+import com.raggamuffin.protorunnerv2.weapons.Weapon_BitLaser;
+import com.raggamuffin.protorunnerv2.weapons.Weapon_PulseLaser;
 
 public class Vehicle_Runner extends Vehicle
 {
@@ -37,39 +38,28 @@ public class Vehicle_Runner extends Vehicle
 
     public Vehicle_Runner(GameLogic game)
 	{
-		super(game, ModelType.Runner);
-
-        m_BoundingRadius = 1.5;
+		super(game, ModelType.Runner, 1.5);
 
         m_Camera = game.GetCamera();
 
 		m_Input = game.GetControlScheme();
 
-        m_BaseColour = game.GetColourManager().GetPrimaryColour();
-        m_AltColour = game.GetColourManager().GetSecondaryColour();
+        SetColour(game.GetColourManager().GetPrimaryColour());
 
-        m_BurstEmitter.SetInitialColour(m_BaseColour);
-        m_BurstEmitter.SetFinalColour(m_AltColour);
+        Shield_Timed shield = new Shield_Timed(this);
+        game.GetGameObjectManager().AddObject(shield);
 
-        Shield_Timed shield = new Shield_Timed(game, this);
-        AddObjectToGameObjectManager(shield);
-
-        m_Position.SetVector(0, 0, 0);
-
-        m_Mass = 100;
 		m_Engine = new Engine_Standard(this, game);
         m_Engine.SetMaxTurnRate(2.0);//2
-
-        double output = GameLogic.TEST_MODE ? 0 : 10000;
-		m_Engine.SetMaxEngineOutput(output);//10000
-        m_Engine.SetAfterBurnerOutput(15000); // 15000
+		m_Engine.SetMaxEngineOutput(GameLogic.TEST_MODE ? 0 : 70);//10000
+        m_Engine.SetAfterBurnerOutput(90); // 15000
 		
 		m_MaxHullPoints = 1;
-		m_HullPoints 	= m_MaxHullPoints;
+		m_HullPoints = m_MaxHullPoints;
 
-		AddObjectToGameObjectManager(new Radar(this, game));
+        game.GetGameObjectManager().AddObject(new Radar(this, game));
 
-		SetAffiliation(AffiliationKey.BlueTeam);
+        m_Faction = AffiliationKey.BlueTeam;
 
         m_PrimaryWeapon	= new Weapon_PulseLaser(this, game);
         SelectWeapon(m_PrimaryWeapon);
@@ -101,15 +91,15 @@ public class Vehicle_Runner extends Vehicle
         m_PubSubHub.SubscribeToTopic(PublishedTopics.Reverse, ReverseSubscriber);
         m_PubSubHub.SubscribeToTopic(PublishedTopics.EnemyDestroyed, EnemyDestroyedSubscriber);
 
-        m_MultiplierHoover = new MultiplierHoover(m_Position, game);
+        m_MultiplierHoover = new MultiplierHoover(GetPosition(), game);
     }
 
 	@Override
 	public void Update(double deltaTime)
 	{
         m_MultiplierHoover.Update();
-
         m_Engine.SetTurnRate(m_Input.GetTilt());
+
 		super.Update(deltaTime);
 	}
 

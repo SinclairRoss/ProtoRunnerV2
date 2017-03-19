@@ -1,9 +1,7 @@
 package com.raggamuffin.protorunnerv2.gamelogic;
 
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
-import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
-import com.raggamuffin.protorunnerv2.utils.Timer;
 
 import java.util.Locale;
 
@@ -43,7 +41,7 @@ public class GameStats
         if(!m_Locked)
         {
             m_PlayTime += deltaTime;
-            m_MultiplierController.Update();
+            m_MultiplierController.Update(deltaTime);
         }
     }
 

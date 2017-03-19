@@ -12,7 +12,7 @@ public class Weapon_PunkShot extends Weapon
 
         m_ProjectileType = ProjectileType.PlasmaShot_Telegraphed;
 		
-		m_Damage = 450;
+		m_Damage = 1;
 		m_FiringSpeed = 140.0;
 		m_Accuracy = 1.0;
 		m_LifeSpan = 2.0;

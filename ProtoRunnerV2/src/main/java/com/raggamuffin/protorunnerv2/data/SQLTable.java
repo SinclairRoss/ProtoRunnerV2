@@ -1,9 +1,9 @@
 package com.raggamuffin.protorunnerv2.data;
 
-import java.util.ArrayList;
-
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
 
 public abstract class SQLTable
 {

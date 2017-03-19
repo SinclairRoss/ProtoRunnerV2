@@ -1,28 +1,27 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
-import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
+import com.raggamuffin.protorunnerv2.utils.Timer;
 
 public class FireControl_Auto extends FireControl
 {
-	private Timer_Accumulation m_FireTimer;
+	private Timer m_FireTimer;
 	
 	public FireControl_Auto(double fireRate)
 	{
 		super();
 		
-		m_FireTimer = new Timer_Accumulation(fireRate);
+		m_FireTimer = new Timer(fireRate);
+		m_FireTimer.Start();
 	}
 
 	@Override
-	public void Update(double deltaTime) 
-	{
-		m_FireTimer.Update(deltaTime);
-	}
-	
+	public void Update(double deltaTime)
+	{}
+
 	@Override
 	public boolean CanFire() 
 	{
-		return m_FireTimer.TimedOut();
+		return m_FireTimer.HasElapsed();
 	}
 	
 	@Override
@@ -34,6 +33,6 @@ public class FireControl_Auto extends FireControl
 	@Override
 	public void NotifyOfFire()
 	{
-		m_FireTimer.ResetTimer();
+		m_FireTimer.Start();
 	}	
 }

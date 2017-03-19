@@ -1,30 +1,31 @@
 package com.raggamuffin.protorunnerv2.renderer;
 
-import java.util.ArrayList;
-
-import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.opengles.GL10;
+import android.content.Context;
+import android.opengl.GLES20;
+import android.opengl.GLSurfaceView;
+import android.opengl.Matrix;
+import android.util.Log;
 
 import com.raggamuffin.protorunnerv2.gameobjects.FloorGrid;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.gameobjects.Tentacle;
 import com.raggamuffin.protorunnerv2.master.RenderEffectSettings;
 import com.raggamuffin.protorunnerv2.master.RendererPacket;
+import com.raggamuffin.protorunnerv2.particles.Particle;
 import com.raggamuffin.protorunnerv2.particles.ParticleType;
 import com.raggamuffin.protorunnerv2.particles.Particle_Multiplier;
 import com.raggamuffin.protorunnerv2.particles.Particle_Standard;
+import com.raggamuffin.protorunnerv2.particles.Trail;
 import com.raggamuffin.protorunnerv2.particles.TrailNode;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
 import com.raggamuffin.protorunnerv2.ui.UIElementType;
 import com.raggamuffin.protorunnerv2.utils.FrameRateCounter;
 
-import android.content.Context;
+import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
-import android.opengl.GLES20;
-import android.opengl.GLSurfaceView;
-
-import android.opengl.Matrix;
-import android.util.Log;
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.opengles.GL10;
 
 public class GLRenderer implements GLSurfaceView.Renderer
 {
@@ -52,15 +53,19 @@ public class GLRenderer implements GLSurfaceView.Renderer
     private FrameRateCounter m_RenderDurationCounter;
     private FrameRateCounter m_DeltaRender;
 
+    private float[] m_ViewMatrix;
+    private float[] m_ViewMatrix_UI;
+    private ModelType[] m_ModelTypes;
+
 	public GLRenderer(RendererPacket packet)
 	{
 		Log.e(TAG, "GLRenderer");
 
         m_Packet = packet;
-		m_Context 				= m_Packet.GetContext();
-		m_Camera 				= new GLCamera(m_Packet.GetCamera());
-		m_UICamera 				= new GLOrthoCamera();
-		m_RenderEffectSettings 	= m_Packet.GetRenderEffectSettings();
+		m_Context = m_Packet.GetContext();
+		m_Camera = new GLCamera(m_Packet.GetCamera());
+		m_UICamera = new GLOrthoCamera();
+		m_RenderEffectSettings = m_Packet.GetRenderEffectSettings();
 
         m_FrameBufferRenderer = new FrameBufferEffectRenderer();
 		m_ModelManager = new ModelManager(m_Context, m_RenderEffectSettings);
@@ -71,6 +76,10 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
         m_RenderDurationCounter = new FrameRateCounter();
         m_DeltaRender = new FrameRateCounter();
+
+        m_ViewMatrix = new float[16];
+        m_ViewMatrix_UI = new float[16];
+        m_ModelTypes = ModelType.values();
 	}
 
 	@Override
@@ -102,6 +111,8 @@ public class GLRenderer implements GLSurfaceView.Renderer
 	@Override
 	public void onDrawFrame(GL10 unused)
 	{
+        //m_Packet.OutputDebugInfo();
+
         m_RenderDurationCounter.StartFrame();
 
         m_FrameBufferRenderer.BindFrameBuffer(FrameBufferName.RawRender);
@@ -109,17 +120,17 @@ public class GLRenderer implements GLSurfaceView.Renderer
 		m_Camera.Update();
 		m_UICamera.Update();
 
-        float[] view = new float[16];
-        Matrix.setIdentityM(view, 0);
-        Matrix.multiplyMM(view, 0, m_Camera.m_ProjMatrix, 0, m_Camera.m_VMatrix, 0);
 
-        DrawSkybox(view);
-        DrawFloorPanels(view);
-        DrawParticles(view);
-        DrawParticles_Multiplier(view);
-        DrawObjects(view);
-        DrawTrails(view);
-        DrawRopes(view);
+        Matrix.setIdentityM(m_ViewMatrix, 0);
+        Matrix.multiplyMM(m_ViewMatrix, 0, m_Camera.m_ProjMatrix, 0, m_Camera.m_VMatrix, 0);
+
+        DrawSkybox(m_ViewMatrix);
+        DrawFloorPanels(m_ViewMatrix);
+        DrawParticles(m_ViewMatrix);
+        DrawParticles_Multiplier(m_ViewMatrix);
+        DrawObjects(m_ViewMatrix);
+        DrawTrails(m_ViewMatrix);
+        DrawRopes(m_ViewMatrix);
 
 		DrawUI();
 
@@ -139,7 +150,6 @@ public class GLRenderer implements GLSurfaceView.Renderer
         m_FrameBufferRenderer.BindFrameBuffer(FrameBufferName.FilmGrain);
         m_ModelManager.DrawFBOFilmGrain();
 
-
 		// Render to screen.
 		GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, 0);
 		GLES20.glViewport(0, 0, m_Width, m_Height);
@@ -156,12 +166,12 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
         m_ModelManager.DrawFBOFinal();
 
-        m_RenderDurationCounter.EndFrame();
-        m_RenderDurationCounter.LogFrameDuration("Renderer", 16L);
+       //  m_RenderDurationCounter.EndFrame();
+       //  m_RenderDurationCounter.LogFrameDuration("Renderer", 0L);
 
-        m_DeltaRender.EndFrame();
-        m_DeltaRender.LogFrameDuration("Delta", 30L);
-        m_DeltaRender.StartFrame();
+        //m_DeltaRender.EndFrame();
+        //m_DeltaRender.LogFrameDuration("Delta", 30L);
+        //m_DeltaRender.StartFrame();
 	}
 
 	@Override
@@ -183,11 +193,9 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
     private void DrawObjects(float[] view)
     {
-        ModelType[] types = ModelType.values();
-
-        for (ModelType type : types)
+        for (ModelType type : m_ModelTypes)
         {
-            ArrayList<GameObject> list = (ArrayList<GameObject>)m_Packet.GetModelList(type).clone();
+            CopyOnWriteArrayList<GameObject> list = m_Packet.GetModelList(type);
 
             if(list.size() > 0)
             {
@@ -195,10 +203,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
                 for (GameObject obj : list)
                 {
-                    if (obj != null)
-                    {
-                        m_ModelManager.Draw(obj);
-                    }
+                    m_ModelManager.Draw(obj);
                 }
 
                 m_ModelManager.CleanModel(type);
@@ -208,53 +213,37 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
     private void DrawParticles(float[] view)
     {
-        ArrayList<Particle_Standard> list = (ArrayList<Particle_Standard>)m_Packet.GetParticles().clone();
+        CopyOnWriteArrayList<Particle> list = m_Packet.GetParticles(ParticleType.Standard);
 
-        if(list.size() > 0)
+        if(!list.isEmpty())
         {
-            m_ParticleRenderer.Initialise(ParticleType.Standard, view, m_Camera.GetPosition());
-
-            for (Particle_Standard obj : list)
-            {
-                if (obj != null)
-                {
-                    m_ParticleRenderer.Draw(obj.GetPosition(), obj.GetColour());
-                }
-            }
-
+            m_ParticleRenderer.Initialise(ParticleType.Standard, view, m_Camera.GetPosition(), list);
+            m_ParticleRenderer.Draw();
             m_ParticleRenderer.Clean();
         }
     }
 
     private void DrawParticles_Multiplier(float[] view)
     {
-        ArrayList<Particle_Multiplier> list = (ArrayList<Particle_Multiplier>)m_Packet.GetParticles_Multiplier().clone();
+        CopyOnWriteArrayList<Particle> list = m_Packet.GetParticles(ParticleType.Multiplier);
 
-        if(list.size() > 0)
+        if(!list.isEmpty())
         {
-            m_ParticleRenderer.Initialise(ParticleType.Multiplier, view, m_Camera.GetPosition());
-
-            for (Particle_Multiplier obj : list)
-            {
-                if (obj != null)
-                {
-                    m_ParticleRenderer.Draw(obj.GetPosition(), obj.GetColour());
-                }
-            }
-
+            m_ParticleRenderer.Initialise(ParticleType.Multiplier, view, m_Camera.GetPosition(), list);
+            m_ParticleRenderer.Draw();
             m_ParticleRenderer.Clean();
         }
     }
 
     private void DrawFloorPanels(float[] view)
     {
-        ArrayList<FloorGrid> list = (ArrayList<FloorGrid>)m_Packet.GetFloorGrids().clone();
+        CopyOnWriteArrayList<FloorGrid> list = m_Packet.GetFloorGrids();
 
         if(!list.isEmpty())
         {
             m_ModelManager.InitialiseFloorPanel(view);
 
-            for (FloorGrid obj : list)
+            for(FloorGrid obj : list)
             {
                 if (obj != null)
                 {
@@ -268,17 +257,16 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
     private void DrawTrails(float[] view)
     {
-        ArrayList<TrailNode> list = (ArrayList<TrailNode>)m_Packet.GetTrailPoints().clone();
+        CopyOnWriteArrayList<Trail> list = m_Packet.GetTrails();
 
         if(!list.isEmpty())
         {
-            m_TrailRenderer.Initialise(view, m_Camera.GetPosition());
-
-            for (TrailNode obj : list)
+            for (Trail trail : list)
             {
-                if (obj != null)
+                if (trail != null)
                 {
-                    m_TrailRenderer.Draw(obj);
+                    m_TrailRenderer.Initialise(view, m_Camera.GetPosition(), trail);
+                    m_TrailRenderer.Draw();
                 }
             }
 
@@ -288,9 +276,9 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
     private void DrawRopes(float[] view)
     {
-        ArrayList<Tentacle> list = (ArrayList<Tentacle>)m_Packet.GetRopes().clone();
+        CopyOnWriteArrayList<Tentacle> list = m_Packet.GetRopes();
 
-        if(list.size() > 0)
+        if(!list.isEmpty())
         {
             m_RopeRenderer.Initialise(view, m_Camera.GetPosition());
 
@@ -308,18 +296,19 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
     private void DrawUI()
     {
-        float[] view = new float[16];
-        Matrix.setIdentityM(view, 0);
-        Matrix.multiplyMM(view, 0, m_UICamera.m_ProjMatrix, 0, m_UICamera.m_VMatrix, 0);
+        Matrix.setIdentityM(m_ViewMatrix_UI, 0);
+        Matrix.multiplyMM(m_ViewMatrix_UI, 0, m_UICamera.m_ProjMatrix, 0, m_UICamera.m_VMatrix, 0);
 
         UIElementType[] types = UIElementType.values();
 
         for (UIElementType type : types)
         {
-            ArrayList<UIElement> Copy = (ArrayList<UIElement>) m_Packet.GetUIElementList(type).clone();
+            CopyOnWriteArrayList<UIElement> Copy = m_Packet.GetUIElementList(type);
 
             for(UIElement object : Copy)
-                m_UIManager.DrawElement(object, view);
+            {
+                m_UIManager.DrawElement(object, m_ViewMatrix_UI);
+            }
         }
     }
 }

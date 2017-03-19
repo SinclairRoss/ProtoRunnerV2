@@ -115,7 +115,7 @@ public class SecondWindHandler
 			m_SecondWindTimer.ResetTimer();
 			m_Player = m_Game.GetVehicleManager().GetPlayer();
 			m_Player.SetPosition(m_PlayerPosition);
-			m_Player.SetYaw(m_PlayerOrientation);
+		//	m_Player.SetYaw(m_PlayerOrientation);
 		}	
 	}
 	
@@ -128,7 +128,7 @@ public class SecondWindHandler
             {
                 m_SecondWindState = SecondWindState.Active;
                 m_PlayerPosition.SetVector(m_Player.GetPosition());
-                m_PlayerOrientation = m_Player.GetYaw();
+                m_PlayerOrientation = 0; //m_Player.GetYaw();
                 m_Player = null;
             }
 		}	

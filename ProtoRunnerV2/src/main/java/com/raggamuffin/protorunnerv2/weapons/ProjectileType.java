@@ -4,8 +4,6 @@ public enum ProjectileType
 {
     PlasmaShot,
     PlasmaShot_Telegraphed,
-    Missile,
     Laser,
-    LaserVampire,
     Flare,
 }

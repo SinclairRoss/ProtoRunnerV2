@@ -95,7 +95,7 @@ public class GameAudioManager
 	public int PlaySound(Vector3 pos, AudioClips clip, EAudioRepeatBehaviour repeatBehaviour)
 	{
 		Vector3 listenerPos = m_Listener.GetPosition();
-		m_RelativePosition.SetVector(pos.I - listenerPos.I, pos.K - listenerPos.K);
+		m_RelativePosition.SetVector(pos.X - listenerPos.X, pos.Z - listenerPos.Z);
 		
 		double volume  = CalculateVolume(m_RelativePosition);
 
@@ -104,7 +104,7 @@ public class GameAudioManager
 		if(volume > 0.0)
 		{
 			Vector3 listenerLookat = m_Listener.GetLookAt();
-			m_ListenerForward.SetVector(listenerLookat.I, listenerLookat.K);
+			m_ListenerForward.SetVector(listenerLookat.X, listenerLookat.Z);
 
 			double panning = CalculatePanning(m_RelativePosition, m_ListenerForward);
 

@@ -27,9 +27,9 @@ public class Spring3
         m_Stretch.Normalise();
         m_Stretch.Scale(stretchLength);
 
-        m_Force.I = -m_Stiffness * m_Stretch.I;
-        m_Force.J = -m_Stiffness * m_Stretch.J;
-        m_Force.K = -m_Stiffness * m_Stretch.K;
+        m_Force.X = -m_Stiffness * m_Stretch.X;
+        m_Force.Y = -m_Stiffness * m_Stretch.Y;
+        m_Force.Z = -m_Stiffness * m_Stretch.Z;
 
         return m_Force;
     }

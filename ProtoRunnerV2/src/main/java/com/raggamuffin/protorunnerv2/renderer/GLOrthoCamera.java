@@ -1,10 +1,10 @@
 package com.raggamuffin.protorunnerv2.renderer;
 
-import com.raggamuffin.protorunnerv2.utils.Vector3;
-
 import android.opengl.GLES20;
 import android.opengl.Matrix;
 import android.util.Log;
+
+import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class GLOrthoCamera 
 {
@@ -31,12 +31,12 @@ public class GLOrthoCamera
 		m_Near = 1.0f;
 		m_Far = 100.0f;
 		
-		Matrix.setLookAtM(m_VMatrix, 0,   (float)m_Position.I, (float)m_Position.J, (float)m_Position.K,   (float)m_LookAt.I, (float)m_LookAt.J, (float)m_LookAt.K,  (float) m_Up.I,(float)m_Up.J, (float)m_Up.K);
+		Matrix.setLookAtM(m_VMatrix, 0,   (float)m_Position.X, (float)m_Position.Y, (float)m_Position.Z,   (float)m_LookAt.X, (float)m_LookAt.Y, (float)m_LookAt.Z,  (float) m_Up.X,(float)m_Up.Y, (float)m_Up.Z);
 	}
 	
 	public void Update()
 	{	
-		Matrix.setLookAtM(m_VMatrix, 0,   (float)m_Position.I, (float)m_Position.J, (float)m_Position.K,   (float)m_LookAt.I, (float)m_LookAt.J, (float)m_LookAt.K,  (float) m_Up.I,(float)m_Up.J, (float)m_Up.K);
+		Matrix.setLookAtM(m_VMatrix, 0,   (float)m_Position.X, (float)m_Position.Y, (float)m_Position.Z,   (float)m_LookAt.X, (float)m_LookAt.Y, (float)m_LookAt.Z,  (float) m_Up.X,(float)m_Up.Y, (float)m_Up.Z);
 	}
 	
 	public void ViewPortChanged(int width, int height)

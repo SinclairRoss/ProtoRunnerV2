@@ -1,8 +1,12 @@
 package com.raggamuffin.protorunnerv2.renderer;
 
+import com.raggamuffin.protorunnerv2.particles.Particle;
 import com.raggamuffin.protorunnerv2.particles.ParticleType;
+import com.raggamuffin.protorunnerv2.particles.Particle_Standard;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
+
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ParticleRenderer
 {
@@ -25,7 +29,7 @@ public class ParticleRenderer
         m_MultiplierParticle = new GLParticleGroup_Multiplier();
     }
 
-    public void Initialise(ParticleType type, float[] projMatrix, Vector3 eye)
+    public void Initialise(ParticleType type, float[] projMatrix, Vector3 eye, CopyOnWriteArrayList<Particle> particles)
     {
         m_ActiveParticleGroup = null;
 
@@ -44,17 +48,17 @@ public class ParticleRenderer
         }
 
         m_ActiveParticleGroup.InitialiseModel(projMatrix, eye);
+        m_ActiveParticleGroup.AddPoints(particles);
 
     }
 
-    public void Draw(Vector3 pos, Colour colour)
+    public void Draw()
     {
-        m_ActiveParticleGroup.AddPoint(pos, colour);
+        m_ActiveParticleGroup.Draw();
     }
 
     public void Clean()
     {
-        m_ActiveParticleGroup.Draw();
         m_ActiveParticleGroup.CleanModel();
     }
 }

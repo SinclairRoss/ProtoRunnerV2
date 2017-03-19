@@ -1,31 +1,33 @@
 package com.raggamuffin.protorunnerv2.master;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.graphics.Point;
+import android.util.Log;
 
 import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
 import com.raggamuffin.protorunnerv2.gameobjects.FloorGrid;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.gameobjects.Tentacle;
-import com.raggamuffin.protorunnerv2.particles.Particle_Multiplier;
-import com.raggamuffin.protorunnerv2.particles.Particle_Standard;
-import com.raggamuffin.protorunnerv2.particles.TrailNode;
+import com.raggamuffin.protorunnerv2.particles.Particle;
+import com.raggamuffin.protorunnerv2.particles.ParticleType;
+import com.raggamuffin.protorunnerv2.particles.Trail;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
 import com.raggamuffin.protorunnerv2.ui.UIElementType;
 
+import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 public class RendererPacket
 {
     private final Point m_ScreenSize;
-    private final ArrayList<ArrayList<GameObject>> m_RenderObjects;
-    private final ArrayList<TrailNode> m_TrailNodes;
-    private final ArrayList<Tentacle> m_Tentacles;
-    private final ArrayList<FloorGrid> m_FloorGrids;
-    private final ArrayList<Particle_Standard> m_Particles;
-    private final ArrayList<Particle_Multiplier> m_Particles_Multiplier;
-    private final ArrayList<ArrayList<UIElement>> m_UIElements;
+    private final ArrayList<CopyOnWriteArrayList<GameObject>> m_GameObjects;
+    private final CopyOnWriteArrayList<Trail> m_Trails;
+    private final CopyOnWriteArrayList<Tentacle> m_Tentacles;
+    private final CopyOnWriteArrayList<FloorGrid> m_FloorGrids;
+    private final CopyOnWriteArrayList<Particle> m_Particles;
+    private final CopyOnWriteArrayList<Particle> m_Particles_Multiplier;
+    private final ArrayList<CopyOnWriteArrayList<UIElement>> m_UIElements;
     private final ChaseCamera m_Camera;
     private final Context m_Context;
     private final RenderEffectSettings m_RenderEffectSettings;
@@ -35,11 +37,11 @@ public class RendererPacket
         m_ScreenSize = screenSize;
 
         int numModels = ModelType.values().length;
-        m_RenderObjects = new ArrayList<>(numModels);
+        m_GameObjects = new ArrayList<>(numModels);
 
         for (int i = 0; i < numModels; ++i)
         {
-            m_RenderObjects.add(new ArrayList<GameObject>());
+            m_GameObjects.add(new CopyOnWriteArrayList<GameObject>());
         }
 
         int numUIElements = UIElementType.values().length;
@@ -47,139 +49,78 @@ public class RendererPacket
 
         for (int i = 0; i < numUIElements; i++)
         {
-            m_UIElements.add(new ArrayList<UIElement>());
+            m_UIElements.add(new CopyOnWriteArrayList<UIElement>());
         }
 
-        m_Particles = new ArrayList<>();
-        m_Particles_Multiplier = new ArrayList<>();
-        m_TrailNodes = new ArrayList<>();
-        m_Tentacles = new ArrayList<>();
-        m_FloorGrids = new ArrayList<>();
+        m_Particles = new CopyOnWriteArrayList<>();
+        m_Particles_Multiplier = new CopyOnWriteArrayList<>();
+        m_Trails = new CopyOnWriteArrayList<>();
+        m_Tentacles = new CopyOnWriteArrayList<>();
+        m_FloorGrids = new CopyOnWriteArrayList<>();
 
         m_Context = context;
         m_Camera = camera;
         m_RenderEffectSettings = settings;
     }
 
-    public ArrayList<TrailNode> GetTrailPoints()
-    {
-        return m_TrailNodes;
-    }
+    public void AddObject(Trail trail) { m_Trails.add(trail); }
+    public void RemoveObject(Trail trail) { m_Trails.remove(trail); }
+    public CopyOnWriteArrayList<Trail> GetTrails() { return m_Trails; }
 
-    public ArrayList<Tentacle> GetRopes()
+    public void AddObject(Tentacle node) { m_Tentacles.add(node); }
+    public void RemoveObject(Tentacle node) { m_Tentacles.remove(node);}
+    public CopyOnWriteArrayList<Tentacle> GetRopes()
     {
         return m_Tentacles;
     }
 
-    public ArrayList<GameObject> GetModelList(ModelType type)
-    {
-        return m_RenderObjects.get(type.ordinal());
-    }
+    public void AddObject(GameObject object) { GetModelList(object.GetModel()).add(object); }
+    public void RemoveObject(GameObject object) { GetModelList(object.GetModel()).remove(object); }
+    public CopyOnWriteArrayList<GameObject> GetModelList(ModelType type) { return m_GameObjects.get(type.ordinal()); }
 
-    public ArrayList<Particle_Standard> GetParticles()
-    {
-        return m_Particles;
-    }
+    public void AddObject(ArrayList<Particle> particles, ParticleType type) { GetParticleListFromType(type).addAll(particles); }
+    public void RemoveObject(ArrayList<Particle> particles, ParticleType type) { GetParticleListFromType(type).removeAll(particles); }
+    public CopyOnWriteArrayList<Particle> GetParticles(ParticleType type) { return GetParticleListFromType(type); }
 
-    public ArrayList<Particle_Multiplier> GetParticles_Multiplier()
-    {
-        return m_Particles_Multiplier;
-    }
-
-    public ArrayList<FloorGrid> GetFloorGrids()
+    public void AddObject(FloorGrid floorGrid) { m_FloorGrids.add(floorGrid); }
+    public void RemoveObject(FloorGrid floorGrid) { m_FloorGrids.remove(floorGrid); }
+    public CopyOnWriteArrayList<FloorGrid> GetFloorGrids()
     {
         return m_FloorGrids;
     }
 
-    public void AddObject(TrailNode point)
+    public void AddUIElement(UIElement element) { GetUIElementList(element.GetType()).add(element); }
+    public void RemoveUIElement(UIElement element) { GetUIElementList(element.GetType()).remove(element); }
+    public CopyOnWriteArrayList<UIElement> GetUIElementList(UIElementType type) { return m_UIElements.get(type.ordinal()); }
+
+	public Context GetContext() { return m_Context; }
+	public ChaseCamera GetCamera() { return m_Camera; }
+	public RenderEffectSettings GetRenderEffectSettings() { return m_RenderEffectSettings; }
+    public Point GetScreenSize() { return m_ScreenSize; }
+
+    public void OutputDebugInfo()
     {
-        m_TrailNodes.add(point);
+        Log.e("Packet", "<-------------------->");
+        Log.e("PacketParticles", "Num Particles: " + m_Particles.size());
+        Log.e("PacketParticles", "Num Multipliers: " + m_Particles_Multiplier.size());
+        Log.e("PacketTrail", "Num Trails: " + m_Trails.size());
+        Log.e("PacketFloorGrid", "Num FloorGrids: " + m_FloorGrids.size());
     }
 
-    public void AddObject(Tentacle node)
+    private CopyOnWriteArrayList<Particle> GetParticleListFromType(ParticleType type)
     {
-        m_Tentacles.add(node);
-    }
+        CopyOnWriteArrayList<Particle> particleList = null;
 
-    public void AddObject(GameObject object)
-    {
-        GetModelList(object.GetModel()).add(object);
-    }
+        switch (type)
+        {
+            case Standard:
+                particleList = m_Particles;
+                break;
+            case Multiplier:
+                particleList = m_Particles_Multiplier;
+                break;
+        }
 
-    public void AddObject(Particle_Standard particle)
-    {
-        m_Particles.add(particle);
-    }
-
-    public void AddObject(Particle_Multiplier particle)
-    {
-        m_Particles_Multiplier.add(particle);
-    }
-
-    public void AddObject(FloorGrid floorGrid)
-    {
-        m_FloorGrids.add(floorGrid);
-    }
-
-    public void RemoveObject(TrailNode point)
-    {
-        m_TrailNodes.remove(point);
-    }
-
-    public void RemoveObject(Tentacle node) { m_Tentacles.remove(node);}
-
-    public void RemoveObject(GameObject object)
-    {
-        GetModelList(object.GetModel()).remove(object);
-    }
-
-    public void RemoveObject(Particle_Standard particle)
-    {
-        m_Particles.remove(particle);
-    }
-
-    public void RemoveObject(Particle_Multiplier particle)
-    {
-        m_Particles_Multiplier.remove(particle);
-    }
-
-    public void RemoveObject(FloorGrid floorGrid)
-    {
-        m_FloorGrids.remove(floorGrid);
-    }
-
-    public ArrayList<UIElement> GetUIElementList(UIElementType type)
-    {
-        return m_UIElements.get(type.ordinal());
-    }
-
-    public void AddUIElement(UIElement element)
-    {
-        GetUIElementList(element.GetType()).add(element);
-    }
-
-    public void RemoveUIElement(UIElement element)
-    {
-        GetUIElementList(element.GetType()).remove(element);
-    }
-
-	public Context GetContext()
-	{
-		return m_Context;
-	}
-
-	public ChaseCamera GetCamera()
-    {
-        return m_Camera;
-    }
-
-	public RenderEffectSettings GetRenderEffectSettings()
-	{
-		return m_RenderEffectSettings;
-	}
-
-    public Point GetScreenSize()
-    {
-        return m_ScreenSize;
+        return particleList;
     }
 }

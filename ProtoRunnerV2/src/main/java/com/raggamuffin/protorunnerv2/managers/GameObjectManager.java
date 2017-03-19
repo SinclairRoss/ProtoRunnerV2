@@ -33,7 +33,7 @@ public class GameObjectManager
             {
                 object.CleanUp();
                 m_GameObjects.remove(object);
-                m_GameLogic.RemoveGameObjectFromRenderer(object);
+                m_GameLogic.RemoveObjectFromRenderer(object);
                 --i;
             }
         }
@@ -48,14 +48,19 @@ public class GameObjectManager
     public void RemoveObject(GameObject object)
     {
         m_GameObjects.remove(object);
-        m_GameLogic.RemoveGameObjectFromRenderer(object);
+        m_GameLogic.RemoveObjectFromRenderer(object);
     }
 
     public void Wipe()
     {
-        for(GameObject object : m_GameObjects)
+        for(int i = 0; i < m_GameObjects.size(); ++i)
         {
-            object.ForceInvalidation();
+            GameObject object = m_GameObjects.get(i);
+
+            object.CleanUp();
+            m_GameObjects.remove(object);
+            m_GameLogic.RemoveObjectFromRenderer(object);
+            --i;
         }
     }
 }

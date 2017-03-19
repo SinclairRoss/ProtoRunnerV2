@@ -1,10 +1,10 @@
 package com.raggamuffin.protorunnerv2.ai;
 
-import java.util.ArrayList;
-
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
+
+import java.util.ArrayList;
 
 public class Sensor_SurroundingAwareness extends Sensor
 {	
@@ -42,8 +42,11 @@ public class Sensor_SurroundingAwareness extends Sensor
         m_CenterOfMassEnemy.SetVector(0);
 
         // Iterate through all minions.
-        for(Vehicle object : m_VehiclesInWorld)
+        int numVehicles = m_VehiclesInWorld.size();
+        for(int i = 0; i < numVehicles; ++i)
         {
+            Vehicle object = m_VehiclesInWorld.get(i);
+
             if(object != m_Anchor &&
                 object.GetVehicleClass() == m_Anchor.GetVehicleClass())
             {

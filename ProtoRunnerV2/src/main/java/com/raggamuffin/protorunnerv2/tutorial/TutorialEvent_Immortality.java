@@ -43,10 +43,12 @@ public class TutorialEvent_Immortality extends TutorialEvent
         }
         else
         {
-            int hullPointMin = player.GetMaxHullPoints() >> 3;
+            double hullPointMin = player.GetHullPoints() / 4;
 
             if(player.GetHullPoints() < hullPointMin)
+            {
                 player.SetHullPoints(hullPointMin);
+            }
         }
     }
 }

@@ -5,10 +5,19 @@ import com.raggamuffin.protorunnerv2.particles.TrailEmitter;
 
 public class Engine_Standard extends Engine
 {
-    public Engine_Standard(GameObject anchor, GameLogic game)
+    TrailEmitter m_TrailEmitter;
+    public Engine_Standard(Vehicle anchor, GameLogic game)
     {
         super(game, anchor);
 
-        m_Anchor.AddObjectToGameObjectManager(new TrailEmitter(game, m_Anchor));
+        m_TrailEmitter = new TrailEmitter(game, m_Anchor);
+    }
+
+    @Override
+    public void Update(double deltaTime)
+    {
+        super.Update(deltaTime);
+
+        m_TrailEmitter.Update();
     }
 }

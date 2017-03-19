@@ -3,12 +3,12 @@
 
 package com.raggamuffin.protorunnerv2.master;
 
-import com.raggamuffin.protorunnerv2.renderer.GLRenderer;
-
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.util.Log;
 import android.view.SurfaceHolder;
+
+import com.raggamuffin.protorunnerv2.renderer.GLRenderer;
 
 public class GameView extends GLSurfaceView
 {

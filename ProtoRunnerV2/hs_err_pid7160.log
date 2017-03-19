@@ -86,7 +86,7 @@ R15=0x00000000002af000 is a thread
 
 
 Stack: [0x0000000002490000,0x0000000002590000],  sp=0x000000000258f410,  free space=1021k
-Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+Native frames: (J=compiled Java code, y=interpreted, Vv=VM code, C=native code)
 J  java.util.ComparableTimSort.binarySort([Ljava/lang/Object;III)V
 
 

@@ -13,8 +13,8 @@ public class Weapon_PulseLaser extends Weapon
     {
         super(anchor, game, AudioClips.Blaster_Friendly);
 
-        m_Damage = 40;
-        m_FiringSpeed = 140.0;   // 140
+        m_Damage = 1;
+        m_FiringSpeed = 200.0;   // 140
         m_Accuracy = 1.0;
         m_LifeSpan = 5.0;
 

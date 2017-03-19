@@ -7,6 +7,8 @@ import com.raggamuffin.protorunnerv2.ai.VehicleInfo;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.gameobjects.VehicleType;
+import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
+import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.tutorial.TutorialCondition;
 import com.raggamuffin.protorunnerv2.tutorial.TutorialCondition_Boost;
@@ -18,8 +20,6 @@ import com.raggamuffin.protorunnerv2.tutorial.TutorialCondition_Reboot;
 import com.raggamuffin.protorunnerv2.tutorial.TutorialCondition_ShotsFired;
 import com.raggamuffin.protorunnerv2.tutorial.TutorialCondition_SwitchWeapon;
 import com.raggamuffin.protorunnerv2.tutorial.TutorialCondition_Time;
-import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
-import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.tutorial.TutorialCondition_TurnAmount;
 import com.raggamuffin.protorunnerv2.tutorial.TutorialCondition_UtilityFired;
 import com.raggamuffin.protorunnerv2.tutorial.TutorialEffect;
@@ -267,8 +267,8 @@ public class GameManager_Tutorial extends GameManager
                     if (player != null)
                     {
                         Vector3 spawnPos = new Vector3(player.GetPosition());
-                        m_Game.GetVehicleManager().SpawnVehicle(VehicleType.Wingman, spawnPos.I, spawnPos.K, player.GetYaw());
-                        m_Game.GetVehicleManager().SpawnVehicle(VehicleType.Wingman, spawnPos.I, spawnPos.K, player.GetYaw());
+                        m_Game.GetVehicleManager().SpawnVehicle(VehicleType.Wingman, spawnPos.X, spawnPos.Z, 0);//player.GetYaw());
+                        m_Game.GetVehicleManager().SpawnVehicle(VehicleType.Wingman, spawnPos.X, spawnPos.Z, 0);//player.GetYaw());
                     }
                     break;
                 }

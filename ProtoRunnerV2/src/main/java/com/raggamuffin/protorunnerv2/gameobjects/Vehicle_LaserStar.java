@@ -12,7 +12,6 @@ import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_LaserBurner;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_MultiLaser;
-import com.raggamuffin.protorunnerv2.weapons.Weapon_None;
 
 public class Vehicle_LaserStar extends Vehicle
 {
@@ -22,17 +21,20 @@ public class Vehicle_LaserStar extends Vehicle
 
     public Vehicle_LaserStar(GameLogic game)
     {
-        super(game, ModelType.ThreePointStar);
+        super(game, ModelType.ThreePointStar, 2);
 
         m_LaserBurners = new Weapon_LaserBurner[3];
 
-        SetColourScheme(Colours.HannahExperimentalBA, Colours.HannahExperimentalBB);
+      //  SetColourScheme(Colours.HannahExperimentalBA, Colours.HannahExperimentalBB);
+
+        SetColour(Colours.HannahExperimentalBA);
 
         m_Engine = new Engine_Standard(this, game);
         m_Engine.SetMaxTurnRate(1.5);
-        m_Engine.SetMaxEngineOutput(15000);
-        m_Engine.SetDodgeOutput(16000);
-        m_BoundingRadius = 2;
+        m_Engine.SetMaxEngineOutput(30);
+        m_Engine.SetDodgeOutput(0);
+
+        m_HullPoints = 12;
 
         SetAffiliation(AffiliationKey.RedTeam);
 
@@ -51,12 +53,5 @@ public class Vehicle_LaserStar extends Vehicle
         m_AIController.Update(deltaTime);
 
         super.Update(deltaTime);
-    }
-
-    @Override
-    public void CleanUp()
-    {
-        super.CleanUp();
-        m_PrimaryWeapon.CleanUp();
     }
 } 

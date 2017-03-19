@@ -105,6 +105,8 @@ public class UIScreen_Play extends UIScreen
         m_ScoreMeter.SetValue(score);
         m_ScoreMeter.Update(deltaTime);
 
+        int multiplier = m_Game.GetGameStats().GetMultiplier();
+        m_MultiplierMeter.SetValue(multiplier);
         m_MultiplierMeter.Update(deltaTime);
 
         if(m_SystemFailing)
@@ -160,9 +162,6 @@ public class UIScreen_Play extends UIScreen
         @Override
         public void Update(int args)
         {
-            int multiplier = m_Game.GetGameStats().GetMultiplier();
-            m_MultiplierMeter.SetValue(multiplier);
-
             m_MultiplierMeter.SetColour(Colours.White);
         }
     }
@@ -172,9 +171,6 @@ public class UIScreen_Play extends UIScreen
         @Override
         public void Update(int args)
         {
-            int multiplier = m_Game.GetGameStats().GetMultiplier();
-            m_MultiplierMeter.SetValue(multiplier);
-
             m_MultiplierMeter.SetColour(Colours.Pink70);
         }
     }

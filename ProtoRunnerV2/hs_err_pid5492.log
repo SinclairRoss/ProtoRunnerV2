@@ -80,7 +80,7 @@ R15=0x000000000232f000 is a thread
 
 
 Stack: [0x0000000002520000,0x0000000002620000],  sp=0x000000000261f180,  free space=1020k
-Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+Native frames: (J=compiled Java code, y=interpreted, Vv=VM code, C=native code)
 J  com.android.dx.merge.DexMerger.mergeClassDefs()V
 
 

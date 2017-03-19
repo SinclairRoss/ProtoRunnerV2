@@ -385,43 +385,43 @@ R15=0x0000000001d88400 is an unknown value
 
 
 Stack: [0x0000000002520000,0x0000000002620000],  sp=0x000000000261d780,  free space=1013k
-Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+Native frames: (J=compiled Java code, y=interpreted, Vv=VM code, C=native code)
 V  [jvm.dll+0x82deb]
 
-Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+Java frames: (J=compiled Java code, y=interpreted, Vv=VM code)
 v  ~RuntimeStub::resolve_virtual_call
 J  com.android.dx.cf.cst.ConstantPoolParser.parse0(ILjava/util/BitSet;)Lcom/android/dx/rop/cst/Constant;
 J  com.android.dx.cf.cst.ConstantPoolParser.parse0(ILjava/util/BitSet;)Lcom/android/dx/rop/cst/Constant;
 J  com.android.dx.cf.cst.ConstantPoolParser.parse0(ILjava/util/BitSet;)Lcom/android/dx/rop/cst/Constant;
-j  com.android.dx.cf.cst.ConstantPoolParser.parse()V+130
-j  com.android.dx.cf.cst.ConstantPoolParser.parseIfNecessary()V+8
-j  com.android.dx.cf.cst.ConstantPoolParser.getPool()Lcom/android/dx/rop/cst/StdConstantPool;+1
-j  com.android.dx.cf.direct.DirectClassFile.parse0()V+283
-j  com.android.dx.cf.direct.DirectClassFile.parse()V+1
-j  com.android.dx.cf.direct.DirectClassFile.parseToInterfacesIfNecessary()V+9
-j  com.android.dx.cf.direct.DirectClassFile.getMagic()I+1
-j  com.android.dx.command.dexer.Main.processClass(Ljava/lang/String;[B)Z+40
-j  com.android.dx.command.dexer.Main.processFileBytes(Ljava/lang/String;J[B)Z+188
-j  com.android.dx.command.dexer.Main.access$300(Ljava/lang/String;J[B)Z+3
-j  com.android.dx.command.dexer.Main$1.processFileBytes(Ljava/lang/String;J[B)Z+4
-j  com.android.dx.cf.direct.ClassPathOpener.processOne(Ljava/io/File;Z)Z+82
-j  com.android.dx.cf.direct.ClassPathOpener.processDirectory(Ljava/io/File;Z)Z+64
-j  com.android.dx.cf.direct.ClassPathOpener.processOne(Ljava/io/File;Z)Z+10
-j  com.android.dx.cf.direct.ClassPathOpener.processDirectory(Ljava/io/File;Z)Z+64
-j  com.android.dx.cf.direct.ClassPathOpener.processOne(Ljava/io/File;Z)Z+10
-j  com.android.dx.cf.direct.ClassPathOpener.processDirectory(Ljava/io/File;Z)Z+64
-j  com.android.dx.cf.direct.ClassPathOpener.processOne(Ljava/io/File;Z)Z+10
-j  com.android.dx.cf.direct.ClassPathOpener.processDirectory(Ljava/io/File;Z)Z+64
-j  com.android.dx.cf.direct.ClassPathOpener.processOne(Ljava/io/File;Z)Z+10
-j  com.android.dx.cf.direct.ClassPathOpener.processDirectory(Ljava/io/File;Z)Z+64
-j  com.android.dx.cf.direct.ClassPathOpener.processOne(Ljava/io/File;Z)Z+10
-j  com.android.dx.cf.direct.ClassPathOpener.process()Z+15
-j  com.android.dx.command.dexer.Main.processOne(Ljava/lang/String;Lcom/android/dx/cf/direct/ClassPathOpener$FileNameFilter;)V+58
-j  com.android.dx.command.dexer.Main.processAllFiles()Z+202
-j  com.android.dx.command.dexer.Main.runMonoDex()I+58
-j  com.android.dx.command.dexer.Main.run(Lcom/android/dx/command/dexer/Main$Arguments;)I+76
-j  com.android.dx.command.dexer.Main.main([Ljava/lang/String;)V+14
-j  com.android.dx.command.Main.main([Ljava/lang/String;)V+61
+y  com.android.dx.cf.cst.ConstantPoolParser.parse()V+130
+y  com.android.dx.cf.cst.ConstantPoolParser.parseIfNecessary()V+8
+y  com.android.dx.cf.cst.ConstantPoolParser.getPool()Lcom/android/dx/rop/cst/StdConstantPool;+1
+y  com.android.dx.cf.direct.DirectClassFile.parse0()V+283
+y  com.android.dx.cf.direct.DirectClassFile.parse()V+1
+y  com.android.dx.cf.direct.DirectClassFile.parseToInterfacesIfNecessary()V+9
+y  com.android.dx.cf.direct.DirectClassFile.getMagic()I+1
+y  com.android.dx.command.dexer.Main.processClass(Ljava/lang/String;[B)Z+40
+y  com.android.dx.command.dexer.Main.processFileBytes(Ljava/lang/String;J[B)Z+188
+y  com.android.dx.command.dexer.Main.access$300(Ljava/lang/String;J[B)Z+3
+y  com.android.dx.command.dexer.Main$1.processFileBytes(Ljava/lang/String;J[B)Z+4
+y  com.android.dx.cf.direct.ClassPathOpener.processOne(Ljava/io/File;Z)Z+82
+y  com.android.dx.cf.direct.ClassPathOpener.processDirectory(Ljava/io/File;Z)Z+64
+y  com.android.dx.cf.direct.ClassPathOpener.processOne(Ljava/io/File;Z)Z+10
+y  com.android.dx.cf.direct.ClassPathOpener.processDirectory(Ljava/io/File;Z)Z+64
+y  com.android.dx.cf.direct.ClassPathOpener.processOne(Ljava/io/File;Z)Z+10
+y  com.android.dx.cf.direct.ClassPathOpener.processDirectory(Ljava/io/File;Z)Z+64
+y  com.android.dx.cf.direct.ClassPathOpener.processOne(Ljava/io/File;Z)Z+10
+y  com.android.dx.cf.direct.ClassPathOpener.processDirectory(Ljava/io/File;Z)Z+64
+y  com.android.dx.cf.direct.ClassPathOpener.processOne(Ljava/io/File;Z)Z+10
+y  com.android.dx.cf.direct.ClassPathOpener.processDirectory(Ljava/io/File;Z)Z+64
+y  com.android.dx.cf.direct.ClassPathOpener.processOne(Ljava/io/File;Z)Z+10
+y  com.android.dx.cf.direct.ClassPathOpener.process()Z+15
+y  com.android.dx.command.dexer.Main.processOne(Ljava/lang/String;Lcom/android/dx/cf/direct/ClassPathOpener$FileNameFilter;)V+58
+y  com.android.dx.command.dexer.Main.processAllFiles()Z+202
+y  com.android.dx.command.dexer.Main.runMonoDex()I+58
+y  com.android.dx.command.dexer.Main.run(Lcom/android/dx/command/dexer/Main$Arguments;)I+76
+y  com.android.dx.command.dexer.Main.main([Ljava/lang/String;)V+14
+y  com.android.dx.command.Main.main([Ljava/lang/String;)V+61
 v  ~StubRoutines::call_stub
 
 ---------------  P R O C E S S  ---------------

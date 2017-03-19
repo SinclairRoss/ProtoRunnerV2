@@ -87,7 +87,7 @@ RCX=0x00000000bb129af0 is an oop
  -  24 :  : 'n'
  -  25 :  : 'byteLength'
  -  26 :  : '()I'
- -  27 :  : 'i'
+ -  27 :  : 'x'
  -  28 :  : 'sz'
  -  29 :  : 'result'
  -  30 :  : 'StackMapTable'
@@ -166,7 +166,7 @@ R8 =0x00000000bb129af0 is an oop
  -  24 :  : 'n'
  -  25 :  : 'byteLength'
  -  26 :  : '()I'
- -  27 :  : 'i'
+ -  27 :  : 'x'
  -  28 :  : 'sz'
  -  29 :  : 'result'
  -  30 :  : 'StackMapTable'
@@ -241,7 +241,7 @@ R10=0x00000000bb129af0 is an oop
  -  24 :  : 'n'
  -  25 :  : 'byteLength'
  -  26 :  : '()I'
- -  27 :  : 'i'
+ -  27 :  : 'x'
  -  28 :  : 'sz'
  -  29 :  : 'result'
  -  30 :  : 'StackMapTable'
@@ -292,38 +292,38 @@ R15=0x000000000221b000 is an unknown value
 
 
 Stack: [0x0000000002380000,0x0000000002480000],  sp=0x000000000247d490,  free space=1013k
-Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+Native frames: (J=compiled Java code, y=interpreted, Vv=VM code, C=native code)
 V  [jvm.dll+0x82ffb]
 
-Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+Java frames: (J=compiled Java code, y=interpreted, Vv=VM code)
 v  ~RuntimeStub::resolve_virtual_call
 J  com.android.dx.dex.cf.AttributeTranslator.getAnnotations(Lcom/android/dx/cf/iface/AttributeList;)Lcom/android/dx/rop/annotation/Annotations;
-j  com.android.dx.dex.cf.AttributeTranslator.getMethodAnnotations(Lcom/android/dx/cf/iface/Method;)Lcom/android/dx/rop/annotation/Annotations;+6
-j  com.android.dx.dex.cf.CfTranslator.processMethods(Lcom/android/dx/cf/direct/DirectClassFile;Lcom/android/dx/dex/cf/CfOptions;Lcom/android/dx/dex/DexOptions;Lcom/android/dx/dex/file/ClassDefItem;Lcom/android/dx/dex/file/DexFile;)V+456
+y  com.android.dx.dex.cf.AttributeTranslator.getMethodAnnotations(Lcom/android/dx/cf/iface/Method;)Lcom/android/dx/rop/annotation/Annotations;+6
+y  com.android.dx.dex.cf.CfTranslator.processMethods(Lcom/android/dx/cf/direct/DirectClassFile;Lcom/android/dx/dex/cf/CfOptions;Lcom/android/dx/dex/DexOptions;Lcom/android/dx/dex/file/ClassDefItem;Lcom/android/dx/dex/file/DexFile;)V+456
 J  com.android.dx.dex.cf.CfTranslator.translate0(Lcom/android/dx/cf/direct/DirectClassFile;[BLcom/android/dx/dex/cf/CfOptions;Lcom/android/dx/dex/DexOptions;Lcom/android/dx/dex/file/DexFile;)Lcom/android/dx/dex/file/ClassDefItem;
-j  com.android.dx.dex.cf.CfTranslator.translate(Lcom/android/dx/cf/direct/DirectClassFile;[BLcom/android/dx/dex/cf/CfOptions;Lcom/android/dx/dex/DexOptions;Lcom/android/dx/dex/file/DexFile;)Lcom/android/dx/dex/file/ClassDefItem;+6
-j  com.android.dx.command.dexer.Main.processClass(Ljava/lang/String;[B)Z+251
-j  com.android.dx.command.dexer.Main.processFileBytes(Ljava/lang/String;J[B)Z+188
-j  com.android.dx.command.dexer.Main.access$300(Ljava/lang/String;J[B)Z+3
-j  com.android.dx.command.dexer.Main$1.processFileBytes(Ljava/lang/String;J[B)Z+4
-j  com.android.dx.cf.direct.ClassPathOpener.processOne(Ljava/io/File;Z)Z+82
-j  com.android.dx.cf.direct.ClassPathOpener.processDirectory(Ljava/io/File;Z)Z+64
-j  com.android.dx.cf.direct.ClassPathOpener.processOne(Ljava/io/File;Z)Z+10
-j  com.android.dx.cf.direct.ClassPathOpener.processDirectory(Ljava/io/File;Z)Z+64
-j  com.android.dx.cf.direct.ClassPathOpener.processOne(Ljava/io/File;Z)Z+10
-j  com.android.dx.cf.direct.ClassPathOpener.processDirectory(Ljava/io/File;Z)Z+64
-j  com.android.dx.cf.direct.ClassPathOpener.processOne(Ljava/io/File;Z)Z+10
-j  com.android.dx.cf.direct.ClassPathOpener.processDirectory(Ljava/io/File;Z)Z+64
-j  com.android.dx.cf.direct.ClassPathOpener.processOne(Ljava/io/File;Z)Z+10
-j  com.android.dx.cf.direct.ClassPathOpener.processDirectory(Ljava/io/File;Z)Z+64
-j  com.android.dx.cf.direct.ClassPathOpener.processOne(Ljava/io/File;Z)Z+10
-j  com.android.dx.cf.direct.ClassPathOpener.process()Z+15
-j  com.android.dx.command.dexer.Main.processOne(Ljava/lang/String;Lcom/android/dx/cf/direct/ClassPathOpener$FileNameFilter;)V+58
-j  com.android.dx.command.dexer.Main.processAllFiles()Z+202
-j  com.android.dx.command.dexer.Main.runMonoDex()I+58
-j  com.android.dx.command.dexer.Main.run(Lcom/android/dx/command/dexer/Main$Arguments;)I+76
-j  com.android.dx.command.dexer.Main.main([Ljava/lang/String;)V+14
-j  com.android.dx.command.Main.main([Ljava/lang/String;)V+61
+y  com.android.dx.dex.cf.CfTranslator.translate(Lcom/android/dx/cf/direct/DirectClassFile;[BLcom/android/dx/dex/cf/CfOptions;Lcom/android/dx/dex/DexOptions;Lcom/android/dx/dex/file/DexFile;)Lcom/android/dx/dex/file/ClassDefItem;+6
+y  com.android.dx.command.dexer.Main.processClass(Ljava/lang/String;[B)Z+251
+y  com.android.dx.command.dexer.Main.processFileBytes(Ljava/lang/String;J[B)Z+188
+y  com.android.dx.command.dexer.Main.access$300(Ljava/lang/String;J[B)Z+3
+y  com.android.dx.command.dexer.Main$1.processFileBytes(Ljava/lang/String;J[B)Z+4
+y  com.android.dx.cf.direct.ClassPathOpener.processOne(Ljava/io/File;Z)Z+82
+y  com.android.dx.cf.direct.ClassPathOpener.processDirectory(Ljava/io/File;Z)Z+64
+y  com.android.dx.cf.direct.ClassPathOpener.processOne(Ljava/io/File;Z)Z+10
+y  com.android.dx.cf.direct.ClassPathOpener.processDirectory(Ljava/io/File;Z)Z+64
+y  com.android.dx.cf.direct.ClassPathOpener.processOne(Ljava/io/File;Z)Z+10
+y  com.android.dx.cf.direct.ClassPathOpener.processDirectory(Ljava/io/File;Z)Z+64
+y  com.android.dx.cf.direct.ClassPathOpener.processOne(Ljava/io/File;Z)Z+10
+y  com.android.dx.cf.direct.ClassPathOpener.processDirectory(Ljava/io/File;Z)Z+64
+y  com.android.dx.cf.direct.ClassPathOpener.processOne(Ljava/io/File;Z)Z+10
+y  com.android.dx.cf.direct.ClassPathOpener.processDirectory(Ljava/io/File;Z)Z+64
+y  com.android.dx.cf.direct.ClassPathOpener.processOne(Ljava/io/File;Z)Z+10
+y  com.android.dx.cf.direct.ClassPathOpener.process()Z+15
+y  com.android.dx.command.dexer.Main.processOne(Ljava/lang/String;Lcom/android/dx/cf/direct/ClassPathOpener$FileNameFilter;)V+58
+y  com.android.dx.command.dexer.Main.processAllFiles()Z+202
+y  com.android.dx.command.dexer.Main.runMonoDex()I+58
+y  com.android.dx.command.dexer.Main.run(Lcom/android/dx/command/dexer/Main$Arguments;)I+76
+y  com.android.dx.command.dexer.Main.main([Ljava/lang/String;)V+14
+y  com.android.dx.command.Main.main([Ljava/lang/String;)V+61
 v  ~StubRoutines::call_stub
 
 ---------------  P R O C E S S  ---------------

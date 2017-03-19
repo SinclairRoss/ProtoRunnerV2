@@ -57,4 +57,9 @@ public class ParticleEmitter_Ray extends ParticleEmitter
         m_ParticleForward.RotateY(m_Forward.Yaw());
         return m_ParticleForward;
     }
+
+    public void SetLength(double length)
+    {
+        m_Length = length;
+    }
 }

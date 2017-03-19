@@ -7,11 +7,9 @@ import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public abstract class Particle
 {
-    private ParticleType m_ParticleType;
     private Timer m_LifeTimer;
 
     private final double m_DragCoefficient;
-    private final double m_Mass;
 
     protected Vector3 m_Position;
     protected Vector3 m_Velocity;
@@ -23,13 +21,11 @@ public abstract class Particle
     private Colour m_HotColour;
     private Colour m_ColdColour;
 
-    public Particle(ParticleType particleType, double lifeSpan, double fadeIn, double fadeOut)
+    public Particle(double lifeSpan, double fadeIn, double fadeOut)
     {
-        m_ParticleType = particleType;
         m_LifeTimer = new Timer(lifeSpan);
 
-        m_DragCoefficient = 0.9;
-        m_Mass = 1.0;
+        m_DragCoefficient = 5;
 
         m_Position = new Vector3();
         m_Velocity = new Vector3();
@@ -46,7 +42,7 @@ public abstract class Particle
     {
         AdditionalBehaviour(deltaTime);
 
-        ApplyDrag();
+        ApplyDrag(deltaTime);
         UpdatePosition(deltaTime);
 
         UpdateColour();
@@ -55,16 +51,20 @@ public abstract class Particle
 
     protected abstract void AdditionalBehaviour(double deltaTime);
 
-    private void ApplyDrag()
+    private void ApplyDrag(double deltaTime)
     {
-        m_Velocity.Scale(m_DragCoefficient);
+        double drag_x = (m_DragCoefficient * m_Velocity.X);
+        double drag_y = (m_DragCoefficient * m_Velocity.Y);
+        double drag_z = (m_DragCoefficient * m_Velocity.Z);
+
+        ApplyForce(-drag_x, -drag_y, -drag_z, deltaTime);
     }
 
     private void UpdatePosition(double deltaTime)
     {
-        m_Position.I += m_Velocity.I * deltaTime;
-        m_Position.J += m_Velocity.J * deltaTime;
-        m_Position.K += m_Velocity.K * deltaTime;
+        m_Position.X += m_Velocity.X * deltaTime;
+        m_Position.Y += m_Velocity.Y * deltaTime;
+        m_Position.Z += m_Velocity.Z * deltaTime;
     }
 
     private void UpdateColour()
@@ -85,10 +85,12 @@ public abstract class Particle
         {
             alpha = MathsHelper.Normalise(normLifeSpan, 0, m_FadeIn);
         }
-
-        if (normLifeSpan >= m_FadeOut)
+        else
         {
-            alpha = 1.0 - MathsHelper.Normalise(normLifeSpan, m_FadeOut, 1.0);
+            if (normLifeSpan >= m_FadeOut)
+            {
+                alpha = 1.0 - MathsHelper.Normalise(normLifeSpan, m_FadeOut, 1.0);
+            }
         }
 
         m_Colour.Alpha = alpha;
@@ -107,18 +109,14 @@ public abstract class Particle
         m_LifeTimer.Start();
     }
 
-    public void ApplyForce(Vector3 direction, double force)
+    // <----- Forces -----> \\
+    public void ApplyForce(Vector3 force) { ApplyForce(force.X, force.Y, force.Z, 1); }
+    public void ApplyForce(Vector3 force, double deltaTime) { ApplyForce(force.X, force.Y, force.Z, deltaTime); }
+    public void ApplyForce(double force_x, double force_y, double force_z, double deltaTime)
     {
-        m_Velocity.I += (direction.I * force) / m_Mass;
-        m_Velocity.J += (direction.J * force) / m_Mass;
-        m_Velocity.K += (direction.K * force) / m_Mass;
-    }
-
-    public void ApplyForce(Vector3 force)
-    {
-        m_Velocity.I += force.I / m_Mass;
-        m_Velocity.J += force.J / m_Mass;
-        m_Velocity.K += force.K / m_Mass;
+        m_Velocity.X += force_x * deltaTime;
+        m_Velocity.Y += force_y * deltaTime;
+        m_Velocity.Z += force_z * deltaTime;
     }
 
     public void ForceInvalidation()
@@ -141,10 +139,5 @@ public abstract class Particle
     public Colour GetColour()
     {
         return m_Colour;
-    }
-
-    public ParticleType GetType()
-    {
-        return m_ParticleType;
     }
 }

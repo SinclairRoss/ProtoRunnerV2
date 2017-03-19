@@ -1,9 +1,9 @@
 package com.raggamuffin.protorunnerv2.ai;
+
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.BulletManager;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
-import com.raggamuffin.protorunnerv2.weapons.FireControl_MissileCharge;
 
 public class AIController 
 {
@@ -60,8 +60,6 @@ public class AIController
                 return new FireControl_Standard(this);
             case Telegraphed:
                 return new FireControl_Telegraphed(this);
-            case BeamSweep:
-                return new FireControl_BeamSweep(this);
             case LaserSpinner:
                 return new FireControl_LaserSpinner(this);
             case MissileLauncher:
@@ -80,7 +78,7 @@ public class AIController
         m_SituationalAwareness.Update();
 	    m_NavigationControl.SetGoal(m_Behaviour.GetNavigationCoordinates());
         m_NavigationControl.Update();
-        m_EvasionControl.Update(deltaTime);
+        m_EvasionControl.Update();
 		m_FireControl.Update(deltaTime);
 	}
 

@@ -14,17 +14,16 @@ public class MultiplierController
 {
     private enum MultiplierState
     {
-        OK,
-        Stable,
-        Decreasing
+        Okay,
+        Draining
     }
 
     MultiplierState m_MultiplierState;
 
-    private int m_Multiplier;
-
     private Timer m_StartDrainTimer;
-    private Timer m_DrainRateTimer;
+
+    private double m_Multiplier;
+    private double m_DrainRate;
 
     private Publisher m_MultiplierIncreasedPublisher;
     private Publisher m_MultiplierDecreasedPublisher;
@@ -33,12 +32,12 @@ public class MultiplierController
 
     public MultiplierController(GameLogic game)
     {
-        m_MultiplierState = MultiplierState.OK;
+        m_MultiplierState = MultiplierState.Okay;
 
         m_Multiplier = 0;
 
-        m_StartDrainTimer = new Timer(5.0);
-        m_DrainRateTimer = new Timer(0.3);
+        m_StartDrainTimer = new Timer(3.0);
+        m_DrainRate = 10.0;
 
         m_MultiplierIncreasedPublisher = game.GetPubSubHub().CreatePublisher(PublishedTopics.MultiplierIncreased);
         m_MultiplierDecreasedPublisher = game.GetPubSubHub().CreatePublisher(PublishedTopics.MultiplierDecreased);
@@ -50,8 +49,9 @@ public class MultiplierController
     public void Start()
     {
         m_On = true;
+        m_Multiplier = 0;
 
-        StopMultiplierDrain();
+        StartState_Okay();
     }
 
     public void Stop()
@@ -59,79 +59,51 @@ public class MultiplierController
         m_On = false;
 
         m_StartDrainTimer.Stop();
-        m_DrainRateTimer.Stop();
     }
 
-    public void Update()
+    public void Update(double deltaTime)
     {
         if(m_On)
         {
             switch (m_MultiplierState)
             {
-                case OK:
-                {
-                    break;
-                }
-                case Stable:
+                case Okay:
                 {
                     if (m_StartDrainTimer.HasElapsed())
                     {
-                        StartMultiplierDrain();
+                        StartState_Draining();
                     }
                     break;
                 }
-                case Decreasing:
+                case Draining:
                 {
-                    if (m_DrainRateTimer.HasElapsed())
+                    m_Multiplier -= m_DrainRate * deltaTime;
+                    if(m_Multiplier < 0)
                     {
-                        m_DrainRateTimer.Start();
-
-                        if(m_Multiplier > 0)
-                        {
-                            --m_Multiplier;
-
-                            m_MultiplierDecreasedPublisher.Publish();
-                        }
-                        else
-                        {
-                            StopMultiplierDrain();
-                        }
+                        m_Multiplier = 0;
                     }
+
                     break;
                 }
             }
-
-            Log.e("Fuck Cake", m_MultiplierState.toString());
         }
     }
 
-    private void StopMultiplierDrain()
-    {
-        m_StartDrainTimer.Stop();
-        m_DrainRateTimer.Stop();
-
-        m_MultiplierState = MultiplierState.OK;
-    }
-
-    private void StabiliseMultiplierDrain()
+    private void StartState_Okay()
     {
         m_StartDrainTimer.Start();
-        m_DrainRateTimer.Stop();
-
-        m_MultiplierState = MultiplierState.Stable;
+        m_MultiplierState = MultiplierState.Okay;
     }
 
-    private void StartMultiplierDrain()
+    private void StartState_Draining()
     {
-        m_StartDrainTimer.Stop();
-        m_DrainRateTimer.Start();
-
-        m_MultiplierState = MultiplierState.Decreasing;
+        m_MultiplierDecreasedPublisher.Publish();
+        m_MultiplierState = MultiplierState.Draining;
     }
 
     public int GetMultiplier()
     {
-        return m_Multiplier;
+        return (int)m_Multiplier;
     }
 
     private class MultiplierCollectedSubscriber extends Subscriber
@@ -142,7 +114,7 @@ public class MultiplierController
             if(m_On)
             {
                 ++m_Multiplier;
-                StabiliseMultiplierDrain();
+                StartState_Okay();
 
                 m_MultiplierIncreasedPublisher.Publish();
             }

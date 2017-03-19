@@ -15,9 +15,9 @@ public class Vehicle_SweeperBot extends Vehicle
 
     public Vehicle_SweeperBot(GameLogic game)
     {
-        super(game, ModelType.Ring);
+        super(game, ModelType.Ring, 1);
 
-        SetBaseColour(Colours.HannahBlue);
+        SetColour(Colours.HannahBlue);
         SetAffiliation(AffiliationKey.RedTeam);
 
         m_ElapsedTime = 0.0;
@@ -33,7 +33,7 @@ public class Vehicle_SweeperBot extends Vehicle
     {
         m_ElapsedTime += deltaTime * SWEEP_SPEED;
         m_ElapsedTime %= Math.PI * 2;
-        m_Position.SetVector(Math.sin(m_ElapsedTime) * SWEEP_LENGTH, 0, DEPTH);
+        SetPosition(Math.sin(m_ElapsedTime) * SWEEP_LENGTH, 0, DEPTH);
 
         super.Update(deltaTime);
     }

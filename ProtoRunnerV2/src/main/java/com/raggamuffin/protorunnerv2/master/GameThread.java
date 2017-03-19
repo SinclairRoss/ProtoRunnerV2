@@ -4,20 +4,16 @@
 
 package com.raggamuffin.protorunnerv2.master;
 
-import com.raggamuffin.protorunnerv2.gamelogic.ApplicationLogic;
-import com.raggamuffin.protorunnerv2.utils.FrameRateCounter;
-import com.raggamuffin.protorunnerv2.utils.MathsHelper;
-
 import android.os.Handler;
 import android.os.Message;
 
+import com.raggamuffin.protorunnerv2.gamelogic.ApplicationLogic;
+import com.raggamuffin.protorunnerv2.utils.FrameRateCounter;
+import com.raggamuffin.protorunnerv2.utils.MathsHelper;
+import com.raggamuffin.protorunnerv2.utils.Timer;
+
 public class GameThread extends Thread
 {
-	private Long m_StartTime;
-	private Long m_EndTime;
-	private Long m_DeltaTime;
-	private Long m_FrameRate;
-	
 	private boolean m_Running; 
     private boolean m_Paused; 
     
@@ -26,7 +22,9 @@ public class GameThread extends Thread
     private Handler m_Handler;
 
     private FrameRateCounter m_LogicDurationCounter;
-    
+    private Timer m_Timer;
+    private double m_MaxDeltaTime;
+
 	public GameThread(ApplicationLogic logic, ControlScheme scheme, Handler handler)
 	{
 		super();
@@ -34,11 +32,12 @@ public class GameThread extends Thread
 		m_Logic 		= logic;
 		m_ControlScheme = scheme;
 		m_Handler 		= handler;
-		
-		m_StartTime = 0L;
-		m_EndTime 	= 0L;
-		m_DeltaTime = 0L;
-		m_FrameRate = 1000L / 40;
+
+        double framePeriod = 1.0 / 60.0;
+        m_Timer = new Timer(framePeriod);
+        m_Timer.Start();
+
+        m_MaxDeltaTime = framePeriod * 10;
 
 		m_Running = true;
 	    m_Paused = false;
@@ -48,30 +47,24 @@ public class GameThread extends Thread
 	
 	@Override 
     public void run() 
-    { 
-		m_StartTime = System.currentTimeMillis();
-        
+    {
         while(m_Running)
         {
             if (!m_Paused)
             {
-                m_EndTime = m_StartTime;
-                m_StartTime = System.currentTimeMillis();
-                m_DeltaTime += m_StartTime - m_EndTime;
-
-                if (m_DeltaTime >= m_FrameRate)
+                if (m_Timer.HasElapsed())
                 {
-                    m_DeltaTime = MathsHelper.Clamp(m_DeltaTime, 0, m_FrameRate * 2);
+                    double deltaTime = m_Timer.GetRunTimeMillis() * 0.001;
+                    deltaTime = deltaTime > m_MaxDeltaTime ? m_MaxDeltaTime : deltaTime;
 
-                    double deltaTime = ((double) m_DeltaTime) * 0.001;
+                    m_Timer.Start();
 
                     m_ControlScheme.Update(deltaTime);
 
-                    m_LogicDurationCounter.StartFrame();
+                    //m_LogicDurationCounter.StartFrame();
                     m_Logic.Update(deltaTime);
-                    m_LogicDurationCounter.EndFrame();
-                    m_LogicDurationCounter.LogFrameDuration("Logic", 16L);
-                    m_DeltaTime = 0L;
+                   // m_LogicDurationCounter.EndFrame();
+                   // m_LogicDurationCounter.LogFrameDuration("Logic", 16L);
 
                     m_Handler.sendMessage(ComposeMessage(GameActivity.REQUEST_RENDER));
                 }
@@ -97,12 +90,15 @@ public class GameThread extends Thread
     { 
         m_Paused = true; 
         m_Logic.Pause();
+
+        m_Timer.Stop();
     } 
       
     public void resumeThread()
     {
-        m_StartTime = System.currentTimeMillis();
         m_Paused = false;
         m_Logic.Resume();
+
+        m_Timer.Start();
     }
 }

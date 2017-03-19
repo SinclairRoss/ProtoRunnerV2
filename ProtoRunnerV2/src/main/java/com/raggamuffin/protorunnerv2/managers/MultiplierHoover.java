@@ -4,6 +4,7 @@ package com.raggamuffin.protorunnerv2.managers;
 // Date:   17/01/2017
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
+import com.raggamuffin.protorunnerv2.particles.Particle;
 import com.raggamuffin.protorunnerv2.particles.Particle_Multiplier;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
@@ -27,7 +28,7 @@ public class MultiplierHoover
     {
         m_AttractionRange = 10.0;
         m_CollectionRange = 3.0;
-        m_AttractionStrength = 20;
+        m_AttractionStrength = 10;
 
         m_Position = position;
         m_ParticleForceDirection = new Vector3();
@@ -39,17 +40,20 @@ public class MultiplierHoover
 
     public void Update()
     {
-        ArrayList<Particle_Multiplier> particles = m_Game.GetParticleManager().GetMultiplierParticles();
+        ArrayList<Particle> particles = m_Game.GetParticleManager().GetMultiplierParticles();
 
-        for(Particle_Multiplier particle : particles)
+        int numParticles = particles.size();
+        for(int i = 0; i < numParticles; ++i)
         {
+            Particle particle = particles.get(i);
+
             double distanceSqr = Vector3.GetDistanceBetweenSqr(m_Position, particle.GetPosition());
             AttractParticles(particle, distanceSqr);
             CollectParticles(particle, distanceSqr);
         }
     }
 
-    private void AttractParticles(Particle_Multiplier particle, double distanceSqr)
+    private void AttractParticles(Particle particle, double distanceSqr)
     {
         if(distanceSqr < m_AttractionRange * m_AttractionRange)
         {
@@ -60,11 +64,11 @@ public class MultiplierHoover
         }
     }
 
-    private void CollectParticles(Particle_Multiplier particle, double distanceSqr)
+    private void CollectParticles(Particle particle, double distanceSqr)
     {
         if(distanceSqr < m_CollectionRange * m_CollectionRange)
         {
-            particle.Collected();
+            particle.ForceInvalidation();
             MultiplierCollectedPublisher.Publish();
         }
     }

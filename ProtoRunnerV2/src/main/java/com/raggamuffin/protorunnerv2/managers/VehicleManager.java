@@ -2,32 +2,31 @@ package com.raggamuffin.protorunnerv2.managers;
 
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
+import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
+import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.BeeperBot;
+import com.raggamuffin.protorunnerv2.gameobjects.Dummy;
 import com.raggamuffin.protorunnerv2.gameobjects.SpawnEffect;
+import com.raggamuffin.protorunnerv2.gameobjects.TargetBot;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
+import com.raggamuffin.protorunnerv2.gameobjects.VehicleType;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Bit;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Carrier;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Drone;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_LaserStar;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Runner;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_ShieldBearer;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_SweeperBot;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Tank;
-import com.raggamuffin.protorunnerv2.gameobjects.TargetBot;
-import com.raggamuffin.protorunnerv2.gameobjects.VehicleType;
-import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
-import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Bit;
-import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Carrier;
-import com.raggamuffin.protorunnerv2.gameobjects.Dummy;
-import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Runner;
-import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_TentacleController;
-import com.raggamuffin.protorunnerv2.gameobjects.WeaponTestBot;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Wingman;
+import com.raggamuffin.protorunnerv2.gameobjects.WeaponTestBot;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
+
+import java.util.ArrayList;
 
 public class VehicleManager
 {
@@ -67,12 +66,9 @@ public class VehicleManager
         for(int i = 0; i < m_Vehicles.size(); i++)
         {
             Vehicle object = m_Vehicles.get(i);
+			object.Update(deltaTime);
 
-            if(object.IsValid())
-            {
-                object.Update(deltaTime);
-            }
-            else
+            if(!object.IsValid())
             {
                 object.CleanUp();
                 RemoveVehicle(object);
@@ -86,7 +82,7 @@ public class VehicleManager
 	// DOES NOT remove vehicle from m_Vehicles.
 	private void RemoveVehicle(Vehicle object)
 	{		
-		m_Game.RemoveGameObjectFromRenderer(object);
+		m_Game.RemoveObjectFromRenderer(object);
 		GetTeam(object.GetAffiliation()).remove(object);
 		
 		if(object == m_Player)
@@ -153,12 +149,12 @@ public class VehicleManager
         }
 
         spawn.SetPosition(x, 0, z);
-        spawn.SetYaw(orientation);
+		spawn.RotateY(orientation);
         m_Vehicles.add(spawn);
         GetTeam(spawn.GetAffiliation()).add(spawn);
         m_Game.AddObjectToRenderer(spawn);
 
-		SpawnEffect effect = new SpawnEffect(m_Game, spawn.GetBaseColour(), spawn.GetPosition());
+		SpawnEffect effect = new SpawnEffect(spawn.GetColour(), spawn.GetPosition());
         m_Game.GetGameObjectManager().AddObject(effect);
 
         return spawn;
@@ -253,9 +249,14 @@ public class VehicleManager
 	
 	public void Wipe()
 	{
-		for(Vehicle obj : m_Vehicles)
+		for(int i = 0; i < m_Vehicles.size(); ++i)
 		{
-			obj.ForceInvalidation();
+			Vehicle object = m_Vehicles.get(i);
+
+			object.CleanUp();
+			RemoveVehicle(object);
+			m_Vehicles.remove(object);
+			--i;
 		}
 		
         m_PlayerPosition.SetVector(0);

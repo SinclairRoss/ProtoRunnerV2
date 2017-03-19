@@ -12,7 +12,7 @@ public class ParticleEmitter_Burst extends ParticleEmitter
 
     public ParticleEmitter_Burst(GameLogic game, Colour initialColour, Colour finalColour, int emissionCount)
     {
-        super(game, initialColour, finalColour, 60, 2, ParticleType.Standard);
+        super(game, initialColour, finalColour, 60, 3, ParticleType.Standard);
 
         m_EmissionCount = 150;
         m_ParticleForward = new Vector3();

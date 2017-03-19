@@ -84,8 +84,6 @@ public class FireControl_LaserSpinner extends FireControl
 
                 if(m_StartSpinTimer.TimedOut())
                 {
-                    m_Anchor.DisableRoll();
-
                     double turnRate = MathsHelper.RandomBoolean() ? TURN_RATE : - TURN_RATE;
                     m_Anchor.SetTurnRate(turnRate);
                     m_AttackState = AttackState.Attacking;
@@ -111,7 +109,6 @@ public class FireControl_LaserSpinner extends FireControl
                 m_Anchor.GetPrimaryWeapon().CeaseFire();
                 m_Controller.GetNavigationControl().Activate();
                 m_Controller.GetAnchor().SetEngineOutput(1.0);
-                m_Anchor.EnableRoll();
                 m_Anchor.GetPrimaryWeapon().DeactivateComponent();
 
                 m_AttackState = AttackState.Wandering;

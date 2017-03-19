@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="play-services-ads-8.4.0">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.4.0/res" />
-      <root url="jar://$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.4.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/80d02af8f3ffaa25d3f7d38746928011b80cdd25/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/80d02af8f3ffaa25d3f7d38746928011b80cdd25/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

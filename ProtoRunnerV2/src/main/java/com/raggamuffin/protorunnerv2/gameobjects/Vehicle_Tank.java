@@ -11,7 +11,6 @@ import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_PunkShot;
-import com.raggamuffin.protorunnerv2.weapons.Weapon_RailGun;
 
 public class Vehicle_Tank extends Vehicle
 {
@@ -19,22 +18,16 @@ public class Vehicle_Tank extends Vehicle
 	
 	public Vehicle_Tank(GameLogic game)
 	{
-		super(game, ModelType.Byte);
+		super(game, ModelType.Byte, 5);
 
-		m_Mass = 2000;
-
-        m_MaxHullPoints = 300;
+        m_MaxHullPoints = 30;
 		m_HullPoints = m_MaxHullPoints;
 
-		m_BoundingRadius = 2.0;
-
-        SetBaseColour(Colours.IndianRed);
-
-		m_Position.SetVector(10, 0, 10);
+        SetColour(Colours.IndianRed);
 
         m_Engine = new Engine_Standard(this, game);
 		m_Engine.SetMaxTurnRate(1.0);
-		m_Engine.SetMaxEngineOutput(40000);
+		m_Engine.SetMaxEngineOutput(15);
         m_Engine.SetDodgeOutput(0);
 
 		SetAffiliation(AffiliationKey.RedTeam); 

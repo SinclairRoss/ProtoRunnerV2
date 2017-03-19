@@ -264,7 +264,6 @@ public class Shaders
         +   "uniform vec3 u_Up;"
         +   "uniform vec3 u_Right;"
         +   "uniform vec3 u_Scale;"
-        +   "uniform float u_Roll;"
 
         +	"attribute vec4 a_Vertices;"
         +	"attribute vec3 a_Barycentric;"
@@ -280,33 +279,14 @@ public class Shaders
         +   "   model[1] = vec4(u_Up.x, u_Up.y, u_Up.z, 0);"
         +   "   model[2] = vec4(u_Forward.x, u_Forward.y, u_Forward.z, 0);"
         +   "   model[3] = vec4(u_Position.x, u_Position.y, u_Position.z, 1);"
-/*
-        +   "   model[0] = vec4(1, 0, 0, 0);"
-        +   "   model[1] = vec4(0, 1, 0, 0);"
-        +   "   model[2] = vec4(0, 0, 1, 0);"
-        +   "   model[3] = vec4(0, 0, 0, 1);"
-*/
-        +   "   float cosTheta = cos(u_Roll);"
-        +   "   float sinTheta = sin(u_Roll);"
 
-        +   "   mat4 roll;"
-        +   "   roll[0] = vec4(cosTheta, -sinTheta, 0, 0);"
-        +   "   roll[1] = vec4(sinTheta,  cosTheta, 0, 0);"
-        +   "   roll[2] = vec4(0, 0, 1, 0);"
-        +   "   roll[3] = vec4(0, 0, 0, 1);"
-/*
-        +   "   roll[0] = vec4(1, 0, 0, 0);"
-        +   "   roll[1] = vec4(0, 1, 0, 0);"
-        +   "   roll[2] = vec4(0, 0, 1, 0);"
-        +   "   roll[3] = vec4(0, 0, 0, 1);"
-*/
         +   "   mat4 scale;"
         +   "   scale[0] = vec4(u_Scale.x, 0, 0, 0);"
         +   "   scale[1] = vec4(0, u_Scale.y, 0, 0);"
         +   "   scale[2] = vec4(0, 0, u_Scale.z, 0);"
         +   "   scale[3] = vec4(0, 0, 0, 1);"
 
-        +	"	gl_Position = (u_ProjMatrix * (model * roll * scale)) * a_Vertices;"
+        +	"	gl_Position = (u_ProjMatrix * (model * scale)) * a_Vertices;"
         +	"}";
 
     public static final String fragmentShader_WIREFRAME =
@@ -368,7 +348,7 @@ public class Shaders
         + "	    vec4 toEye;"
         + " 	toEye = u_EyePos - a_Position;"
         + "     float distance = length(toEye);"
-        + "	    gl_PointSize = 30.0 * inversesqrt(distance);"
+        + "	    gl_PointSize = 15.0 * inversesqrt(distance);"
 
         +   "   v_Color = a_Color;"
         +	"	gl_Position = u_ProjMatrix * a_Position;"
@@ -398,7 +378,7 @@ public class Shaders
         + "	    vec4 toEye;"
         + " 	toEye = u_EyePos - a_Position;		"
         + "     float distance = length(toEye);	    "
-        + "	    gl_PointSize = 90.0 * inversesqrt(distance);	"
+        + "	    gl_PointSize = 75.0 * inversesqrt(distance);	"
 
         +   "   v_Color = a_Color;"
         +	"	gl_Position = u_ProjMatrix * a_Position;"
@@ -416,7 +396,7 @@ public class Shaders
         +	"	float y = (gl_PointCoord.y * 2.0) - 1.0;"
         +   "   float distSqr = (x * x) + (y * y);"
 
-        +   "   gl_FragColor.a *= float(distSqr < 1.0);"
+        +   "   gl_FragColor.a *= 1.0 - distSqr;"
         + "}";
 
     public static final String vertexShader_SCROLLTEX =

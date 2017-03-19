@@ -13,16 +13,18 @@ public class ProjectileLaserPointer extends GameObject
 
     public ProjectileLaserPointer(GameLogic game, Projectile anchor)
     {
-        super(game, ModelType.LaserPointer);
+        super(ModelType.LaserPointer, 1.0);
 
-        m_Position = anchor.GetPosition();
-        UpdateVectorsWithForward(anchor.GetForward());
-
-        m_Scale.SetVector(0.1, 0.1, 1000);
-        m_Colour.Alpha = 1.0;
         m_Anchor = anchor;
 
-        SetBaseColour(game.GetColourManager().GetDangerColour());
+        SetPositionByRef(anchor.GetPosition());
+
+        SetForward(m_Anchor.GetForward());
+
+        SetScale(0.1, 0.1, 1000);
+        SetAlpha(1.0);
+
+        SetColour(game.GetColourManager().GetDangerColour());
     }
 
     @Override

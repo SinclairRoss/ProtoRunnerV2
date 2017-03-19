@@ -15,5 +15,4 @@ public class AudioEmitter_Point extends AudioEmitter
     {
         return m_Anchor.GetPosition();
     }
-
 }

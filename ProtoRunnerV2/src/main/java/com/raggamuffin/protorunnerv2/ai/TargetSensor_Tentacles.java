@@ -3,10 +3,15 @@ package com.raggamuffin.protorunnerv2.ai;
 // Author: Sinclair Ross
 // Date:   17/09/2016
 
+import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.gameobjects.StatusEffect;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
+import com.raggamuffin.protorunnerv2.renderer.ModelType;
+import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
+
+import java.util.ArrayList;
 
 public class TargetSensor_Tentacles extends TargetSensor
 {
@@ -23,27 +28,27 @@ public class TargetSensor_Tentacles extends TargetSensor
     protected Vehicle FindTarget()
     {
         Vehicle target = null;
-
         Vehicle leader = m_Controller.GetLeader();
 
         if(leader != null)
         {
             if (m_Targets.size() > 0)
             {
-                Vector3 leaderPosition = leader.GetPosition();
                 double distanceToClosestTargetSqr = Double.MAX_VALUE;
 
-                for (Vehicle friendly : m_Targets)
+                int numTargets = m_Targets.size();
+                for(int i = 0; i < numTargets; ++i)
                 {
-                    if (friendly.CanBeTargeted() &&
-                            !friendly.HasStatusEffect(StatusEffect.Shielded) &&
-                                friendly != leader)
-                    {
-                        double distanceToEnemySqr = Vector3.DistanceBetweenSqr(leaderPosition, friendly.GetPosition());
+                    Vehicle friendly = m_Targets.get(i);
 
-                        if (distanceToEnemySqr < distanceToClosestTargetSqr)
+                    if(IsValidTarget(friendly))
+                    {
+                        double distanceToFriendlySqr = Vector3.DistanceBetweenSqr(m_Anchor.GetPosition(), friendly.GetPosition());
+
+                        if(distanceToFriendlySqr < distanceToClosestTargetSqr)
                         {
                             target = friendly;
+                            distanceToClosestTargetSqr = distanceToFriendlySqr;
                         }
                     }
                 }
@@ -51,5 +56,14 @@ public class TargetSensor_Tentacles extends TargetSensor
         }
 
         return target;
+    }
+
+    private boolean IsValidTarget(Vehicle target)
+    {
+        boolean isValidTarget = (target.CanBeTargeted() &&
+                target.GetModel() != ModelType.ShieldBearer &&
+                !target.HasStatusEffect(StatusEffect.Shielded));
+
+        return isValidTarget;
     }
 }

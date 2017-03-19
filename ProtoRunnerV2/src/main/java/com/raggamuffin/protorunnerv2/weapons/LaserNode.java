@@ -27,9 +27,9 @@ public class LaserNode
     {
         if (m_DistanceTravelled < m_Range)
         {
-            m_Position.I += m_Velocity.I * deltaTime;
-            m_Position.J += m_Velocity.J * deltaTime;
-            m_Position.K += m_Velocity.K * deltaTime;
+            m_Position.X += m_Velocity.X * deltaTime;
+            m_Position.Y += m_Velocity.Y * deltaTime;
+            m_Position.Z += m_Velocity.Z * deltaTime;
         }
 
         m_DistanceTravelled += m_Speed * deltaTime;

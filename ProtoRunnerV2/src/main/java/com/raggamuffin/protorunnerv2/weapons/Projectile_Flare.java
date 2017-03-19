@@ -20,16 +20,14 @@ public class Projectile_Flare extends Projectile
 
     public Projectile_Flare(GameLogic game, Vector3 position, Vector3 initialVelocity, Vector3 forward, Colour colour, double baseDamage, AffiliationKey affiliation)
     {
-        super(game, position, initialVelocity, forward, colour, baseDamage, affiliation, ModelType.Nothing);
+        super(position, initialVelocity, forward, colour, baseDamage, affiliation, ModelType.Nothing);
 
         m_LifeSpan = new Timer_Accumulation(5.0);
-        m_DragCoefficient = 0.85;
 
-        m_Mass = 100;
-        ApplyForce(m_Up, 200000);
+       // ApplyForce(m_Up, 200000);
 
-        m_Destination = new Vector3(m_Forward);
-        m_Destination.J = 0.0;
+        m_Destination = new Vector3(GetForward());
+        m_Destination.Y = 0.0;
         m_Destination.Normalise();
         m_Destination.Scale(50.0);
 
@@ -41,13 +39,13 @@ public class Projectile_Flare extends Projectile
     public void Update(double deltaTime)
     {
         m_LifeSpan.Update(deltaTime);
-        m_PointEmitter.SetPosition(m_Position);
+        m_PointEmitter.SetPosition(GetPosition());
         m_PointEmitter.Update(deltaTime);
 
-        m_Forward.Add(m_Destination);
-        m_Forward.Normalise();
+        GetForward().Add(m_Destination);
+        GetForward().Normalise();
 
-        ApplyForce(m_Forward, 12000);
+        ApplyForce(GetForward(), 12000);
 
         super.Update(deltaTime);
     }
@@ -60,7 +58,7 @@ public class Projectile_Flare extends Projectile
             return false;
         }
 
-        return super.IsValid();
+        return true;
     }
 
     @Override

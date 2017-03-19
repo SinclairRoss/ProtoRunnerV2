@@ -3,7 +3,6 @@ package com.raggamuffin.protorunnerv2.renderer;
 import android.opengl.GLES20;
 import android.util.Log;
 
-import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
@@ -76,7 +75,7 @@ public class GLModel_HorizonRing
 
     public void Draw(Vector3 position, Colour colour)
     {
-        GLES20.glUniform3f(m_PositionHandle, (float) position.I, (float) position.J, (float) position.K);
+        GLES20.glUniform3f(m_PositionHandle, (float) position.X, (float) position.Y, (float) position.Z);
         GLES20.glUniform4f(m_ColourHandle, (float) colour.Red, (float) colour.Green, (float) colour.Blue, (float) colour.Alpha);
         GLES20.glDrawArrays(GLES20.GL_LINE_LOOP, 0, m_NumVertices);
     }

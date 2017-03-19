@@ -3,7 +3,6 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 // Author: Sinclair Ross
 // Date:   17/08/2016
 
-import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 
@@ -15,12 +14,13 @@ public class Shield extends GameObject
     protected double m_NormalisedScale;
     private double m_GrowthRate;
     private Vehicle m_Target;
-    private GameObject m_Anchor;
+    private Vehicle m_Anchor;
 
-    public Shield(GameLogic game, GameObject anchor)
+    public Shield(Vehicle anchor)
     {
-        super(game, ModelType.Shield);
-        m_Scale.SetVector(0);
+        super(ModelType.Shield, anchor.GetBoundingRadius());
+
+        SetScale(0);
 
         m_TargetScale = 1.0;
         m_NormalisedScale = 0.0;
@@ -32,7 +32,7 @@ public class Shield extends GameObject
 
     public void AttachToObject(Vehicle object)
     {
-        m_Colour = object.GetColour();
+        SetColour(object.GetColour());
         m_TargetScale = object.GetBoundingRadius() * 1.5;
         m_GrowthRate = GROWTH_RATE;
 
@@ -51,26 +51,21 @@ public class Shield extends GameObject
         }
     }
 
-    public boolean IsDetached()
-    {
-        return m_NormalisedScale <= 0 && m_GrowthRate < 0;
-    }
-
     @Override
     public void Update(double deltaTime)
     {
-        m_Position.SetVector(m_Anchor.GetPosition());
+        SetPosition(m_Anchor.GetPosition());
 
         m_NormalisedScale += m_GrowthRate * deltaTime;
         m_NormalisedScale = MathsHelper.Clamp(m_NormalisedScale, 0, 1);
 
         double horizontalScale = MathsHelper.Lerp(m_NormalisedScale, 0, m_TargetScale);
         double verticalScale = horizontalScale;
-        m_Scale.SetVector(horizontalScale, verticalScale, horizontalScale);
+        SetScale(horizontalScale, verticalScale, horizontalScale);
 
         if(m_Target != null)
         {
-            this.UpdateVectorsWithForward(m_Target.GetForward());
+            SetForward(m_Target.GetForward());
         }
     }
 

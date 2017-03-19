@@ -1,11 +1,11 @@
 package com.raggamuffin.protorunnerv2.renderer;
 
-import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
-import com.raggamuffin.protorunnerv2.utils.Vector3;
-
 import android.opengl.GLES20;
 import android.opengl.Matrix;
 import android.util.Log;
+
+import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
+import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class GLCamera 
 {
@@ -34,12 +34,12 @@ public class GLCamera
 		m_Near = 1.0f;
 		m_Far = 10000.0f;
 		
-		Matrix.setLookAtM(m_VMatrix, 0,   (float)m_Position.I, (float)m_Position.J, (float)m_Position.K,   (float)m_LookAt.I, (float)m_LookAt.J, (float)m_LookAt.K,  (float) m_Up.I,(float)m_Up.J, (float)m_Up.K);
+		Matrix.setLookAtM(m_VMatrix, 0,   (float)m_Position.X, (float)m_Position.Y, (float)m_Position.Z,   (float)m_LookAt.X, (float)m_LookAt.Y, (float)m_LookAt.Z,  (float) m_Up.X,(float)m_Up.Y, (float)m_Up.Z);
 	}
 	
 	public void Update()
 	{
-		Matrix.setLookAtM(m_VMatrix, 0,   (float)m_Position.I, (float)m_Position.J, (float)m_Position.K,   (float)m_LookAt.I, (float)m_LookAt.J, (float)m_LookAt.K,  (float) m_Up.I,(float)m_Up.J, (float)m_Up.K);
+		Matrix.setLookAtM(m_VMatrix, 0,   (float)m_Position.X, (float)m_Position.Y, (float)m_Position.Z,   (float)m_LookAt.X, (float)m_LookAt.Y, (float)m_LookAt.Z,  (float) m_Up.X,(float)m_Up.Y, (float)m_Up.Z);
 	}
 	
 	public void ViewPortChanged(int width, int height)
@@ -51,7 +51,7 @@ public class GLCamera
 
         // this projection matrix is applied to object coordinates
         // in the onDrawFrame() method
-        Matrix.frustumM(m_ProjMatrix, 0, -ratio, ratio, -1, 1, m_Near, m_Far);
+        Matrix.frustumM(m_ProjMatrix, 0, ratio, -ratio, -1, 1, m_Near, m_Far);
 	}
 	
 	public Vector3 GetPosition()

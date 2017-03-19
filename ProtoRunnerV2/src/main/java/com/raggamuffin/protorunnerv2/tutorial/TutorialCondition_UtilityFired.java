@@ -3,7 +3,6 @@ package com.raggamuffin.protorunnerv2.tutorial;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Runner;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
-import com.raggamuffin.protorunnerv2.weapons.WeaponSlot;
 
 public class TutorialCondition_UtilityFired extends TutorialCondition
 {

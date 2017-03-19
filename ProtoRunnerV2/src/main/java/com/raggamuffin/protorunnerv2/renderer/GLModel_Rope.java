@@ -4,9 +4,10 @@ package com.raggamuffin.protorunnerv2.renderer;
 // Date:   21/06/2016
 
 import android.opengl.GLES20;
-import android.util.Log;
 
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
+import com.raggamuffin.protorunnerv2.gameobjects.Tentacle;
+import com.raggamuffin.protorunnerv2.particles.RopeNode;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
@@ -32,11 +33,14 @@ public class GLModel_Rope extends GLModel
     private int m_ColdColourHandle;
     private int m_ColourBloomPointHandle;
 
-    private ArrayList<Vector3> m_TrailPoints;
-    private ArrayList<Double> m_NormalisedLengths;
-    private ArrayList<Double> m_AlphaPoints;
+    private final int m_RopeResolution;
+    private int m_NodeIndex;
+    private float[] m_Vertices;
+    private float[] m_Lengths;
+    private float[] m_AlphaVals;
 
     private Vector3 m_EyePos;
+    private Vector3 m_RopeEndPoint;
 
     public GLModel_Rope()
     {
@@ -50,11 +54,27 @@ public class GLModel_Rope extends GLModel
         m_ColdColourHandle = 0;
         m_ColourBloomPointHandle = 0;
 
-        m_TrailPoints = new ArrayList<>();
-        m_NormalisedLengths = new ArrayList<>();
-        m_AlphaPoints = new ArrayList<>();
+        m_RopeResolution = Tentacle.ROPE_RESOLUTION;
+        m_NodeIndex = 0;
+
+        ByteBuffer byteBuffer_Vertex = ByteBuffer.allocateDirect(m_RopeResolution * 12);
+        byteBuffer_Vertex.order(ByteOrder.nativeOrder());
+        m_VertexBuffer = byteBuffer_Vertex.asFloatBuffer();
+
+        ByteBuffer byteBuffer_Length = ByteBuffer.allocateDirect(m_RopeResolution * 4);
+        byteBuffer_Length.order(ByteOrder.nativeOrder());
+        m_LengthBuffer = byteBuffer_Length.asFloatBuffer();
+
+        ByteBuffer byteBuffer_Alpha = ByteBuffer.allocateDirect(m_RopeResolution * 4);
+        byteBuffer_Alpha.order(ByteOrder.nativeOrder());
+        m_AlphaBuffer = byteBuffer_Alpha.asFloatBuffer();
+
+        m_Vertices = new float[m_RopeResolution * 3];
+        m_Lengths = new float[m_RopeResolution];
+        m_AlphaVals = new float[m_RopeResolution];
 
         m_EyePos = new Vector3();
+        m_RopeEndPoint = new Vector3();
 
         InitShaders();
     }
@@ -73,17 +93,26 @@ public class GLModel_Rope extends GLModel
     public void Draw(GameObject obj)
     {}
 
-    public void AddPoint(Vector3 position, double normalisedLength, double alpha)
+    public void AddPoint(RopeNode node)
     {
-        m_TrailPoints.add(position);
-        m_NormalisedLengths.add(normalisedLength);
-        m_AlphaPoints.add(alpha);
+        m_Vertices[m_NodeIndex*3] = (float)node.GetPosition().X;
+        m_Vertices[m_NodeIndex*3+1] = (float)node.GetPosition().Y;
+        m_Vertices[m_NodeIndex*3+2] = (float)node.GetPosition().Z;
+
+        m_Lengths[m_NodeIndex] = (float)node.GetNormalisedLength();
+        m_AlphaVals[m_NodeIndex] = (float)node.GetAlpha();
+
+        ++m_NodeIndex;
     }
 
     public void Draw(Colour coldColour, Colour hotColour, double bloomPoint)
     {
-        Vector3 endPoint =  m_TrailPoints.get(m_TrailPoints.size() - 1);
-        float dist = (float)Vector3.GetDistanceBetween(m_EyePos, endPoint);
+        double x = m_Vertices[m_Vertices.length - 3];
+        double y = m_Vertices[m_Vertices.length - 2];
+        double z = m_Vertices[m_Vertices.length - 1];
+
+        m_RopeEndPoint.SetVector(x, y, z);
+        float dist = (float)Vector3.GetDistanceBetween(m_EyePos, m_RopeEndPoint);
 
         GLES20.glLineWidth((float) (40 * MathsHelper.FastInverseSqrt(dist)));
 
@@ -91,54 +120,26 @@ public class GLModel_Rope extends GLModel
         GLES20.glUniform4f(m_HotColourHandle, (float) hotColour.Red, (float) hotColour.Green, (float) hotColour.Blue, (float) hotColour.Alpha);
         GLES20.glUniform1f(m_ColourBloomPointHandle, (float)bloomPoint);
 
-        int numPoints = m_TrailPoints.size();
-        float[] vertices = new float[numPoints * 3];
-        float[] lengths = new float[numPoints];
-        float[] alphaVals = new float[numPoints];
-
-        for(int i = 0; i < numPoints; i++)
-        {
-            Vector3 pos     = m_TrailPoints.get(i);
-            vertices[i*3]   = (float)pos.I;
-            vertices[i*3+1] = (float)pos.J;
-            vertices[i*3+2] = (float)pos.K;
-
-            lengths[i] = m_NormalisedLengths.get(i).floatValue();
-            alphaVals[i] = m_AlphaPoints.get(i).floatValue();
-        }
-
-        ByteBuffer vb = ByteBuffer.allocateDirect(numPoints * 12);
-        vb.order(ByteOrder.nativeOrder());
-        m_VertexBuffer = vb.asFloatBuffer();
-        m_VertexBuffer.put(vertices);
+        m_VertexBuffer.put(m_Vertices);
         m_VertexBuffer.position(0);
 
         GLES20.glEnableVertexAttribArray(m_PositionHandle);
         GLES20.glVertexAttribPointer(m_PositionHandle, 3, GLES20.GL_FLOAT, false, 12, m_VertexBuffer);
 
-        ByteBuffer lb = ByteBuffer.allocateDirect(numPoints * 4);
-        lb.order(ByteOrder.nativeOrder());
-        m_LengthBuffer = lb.asFloatBuffer();
-        m_LengthBuffer.put(lengths);
+        m_LengthBuffer.put(m_Lengths);
         m_LengthBuffer.position(0);
 
         GLES20.glEnableVertexAttribArray(m_NormalisedLengthHandle);
         GLES20.glVertexAttribPointer(m_NormalisedLengthHandle, 1, GLES20.GL_FLOAT, false, 4, m_LengthBuffer);
 
-        ByteBuffer ab = ByteBuffer.allocateDirect(numPoints * 4);
-        ab.order(ByteOrder.nativeOrder());
-        m_AlphaBuffer = ab.asFloatBuffer();
-        m_AlphaBuffer.put(alphaVals);
+        m_AlphaBuffer.put(m_AlphaVals);
         m_AlphaBuffer.position(0);
 
         GLES20.glEnableVertexAttribArray(m_AlphaHandle);
         GLES20.glVertexAttribPointer(m_AlphaHandle, 1, GLES20.GL_FLOAT, false, 4, m_AlphaBuffer);
 
-        GLES20.glDrawArrays(GLES20.GL_LINE_STRIP, 0, numPoints);
-
-        m_TrailPoints.clear();
-        m_NormalisedLengths.clear();
-        m_AlphaPoints.clear();
+        GLES20.glDrawArrays(GLES20.GL_LINE_STRIP, 0, Tentacle.ROPE_RESOLUTION);
+        m_NodeIndex = 0;
     }
 
     @Override
@@ -166,6 +167,5 @@ public class GLModel_Rope extends GLModel
         m_PositionHandle = GLES20.glGetAttribLocation(m_Program, "a_Position");
         m_NormalisedLengthHandle = GLES20.glGetAttribLocation(m_Program, "a_NormalisedLength");
         m_AlphaHandle = GLES20.glGetAttribLocation(m_Program, "a_Alpha");
-
     }
 }

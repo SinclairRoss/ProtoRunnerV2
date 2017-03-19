@@ -1,7 +1,5 @@
 package com.raggamuffin.protorunnerv2.gamelogic;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
@@ -10,14 +8,6 @@ import com.raggamuffin.protorunnerv2.gameobjects.ExhibitionCameraAnchor;
 import com.raggamuffin.protorunnerv2.gameobjects.FloorGrid;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.gameobjects.Tentacle;
-import com.raggamuffin.protorunnerv2.managers.GameManager_Test;
-import com.raggamuffin.protorunnerv2.managers.GameObjectManager;
-import com.raggamuffin.protorunnerv2.managers.MultiplierPopperController;
-import com.raggamuffin.protorunnerv2.managers.RopeManager;
-import com.raggamuffin.protorunnerv2.managers.InGameSoundEffectsManager;
-import com.raggamuffin.protorunnerv2.particles.Particle_Multiplier;
-import com.raggamuffin.protorunnerv2.particles.Particle_Standard;
-import com.raggamuffin.protorunnerv2.particles.TrailNode;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.BulletManager;
 import com.raggamuffin.protorunnerv2.managers.ColourManager;
@@ -25,15 +15,24 @@ import com.raggamuffin.protorunnerv2.managers.DatabaseManager;
 import com.raggamuffin.protorunnerv2.managers.GameManager;
 import com.raggamuffin.protorunnerv2.managers.GameManager_Exhibition;
 import com.raggamuffin.protorunnerv2.managers.GameManager_Play;
+import com.raggamuffin.protorunnerv2.managers.GameManager_Test;
+import com.raggamuffin.protorunnerv2.managers.GameManager_Tutorial;
 import com.raggamuffin.protorunnerv2.managers.GameMode;
+import com.raggamuffin.protorunnerv2.managers.GameObjectManager;
+import com.raggamuffin.protorunnerv2.managers.GooglePlayService;
+import com.raggamuffin.protorunnerv2.managers.InGameSoundEffectsManager;
+import com.raggamuffin.protorunnerv2.managers.MultiplierPopperController;
 import com.raggamuffin.protorunnerv2.managers.ParticleManager;
 import com.raggamuffin.protorunnerv2.managers.RenderEffectManager;
-import com.raggamuffin.protorunnerv2.managers.GameManager_Tutorial;
+import com.raggamuffin.protorunnerv2.managers.RopeManager;
+import com.raggamuffin.protorunnerv2.managers.TrailManager;
 import com.raggamuffin.protorunnerv2.managers.UIManager;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.master.ControlScheme;
-import com.raggamuffin.protorunnerv2.managers.GooglePlayService;
 import com.raggamuffin.protorunnerv2.master.RendererPacket;
+import com.raggamuffin.protorunnerv2.particles.Particle;
+import com.raggamuffin.protorunnerv2.particles.ParticleType;
+import com.raggamuffin.protorunnerv2.particles.Trail;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
@@ -42,6 +41,8 @@ import com.raggamuffin.protorunnerv2.ui.UIElement;
 import com.raggamuffin.protorunnerv2.ui.UIScreens;
 import com.raggamuffin.protorunnerv2.utils.CollisionReport;
 import com.raggamuffin.protorunnerv2.weapons.Projectile;
+
+import java.util.ArrayList;
 
 public class GameLogic extends ApplicationLogic
 {
@@ -59,6 +60,7 @@ public class GameLogic extends ApplicationLogic
 	private VehicleManager m_VehicleManager;
     private GameObjectManager m_GameObjectManager;
     private RopeManager m_RopeManager;
+    private TrailManager m_TrailManager;
 	private UIManager m_UIManager;
 	private RenderEffectManager m_RenderEffectManager;
 	private GameStats m_GameStats;
@@ -96,6 +98,7 @@ public class GameLogic extends ApplicationLogic
 		m_VehicleManager = new VehicleManager(this);
         m_GameObjectManager = new GameObjectManager(this);
         m_RopeManager = new RopeManager(this);
+        m_TrailManager = new TrailManager(this);
 		m_UIManager = new UIManager(this);
 		m_GameStats = new GameStats(this);
 		m_SecondWindHandler	= new SecondWindHandler(this);
@@ -104,7 +107,7 @@ public class GameLogic extends ApplicationLogic
         m_PopperController = new MultiplierPopperController(this);
         m_PopperController.Off();
 
-        m_CameraAnchor = new ExhibitionCameraAnchor(this);
+        m_CameraAnchor = new ExhibitionCameraAnchor();
         AttachCameraToAnchor();
         m_Camera.SetInPlace();
 
@@ -137,10 +140,11 @@ public class GameLogic extends ApplicationLogic
         m_GameManager.Update(deltaTime);
 		m_UIManager.Update(deltaTime);
 		m_ParticleManager.Update(deltaTime);
-		m_BulletManager.Update(deltaTime);
 		m_VehicleManager.Update(deltaTime);
+        m_BulletManager.Update(deltaTime);
         m_GameObjectManager.Update(deltaTime);
         m_RopeManager.Update(deltaTime);
+        m_TrailManager.Update();
 		m_RenderEffectManager.Update(deltaTime);
 		m_SecondWindHandler.Update(deltaTime);
         m_GameStats.Update(deltaTime);
@@ -160,8 +164,11 @@ public class GameLogic extends ApplicationLogic
             Projectile projectile = projectiles.get(i);
 		    ArrayList<Vehicle> vehicles = m_VehicleManager.GetVehicles();
 
-		    for(Vehicle vehicle : vehicles)
+            int numVehicles = vehicles.size();
+            for(int j = 0; j < numVehicles; ++j)
 		    {
+                Vehicle vehicle = vehicles.get(j);
+
                 // Prevent friendly fire.
                 if (vehicle.GetAffiliation() != projectile.GetAffiliation())
                 {
@@ -202,77 +209,23 @@ public class GameLogic extends ApplicationLogic
         m_GameManager.Initialise();
     }
 
-    public void AddTrailToRenderer(TrailNode point)
-    {
-        m_Packet.AddObject(point);
-    }
+    public void AddObjectToRenderer(Trail trail) { m_Packet.AddObject(trail); }
+    public void RemoveObjectFromRenderer(Trail trail) { m_Packet.RemoveObject(trail); }
 
-    public void AddRopeToRenderer(Tentacle tentacle)
-    {
-        m_Packet.AddObject(tentacle);
-    }
+    public void AddRopeToRenderer(Tentacle tentacle) { m_Packet.AddObject(tentacle); }
+    public void RemoveRopeFromRenderer(Tentacle tentacle) { m_Packet.RemoveObject(tentacle); }
 
-    public void RemoveTrailFromRenderer(TrailNode point)
-    {
-        m_Packet.RemoveObject(point);
-    }
+    public void AddParticleToRenderer(ArrayList<Particle> particles, ParticleType type) { m_Packet.AddObject(particles, type); }
+    public void RemoveParticleFromRenderer(ArrayList<Particle> particles, ParticleType type) { m_Packet.RemoveObject(particles, type); }
 
-    public void RemoveRopeFromRenderer(Tentacle tentacle)
-    {
-        m_Packet.RemoveObject(tentacle);
-    }
+    public void AddObjectToRenderer(FloorGrid floorGrid) { m_Packet.AddObject(floorGrid);}
+    public void RemoveObjectFromRenderer(FloorGrid floorGrid) { m_Packet.RemoveObject(floorGrid); }
 
-    public void AddParticleToRenderer(Particle_Standard particle)
-    {
-        m_Packet.AddObject(particle);
-    }
+    public void AddObjectToRenderer(GameObject obj) { m_Packet.AddObject(obj); }
+    public void RemoveObjectFromRenderer(GameObject obj) { m_Packet.RemoveObject(obj); }
 
-    public void RemoveParticleFromRenderer(Particle_Standard particle)
-    {
-        m_Packet.RemoveObject(particle);
-    }
-
-    public void AddParticleToRenderer(Particle_Multiplier particle)
-    {
-        m_Packet.AddObject(particle);
-    }
-
-    public void RemoveParticleFromRenderer(Particle_Multiplier particle)
-    {
-        m_Packet.RemoveObject(particle);
-    }
-
-    // Adds a game object and all children of the game object to the renderer.
-	public void AddObjectToRenderer(GameObject obj)
-	{
-        m_Packet.AddObject(obj);
-	}
-
-    public void AddObjectToRenderer(FloorGrid floorGrid)
-    {
-        m_Packet.AddObject(floorGrid);
-    }
-
-	// Removes a game object and all of its children from the renderer.
-	public void RemoveGameObjectFromRenderer(GameObject obj)
-	{
-        m_Packet.RemoveObject(obj);
-	}
-
-	public void AddObjectToRenderer(UIElement element)
-	{
-		 m_Packet.AddUIElement(element);
-	}
-	
-	public void RemoveObjectFromRenderer(UIElement element)
-	{
-        m_Packet.RemoveUIElement(element);
-	}
-
-    public void RemoveObjectFromRenderer(FloorGrid floorGrid)
-    {
-        m_Packet.RemoveObject(floorGrid);
-    }
+    public void AddObjectToRenderer(UIElement element) { m_Packet.AddUIElement(element); }
+	public void RemoveObjectFromRenderer(UIElement element) { m_Packet.RemoveUIElement(element); }
 
 	public PubSubHub GetPubSubHub()
 	{
@@ -320,50 +273,17 @@ public class GameLogic extends ApplicationLogic
         return m_PopperController;
     }
 
-    public RopeManager GetRopeManager()
-    {
-        return m_RopeManager;
-    }
+    public RopeManager GetRopeManager() { return m_RopeManager; }
+    public TrailManager GetTrailManager() { return m_TrailManager; }
 	
-	public GameAudioManager GetGameAudioManager()
-	{
-		return m_GameAudioManager;
-	}
-
-	public UIManager GetUIManager()
-	{
-		return m_UIManager;
-	}
-	
-	public GameStats GetGameStats()
-	{
-		return m_GameStats;
-	}
-	
-	public SecondWindHandler GetSecondWindHandler()
-	{
-		return m_SecondWindHandler;
-	}
-	
-	public DatabaseManager GetDatabaseManager()
-	{
-		return m_DatabaseManager;
-	}
-
-    public GameManager_Tutorial GetTutorial()
-    {
-        return m_TutorialManager;
-    }
-
-    public ColourManager GetColourManager()
-    {
-        return m_ColourManager;
-    }
-
-    public GooglePlayService GetGooglePlayService()
-    {
-        return m_GooglePlayService;
-    }
+	public GameAudioManager GetGameAudioManager() { return m_GameAudioManager; }
+	public UIManager GetUIManager() { return m_UIManager; }
+	public GameStats GetGameStats() { return m_GameStats; }
+	public SecondWindHandler GetSecondWindHandler() { return m_SecondWindHandler; }
+	public DatabaseManager GetDatabaseManager() { return m_DatabaseManager; }
+    public GameManager_Tutorial GetTutorial() { return m_TutorialManager; }
+    public ColourManager GetColourManager() { return m_ColourManager; }
+    public GooglePlayService GetGooglePlayService() { return m_GooglePlayService; }
 
     public void SaveScores()
     {

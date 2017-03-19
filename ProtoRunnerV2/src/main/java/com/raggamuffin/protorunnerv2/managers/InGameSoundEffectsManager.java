@@ -1,7 +1,5 @@
 package com.raggamuffin.protorunnerv2.managers;
 
-import android.util.Log;
-
 import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;

@@ -1,14 +1,14 @@
 package com.raggamuffin.protorunnerv2.renderer;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
+import android.opengl.GLES20;
 
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
-import android.opengl.GLES20;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
 
 public class GLTextQuad extends GLModel
 {
@@ -30,37 +30,35 @@ public class GLTextQuad extends GLModel
     private float[] m_Offset;
 
     static final int COORDS_PER_VERTEX = 3;
-    static final int VERTEX_STRIDE = COORDS_PER_VERTEX * 4;	// 4 Bytes to a float.
 
     // Origin is the bottom left.
     static float VertexCoords[] =
-            {
-                    // BOTTOM.
-                    0.0f,	 1.0f,	 0.0f, // A
-                    0.0f,	 0.0f,	 0.0f, // B
-                    1.0f,	 0.0f,	 0.0f, // C
+    {
+            // BOTTOM.
+            0.0f,	 1.0f,	 0.0f, // A
+            0.0f,	 0.0f,	 0.0f, // B
+            1.0f,	 0.0f,	 0.0f, // C
 
-                    0.0f,	 1.0f,	 0.0f, // A
-                    1.0f,	 0.0f,	 0.0f, // C
-                    1.0f,	 1.0f,	 0.0f // D
-            };
+            0.0f,	 1.0f,	 0.0f, // A
+            1.0f,	 0.0f,	 0.0f, // C
+            1.0f,	 1.0f,	 0.0f // D
+    };
 
     private final int vertexCount = VertexCoords.length / COORDS_PER_VERTEX;
 
     static final int TEX_COORDS_PER_VERTEX = 2;
-    static final int TEX_STRIDE = TEX_COORDS_PER_VERTEX * 4;	// 4 Bytes to a float.
 
     // 0.0625 is the size of one cell in the text sprite sheet.
     static float TextureCoords[] =
-            {
-                    0.0f,	 0.0f, 		// A
-                    0.0f,	 0.0625f, 	// B
-                    0.0625f, 0.0625f, 	// C
+    {
+            0.0f,	 0.0f, 		// A
+            0.0f,	 0.0625f, 	// B
+            0.0625f, 0.0625f, 	// C
 
-                    0.0f,	  0.0f, 	// A
-                    0.0625f,  0.0625f,  // C
-                    0.0625f,  0.0f 		// D
-            };
+            0.0f,	  0.0f, 	// A
+            0.0625f,  0.0625f,  // C
+            0.0625f,  0.0f 		// D
+    };
 
     public GLTextQuad()
     {
@@ -163,9 +161,7 @@ public class GLTextQuad extends GLModel
 
     @Override
     public void Draw(GameObject obj)
-    {
-
-    }
+    {}
 
     @Override
     public void CleanModel()

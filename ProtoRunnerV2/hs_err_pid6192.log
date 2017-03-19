@@ -83,7 +83,7 @@ R15=0x0000000001e8f000 is a thread
 
 
 Stack: [0x0000000001fc0000,0x00000000020c0000],  sp=0x00000000020bf0d0,  free space=1020k
-Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+Native frames: (J=compiled Java code, y=interpreted, Vv=VM code, C=native code)
 J  com.android.dx.dex.code.OutputFinisher.addConstants(Ljava/util/HashSet;Lcom/android/dx/dex/code/DalvInsn;)V
 
 [error occurred during error reporting (printing native stack), id 0xc0000005]

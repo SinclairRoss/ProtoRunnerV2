@@ -1,12 +1,12 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
-import java.util.ArrayList;
-
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.CollisionDetection;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
+
+import java.util.ArrayList;
 
 public class Radar extends GameObject
 {
@@ -26,7 +26,7 @@ public class Radar extends GameObject
 
 	public Radar(Vehicle anchor, GameLogic game)
 	{
-		super(game, ModelType.Nothing);
+		super(ModelType.Nothing, 0.0);
 
 		m_RadarFragments = new ArrayList<>();
 		m_Vehicles = game.GetVehicleManager().GetVehicles();
@@ -51,7 +51,7 @@ public class Radar extends GameObject
 				fragment.SetScale(FRAGMENT_SCALE);
 				
 				m_RadarFragments.add(fragment);
-				AddObjectToGameObjectManager(fragment);
+                game.GetGameObjectManager().AddObject(fragment);
 			}
 		}
 	}
@@ -59,7 +59,7 @@ public class Radar extends GameObject
 	@Override
 	public void Update(double deltaTime)
 	{
-        m_Position.SetVector(m_Anchor.GetPosition());
+        SetPosition(m_Anchor.GetPosition());
 
 		super.Update(deltaTime);
 
@@ -70,35 +70,42 @@ public class Radar extends GameObject
 
     private void ResetRadar()
     {
-        for(RadarFragment fragment : m_RadarFragments)
+        int numFragments = m_RadarFragments.size();
+        for(int i = 0; i < numFragments; ++i)
         {
-            fragment.GetPosition().I = m_Position.I;
-            fragment.GetPosition().K = m_Position.K;
+            RadarFragment fragment = m_RadarFragments.get(i);
+
+            Vector3 fragmentPosition = fragment.GetPosition();
+            fragmentPosition.X = GetPosition().X;
+            fragmentPosition.Z = GetPosition().Z;
             fragment.Reset();
         }
     }
 
     private void ScanForSignatures()
     {
-        for(Vehicle vehicle : m_Vehicles)
+        int numVehicles = m_Vehicles.size();
+        for(int i = 0; i < numVehicles; ++i)
         {
+            Vehicle vehicle = m_Vehicles.get(i);
             if(vehicle.GetVehicleClass() != VehicleClass.Drone)
             {
-                m_ToVehicle.SetVectorDifference(m_Position, vehicle.GetPosition());
+                m_ToVehicle.SetVectorDifference(GetPosition(), vehicle.GetPosition());
 
                 if (m_ToVehicle.GetLengthSqr() < RANGE * RANGE)  // Is within range.
                 {
                     m_ToVehicle.Scale(1 / RANGE);  // Transform into radar space.
 
-                    for (RadarFragment fragment : m_RadarFragments)
+                    int numFragments = m_RadarFragments.size();
+                    for(int j = 0; j < numFragments; ++j)
                     {
+                        RadarFragment fragment = m_RadarFragments.get(j);
+
                         if (fragment.GetRadarSignature() != RadarSignatureType.Friendly) // Ensures friendly signatures take priority.
                         {
                             if (CollisionDetection.RadarDetection(fragment.GetNormalisedRadarPosition(), m_ToVehicle, NORMALISED_FRAGMENT_SIZE))
                             {
                                 fragment.SetSignatureType(GetSignatureType(vehicle));
-                                fragment.HeatUp();
-
                                 break;
                             }
                         }
@@ -110,8 +117,10 @@ public class Radar extends GameObject
 
     private void UpdateFragments(double deltaTime)
     {
-        for(RadarFragment fragment : m_RadarFragments)
+        int numFragments = m_RadarFragments.size();
+        for(int i = 0; i < numFragments; ++i)
         {
+            RadarFragment fragment = m_RadarFragments.get(i);
             fragment.Update(deltaTime);
         }
     }
@@ -142,8 +151,10 @@ public class Radar extends GameObject
     @Override
     public void CleanUp()
     {
-        for(RadarFragment fragment : m_RadarFragments)
+        int numFragments = m_RadarFragments.size();
+        for(int i = 0; i < numFragments; ++i)
         {
+            RadarFragment fragment = m_RadarFragments.get(i);
             fragment.ForceInvalidation();
         }
     }

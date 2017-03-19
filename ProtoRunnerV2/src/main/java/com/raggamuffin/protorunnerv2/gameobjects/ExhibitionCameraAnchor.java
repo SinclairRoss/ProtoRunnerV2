@@ -1,26 +1,25 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
-import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
+import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class ExhibitionCameraAnchor extends GameObject
 {
-	public ExhibitionCameraAnchor(GameLogic game)
+	public ExhibitionCameraAnchor()
 	{
-		super(game, ModelType.Nothing);
-		
-		m_Position.SetVector(0.0, 40.0, 0.0);
-		m_Forward.SetVector(0.0,  -1.0, 0.0);
-		m_Up.SetVector(0.0,0.0,1.0);
+        super(ModelType.Nothing, 1.0);
+
+        SetPosition(0, 40, 0);
+        SetOrientationVectorsWithComponents(0, -1, 0,    0, 0, 1,    1,0,0);
 	}
 
-	@Override
-	public boolean IsValid() 
-	{
-		return true;
-	}
+    @Override
+    public boolean IsValid()
+    {
+        return true;
+    }
 
-	@Override
-	public void CleanUp()
-	{}
+    @Override
+    public void CleanUp()
+    {}
 }

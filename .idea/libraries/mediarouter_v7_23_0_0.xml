@@ -1,12 +1,9 @@
 <component name="libraryTable">
   <library name="mediarouter-v7-23.0.0">
-    <ANNOTATIONS>
-      <root url="jar://$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/annotations.zip!/" />
-    </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/jars/libs/internal_impl-23.0.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/ProtoRunnerV2/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/fdb4c33901c363dc5d2efafc1daf8f4fde39e87f/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/fdb4c33901c363dc5d2efafc1daf8f4fde39e87f/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/fdb4c33901c363dc5d2efafc1daf8f4fde39e87f/output/jars/libs/internal_impl-23.0.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

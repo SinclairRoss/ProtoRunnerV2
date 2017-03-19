@@ -155,7 +155,7 @@ public class Vector2
 	
 	public void Output()
 	{
-		Log.e("Vector2", "I: " + I);
-		Log.e("Vector2", "J: " + J);
+		Log.e("Vector2", "X: " + I);
+		Log.e("Vector2", "Y: " + J);
 	}
 }

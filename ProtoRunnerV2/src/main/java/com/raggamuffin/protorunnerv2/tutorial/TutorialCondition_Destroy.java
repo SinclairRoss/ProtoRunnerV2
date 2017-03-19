@@ -57,8 +57,8 @@ public class TutorialCondition_Destroy extends TutorialCondition
             {
                 double distance = 60;
 
-                double x = (Math.cos(theta) * distance) + playerPos.I;
-                double z = (Math.sin(theta) * distance) + playerPos.K;
+                double x = (Math.cos(theta) * distance) + playerPos.X;
+                double z = (Math.sin(theta) * distance) + playerPos.Z;
                 m_Game.GetVehicleManager().SpawnVehicle(VehicleType.TrainingDummy, x, z, 0);
 
                 theta += deltaTheta;

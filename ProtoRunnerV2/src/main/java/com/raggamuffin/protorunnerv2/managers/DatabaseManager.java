@@ -1,5 +1,8 @@
 package com.raggamuffin.protorunnerv2.managers;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+
 import com.raggamuffin.protorunnerv2.data.AutoSignInRow;
 import com.raggamuffin.protorunnerv2.data.AutoSignInTable;
 import com.raggamuffin.protorunnerv2.data.OfflineHighScoreRow;
@@ -8,9 +11,6 @@ import com.raggamuffin.protorunnerv2.data.TableRow;
 import com.raggamuffin.protorunnerv2.data.TutorialOfferedRow;
 import com.raggamuffin.protorunnerv2.data.TutorialOfferedTable;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 

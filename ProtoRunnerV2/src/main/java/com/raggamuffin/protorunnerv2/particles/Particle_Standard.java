@@ -7,7 +7,7 @@ public class Particle_Standard extends Particle
 {
     public Particle_Standard()
     {
-        super(ParticleType.Standard, 5, 0.2, 0.7);
+        super(0.1, 0.2, 0.7);
     }
 
     @Override

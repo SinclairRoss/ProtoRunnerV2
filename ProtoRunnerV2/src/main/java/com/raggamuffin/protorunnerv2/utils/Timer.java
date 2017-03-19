@@ -21,7 +21,7 @@ public class Timer
 
     public void Start()
     {
-        m_StartTime = GetTime();
+        m_StartTime = System.currentTimeMillis();
         m_EndTime = m_StartTime + m_Duration;
 
         m_Active = true;
@@ -40,16 +40,17 @@ public class Timer
     public void ElapseTimer()
     {
         m_EndTime = 0;
+        m_Active = true;
     }
 
     public Boolean HasElapsed()
     {
-        return GetTime() >= m_EndTime && m_Active;
+        return System.currentTimeMillis() >= m_EndTime && m_Active;
     }
 
     public double GetProgress()
     {
-        return MathsHelper.Normalise(GetTime(), m_StartTime, m_EndTime);
+        return MathsHelper.Normalise(System.currentTimeMillis(), m_StartTime, m_EndTime);
     }
 
     public double GetInverseProgress()
@@ -57,8 +58,10 @@ public class Timer
         return 1.0 - GetProgress();
     }
 
-    private double GetTime()
+
+    public double GetRunTimeMillis()
     {
-        return System.currentTimeMillis();
+        double runtime = System.currentTimeMillis() - m_StartTime;
+        return runtime;
     }
 }

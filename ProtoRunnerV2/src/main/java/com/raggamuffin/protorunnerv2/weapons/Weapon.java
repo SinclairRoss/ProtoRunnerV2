@@ -3,8 +3,6 @@
 
 package com.raggamuffin.protorunnerv2.weapons;
 
-import java.util.ArrayList;
-
 import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.audio.AudioEmitter;
 import com.raggamuffin.protorunnerv2.audio.AudioEmitter_Point;
@@ -12,12 +10,13 @@ import com.raggamuffin.protorunnerv2.audio.EAudioRepeatBehaviour;
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
-import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.BulletManager;
 import com.raggamuffin.protorunnerv2.managers.ParticleManager;
+import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
+
+import java.util.ArrayList;
 
 public abstract class Weapon
 {
@@ -126,7 +125,7 @@ public abstract class Weapon
     {
         WeaponBarrel barrel = m_WeaponBarrels.get(m_MuzzleIndex);
         Vector3 out = new Vector3(barrel.GetPosition());
-        out.RotateY(m_Anchor.GetYaw());
+        out.RotateY(m_Anchor.GetForward().Yaw());
         out.Add(m_Anchor.GetPosition());
 
         return out;
@@ -227,12 +226,7 @@ public abstract class Weapon
 
     public Colour GetBaseColour()
     {
-        return m_Anchor.GetAltColour();
-    }
-
-    public Colour GetAltColour()
-    {
-        return m_Anchor.GetBaseColour();
+        return m_Anchor.GetColour();
     }
 
 	public Vector3 GetVelocity()
@@ -250,21 +244,10 @@ public abstract class Weapon
 		return m_Anchor.GetPosition();
 	}
 
-
 	public AffiliationKey GetAffiliation()
 	{
 		return m_Anchor.GetAffiliation();
 	}
-
-	public void AddChild(GameObject obj)
-	{
-		m_Anchor.AddObjectToGameObjectManager(obj);
-	}
-	
-	public double GetOrientation()
-	{
-		return m_Anchor.GetYaw();
-	} 
 	
 	public int GetNumMuzzles()
 	{
@@ -309,6 +292,7 @@ public abstract class Weapon
     public void CleanUp()
     {
         DeactivateComponent();
+        CeaseFire();
         m_WeaponComponent.Destroy();
     }
 }

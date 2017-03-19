@@ -43,9 +43,9 @@ public class ParticleEmitter_HyperLight extends ParticleEmitter
     @Override
     public Vector3 CalculateParticleForward()
     {
-        m_ParticleForward.I = MathsHelper.RandomDouble(-1,1);
-        m_ParticleForward.J = MathsHelper.RandomDouble(-1,1);
-        m_ParticleForward.K = 0.0;
+        m_ParticleForward.X = MathsHelper.RandomDouble(-1,1);
+        m_ParticleForward.Y = MathsHelper.RandomDouble(-1,1);
+        m_ParticleForward.Z = 0.0;
 
         m_ParticleForward.Normalise();
 

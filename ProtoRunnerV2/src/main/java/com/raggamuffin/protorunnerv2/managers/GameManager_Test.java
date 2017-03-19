@@ -4,9 +4,6 @@ package com.raggamuffin.protorunnerv2.managers;
 // Date:   24/09/2016
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
-import com.raggamuffin.protorunnerv2.gameobjects.RenderTester;
-import com.raggamuffin.protorunnerv2.renderer.ModelType;
 
 public class GameManager_Test extends GameManager
 {
@@ -31,9 +28,9 @@ public class GameManager_Test extends GameManager
         {
             for(int y = 0; y < LENGTH; ++y)
             {
-                GameObject obj = new RenderTester(m_Game, ModelType.Runner);
-                obj.SetPosition(x * SPACING, 0, y * SPACING);
-                m_Game.GetGameObjectManager().AddObject(obj);
+                //GameObject obj = new RenderTester(m_Game, ModelType.Runner);
+                //obj.SetPosition(x * SPACING, 0, y * SPACING);
+                //m_Game.GetGameObjectManager().AddObject(obj);
             }
         }
     }

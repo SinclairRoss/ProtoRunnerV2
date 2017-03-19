@@ -4,11 +4,9 @@ import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.BulletManager;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.ui.InGameMessageHandler;
-import com.raggamuffin.protorunnerv2.ui.MessageOrientation;
 import com.raggamuffin.protorunnerv2.ui.UIScreens;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 import com.raggamuffin.protorunnerv2.weapons.Projectile;
-import com.raggamuffin.protorunnerv2.weapons.ProjectileType;
 
 
 public class IncommingMissileAlarm
@@ -45,9 +43,9 @@ public class IncommingMissileAlarm
               //  if (bullet.GetProjectileType() == ProjectileType.Missile)
                 {
                     Vector3 bulletPos = bullet.GetPosition();
-                    double i = bulletPos.I - playerPos.I;
-                    double j = bulletPos.J - playerPos.J;
-                    double k = bulletPos.K - playerPos.K;
+                    double i = bulletPos.X - playerPos.X;
+                    double j = bulletPos.Y - playerPos.Y;
+                    double k = bulletPos.Z - playerPos.Z;
 
                     double distanceToMissileSqr = i*i + j*j + k*k;
 

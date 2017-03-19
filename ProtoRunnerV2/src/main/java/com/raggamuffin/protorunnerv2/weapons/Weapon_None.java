@@ -16,7 +16,5 @@ public class Weapon_None extends Weapon
 
     @Override
     public void Update(double deltaTime)
-    {
-        // Do nothing.
-    }
+    {}
 }

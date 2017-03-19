@@ -1,24 +1,31 @@
 package com.raggamuffin.protorunnerv2.managers;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import android.util.Log;
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
+import com.raggamuffin.protorunnerv2.particles.Particle;
 import com.raggamuffin.protorunnerv2.particles.ParticleEmitter;
+import com.raggamuffin.protorunnerv2.particles.ParticleType;
 import com.raggamuffin.protorunnerv2.particles.Particle_Multiplier;
 import com.raggamuffin.protorunnerv2.particles.Particle_Standard;
+import com.raggamuffin.protorunnerv2.particles.Trail;
 import com.raggamuffin.protorunnerv2.particles.TrailEmitter;
 import com.raggamuffin.protorunnerv2.particles.TrailNode;
 
+import java.util.ArrayList;
+
 public class ParticleManager
 {
-    private ArrayList<Particle_Standard> m_ActiveParticles;
-    private ArrayList<Particle_Standard> m_InvalidParticles;
+    private ArrayList<Particle> m_ActiveParticles;
+    private ArrayList<Particle> m_InvalidParticles;
+    private ArrayList<Particle> m_NewParticles;
+    private ArrayList<Particle> m_OldParticles;
 
-    private ArrayList<Particle_Multiplier> m_ActiveParticles_Multiplier;
-    private ArrayList<Particle_Multiplier> m_InvalidParticles_Mulitplier;
+    private ArrayList<Particle> m_ActiveParticles_Multiplier;
+    private ArrayList<Particle> m_InvalidParticles_Multiplier;
+    private ArrayList<Particle> m_NewParticles_Multiplier;
+    private ArrayList<Particle> m_OldParticles_Multiplier;
 
-	private ArrayList<TrailNode> m_ActiveTrailParticles;
 	private ArrayList<TrailNode> m_InvalidTrailParticles;
 	
 	private GameLogic m_Game;
@@ -29,25 +36,30 @@ public class ParticleManager
 
         m_ActiveParticles = new ArrayList<>();
         m_InvalidParticles = new ArrayList<>();
+        m_NewParticles = new ArrayList<>();
+        m_OldParticles = new ArrayList<>();
 
         m_ActiveParticles_Multiplier = new ArrayList<>();
-        m_InvalidParticles_Mulitplier = new ArrayList<>();
+        m_InvalidParticles_Multiplier = new ArrayList<>();
+        m_NewParticles_Multiplier = new ArrayList<>();
+        m_OldParticles_Multiplier = new ArrayList<>();
 
-        for(int i = 0; i < 100; ++i)
-        {
-            m_InvalidParticles.add(new Particle_Standard());
-            m_InvalidParticles_Mulitplier.add(new Particle_Multiplier(m_Game));
-        }
-
-        m_ActiveTrailParticles = new ArrayList<>();
         m_InvalidTrailParticles = new ArrayList<>();
 	}
 	
 	public void Update(double deltaTime)
 	{
-        for(Iterator<Particle_Standard> iter = m_ActiveParticles.iterator(); iter.hasNext();)
+        if(m_NewParticles.size() > 0)
         {
-            Particle_Standard particle = iter.next();
+            m_ActiveParticles.addAll(m_NewParticles);
+            m_Game.AddParticleToRenderer(m_NewParticles, ParticleType.Standard);
+            m_NewParticles.clear();
+        }
+
+        int numParticles = m_ActiveParticles.size();
+        for(int i = 0; i < numParticles; ++i)
+        {
+            Particle particle = m_ActiveParticles.get(i);
 
             if(particle.IsValid())
             {
@@ -58,14 +70,31 @@ public class ParticleManager
                 particle.OnInvalidation();
 
                 m_InvalidParticles.add(particle);
-                m_Game.RemoveParticleFromRenderer(particle);
-                iter.remove();
+                m_OldParticles.add(particle);
+                m_ActiveParticles.remove(i);
+
+                --i;
+                --numParticles;
             }
         }
 
-        for(Iterator<Particle_Multiplier> iter = m_ActiveParticles_Multiplier.iterator(); iter.hasNext();)
+        if(m_OldParticles.size() > 0)
         {
-            Particle_Multiplier particle = iter.next();
+            m_Game.RemoveParticleFromRenderer(m_OldParticles, ParticleType.Standard);
+            m_OldParticles.clear();
+        }
+
+        if(m_NewParticles_Multiplier.size() > 0)
+        {
+            m_ActiveParticles_Multiplier.addAll(m_NewParticles_Multiplier);
+            m_Game.AddParticleToRenderer(m_NewParticles_Multiplier, ParticleType.Multiplier);
+            m_NewParticles_Multiplier.clear();
+        }
+
+        numParticles = m_ActiveParticles_Multiplier.size();
+        for(int i = 0; i < m_ActiveParticles_Multiplier.size(); ++i)
+        {
+            Particle particle = m_ActiveParticles_Multiplier.get(i);
 
             if(particle.IsValid())
             {
@@ -75,33 +104,25 @@ public class ParticleManager
             {
                 particle.OnInvalidation();
 
-                m_InvalidParticles_Mulitplier.add(particle);
-                m_Game.RemoveParticleFromRenderer(particle);
-                iter.remove();
+                m_InvalidParticles_Multiplier.add(particle);
+                m_OldParticles_Multiplier.add(particle);
+                m_ActiveParticles_Multiplier.remove(i);
+
+                --i;
+                --numParticles;
             }
         }
 
-        for(Iterator<TrailNode> iter = m_ActiveTrailParticles.iterator(); iter.hasNext();)
+        if(m_OldParticles_Multiplier.size() > 0)
         {
-            TrailNode temp = iter.next();
-
-            if(temp.IsValid())
-            {
-                temp.Update(deltaTime);
-            }
-            else
-            {
-                temp.CleanUp();
-                m_InvalidTrailParticles.add(temp);
-                m_Game.RemoveTrailFromRenderer(temp);
-				iter.remove();
-            }
+            m_Game.RemoveParticleFromRenderer(m_OldParticles_Multiplier, ParticleType.Multiplier);
+            m_OldParticles_Multiplier.clear();
         }
 	}
 
-    public Particle_Standard CreateParticle(ParticleEmitter origin)
+    public Particle CreateParticle(ParticleEmitter origin)
     {
-        Particle_Standard newParticle;
+        Particle newParticle;
 
         // Check to see if there are any particles ready to be recycled.
         if (m_InvalidParticles.size() > 0)
@@ -116,23 +137,21 @@ public class ParticleManager
         }
 
         newParticle.Activate(origin.CalculateSpawnPoint(), origin.GetVelocity(), origin.CalculateParticleForward(), origin.GetEmissionForce(), origin.GetInitialColour(), origin.GetFinalColour(), origin.GetLifeSpan());
-        m_ActiveParticles.add(newParticle);
-
-        m_Game.AddParticleToRenderer(newParticle);
+        m_NewParticles.add(newParticle);
 
         return newParticle;
     }
 
-    public Particle_Multiplier CreateParticleMultiplier(ParticleEmitter origin)
+    public Particle CreateParticleMultiplier(ParticleEmitter origin)
     {
-        Particle_Multiplier newParticle;
+        Particle newParticle;
 
         // Check to see if there are any particles ready to be recycled.
-        if (m_InvalidParticles_Mulitplier.size() > 0)
+        if (m_InvalidParticles_Multiplier.size() > 0)
         {
-            int finalIndex = m_InvalidParticles_Mulitplier.size() - 1;
-            newParticle = m_InvalidParticles_Mulitplier.get(finalIndex);
-            m_InvalidParticles_Mulitplier.remove(newParticle);
+            int finalIndex = m_InvalidParticles_Multiplier.size() - 1;
+            newParticle = m_InvalidParticles_Multiplier.get(finalIndex);
+            m_InvalidParticles_Multiplier.remove(newParticle);
         }
         else
         {
@@ -140,9 +159,7 @@ public class ParticleManager
         }
 
         newParticle.Activate(origin.CalculateSpawnPoint(), origin.GetVelocity(), origin.CalculateParticleForward(), origin.GetEmissionForce(), origin.GetInitialColour(), origin.GetFinalColour(), origin.GetLifeSpan());
-        m_ActiveParticles_Multiplier.add(newParticle);
-
-        m_Game.AddParticleToRenderer(newParticle);
+        m_NewParticles_Multiplier.add(newParticle);
 
         return newParticle;
     }
@@ -162,23 +179,26 @@ public class ParticleManager
             newParticle = new TrailNode();
         }
 
-        TrailNode headNode = origin.GetHeadNode();
+        Trail originTrail = origin.GetTrail();
+
+        TrailNode headNode = originTrail.GetHeadNode();
 
         if(headNode != null)
         {
-            m_Game.RemoveTrailFromRenderer(headNode);
             headNode.SetChild(newParticle);
         }
 
         newParticle.Activate(origin.GetPosition(), origin.GetLifeSpan(), origin.GetFadeInLength(), headNode, origin.GetHotColour(), origin.GetColdColour());
-        m_ActiveTrailParticles.add(newParticle);
-
-        m_Game.AddTrailToRenderer(newParticle);
 
         return newParticle;
     }
 
-    public ArrayList<Particle_Multiplier> GetMultiplierParticles()
+    public void RecycleTrailNode(TrailNode node)
+    {
+        m_InvalidTrailParticles.add(node);
+    }
+
+    public ArrayList<Particle> GetMultiplierParticles()
     {
         return m_ActiveParticles_Multiplier;
     }

@@ -4,7 +4,6 @@ package com.raggamuffin.protorunnerv2.managers;
 // Date:   25/06/2016
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.gameobjects.Tentacle;
 
 import java.util.ArrayList;
@@ -22,7 +21,8 @@ public class RopeManager
 
     public void Update(double deltaTime)
     {
-        for(int i = 0; i < m_GameObjects.size(); i++)
+        int numTentacles = m_GameObjects.size();
+        for(int i = 0; i < numTentacles; i++)
         {
             Tentacle obj = m_GameObjects.get(i);
 
@@ -34,6 +34,8 @@ public class RopeManager
             {
                 obj.CleanUp();
                 RemoveObject(obj);
+
+                --numTentacles;
                 i--;
             }
         }

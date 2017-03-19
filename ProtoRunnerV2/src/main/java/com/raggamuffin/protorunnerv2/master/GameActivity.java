@@ -3,11 +3,6 @@
 
 package com.raggamuffin.protorunnerv2.master;
 
-import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
-import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
-import com.raggamuffin.protorunnerv2.utils.MathsHelper;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
@@ -28,7 +23,10 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import java.util.concurrent.TimeUnit;
+import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
+import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
+import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
+import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 
 public class GameActivity extends Activity implements SensorEventListener
 {

@@ -1,9 +1,8 @@
 package com.raggamuffin.protorunnerv2.ui;
 
-import java.util.Vector;
-
-import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
+
+import java.util.Vector;
 
 public class TextAnimation_ForwardIn extends TextAnimation
 {

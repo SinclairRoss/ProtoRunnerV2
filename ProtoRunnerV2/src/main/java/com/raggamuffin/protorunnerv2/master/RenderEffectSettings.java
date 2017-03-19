@@ -1,7 +1,6 @@
 package com.raggamuffin.protorunnerv2.master;
 
 import com.raggamuffin.protorunnerv2.utils.Colour;
-import com.raggamuffin.protorunnerv2.utils.Colours;
 
 public class RenderEffectSettings
 {

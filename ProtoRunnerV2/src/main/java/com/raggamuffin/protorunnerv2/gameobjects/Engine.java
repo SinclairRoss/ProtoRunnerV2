@@ -5,16 +5,16 @@ import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_HyperLight;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
-public abstract class Engine
+public class Engine
 {
-    private final double ENGINE_OUTPUT_EXERTION_MULTIPLIER 	= 0.0;
-    private final double AFTERBURNER_EXERTION_MULTIPLIER 		= 2.0;
-    private final double DODGE_EXERTION_MULTIPLIER	  		= 10.0;
-    private final double EXERTION_DECAY_MULTIPLIER 			= 0.7;
+    private final double ENGINE_OUTPUT_EXERTION_MULTIPLIER = 0.0;
+    private final double AFTERBURNER_EXERTION_MULTIPLIER = 2.0;
+    private final double DODGE_EXERTION_MULTIPLIER = 10.0;
+    private final double EXERTION_DECAY_MULTIPLIER = 0.7;
 
-    private final double DODGE_DECAY_MULTIPLIER 		= 5.0;
+    private final double DODGE_DECAY_MULTIPLIER = 5.0;
 
-    protected GameObject m_Anchor;
+    protected Vehicle m_Anchor;
 
     // Propulsion.
     private Vector3 m_Direction;		// The direction the engine is applying force.
@@ -30,19 +30,17 @@ public abstract class Engine
     private Vector3 m_DodgeDirection;
 
     // Turning.
-    protected double m_TargetTurnRate;
-    protected double m_TurnSpeed;
-    protected double m_TurnRate;		// How forcefully the object is turning.
-    protected double m_MaxTurnRate;		// The maximum rate at which an object can turn.
-    protected double m_MaxRoll;
+    private double m_TargetTurnRate;
+    private double m_TurnSpeed;
+    private double m_TurnRate;		// How forcefully the object is turning.
+    private double m_MaxTurnRate;		// The maximum rate at which an object can turn.
+    private double m_MaxRoll;
 
     private double m_Exertion;			// How hard the engine is pushing itself.
 
-    private boolean m_RollEnabled;
+    private ParticleEmitter_HyperLight m_HyperLight;
 
-    protected ParticleEmitter_HyperLight m_HyperLight;
-
-    public Engine(GameLogic game, GameObject anchor)
+    public Engine(GameLogic game, Vehicle anchor)
     {
         m_Anchor = anchor;
 
@@ -55,7 +53,7 @@ public abstract class Engine
         m_MaxAfterBurnerOutput = 2000;
 
         m_DodgeOutput = 0.0;
-        m_MaxDodgeForce = 120000.0;
+        m_MaxDodgeForce = 1200.0;
 
         m_DodgeDirection = new Vector3();
 
@@ -67,9 +65,7 @@ public abstract class Engine
 
         m_Exertion = 0.0;
 
-        m_HyperLight = new ParticleEmitter_HyperLight(game, m_Anchor.GetBaseColour(), m_Anchor.GetAltColour(), 30, 1);
-
-        m_RollEnabled = true;
+        m_HyperLight = new ParticleEmitter_HyperLight(game, m_Anchor.GetColour(), m_Anchor.GetColour(), 30, 1);
     }
 
     public void Update(double deltaTime)
@@ -77,8 +73,8 @@ public abstract class Engine
         UpdateTurnRate(deltaTime);
         UpdateOrientation(deltaTime);
 
-        m_Anchor.ApplyForce(m_Direction, GetEngineOutput());
-        m_Anchor.ApplyForce(m_DodgeDirection, GetDodgeOutput());
+        m_Anchor.ApplyForce(m_Direction, GetEngineOutput(), deltaTime);
+        m_Anchor.ApplyForce(m_DodgeDirection, GetDodgeOutput(), deltaTime);
 
         // Decay the output of the dodge overtime.
         m_DodgeOutput -= deltaTime * DODGE_DECAY_MULTIPLIER;
@@ -93,21 +89,27 @@ public abstract class Engine
     {
         Vector3 velocity = m_Anchor.GetVelocity();
 
-        Vector3 emitterForward = new Vector3(velocity);
+        Vector3 emitterForward = m_HyperLight.GetForward();
+        emitterForward.SetVector(velocity);
         emitterForward.Normalise();
-        m_HyperLight.SetForward(emitterForward);
-
         emitterForward.Scale(3.0);
         emitterForward.Add(m_Anchor.GetPosition());
+
         m_HyperLight.SetPosition(emitterForward);
         m_HyperLight.SetVelocity(velocity);
 
         m_HyperLight.Update(deltaTime);
     }
 
-    public void Dodge(Vector3 direction)
+    public void DodgeLeft()
     {
-        m_DodgeDirection.SetVector(direction);
+        m_DodgeDirection.SetAsCrossProduct(m_Anchor.GetForward(), Vector3.UP);
+        m_DodgeOutput = 1.0;
+    }
+
+    public void DodgeRight()
+    {
+        m_DodgeDirection.SetAsCrossProduct(Vector3.UP, m_Anchor.GetForward());
         m_DodgeOutput = 1.0;
     }
 
@@ -120,33 +122,21 @@ public abstract class Engine
 
     private void UpdateOrientation(double deltaTime)
     {
-        double yaw = m_Anchor.GetYaw() + (m_TurnRate * m_MaxTurnRate * deltaTime);
-        m_Anchor.SetYaw(yaw);
+        m_Anchor.RotateY(-m_TurnRate * m_MaxTurnRate * deltaTime);
 
-        double deltaRoll;
-
-        if(m_RollEnabled)
-        {
-            deltaRoll =  -(m_TargetTurnRate * m_MaxRoll) - m_Anchor.GetRoll();
-        }
-        else
-        {
-            deltaRoll = -m_Anchor.GetRoll();
-        }
-
-        double rollMultiplier = MathsHelper.SignedNormalise(deltaRoll, -0.1, 0.1);
-        m_Anchor.SetRoll(MathsHelper.Clamp(m_Anchor.GetRoll() + (rollMultiplier * deltaTime), -m_MaxRoll, m_MaxRoll));
+        double deltaRoll = (m_TargetTurnRate * m_MaxRoll) - m_Anchor.GetRoll();
+        double rollSpeed = MathsHelper.SignedNormalise(deltaRoll, -0.1, 0.1) * deltaTime;
+        double roll = MathsHelper.Clamp(m_Anchor.GetRoll() + rollSpeed, -m_MaxRoll, m_MaxRoll);
+        m_Anchor.SetRoll(roll);
     }
 
     private void UpdateExertion(double deltaTime)
     {
         m_Exertion += deltaTime * ((m_EngineOutput * ENGINE_OUTPUT_EXERTION_MULTIPLIER)
                 +  (m_AfterBurnerOutput * AFTERBURNER_EXERTION_MULTIPLIER)
-                + 	m_DodgeOutput 		* DODGE_EXERTION_MULTIPLIER);
-
+                + 	m_DodgeOutput * DODGE_EXERTION_MULTIPLIER);
 
         m_Exertion -= deltaTime * EXERTION_DECAY_MULTIPLIER;
-
         m_Exertion = MathsHelper.Clamp(m_Exertion, 0, 1);
     }
 
@@ -198,9 +188,9 @@ public abstract class Engine
         m_MaxAfterBurnerOutput = output;
     }
 
-    public void SetDirection(Vector3 Direction)
+    public void SetDirection(Vector3 direction)
     {
-        m_Direction = Direction;
+        m_Direction = direction;
     }
 
     public void SetTurnRate(double turnRate)
@@ -223,13 +213,5 @@ public abstract class Engine
         return m_Anchor.GetPosition();
     }
 
-    public void EnableRoll()
-    {
-        m_RollEnabled = true;
-    }
-
-    public void DisableRoll()
-    {
-        m_RollEnabled = false;
-    }
+    public void CleanUp() {}
 }

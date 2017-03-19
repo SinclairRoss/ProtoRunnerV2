@@ -10,46 +10,52 @@ import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
+import com.raggamuffin.protorunnerv2.utils.Spring1;
 import com.raggamuffin.protorunnerv2.utils.Spring3;
+import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_LaserBurner;
-import com.raggamuffin.protorunnerv2.weapons.Weapon_None;
 
 public class Vehicle_Drone extends Vehicle
 {
-    private final double RESTING_HEIGHT = 5.0;
-    private final double BOBBING_SPEED = 1.0;
-    private final double BOBBING_DISTANCE = 4.0;
+    private final double MIN_RESTING_HEIGHT = 4.0;
+    private final double MAX_RESTING_HEIGHT = 8.0;
 
     private Vehicle_Carrier m_Anchor;
     private AIController m_AIController;
 
-    private double m_VerticalMovementTimer;
+    private Spring1 m_VerticalPositionSpring;
+    private Timer m_Timer_UpdateRelaxedPosition;
+    private double m_RestingHeight;
 
     public Vehicle_Drone(GameLogic game, Vehicle_Carrier anchor)
     {
-        super(game, ModelType.WeaponDrone);
+        super(game, ModelType.WeaponDrone, 1);
 
         m_Anchor = anchor;
-        m_Position.SetVector(m_Anchor.GetPosition());
+        SetPosition(m_Anchor.GetPosition());
 
-        m_BaseColour = m_Anchor.GetBaseColour();
-        m_AltColour = m_Anchor.GetAltColour();
+        SetColour(m_Anchor.GetColour());
 
         m_Engine = new Engine_Standard(this, game);
         m_Engine.SetMaxTurnRate(2.0);
-        m_Engine.SetMaxEngineOutput(15000);
+        m_Engine.SetMaxEngineOutput(30);
         m_Engine.SetDodgeOutput(0);
-        m_Mass = 100;
+
+        SetScale(0.75, 0.75, 0.75);
+
+        SetDragCoefficient(0.8);
 
         SetAffiliation(AffiliationKey.RedTeam);
 
         SelectWeapon(new Weapon_LaserBurner(this, game));
+        m_PrimaryWeapon.SetTargetVector(Vector3.DOWN);
+        m_PrimaryWeapon.OpenFire();
 
         VehicleManager vehicleManager = game.GetVehicleManager();
 
         NavigationalBehaviourInfo navInfo = new NavigationalBehaviourInfo(0.4, 1.0, 0.7, 0.6);
-        m_AIController = new AIController(this, vehicleManager, game.GetBulletManager(), navInfo, AIBehaviours.FollowTheLeader, FireControlBehaviour.BeamSweep, TargetingBehaviour.Standard);
+        m_AIController = new AIController(this, vehicleManager, game.GetBulletManager(), navInfo, AIBehaviours.FollowTheLeader, FireControlBehaviour.None, TargetingBehaviour.None);
         m_AIController.SetLeader(anchor);
 
         m_CanBeTargeted = false;
@@ -57,6 +63,10 @@ public class Vehicle_Drone extends Vehicle
         m_VehicleClass = VehicleClass.Drone;
 
         m_StatusEffectManager.ApplyStatusEffect(StatusEffect.Shielded);
+
+        m_VerticalPositionSpring = new Spring1(10);
+        m_Timer_UpdateRelaxedPosition = new Timer(2);
+        m_Timer_UpdateRelaxedPosition.Start();
     }
 
     @Override
@@ -71,26 +81,21 @@ public class Vehicle_Drone extends Vehicle
     @Override
     public boolean IsValid()
     {
-        if(!m_Anchor.IsValid())
-        {
-            return false;
-        }
-
-        return true;
-    }
-
-    @Override
-    public void CleanUp()
-    {
-        super.CleanUp();
-        m_PrimaryWeapon.CleanUp();
+        return m_Anchor.IsValid();
     }
 
     private void UpdateBobbing(double deltaTime)
     {
-        m_VerticalMovementTimer += deltaTime * BOBBING_SPEED;
-        m_VerticalMovementTimer %= Math.PI * 2;
+        if(m_Timer_UpdateRelaxedPosition.HasElapsed())
+        {
+            m_Timer_UpdateRelaxedPosition.Start();
+            m_RestingHeight = MathsHelper.RandomDouble(MIN_RESTING_HEIGHT, MAX_RESTING_HEIGHT);
+        }
 
-        m_Position.J = RESTING_HEIGHT + (Math.sin(m_VerticalMovementTimer) * BOBBING_DISTANCE);
+        double force = m_VerticalPositionSpring.CalculateSpringForce(GetPosition().Y, m_RestingHeight);
+        ApplyForce(Vector3.UP, force * deltaTime);
     }
+
+    @Override
+    public double GetInnerColourIntensity() { return m_Anchor.GetInnerColourIntensity(); }
 }

@@ -81,7 +81,7 @@ R15=0x00000000003dd000 is a thread
 
 
 Stack: [0x00000000021f0000,0x00000000022f0000],  sp=0x00000000022eef70,  free space=1019k
-Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+Native frames: (J=compiled Java code, y=interpreted, Vv=VM code, C=native code)
 J  com.android.dx.dex.code.LocalList$MakeState.snapshot(ILcom/android/dx/rop/code/RegisterSpecSet;)V
 
 

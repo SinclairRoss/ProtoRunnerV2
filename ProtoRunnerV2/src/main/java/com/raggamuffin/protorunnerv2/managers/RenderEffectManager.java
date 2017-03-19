@@ -12,7 +12,8 @@ public class RenderEffectManager
 {
 	private final double BASE_GLOW_INTENSITY   = 1.5;
 	private final double MAX_GLOW_INTENSITY    = 4.0;
-    private final double BASE_FILMGRAIN_INTENSITY = 0.055;
+
+    private final double BASE_FILMGRAIN_INTENSITY = 0.1; // 0.055
     private final double MAX_FILMGRAIN_INTENSITY = 0.3;
     private final double DAMAGE_EFFECT_DURATION = 1.0;
 

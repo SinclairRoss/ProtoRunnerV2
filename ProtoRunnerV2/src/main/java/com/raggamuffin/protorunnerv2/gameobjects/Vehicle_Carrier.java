@@ -11,7 +11,7 @@ import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
-import com.raggamuffin.protorunnerv2.weapons.Weapon_MissileLauncher;
+import com.raggamuffin.protorunnerv2.weapons.Weapon_None;
 
 
 public class Vehicle_Carrier extends Vehicle
@@ -19,32 +19,38 @@ public class Vehicle_Carrier extends Vehicle
 	private AIController m_AIController;
 	private VehicleManager m_VehicleManager;
 
+    private int NUM_DRONES = 5;
+
 	public Vehicle_Carrier(GameLogic game)
 	{
-		super(game, ModelType.Carrier);
+		super(game, ModelType.Carrier, 5);
 		
 		m_VehicleManager = game.GetVehicleManager();
 
-        SetColourScheme(Colours.EmeraldGreen, Colours.BlockPurple);
+		SetColour(Colours.BlockPurple);
 
-        m_MaxHullPoints = 300;
+        m_MaxHullPoints = 12;
         m_HullPoints = m_MaxHullPoints;
 
-        m_Mass = 100;
         m_Engine = new Engine_Cycling(this, game);
 		m_Engine.SetMaxTurnRate(1.0);
-		m_Engine.SetMaxEngineOutput(10000); // 10000
+		m_Engine.SetMaxEngineOutput(70); // 10000
         m_Engine.SetDodgeOutput(0);
-        m_BoundingRadius = 5;
 
-		SetAffiliation(AffiliationKey.RedTeam);
+		m_Faction = AffiliationKey.RedTeam;
 
-        SelectWeapon(new Weapon_MissileLauncher(this, game));
+        SelectWeapon(new Weapon_None(this, game));
 
         NavigationalBehaviourInfo navInfo = new NavigationalBehaviourInfo(0.4, 1.0, 0.7, 0.6);
 		m_AIController = new AIController(this, m_VehicleManager, game.GetBulletManager(), navInfo, AIBehaviours.Encircle, FireControlBehaviour.MissileLauncher, TargetingBehaviour.Standard);
 
 		m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.EnemyDestroyed);
+
+		for(int i = 0; i < NUM_DRONES; ++i)
+        {
+            Vehicle drone = m_VehicleManager.SpawnDrone(this);
+            drone.SetPosition(GetPosition());
+        }
     }
 	
 	@Override 
@@ -60,5 +66,6 @@ public class Vehicle_Carrier extends Vehicle
     {
         super.CleanUp();
         m_PrimaryWeapon.CleanUp();
+		m_Engine.CleanUp();
     }
 } 

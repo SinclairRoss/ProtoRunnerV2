@@ -30,22 +30,22 @@ public class Vehicle_ShieldBearer extends Vehicle
 
     public Vehicle_ShieldBearer(GameLogic game)
     {
-        super(game, ModelType.ShieldBearer);
+        super(game, ModelType.ShieldBearer, 5.0);
 
         m_Game = game;
 
-        m_Scale.SetVector(3);
+        SetScale(3);
 
         SelectWeapon(new Weapon_None(this, game));
 
-        SetColourScheme(Colours.CalvinOrange, Colours.HannahBlue);
+        m_HullPoints = 24;
 
-        m_Mass = 1000;
+        SetColour(Colours.CalvinOrange);
+
         m_Engine = new Engine_Standard(this, game);
         m_Engine.SetMaxTurnRate(1.5);
-        m_Engine.SetMaxEngineOutput(100000);
-        m_Engine.SetDodgeOutput(16000);
-        m_BoundingRadius = 2;
+        m_Engine.SetMaxEngineOutput(15);
+        m_Engine.SetDodgeOutput(20);
 
         SetAffiliation(AffiliationKey.RedTeam);
 
@@ -69,8 +69,10 @@ public class Vehicle_ShieldBearer extends Vehicle
     {
         super.CleanUp();
 
-        for(Tentacle tentacle : m_Tentacles)
+        int numTentacles = m_Tentacles.size();
+        for(int i = 0; i < numTentacles; ++i)
         {
+            Tentacle tentacle = m_Tentacles.get(i);
             tentacle.KillTentacle();
         }
     }
@@ -79,11 +81,11 @@ public class Vehicle_ShieldBearer extends Vehicle
     {
         m_Tentacles = new ArrayList<>(count);
 
-        for(int i = 0; i < count; i++)
+        for(int i = 0; i < count; ++i)
         {
             Vehicle_TentacleController controller = m_Game.GetVehicleManager().SpawnTentacleController(this);
 
-            Tentacle tentacle = new Tentacle(m_Game, this, controller, m_BaseColour, m_AltColour);
+            Tentacle tentacle = new Tentacle(this, controller, GetColour(), GetColour());
             m_Tentacles.add(tentacle);
 
             game.GetRopeManager().AddObject(tentacle);

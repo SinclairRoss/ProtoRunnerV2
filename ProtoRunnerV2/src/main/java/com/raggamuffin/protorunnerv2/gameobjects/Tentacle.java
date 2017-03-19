@@ -3,7 +3,8 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 // Author: Sinclair Ross
 // Date:   16/06/2016
 
-import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
+import android.util.Log;
+
 import com.raggamuffin.protorunnerv2.particles.RopeNode;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colour;
@@ -19,6 +20,8 @@ public class Tentacle extends GameObject
         Frozen
     }
 
+    public static final int ROPE_RESOLUTION = 30;
+
     private TentacleState m_TentacleState;
 
     private GameObject m_HeadAnchor;
@@ -30,15 +33,15 @@ public class Tentacle extends GameObject
     private RopeNode m_HeadNode;
     private RopeNode m_TailNode;
 
-    public Tentacle(GameLogic game, GameObject headAnchor, GameObject tailAnchor, Colour hotColour, Colour coldColour)
-    {
-        super(game, ModelType.Nothing);
+    private Colour m_ColdColour;
 
-        final double ROPE_MASS = 0.5;
+    public Tentacle(GameObject headAnchor, GameObject tailAnchor, Colour hotColour, Colour coldColour)
+    {
+        super(ModelType.Nothing, 0);
+
         final double ROPE_LENGTH = 10;
-        final double ROPE_RIGIDNESS = 200;
-        final int ROPE_RESOLUTION = 30;
-        final double GRAVITY_STRENGTH = -2.0;
+        final double ROPE_RIGIDNESS = 9000;
+        final double GRAVITY_STRENGTH = -25.0;
         final double LIFE_SPAN = 3.0;
 
         m_HeadAnchor = headAnchor;
@@ -46,28 +49,25 @@ public class Tentacle extends GameObject
 
         m_TentacleState = TentacleState.Normal;
 
-        m_BaseColour.SetColour(hotColour);
-        m_BaseColour.Alpha = 0.4;
-
-        m_AltColour.SetColour(coldColour);
-        m_AltColour.Alpha = 0.2;
+        SetColour(hotColour);
+        m_ColdColour = new Colour(coldColour);
+        m_ColdColour.Alpha = 0.2;
 
         m_BloomPoint = 0;
 
-        final double nodeMass = ROPE_MASS / ROPE_RESOLUTION;
         final double springLength = ROPE_LENGTH / ROPE_RESOLUTION;
         final double springStrength = ROPE_RIGIDNESS / ROPE_RESOLUTION;
         final double tentacleLifeSpan = LIFE_SPAN / ROPE_RESOLUTION;
 
         m_RopeNodes = new ArrayList<>(ROPE_RESOLUTION);
 
-        m_HeadNode = new RopeNode(new Vector3(0), null, nodeMass, springLength, springStrength, GRAVITY_STRENGTH, tentacleLifeSpan);
+        m_HeadNode = new RopeNode(new Vector3(0), null, springLength, springStrength, GRAVITY_STRENGTH, tentacleLifeSpan);
         m_RopeNodes.add(m_HeadNode);
 
         for(int i = 1; i < ROPE_RESOLUTION; i++)
         {
             RopeNode parent = m_RopeNodes.get(i-1);
-            RopeNode child = new RopeNode(m_HeadAnchor.GetPosition(), parent, nodeMass, springLength, springStrength, GRAVITY_STRENGTH, tentacleLifeSpan);
+            RopeNode child = new RopeNode(m_HeadAnchor.GetPosition(), parent, springLength, springStrength, GRAVITY_STRENGTH, tentacleLifeSpan);
 
             m_RopeNodes.add(child);
             parent.SetChild(child);
@@ -85,7 +85,7 @@ public class Tentacle extends GameObject
                 UpdateHead();
                 UpdateTail();
                 UpdateBloomPoint(deltaTime);
-                UpdatePhysics();
+                UpdateNormalisedNodeLength();
 
                 break;
             }
@@ -95,8 +95,10 @@ public class Tentacle extends GameObject
             }
         }
 
-        for (RopeNode node : m_RopeNodes)
+        int numRopeNodes = m_RopeNodes.size();
+        for(int i = 0; i < numRopeNodes; ++i)
         {
+            RopeNode node = m_RopeNodes.get(i);
             node.Update(deltaTime);
         }
     }
@@ -125,40 +127,20 @@ public class Tentacle extends GameObject
         m_BloomPoint %= 1.0f;
     }
 
-    private void UpdatePhysics()
-    {
-        for (RopeNode node : m_RopeNodes)
-        {
-            node.ClearForces();
-        }
-
-        for (RopeNode node : m_RopeNodes)
-        {
-            node.UpdatePhysics();
-        }
-
-        UpdateNormalisedNodeLength();
-    }
-
     @Override
     public boolean IsValid()
     {
-        if(m_TentacleState == TentacleState.Frozen &&
-            m_TailNode.IsDead())
-        {
-            return false;
-        }
-
-        return !m_ForciblyInvalidated;
-
+        return m_TentacleState != TentacleState.Frozen || !m_TailNode.IsDead();
     }
 
     private void UpdateNormalisedNodeLength()
     {
         double length = 0.0;
 
-        for(RopeNode node : m_RopeNodes)
+        int numRopeNodes = m_RopeNodes.size();
+        for(int i = 0; i < numRopeNodes; ++i)
         {
+            RopeNode node = m_RopeNodes.get(i);
             node.SetToNodeLength(length);
 
             RopeNode child = node.GetChild();
@@ -168,16 +150,14 @@ public class Tentacle extends GameObject
                 Vector3 nodePosition = node.GetPosition();
                 Vector3 childPosition = child.GetPosition();
 
-                double i = childPosition.I - nodePosition.I;
-                double j = childPosition.J - nodePosition.J;
-                double k = childPosition.K - nodePosition.K;
-
-                length += (i * i) + (j * j) + (k * k);
+                double distanceSqr = Vector3.DistanceBetweenSqr(nodePosition, childPosition);
+                length += distanceSqr;
             }
         }
 
-        for(RopeNode node : m_RopeNodes)
+        for(int i = 0; i < numRopeNodes; ++i)
         {
+            RopeNode node = m_RopeNodes.get(i);
             node.SetRopeLengthSqr(length);
             node.CalculateNormalisedLength();
         }
@@ -188,8 +168,10 @@ public class Tentacle extends GameObject
         m_HeadAnchor = null;
         m_TailAnchor = null;
 
-        for(RopeNode node : m_RopeNodes)
+        int numRopeNodes = m_RopeNodes.size();
+        for(int i = 0; i < numRopeNodes; ++i)
         {
+            RopeNode node = m_RopeNodes.get(i);
             node.CleanUp();
         }
 
@@ -200,21 +182,19 @@ public class Tentacle extends GameObject
     {
         m_TentacleState = TentacleState.Frozen;
 
-        for(RopeNode node : m_RopeNodes)
+        int numRopeNodes = m_RopeNodes.size();
+        for(int i = 0; i < numRopeNodes; ++i)
         {
-            node.HaltNode();
+            RopeNode node = m_RopeNodes.get(i);
+            node.FreezeNode();
         }
 
         m_HeadNode.KillNode();
     }
 
-    public RopeNode GetHeadNode()
-    {
-        return m_HeadNode;
-    }
+    public Colour GetColdColour() { return m_ColdColour; }
 
-    public double GetBloomPoint()
-    {
-        return m_BloomPoint;
-    }
+    public RopeNode GetHeadNode() { return m_HeadNode; }
+
+    public double GetBloomPoint() {  return m_BloomPoint; }
 }

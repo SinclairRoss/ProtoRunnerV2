@@ -123,11 +123,11 @@ public class RenderObject_WireFrame extends RenderObject
     @Override
     public void Draw()
     {
-        GLES20.glUniform4f(m_PositionHandle, (float) m_Position.I, (float) m_Position.J, (float) m_Position.K, 1.0f);
-        GLES20.glUniform3f(m_ForwardHandle, (float) m_Forward.I, (float) m_Forward.J, (float) m_Forward.K);
-        GLES20.glUniform3f(m_UpHandle, (float) m_Up.I, (float) m_Up.J, (float) m_Up.K);
-        GLES20.glUniform3f(m_RightHandle, (float) m_Right.I, (float) m_Right.J, (float) m_Right.K);
-        GLES20.glUniform3f(m_ScaleHandle, (float) m_Scale.I, (float) m_Scale.J, (float) m_Scale.K);
+        GLES20.glUniform4f(m_PositionHandle, (float) m_Position.X, (float) m_Position.Y, (float) m_Position.Z, 1.0f);
+        GLES20.glUniform3f(m_ForwardHandle, (float) m_Forward.X, (float) m_Forward.Y, (float) m_Forward.Z);
+        GLES20.glUniform3f(m_UpHandle, (float) m_Up.X, (float) m_Up.Y, (float) m_Up.Z);
+        GLES20.glUniform3f(m_RightHandle, (float) m_Right.X, (float) m_Right.Y, (float) m_Right.Z);
+        GLES20.glUniform3f(m_ScaleHandle, (float) m_Scale.X, (float) m_Scale.Y, (float) m_Scale.Z);
         GLES20.glUniform1f(m_RollHandle, (float) m_Roll);
         GLES20.glUniform4f(m_ColourHandle, (float) m_Colour.Red, (float) m_Colour.Green, (float) m_Colour.Blue, (float) m_Colour.Alpha);
 

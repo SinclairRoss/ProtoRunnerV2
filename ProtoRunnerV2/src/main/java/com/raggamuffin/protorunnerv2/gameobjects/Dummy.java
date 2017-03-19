@@ -18,15 +18,13 @@ public class Dummy extends Vehicle
 
     public Dummy(GameLogic game)
     {
-        super(game, ModelType.Dummy);
+        super(game, ModelType.Dummy, 2);
 
         SetAffiliation(AffiliationKey.RedTeam);
 
-        SetBaseColour(Colours.ChaserOrange);
+        SetColour(Colours.ChaserOrange);
 
         m_OnDeathPublisher = game.GetPubSubHub().CreatePublisher(PublishedTopics.EnemyDestroyed);
-
-        m_BoundingRadius = 2;
 
         m_Engine = new Engine_Standard(this, game);
         m_Engine.SetMaxEngineOutput(1500);

@@ -34,8 +34,8 @@ public class ChaseCamera
 		m_LookAt 			= new Vector3();
 		m_RelaxedPosition 	= new Vector3();
 
-        m_VerticalOffset = 7;
-        m_HorizontalOffset = 2;
+        m_VerticalOffset = 0;//7;
+        m_HorizontalOffset = 2;//2;
 
         m_Force = new Vector3();
         m_Acceleration = new Vector3();
@@ -77,24 +77,24 @@ public class ChaseCamera
         Vector3 lookPosition = m_LookObject.GetPosition();
         Vector3 lookForward  = m_LookObject.GetForward();
 
-		m_LookAt.I = lookPosition.I + lookForward.I * 10.0;
-		m_LookAt.J = lookPosition.J + lookForward.J * 10.0;
-		m_LookAt.K = lookPosition.K + lookForward.K * 10.0;
+		m_LookAt.X = lookPosition.X + lookForward.X * 10.0;
+		m_LookAt.Y = lookPosition.Y + lookForward.Y * 10.0;
+		m_LookAt.Z = lookPosition.Z + lookForward.Z * 10.0;
 	}
 	
 	private void CalculateRelaxedPosition()
 	{
         m_RelaxedPosition.SetVector(m_ChaseObject.GetForward());
         m_RelaxedPosition.Scale(-m_HorizontalOffset);
-        m_RelaxedPosition.J += m_VerticalOffset;
+        m_RelaxedPosition.Y += m_VerticalOffset;
         m_RelaxedPosition.Add(m_ChaseObject.GetPosition());
 	}
 
     private void CalculateAcceleration()
     {
-        m_Acceleration.I = (m_Force.I / m_Mass);
-        m_Acceleration.J = (m_Force.J / m_Mass);
-        m_Acceleration.K = (m_Force.K / m_Mass);
+        m_Acceleration.X = (m_Force.X / m_Mass);
+        m_Acceleration.Y = (m_Force.Y / m_Mass);
+        m_Acceleration.Z = (m_Force.Z / m_Mass);
     }
 
     private void CalculateVelocity()
@@ -105,9 +105,9 @@ public class ChaseCamera
 
     private void UpdatePosition(double deltaTime)
     {
-        m_Position.I += m_Velocity.I * deltaTime;
-        m_Position.J += m_Velocity.J * deltaTime;
-        m_Position.K += m_Velocity.K * deltaTime;
+        m_Position.X += m_Velocity.X * deltaTime;
+        m_Position.Y += m_Velocity.Y * deltaTime;
+        m_Position.Z += m_Velocity.Z * deltaTime;
     }
 
 	public void SetInPlace()

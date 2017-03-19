@@ -20,7 +20,7 @@ public class ParticleEmitter_Point extends ParticleEmitter
 
         m_ParticleForward = new Vector3();
 
-        m_MaxDeltaEmission = 0.01;
+        m_MaxDeltaEmission = 0.04;
         m_DeltaEmission = 0.0;
 
         m_On = true;
@@ -43,9 +43,9 @@ public class ParticleEmitter_Point extends ParticleEmitter
     @Override
     public Vector3 CalculateParticleForward()
     {
-        m_ParticleForward.I = MathsHelper.RandomDouble(-1,1);
-        m_ParticleForward.J = MathsHelper.RandomDouble(-1,1);
-        m_ParticleForward.K = MathsHelper.RandomDouble(-1,1);
+        m_ParticleForward.X = MathsHelper.RandomDouble(-1,1);
+        m_ParticleForward.Y = MathsHelper.RandomDouble(-1,1);
+        m_ParticleForward.Z = MathsHelper.RandomDouble(-1,1);
 
         m_ParticleForward.Normalise();
 

@@ -1,5 +1,10 @@
 package com.raggamuffin.protorunnerv2.utils;
 
+import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 public class MathsHelper 
@@ -9,9 +14,9 @@ public class MathsHelper
 	private static final Random Rand = new Random();
 	
 	// Linear Interpolation.
-	public static double Lerp(double Amount, double Min, double Max)
+	public static double Lerp(double amount, double min, double max)
 	{
-		return (Min * (1.0f - Amount) + (Max * Amount));
+		return (min * (1.0f - amount) + (max * amount));
 	}
 	
 	// Normalise a value in range 0 - 1.
@@ -125,5 +130,18 @@ public class MathsHelper
 	public static double FastInverseSqrt(float x)
 	{
 		return (double)Float.intBitsToFloat(0x5f3759d5 - (Float.floatToIntBits(x) >> 1));
+	}
+
+	public static int CalculateIteratorLength(Iterator<?> iter)
+	{
+        int count = 0;
+
+		while(iter.hasNext())
+		{
+            iter.next();
+            ++count;
+        }
+
+        return count;
 	}
 }

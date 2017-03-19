@@ -17,35 +17,35 @@ ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\
 		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:2:11-69
 uses-sdk
 ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:7:5-9:41
-MERGED from [ProtoRunnerV2:BaseGameUtils:unspecified] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\ProtoRunnerV2\BaseGameUtils\unspecified\AndroidManifest.xml:22:5-24:41
-MERGED from [com.android.support:appcompat-v7:23.0.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.0.0\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:support-v4:23.0.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.0\AndroidManifest.xml:20:5-43
-MERGED from [com.google.android.gms:play-services:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services\8.4.0\AndroidManifest.xml:18:5-42
-MERGED from [com.google.android.gms:play-services-ads:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\8.4.0\AndroidManifest.xml:23:5-42
-MERGED from [com.google.android.gms:play-services-basement:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\AndroidManifest.xml:18:5-42
-MERGED from [com.google.android.gms:play-services-analytics:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\8.4.0\AndroidManifest.xml:18:5-42
-MERGED from [com.google.android.gms:play-services-appindexing:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\8.4.0\AndroidManifest.xml:18:5-42
-MERGED from [com.google.android.gms:play-services-base:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\8.4.0\AndroidManifest.xml:18:5-42
-MERGED from [com.google.android.gms:play-services-appinvite:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\8.4.0\AndroidManifest.xml:18:5-42
-MERGED from [com.google.android.gms:play-services-appstate:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-appstate\8.4.0\AndroidManifest.xml:18:5-42
-MERGED from [com.google.android.gms:play-services-auth:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-auth\8.4.0\AndroidManifest.xml:18:5-43
-MERGED from [com.google.android.gms:play-services-cast:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\8.4.0\AndroidManifest.xml:18:5-42
-MERGED from [com.android.support:mediarouter-v7:23.0.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\23.0.0\AndroidManifest.xml:20:5-43
-MERGED from [com.google.android.gms:play-services-drive:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-drive\8.4.0\AndroidManifest.xml:18:5-42
-MERGED from [com.google.android.gms:play-services-fitness:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-fitness\8.4.0\AndroidManifest.xml:18:5-42
-MERGED from [com.google.android.gms:play-services-location:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\8.4.0\AndroidManifest.xml:18:5-42
-MERGED from [com.google.android.gms:play-services-maps:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\8.4.0\AndroidManifest.xml:26:5-42
-MERGED from [com.google.android.gms:play-services-games:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\8.4.0\AndroidManifest.xml:18:5-42
-MERGED from [com.google.android.gms:play-services-gcm:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\8.4.0\AndroidManifest.xml:18:5-42
-MERGED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:18:5-42
-MERGED from [com.google.android.gms:play-services-identity:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-identity\8.4.0\AndroidManifest.xml:18:5-42
-MERGED from [com.google.android.gms:play-services-nearby:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\8.4.0\AndroidManifest.xml:18:5-42
-MERGED from [com.google.android.gms:play-services-panorama:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\8.4.0\AndroidManifest.xml:18:5-42
-MERGED from [com.google.android.gms:play-services-plus:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\8.4.0\AndroidManifest.xml:18:5-42
-MERGED from [com.google.android.gms:play-services-safetynet:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-safetynet\8.4.0\AndroidManifest.xml:18:5-42
-MERGED from [com.google.android.gms:play-services-vision:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-vision\8.4.0\AndroidManifest.xml:4:5-42
-MERGED from [com.google.android.gms:play-services-wallet:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\8.4.0\AndroidManifest.xml:19:5-42
-MERGED from [com.google.android.gms:play-services-wearable:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\8.4.0\AndroidManifest.xml:18:5-42
+MERGED from [ProtoRunnerV2:BaseGameUtils:unspecified] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\BaseGameUtils\build\intermediates\bundles\default\AndroidManifest.xml:22:5-24:41
+MERGED from [com.google.android.gms:play-services:8.4.0] C:\Users\Mad Beast\.android\build-cache\d94db8313ef5db18bb8b9c4da8b3c9c707dc011d\output\AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-ads:8.4.0] C:\Users\Mad Beast\.android\build-cache\80d02af8f3ffaa25d3f7d38746928011b80cdd25\output\AndroidManifest.xml:23:5-42
+MERGED from [com.google.android.gms:play-services-analytics:8.4.0] C:\Users\Mad Beast\.android\build-cache\7bf5a094c30565727f7ed94aa1a22f47bee090a2\output\AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-appindexing:8.4.0] C:\Users\Mad Beast\.android\build-cache\b834fb49938d1b60b09448934b5d79ef97baf832\output\AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-appinvite:8.4.0] C:\Users\Mad Beast\.android\build-cache\3952fee8cee83aa09f306676e96c5c31fb242280\output\AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-appstate:8.4.0] C:\Users\Mad Beast\.android\build-cache\6b6c5f98e09bd2ad076a791a884654d0eb06e7e4\output\AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-auth:8.4.0] C:\Users\Mad Beast\.android\build-cache\c7ce09cde2f977a33a81694dd65d738a33aacd12\output\AndroidManifest.xml:18:5-43
+MERGED from [com.google.android.gms:play-services-cast:8.4.0] C:\Users\Mad Beast\.android\build-cache\0a374259e5b702e66757dd9eb5212914a09074ce\output\AndroidManifest.xml:18:5-42
+MERGED from [com.android.support:mediarouter-v7:23.0.0] C:\Users\Mad Beast\.android\build-cache\fdb4c33901c363dc5d2efafc1daf8f4fde39e87f\output\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:appcompat-v7:23.0.0] C:\Users\Mad Beast\.android\build-cache\c3f0393c237a531bb74004747afb420a4c2565a9\output\AndroidManifest.xml:20:5-43
+MERGED from [com.google.android.gms:play-services-fitness:8.4.0] C:\Users\Mad Beast\.android\build-cache\1f304540ee5d6b4d37ed0a2778a259d17f82f47a\output\AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-games:8.4.0] C:\Users\Mad Beast\.android\build-cache\017d7d9b891f90211dec779979eedaf4a81f7d5d\output\AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-drive:8.4.0] C:\Users\Mad Beast\.android\build-cache\bc5ed2d9e691be6688804044c57680b80ea4ae38\output\AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-gcm:8.4.0] C:\Users\Mad Beast\.android\build-cache\7043b9781007ec4db1856e50660855bfea9b5b77\output\AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-location:8.4.0] C:\Users\Mad Beast\.android\build-cache\46d95c46886620d7a4cc00236a371c32be2bc817\output\AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\.android\build-cache\9c658c39e4cb2f5aa71f727ef50f4fa8eeef5ee1\output\AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-nearby:8.4.0] C:\Users\Mad Beast\.android\build-cache\37a44acec389a1785cd4f86a152ce5d80003dc27\output\AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-panorama:8.4.0] C:\Users\Mad Beast\.android\build-cache\4f1f28dcceada82aad6520762eb9b15ed21e2bb8\output\AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-plus:8.4.0] C:\Users\Mad Beast\.android\build-cache\472d98f23209f075a615f383f2f217b8c088973c\output\AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-safetynet:8.4.0] C:\Users\Mad Beast\.android\build-cache\0d125254a68dff753dd18399d86ca4cfaf330e80\output\AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-vision:8.4.0] C:\Users\Mad Beast\.android\build-cache\b279ce42ad1789567f8b5afc0b799f42abb2569b\output\AndroidManifest.xml:4:5-42
+MERGED from [com.google.android.gms:play-services-wallet:8.4.0] C:\Users\Mad Beast\.android\build-cache\457f5909b3cbea0e3ab2c4fed3d0e446a492a8e2\output\AndroidManifest.xml:19:5-42
+MERGED from [com.google.android.gms:play-services-identity:8.4.0] C:\Users\Mad Beast\.android\build-cache\e240a4625911d2b0fd238acd42de4d34bc1dfded\output\AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-maps:8.4.0] C:\Users\Mad Beast\.android\build-cache\b266556a722f8d4496b3b339a8c1567e376bdc3e\output\AndroidManifest.xml:26:5-42
+MERGED from [com.google.android.gms:play-services-wearable:8.4.0] C:\Users\Mad Beast\.android\build-cache\37eb5396aef4fc25e2c1badd6027e604328937a1\output\AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-base:8.4.0] C:\Users\Mad Beast\.android\build-cache\a20980d9159be78c56dc408f28cfd2d9b8b36e00\output\AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-basement:8.4.0] C:\Users\Mad Beast\.android\build-cache\dc4b0455685cb6262105e764f3d0e0132827b7ee\output\AndroidManifest.xml:18:5-42
+MERGED from [com.android.support:support-v4:23.0.0] C:\Users\Mad Beast\.android\build-cache\276e715c8fd1576f7c0aafd06f22b0bbee23eff2\output\AndroidManifest.xml:20:5-43
 	android:targetSdkVersion
 		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:9:9-38
 		INJECTED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml
@@ -56,7 +56,7 @@ MERGED from [com.google.android.gms:play-services-wearable:8.4.0] C:\Users\Mad B
 		INJECTED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml
 uses-feature#0x00020000
 ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:11:5-13:34
-MERGED from [com.google.android.gms:play-services-maps:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\8.4.0\AndroidManifest.xml:22:5-24:33
+MERGED from [com.google.android.gms:play-services-maps:8.4.0] C:\Users\Mad Beast\.android\build-cache\b266556a722f8d4496b3b339a8c1567e376bdc3e\output\AndroidManifest.xml:22:5-24:33
 	android:glEsVersion
 		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:12:9-41
 	android:required
@@ -67,33 +67,33 @@ ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\
 		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:16:3-28
 application
 ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:19:5-46:19
-MERGED from [ProtoRunnerV2:BaseGameUtils:unspecified] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\ProtoRunnerV2\BaseGameUtils\unspecified\AndroidManifest.xml:30:5-31:19
-MERGED from [com.android.support:appcompat-v7:23.0.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.0.0\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:support-v4:23.0.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.0\AndroidManifest.xml:22:5-20
-MERGED from [com.google.android.gms:play-services:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services\8.4.0\AndroidManifest.xml:19:5-20
-MERGED from [com.google.android.gms:play-services-ads:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\8.4.0\AndroidManifest.xml:24:5-32:19
-MERGED from [com.google.android.gms:play-services-basement:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\AndroidManifest.xml:20:5-24:19
-MERGED from [com.google.android.gms:play-services-analytics:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\8.4.0\AndroidManifest.xml:24:5-20
-MERGED from [com.google.android.gms:play-services-appindexing:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\8.4.0\AndroidManifest.xml:19:5-20
-MERGED from [com.google.android.gms:play-services-appinvite:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\8.4.0\AndroidManifest.xml:20:5-30:19
-MERGED from [com.google.android.gms:play-services-appstate:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-appstate\8.4.0\AndroidManifest.xml:19:5-20
-MERGED from [com.google.android.gms:play-services-auth:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-auth\8.4.0\AndroidManifest.xml:20:5-32:19
-MERGED from [com.google.android.gms:play-services-cast:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\8.4.0\AndroidManifest.xml:19:5-20
-MERGED from [com.android.support:mediarouter-v7:23.0.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\23.0.0\AndroidManifest.xml:22:5-20
-MERGED from [com.google.android.gms:play-services-drive:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-drive\8.4.0\AndroidManifest.xml:19:5-20
-MERGED from [com.google.android.gms:play-services-fitness:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-fitness\8.4.0\AndroidManifest.xml:19:5-20
-MERGED from [com.google.android.gms:play-services-location:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\8.4.0\AndroidManifest.xml:19:5-20
-MERGED from [com.google.android.gms:play-services-maps:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\8.4.0\AndroidManifest.xml:27:5-20
-MERGED from [com.google.android.gms:play-services-games:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\8.4.0\AndroidManifest.xml:19:5-20
-MERGED from [com.google.android.gms:play-services-gcm:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\8.4.0\AndroidManifest.xml:24:5-20
-MERGED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:26:5-46:19
-MERGED from [com.google.android.gms:play-services-identity:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-identity\8.4.0\AndroidManifest.xml:19:5-20
-MERGED from [com.google.android.gms:play-services-nearby:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\8.4.0\AndroidManifest.xml:20:5-20
-MERGED from [com.google.android.gms:play-services-panorama:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\8.4.0\AndroidManifest.xml:19:5-20
-MERGED from [com.google.android.gms:play-services-plus:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\8.4.0\AndroidManifest.xml:19:5-20
-MERGED from [com.google.android.gms:play-services-safetynet:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-safetynet\8.4.0\AndroidManifest.xml:19:5-20
-MERGED from [com.google.android.gms:play-services-vision:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-vision\8.4.0\AndroidManifest.xml:5:5-20
-MERGED from [com.google.android.gms:play-services-wearable:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\8.4.0\AndroidManifest.xml:19:5-20
+MERGED from [ProtoRunnerV2:BaseGameUtils:unspecified] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\BaseGameUtils\build\intermediates\bundles\default\AndroidManifest.xml:30:5-31:19
+MERGED from [com.google.android.gms:play-services:8.4.0] C:\Users\Mad Beast\.android\build-cache\d94db8313ef5db18bb8b9c4da8b3c9c707dc011d\output\AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-ads:8.4.0] C:\Users\Mad Beast\.android\build-cache\80d02af8f3ffaa25d3f7d38746928011b80cdd25\output\AndroidManifest.xml:24:5-32:19
+MERGED from [com.google.android.gms:play-services-analytics:8.4.0] C:\Users\Mad Beast\.android\build-cache\7bf5a094c30565727f7ed94aa1a22f47bee090a2\output\AndroidManifest.xml:24:5-20
+MERGED from [com.google.android.gms:play-services-appindexing:8.4.0] C:\Users\Mad Beast\.android\build-cache\b834fb49938d1b60b09448934b5d79ef97baf832\output\AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-appinvite:8.4.0] C:\Users\Mad Beast\.android\build-cache\3952fee8cee83aa09f306676e96c5c31fb242280\output\AndroidManifest.xml:20:5-30:19
+MERGED from [com.google.android.gms:play-services-appstate:8.4.0] C:\Users\Mad Beast\.android\build-cache\6b6c5f98e09bd2ad076a791a884654d0eb06e7e4\output\AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-auth:8.4.0] C:\Users\Mad Beast\.android\build-cache\c7ce09cde2f977a33a81694dd65d738a33aacd12\output\AndroidManifest.xml:20:5-32:19
+MERGED from [com.google.android.gms:play-services-cast:8.4.0] C:\Users\Mad Beast\.android\build-cache\0a374259e5b702e66757dd9eb5212914a09074ce\output\AndroidManifest.xml:19:5-20
+MERGED from [com.android.support:mediarouter-v7:23.0.0] C:\Users\Mad Beast\.android\build-cache\fdb4c33901c363dc5d2efafc1daf8f4fde39e87f\output\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:appcompat-v7:23.0.0] C:\Users\Mad Beast\.android\build-cache\c3f0393c237a531bb74004747afb420a4c2565a9\output\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-fitness:8.4.0] C:\Users\Mad Beast\.android\build-cache\1f304540ee5d6b4d37ed0a2778a259d17f82f47a\output\AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-games:8.4.0] C:\Users\Mad Beast\.android\build-cache\017d7d9b891f90211dec779979eedaf4a81f7d5d\output\AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-drive:8.4.0] C:\Users\Mad Beast\.android\build-cache\bc5ed2d9e691be6688804044c57680b80ea4ae38\output\AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-gcm:8.4.0] C:\Users\Mad Beast\.android\build-cache\7043b9781007ec4db1856e50660855bfea9b5b77\output\AndroidManifest.xml:24:5-20
+MERGED from [com.google.android.gms:play-services-location:8.4.0] C:\Users\Mad Beast\.android\build-cache\46d95c46886620d7a4cc00236a371c32be2bc817\output\AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\.android\build-cache\9c658c39e4cb2f5aa71f727ef50f4fa8eeef5ee1\output\AndroidManifest.xml:26:5-46:19
+MERGED from [com.google.android.gms:play-services-nearby:8.4.0] C:\Users\Mad Beast\.android\build-cache\37a44acec389a1785cd4f86a152ce5d80003dc27\output\AndroidManifest.xml:20:5-20
+MERGED from [com.google.android.gms:play-services-panorama:8.4.0] C:\Users\Mad Beast\.android\build-cache\4f1f28dcceada82aad6520762eb9b15ed21e2bb8\output\AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-plus:8.4.0] C:\Users\Mad Beast\.android\build-cache\472d98f23209f075a615f383f2f217b8c088973c\output\AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-safetynet:8.4.0] C:\Users\Mad Beast\.android\build-cache\0d125254a68dff753dd18399d86ca4cfaf330e80\output\AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-vision:8.4.0] C:\Users\Mad Beast\.android\build-cache\b279ce42ad1789567f8b5afc0b799f42abb2569b\output\AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-identity:8.4.0] C:\Users\Mad Beast\.android\build-cache\e240a4625911d2b0fd238acd42de4d34bc1dfded\output\AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-maps:8.4.0] C:\Users\Mad Beast\.android\build-cache\b266556a722f8d4496b3b339a8c1567e376bdc3e\output\AndroidManifest.xml:27:5-20
+MERGED from [com.google.android.gms:play-services-wearable:8.4.0] C:\Users\Mad Beast\.android\build-cache\37eb5396aef4fc25e2c1badd6027e604328937a1\output\AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-basement:8.4.0] C:\Users\Mad Beast\.android\build-cache\dc4b0455685cb6262105e764f3d0e0132827b7ee\output\AndroidManifest.xml:20:5-24:19
+MERGED from [com.android.support:support-v4:23.0.0] C:\Users\Mad Beast\.android\build-cache\276e715c8fd1576f7c0aafd06f22b0bbee23eff2\output\AndroidManifest.xml:22:5-20
 	android:label
 		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:22:9-41
 	android:allowBackup
@@ -134,117 +134,117 @@ ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\
 		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:40:20-70
 meta-data#com.google.android.gms.version
 ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:43:9-44:75
-MERGED from [com.google.android.gms:play-services-basement:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\AndroidManifest.xml:21:9-23:69
+MERGED from [com.google.android.gms:play-services-basement:8.4.0] C:\Users\Mad Beast\.android\build-cache\dc4b0455685cb6262105e764f3d0e0132827b7ee\output\AndroidManifest.xml:21:9-23:69
 	android:value
 		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:44:20-73
 	android:name
 		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:43:20-65
 meta-data#unityplayer.ForwardNativeEventsToDalvik
-ADDED from [ProtoRunnerV2:BaseGameUtils:unspecified] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\ProtoRunnerV2\BaseGameUtils\unspecified\AndroidManifest.xml:26:5-28:32
+ADDED from [ProtoRunnerV2:BaseGameUtils:unspecified] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\BaseGameUtils\build\intermediates\bundles\default\AndroidManifest.xml:26:5-28:32
 	android:value
-		ADDED from [ProtoRunnerV2:BaseGameUtils:unspecified] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\ProtoRunnerV2\BaseGameUtils\unspecified\AndroidManifest.xml:28:9-29
+		ADDED from [ProtoRunnerV2:BaseGameUtils:unspecified] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\BaseGameUtils\build\intermediates\bundles\default\AndroidManifest.xml:28:9-29
 	android:name
-		ADDED from [ProtoRunnerV2:BaseGameUtils:unspecified] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\ProtoRunnerV2\BaseGameUtils\unspecified\AndroidManifest.xml:27:9-63
+		ADDED from [ProtoRunnerV2:BaseGameUtils:unspecified] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\BaseGameUtils\build\intermediates\bundles\default\AndroidManifest.xml:27:9-63
 uses-permission#android.permission.INTERNET
-ADDED from [com.google.android.gms:play-services-ads:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\8.4.0\AndroidManifest.xml:20:5-66
-MERGED from [com.google.android.gms:play-services-analytics:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\8.4.0\AndroidManifest.xml:21:5-67
-MERGED from [com.google.android.gms:play-services-appinvite:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\8.4.0\AndroidManifest.xml:19:5-67
-MERGED from [com.google.android.gms:play-services-maps:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\8.4.0\AndroidManifest.xml:21:5-66
-MERGED from [com.google.android.gms:play-services-gcm:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\8.4.0\AndroidManifest.xml:22:5-67
-MERGED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:21:5-67
+ADDED from [com.google.android.gms:play-services-ads:8.4.0] C:\Users\Mad Beast\.android\build-cache\80d02af8f3ffaa25d3f7d38746928011b80cdd25\output\AndroidManifest.xml:20:5-66
+MERGED from [com.google.android.gms:play-services-analytics:8.4.0] C:\Users\Mad Beast\.android\build-cache\7bf5a094c30565727f7ed94aa1a22f47bee090a2\output\AndroidManifest.xml:21:5-67
+MERGED from [com.google.android.gms:play-services-appinvite:8.4.0] C:\Users\Mad Beast\.android\build-cache\3952fee8cee83aa09f306676e96c5c31fb242280\output\AndroidManifest.xml:19:5-67
+MERGED from [com.google.android.gms:play-services-gcm:8.4.0] C:\Users\Mad Beast\.android\build-cache\7043b9781007ec4db1856e50660855bfea9b5b77\output\AndroidManifest.xml:22:5-67
+MERGED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\.android\build-cache\9c658c39e4cb2f5aa71f727ef50f4fa8eeef5ee1\output\AndroidManifest.xml:21:5-67
+MERGED from [com.google.android.gms:play-services-maps:8.4.0] C:\Users\Mad Beast\.android\build-cache\b266556a722f8d4496b3b339a8c1567e376bdc3e\output\AndroidManifest.xml:21:5-66
 	android:name
-		ADDED from [com.google.android.gms:play-services-ads:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\8.4.0\AndroidManifest.xml:20:22-64
+		ADDED from [com.google.android.gms:play-services-ads:8.4.0] C:\Users\Mad Beast\.android\build-cache\80d02af8f3ffaa25d3f7d38746928011b80cdd25\output\AndroidManifest.xml:20:22-64
 uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from [com.google.android.gms:play-services-ads:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\8.4.0\AndroidManifest.xml:21:5-78
-MERGED from [com.google.android.gms:play-services-analytics:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\8.4.0\AndroidManifest.xml:22:5-79
-MERGED from [com.google.android.gms:play-services-maps:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\8.4.0\AndroidManifest.xml:20:5-78
-MERGED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:22:5-79
-MERGED from [com.google.android.gms:play-services-nearby:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\8.4.0\AndroidManifest.xml:19:5-79
+ADDED from [com.google.android.gms:play-services-ads:8.4.0] C:\Users\Mad Beast\.android\build-cache\80d02af8f3ffaa25d3f7d38746928011b80cdd25\output\AndroidManifest.xml:21:5-78
+MERGED from [com.google.android.gms:play-services-analytics:8.4.0] C:\Users\Mad Beast\.android\build-cache\7bf5a094c30565727f7ed94aa1a22f47bee090a2\output\AndroidManifest.xml:22:5-79
+MERGED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\.android\build-cache\9c658c39e4cb2f5aa71f727ef50f4fa8eeef5ee1\output\AndroidManifest.xml:22:5-79
+MERGED from [com.google.android.gms:play-services-nearby:8.4.0] C:\Users\Mad Beast\.android\build-cache\37a44acec389a1785cd4f86a152ce5d80003dc27\output\AndroidManifest.xml:19:5-79
+MERGED from [com.google.android.gms:play-services-maps:8.4.0] C:\Users\Mad Beast\.android\build-cache\b266556a722f8d4496b3b339a8c1567e376bdc3e\output\AndroidManifest.xml:20:5-78
 	android:name
-		ADDED from [com.google.android.gms:play-services-ads:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\8.4.0\AndroidManifest.xml:21:22-76
+		ADDED from [com.google.android.gms:play-services-ads:8.4.0] C:\Users\Mad Beast\.android\build-cache\80d02af8f3ffaa25d3f7d38746928011b80cdd25\output\AndroidManifest.xml:21:22-76
 activity#com.google.android.gms.ads.AdActivity
-ADDED from [com.google.android.gms:play-services-ads:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\8.4.0\AndroidManifest.xml:26:9-29:64
+ADDED from [com.google.android.gms:play-services-ads:8.4.0] C:\Users\Mad Beast\.android\build-cache\80d02af8f3ffaa25d3f7d38746928011b80cdd25\output\AndroidManifest.xml:26:9-29:64
 	android:configChanges
-		ADDED from [com.google.android.gms:play-services-ads:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\8.4.0\AndroidManifest.xml:28:13-122
+		ADDED from [com.google.android.gms:play-services-ads:8.4.0] C:\Users\Mad Beast\.android\build-cache\80d02af8f3ffaa25d3f7d38746928011b80cdd25\output\AndroidManifest.xml:28:13-122
 	android:theme
-		ADDED from [com.google.android.gms:play-services-ads:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\8.4.0\AndroidManifest.xml:29:13-61
+		ADDED from [com.google.android.gms:play-services-ads:8.4.0] C:\Users\Mad Beast\.android\build-cache\80d02af8f3ffaa25d3f7d38746928011b80cdd25\output\AndroidManifest.xml:29:13-61
 	android:name
-		ADDED from [com.google.android.gms:play-services-ads:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\8.4.0\AndroidManifest.xml:27:13-65
+		ADDED from [com.google.android.gms:play-services-ads:8.4.0] C:\Users\Mad Beast\.android\build-cache\80d02af8f3ffaa25d3f7d38746928011b80cdd25\output\AndroidManifest.xml:27:13-65
 activity#com.google.android.gms.ads.purchase.InAppPurchaseActivity
-ADDED from [com.google.android.gms:play-services-ads:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\8.4.0\AndroidManifest.xml:30:9-31:52
+ADDED from [com.google.android.gms:play-services-ads:8.4.0] C:\Users\Mad Beast\.android\build-cache\80d02af8f3ffaa25d3f7d38746928011b80cdd25\output\AndroidManifest.xml:30:9-31:52
 	android:theme
-		ADDED from [com.google.android.gms:play-services-ads:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\8.4.0\AndroidManifest.xml:31:13-50
+		ADDED from [com.google.android.gms:play-services-ads:8.4.0] C:\Users\Mad Beast\.android\build-cache\80d02af8f3ffaa25d3f7d38746928011b80cdd25\output\AndroidManifest.xml:31:13-50
 	android:name
-		ADDED from [com.google.android.gms:play-services-ads:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\8.4.0\AndroidManifest.xml:30:19-91
+		ADDED from [com.google.android.gms:play-services-ads:8.4.0] C:\Users\Mad Beast\.android\build-cache\80d02af8f3ffaa25d3f7d38746928011b80cdd25\output\AndroidManifest.xml:30:19-91
 activity#com.google.android.gms.appinvite.PreviewActivity
-ADDED from [com.google.android.gms:play-services-appinvite:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\8.4.0\AndroidManifest.xml:21:9-29:20
+ADDED from [com.google.android.gms:play-services-appinvite:8.4.0] C:\Users\Mad Beast\.android\build-cache\3952fee8cee83aa09f306676e96c5c31fb242280\output\AndroidManifest.xml:21:9-29:20
 	android:exported
-		ADDED from [com.google.android.gms:play-services-appinvite:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\8.4.0\AndroidManifest.xml:23:17-40
+		ADDED from [com.google.android.gms:play-services-appinvite:8.4.0] C:\Users\Mad Beast\.android\build-cache\3952fee8cee83aa09f306676e96c5c31fb242280\output\AndroidManifest.xml:23:17-40
 	android:theme
-		ADDED from [com.google.android.gms:play-services-appinvite:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\8.4.0\AndroidManifest.xml:24:17-63
+		ADDED from [com.google.android.gms:play-services-appinvite:8.4.0] C:\Users\Mad Beast\.android\build-cache\3952fee8cee83aa09f306676e96c5c31fb242280\output\AndroidManifest.xml:24:17-63
 	android:name
-		ADDED from [com.google.android.gms:play-services-appinvite:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\8.4.0\AndroidManifest.xml:22:17-48
+		ADDED from [com.google.android.gms:play-services-appinvite:8.4.0] C:\Users\Mad Beast\.android\build-cache\3952fee8cee83aa09f306676e96c5c31fb242280\output\AndroidManifest.xml:22:17-48
 intent-filter#android.intent.category.DEFAULT+com.google.android.gms.appinvite.ACTION_PREVIEW
-ADDED from [com.google.android.gms:play-services-appinvite:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\8.4.0\AndroidManifest.xml:25:13-28:29
+ADDED from [com.google.android.gms:play-services-appinvite:8.4.0] C:\Users\Mad Beast\.android\build-cache\3952fee8cee83aa09f306676e96c5c31fb242280\output\AndroidManifest.xml:25:13-28:29
 action#com.google.android.gms.appinvite.ACTION_PREVIEW
-ADDED from [com.google.android.gms:play-services-appinvite:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\8.4.0\AndroidManifest.xml:26:17-89
+ADDED from [com.google.android.gms:play-services-appinvite:8.4.0] C:\Users\Mad Beast\.android\build-cache\3952fee8cee83aa09f306676e96c5c31fb242280\output\AndroidManifest.xml:26:17-89
 	android:name
-		ADDED from [com.google.android.gms:play-services-appinvite:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\8.4.0\AndroidManifest.xml:26:25-87
+		ADDED from [com.google.android.gms:play-services-appinvite:8.4.0] C:\Users\Mad Beast\.android\build-cache\3952fee8cee83aa09f306676e96c5c31fb242280\output\AndroidManifest.xml:26:25-87
 category#android.intent.category.DEFAULT
-ADDED from [com.google.android.gms:play-services-appinvite:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\8.4.0\AndroidManifest.xml:27:17-75
+ADDED from [com.google.android.gms:play-services-appinvite:8.4.0] C:\Users\Mad Beast\.android\build-cache\3952fee8cee83aa09f306676e96c5c31fb242280\output\AndroidManifest.xml:27:17-75
 	android:name
-		ADDED from [com.google.android.gms:play-services-appinvite:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\8.4.0\AndroidManifest.xml:27:27-73
+		ADDED from [com.google.android.gms:play-services-appinvite:8.4.0] C:\Users\Mad Beast\.android\build-cache\3952fee8cee83aa09f306676e96c5c31fb242280\output\AndroidManifest.xml:27:27-73
 activity#com.google.android.gms.auth.api.signin.internal.SignInHubActivity
-ADDED from [com.google.android.gms:play-services-auth:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-auth\8.4.0\AndroidManifest.xml:21:9-24:46
+ADDED from [com.google.android.gms:play-services-auth:8.4.0] C:\Users\Mad Beast\.android\build-cache\c7ce09cde2f977a33a81694dd65d738a33aacd12\output\AndroidManifest.xml:21:9-24:46
 	android:excludeFromRecents
-		ADDED from [com.google.android.gms:play-services-auth:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-auth\8.4.0\AndroidManifest.xml:23:19-52
+		ADDED from [com.google.android.gms:play-services-auth:8.4.0] C:\Users\Mad Beast\.android\build-cache\c7ce09cde2f977a33a81694dd65d738a33aacd12\output\AndroidManifest.xml:23:19-52
 	android:exported
-		ADDED from [com.google.android.gms:play-services-auth:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-auth\8.4.0\AndroidManifest.xml:24:19-43
+		ADDED from [com.google.android.gms:play-services-auth:8.4.0] C:\Users\Mad Beast\.android\build-cache\c7ce09cde2f977a33a81694dd65d738a33aacd12\output\AndroidManifest.xml:24:19-43
 	android:theme
-		ADDED from [com.google.android.gms:play-services-auth:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-auth\8.4.0\AndroidManifest.xml:22:19-78
+		ADDED from [com.google.android.gms:play-services-auth:8.4.0] C:\Users\Mad Beast\.android\build-cache\c7ce09cde2f977a33a81694dd65d738a33aacd12\output\AndroidManifest.xml:22:19-78
 	android:name
-		ADDED from [com.google.android.gms:play-services-auth:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-auth\8.4.0\AndroidManifest.xml:21:19-72
+		ADDED from [com.google.android.gms:play-services-auth:8.4.0] C:\Users\Mad Beast\.android\build-cache\c7ce09cde2f977a33a81694dd65d738a33aacd12\output\AndroidManifest.xml:21:19-72
 service#com.google.android.gms.auth.api.signin.RevocationBoundService
-ADDED from [com.google.android.gms:play-services-auth:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-auth\8.4.0\AndroidManifest.xml:28:9-31:110
+ADDED from [com.google.android.gms:play-services-auth:8.4.0] C:\Users\Mad Beast\.android\build-cache\c7ce09cde2f977a33a81694dd65d738a33aacd12\output\AndroidManifest.xml:28:9-31:110
 	android:exported
-		ADDED from [com.google.android.gms:play-services-auth:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-auth\8.4.0\AndroidManifest.xml:30:13-36
+		ADDED from [com.google.android.gms:play-services-auth:8.4.0] C:\Users\Mad Beast\.android\build-cache\c7ce09cde2f977a33a81694dd65d738a33aacd12\output\AndroidManifest.xml:30:13-36
 	android:permission
-		ADDED from [com.google.android.gms:play-services-auth:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-auth\8.4.0\AndroidManifest.xml:31:13-107
+		ADDED from [com.google.android.gms:play-services-auth:8.4.0] C:\Users\Mad Beast\.android\build-cache\c7ce09cde2f977a33a81694dd65d738a33aacd12\output\AndroidManifest.xml:31:13-107
 	android:name
-		ADDED from [com.google.android.gms:play-services-auth:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-auth\8.4.0\AndroidManifest.xml:29:13-62
+		ADDED from [com.google.android.gms:play-services-auth:8.4.0] C:\Users\Mad Beast\.android\build-cache\c7ce09cde2f977a33a81694dd65d738a33aacd12\output\AndroidManifest.xml:29:13-62
 uses-permission#com.google.android.c2dm.permission.RECEIVE
-ADDED from [com.google.android.gms:play-services-gcm:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\8.4.0\AndroidManifest.xml:21:5-82
+ADDED from [com.google.android.gms:play-services-gcm:8.4.0] C:\Users\Mad Beast\.android\build-cache\7043b9781007ec4db1856e50660855bfea9b5b77\output\AndroidManifest.xml:21:5-82
 	android:name
-		ADDED from [com.google.android.gms:play-services-gcm:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\8.4.0\AndroidManifest.xml:21:22-79
+		ADDED from [com.google.android.gms:play-services-gcm:8.4.0] C:\Users\Mad Beast\.android\build-cache\7043b9781007ec4db1856e50660855bfea9b5b77\output\AndroidManifest.xml:21:22-79
 uses-permission#android.permission.WAKE_LOCK
-ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:24:5-67
+ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\.android\build-cache\9c658c39e4cb2f5aa71f727ef50f4fa8eeef5ee1\output\AndroidManifest.xml:24:5-67
 	android:name
-		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:24:22-65
+		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\.android\build-cache\9c658c39e4cb2f5aa71f727ef50f4fa8eeef5ee1\output\AndroidManifest.xml:24:22-65
 provider#com.google.android.gms.measurement.AppMeasurementContentProvider
-ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:28:7-31:37
+ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\.android\build-cache\9c658c39e4cb2f5aa71f727ef50f4fa8eeef5ee1\output\AndroidManifest.xml:28:7-31:37
 	android:authorities
-		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:29:11-76
+		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\.android\build-cache\9c658c39e4cb2f5aa71f727ef50f4fa8eeef5ee1\output\AndroidManifest.xml:29:11-76
 	android:exported
-		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:31:11-35
+		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\.android\build-cache\9c658c39e4cb2f5aa71f727ef50f4fa8eeef5ee1\output\AndroidManifest.xml:31:11-35
 	android:name
-		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:30:11-90
+		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\.android\build-cache\9c658c39e4cb2f5aa71f727ef50f4fa8eeef5ee1\output\AndroidManifest.xml:30:11-90
 receiver#com.google.android.gms.measurement.AppMeasurementReceiver
-ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:33:7-39:18
+ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\.android\build-cache\9c658c39e4cb2f5aa71f727ef50f4fa8eeef5ee1\output\AndroidManifest.xml:33:7-39:18
 	android:enabled
-		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:35:11-33
+		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\.android\build-cache\9c658c39e4cb2f5aa71f727ef50f4fa8eeef5ee1\output\AndroidManifest.xml:35:11-33
 	android:name
-		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:34:11-83
+		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\.android\build-cache\9c658c39e4cb2f5aa71f727ef50f4fa8eeef5ee1\output\AndroidManifest.xml:34:11-83
 intent-filter#com.google.android.gms.measurement.UPLOAD
-ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:36:9-38:25
+ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\.android\build-cache\9c658c39e4cb2f5aa71f727ef50f4fa8eeef5ee1\output\AndroidManifest.xml:36:9-38:25
 action#com.google.android.gms.measurement.UPLOAD
-ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:37:11-77
+ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\.android\build-cache\9c658c39e4cb2f5aa71f727ef50f4fa8eeef5ee1\output\AndroidManifest.xml:37:11-77
 	android:name
-		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:37:19-75
+		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\.android\build-cache\9c658c39e4cb2f5aa71f727ef50f4fa8eeef5ee1\output\AndroidManifest.xml:37:19-75
 service#com.google.android.gms.measurement.AppMeasurementService
-ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:41:7-44:37
+ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\.android\build-cache\9c658c39e4cb2f5aa71f727ef50f4fa8eeef5ee1\output\AndroidManifest.xml:41:7-44:37
 	android:enabled
-		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:43:11-33
+		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\.android\build-cache\9c658c39e4cb2f5aa71f727ef50f4fa8eeef5ee1\output\AndroidManifest.xml:43:11-33
 	android:exported
-		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:44:11-35
+		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\.android\build-cache\9c658c39e4cb2f5aa71f727ef50f4fa8eeef5ee1\output\AndroidManifest.xml:44:11-35
 	android:name
-		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.4.0\AndroidManifest.xml:42:11-82
+		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\.android\build-cache\9c658c39e4cb2f5aa71f727ef50f4fa8eeef5ee1\output\AndroidManifest.xml:42:11-82

@@ -158,7 +158,7 @@ public class Colour
 	
 	public void Add(Vector3 a)
 	{
-		Add(a.I, a.J, a.K, 0);
+		Add(a.X, a.Y, a.Z, 0);
 	}
 	
 	public void Add(Vector4 a)

@@ -2,46 +2,37 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 
 import com.raggamuffin.protorunnerv2.ai.VehicleInfo;
 import com.raggamuffin.protorunnerv2.ai.VehicleInfo.AfterBurnerStates;
-import com.raggamuffin.protorunnerv2.ai.VehicleInfo.MovementStates;
-import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_LerpTo;
-import com.raggamuffin.protorunnerv2.colours.ColourBehaviour;
-import com.raggamuffin.protorunnerv2.colours.ColourBehaviour_Pulse;
+import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.ParticleManager;
-import com.raggamuffin.protorunnerv2.particles.ParticleEmitter;
 import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_Burst;
-import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_MultiplierPopper;
 import com.raggamuffin.protorunnerv2.pubsub.InternalPubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.InternalTopics;
+import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.DecayCounter;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
-import com.raggamuffin.protorunnerv2.utils.Vector3;
 import com.raggamuffin.protorunnerv2.weapons.Weapon;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_None;
 
 public abstract class Vehicle extends GameObject
 {
 	private final double DAMAGE_DECAY_RATE = 2.0;
-	
+
 	///// Motion Attributes
 	protected Engine m_Engine;
 	protected Publisher m_OnDeathPublisher;
 
 	////// Vehicle Attributes
-	protected int m_HullPoints;			// How much damage that this ship can take.
-	protected int m_MaxHullPoints;		// The maximum available hullpoints.
+	protected double m_HullPoints;			// How much damage that this ship can take.
+	protected double m_MaxHullPoints;		// The maximum available hullpoints.
 
 	///// Misc Attributes
     protected Weapon m_Utility;
 	protected Weapon m_PrimaryWeapon;
 	private VehicleInfo m_VehicleInfo;
 	private DecayCounter m_DamageDecayCounter;
-	
-	///// Colour Attributes
-	protected ColourBehaviour m_AmbientBehaviour;
-	protected ColourBehaviour_LerpTo m_StressBehaviour;
 	
 	// Particle Emitters.
 	protected ParticleManager m_ParticleManager;
@@ -58,36 +49,37 @@ public abstract class Vehicle extends GameObject
 
 	private FloorGrid m_FloorGrid;
 
-	public Vehicle(GameLogic game, ModelType modelType)
+	private GameLogic m_Game;
+    protected AffiliationKey m_Faction;
+    protected PubSubHub m_PubSubHub;
+
+	public Vehicle(GameLogic game, ModelType modelType, double boundingRadius)
 	{
-		super(game, modelType);
+		super(modelType, boundingRadius);
+
+        m_Game = game;
+
+        m_PubSubHub = game.GetPubSubHub();
+
+        m_Faction = AffiliationKey.BlueTeam;
 
         m_InternalPubSub = new InternalPubSubHub();
         m_InternalDamagedPublisher = m_InternalPubSub.CreatePublisher(InternalTopics.DamageTaken);
 
 		m_ParticleManager = game.GetParticleManager();
 
-		///// Motion Attributes.
-		m_Position 		= new Vector3();
-
 		///// Attributes.
-		m_MaxHullPoints = 100;
+		m_MaxHullPoints = 4;
 		m_HullPoints 	= m_MaxHullPoints;
 		m_VehicleInfo  = new VehicleInfo();
 
-		m_AmbientBehaviour = new ColourBehaviour_Pulse(this, ColourBehaviour.ActivationMode.Continuous);	
-		AddColourBehaviour(m_AmbientBehaviour);
-
-		m_StressBehaviour = new ColourBehaviour_LerpTo(this, ColourBehaviour.ActivationMode.Continuous);
-        AddColourBehaviour(m_StressBehaviour);
-
         if(modelType != ModelType.Nothing)
         {
-			m_FloorGrid = new FloorGrid(m_Position, m_Colour, 20.0);
-            m_Game.AddObjectToRenderer(m_FloorGrid);
+			m_FloorGrid = new FloorGrid(GetPosition(), GetColour(), 10.0);
+			game.AddObjectToRenderer(m_FloorGrid);
         }
 		
-		m_BurstEmitter = new ParticleEmitter_Burst(game, m_BaseColour, m_AltColour, 40);
+		m_BurstEmitter = new ParticleEmitter_Burst(game, GetColour(), GetColour(), 40);
 
 		m_DamageDecayCounter = new DecayCounter(1.0, DAMAGE_DECAY_RATE);
 
@@ -106,15 +98,10 @@ public abstract class Vehicle extends GameObject
 	{
 		m_Engine.Update(deltaTime);
 
-        m_BurstEmitter.SetPosition(m_Position);
-        m_BurstEmitter.SetVelocity(m_Velocity);
-
         m_Utility.Update(deltaTime);
 		m_PrimaryWeapon.Update(deltaTime);
 		
 		m_DamageDecayCounter.Update(deltaTime);
-		
-		m_StressBehaviour.SetIntensity(m_Engine.GetExertion());
 
 		super.Update(deltaTime);
 	}
@@ -162,23 +149,23 @@ public abstract class Vehicle extends GameObject
 	public void DrainEnergy(double drain)
 	{
 		m_HullPoints -= drain;
-		m_HullPoints = (int)MathsHelper.Clamp(m_HullPoints, 0, m_MaxHullPoints);
+		m_HullPoints = m_HullPoints < 0 ? 0 : m_HullPoints;
 	}
 	
 	public void ChargeEnergy(double charge)
 	{
 		m_HullPoints += charge;
-		m_HullPoints = (int)MathsHelper.Clamp(m_HullPoints, 0, m_MaxHullPoints);
+		m_HullPoints = m_HullPoints > m_MaxHullPoints ? m_MaxHullPoints : m_HullPoints;
 	}
 	
 	public void DodgeLeft()
 	{
-		m_Engine.Dodge(m_Right);
+		m_Engine.DodgeLeft();
 	}
 	
 	public void DodgeRight()
 	{
-		m_Engine.Dodge(m_Left);
+		m_Engine.DodgeRight();
 	}
 
     public double GetTurnRate()
@@ -204,26 +191,26 @@ public abstract class Vehicle extends GameObject
 	
 	public void StrafeLeft()
 	{
-		m_Engine.SetDirection(m_Right);
-		m_VehicleInfo.SetMovementState(MovementStates.StrafeLeft);
+		//m_Engine.SetDirection(m_Left);
+		//m_VehicleInfo.SetMovementState(MovementStates.StrafeLeft);
 	}
 	
 	public void StrafeRight()
 	{
-		m_Engine.SetDirection(m_Left);
-		m_VehicleInfo.SetMovementState(MovementStates.StrafeRight);
+		//m_Engine.SetDirection(m_Right);
+		//m_VehicleInfo.SetMovementState(MovementStates.StrafeRight);
 	}
 	
 	public void UseRearEngine()
 	{
-		m_Engine.SetDirection(m_Forward);
-        m_VehicleInfo.SetMovementState(MovementStates.Normal);
+		//m_Engine.SetDirection(m_Forward);
+        //m_VehicleInfo.SetMovementState(MovementStates.Normal);
     }
 
     public void UseForwardEngine()
 	{
-		m_Engine.SetDirection(m_Backward);
-		m_VehicleInfo.SetMovementState(MovementStates.Reverse);
+		//m_Engine.SetDirection(m_Backward);
+		//m_VehicleInfo.SetMovementState(MovementStates.Reverse);
 	}
 	
 	public void EngageAfterBurners()
@@ -242,36 +229,21 @@ public abstract class Vehicle extends GameObject
 	{
         if(m_OnDeathPublisher != null)
         {
-            m_OnDeathPublisher.Publish(m_MaxHullPoints);
+            m_OnDeathPublisher.Publish(GetModel().ordinal());
         }
 	}
 	
 	@Override
 	public boolean IsValid() 
 	{
-		if(IsForciblyInvalidated())
-		{
-			return false;
-		}
-
-		if(m_HullPoints <= 0)
-		{
-			return false;
-		}
-
-		return true;
+        return m_HullPoints > 0;
 	}
 
 	public void SetHullPoints(double hp)
 	{
 		m_HullPoints = (int) MathsHelper.Clamp(hp, 0, m_MaxHullPoints);
 	}
-	
-	public double GetMass()
-	{
-		return m_Mass;
-	}
-	
+
 	public Weapon GetPrimaryWeapon() 
 	{
 		return m_PrimaryWeapon;
@@ -282,12 +254,12 @@ public abstract class Vehicle extends GameObject
 		return m_Utility;
 	}
 	
-	public int GetHullPoints()
+	public double GetHullPoints()
 	{
 		return m_HullPoints;
 	}
 	
-	public int GetMaxHullPoints()
+	public double GetMaxHullPoints()
 	{
 		return m_MaxHullPoints;
 	}
@@ -306,16 +278,6 @@ public abstract class Vehicle extends GameObject
     {
         return m_CanBeTargeted;
     }
-
-	public void EnableRoll()
-	{
-		m_Engine.EnableRoll();
-	}
-
-	public void DisableRoll()
-	{
-		m_Engine.DisableRoll();
-	}
 
 	public VehicleClass GetVehicleClass()
 	{
@@ -337,19 +299,20 @@ public abstract class Vehicle extends GameObject
         return m_StatusEffectManager.HasStatusEffect(effect);
     }
 
-    @Override
-	public double CalculateStress()
-	{
-        return m_DamageDecayCounter.GetValue();
-	}
+	@Override
+	public double GetInnerColourIntensity() { return m_DamageDecayCounter.GetValue(); }
 
 	@Override
 	public void CleanUp()
 	{
 		SendDeathMessage();
 
-        m_Game.GetPopperController().Pop(m_Position, m_Velocity);
+        m_Game.GetPopperController().Pop(GetPosition(), GetVelocity());
+
+		m_BurstEmitter.SetPosition(GetPosition());
+		m_BurstEmitter.SetVelocity(GetVelocity());
 		m_BurstEmitter.Burst();
+
 		m_PrimaryWeapon.CeaseFire();
 
 		if(m_FloorGrid != null)
@@ -357,4 +320,14 @@ public abstract class Vehicle extends GameObject
 			m_Game.RemoveObjectFromRenderer(m_FloorGrid);
 		}
 	}
+
+    public AffiliationKey GetAffiliation()
+    {
+        return m_Faction;
+    }
+
+    public void SetAffiliation(AffiliationKey key)
+    {
+        m_Faction = key;
+    }
 }

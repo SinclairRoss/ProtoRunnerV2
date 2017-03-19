@@ -29,7 +29,7 @@ public class EnemyWaveManager
 
     public EnemyWaveManager(GameLogic game)
     {
-        m_RegularsPerSquad = 5;
+        m_RegularsPerSquad = 3;
         m_ElitesPerSquad = 1;
 
         m_Regulars = new ArrayList<>();
@@ -75,19 +75,19 @@ public class EnemyWaveManager
         for(int i = 0; i < m_RegularsPerSquad; ++i)
         {
             Vector3 spawnPos = formation.get(i);
-            m_VManager.SpawnVehicle(m_Regulars.get(regularIndex), spawnPos.I, spawnPos.K, forward.Yaw());
+            m_VManager.SpawnVehicle(m_Regulars.get(regularIndex), spawnPos.X, spawnPos.Z, forward.Yaw());
         }
 
         formation.clear();
 
-        position.Subtract(forward.I * 5, forward.J * 5, forward.K * 5);
+        position.Subtract(forward.X * 5, forward.Y * 5, forward.Z * 5);
         formation = FormationHelper.CreateWedgeFormation(position, forward, 7, 3, m_ElitesPerSquad);
         int eliteIndex = MathsHelper.RandomInt(0, m_Elites.size());
 
         for(int i = 0; i < m_ElitesPerSquad; ++i)
         {
             Vector3 spawnPos = formation.get(i);
-            m_VManager.SpawnVehicle(m_Elites.get(eliteIndex), spawnPos.I, spawnPos.K, forward.Yaw());
+            m_VManager.SpawnVehicle(m_Elites.get(eliteIndex), spawnPos.X, spawnPos.Z, forward.Yaw());
         }
     }
 }

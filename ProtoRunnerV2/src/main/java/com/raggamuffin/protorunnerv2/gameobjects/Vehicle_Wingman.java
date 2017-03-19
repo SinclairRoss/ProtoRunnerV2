@@ -25,25 +25,20 @@ public class Vehicle_Wingman extends Vehicle
 	
 	public Vehicle_Wingman(GameLogic game)
 	{
-		super(game, ModelType.Runner);
-
-		m_BoundingRadius = 1.5;
+		super(game, ModelType.Runner, 1.5);
 		
 		m_VehicleManager = game.GetVehicleManager();
 
-		m_Position.SetVector(0, 0, 0);
+        SetColour(game.GetColourManager().GetPrimaryColour());
+        //m_AltColour = game.GetColourManager().GetSecondaryColour();
 
-        m_BaseColour = game.GetColourManager().GetPrimaryColour();
-        m_AltColour = game.GetColourManager().GetSecondaryColour();
+       // m_BurstEmitter.SetInitialColour(m_BaseColour);
+      //  m_BurstEmitter.SetFinalColour(m_AltColour);
 
-        m_BurstEmitter.SetInitialColour(m_BaseColour);
-        m_BurstEmitter.SetFinalColour(m_AltColour);
-
-		m_Mass = 100;
         m_Engine = new Engine_Standard(this, game);
 		m_Engine.SetMaxTurnRate(2.0);
-		m_Engine.SetMaxEngineOutput(10000);
-        m_Engine.SetAfterBurnerOutput(5000);
+		m_Engine.SetMaxEngineOutput(70);
+        m_Engine.SetAfterBurnerOutput(90);
 		
 		m_MaxHullPoints = 1000;
 		m_HullPoints 	= m_MaxHullPoints;
@@ -61,11 +56,14 @@ public class Vehicle_Wingman extends Vehicle
 
 		m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.WingmanDestroyed);
 
-		Shield_Timed shield = new Shield_Timed(game, this);
-		AddObjectToGameObjectManager(shield);
+		Shield_Timed shield = new Shield_Timed(this);
+		game.GetGameObjectManager().AddObject(shield);
 
-		m_MultiplierHoover = new MultiplierHoover(m_Position, game);
+		m_MultiplierHoover = new MultiplierHoover(GetPosition(), game);
 	}
+
+	@Override
+	public void DrainEnergy(double drain) {}
 
 	@Override 
 	public void Update(double deltaTime)

@@ -1,7 +1,5 @@
 package com.raggamuffin.protorunnerv2.ui;
 
-import android.provider.MediaStore;
-
 import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.managers.UIManager;

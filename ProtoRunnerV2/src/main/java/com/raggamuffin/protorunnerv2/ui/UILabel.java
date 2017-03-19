@@ -1,9 +1,7 @@
 package com.raggamuffin.protorunnerv2.ui;
 
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
-import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.UIManager;
-import com.raggamuffin.protorunnerv2.ui.TextAnimation.AnimationState;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 
 public class UILabel extends UIElement

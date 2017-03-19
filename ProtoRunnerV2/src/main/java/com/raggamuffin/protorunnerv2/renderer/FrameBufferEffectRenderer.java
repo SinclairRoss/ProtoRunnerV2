@@ -11,12 +11,10 @@ import com.raggamuffin.protorunnerv2.master.RendererPacket;
 
 public class FrameBufferEffectRenderer
 {
-    GLScreenQuad m_ScreenQuad;
-
-    int m_TextureHandles[];
-    int m_DepthBufferHandles[];
-    Point m_TextureSize[];
-    int m_FrameBufferHandles[];
+    private int m_TextureHandles[];
+    private int m_DepthBufferHandles[];
+    private Point m_TextureSize[];
+    private int m_FrameBufferHandles[];
 
     public FrameBufferEffectRenderer()
     {
@@ -30,8 +28,6 @@ public class FrameBufferEffectRenderer
 
     public void LoadAssets(RendererPacket packet)
     {
-        m_ScreenQuad = new GLScreenQuad();
-
         m_TextureSize[0] = new Point(packet.GetScreenSize());
         m_TextureSize[1] = new Point(256, 256);
         m_TextureSize[2] = new Point(256, 256);
