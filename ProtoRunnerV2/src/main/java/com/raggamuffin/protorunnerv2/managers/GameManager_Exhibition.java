@@ -2,11 +2,13 @@ package com.raggamuffin.protorunnerv2.managers;
 
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.gameobjects.VehicleType;
 import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_Burst;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.FormationHelper;
+import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.SpawnHelper;
 import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
@@ -18,7 +20,7 @@ public class GameManager_Exhibition extends GameManager
     private final double SPAWN_DISTANCE_INITIAL = 50;
     private final double SPAWN_DISTANCE = 30.0;
 
-    private VehicleManager m_VehicleManager;
+    private static VehicleManager m_VehicleManager;
 
     private Timer m_EmissionTimer;
     private ParticleEmitter_Burst m_TestEmitter;
@@ -37,11 +39,11 @@ public class GameManager_Exhibition extends GameManager
     {
         if(m_Game.TEST_MODE)
         {
-            if(m_EmissionTimer.HasElapsed())
-            {
-                m_EmissionTimer.Start();
-                m_TestEmitter.Burst();
-            }
+           // if(m_EmissionTimer.HasElapsed())
+          //  {
+              //  m_EmissionTimer.Start();
+            //    m_TestEmitter.Burst();
+        //    }
         }
         else
         {
@@ -112,10 +114,10 @@ public class GameManager_Exhibition extends GameManager
     {
         if(GameLogic.TEST_MODE)
         {
-            m_EmissionTimer.Start();
-            m_TestEmitter = new ParticleEmitter_Burst(m_Game, new Colour(Colours.VioletRed), new Colour(Colours.Cyan), 100);
+            //m_EmissionTimer.Start();
+            //m_TestEmitter = new ParticleEmitter_Burst(m_Game, new Colour(Colours.VioletRed), new Colour(Colours.Cyan), 100);
 
-            m_VehicleManager.SpawnVehicle(VehicleType.ShieldBearer, 0, 0, 0);
+            //m_VehicleManager.SpawnVehicle(VehicleType.ShieldBearer, 0, 0, 0);
 
             return;
         }

@@ -6,8 +6,10 @@ import com.raggamuffin.protorunnerv2.gameobjects.VehicleType;
 import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_Burst;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Colours;
+import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
+import com.raggamuffin.protorunnerv2.weapons.HexPlosive;
 
 public class GameManager_Play extends GameManager
 {
@@ -24,7 +26,7 @@ public class GameManager_Play extends GameManager
         m_VehicleManager = m_Game.GetVehicleManager();
         m_WaveManager = new EnemyWaveManager(game);
 
-        m_EmissionTimer = new Timer(0.1);
+        m_EmissionTimer = new Timer(10);
     }
 
     @Override
@@ -35,8 +37,8 @@ public class GameManager_Play extends GameManager
         if(GameLogic.TEST_MODE)
         {
             m_EmissionTimer.Start();
-            m_TestEmitter = new ParticleEmitter_Burst(m_Game, new Colour(Colours.VioletRed), new Colour(Colours.Cyan), 100);
-            m_VehicleManager.SpawnVehicle(VehicleType.Carrier, 0, 0, 15);
+            //m_TestEmitter = new ParticleEmitter_Burst(m_Game, new Colour(Colours.VioletRed), new Colour(Colours.Cyan), 100);
+           // m_VehicleManager.SpawnVehicle(VehicleType.Warlord, 0, 0, 15);
         }
         else
         {
@@ -56,17 +58,22 @@ public class GameManager_Play extends GameManager
         }
         else
         {
-            if(m_VehicleManager.GetTeam(AffiliationKey.RedTeam).isEmpty())
-            {
-                m_VehicleManager.SpawnVehicle(VehicleType.LaserStar, 0, 0, 15);
-            }
-
             if(m_EmissionTimer.HasElapsed())
             {
-
+                m_Game.GetGameObjectManager().AddObject(new HexPlosive(m_Game));
                 m_EmissionTimer.Start();
-               // m_TestEmitter.Burst();
             }
+
+           // if(m_VehicleManager.GetTeam(AffiliationKey.RedTeam).isEmpty())
+           // {
+           //     m_VehicleManager.SpawnVehicle(VehicleType.Warlord, 0, 0, 15);
+           // }
+
+           // if(m_EmissionTimer.HasElapsed())
+           // {
+           //     m_EmissionTimer.Start();
+           //    // m_TestEmitter.Burst();
+           // }
         }
     }
 

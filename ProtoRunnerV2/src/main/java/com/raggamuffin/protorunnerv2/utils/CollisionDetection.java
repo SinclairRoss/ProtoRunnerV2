@@ -14,9 +14,9 @@ public final class CollisionDetection
 	// Check for collisions between two bounding spheres.
 	public static CollisionReport CheckCollisions(GameObject A, GameObject B)
 	{
-		DisplacementA.SetVectorDifference(A.GetPreviousPosition(), A.GetPosition());
-		DisplacementB.SetVectorDifference(B.GetPreviousPosition(), B.GetPosition());
-		RelativeMovement.SetVectorDifference(DisplacementA, DisplacementB);	// Movement relative to object A.
+		DisplacementA.SetAsDifference(A.GetPreviousPosition(), A.GetPosition());
+		DisplacementB.SetAsDifference(B.GetPreviousPosition(), B.GetPosition());
+		RelativeMovement.SetAsDifference(DisplacementA, DisplacementB);	// Movement relative to object A.
 		RelativeMovement.Add(B.GetPreviousPosition());
 
 		return RayCastSphere(B.GetPreviousPosition(), RelativeMovement, A.GetPosition(), A.GetBoundingRadius() + B.GetBoundingRadius());
@@ -52,12 +52,12 @@ public final class CollisionDetection
                (entersAt < 0.0 && exitsAt > 1.0))       // if the ray lies completely within sphere.
             {
                 Vector3 entryPoint = new Vector3();
-                entryPoint.SetVectorDifference(rayStart, rayEnd);
+                entryPoint.SetAsDifference(rayStart, rayEnd);
                 entryPoint.Scale(entersAt);
                 entryPoint.Add(rayStart);
 
                 Vector3 exitPoint = new Vector3();
-                exitPoint.SetVectorDifference(rayStart, rayEnd);
+                exitPoint.SetAsDifference(rayStart, rayEnd);
                 exitPoint.Scale(exitsAt);
                 exitPoint.Add(rayStart);
 

@@ -24,8 +24,6 @@ public class Vehicle_Carrier extends Vehicle
 	public Vehicle_Carrier(GameLogic game)
 	{
 		super(game, ModelType.Carrier, 5);
-		
-		m_VehicleManager = game.GetVehicleManager();
 
 		SetColour(Colours.BlockPurple);
 
@@ -41,14 +39,15 @@ public class Vehicle_Carrier extends Vehicle
 
         SelectWeapon(new Weapon_None(this, game));
 
+        VehicleManager vehicleManager = game.GetVehicleManager();
         NavigationalBehaviourInfo navInfo = new NavigationalBehaviourInfo(0.4, 1.0, 0.7, 0.6);
-		m_AIController = new AIController(this, m_VehicleManager, game.GetBulletManager(), navInfo, AIBehaviours.Encircle, FireControlBehaviour.MissileLauncher, TargetingBehaviour.Standard);
+		m_AIController = new AIController(this, vehicleManager, game.GetBulletManager(), navInfo, AIBehaviours.Encircle, FireControlBehaviour.MissileLauncher, TargetingBehaviour.Standard);
 
 		m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.EnemyDestroyed);
 
 		for(int i = 0; i < NUM_DRONES; ++i)
         {
-            Vehicle drone = m_VehicleManager.SpawnDrone(this);
+            Vehicle drone = vehicleManager.SpawnDrone(this);
             drone.SetPosition(GetPosition());
         }
     }
@@ -60,12 +59,4 @@ public class Vehicle_Carrier extends Vehicle
 
         super.Update(deltaTime);
 	}
-
-    @Override
-    public void CleanUp()
-    {
-        super.CleanUp();
-        m_PrimaryWeapon.CleanUp();
-		m_Engine.CleanUp();
-    }
 } 

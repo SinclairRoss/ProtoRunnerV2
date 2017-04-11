@@ -40,6 +40,8 @@ public class Engine
 
     private ParticleEmitter_HyperLight m_HyperLight;
 
+    private boolean m_Active;
+
     public Engine(GameLogic game, Vehicle anchor)
     {
         m_Anchor = anchor;
@@ -66,23 +68,27 @@ public class Engine
         m_Exertion = 0.0;
 
         m_HyperLight = new ParticleEmitter_HyperLight(game, m_Anchor.GetColour(), m_Anchor.GetColour(), 30, 1);
+        m_Active = true;
     }
 
     public void Update(double deltaTime)
     {
-        UpdateTurnRate(deltaTime);
-        UpdateOrientation(deltaTime);
+        if(m_Active)
+        {
+            UpdateTurnRate(deltaTime);
+            UpdateOrientation(deltaTime);
 
-        m_Anchor.ApplyForce(m_Direction, GetEngineOutput(), deltaTime);
-        m_Anchor.ApplyForce(m_DodgeDirection, GetDodgeOutput(), deltaTime);
+            m_Anchor.ApplyForce(m_Direction, GetEngineOutput(), deltaTime);
+            m_Anchor.ApplyForce(m_DodgeDirection, GetDodgeOutput(), deltaTime);
 
-        // Decay the output of the dodge overtime.
-        m_DodgeOutput -= deltaTime * DODGE_DECAY_MULTIPLIER;
-        m_DodgeOutput = MathsHelper.Clamp(m_DodgeOutput, 0, 1);
+            // Decay the output of the dodge overtime.
+            m_DodgeOutput -= deltaTime * DODGE_DECAY_MULTIPLIER;
+            m_DodgeOutput = MathsHelper.Clamp(m_DodgeOutput, 0, 1);
 
-        UpdateExertion(deltaTime);
+            UpdateExertion(deltaTime);
 
-        UpdateHyperlightEmitter(deltaTime);
+            UpdateHyperlightEmitter(deltaTime);
+        }
     }
 
     private void UpdateHyperlightEmitter(double deltaTime)
@@ -214,4 +220,8 @@ public class Engine
     }
 
     public void CleanUp() {}
+
+    public void TurnOff() { m_Active = false; }
+
+    public void TurnOn() { m_Active = true; }
 }

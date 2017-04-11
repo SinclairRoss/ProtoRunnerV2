@@ -46,6 +46,8 @@ import java.util.ArrayList;
 
 public class GameLogic extends ApplicationLogic
 {
+    public static GameLogic DEBUG_INSTANCE = null;
+
 	private ChaseCamera m_Camera;
 	private ControlScheme m_Control;
 	
@@ -84,6 +86,8 @@ public class GameLogic extends ApplicationLogic
 	public GameLogic(Activity activity, PubSubHub pubSub, ControlScheme scheme, RendererPacket packet)
 	{
 		super(activity, packet);
+
+        DEBUG_INSTANCE = this;
 
 		m_Camera = packet.GetCamera();
 		m_Control = scheme;

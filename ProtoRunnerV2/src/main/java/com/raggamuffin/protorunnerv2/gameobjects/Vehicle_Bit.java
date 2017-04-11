@@ -47,11 +47,4 @@ public class Vehicle_Bit extends Vehicle
 		
 		super.Update(deltaTime);
 	}
-
-    @Override
-    public void CleanUp()
-    {
-        super.CleanUp();
-        m_PrimaryWeapon.CleanUp();
-    }
 } 

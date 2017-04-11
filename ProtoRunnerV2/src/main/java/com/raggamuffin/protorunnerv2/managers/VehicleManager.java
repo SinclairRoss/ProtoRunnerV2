@@ -19,7 +19,9 @@ import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_ShieldBearer;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_SweeperBot;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Tank;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_TentacleController;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Warlord;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Wingman;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_WarlordDrone;
 import com.raggamuffin.protorunnerv2.gameobjects.WeaponTestBot;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
@@ -128,6 +130,9 @@ public class VehicleManager
             case ShieldBearer:
                 spawn = new Vehicle_ShieldBearer(m_Game);
                 break;
+            case Warlord:
+                spawn = new Vehicle_Warlord(m_Game);
+                break;
             case WeaponTestBot:
                 spawn = new WeaponTestBot(m_Game);
                 break;
@@ -160,16 +165,27 @@ public class VehicleManager
         return spawn;
     }
 
-    public Vehicle_Drone SpawnDrone(Vehicle_Carrier anchor)
-    {
-        Vehicle_Drone spawn = new Vehicle_Drone(m_Game, anchor);
+	public Vehicle_Drone SpawnDrone(Vehicle_Carrier anchor)
+	{
+		Vehicle_Drone spawn = new Vehicle_Drone(m_Game, anchor);
 
-        m_Vehicles.add(spawn);
-        GetTeam(spawn.GetAffiliation()).add(spawn);
-        m_Game.AddObjectToRenderer(spawn);
+		m_Vehicles.add(spawn);
+		GetTeam(spawn.GetAffiliation()).add(spawn);
+		m_Game.AddObjectToRenderer(spawn);
 
-        return spawn;
-    }
+		return spawn;
+	}
+
+	public Vehicle_WarlordDrone SpawnDrone(Vehicle_Warlord anchor, int droneNumber, int maxDroneCount)
+	{
+		Vehicle_WarlordDrone spawn = new Vehicle_WarlordDrone(m_Game, anchor, droneNumber, maxDroneCount);
+
+		m_Vehicles.add(spawn);
+		GetTeam(spawn.GetAffiliation()).add(spawn);
+		m_Game.AddObjectToRenderer(spawn);
+
+		return spawn;
+	}
 
 	public Vehicle_TentacleController SpawnTentacleController(Vehicle_ShieldBearer anchor)
     {
@@ -195,9 +211,6 @@ public class VehicleManager
 				return m_BlueTeam;
 			}
 			case Neutral:
-			{
-				return null;
-			}
 			default:
 			{
 				return null;
@@ -218,9 +231,6 @@ public class VehicleManager
 				return m_RedTeam;
 			}
 			case Neutral:
-			{
-				return null;
-			}
 			default:
 			{
 				return null;

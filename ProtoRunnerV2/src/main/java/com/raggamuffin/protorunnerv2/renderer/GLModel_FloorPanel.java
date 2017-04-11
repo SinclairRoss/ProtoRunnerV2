@@ -30,7 +30,7 @@ public class GLModel_FloorPanel
 
     static final int COORDS_PER_VERTEX = 3;
     static final int VERTEX_STRIDE = COORDS_PER_VERTEX * 4;	// 4 Bytes to a float.
-    static final float SIZE = 12.0f;
+    static final float SIZE = 15.0f;
 
     static float VertexCoords[] =
     {
@@ -46,7 +46,7 @@ public class GLModel_FloorPanel
 
     static final int TEX_COORDS_PER_VERTEX = 2;
     static final int TEX_STRIDE = TEX_COORDS_PER_VERTEX * 4;	// 4 Bytes to a float.
-    static final float NUM_CELLS = 8.0f;
+    static final float NUM_CELLS = 10.0f;
 
     static float TextureCoords[] =
     {

@@ -30,7 +30,7 @@ public class RopeSpring
 
     public void Update(double deltaTime)
     {
-        m_Stretch.SetVectorDifference(m_Parent.GetPosition(), m_Child.GetPosition());
+        m_Stretch.SetAsDifference(m_Parent.GetPosition(), m_Child.GetPosition());
         double stretchLength = m_Stretch.GetLength() - m_SpringLength;
 
         m_Stretch.Normalise();

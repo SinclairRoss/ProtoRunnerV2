@@ -15,12 +15,16 @@ public enum ModelType
     WeaponDrone,
     ThreePointStar,
     ShieldBearer,
+    Warlord,
 
     Trail,
 
     PlasmaPulse,
     SpawnPillar,
     ParticleLaser,
+
+    HeagonTube,
+    PlaneXY,
 
     PlasmaShot,
 	RailSlug,

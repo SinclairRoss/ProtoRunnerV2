@@ -38,10 +38,17 @@ public class Tentacle extends GameObject
     public Tentacle(GameObject headAnchor, GameObject tailAnchor, Colour hotColour, Colour coldColour)
     {
         super(ModelType.Nothing, 0);
+        Initialise(headAnchor, tailAnchor, hotColour, coldColour, 10, 9000, -25);
+    }
 
-        final double ROPE_LENGTH = 10;
-        final double ROPE_RIGIDNESS = 9000;
-        final double GRAVITY_STRENGTH = -25.0;
+    public Tentacle(GameObject headAnchor, GameObject tailAnchor, Colour hotColour, Colour coldColour, double ropeLength, double rigidness, double gravityStrength)
+    {
+        super(ModelType.Nothing, 0);
+        Initialise(headAnchor, tailAnchor, hotColour, coldColour, ropeLength, rigidness, gravityStrength);
+    }
+
+    private void Initialise(GameObject headAnchor, GameObject tailAnchor, Colour hotColour, Colour coldColour, double ropeLength, double rigidness, double gravityStrength)
+    {
         final double LIFE_SPAN = 3.0;
 
         m_HeadAnchor = headAnchor;
@@ -55,19 +62,19 @@ public class Tentacle extends GameObject
 
         m_BloomPoint = 0;
 
-        final double springLength = ROPE_LENGTH / ROPE_RESOLUTION;
-        final double springStrength = ROPE_RIGIDNESS / ROPE_RESOLUTION;
+        final double springLength = ropeLength / ROPE_RESOLUTION;
+        final double springStrength = rigidness / ROPE_RESOLUTION;
         final double tentacleLifeSpan = LIFE_SPAN / ROPE_RESOLUTION;
 
         m_RopeNodes = new ArrayList<>(ROPE_RESOLUTION);
 
-        m_HeadNode = new RopeNode(new Vector3(0), null, springLength, springStrength, GRAVITY_STRENGTH, tentacleLifeSpan);
+        m_HeadNode = new RopeNode(new Vector3(0), null, springLength, springStrength, gravityStrength, tentacleLifeSpan);
         m_RopeNodes.add(m_HeadNode);
 
         for(int i = 1; i < ROPE_RESOLUTION; i++)
         {
             RopeNode parent = m_RopeNodes.get(i-1);
-            RopeNode child = new RopeNode(m_HeadAnchor.GetPosition(), parent, springLength, springStrength, GRAVITY_STRENGTH, tentacleLifeSpan);
+            RopeNode child = new RopeNode(m_HeadAnchor.GetPosition(), parent, springLength, springStrength, gravityStrength, tentacleLifeSpan);
 
             m_RopeNodes.add(child);
             parent.SetChild(child);
@@ -78,6 +85,13 @@ public class Tentacle extends GameObject
 
     public void Update(double deltaTime)
     {
+        int numRopeNodes = m_RopeNodes.size();
+        for(int i = 0; i < numRopeNodes; ++i)
+        {
+            RopeNode node = m_RopeNodes.get(i);
+            node.Update(deltaTime);
+        }
+
         switch (m_TentacleState)
         {
             case Normal:
@@ -93,13 +107,6 @@ public class Tentacle extends GameObject
             {
                 break;
             }
-        }
-
-        int numRopeNodes = m_RopeNodes.size();
-        for(int i = 0; i < numRopeNodes; ++i)
-        {
-            RopeNode node = m_RopeNodes.get(i);
-            node.Update(deltaTime);
         }
     }
 

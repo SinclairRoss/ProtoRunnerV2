@@ -433,11 +433,10 @@ public class Shaders
 
         +   "void main()"
         +   "{"
-
         +   "   gl_FragColor = u_Color * texture2D(u_Texture, v_TexCoord + u_TexOffset);"
 
-        +   "   float x = 4.0 - v_TexCoord.x;"
-        +   "   float y = 4.0 - v_TexCoord.y;"
+        +   "   float x = 5.0 - v_TexCoord.x;"
+        +   "   float y = 5.0 - v_TexCoord.y;"
 
         + 	"	float dist = sqrt((x * x) + (y * y)) * 0.5;"		// Find the Distance of this fragment from the center.
         +   "   float attenuation = 1.0 / (1.0 + (u_AttenuationCoefficient * (dist * dist)));"

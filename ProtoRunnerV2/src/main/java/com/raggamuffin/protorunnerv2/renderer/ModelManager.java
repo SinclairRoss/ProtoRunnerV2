@@ -30,11 +30,13 @@ public class ModelManager
 	private GLModel_Ring m_Ring;
 	private GLScreenQuad m_Screen;
 	private GLModel_HorizonRing m_HorizonRing;
-	private GLModel_RadarFragment m_RadarFragment;
+    private GLModel_RadarFragment m_RadarFragment;
 
     private GLModel_SolidObject m_ParticleLaser;
     private GLModel_SolidObject m_PlasmaPulse;
     private GLModel_SolidObject m_SpawnPillar;
+    private GLModel_EtherealObject m_HexagonalTube;
+    private GLModel_EtherealObject m_PlaneXY;
     private GLModel_SolidObjectPriority m_LaserPointer;
 
     private GLModel_StandardObject m_Runner;
@@ -83,6 +85,8 @@ public class ModelManager
         m_ParticleLaser = new GLModel_SolidObject(ReadFloatArrayFromResource(R.string.laser_vertices));
         m_PlasmaPulse = new GLModel_SolidObject(ReadFloatArrayFromResource(R.string.plasma_vertices));
         m_SpawnPillar = new GLModel_SolidObject(ReadFloatArrayFromResource(R.string.spawn_pillar));
+        m_HexagonalTube = new GLModel_EtherealObject(ReadFloatArrayFromResource(R.string.hexagon_tube));
+        m_PlaneXY = new GLModel_EtherealObject(ReadFloatArrayFromResource(R.string.plane_xy));
 
         m_Screen = new GLScreenQuad();
         m_HorizonRing = new GLModel_HorizonRing();
@@ -192,6 +196,10 @@ public class ModelManager
                 return m_ParticleLaser;
             case PlasmaPulse:
                 return m_PlasmaPulse;
+            case HeagonTube:
+                return m_HexagonalTube;
+            case PlaneXY:
+                return m_PlaneXY;
             case SpawnPillar:
                 return m_SpawnPillar;
             case RadarFragment:

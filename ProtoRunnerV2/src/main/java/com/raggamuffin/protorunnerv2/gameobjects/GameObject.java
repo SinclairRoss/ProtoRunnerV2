@@ -3,13 +3,16 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 // Author: Sinclair Ross
 // Date:   12/02/2017
 
+import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
-public abstract class GameObject
+public class GameObject
 {
+    public boolean DEBUG_BOUNDINGRING = false;
+
     private Vector3 m_Position;
     private Vector3 m_PreviousPosition;
     private Vector3 m_Velocity;
@@ -46,6 +49,11 @@ public abstract class GameObject
         m_BoundingRadius = boundingRadius;
 
         m_DragCoefficient = 5;
+
+        if(DEBUG_BOUNDINGRING && model != ModelType.Ring)
+        {
+            GameLogic.DEBUG_INSTANCE.GetGameObjectManager().AddObject(new Marker_BoundingSphere(this));
+        }
     }
 
     public void Update(double deltaTime)
@@ -65,8 +73,8 @@ public abstract class GameObject
         ApplyForce(-drag_x, -drag_y, -drag_z, deltaTime);
     }
 
-    public abstract boolean IsValid();
-    public abstract void CleanUp();
+    public boolean IsValid(){ return true; }
+    public void CleanUp(){};
 
     // <----- Forces -----> \\
     public void ApplyForce(Vector3 force, double scalar) { ApplyForce(force.X, force.Y, force.Z, scalar); }
@@ -100,7 +108,7 @@ public abstract class GameObject
     // <----- Setters -----> \\
     public void SetPositionByRef(Vector3 position) { m_Position = position; }
     public void SetPosition(Vector3 position) { m_Position.SetVector(position); }
-    public void SetPosition(double x, double y, double z) { m_Position.SetVector(x, y, z); }
+    public void SetPosition(double x, double y, double z) { m_Position.SetVector(x, y, z); m_PreviousPosition.SetVector(x, y, z); };
     protected void SetVelocity(Vector3 direction, double scalar) { m_Velocity.SetVector(direction.X * scalar, direction.Y * scalar, direction.Z * scalar); }
     protected void SetVelocity(Vector3 velocity) { m_Velocity.SetVector(velocity); }
     protected void SetVelocity(double x, double y, double z) { m_Velocity.SetVector(x, y, z); }
@@ -114,7 +122,7 @@ public abstract class GameObject
 
     protected void LookAt(Vector3 look)
     {
-        m_Forward.SetVectorDifference(m_Position, look);
+        m_Forward.SetAsDifference(m_Position, look);
         m_Forward.Normalise();
         SetRoll(m_Roll);
     }
@@ -136,11 +144,11 @@ public abstract class GameObject
         SetRoll(m_Roll);
     }
 
-    protected void SetOrientationVectorsByRef(Vector3 forward, Vector3 up, Vector3 right)
+    protected void SetOrientationVectorsByRef(GameObject obj)
     {
-        m_Forward = forward;
-        m_Up = up;
-        m_Right = right;
+        m_Forward = obj.m_Forward;
+        m_Up = obj.m_Up;
+        m_Right = obj.m_Right;
     }
 
     protected void SetOrientationVectorsWithComponents(double fwd_x, double fwd_y, double fwd_z, double up_x, double up_y, double up_z, double right_x, double right_y, double right_z)

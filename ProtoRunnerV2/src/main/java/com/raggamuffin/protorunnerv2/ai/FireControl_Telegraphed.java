@@ -107,7 +107,7 @@ public class FireControl_Telegraphed extends FireControl
         if(target != null)
         {
             // Is target within range.
-            m_ToTarget.SetVectorDifference(m_Anchor.GetPosition(), target.GetPosition());
+            m_ToTarget.SetAsDifference(m_Anchor.GetPosition(), target.GetPosition());
 
             if (m_ToTarget.GetLengthSqr() <= m_Range * m_Range)
             {

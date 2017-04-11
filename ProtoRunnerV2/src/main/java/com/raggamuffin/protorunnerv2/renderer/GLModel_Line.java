@@ -3,7 +3,6 @@ package com.raggamuffin.protorunnerv2.renderer;
 import android.opengl.GLES20;
 import android.util.Log;
 
-import com.raggamuffin.protorunnerv2.particles.Particle;
 import com.raggamuffin.protorunnerv2.particles.Trail;
 import com.raggamuffin.protorunnerv2.particles.TrailNode;
 import com.raggamuffin.protorunnerv2.utils.Colour;
@@ -13,7 +12,6 @@ import com.raggamuffin.protorunnerv2.utils.Vector3;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
-import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GLModel_Line
@@ -73,7 +71,10 @@ public class GLModel_Line
 
         AddPoints(trail);
 
-        m_ToEye.SetVectorDifference(eye, trail.GetNodes().get(0).GetPosition());
+        if(!trail.GetNodes().isEmpty())
+        {
+            m_ToEye.SetAsDifference(eye, trail.GetNodes().get(0).GetPosition());
+        }
     }
 
     private void AddPoints(Trail trail)

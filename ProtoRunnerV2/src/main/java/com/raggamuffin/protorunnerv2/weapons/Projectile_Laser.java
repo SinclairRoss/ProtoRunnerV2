@@ -54,7 +54,7 @@ public class Projectile_Laser extends Projectile
         m_LaserFadeTimer = new Timer(0.5);
 
         m_LaserLength = 0.0;
-        m_MaxLength = 500;
+        m_MaxLength = 250;
         m_MaxWidth = 0.25;
         m_LaserWidth =  0.25;
 
@@ -62,7 +62,7 @@ public class Projectile_Laser extends Projectile
 
         SetScale(0.0);
 
-        m_RayEmitter = new ParticleEmitter_Ray(game, GetColour(), GetColour(), 10, 0.35, 0.3);
+        m_RayEmitter = new ParticleEmitter_Ray(game, GetColour(), GetColour(), 10, 0.5, 0.3);
         m_RayEmitter.SetForward(forward);
 
         m_PointEmitter = new ParticleEmitter_Point(game, GetColour(), GetColour(), 2, 2);
@@ -168,6 +168,7 @@ public class Projectile_Laser extends Projectile
     private void LockProjectile()
     {
         SetForward(m_FiringWeapon.GetForward());
+        RotateY(m_FiringBarrel.GetRotation());
         SetRoll(0);
 
         SetPosition(m_FiringWeapon.GetPosition());

@@ -6,6 +6,7 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
+import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
@@ -14,7 +15,7 @@ public class SpawnEffect extends GameObject
     private final double MAX_HEIGHT = 150.0;
     private final double MAX_WIDTH = 2.0;
 
-    private Timer_Accumulation m_LifeTimer;
+    private Timer m_LifeTimer;
 
     public SpawnEffect(Colour colour, Vector3 pos)
     {
@@ -24,13 +25,12 @@ public class SpawnEffect extends GameObject
         SetPositionByRef(pos);
         SetScale(0);
 
-        m_LifeTimer = new Timer_Accumulation(0.7);
+        m_LifeTimer = new Timer(0.7);
     }
 
     @Override
     public void Update(double deltaTime)
     {
-        m_LifeTimer.Update(deltaTime);
         double progress = m_LifeTimer.GetProgress();
 
         double scaleWidth = MathsHelper.Lerp(1.0 - progress, 0, MAX_WIDTH);
@@ -44,7 +44,7 @@ public class SpawnEffect extends GameObject
     @Override
     public boolean IsValid()
     {
-        return !m_LifeTimer.TimedOut();
+        return !m_LifeTimer.HasElapsed();
     }
 
     @Override

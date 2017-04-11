@@ -9,6 +9,7 @@ public enum VehicleType
     Drone,
     LaserStar,
     ShieldBearer,
+    Warlord,
 
     WeaponTestBot,
     TrainingDummy,

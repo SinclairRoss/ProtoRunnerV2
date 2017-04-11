@@ -3,12 +3,9 @@ package com.raggamuffin.protorunnerv2.particles;
 // Author: Sinclair Ross
 // Date:   16/06/2016
 
-import android.util.Log;
-
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.RopeSpring;
 import com.raggamuffin.protorunnerv2.utils.Timer;
-import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class RopeNode
@@ -203,8 +200,6 @@ public class RopeNode
     {
         m_LifeSpanTimer.Start();
         m_NodeState = NodeState.Dying;
-
-        Log.e("ten", "Ded");
     }
 
     public boolean IsDead()

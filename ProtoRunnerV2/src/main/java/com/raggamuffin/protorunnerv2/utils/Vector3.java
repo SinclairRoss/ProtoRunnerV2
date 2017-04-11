@@ -101,7 +101,7 @@ public final class Vector3
         Scale(length);
     }
 
-    public void SetVectorDifference(final Vector3 A, final Vector3 B)
+    public void SetAsDifference(final Vector3 A, final Vector3 B)
     {
         X = B.X - A.X;
         Y = B.Y - A.Y;
@@ -319,14 +319,7 @@ public final class Vector3
 
 	public boolean IsNan()
 	{
-		if(X != X)
-			return true;
-		
-		if(Y != Y)
-			return true;
-
-		return Z != Z;
-
+		return X != X || Y != Y || Z != Z;
 	}
 
 	public Component GetMajorComponent()
@@ -344,7 +337,6 @@ public final class Vector3
         if(y > x && y > z)
             return Component.Y;
 
-        Log.e("Vector3", "No major component found");
         return null;
     }
 	

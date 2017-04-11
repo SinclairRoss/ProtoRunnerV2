@@ -27,6 +27,12 @@ public class Timer
         m_Active = true;
     }
 
+    public void StartElapsed()
+    {
+        Start();
+        ElapseTimer();
+    }
+
     public void Stop()
     {
         m_Active = false;
@@ -57,7 +63,6 @@ public class Timer
     {
         return 1.0 - GetProgress();
     }
-
 
     public double GetRunTimeMillis()
     {

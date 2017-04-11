@@ -58,9 +58,6 @@ public class BulletManager
             case Laser:
                 newProjectile = new Projectile_Laser(m_Game, origin.GetFirePosition(), origin.GetVelocity(), origin.CalculateProjectileHeading(), origin.GetBaseColour(), origin.GetBaseDamage(), origin.GetAffiliation(), origin);
                 break;
-            default:
-                Log.e("BulletManager", "Bullet type not found: " + origin.GetProjectileType().toString());
-                break;
         }
 
         AddProjectile(newProjectile);

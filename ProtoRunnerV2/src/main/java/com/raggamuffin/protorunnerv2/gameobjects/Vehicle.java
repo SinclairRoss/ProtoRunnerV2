@@ -11,8 +11,8 @@ import com.raggamuffin.protorunnerv2.pubsub.InternalTopics;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
-import com.raggamuffin.protorunnerv2.utils.DecayCounter;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
+import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.weapons.Weapon;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_None;
 
@@ -32,7 +32,7 @@ public abstract class Vehicle extends GameObject
     protected Weapon m_Utility;
 	protected Weapon m_PrimaryWeapon;
 	private VehicleInfo m_VehicleInfo;
-	private DecayCounter m_DamageDecayCounter;
+	protected Timer m_DamageDecayCounter;
 	
 	// Particle Emitters.
 	protected ParticleManager m_ParticleManager;
@@ -81,7 +81,8 @@ public abstract class Vehicle extends GameObject
 		
 		m_BurstEmitter = new ParticleEmitter_Burst(game, GetColour(), GetColour(), 40);
 
-		m_DamageDecayCounter = new DecayCounter(1.0, DAMAGE_DECAY_RATE);
+        m_DamageDecayCounter = new Timer(1.0 / DAMAGE_DECAY_RATE);
+        m_DamageDecayCounter.Start();
 
         m_CanBeTargeted = true;
 
@@ -92,7 +93,7 @@ public abstract class Vehicle extends GameObject
 
 		m_StatusEffectManager = new StatusEffectManager();
 	}
-	
+
 	@Override
 	public void Update(double deltaTime)
 	{
@@ -100,8 +101,6 @@ public abstract class Vehicle extends GameObject
 
         m_Utility.Update(deltaTime);
 		m_PrimaryWeapon.Update(deltaTime);
-		
-		m_DamageDecayCounter.Update(deltaTime);
 
 		super.Update(deltaTime);
 	}
@@ -143,7 +142,7 @@ public abstract class Vehicle extends GameObject
 
     public void UpdateDamageDecayCounter()
     {
-        m_DamageDecayCounter.AddValue(1.0);
+        m_DamageDecayCounter.Start();
     }
 	
 	public void DrainEnergy(double drain)
@@ -279,10 +278,8 @@ public abstract class Vehicle extends GameObject
         return m_CanBeTargeted;
     }
 
-	public VehicleClass GetVehicleClass()
-	{
-		return m_VehicleClass;
-	}
+	public VehicleClass GetVehicleClass() { return m_VehicleClass; }
+	public void SetVehicleClass(VehicleClass vClass) { m_VehicleClass = vClass; }
 
     public void ApplyStatusEffect(StatusEffect effect)
     {
@@ -300,7 +297,7 @@ public abstract class Vehicle extends GameObject
     }
 
 	@Override
-	public double GetInnerColourIntensity() { return m_DamageDecayCounter.GetValue(); }
+	public double GetInnerColourIntensity() { return m_DamageDecayCounter.GetInverseProgress(); }
 
 	@Override
 	public void CleanUp()
@@ -314,6 +311,7 @@ public abstract class Vehicle extends GameObject
 		m_BurstEmitter.Burst();
 
 		m_PrimaryWeapon.CeaseFire();
+		m_PrimaryWeapon.CleanUp();
 
 		if(m_FloorGrid != null)
 		{

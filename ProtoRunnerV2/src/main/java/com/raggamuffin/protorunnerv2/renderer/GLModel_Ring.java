@@ -27,7 +27,7 @@ public class GLModel_Ring extends GLModel
 
     public GLModel_Ring()
     {
-        int numVertices = 16;
+        int numVertices = 6;
         float[] vertices = new float[numVertices * 3];
 
         double theta = 0.0;
@@ -36,9 +36,9 @@ public class GLModel_Ring extends GLModel
         for(int i = 0; i < numVertices; ++i)
         {
             int index = i*3;
-            vertices[index] = (float)Math.sin(theta);
+            vertices[index] = (float)Math.cos(theta);
             vertices[index+1] = 0.0f;
-            vertices[index+2] = (float)Math.cos(theta);
+            vertices[index+2] = (float)Math.sin(theta);
 
             theta += deltaTheta;
         }
@@ -71,8 +71,7 @@ public class GLModel_Ring extends GLModel
 
         GLES20.glUniformMatrix4fv(m_ProjMatrixHandle, 1, false, projMatrix, 0);
 
-        GLES20.glLineWidth(1.0f);
-
+        GLES20.glLineWidth(10.0f);
     }
 
     @Override

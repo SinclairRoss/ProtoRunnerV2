@@ -5,7 +5,6 @@ package com.raggamuffin.protorunnerv2.managers;
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.particles.Particle;
-import com.raggamuffin.protorunnerv2.particles.Particle_Multiplier;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
@@ -57,7 +56,7 @@ public class MultiplierHoover
     {
         if(distanceSqr < m_AttractionRange * m_AttractionRange)
         {
-            m_ParticleForceDirection.SetVectorDifference(particle.GetPosition(), m_Position);
+            m_ParticleForceDirection.SetAsDifference(particle.GetPosition(), m_Position);
             m_ParticleForceDirection.Normalise();
 
             particle.ApplyForce(m_ParticleForceDirection, m_AttractionStrength);

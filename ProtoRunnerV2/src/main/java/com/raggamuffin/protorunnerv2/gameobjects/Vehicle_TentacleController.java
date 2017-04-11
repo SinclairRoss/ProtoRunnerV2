@@ -50,7 +50,7 @@ public class Vehicle_TentacleController extends Vehicle
 
         m_Engine = new Engine(game, this);
         m_Engine.SetMaxTurnRate(15.0);
-        m_Engine.SetMaxEngineOutput(40);
+        m_Engine.SetMaxEngineOutput(80);
         m_Engine.SetDodgeOutput(0);
 
         SetAffiliation(AffiliationKey.RedTeam);
@@ -150,7 +150,7 @@ public class Vehicle_TentacleController extends Vehicle
 
         if(distanceToAnchorSqr >= ANCHOR_ATTACK_RANGE * ANCHOR_ATTACK_RANGE)
         {
-            m_ClampingVector.SetVectorDifference(m_Anchor.GetPosition(), GetPosition());
+            m_ClampingVector.SetAsDifference(m_Anchor.GetPosition(), GetPosition());
             m_ClampingVector.Normalise();
             m_ClampingVector.Scale(ANCHOR_ATTACK_RANGE);
             m_ClampingVector.Add(m_Anchor.GetPosition());

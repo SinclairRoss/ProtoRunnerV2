@@ -24,7 +24,7 @@ public class CyclingEngineAttachment extends GameObject
         SetColourByRef(anchor.GetColour());
 
         m_Anchor = anchor;
-        SetOrientationVectorsByRef(m_Anchor.GetForward(), m_Anchor.GetUp(), m_Anchor.GetRight());
+        SetOrientationVectorsByRef(m_Anchor);
         m_OrbitRange = orbitRange;
         m_Offset = offset;
 

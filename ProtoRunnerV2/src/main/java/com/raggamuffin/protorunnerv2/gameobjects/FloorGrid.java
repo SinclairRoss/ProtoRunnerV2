@@ -43,8 +43,6 @@ public class FloorGrid
         return m_AnchorColour;
     }
 
-    public double GetAttenuation()
-    {
-        return m_Attenuation;
-    }
+    public double GetAttenuation() { return m_Attenuation; }
+    public void SetAttenuation(double attenuation) { m_Attenuation = attenuation; }
 }

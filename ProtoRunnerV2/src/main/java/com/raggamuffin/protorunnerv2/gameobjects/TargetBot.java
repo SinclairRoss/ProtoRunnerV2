@@ -17,7 +17,10 @@ public class TargetBot extends Vehicle
 
     public TargetBot(GameLogic game)
     {
-        super(game, ModelType.Dummy, 1.0);
+        super(game, ModelType.HeagonTube, 1.0);
+
+        SetScale(3, 0, 3);
+
 
         NavigationalBehaviourInfo navInfo = new NavigationalBehaviourInfo(0.4, 1.0, 0.7, 0.6);
         m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), navInfo, AIBehaviours.EngageTarget, FireControlBehaviour.Telegraphed, TargetingBehaviour.Standard);
@@ -25,6 +28,7 @@ public class TargetBot extends Vehicle
         SetAffiliation(AffiliationKey.RedTeam);
 
         SetColour(Colours.CalvinOrange);
+        SetAlpha(0.4);
 
         m_Engine = new Engine_Standard(this, game);
         m_Engine.SetMaxTurnRate(0);//2

@@ -1,7 +1,5 @@
 package com.raggamuffin.protorunnerv2.ai;
 
-import android.util.Log;
-
 import com.raggamuffin.protorunnerv2.managers.BulletManager;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 import com.raggamuffin.protorunnerv2.weapons.Projectile;
@@ -51,13 +49,13 @@ public class Sensor_IncomingDanger extends Sensor
 
 			if(proj.GetAffiliation() != m_Anchor.GetAffiliation())
             {
-                m_ReltivePosition.SetVectorDifference(m_Anchor.GetPosition(), proj.GetPosition());
+                m_ReltivePosition.SetAsDifference(m_Anchor.GetPosition(), proj.GetPosition());
                 double toProjectileLengthSqr = m_ReltivePosition.GetLengthSqr();
 
                 if (toProjectileLengthSqr < m_SensorRadius * m_SensorRadius)
                 {
                     m_ReltivePosition.Normalise();
-                    m_RelativeVelocity.SetVectorDifference(m_Anchor.GetVelocity(), proj.GetVelocity());
+                    m_RelativeVelocity.SetAsDifference(m_Anchor.GetVelocity(), proj.GetVelocity());
                     m_RelativeVelocity.Normalise();
 
                     double dotProduct = Vector3.DotProduct(m_ReltivePosition, m_RelativeVelocity);
