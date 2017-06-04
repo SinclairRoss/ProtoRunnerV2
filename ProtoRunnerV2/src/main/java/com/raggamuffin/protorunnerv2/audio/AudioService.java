@@ -30,6 +30,8 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
     private float m_SFXVolumeDucked;
     private float m_SFXVolume;
 
+    private int m_MusicID;
+
 	public AudioService(Context context)
     {
         m_Context = context;
@@ -38,7 +40,7 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
         m_MusicVolumeDucked = 0.1f;
         m_MusicVolume = m_MusicVolumeStandard;
 
-        m_SFXVolumeStandard = 1.0f;
+        m_SFXVolumeStandard = 0.6f;
         m_SFXVolumeDucked = 0.3f;
         m_SFXVolume = m_SFXVolumeStandard;
 
@@ -54,19 +56,29 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
                 .setMaxStreams(1024)
                 .setAudioAttributes(audioAttributes)
                 .build();
+
+        m_MusicID = 0;
 	}
 	
 	public void LoadMusic(int id)
 	{
+        m_MusicID = id;
 		m_MediaPlayer = MediaPlayer.create(m_Context, id);
 		m_MediaPlayer.setLooping(true);
+		//m_MediaPlayer.pause();
 	}
-	
+
 	public void PlayMusic()
 	{
-		m_MediaPlayer.start();
+		m_MediaPlayer.seekTo(0);
+        m_MediaPlayer.start();
 	}
-	
+
+	public void PauseMusic()
+	{
+		m_MediaPlayer.pause();
+	}
+
 	public int LoadClip(int id)
 	{
 		return m_SoundPool.load(m_Context, id, 1);
@@ -88,7 +100,6 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
 	{
 		Log.e(TAG, "Pause");
 
-		//TODO: INVESTIVATE NULL PTR WITH SOUNDPOOL.
 		m_SoundPool.autoPause();
         m_MediaPlayer.pause();
 	}
@@ -102,8 +113,8 @@ public class AudioService extends Service implements MediaPlayer.OnPreparedListe
 
         m_SoundPool.autoResume();
 
-        m_MediaPlayer.start();
-        m_MediaPlayer.setVolume(m_MusicVolume, m_MusicVolume);
+        //m_MediaPlayer.start();
+        //m_MediaPlayer.setVolume(m_MusicVolume, m_MusicVolume);
 	}
 	
 	public void Stop()

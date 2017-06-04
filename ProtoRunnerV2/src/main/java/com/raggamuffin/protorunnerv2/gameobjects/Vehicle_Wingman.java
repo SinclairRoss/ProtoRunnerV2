@@ -19,31 +19,22 @@ public class Vehicle_Wingman extends Vehicle
 	private AIController m_AIController;
 	private VehicleManager m_VehicleManager;
 
-    private MultiplierHoover m_MultiplierHoover;
-
     private Subscriber m_PlayerSpawnedSubscriber;
 	
 	public Vehicle_Wingman(GameLogic game)
 	{
-		super(game, ModelType.Runner, 1.5);
+		super(game, ModelType.Runner, 1.5, 1, VehicleClass.StandardVehicle, true, PublishedTopics.WingmanDestroyed, AffiliationKey.BlueTeam);
 		
 		m_VehicleManager = game.GetVehicleManager();
 
         SetColour(game.GetColourManager().GetPrimaryColour());
-        //m_AltColour = game.GetColourManager().GetSecondaryColour();
-
-       // m_BurstEmitter.SetInitialColour(m_BaseColour);
-      //  m_BurstEmitter.SetFinalColour(m_AltColour);
 
         m_Engine = new Engine_Standard(this, game);
 		m_Engine.SetMaxTurnRate(2.0);
 		m_Engine.SetMaxEngineOutput(70);
         m_Engine.SetAfterBurnerOutput(90);
 		
-		m_MaxHullPoints = 1000;
-		m_HullPoints 	= m_MaxHullPoints;
-
-		SetAffiliation(AffiliationKey.BlueTeam);
+		ApplyStatusEffect(StatusEffect.Shielded);
 		
 		SelectWeapon(new Weapon_PulseLaser(this, game));
 
@@ -54,22 +45,14 @@ public class Vehicle_Wingman extends Vehicle
         m_PlayerSpawnedSubscriber = new PlayerSpawnedSubscriber();
 		game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerSpawned, m_PlayerSpawnedSubscriber);
 
-		m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.WingmanDestroyed);
-
 		Shield_Timed shield = new Shield_Timed(this);
 		game.GetGameObjectManager().AddObject(shield);
-
-		m_MultiplierHoover = new MultiplierHoover(GetPosition(), game);
 	}
-
-	@Override
-	public void DrainEnergy(double drain) {}
 
 	@Override 
 	public void Update(double deltaTime)
 	{
 		m_AIController.Update(deltaTime);
-        m_MultiplierHoover.Update();
 		
 		super.Update(deltaTime);
 	}
@@ -79,13 +62,12 @@ public class Vehicle_Wingman extends Vehicle
     {
 		super.CleanUp();
         m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.PlayerSpawned, m_PlayerSpawnedSubscriber);
-        m_PrimaryWeapon.CleanUp();
     }
 
     private class PlayerSpawnedSubscriber extends Subscriber
 	{
 		@Override
-		public void Update(int args) 
+		public void Update(Object args)
 		{
 			m_AIController.SetLeader(m_VehicleManager.GetPlayer());
 		}	

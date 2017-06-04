@@ -84,12 +84,9 @@ public class AIController
 
     public void CheckLeader()
     {
-        if(m_Leader != null)
+        if(m_Leader != null && !m_Leader.IsValid())
         {
-            if (!m_Leader.IsValid())
-            {
-                m_Leader = null;
-            }
+            m_Leader = null;
         }
     }
 

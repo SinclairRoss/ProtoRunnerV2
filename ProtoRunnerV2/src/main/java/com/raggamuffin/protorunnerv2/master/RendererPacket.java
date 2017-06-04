@@ -20,6 +20,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class RendererPacket
 {
+    public enum ObjectRenderMode
+    {
+        InGame,
+        UI
+    }
+
     private final Point m_ScreenSize;
     private final ArrayList<CopyOnWriteArrayList<GameObject>> m_GameObjects;
     private final CopyOnWriteArrayList<Trail> m_Trails;
@@ -38,7 +44,6 @@ public class RendererPacket
 
         int numModels = ModelType.values().length;
         m_GameObjects = new ArrayList<>(numModels);
-
         for (int i = 0; i < numModels; ++i)
         {
             m_GameObjects.add(new CopyOnWriteArrayList<GameObject>());
@@ -47,7 +52,7 @@ public class RendererPacket
         int numUIElements = UIElementType.values().length;
         m_UIElements = new ArrayList<>(numUIElements);
 
-        for (int i = 0; i < numUIElements; i++)
+        for (int i = 0; i < numUIElements; ++i)
         {
             m_UIElements.add(new CopyOnWriteArrayList<UIElement>());
         }
@@ -74,9 +79,10 @@ public class RendererPacket
         return m_Tentacles;
     }
 
-    public void AddObject(GameObject object) { GetModelList(object.GetModel()).add(object); }
-    public void RemoveObject(GameObject object) { GetModelList(object.GetModel()).remove(object); }
-    public CopyOnWriteArrayList<GameObject> GetModelList(ModelType type) { return m_GameObjects.get(type.ordinal()); }
+    public void AddObject(GameObject object) { GetModelList_InGame(object.GetModel()).add(object); }
+    public void RemoveObject(GameObject object) { GetModelList_InGame(object.GetModel()).remove(object); }
+
+    public CopyOnWriteArrayList<GameObject> GetModelList_InGame(ModelType type) { return m_GameObjects.get(type.ordinal()); }
 
     public void AddObject(ArrayList<Particle> particles, ParticleType type) { GetParticleListFromType(type).addAll(particles); }
     public void RemoveObject(ArrayList<Particle> particles, ParticleType type) { GetParticleListFromType(type).removeAll(particles); }
@@ -97,15 +103,6 @@ public class RendererPacket
 	public ChaseCamera GetCamera() { return m_Camera; }
 	public RenderEffectSettings GetRenderEffectSettings() { return m_RenderEffectSettings; }
     public Point GetScreenSize() { return m_ScreenSize; }
-
-    public void OutputDebugInfo()
-    {
-        Log.e("Packet", "<-------------------->");
-        Log.e("PacketParticles", "Num Particles: " + m_Particles.size());
-        Log.e("PacketParticles", "Num Multipliers: " + m_Particles_Multiplier.size());
-        Log.e("PacketTrail", "Num Trails: " + m_Trails.size());
-        Log.e("PacketFloorGrid", "Num FloorGrids: " + m_FloorGrids.size());
-    }
 
     private CopyOnWriteArrayList<Particle> GetParticleListFromType(ParticleType type)
     {

@@ -39,7 +39,7 @@ public class LaserPointer extends GameObject
     {
         SetPosition(m_Anchor.GetPosition());
         SetForward(m_Anchor.GetForward());
-        GetForward().RotateY(m_Barrel.GetRotation());
+        Rotate(m_Barrel.GetRotation());
     }
 
 	@Override

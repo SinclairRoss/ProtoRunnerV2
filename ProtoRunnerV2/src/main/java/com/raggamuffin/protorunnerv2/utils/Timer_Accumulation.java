@@ -17,20 +17,10 @@ public class Timer_Accumulation
 		MathsHelper.Clamp(m_Timer, 0, m_Limit);
 	}
 
-	public void ResetTimer()
-	{
-		m_Timer = 0.0;
-	}
+	public void ResetTimer()  { m_Timer = 0.0; }
+	public void ElapseTimer() { m_Timer = m_Limit; }
 
-	public void MaxOutTimer()
-	{
-		m_Timer = m_Limit;
-	}
-	
-	public boolean TimedOut()
-	{
-		return m_Timer >= m_Limit;
-	}
+	public boolean HasElapsed() { return m_Timer >= m_Limit; }
 
 	public void SetLimit(double limit)
 	{

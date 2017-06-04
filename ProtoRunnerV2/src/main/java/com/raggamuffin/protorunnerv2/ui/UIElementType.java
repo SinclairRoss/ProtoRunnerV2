@@ -2,8 +2,10 @@ package com.raggamuffin.protorunnerv2.ui;
 
 public enum UIElementType 
 {
-	Undefined,
-    Panel,
+    Block_Centered,
+    Block_Left,
+    Block_Right,
+
 	Label,
-	ProgressBar
+    Triangle
 }

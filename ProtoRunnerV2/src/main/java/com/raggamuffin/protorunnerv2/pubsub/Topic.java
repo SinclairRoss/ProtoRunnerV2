@@ -11,7 +11,7 @@ public class Topic
 		m_Subscribers = new Vector<>();
 	}
 	
-	public void Update(final int args)
+	public void Update(final Object args)
 	{
 		for(Subscriber Sub : m_Subscribers)
 		{

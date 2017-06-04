@@ -5,22 +5,21 @@ import android.content.Context;
 import com.raggamuffin.protorunnerv2.R;
 import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
-import com.raggamuffin.protorunnerv2.utils.Vector2;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
+import android.util.Log;
 
 public class GameAudioManager 
 {
-	final int NUM_AUDIO_CLIPS = AudioClips.values().length;
-	final double MIN_AUDIO_THRESHOLD_SQR = 1.0;
-	final double MAX_AUDIO_THRESHOLD_SQR = 60 * 60;
+	private final int NUM_AUDIO_CLIPS = AudioClips.values().length;
+    private final double ATTENUATION = 0.01;
 	
-	ChaseCamera m_Listener;
-	AudioService m_AudioService;
-	
-	Vector2 m_ListenerForward;
-	Vector2 m_RelativePosition;
-	
-	int[] m_IDs;
+	private ChaseCamera m_Listener;
+	private AudioService m_AudioService;
+
+	private Vector3 m_ListenerForward;
+	private Vector3 m_ToListener;
+
+	private int[] m_IDs;
 	
 	public GameAudioManager(Context context, ChaseCamera listener)
 	{
@@ -29,8 +28,8 @@ public class GameAudioManager
 		
 		m_IDs = new int[NUM_AUDIO_CLIPS];
 		
-		m_ListenerForward  = new Vector2();
-		m_RelativePosition = new Vector2();
+		m_ListenerForward  = new Vector3();
+		m_ToListener = new Vector3();
 		
 		LoadSounds();
 	}
@@ -38,54 +37,30 @@ public class GameAudioManager
 	private void LoadSounds()
 	{
         // Weapons.
-        m_IDs[AudioClips.Blaster_Friendly.ordinal()] = m_AudioService.LoadClip(R.raw.pulse_laser_punk);
-        m_IDs[AudioClips.Blaster_Enemy.ordinal()] = m_AudioService.LoadClip(R.raw.pulse_laser);
-        m_IDs[AudioClips.Laser_Friendly.ordinal()] = m_AudioService.LoadClip(R.raw.pulse_laser_punk);
-        m_IDs[AudioClips.Laser_Enemy.ordinal()] = m_AudioService.LoadClip(R.raw.pulse_laser);
-
-        // Missile.
-        m_IDs[AudioClips.Missile_Spawned.ordinal()] = m_AudioService.LoadClip(R.raw.missile_spawn);
-        m_IDs[AudioClips.Missile_Engaged.ordinal()] = m_AudioService.LoadClip(R.raw.missile_engaged);
-        m_IDs[AudioClips.Missile_Ambient.ordinal()] = m_AudioService.LoadClip(R.raw.missile_engaged);
-
-        // Flare.
-        m_IDs[AudioClips.Flare_Spawned.ordinal()] = m_AudioService.LoadClip(R.raw.missile_spawn);
-        m_IDs[AudioClips.Flare_Engaged.ordinal()] = m_AudioService.LoadClip(R.raw.missile_engaged);
-        m_IDs[AudioClips.Flare_Ambient.ordinal()] = m_AudioService.LoadClip(R.raw.missile_engaged);
-
-        // Misc SFX.
-        m_IDs[AudioClips.Explosion.ordinal()] = m_AudioService.LoadClip(R.raw.explosion);
-        m_IDs[AudioClips.Respawn.ordinal()] = m_AudioService.LoadClip(R.raw.explosion);
-        m_IDs[AudioClips.EnemyDestroyed.ordinal()]= m_AudioService.LoadClip(R.raw.silence);
-        m_IDs[AudioClips.WingmanDestroyed.ordinal()] = m_AudioService.LoadClip(R.raw.explosion);
-		m_IDs[AudioClips.PlayerDamaged.ordinal()] = m_AudioService.LoadClip(R.raw.player_damaged);
-        m_IDs[AudioClips.Silence.ordinal()] = m_AudioService.LoadClip(R.raw.silence);
+        m_IDs[AudioClips.Blaster_Friendly.ordinal()] = m_AudioService.LoadClip(R.raw.blaster);
+        m_IDs[AudioClips.Laser_Enemy.ordinal()] = m_AudioService.LoadClip(R.raw.enemyblaster);
 
 		// UI Sounds.
 		m_IDs[AudioClips.UI_Positive.ordinal()] = m_AudioService.LoadClip(R.raw.ui_positive);
         m_IDs[AudioClips.UI_Negative.ordinal()] = m_AudioService.LoadClip(R.raw.ui_negative);
-        m_IDs[AudioClips.UI_Play.ordinal()] = m_AudioService.LoadClip(R.raw.ui_play);
-		
-		// Music
-		int music;
+		m_IDs[AudioClips.UI_Play.ordinal()] = m_AudioService.LoadClip(R.raw.ui_positive);
 
-		//if(MathsHelper.RandomBoolean())
-		//{
-			music = R.raw.skeletons;
-		//}
-		//else
-		//{
-		//	music = R.raw.passion;
-		//}
+        m_IDs[AudioClips.EnemyDown.ordinal()] = m_AudioService.LoadClip(R.raw.enemydown);
+		m_IDs[AudioClips.TouchMe.ordinal()] = m_AudioService.LoadClip(R.raw.touchme);
+        m_IDs[AudioClips.Dodge.ordinal()] = m_AudioService.LoadClip(R.raw.dodgewoosh);
+
+		// Music
+		int music = R.raw.skeletons;
 
 		m_AudioService.LoadMusic(music);
-        StartMusic();
 	}
 	
 	public void StartMusic()
 	{
 		m_AudioService.PlayMusic();
 	}
+
+	public void PauseMusic() { m_AudioService.PauseMusic();}
 
 	public int PlaySound(AudioClips clip)
 	{
@@ -95,33 +70,23 @@ public class GameAudioManager
 	public int PlaySound(Vector3 pos, AudioClips clip, EAudioRepeatBehaviour repeatBehaviour)
 	{
 		Vector3 listenerPos = m_Listener.GetPosition();
-		m_RelativePosition.SetVector(pos.X - listenerPos.X, pos.Z - listenerPos.Z);
+        m_ToListener.SetVectorAsDifference(pos, listenerPos);
 		
-		double volume  = CalculateVolume(m_RelativePosition);
+		double volume  = CalculateVolume(m_ToListener);
 
 		int streamID = -1;
 
 		if(volume > 0.0)
 		{
 			Vector3 listenerLookat = m_Listener.GetLookAt();
-			m_ListenerForward.SetVector(listenerLookat.X, listenerLookat.Z);
+			m_ListenerForward.SetVector(listenerLookat);
 
-			double panning = CalculatePanning(m_RelativePosition, m_ListenerForward);
+		//	double panning = CalculatePanning(m_ToListener, m_ListenerForward);
 
-			double leftVolume = volume * panning;
-			double rightVolume = volume * (1.0 - panning);
+			double leftVolume = volume ;//* panning;
+			double rightVolume = volume;// * (1.0 - panning);
 
-            boolean loop = false;
-
-            switch (repeatBehaviour)
-            {
-                case Manual:
-                    loop = true;
-                    break;
-                case Single:
-                    loop = false;
-                    break;
-            }
+            boolean loop = repeatBehaviour == EAudioRepeatBehaviour.Manual;
 
 			streamID = PlaySound(clip, leftVolume, rightVolume, loop);
 		}
@@ -139,15 +104,19 @@ public class GameAudioManager
         m_AudioService.StopClip(streamID);
     }
 	
-	private double CalculateVolume(Vector2 displacement)
+	private double CalculateVolume(Vector3 toListener)
 	{
-		double volume = MathsHelper.Normalise(displacement.GetLengthSqr(), MIN_AUDIO_THRESHOLD_SQR, MAX_AUDIO_THRESHOLD_SQR);
-		return 1.0 - volume;
+        double distanceSqr = toListener.GetLengthSqr();
+		double volume = 1 / (ATTENUATION * distanceSqr);
+
+		Log.e("Volume", "" + volume);
+
+        return volume;
 	}
 	
-	private double CalculatePanning(Vector2 displacement, Vector2 forward)
+	private double CalculatePanning(Vector3 displacement, Vector3 forward)
 	{
-		double theta = Vector2.RadiansBetween(displacement, forward);	
+		double theta = Vector3.RadiansBetween(displacement, forward);
 		
 		if(theta > MathsHelper.PI_OVER_2)
 		{
@@ -156,7 +125,7 @@ public class GameAudioManager
 		
 		theta = MathsHelper.Normalise(theta, 0, MathsHelper.PI_OVER_2);
 
-		return Vector2.Determinant(forward, displacement) >= 0.0 ? 0.5 - (theta * 0.5)
+		return Vector3.Determinant(forward, displacement) >= 0.0 ? 0.5 - (theta * 0.5)
 																 : 0.5 + (theta * 0.5);
 	}
 	
@@ -174,11 +143,6 @@ public class GameAudioManager
     {
         m_AudioService.Stop();
     }
-
-	public Vector3 GetListenerPosition()
-	{
-		return m_Listener.GetPosition();
-	}
 }	
 
 

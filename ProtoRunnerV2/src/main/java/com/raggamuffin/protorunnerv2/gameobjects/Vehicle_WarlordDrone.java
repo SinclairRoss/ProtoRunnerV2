@@ -3,6 +3,7 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 // Author: Sinclair Ross
 // Date:   08/04/2017
 
+import com.raggamuffin.protorunnerv2.ObjectEffect.ObjectEffectType;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.particles.TrailEmitter;
@@ -22,7 +23,7 @@ public class Vehicle_WarlordDrone extends Vehicle
 
     public Vehicle_WarlordDrone(GameLogic game, Vehicle_Warlord anchor, int droneNumber, int maxDroneCount)
     {
-        super(game, ModelType.EngineDrone, 5.0);
+        super(game, ModelType.EngineDrone, 5.0, 1, VehicleClass.Drone, true, null, AffiliationKey.RedTeam);
 
         m_Anchor = anchor;
 
@@ -30,19 +31,12 @@ public class Vehicle_WarlordDrone extends Vehicle
         m_TrailEmitter = new TrailEmitter(game, this);
         m_OrbitCounter = ((Math.PI * 2) / maxDroneCount) * droneNumber;
 
-        SetAffiliation(AffiliationKey.RedTeam);
-
-        m_HullPoints = 1;
-
         UpdatePosition(0);
 
-        SpawnEffect effect = new SpawnEffect(GetColour(), GetPosition());
-        game.GetGameObjectManager().AddObject(effect);
+        game.GetObjectEffectController().CreateEffect(ObjectEffectType.SpawnPillar, this);
 
         m_Tentacle = new Tentacle(this, m_Anchor, GetColour(), GetColour(), 10, 9000, 30);
         game.GetRopeManager().AddObject(m_Tentacle);
-
-        SetVehicleClass(VehicleClass.Drone);
     }
 
     public void Update(double deltaTime)
@@ -67,10 +61,10 @@ public class Vehicle_WarlordDrone extends Vehicle
     private void UpdateRotation()
     {
         Vector3 forward = GetForward();
-        forward.SetAsDifference(GetPosition(), m_Anchor.GetPosition());
+        forward.SetVectorAsDifference(GetPosition(), m_Anchor.GetPosition());
         forward.Y = 0;
         forward.Normalise();
-        RotateY(Math.PI / 2);
+        SetRotationY(Math.PI / 2);
         SetForward(forward);
     }
 

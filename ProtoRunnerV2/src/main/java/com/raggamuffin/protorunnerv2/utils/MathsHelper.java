@@ -22,7 +22,7 @@ public class MathsHelper
 	// Normalise a value in range 0 - 1.
 	public static double Normalise(double val, double min, double max)
 	{
-		return Clamp((val - min) / (max - min),0.0, 1.0);
+		return Clamp((val - min) / (max - min), 0.0, 1.0);
 	}
 	
 	// Normalise a value in range -1 - 1.
@@ -99,6 +99,11 @@ public class MathsHelper
     }
 	
 	// Returns a random double within in range Min - Max.
+	public static double RandomDouble(double max)
+	{
+		return RandomDouble(0, max);
+	}
+
 	public static double RandomDouble(double min, double max)
 	{
 		return (Rand.nextDouble() * (max - min)) + min;
@@ -117,6 +122,11 @@ public class MathsHelper
     }
 	
 	// Returns a random int within the range Min -Max.
+	public static int RandomInt(int max)
+	{
+		return RandomInt(0, max);
+	}
+
 	public static int RandomInt(int Min, int Max)
 	{
 		return Rand.nextInt((Max - Min)) + Min;

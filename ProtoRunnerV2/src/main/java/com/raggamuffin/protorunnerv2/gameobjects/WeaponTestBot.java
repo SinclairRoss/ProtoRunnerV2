@@ -9,8 +9,7 @@ import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
-import com.raggamuffin.protorunnerv2.utils.Colours;
-import com.raggamuffin.protorunnerv2.weapons.Weapon_PunkShot;
+import com.raggamuffin.protorunnerv2.weapons.Weapon_BitLaser;
 
 public class WeaponTestBot extends Vehicle
 {
@@ -18,7 +17,7 @@ public class WeaponTestBot extends Vehicle
 
     public WeaponTestBot(GameLogic game)
     {
-        super(game, ModelType.Bit, 2);
+        super(game, ModelType.Bit, 2, 1, VehicleClass.StandardVehicle, true, PublishedTopics.EnemyDestroyed, AffiliationKey.RedTeam);
 
         //SetColourScheme(Colours.Pink70, Colours.RunnerBlue);
 
@@ -27,14 +26,10 @@ public class WeaponTestBot extends Vehicle
         m_Engine.SetMaxEngineOutput(0); //10000
         m_Engine.SetDodgeOutput(0);
 
-        SetAffiliation(AffiliationKey.RedTeam);
-
-        SelectWeapon(new Weapon_PunkShot(this, game));
+        SelectWeapon(new Weapon_BitLaser(this, game));
 
         NavigationalBehaviourInfo navInfo = new NavigationalBehaviourInfo(0.4, 1.0, 0.7, 0.6);
         m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), navInfo, AIBehaviours.EngageTarget, FireControlBehaviour.Telegraphed, TargetingBehaviour.Standard);
-
-        m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.EnemyDestroyed);
     }
 
     @Override
@@ -43,12 +38,5 @@ public class WeaponTestBot extends Vehicle
         m_AIController.Update(deltaTime);
 
         super.Update(deltaTime);
-    }
-
-    @Override
-    public void CleanUp()
-    {
-        super.CleanUp();
-        m_PrimaryWeapon.CleanUp();
     }
 }

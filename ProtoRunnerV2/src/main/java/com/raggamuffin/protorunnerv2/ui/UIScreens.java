@@ -8,9 +8,7 @@ public enum UIScreens
 	Play,
 	GameOverScreen,
 	Aftermath,
-    Tutorial,
-    NewToGame,
     NotSignedIn,
     Leaderboards,
-	TestMode
+	LearnToTouch,
 }

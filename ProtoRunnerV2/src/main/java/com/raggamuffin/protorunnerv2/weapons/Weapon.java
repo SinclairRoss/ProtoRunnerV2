@@ -7,12 +7,9 @@ import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.audio.AudioEmitter;
 import com.raggamuffin.protorunnerv2.audio.AudioEmitter_Point;
 import com.raggamuffin.protorunnerv2.audio.EAudioRepeatBehaviour;
-import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
-import com.raggamuffin.protorunnerv2.managers.BulletManager;
-import com.raggamuffin.protorunnerv2.managers.ParticleManager;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
@@ -22,13 +19,8 @@ public abstract class Weapon
 {
     protected Vehicle m_Anchor;
     protected GameLogic m_Game;
-    protected BulletManager m_BulletManager;
-    protected ParticleManager m_ParticleManager;
-    protected GameAudioManager m_AudioService;
 
-    protected ProjectileType m_ProjectileType;
-
-    protected Vector3 m_Target;
+    private ProjectileType m_ProjectileType;
 
     protected FireControl m_FireMode;
 
@@ -45,21 +37,14 @@ public abstract class Weapon
     protected boolean m_TriggerPulled;
     protected boolean m_IsFiring;
 
-    protected EquipmentType m_EquipmentType;
+    protected AudioEmitter m_AudioEmitter;
 
-    private AudioEmitter m_AudioEmitter;
-
-    public Weapon(Vehicle anchor, GameLogic game, AudioClips fireClip)
+    public Weapon(Vehicle anchor, GameLogic game, ProjectileType type, AudioClips fireClip)
     {
         m_Anchor = anchor;
         m_Game = game;
-        m_BulletManager = m_Game.GetBulletManager();
-        m_ParticleManager = m_Game.GetParticleManager();
-        m_AudioService = m_Game.GetGameAudioManager();
 
-        m_ProjectileType = ProjectileType.PlasmaShot;
-
-        m_Target = anchor.GetForward();
+        m_ProjectileType = type;
 
         m_AudioEmitter = new AudioEmitter_Point(m_Anchor, m_Game.GetGameAudioManager(), fireClip, EAudioRepeatBehaviour.Single);
 
@@ -77,13 +62,6 @@ public abstract class Weapon
 
         m_TriggerPulled = false;
         m_IsFiring = false;
-
-        m_EquipmentType = EquipmentType.Weapon;
-    }
-
-    public void SetTargetVector(Vector3 target)
-    {
-        m_Target = target;
     }
 
     // Override to add functionality.
@@ -103,29 +81,26 @@ public abstract class Weapon
         }
     }
 
-    public void OpenFire()
+    public void PullTrigger()
     {
         m_FireMode.PullTrigger();
         m_TriggerPulled = true;
     }
 
-    public void CeaseFire()
+    public void ReleaseTrigger()
     {
         m_FireMode.ReleaseTrigger();
         m_TriggerPulled = false;
     }
 
-    public void WeaponUnequipped()
-    {}
-
-    public void WeaponEquipped()
-    {}
-
     public Vector3 GetFirePosition()
     {
         WeaponBarrel barrel = m_WeaponBarrels.get(m_MuzzleIndex);
         Vector3 out = new Vector3(barrel.GetPosition());
-        out.RotateY(m_Anchor.GetForward().Yaw());
+
+        double yaw = Vector3.RadiansBetween(Vector3.FORWARD, m_Anchor.GetForward());
+        yaw = (Vector3.Determinant(Vector3.FORWARD,  m_Anchor.GetForward()) > 0.0) ? yaw * -1 : yaw;
+        out.RotateY(yaw);
         out.Add(m_Anchor.GetPosition());
 
         return out;
@@ -157,11 +132,11 @@ public abstract class Weapon
         m_WeaponBarrels.add(barrel);
     }
 
-    protected void Fire()
+    public void Fire()
     {
         while (m_FireMode.ShouldFire())
         {
-            m_BulletManager.CreateProjectile(this);
+            m_Game.GetBulletManager().CreateProjectile(this);
             m_FireMode.NotifyOfFire();
 
             m_IsFiring = true;
@@ -209,11 +184,6 @@ public abstract class Weapon
         return new Vector3(m_Anchor.GetForward());
     }
 
-	public void ResetMuzzleIndex()
-	{
-		m_MuzzleIndex = 0;
-	}
-
     public double GetBaseDamage()
     {
         return m_Damage;
@@ -236,7 +206,7 @@ public abstract class Weapon
 	
 	public Vector3 GetForward()
 	{
-		return m_Target;
+		return m_Anchor.GetForward();
 	}
 
 	public Vector3 GetPosition()
@@ -247,11 +217,6 @@ public abstract class Weapon
 	public AffiliationKey GetAffiliation()
 	{
 		return m_Anchor.GetAffiliation();
-	}
-	
-	public int GetNumMuzzles()
-	{
-		return m_WeaponBarrels.size();
 	}
 
     public ArrayList<WeaponBarrel> GetWeaponBarrels()
@@ -269,19 +234,9 @@ public abstract class Weapon
 		return m_TriggerPulled;
 	}
 
-    public Boolean IsFiring()
-    {
-        return m_IsFiring;
-    }
-
     public ProjectileType GetProjectileType()
     {
         return m_ProjectileType;
-    }
-
-    public EquipmentType GetEquipmentType()
-    {
-        return m_EquipmentType;
     }
 
     public double GetFiringSpeed()
@@ -292,7 +247,7 @@ public abstract class Weapon
     public void CleanUp()
     {
         DeactivateComponent();
-        CeaseFire();
+        ReleaseTrigger();
         m_WeaponComponent.Destroy();
     }
 }

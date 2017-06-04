@@ -11,7 +11,6 @@ import com.raggamuffin.protorunnerv2.utils.CollisionReport;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Timer;
-import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class Projectile_Laser extends Projectile
@@ -168,9 +167,7 @@ public class Projectile_Laser extends Projectile
     private void LockProjectile()
     {
         SetForward(m_FiringWeapon.GetForward());
-        RotateY(m_FiringBarrel.GetRotation());
-        SetRoll(0);
-
+        Rotate(m_FiringBarrel.GetRotation());
         SetPosition(m_FiringWeapon.GetPosition());
         SetVelocity(0);
     }

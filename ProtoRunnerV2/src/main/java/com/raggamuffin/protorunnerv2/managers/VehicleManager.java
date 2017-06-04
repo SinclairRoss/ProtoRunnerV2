@@ -2,11 +2,11 @@ package com.raggamuffin.protorunnerv2.managers;
 
 import android.util.Log;
 
+import com.raggamuffin.protorunnerv2.ObjectEffect.ObjectEffectType;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.BeeperBot;
 import com.raggamuffin.protorunnerv2.gameobjects.Dummy;
-import com.raggamuffin.protorunnerv2.gameobjects.SpawnEffect;
 import com.raggamuffin.protorunnerv2.gameobjects.TargetBot;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.gameobjects.VehicleType;
@@ -17,7 +17,6 @@ import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_LaserStar;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Runner;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_ShieldBearer;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_SweeperBot;
-import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Tank;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_TentacleController;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Warlord;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Wingman;
@@ -118,9 +117,6 @@ public class VehicleManager
             case Bit:
                 spawn = new Vehicle_Bit(m_Game);
                 break;
-            case Tank:
-                spawn = new Vehicle_Tank(m_Game);
-                break;
             case Carrier:
                 spawn = new Vehicle_Carrier(m_Game);
                 break;
@@ -154,13 +150,12 @@ public class VehicleManager
         }
 
         spawn.SetPosition(x, 0, z);
-		spawn.RotateY(orientation);
+		spawn.SetRotationY(orientation);
         m_Vehicles.add(spawn);
         GetTeam(spawn.GetAffiliation()).add(spawn);
         m_Game.AddObjectToRenderer(spawn);
 
-		SpawnEffect effect = new SpawnEffect(spawn.GetColour(), spawn.GetPosition());
-        m_Game.GetGameObjectManager().AddObject(effect);
+		m_Game.GetObjectEffectController().CreateEffect(ObjectEffectType.SpawnPillar, spawn);
 
         return spawn;
     }

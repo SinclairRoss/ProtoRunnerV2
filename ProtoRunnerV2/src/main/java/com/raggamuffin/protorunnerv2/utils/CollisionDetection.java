@@ -1,7 +1,11 @@
 package com.raggamuffin.protorunnerv2.utils;
 
+import android.util.Log;
+
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
+import com.raggamuffin.protorunnerv2.ui.UIElement_Label;
+import com.raggamuffin.protorunnerv2.ui.UITouchArea;
 
 public final class CollisionDetection 
 {
@@ -9,14 +13,12 @@ public final class CollisionDetection
 	private static Vector3 DisplacementB = new Vector3();
 	private static Vector3 RelativeMovement = new Vector3();
 
-	private static Vector3 AToB = new Vector3();
-	
 	// Check for collisions between two bounding spheres.
 	public static CollisionReport CheckCollisions(GameObject A, GameObject B)
 	{
-		DisplacementA.SetAsDifference(A.GetPreviousPosition(), A.GetPosition());
-		DisplacementB.SetAsDifference(B.GetPreviousPosition(), B.GetPosition());
-		RelativeMovement.SetAsDifference(DisplacementA, DisplacementB);	// Movement relative to object A.
+		DisplacementA.SetVectorAsDifference(A.GetPreviousPosition(), A.GetPosition());
+		DisplacementB.SetVectorAsDifference(B.GetPreviousPosition(), B.GetPosition());
+		RelativeMovement.SetVectorAsDifference(DisplacementA, DisplacementB);	// Movement relative to object A.
 		RelativeMovement.Add(B.GetPreviousPosition());
 
 		return RayCastSphere(B.GetPreviousPosition(), RelativeMovement, A.GetPosition(), A.GetBoundingRadius() + B.GetBoundingRadius());
@@ -25,15 +27,15 @@ public final class CollisionDetection
 	public static CollisionReport RayCastSphere(Vector3 rayStart, Vector3 rayEnd, Vector3 spherePos, double sphereRadius)
 	{
         // Calculate discriminant
-		double lengthX = rayEnd.X - rayStart.X;
-		double lengthY = rayEnd.Y - rayStart.Y;
-		double lengthZ = rayEnd.Z - rayStart.Z;
+		double rayX = rayEnd.X - rayStart.X;
+		double rayY = rayEnd.Y - rayStart.Y;
+		double rayZ = rayEnd.Z - rayStart.Z;
         double paraX = -spherePos.X + rayStart.X;
         double paraY = -spherePos.Y + rayStart.Y;
         double paraZ = -spherePos.Z + rayStart.Z;
 
-		double a = lengthX*lengthX + lengthY*lengthY + lengthZ*lengthZ;
-		double b = (lengthX * paraX)*2 + (lengthY * paraY)*2 + (lengthZ * paraZ)*2;
+		double a = rayX*rayX + rayY*rayY + rayZ*rayZ;
+		double b = (rayX * paraX)*2 + (rayY * paraY)*2 + (rayZ * paraZ)*2;
 		double c = (paraX*paraX) + (paraY*paraY) + (paraZ*paraZ) - (sphereRadius*sphereRadius);
 
 		double discriminantSqr = (b*b) - (4*a*c);
@@ -52,12 +54,12 @@ public final class CollisionDetection
                (entersAt < 0.0 && exitsAt > 1.0))       // if the ray lies completely within sphere.
             {
                 Vector3 entryPoint = new Vector3();
-                entryPoint.SetAsDifference(rayStart, rayEnd);
+                entryPoint.SetVectorAsDifference(rayStart, rayEnd);
                 entryPoint.Scale(entersAt);
                 entryPoint.Add(rayStart);
 
                 Vector3 exitPoint = new Vector3();
-                exitPoint.SetAsDifference(rayStart, rayEnd);
+                exitPoint.SetVectorAsDifference(rayStart, rayEnd);
                 exitPoint.Scale(exitsAt);
                 exitPoint.Add(rayStart);
 
@@ -68,52 +70,29 @@ public final class CollisionDetection
 		return report;
 	}
 	
-	public static boolean UIElementInteraction(final Vector2 Touch, final Vector2 ScreenSize, final UIElement Element)
+	public static boolean UIElementInteraction(final Vector2 touch, final UITouchArea touchArea)
 	{
 		boolean hitDetected = false;
 
-        if(!Element.IsHidden())
-		{
-			// PHASE 1: Convert Touch coords into screen space coords.
-			double ratio = ScreenSize.I / ScreenSize.J;
-
-			// Normalised screen space.
-			double i = MathsHelper.Normalise(Touch.I, 0, ScreenSize.I);
-			double j = MathsHelper.Normalise(Touch.J, 0, ScreenSize.J);
-
-			i = MathsHelper.Lerp(i, -ratio, ratio);
-			j = MathsHelper.Lerp(j, 1, -1);
-
-			// Compare normalised screen position against the UIElement.
-			Vector2 ElementPosition = Element.GetPosition();
-			Vector2 ElementSize = Element.GetSize();
-
-			if (i >= ElementPosition.I && i <= (ElementPosition.I + ElementSize.I))
-			{
-				if(j >= ElementPosition.J && j <= (ElementPosition.J + ElementSize.J))
-				{
-					hitDetected = true;
-				}
-			}
-		}
+        if (touch.X >= touchArea.Left() && touch.X <= touchArea.Right())
+        {
+            if(touch.Y >= touchArea.Bottom() && touch.Y <= touchArea.Top())
+            {
+                hitDetected = true;
+            }
+        }
 
 		return hitDetected;
 	}
 	
 	public static boolean RadarDetection(Vector3 radarFragmentPosition, Vector3 vehiclePosition, double fragmentBounds)
-	{
-		if(vehiclePosition.X < (radarFragmentPosition.X - fragmentBounds))
-			return false;
-		
-		if(vehiclePosition.X > (radarFragmentPosition.X + fragmentBounds))
-			return false;
-		
-		if(vehiclePosition.Z < (radarFragmentPosition.Z - fragmentBounds))
-			return false;
+    {
+        boolean collision = (vehiclePosition.X >= (radarFragmentPosition.X - fragmentBounds)
+                || vehiclePosition.X > (radarFragmentPosition.X + fragmentBounds)
+                || vehiclePosition.Z < (radarFragmentPosition.Z - fragmentBounds)) && vehiclePosition.Z <= (radarFragmentPosition.Z + fragmentBounds);
 
-		return vehiclePosition.Z <= (radarFragmentPosition.Z + fragmentBounds);
-
-	}
+        return collision;
+    }
 }
 
 

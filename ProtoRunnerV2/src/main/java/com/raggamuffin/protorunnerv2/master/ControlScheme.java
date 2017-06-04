@@ -14,7 +14,8 @@ import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
-import com.raggamuffin.protorunnerv2.utils.Vector2;
+
+import java.util.ArrayList;
 
 public class ControlScheme 
 {
@@ -39,10 +40,10 @@ public class ControlScheme
     private Publisher WeaponUpPublisher;
     private Publisher WeaponDownPublisher;
 
+	private Publisher Publisher_OnPointerDown;
+	private Publisher Publisher_OnPointerUp;
+
 	///// Inputs \\\\\
-	public static final int TOUCH_DOWN 			= 0;
-	public static final int LONG_TOUCH_DOWN		= 1;
-	public static final int TOUCH_UP			= 2;
 	public static final int SWIPE_LEFT 		 	= 3;
 	public static final int SWIPE_RIGHT 		= 4;
 	public static final int DOUBLE_SWIPE_LEFT  	= 5;
@@ -54,14 +55,15 @@ public class ControlScheme
 
 	private double m_Tilt;
 	
-	private Vector2 m_TouchCoords;
-	
 	private double m_DoubleTapTime;
 	private int m_HalfWayX;
 	
 	private double m_DoubleSwipeTimerLeft[];
 	private double m_DoubleSwipeTimerRight[];
-	
+
+    private ArrayList<TouchPointer> m_ActiveTouchPointers;
+    private ArrayList<TouchPointer> m_InactiveTouchPointers;
+
 	public ControlScheme(Context context, PubSubHub pubSub)
 	{
 		m_Tilt  = 0;
@@ -81,6 +83,9 @@ public class ControlScheme
         WeaponUpPublisher = pubSub.CreatePublisher(PublishedTopics.WeaponUp);
         WeaponDownPublisher = pubSub.CreatePublisher(PublishedTopics.WeaponDown);
 
+        Publisher_OnPointerDown = pubSub.CreatePublisher(PublishedTopics.OnPointerDown);
+		Publisher_OnPointerUp = pubSub.CreatePublisher(PublishedTopics.OnPointerUp);
+
 		m_DoubleSwipeTimerLeft = new double[4];
 		m_DoubleSwipeTimerLeft[LEFT]  = 0.0;
 		m_DoubleSwipeTimerLeft[RIGHT] = 0.0;
@@ -94,8 +99,6 @@ public class ControlScheme
 		m_DoubleSwipeTimerLeft[DOWN]   = 0.0;
 		
 		m_DoubleTapTime = 0.75f;
-		
-		m_TouchCoords = new Vector2();
 
 		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 		Display display  = wm.getDefaultDisplay();
@@ -103,50 +106,63 @@ public class ControlScheme
 		Point size = new Point();
 		display.getRealSize(size);
 		m_HalfWayX = size.x / 2;
+
+        m_ActiveTouchPointers = new ArrayList<>();
+        m_InactiveTouchPointers = new ArrayList<>();
 	}
-	
-	public void RegisterEvent(float eventOriginX, float eventOriginY, int event)
+
+	public void RegisterEvent_PointerDown(int pointerID, float eventOriginX, float eventOriginY)
+    {
+        TouchPointer pointer = CreateTouchPointer(pointerID, eventOriginX, eventOriginY);
+
+        if(pointer.GetInitialPosition().X > 0)
+        {
+            AfterburnersEngagePublisher.Publish();
+        }
+        else
+        {
+            FirePublisher.Publish();
+        }
+
+        Publisher_OnPointerDown.Publish(pointer);
+    }
+
+    public void RegisterEvent_PointerUp(int pointerID)
+    {
+        TouchPointer pointer = GetTouchPointerWithID(pointerID);
+        Publisher_OnPointerUp.Publish(pointer);
+
+        if (pointer.GetInitialPosition().X > 0)
+        {
+            AfterBurnersDisengagePublisher.Publish();
+        }
+        else
+        {
+            CeaseFirePublisher.Publish();
+        }
+
+        RemoveTouchPointer(pointerID);
+    }
+
+    public void RegisterEvent_PointerMove(int pointerID, float x, float y)
+    {
+        TouchPointer pointer = GetTouchPointerWithID(pointerID);
+        pointer.UpdatePosition(x, y);
+    }
+
+	public void RegisterEvent(float eventOriginX, int event)
 	{
 		switch(event)
 		{
-			case TOUCH_DOWN:
+			case SWIPE_LEFT:
 				
-				m_TouchCoords.SetVector(eventOriginX, eventOriginY);
-						
-				if(eventOriginX > m_HalfWayX)
+				if(eventOriginX > 0)
 				{
-                    AfterburnersEngagePublisher.Publish();
-				}
-				else
-				{
-                    FirePublisher.Publish();
-				}
-				break;
-
-			case TOUCH_UP:
-				
-				m_TouchCoords.SetVector(0.0);
-				
-				if(eventOriginX > m_HalfWayX)
-				{
-                    AfterBurnersDisengagePublisher.Publish();
-				}
-				else
-				{
-                    CeaseFirePublisher.Publish();
-				}
-					
-				break;
-				
-			case SWIPE_LEFT: 	// Swipe Left.
-				
-				if(eventOriginX > m_HalfWayX)
-				{
-					if(m_DoubleSwipeTimerRight[LEFT] > 0.0)	// Register Double Swipe
+					if(m_DoubleSwipeTimerRight[LEFT] > 0.0)
 					{
                         StrafeLeftPublisher.Publish();
 					}
-					else							// RegisterSingleSwipe.
+					else
 					{
                         EvadeLeftPublisher.Publish();
 						m_DoubleSwipeTimerRight[LEFT] = m_DoubleTapTime;
@@ -154,11 +170,9 @@ public class ControlScheme
 				}
 				else
 				{
-					if(m_DoubleSwipeTimerLeft[LEFT] > 0.0)	// Register Double Swipe
-					{	
-
-					}
-					else							// RegisterSingleSwipe.
+					if(m_DoubleSwipeTimerLeft[LEFT] > 0.0)
+					{}
+					else
 					{
                         WeaponLeftPublisher.Publish();
 						m_DoubleSwipeTimerLeft[LEFT] = m_DoubleTapTime;
@@ -167,13 +181,13 @@ public class ControlScheme
 				break;
 				
 			case SWIPE_RIGHT: // Swipe Right.
-				if(eventOriginX > m_HalfWayX)
+				if(eventOriginX > 0)
 				{
-					if(m_DoubleSwipeTimerRight[RIGHT] > 0.0)	// Register Double Swipe
+					if(m_DoubleSwipeTimerRight[RIGHT] > 0.0)
 					{
                         StrafeRightPublisher.Publish();
 					}
-					else							// RegisterSingleSwipe.
+					else
 					{
                         EvadeRightPublisher.Publish();
 						m_DoubleSwipeTimerRight[RIGHT] = m_DoubleTapTime;
@@ -181,11 +195,9 @@ public class ControlScheme
 				}
 				else
 				{
-					if(m_DoubleSwipeTimerLeft[RIGHT] > 0.0)	// Register Double Swipe
-					{	
-						
-					}
-					else							// RegisterSingleSwipe.
+					if(m_DoubleSwipeTimerLeft[RIGHT] > 0.0)
+					{}
+					else
 					{
                         WeaponRightPublisher.Publish();
 						m_DoubleSwipeTimerLeft[RIGHT] = m_DoubleTapTime;
@@ -195,13 +207,11 @@ public class ControlScheme
 				break;
 				
 			case SWIPE_UP: // Swipe Up.
-				if(eventOriginX > m_HalfWayX)
+				if(eventOriginX > 0)
 				{
-					if(m_DoubleSwipeTimerRight[UP] > 0.0)	// Register Double Swipe
-					{	
-						
-					}
-					else							// RegisterSingleSwipe.
+					if(m_DoubleSwipeTimerRight[UP] > 0.0)
+					{}
+					else
 					{
 						ForwardPublisher.Publish();
 						m_DoubleSwipeTimerRight[UP] = m_DoubleTapTime;
@@ -209,11 +219,9 @@ public class ControlScheme
 				}
 				else
 				{
-					if(m_DoubleSwipeTimerLeft[UP] > 0.0)	// Register Double Swipe
-					{	
-
-					}
-					else							// RegisterSingleSwipe.
+					if(m_DoubleSwipeTimerLeft[UP] > 0.0)
+					{}
+					else
 					{
                         WeaponUpPublisher.Publish();
 						m_DoubleSwipeTimerLeft[UP] = m_DoubleTapTime;
@@ -223,13 +231,11 @@ public class ControlScheme
 				break;
 				
 			case SWIPE_DOWN: // Swipe Down.
-				if(eventOriginX > m_HalfWayX)
+				if(eventOriginX > 0)
 				{
-					if(m_DoubleSwipeTimerRight[DOWN] > 0.0)	// Register Double Swipe
-					{
-
-					}
-					else							// RegisterSingleSwipe.
+					if(m_DoubleSwipeTimerRight[DOWN] > 0.0)
+					{}
+					else
 					{
                         ReversePublisher.Publish();
 						m_DoubleSwipeTimerRight[DOWN] = m_DoubleTapTime;
@@ -237,11 +243,9 @@ public class ControlScheme
 				}
 				else
 				{
-					if(m_DoubleSwipeTimerLeft[DOWN] > 0.0)	// Register Double Swipe
-					{	
-
-					}
-					else							// RegisterSingleSwipe.
+					if(m_DoubleSwipeTimerLeft[DOWN] > 0.0)
+					{}
+					else
 					{
                         WeaponDownPublisher.Publish();
 						m_DoubleSwipeTimerLeft[DOWN] = m_DoubleTapTime;
@@ -249,9 +253,8 @@ public class ControlScheme
 				}
 				break;
 		}
-
 	}
-	
+
 	public void Update(double DeltaTime)
 	{
 		// Update.
@@ -264,8 +267,7 @@ public class ControlScheme
 		m_DoubleSwipeTimerRight[RIGHT] -= DeltaTime;
 		m_DoubleSwipeTimerRight[UP]    -= DeltaTime;
 		m_DoubleSwipeTimerRight[DOWN]  -= DeltaTime;
-		
-		
+
 		// Clamp.
 		m_DoubleSwipeTimerLeft[LEFT]   = MathsHelper.Clamp(m_DoubleSwipeTimerLeft[LEFT],  0.0f, m_DoubleTapTime);
 		m_DoubleSwipeTimerLeft[RIGHT]  = MathsHelper.Clamp(m_DoubleSwipeTimerLeft[RIGHT], 0.0f, m_DoubleTapTime);
@@ -277,24 +279,69 @@ public class ControlScheme
 		m_DoubleSwipeTimerRight[UP]    = MathsHelper.Clamp(m_DoubleSwipeTimerRight[UP],    0.0f, m_DoubleTapTime);
 		m_DoubleSwipeTimerRight[DOWN]  = MathsHelper.Clamp(m_DoubleSwipeTimerRight[DOWN],  0.0f, m_DoubleTapTime);
 	}
-	
-	public Vector2 GetTouchCoordinates()
-    {
-        return m_TouchCoords;
-    }
-	
-	public void RegisterTilt(double tilt)
-	{
-		m_Tilt = tilt;
-	}
 
-	public double GetTilt()
-	{
-		return m_Tilt;
-	}
-	
-	public void ResetTouchCoordinates()
-	{
-		m_TouchCoords.SetVector(-10.0);
-	}
+    private TouchPointer CreateTouchPointer(int pointerID, float x, float y)
+    {
+        TouchPointer pointer;
+        if(m_InactiveTouchPointers.isEmpty())
+        {
+            pointer = new TouchPointer();
+        }
+        else
+        {
+            int inactivePointerCount = m_InactiveTouchPointers.size();
+            pointer = m_InactiveTouchPointers.get(inactivePointerCount - 1);
+            m_InactiveTouchPointers.remove(inactivePointerCount - 1);
+        }
+
+        pointer.Initialise(pointerID, x, y);
+        m_ActiveTouchPointers.add(pointer);
+
+        return  pointer;
+    }
+
+    public void ReleaseAllTouches()
+    {
+        int activePointerCount = m_ActiveTouchPointers.size();
+        for(int i = 0; i < activePointerCount;)
+        {
+            TouchPointer pointer = m_ActiveTouchPointers.remove(i);
+            pointer.CleanUp();
+            m_InactiveTouchPointers.add(pointer);
+
+            --activePointerCount;
+        }
+    }
+
+    private void RemoveTouchPointer(int pointerID)
+    {
+       	TouchPointer pointer = GetTouchPointerWithID(pointerID);
+
+		pointer.CleanUp();
+        m_ActiveTouchPointers.remove(pointer);
+        m_InactiveTouchPointers.add(pointer);
+    }
+
+    private TouchPointer GetTouchPointerWithID(int id)
+    {
+        TouchPointer touchPointer = null;
+        int activePointerCount = m_ActiveTouchPointers.size();
+        for(int i = 0; i < activePointerCount; ++i)
+        {
+            TouchPointer pointer = m_ActiveTouchPointers.get(i);
+            if(pointer.GetId() == id)
+            {
+                touchPointer = pointer;
+                break;
+            }
+        }
+
+        return touchPointer;
+    }
+
+	public void RegisterTilt(double tilt) { m_Tilt = tilt; }
+	public double GetTilt() { return m_Tilt; }
+
+    public int GetActivePointerCount() { return m_ActiveTouchPointers.size(); }
+    public TouchPointer GetPointerAtIndex(int index) { return m_ActiveTouchPointers.get(index); }
 }

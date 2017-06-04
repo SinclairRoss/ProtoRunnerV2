@@ -43,23 +43,21 @@ public class ParticleEmitter_HyperLight extends ParticleEmitter
     @Override
     public Vector3 CalculateParticleForward()
     {
-        m_ParticleForward.X = MathsHelper.RandomDouble(-1,1);
-        m_ParticleForward.Y = MathsHelper.RandomDouble(-1,1);
-        m_ParticleForward.Z = 0.0;
+        Vector3 up = m_Forward.GetMajorComponent() != Vector3.Component.Y ? Vector3.UP : Vector3.FORWARD;
 
-        m_ParticleForward.Normalise();
-
-        m_ParticleForward.RotateY(m_Forward.Yaw());
+        m_ParticleForward.SetVectorAsCrossProduct(m_Forward, up);
+        double rotation = MathsHelper.RandomDouble(Math.PI * 2);
+        m_ParticleForward.RotateAboutAxis(m_Forward, rotation);
 
         return m_ParticleForward;
     }
 
-    public void On()
+    public void TurnOn()
     {
         m_On = true;
     }
 
-    public void Off()
+    public void TurnOff()
     {
         m_On = false;
     }

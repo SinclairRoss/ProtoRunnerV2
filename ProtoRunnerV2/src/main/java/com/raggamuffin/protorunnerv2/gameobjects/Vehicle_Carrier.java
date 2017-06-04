@@ -13,37 +13,28 @@ import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_None;
 
-
 public class Vehicle_Carrier extends Vehicle
 {
 	private AIController m_AIController;
-	private VehicleManager m_VehicleManager;
 
     private int NUM_DRONES = 5;
 
 	public Vehicle_Carrier(GameLogic game)
 	{
-		super(game, ModelType.Carrier, 5);
+		super(game, ModelType.Carrier, 5, 12, VehicleClass.StandardVehicle, true, PublishedTopics.EnemyDestroyed, AffiliationKey.RedTeam);
 
 		SetColour(Colours.BlockPurple);
-
-        m_MaxHullPoints = 12;
-        m_HullPoints = m_MaxHullPoints;
 
         m_Engine = new Engine_Cycling(this, game);
 		m_Engine.SetMaxTurnRate(1.0);
 		m_Engine.SetMaxEngineOutput(70); // 10000
         m_Engine.SetDodgeOutput(0);
 
-		m_Faction = AffiliationKey.RedTeam;
-
         SelectWeapon(new Weapon_None(this, game));
 
         VehicleManager vehicleManager = game.GetVehicleManager();
         NavigationalBehaviourInfo navInfo = new NavigationalBehaviourInfo(0.4, 1.0, 0.7, 0.6);
 		m_AIController = new AIController(this, vehicleManager, game.GetBulletManager(), navInfo, AIBehaviours.Encircle, FireControlBehaviour.MissileLauncher, TargetingBehaviour.Standard);
-
-		m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.EnemyDestroyed);
 
 		for(int i = 0; i < NUM_DRONES; ++i)
         {

@@ -8,14 +8,7 @@ public class Publisher
 	{
 		m_Topic = PubTopic;
 	}
-	
-	public void Publish(int args)
-	{
-		m_Topic.Update(args);
-	}
-	
-	public void Publish()
-	{
-		m_Topic.Update(-1);
-	}
+
+	public void Publish() { Publish(-1); }
+	public void Publish(Object args) { m_Topic.Update(args); }
 }

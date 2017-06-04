@@ -8,9 +8,9 @@ public class Weapon_None extends Weapon
 {
     public Weapon_None(Vehicle anchor, GameLogic game)
     {
-        super(anchor, game, AudioClips.Silence);
+        super(anchor, game, ProjectileType.PlasmaShot, AudioClips.Laser_Enemy);
 
-        m_FireMode = new FireControl_Auto(1.0);
+        m_FireMode = new FireControl_None();
         AddBarrel(0, 0, 0);
     }
 

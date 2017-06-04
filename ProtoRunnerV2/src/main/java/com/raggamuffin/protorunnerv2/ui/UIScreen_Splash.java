@@ -1,20 +1,19 @@
 package com.raggamuffin.protorunnerv2.ui;
 
-
 import com.raggamuffin.protorunnerv2.R;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.UIManager;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
-import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
+import com.raggamuffin.protorunnerv2.utils.Timer;
 
 public class UIScreen_Splash extends UIScreen
 {
-	private final double SCREEN_DURATION = 3.0;//3
+	private final double SCREEN_DURATION = 3.0;
 	
-	private Timer_Accumulation m_Timer;
-	private UILabel m_Company;
+	private Timer m_Timer;
+	private UIElement_Label m_Company;
 	
 	private Publisher m_SplashScreenOverPublisher;
 
@@ -24,7 +23,7 @@ public class UIScreen_Splash extends UIScreen
 
 		m_Company = null;
 		
-		m_Timer = new Timer_Accumulation(SCREEN_DURATION);
+		m_Timer = new Timer(SCREEN_DURATION);
 		
 		PubSubHub pubSub = m_Game.GetPubSubHub();
 		m_SplashScreenOverPublisher = pubSub.CreatePublisher(PublishedTopics.SwitchScreen);
@@ -33,35 +32,23 @@ public class UIScreen_Splash extends UIScreen
 	@Override
 	public void Create() 
 	{
-        super.Create();
-
-		m_Company = new UILabel(m_Game.GetGameAudioManager(), m_UIManager);
-		m_Company.SetText(m_Game.GetContext().getString(R.string.company_name));
-		m_Company.SetPosition(0, 0);
-		m_Company.CentreHorizontal();
-		
+		String text = m_Game.GetContext().getString(R.string.company_name);
+		m_Company = new UIElement_Label(text, UIConstants.FONTSIZE_TITLE, 0, 0, Alignment.Center, m_UIManager);
 		m_UIManager.AddUIElement(m_Company);
-		
-		m_Company.Show(1.0);
-		
-		m_Timer.ResetTimer();
+
+        m_Timer.Start();
 	}
 
 	@Override
-	public void Remove()
+	public void Destroy()
 	{
-        super.Remove();
-
-		m_UIManager.RemoveUIElement(m_Company);
 		m_Company = null;
 	}
 
 	@Override
-	public void Update(double DeltaTime) 
+	public void Update(double deltaTime)
 	{
-		m_Timer.Update(DeltaTime);
-		
-		if(m_Timer.TimedOut())
+		if(m_Timer.HasElapsed())
 		{
 			m_SplashScreenOverPublisher.Publish(UIScreens.MainMenu.ordinal());
 		}

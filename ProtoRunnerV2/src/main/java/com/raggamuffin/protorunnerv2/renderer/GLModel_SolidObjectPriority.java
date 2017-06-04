@@ -23,7 +23,6 @@ public class GLModel_SolidObjectPriority extends GLModel
     private int m_ForwardHandle;
     private int m_UpHandle;
     private int m_RightHandle;
-    private int m_RollHandle;
     private int m_ScaleHandle;
     private int m_ColourHandle;
     private int m_VertexHandle;
@@ -44,7 +43,6 @@ public class GLModel_SolidObjectPriority extends GLModel
         m_ForwardHandle = 0;
         m_UpHandle = 0;
         m_RightHandle = 0;
-        m_RollHandle = 0;
         m_ScaleHandle = 0;
         m_ColourHandle = 0;
         m_VertexHandle = 0;
@@ -80,8 +78,6 @@ public class GLModel_SolidObjectPriority extends GLModel
         Vector3 up = obj.GetUp();
         GLES20.glUniform3f(m_UpHandle, (float) up.X, (float) up.Y, (float) up.Z);
 
-        GLES20.glUniform1f(m_RollHandle, 0.0f);//(float) obj.GetRoll());
-
         Vector3 scale = obj.GetScale();
         GLES20.glUniform3f(m_ScaleHandle, (float)scale.X, (float)scale.Y, (float)scale.Z);
 
@@ -114,8 +110,7 @@ public class GLModel_SolidObjectPriority extends GLModel
         m_PositionHandle   = GLES20.glGetUniformLocation(m_Program, "u_Position");
         m_ForwardHandle    = GLES20.glGetUniformLocation(m_Program, "u_Forward");
         m_UpHandle         = GLES20.glGetUniformLocation(m_Program, "u_Up");
-        m_RightHandle       = GLES20.glGetUniformLocation(m_Program, "u_Right");
-        m_RollHandle       = GLES20.glGetUniformLocation(m_Program, "u_Roll");
+        m_RightHandle      = GLES20.glGetUniformLocation(m_Program, "u_Right");
         m_ScaleHandle      = GLES20.glGetUniformLocation(m_Program, "u_Scale");
         m_ColourHandle 	   = GLES20.glGetUniformLocation(m_Program, "u_Color");
 

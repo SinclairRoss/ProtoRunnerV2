@@ -13,7 +13,7 @@ public class UIScreen_GameOver extends UIScreen
 	private final double SCREEN_DURATION = 2.0;
 
 	private Timer m_Timer;
-	private UILabel m_GameOverMessage;
+	private UIElement_Label m_GameOverMessage;
 	
 	private Publisher m_GameOverScreenOverPublisher;
 	
@@ -22,7 +22,7 @@ public class UIScreen_GameOver extends UIScreen
 		super(Game, Manager);
 
 		m_GameOverMessage = null;
-		m_Timer = new Timer(SCREEN_DURATION);
+		m_Timer = null;
 		
 		PubSubHub pubSub = Game.GetPubSubHub();
 		m_GameOverScreenOverPublisher = pubSub.CreatePublisher(PublishedTopics.SwitchScreen);
@@ -31,26 +31,18 @@ public class UIScreen_GameOver extends UIScreen
 	@Override
 	public void Create()
 	{
-        super.Create();
+		String text = m_Game.GetContext().getString(R.string.game_over_message);
+		m_GameOverMessage = new UIElement_Label(text, UIConstants.FONTSIZE_TITLE, 0, 0, Alignment.Center, m_UIManager);
+		m_UIManager.AddUIElement(m_GameOverMessage);
 
-		m_GameOverMessage = new UILabel(m_Game.GetGameAudioManager(), m_UIManager);
-		m_GameOverMessage.SetText(m_Game.GetContext().getString(R.string.game_over_message));
-		m_GameOverMessage.SetPosition(0, 0);
-		m_GameOverMessage.CentreHorizontal();
-
-		m_UIManager.AddUIElement(m_GameOverMessage, false);
-
+		m_Timer = new Timer(SCREEN_DURATION);
 		m_Timer.Start();
-
-		m_GameOverMessage.Show();
 	}
 
 	@Override
-	public void Remove() 
+	public void Destroy()
 	{
-        super.Remove();
-
-		m_UIManager.RemoveUIElement(m_GameOverMessage);
+		m_Timer = null;
 		m_GameOverMessage = null;
 	}
 
@@ -59,7 +51,7 @@ public class UIScreen_GameOver extends UIScreen
 	{
 		if(m_Timer.HasElapsed())
 		{
-			m_GameOverScreenOverPublisher.Publish(UIScreens.Aftermath.ordinal());
+			m_GameOverScreenOverPublisher.Publish(UIScreens.MainMenu.ordinal());
 		}
 	}
 }

@@ -71,7 +71,7 @@ public class NavigationControl
 
 	private void CalculateToGoal()
 	{
-		m_ToGoal.SetAsDifference(m_AnchorPosition, m_Goal); 	// Calculate vector pointing to destination.
+		m_ToGoal.SetVectorAsDifference(m_AnchorPosition, m_Goal); 	// Calculate vector pointing to destination.
 		m_ToGoal.Normalise();
 		m_ToGoal.Scale(m_GoalWeight);
 	}
@@ -143,7 +143,7 @@ public class NavigationControl
 			m_CenterOfMass.Scale(scale);
 
 			// Set cohesion vector.
-			m_Cohesion.SetAsDifference(m_AnchorPosition, m_CenterOfMass);
+			m_Cohesion.SetVectorAsDifference(m_AnchorPosition, m_CenterOfMass);
 			m_Cohesion.Normalise();
 			m_Cohesion.Scale(m_CohesionWeight);
 		}
@@ -156,6 +156,7 @@ public class NavigationControl
 		m_SteeringVector.Add(m_Separation);
 		m_SteeringVector.Add(m_Alignment);
 		m_SteeringVector.Add(m_Cohesion);
+
 		m_SteeringVector.Normalise();
 	}
 	

@@ -90,7 +90,7 @@ public class Radar extends GameObject
             Vehicle vehicle = m_Vehicles.get(i);
             if(vehicle.GetVehicleClass() != VehicleClass.Drone)
             {
-                m_ToVehicle.SetAsDifference(GetPosition(), vehicle.GetPosition());
+                m_ToVehicle.SetVectorAsDifference(GetPosition(), vehicle.GetPosition());
 
                 if (m_ToVehicle.GetLengthSqr() < RANGE * RANGE)  // Is within range.
                 {

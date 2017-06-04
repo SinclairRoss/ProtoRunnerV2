@@ -8,21 +8,24 @@ import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
-import com.raggamuffin.protorunnerv2.weapons.Weapon;
-import com.raggamuffin.protorunnerv2.weapons.Weapon_BitLaser;
+import com.raggamuffin.protorunnerv2.utils.MathsHelper;
+import com.raggamuffin.protorunnerv2.weapons.Weapon_ChargeLaser;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_PulseLaser;
 
 public class Vehicle_Runner extends Vehicle
 {
-	private ControlScheme m_Input;
+    private final double STAMINA_COST_DODGE = -0.25;
+    private final double STAMINA_COST_BOOST = -0.25;
 
-	// Weapons.
-	private Weapon m_PrimaryWeapon;
+	private ControlScheme m_Input;
 	
 	private Publisher m_DamageTakenPublisher;
 
     private ChaseCamera m_Camera;
     private MultiplierHoover m_MultiplierHoover;
+
+    private double m_Stamina;
+    private Weapon_ChargeLaser m_ChargeLaser;
 
     private Subscriber FireSubscriber;
     private Subscriber CeaseFireSubscriber;
@@ -34,11 +37,10 @@ public class Vehicle_Runner extends Vehicle
     private Subscriber DisengageAfterBurnersSubscriber;
     private Subscriber ForwardSubscriber;
     private Subscriber ReverseSubscriber;
-    private Subscriber EnemyDestroyedSubscriber;
 
     public Vehicle_Runner(GameLogic game)
 	{
-		super(game, ModelType.Runner, 1.5);
+		super(game, ModelType.Runner, 1.5, 1, VehicleClass.StandardVehicle, true, PublishedTopics.PlayerDestroyed, AffiliationKey.BlueTeam);
 
         m_Camera = game.GetCamera();
 
@@ -50,22 +52,19 @@ public class Vehicle_Runner extends Vehicle
         game.GetGameObjectManager().AddObject(shield);
 
 		m_Engine = new Engine_Standard(this, game);
-        m_Engine.SetMaxTurnRate(2.0);//2
-		m_Engine.SetMaxEngineOutput(GameLogic.TEST_MODE ? 0 : 70);//10000
-        m_Engine.SetAfterBurnerOutput(90); // 15000
-		
-		m_MaxHullPoints = 1;
-		m_HullPoints = m_MaxHullPoints;
+        m_Engine.SetMaxTurnRate(2.0);
+		m_Engine.SetMaxEngineOutput(GameLogic.TEST_MODE ? 0 : 70);
+        m_Engine.SetAfterBurnerOutput(90);
+
+        m_MultiplierHoover = new MultiplierHoover(this, game);
+        m_Stamina = 1.0;
 
         game.GetGameObjectManager().AddObject(new Radar(this, game));
 
-        m_Faction = AffiliationKey.BlueTeam;
-
-        m_PrimaryWeapon	= new Weapon_PulseLaser(this, game);
-        SelectWeapon(m_PrimaryWeapon);
+        SelectWeapon(new Weapon_PulseLaser(this, game));
+        m_ChargeLaser = new Weapon_ChargeLaser(this, game);
 
 		m_DamageTakenPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.PlayerHit);
-		m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.PlayerDestroyed);
 
         FireSubscriber = new FireSubscriber();
         CeaseFireSubscriber = new CeaseFireSubscriber();
@@ -77,7 +76,6 @@ public class Vehicle_Runner extends Vehicle
         DisengageAfterBurnersSubscriber = new DisengageAfterBurnersSubscriber();
         ForwardSubscriber = new ForwardSubscriber();
         ReverseSubscriber = new ReverseSubscriber();
-        EnemyDestroyedSubscriber = new EnemyDestroyedSubscriber();
 
         m_PubSubHub.SubscribeToTopic(PublishedTopics.Fire, FireSubscriber);
         m_PubSubHub.SubscribeToTopic(PublishedTopics.CeaseFire, CeaseFireSubscriber);
@@ -89,16 +87,30 @@ public class Vehicle_Runner extends Vehicle
         m_PubSubHub.SubscribeToTopic(PublishedTopics.AfterBurnersDisengage, DisengageAfterBurnersSubscriber);
         m_PubSubHub.SubscribeToTopic(PublishedTopics.Forward, ForwardSubscriber);
         m_PubSubHub.SubscribeToTopic(PublishedTopics.Reverse, ReverseSubscriber);
-        m_PubSubHub.SubscribeToTopic(PublishedTopics.EnemyDestroyed, EnemyDestroyedSubscriber);
-
-        m_MultiplierHoover = new MultiplierHoover(GetPosition(), game);
     }
 
 	@Override
 	public void Update(double deltaTime)
-	{
+    {
         m_MultiplierHoover.Update();
         m_Engine.SetTurnRate(m_Input.GetTilt());
+
+        m_ChargeLaser.Update(deltaTime);
+
+        if(m_Engine.AfterburnersEngaged())
+        {
+            UpdateStaminaValue(STAMINA_COST_BOOST * deltaTime);
+        }
+
+        if(m_Stamina <= 0.0)
+        {
+            DisengageAfterBurners();
+
+            if(GameLogic.TEST_MODE)
+            {
+                m_Stamina = 1.0;
+            }
+        }
 
 		super.Update(deltaTime);
 	}
@@ -118,9 +130,6 @@ public class Vehicle_Runner extends Vehicle
         m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.AfterBurnersDisengage, DisengageAfterBurnersSubscriber);
         m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.Forward, ForwardSubscriber);
         m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.Reverse, ReverseSubscriber);
-        m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.EnemyDestroyed, EnemyDestroyedSubscriber);
-
-        m_PrimaryWeapon.CleanUp();
     }
 
     @Override
@@ -131,17 +140,13 @@ public class Vehicle_Runner extends Vehicle
 	}
 
     @Override
-    public void SelectWeapon(Weapon newWeapon)
-    {
-        super.SelectWeapon(newWeapon);
-        //m_SwitchWeaponsPublisher.Publish();
-    }
-
-    @Override
     public void EngageAfterBurners()
     {
-        super.EngageAfterBurners();
-        m_Camera.SprintCam();
+        if(m_Stamina > 0)
+        {
+            super.EngageAfterBurners();
+            m_Camera.SprintCam();
+        }
     }
 
     @Override
@@ -154,43 +159,53 @@ public class Vehicle_Runner extends Vehicle
     private class FireSubscriber extends Subscriber
     {
         @Override
-        public void Update(int args)
+        public void Update(Object args)
         {
-            m_PrimaryWeapon.OpenFire();
+            OpenFire();
+          //  m_ChargeLaser.PullTrigger();
         }
     }
 
     private class CeaseFireSubscriber extends Subscriber
     {
         @Override
-        public void Update(int args)
+        public void Update(Object args)
         {
-            m_PrimaryWeapon.CeaseFire();
+            CeaseFire();
+           // m_ChargeLaser.ReleaseTrigger();
         }
     }
 
     private class EvadeLeftSubscriber extends Subscriber
     {
         @Override
-        public void Update(int args)
+        public void Update(Object args)
         {
-            DodgeLeft();
+            if(m_Stamina > 0)
+            {
+                DodgeLeft();
+                UpdateStaminaValue(STAMINA_COST_DODGE);
+            }
         }
     }
 
     private class EvadeRightSubscriber extends Subscriber
     {
         @Override
-        public void Update(int args)
+        public void Update(Object args)
         {
-            DodgeRight();
+            if(m_Stamina > 0)
+            {
+                DodgeRight();
+                UpdateStaminaValue(STAMINA_COST_DODGE);
+            }
         }
     }
 
     private class StrafeLeftSubscriber extends Subscriber
     {
         @Override
-        public void Update(int args)
+        public void Update(Object args)
         {
             StrafeLeft();
         }
@@ -199,7 +214,7 @@ public class Vehicle_Runner extends Vehicle
     private class StrafeRightSubscriber extends Subscriber
     {
         @Override
-        public void Update(int args)
+        public void Update(Object args)
         {
             StrafeRight();
         }
@@ -208,7 +223,7 @@ public class Vehicle_Runner extends Vehicle
     private class EngageAfterBurnersSubscriber extends Subscriber
     {
         @Override
-        public void Update(int args)
+        public void Update(Object args)
         {
             EngageAfterBurners();
         }
@@ -217,7 +232,7 @@ public class Vehicle_Runner extends Vehicle
     private class DisengageAfterBurnersSubscriber extends Subscriber
     {
         @Override
-        public void Update(int args)
+        public void Update(Object args)
         {
             DisengageAfterBurners();
         }
@@ -226,27 +241,25 @@ public class Vehicle_Runner extends Vehicle
     private class ForwardSubscriber extends Subscriber
     {
         @Override
-        public void Update(int args)
+        public void Update(Object args)
         {
-            UseRearEngine();
+            MoveForward();
         }
     }
 
     private class ReverseSubscriber extends Subscriber
     {
         @Override
-        public void Update(int args)
+        public void Update(Object args)
         {
-            UseForwardEngine();
+            //m_EndForEndFlip.StartManeuver();
         }
     }
 
-    private class EnemyDestroyedSubscriber extends Subscriber
+    public double GetStamina() { return m_Stamina; }
+    public void UpdateStaminaValue(double change)
     {
-        @Override
-        public void Update(int args)
-        {
-            ChargeEnergy(200);
-        }
+        m_Stamina += change;
+        m_Stamina = MathsHelper.Clamp(m_Stamina, 0.0, 1.0);
     }
 }

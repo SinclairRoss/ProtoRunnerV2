@@ -24,10 +24,7 @@ public class AIBehaviour_EngageTarget extends AIBehaviour
 
         if(target != null)
         {
-            if(!target.HasStatusEffect(StatusEffect.Shielded))
-            {
-                m_Goal.SetVector(target.GetPosition());
-            }
+            m_Goal.SetVector(target.GetPosition());
         }
 
         return m_Goal;

@@ -50,6 +50,7 @@ public class ModelManager
     private GLModel_StandardObject m_Dummy;
     private GLModel_StandardObject m_WeaponDrone;
     private GLModel_StandardObject m_ThreePointStar;
+    private GLModel_DamageTri m_DamageTri;
     private GLModel_PhasedObject m_Shield;
 
     public ModelManager(Context context, RenderEffectSettings settings)
@@ -103,6 +104,7 @@ public class ModelManager
         m_Dummy = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.dummy_vertices));
         m_WeaponDrone = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.weapondrone_vertices));
         m_ThreePointStar = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.three_point_star));
+        m_DamageTri = new GLModel_DamageTri();
         m_Shield = new GLModel_PhasedObject(ReadFloatArrayFromResource(R.string.shield_vertices));
     }
 
@@ -220,6 +222,8 @@ public class ModelManager
                 return null;
             case StandardPoint:
                 return null;
+            case DamageTri:
+                return m_DamageTri;
             default:
                 Log.e("ModelManager.java", "ModelType: '" + type + "' not found.");
                 return null;

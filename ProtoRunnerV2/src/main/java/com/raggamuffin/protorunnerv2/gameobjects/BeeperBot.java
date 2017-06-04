@@ -22,10 +22,9 @@ public class BeeperBot extends Vehicle
 
     public BeeperBot(GameLogic game)
     {
-        super(game, ModelType.Dummy, 1.0);
+        super(game, ModelType.Dummy, 1.0, 1, VehicleClass.StandardVehicle, true, PublishedTopics.EnemyDestroyed, AffiliationKey.RedTeam);
 
         SetColour(Colours.IndianRed);
-        SetAffiliation(AffiliationKey.RedTeam);
 
         m_On = true;
 
@@ -34,8 +33,6 @@ public class BeeperBot extends Vehicle
 
         m_Beeper = new AudioEmitter_Point(this, game.GetGameAudioManager(), AudioClips.UI_Play, EAudioRepeatBehaviour.Manual);
         m_Beeper.Start();
-
-        m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.EnemyDestroyed);
 
         m_Engine = new Engine_Standard(this, game);
         SetEngineOutput(0.0);
@@ -50,7 +47,7 @@ public class BeeperBot extends Vehicle
         {
             m_OnTimer.Update(deltaTime);
 
-            if(m_OnTimer.TimedOut())
+            if(m_OnTimer.HasElapsed())
             {
                 m_On = false;
                 m_Beeper.Stop();
@@ -61,7 +58,7 @@ public class BeeperBot extends Vehicle
         {
             m_OffTimer.Update(deltaTime);
 
-            if(m_OffTimer.TimedOut())
+            if(m_OffTimer.HasElapsed())
             {
                 m_On = true;
                 m_Beeper.Start();

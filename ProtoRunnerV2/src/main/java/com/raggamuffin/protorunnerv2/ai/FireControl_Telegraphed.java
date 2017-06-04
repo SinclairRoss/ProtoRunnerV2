@@ -61,20 +61,20 @@ public class FireControl_Telegraphed extends FireControl
                     m_AttackState = AttackState.Telegraph;
                 }
 
-                break;
-            }
-            case Telegraph:
-            {
-                if(m_TelegraphTimer.HasElapsed())
-                {
-                    m_AttackState = AttackState.Fire;
-                }
+               break;
+           }
+           case Telegraph:
+           {
+               if(m_TelegraphTimer.HasElapsed())
+               {
+                   m_AttackState = AttackState.Fire;
+               }
 
-                break;
-            }
-            case Fire:
-            {
-                m_Weapon.OpenFire();
+               break;
+           }
+           case Fire:
+           {
+                m_Weapon.PullTrigger();
                 m_Weapon.DeactivateComponent();
                 m_AttackState = AttackState.PostFire;
 
@@ -107,7 +107,7 @@ public class FireControl_Telegraphed extends FireControl
         if(target != null)
         {
             // Is target within range.
-            m_ToTarget.SetAsDifference(m_Anchor.GetPosition(), target.GetPosition());
+            m_ToTarget.SetVectorAsDifference(m_Anchor.GetPosition(), target.GetPosition());
 
             if (m_ToTarget.GetLengthSqr() <= m_Range * m_Range)
             {
@@ -124,7 +124,7 @@ public class FireControl_Telegraphed extends FireControl
 
         if(!GameLogic.TEST_MODE)
         {
-            return inSights;
+          return inSights;
         }
         else
         {

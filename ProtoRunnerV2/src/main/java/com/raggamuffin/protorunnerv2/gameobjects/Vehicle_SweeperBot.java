@@ -15,14 +15,11 @@ public class Vehicle_SweeperBot extends Vehicle
 
     public Vehicle_SweeperBot(GameLogic game)
     {
-        super(game, ModelType.Ring, 1);
+        super(game, ModelType.Ring, 1, 1, VehicleClass.StandardVehicle, true, PublishedTopics.EnemyDestroyed, AffiliationKey.RedTeam);
 
         SetColour(Colours.HannahBlue);
-        SetAffiliation(AffiliationKey.RedTeam);
 
         m_ElapsedTime = 0.0;
-
-        m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.EnemyDestroyed);
 
         m_Engine = new Engine_Standard(this, game);
         SetEngineOutput(0.0);

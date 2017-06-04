@@ -73,7 +73,7 @@ public class GLModel_Line
 
         if(!trail.GetNodes().isEmpty())
         {
-            m_ToEye.SetAsDifference(eye, trail.GetNodes().get(0).GetPosition());
+            m_ToEye.SetVectorAsDifference(eye, trail.GetNodes().get(0).GetPosition());
         }
     }
 

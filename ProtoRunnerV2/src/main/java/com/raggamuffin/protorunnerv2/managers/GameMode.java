@@ -5,5 +5,6 @@ public enum GameMode
     Play,
     Tutorial,
     Exhibition,
+    Quiet,
     Test
 }

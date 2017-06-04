@@ -28,7 +28,7 @@ public class SpawnHelper
     public static Vector3 FindSpawnForward(Vector3 position, Vector3 targetPoint)
     {
         Vector3 forward = new Vector3();
-        forward.SetAsDifference(position, targetPoint);
+        forward.SetVectorAsDifference(position, targetPoint);
         forward.Normalise();
 
         return forward;

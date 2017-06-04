@@ -32,7 +32,10 @@ public class GameActivity extends Activity implements SensorEventListener
 {
 	public static final String TAG = "GameActivity";
 	public static final int REQUEST_RENDER = 0;
-	
+
+    public static Point SCREEN_SIZE = new Point();
+	public static double SCREEN_RATIO;
+
 	private final double GYRO_LIMIT = 3.0;
 	
 	private GameThread m_GameThread;
@@ -82,10 +85,11 @@ public class GameActivity extends Activity implements SensorEventListener
 
 		WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
-		Point size = new Point();
-		display.getRealSize(size);
 
-		RendererPacket rendererPacket = new RendererPacket(this, new ChaseCamera(), new RenderEffectSettings(), size);
+		display.getRealSize(SCREEN_SIZE);
+		SCREEN_RATIO = (double)SCREEN_SIZE.x / (double)SCREEN_SIZE.y;
+
+		RendererPacket rendererPacket = new RendererPacket(this, new ChaseCamera(), new RenderEffectSettings(), SCREEN_SIZE);
 
         PubSubHub pubSub = new PubSubHub();
 		m_ControlScheme = new ControlScheme(this, pubSub);
@@ -198,69 +202,88 @@ public class GameActivity extends Activity implements SensorEventListener
 
 	@Override
 	public void onAccuracyChanged(Sensor arg0, int arg1) 
-	{
-	
-	}
+	{}
 
 	@Override
 	public void onSensorChanged(SensorEvent event) 
 	{
 		double tilt = MathsHelper.Clamp(event.values[1], -GYRO_LIMIT, GYRO_LIMIT);
-		tilt 		= MathsHelper.SignedNormalise(tilt, -GYRO_LIMIT, GYRO_LIMIT);
+		tilt = MathsHelper.SignedNormalise(tilt, -GYRO_LIMIT, GYRO_LIMIT);
 		
 		m_ControlScheme.RegisterTilt(tilt);
 	}
-	
+
 	@Override
 	public boolean onTouchEvent(MotionEvent event)
 	{
-		super.onTouchEvent(event);
-		
-		int action 		= MotionEventCompat.getActionMasked(event);
-		int index 		= MotionEventCompat.getActionIndex(event);
-		int id			= event.getPointerId(index);
+        m_GameView.getParent().requestDisallowInterceptTouchEvent(true);
+        int action = MotionEventCompat.getActionMasked(event);
+		int index = MotionEventCompat.getActionIndex(event);
+		int id = event.getPointerId(index);
 
 		float x = MotionEventCompat.getX(event, index);
 		float y = MotionEventCompat.getY(event, index);
-		
+
 		switch(action)
 		{
-			case MotionEvent.ACTION_POINTER_DOWN: 
+			case MotionEvent.ACTION_POINTER_DOWN:
 			case MotionEvent.ACTION_DOWN:
-				m_ControlScheme.RegisterEvent(x, y, ControlScheme.TOUCH_DOWN);
-				m_FlingListener.RegisterDown(id, x, y);
-				break;
+            {
+                m_ControlScheme.RegisterEvent_PointerDown(id, x, y);
+                m_FlingListener.RegisterDown(id, x, y);
+
+                break;
+            }
+            case MotionEvent.ACTION_MOVE:
+            {
+                int pointerCount = event.getPointerCount();
+                for(int i = 0; i < pointerCount; ++i)
+                {
+                    id = event.getPointerId(i);
+                    x = event.getX(i);
+                    y = event.getY(i);
+                    m_ControlScheme.RegisterEvent_PointerMove(id, x, y);
+                }
+
+                break;
+            }
 			case MotionEvent.ACTION_POINTER_UP:
 			case MotionEvent.ACTION_UP:
-				m_ControlScheme.RegisterEvent(x, y, ControlScheme.TOUCH_UP);
+            {
+                m_ControlScheme.RegisterEvent_PointerUp(id);
 
-				FlingOutcomeType fling = m_FlingListener.RegisterUp(id, x, y);
-				
-				switch(fling)
-				{
-					case Down:
-						m_ControlScheme.RegisterEvent(x, y, ControlScheme.SWIPE_DOWN);
-						break;
-						
-					case Left:
-						m_ControlScheme.RegisterEvent(x, y, ControlScheme.SWIPE_LEFT);					
-						break;
-					
-					case Right:
-						m_ControlScheme.RegisterEvent(x, y, ControlScheme.SWIPE_RIGHT);	
-						break;
-						
-					case Up:
-						m_ControlScheme.RegisterEvent(x, y, ControlScheme.SWIPE_UP);
-						break;
-						
-					case None:
-						break;
-				}
+                FlingOutcomeType fling = m_FlingListener.RegisterUp(id, x, y);
+                switch (fling)
+                {
+                    case Down:
+                        m_ControlScheme.RegisterEvent(x, ControlScheme.SWIPE_DOWN);
+                        break;
 
-				break;
+                    case Left:
+                        m_ControlScheme.RegisterEvent(x, ControlScheme.SWIPE_LEFT);
+                        break;
+
+                    case Right:
+                        m_ControlScheme.RegisterEvent(x, ControlScheme.SWIPE_RIGHT);
+                        break;
+
+                    case Up:
+                        m_ControlScheme.RegisterEvent(x, ControlScheme.SWIPE_UP);
+                        break;
+
+                    case None:
+                        break;
+                }
+
+                break;
+            }
+            case MotionEvent.ACTION_CANCEL: // Fuck android.
+            {
+                m_ControlScheme.ReleaseAllTouches();
+                return false;
+            }
 		}
 
-		return false;
+		return true;
 	}
 }

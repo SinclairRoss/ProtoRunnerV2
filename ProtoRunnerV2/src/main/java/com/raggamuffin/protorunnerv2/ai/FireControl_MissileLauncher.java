@@ -41,11 +41,11 @@ public class FireControl_MissileLauncher extends FireControl
                     m_IdleTimer.Update(deltaTime);
                 }
 
-                if (m_IdleTimer.TimedOut())
+                if (m_IdleTimer.HasElapsed())
                 {
                     m_LaunchState = LaunchState.Charging;
                     m_IdleTimer.ResetTimer();
-                    m_Weapon.OpenFire();
+                    m_Weapon.PullTrigger();
                 }
 
                 break;
@@ -54,7 +54,7 @@ public class FireControl_MissileLauncher extends FireControl
             {
                 m_ChargeTimer.Update(deltaTime);
 
-                if(m_ChargeTimer.TimedOut())
+                if(m_ChargeTimer.HasElapsed())
                 {
                     m_LaunchState = LaunchState.Fire;
                     m_ChargeTimer.ResetTimer();
@@ -64,7 +64,7 @@ public class FireControl_MissileLauncher extends FireControl
             }
             case Fire:
             {
-                m_Weapon.CeaseFire();
+                m_Weapon.ReleaseTrigger();
                 m_LaunchState = LaunchState.Idle;
 
                 break;

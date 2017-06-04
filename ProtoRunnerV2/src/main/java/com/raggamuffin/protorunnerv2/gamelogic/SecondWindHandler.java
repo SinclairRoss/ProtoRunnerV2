@@ -1,6 +1,5 @@
 package com.raggamuffin.protorunnerv2.gamelogic;
 
-import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle_Runner;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
@@ -72,7 +71,7 @@ public class SecondWindHandler
 			{
 				m_SecondWindTimer.Update(deltaTime);
 			
-				if(m_SecondWindTimer.TimedOut())
+				if(m_SecondWindTimer.HasElapsed())
 				{
                     if(m_AutoRespawn)
                     {
@@ -94,8 +93,6 @@ public class SecondWindHandler
 				m_SecondWindState = SecondWindState.Idle;
 			//	m_Player.SelectWeaponBySlot(m_LastSelectedWeapon);
 
-                m_Game.GetGameAudioManager().PlaySound(AudioClips.Respawn);
-
 				break;
 			}
 		}
@@ -110,7 +107,7 @@ public class SecondWindHandler
 	private class PlayerSpawnedSubscriber extends Subscriber
 	{
 		@Override
-		public void Update(int args) 
+		public void Update(Object args)
 		{
 			m_SecondWindTimer.ResetTimer();
 			m_Player = m_Game.GetVehicleManager().GetPlayer();
@@ -122,7 +119,7 @@ public class SecondWindHandler
 	private class PlayerDestroyedSubscriber extends Subscriber
 	{
 		@Override
-		public void Update(int args) 
+		public void Update(Object args)
 		{
             if(m_Player != null)
             {
@@ -137,7 +134,7 @@ public class SecondWindHandler
 	private class EnemyDestroyedSubscriber extends Subscriber
 	{
 		@Override
-		public void Update(int args) 
+		public void Update(Object args)
 		{
 			if(m_SecondWindState == SecondWindState.Active)
 			{
@@ -149,7 +146,7 @@ public class SecondWindHandler
 	private class PlayerSwitchedWeaponSubscriber extends Subscriber
 	{
 		@Override
-		public void Update(int args) 
+		public void Update(Object args)
 		{
 			if(m_Player != null)
 			{

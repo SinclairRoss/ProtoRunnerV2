@@ -7,8 +7,6 @@ import com.raggamuffin.protorunnerv2.renderer.ModelType;
 
 public class GameObject_Marker extends GameObject
 {
-    private GameObject m_Anchor;
-
     public GameObject_Marker(double[] colour)
     {
         super(ModelType.WeaponDrone, 1);

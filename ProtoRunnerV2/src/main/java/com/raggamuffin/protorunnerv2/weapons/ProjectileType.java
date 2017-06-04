@@ -5,5 +5,5 @@ public enum ProjectileType
     PlasmaShot,
     PlasmaShot_Telegraphed,
     Laser,
-    Flare,
+    HomingLaser
 }

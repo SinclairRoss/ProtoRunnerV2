@@ -35,6 +35,8 @@ public class ColourManager
     private double m_CounterMultiplier;
     private boolean m_ColoursUpdating;
 
+    private double m_HudOpacity;
+
     public ColourManager(GameLogic game)
     {
         m_Game = game;
@@ -62,6 +64,8 @@ public class ColourManager
 
         //m_Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerSwitchedWeapon, new PlayerSwitchedWeaponSubscriber());
         m_Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerSpawned, new PlayerSpawnedSubscriber());
+
+        m_HudOpacity = 0.6;
     }
 
     public void Update(double deltaTime)
@@ -139,7 +143,7 @@ public class ColourManager
     private class PlayerSwitchedWeaponSubscriber extends Subscriber
     {
         @Override
-        public void Update(int args)
+        public void Update(Object args)
         {
             PrimaryColourChanged();
         }
@@ -148,7 +152,7 @@ public class ColourManager
     private class PlayerSpawnedSubscriber extends Subscriber
     {
         @Override
-        public void Update(int args)
+        public void Update(Object args)
         {
             PrimaryColourChanged();
         }
@@ -191,4 +195,6 @@ public class ColourManager
         m_Counter = 0.0;
         m_ColoursUpdating = true;
     }
+
+    public double GetHudOpacity() { return m_HudOpacity; }
 }

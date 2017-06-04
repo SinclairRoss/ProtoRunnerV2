@@ -12,13 +12,13 @@ public abstract class Projectile extends GameObject
     protected double m_BaseDamage;
     private AffiliationKey m_Affiliation;
 
-	public Projectile(Vector3 position, Vector3 initialVelocity, Vector3 forward, Colour colour, double baseDamage, AffiliationKey affiliation, ModelType model)
+	public Projectile(Vector3 position, Vector3 initialVelocity, Vector3 firingDirection, Colour colour, double baseDamage, AffiliationKey affiliation, ModelType model)
 	{
 		super(model, 0.1);
 
 		SetPosition(position);
 		SetVelocity(initialVelocity);
-		SetForward(forward);
+		SetForward(firingDirection);
 
         SetDragCoefficient(0);
 

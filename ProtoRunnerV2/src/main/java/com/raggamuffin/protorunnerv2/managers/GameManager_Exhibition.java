@@ -82,11 +82,6 @@ public class GameManager_Exhibition extends GameManager
 
                 for (Vector3 pos : formation)
                 {
-                    m_VehicleManager.SpawnVehicle(VehicleType.Tank, pos.X, pos.Z, forward.Yaw());
-                }
-
-                for (Vector3 pos : formation)
-                {
                     m_VehicleManager.SpawnVehicle(VehicleType.LaserStar, pos.X, pos.Z, forward.Yaw());
                 }
             }
@@ -117,7 +112,7 @@ public class GameManager_Exhibition extends GameManager
             //m_EmissionTimer.Start();
             //m_TestEmitter = new ParticleEmitter_Burst(m_Game, new Colour(Colours.VioletRed), new Colour(Colours.Cyan), 100);
 
-            //m_VehicleManager.SpawnVehicle(VehicleType.ShieldBearer, 0, 0, 0);
+            m_VehicleManager.SpawnVehicle(VehicleType.Warlord, 0, 0, 0);
 
             return;
         }
@@ -158,6 +153,5 @@ public class GameManager_Exhibition extends GameManager
 
     @Override
     public void CleanUp()
-    {
-    }
+    {}
 }

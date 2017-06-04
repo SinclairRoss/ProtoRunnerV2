@@ -11,7 +11,6 @@ import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Spring1;
-import com.raggamuffin.protorunnerv2.utils.Spring3;
 import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_LaserBurner;
@@ -30,7 +29,7 @@ public class Vehicle_Drone extends Vehicle
 
     public Vehicle_Drone(GameLogic game, Vehicle_Carrier anchor)
     {
-        super(game, ModelType.WeaponDrone, 1);
+        super(game, ModelType.WeaponDrone, 1, 1, VehicleClass.Drone, false, null, AffiliationKey.RedTeam);
 
         m_Anchor = anchor;
         SetPosition(m_Anchor.GetPosition());
@@ -46,11 +45,9 @@ public class Vehicle_Drone extends Vehicle
 
         SetDragCoefficient(0.8);
 
-        SetAffiliation(AffiliationKey.RedTeam);
-
         SelectWeapon(new Weapon_LaserBurner(this, game));
-        m_PrimaryWeapon.SetTargetVector(Vector3.DOWN);
-        m_PrimaryWeapon.OpenFire();
+       // m_PrimaryWeapon.SetTargetVector(Vector3.DOWN);
+      //  m_PrimaryWeapon.PullTrigger();
 
         VehicleManager vehicleManager = game.GetVehicleManager();
 
@@ -58,11 +55,7 @@ public class Vehicle_Drone extends Vehicle
         m_AIController = new AIController(this, vehicleManager, game.GetBulletManager(), navInfo, AIBehaviours.FollowTheLeader, FireControlBehaviour.None, TargetingBehaviour.None);
         m_AIController.SetLeader(anchor);
 
-        m_CanBeTargeted = false;
-
-        m_VehicleClass = VehicleClass.Drone;
-
-        m_StatusEffectManager.ApplyStatusEffect(StatusEffect.Shielded);
+        ApplyStatusEffect(StatusEffect.Shielded);
 
         m_VerticalPositionSpring = new Spring1(10);
         m_Timer_UpdateRelaxedPosition = new Timer(2);

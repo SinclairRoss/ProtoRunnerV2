@@ -21,7 +21,7 @@ public class Vehicle_LaserStar extends Vehicle
 
     public Vehicle_LaserStar(GameLogic game)
     {
-        super(game, ModelType.ThreePointStar, 2);
+        super(game, ModelType.ThreePointStar, 2, 12, VehicleClass.StandardVehicle, true, PublishedTopics.EnemyDestroyed,AffiliationKey.RedTeam);
 
         m_LaserBurners = new Weapon_LaserBurner[3];
 
@@ -34,17 +34,10 @@ public class Vehicle_LaserStar extends Vehicle
         m_Engine.SetMaxEngineOutput(30);
         m_Engine.SetDodgeOutput(0);
 
-        m_HullPoints = 12;
-
-        SetAffiliation(AffiliationKey.RedTeam);
-
         SelectWeapon(new Weapon_MultiLaser(this, game, 3));
-        m_PrimaryWeapon.DeactivateComponent();
 
         NavigationalBehaviourInfo navInfo = new NavigationalBehaviourInfo(0.4, 1.0, 0.7, 0.6);
         m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), navInfo, AIBehaviours.Encircle, FireControlBehaviour.LaserSpinner, TargetingBehaviour.Standard);
-
-        m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.EnemyDestroyed);
     }
 
     @Override

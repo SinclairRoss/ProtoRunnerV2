@@ -25,7 +25,7 @@ public class AIBehaviour_Encircle extends AIBehaviour
         {
             Vector3 pos = m_Controller.GetAnchor().GetPosition();
 
-            m_Goal.SetAsDifference(target.GetPosition(), pos);
+            m_Goal.SetVectorAsDifference(target.GetPosition(), pos);
             m_Goal.Normalise();
             m_Goal.Scale(40);
             m_Goal.Add(target.GetPosition());

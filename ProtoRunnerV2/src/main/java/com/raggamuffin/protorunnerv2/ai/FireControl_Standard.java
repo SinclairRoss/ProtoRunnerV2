@@ -28,13 +28,13 @@ public class FireControl_Standard extends FireControl
     @Override
     public void Update(double deltaTime)
     {
-        m_Weapon.CeaseFire();
+        m_Weapon.ReleaseTrigger();
 
         Vehicle target = m_SituationalAwareness.GetTargetSensor().GetTarget();
 
         if(IsTargetInSights(target))
         {
-            m_Weapon.OpenFire();
+            m_Weapon.PullTrigger();
         }
     }
 
@@ -45,7 +45,7 @@ public class FireControl_Standard extends FireControl
         if(target != null)
         {
             // Is target within range.
-            m_ToTarget.SetAsDifference(m_Anchor.GetPosition(), target.GetPosition());
+            m_ToTarget.SetVectorAsDifference(m_Anchor.GetPosition(), target.GetPosition());
 
             if (m_ToTarget.GetLengthSqr() <= m_Range * m_Range)
             {

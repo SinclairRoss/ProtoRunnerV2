@@ -8,33 +8,30 @@ import android.view.WindowManager;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
+import com.raggamuffin.protorunnerv2.ui.TouchDisplay;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
-import com.raggamuffin.protorunnerv2.ui.UILabel;
-import com.raggamuffin.protorunnerv2.ui.UIProgressBar;
 import com.raggamuffin.protorunnerv2.ui.UIScreen;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_Aftermath;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_Credits;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_GameOver;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_HighScore;
+import com.raggamuffin.protorunnerv2.ui.UIScreen_LearnToTouch;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_MainMenu;
-import com.raggamuffin.protorunnerv2.ui.UIScreen_NewToGame;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_NotSignedIn;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_Play;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_Splash;
-import com.raggamuffin.protorunnerv2.ui.UIScreen_TestMode;
-import com.raggamuffin.protorunnerv2.ui.UIScreen_Tutorial;
 import com.raggamuffin.protorunnerv2.ui.UIScreens;
 import com.raggamuffin.protorunnerv2.utils.Vector2;
 
 import java.util.ArrayList;
 
 public class UIManager
-{	
+{
 	private GameLogic m_Game;
 	
 	private Vector2 m_ScreenSize;
-	private double m_ScreenRatio;
-	
+	public final double m_ScreenRatio;
+
 	private ArrayList<UIElement> m_UIElements;
 	private UIScreen m_Screen;
 	
@@ -44,15 +41,15 @@ public class UIManager
 	private UIScreen_Play m_PlayScreen;
 	private UIScreen_GameOver m_GameOverScreen;
 	private UIScreen_Aftermath m_AftermathScreen;
-	private UIScreen_Tutorial m_TutorialScreen;
-    private UIScreen_NewToGame m_NewToGameScreen;
     private UIScreen_NotSignedIn m_NotSignedInScreen;
     private UIScreen_HighScore m_HighScoreScreen;
-	private UIScreen_TestMode m_TestModeScreen;
+    private UIScreen_LearnToTouch m_LearnToTouch;
 
-	public UIManager(GameLogic Game)
+	private TouchDisplay m_TouchDisplay;
+
+	public UIManager(GameLogic game)
 	{
-		m_Game = Game;
+		m_Game = game;
 		
 		WindowManager wm = (WindowManager) m_Game.GetContext().getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();	
@@ -60,9 +57,11 @@ public class UIManager
 		display.getRealSize(size);
 		
 		m_ScreenSize = new Vector2(size);
-		m_ScreenRatio = m_ScreenSize.I / m_ScreenSize.J;
+		m_ScreenRatio = m_ScreenSize.X / m_ScreenSize.Y;
 		
 		m_UIElements = new ArrayList<>();
+
+		m_TouchDisplay = new TouchDisplay(m_Game);
 
 		m_Screen 	 		 = null;
 
@@ -72,13 +71,11 @@ public class UIManager
 		m_PlayScreen 		 = new UIScreen_Play(m_Game, this);
 		m_GameOverScreen 	 = new UIScreen_GameOver(m_Game, this);
 		m_AftermathScreen 	 = new UIScreen_Aftermath(m_Game, this);
-        m_TutorialScreen     = new UIScreen_Tutorial(m_Game, this);
-        m_NewToGameScreen    = new UIScreen_NewToGame(m_Game, this);
         m_NotSignedInScreen  = new UIScreen_NotSignedIn(m_Game, this);
         m_HighScoreScreen    = new UIScreen_HighScore(m_Game, this);
-        m_TestModeScreen     = new UIScreen_TestMode(m_Game, this);
+        m_LearnToTouch       = new UIScreen_LearnToTouch(m_Game, this);
 
-		ShowScreen(UIScreens.Splash);
+		ShowScreen(UIScreens.LearnToTouch);
 		
 		m_Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.SwitchScreen, new ButtonPressedSubscriber());
 	}
@@ -86,6 +83,8 @@ public class UIManager
 	public void Update(double deltaTime)
 	{
 		m_Screen.Update(deltaTime);
+
+		m_TouchDisplay.Update(deltaTime);
 
 		int numUIElements = m_UIElements.size();
 		for(int i = 0; i < numUIElements; ++i)
@@ -111,16 +110,12 @@ public class UIManager
                 return m_GameOverScreen;
             case Aftermath:
                 return m_AftermathScreen;
-            case Tutorial:
-                return m_TutorialScreen;
-            case NewToGame:
-                return m_NewToGameScreen;
             case NotSignedIn:
                 return m_NotSignedInScreen;
             case Leaderboards:
                 return m_HighScoreScreen;
-            case TestMode:
-                return m_TestModeScreen;
+            case LearnToTouch:
+                return m_LearnToTouch;
             default:
                 return null;
         }
@@ -128,14 +123,26 @@ public class UIManager
 	
 	public void ShowScreen(UIScreens screen)
 	{
-		if(m_Screen != null)
-        {
-            m_Screen.Remove();
-        }
+        CleanScreen();
 
 		m_Screen = GetScreen(screen);
 		m_Screen.Create();
 	}
+
+	private void CleanScreen()
+	{
+        if(m_Screen != null)
+        {
+			int numUIElements = m_UIElements.size();
+			for(int i = 0; i < numUIElements; ++i)
+			{
+				m_Game.RemoveObjectFromRenderer(m_UIElements.get(i));
+			}
+			m_UIElements.clear();
+
+			m_Screen.Destroy();
+        }
+    }
 
     public void AddUIElement(UIElement element)
 	{
@@ -152,39 +159,21 @@ public class UIManager
             Element.Show();
         }
 	}
-	
-	public void RemoveUIElement(UIElement Element)
-	{
-		m_Game.RemoveObjectFromRenderer(Element);
-		m_UIElements.remove(Element);
-	}
-	
-	public void RemoveUIElement(UIProgressBar Element)
-	{
-		m_Game.RemoveObjectFromRenderer(Element);
-		m_UIElements.remove(Element);
-		
-		UILabel Label = Element.GetLabel();
-		m_Game.RemoveObjectFromRenderer(Label);
-        m_UIElements.remove(Label);
-	}
 
-	public Vector2 GetScreenSize()
-	{
-		return m_ScreenSize;
-	}
-	
 	public double GetScreenRatio()
 	{
 		return m_ScreenRatio;
 	}
-	
+
+	public TouchDisplay GetTouchDisplay() { return m_TouchDisplay; }
+
 	private class ButtonPressedSubscriber extends Subscriber
 	{
 		@Override
-		public void Update(int args) 
+		public void Update(Object args)
 		{
-			ShowScreen(UIScreens.values()[args]);
+			int screenOrdinal = (int)args;
+			ShowScreen(UIScreens.values()[screenOrdinal]);
 		}	
 	}
 }

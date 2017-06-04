@@ -74,10 +74,8 @@ public abstract class ParticleEmitter
         return m_FinalColour;
     }
 
-    public double GetEmissionForce()
-    {
-        return m_EmissionForce;
-    }
+    public double GetEmissionForce() { return m_EmissionForce; }
+    public void SetEmissionForce(double force) { m_EmissionForce = force; }
 
     public double GetLifeSpan()
     {

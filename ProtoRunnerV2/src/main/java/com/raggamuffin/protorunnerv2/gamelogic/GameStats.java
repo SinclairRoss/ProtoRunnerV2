@@ -13,8 +13,6 @@ public class GameStats
     private double m_PlayTime;
     private int m_LivesUsed;
 
-    MultiplierController m_MultiplierController;
-
     private double m_WingmanADuration;
     private double m_WingmanBDuration;
 
@@ -23,8 +21,6 @@ public class GameStats
         game.GetPubSubHub().SubscribeToTopic(PublishedTopics.EnemyDestroyed, new EnemyDestroyedSubscriber());
         game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerSpawned, new PlayerSpawnedSubscriber());
         game.GetPubSubHub().SubscribeToTopic(PublishedTopics.WingmanDestroyed, new WingmanDestroyedSubscriber());
-
-        m_MultiplierController = new MultiplierController(game);
 
         m_Score = 0;
         m_PlayTime = 0;
@@ -41,7 +37,6 @@ public class GameStats
         if(!m_Locked)
         {
             m_PlayTime += deltaTime;
-            m_MultiplierController.Update(deltaTime);
         }
     }
 
@@ -54,14 +49,11 @@ public class GameStats
         m_WingmanADuration = 0;
         m_WingmanBDuration = 0;
 
-        m_MultiplierController.Start();
-
         m_Locked = false;
     }
 
     public void Stop()
     {
-        m_MultiplierController.Stop();
         m_Locked = true;
     }
 	
@@ -69,11 +61,6 @@ public class GameStats
 	{
 		return m_Score;
 	}
-
-    public int GetMultiplier()
-    {
-        return m_MultiplierController.GetMultiplier();
-    }
 
     public String GetPlayTimeString()
     {
@@ -118,11 +105,11 @@ public class GameStats
 	private class EnemyDestroyedSubscriber extends Subscriber
 	{
 		@Override
-		public void Update(int args)
+		public void Update(Object args)
 		{
 			if(!m_Locked)
             {
-                m_Score += args * m_MultiplierController.GetMultiplier();
+               // m_Score += args;
             }
 		}
 	}
@@ -130,7 +117,7 @@ public class GameStats
     private class PlayerSpawnedSubscriber extends Subscriber
     {
         @Override
-        public void Update(int args)
+        public void Update(Object args)
         {
             if(!m_Locked)
             {
@@ -142,7 +129,7 @@ public class GameStats
     private class WingmanDestroyedSubscriber extends Subscriber
     {
         @Override
-        public void Update(int args)
+        public void Update(Object args)
         {
             if(!m_Locked)
             {

@@ -40,7 +40,6 @@ public class EnemyWaveManager
         m_Elites.add(VehicleType.Carrier);
         m_Elites.add(VehicleType.LaserStar);
         m_Elites.add(VehicleType.ShieldBearer);
-        m_Elites.add(VehicleType.Tank);
 
         m_VManager = game.GetVehicleManager();
 
@@ -51,7 +50,7 @@ public class EnemyWaveManager
     {
        m_SpawnTimer.Update(deltaTime);
 
-        if(m_SpawnTimer.TimedOut())
+        if(m_SpawnTimer.HasElapsed())
         {
             SpawnSquad();
             m_SpawnTimer.ResetTimer();

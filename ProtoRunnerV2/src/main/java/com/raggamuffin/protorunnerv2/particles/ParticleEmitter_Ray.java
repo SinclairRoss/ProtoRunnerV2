@@ -52,9 +52,12 @@ public class ParticleEmitter_Ray extends ParticleEmitter
     @Override
     public Vector3 CalculateParticleForward()
     {
-        m_ParticleForward.SetVector(0,1,0);
-        m_ParticleForward.RotateZ(MathsHelper.RandomDouble(-m_Accuracy, m_Accuracy));
-        m_ParticleForward.RotateY(m_Forward.Yaw());
+        Vector3 up = m_Forward.GetMajorComponent() != Vector3.Component.Y ? Vector3.UP : Vector3.FORWARD;
+
+        m_ParticleForward.SetVectorAsCrossProduct(m_Forward, up);
+        double rotation = MathsHelper.RandomDouble(Math.PI * 2);
+        m_ParticleForward.RotateAboutAxis(m_Forward, rotation);
+
         return m_ParticleForward;
     }
 

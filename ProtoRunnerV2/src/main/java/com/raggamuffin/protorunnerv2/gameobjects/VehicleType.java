@@ -4,7 +4,6 @@ public enum VehicleType
 {
     Wingman,
     Bit,
-    Tank,
     Carrier,
     Drone,
     LaserStar,

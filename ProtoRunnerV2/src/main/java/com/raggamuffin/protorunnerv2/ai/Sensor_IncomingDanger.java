@@ -49,13 +49,13 @@ public class Sensor_IncomingDanger extends Sensor
 
 			if(proj.GetAffiliation() != m_Anchor.GetAffiliation())
             {
-                m_ReltivePosition.SetAsDifference(m_Anchor.GetPosition(), proj.GetPosition());
+                m_ReltivePosition.SetVectorAsDifference(m_Anchor.GetPosition(), proj.GetPosition());
                 double toProjectileLengthSqr = m_ReltivePosition.GetLengthSqr();
 
                 if (toProjectileLengthSqr < m_SensorRadius * m_SensorRadius)
                 {
                     m_ReltivePosition.Normalise();
-                    m_RelativeVelocity.SetAsDifference(m_Anchor.GetVelocity(), proj.GetVelocity());
+                    m_RelativeVelocity.SetVectorAsDifference(m_Anchor.GetVelocity(), proj.GetVelocity());
                     m_RelativeVelocity.Normalise();
 
                     double dotProduct = Vector3.DotProduct(m_ReltivePosition, m_RelativeVelocity);

@@ -8,21 +8,26 @@ public class Weapon_LaserBurner extends Weapon
 {
     public Weapon_LaserBurner(Vehicle anchor, GameLogic game)
     {
-        super(anchor, game, AudioClips.Silence);
+        super(anchor, game, ProjectileType.Laser, AudioClips.Laser_Enemy);
 
         m_Damage = 100;
         m_FireMode = new FireControl_None();
 
         AddBarrel(0, 0, 0);
-
-        m_ProjectileType = ProjectileType.Laser;
     }
 
     @Override
-    public void OpenFire()
+    public void PullTrigger()
     {
-        super.OpenFire();
+        super.PullTrigger();
 
-        m_BulletManager.CreateProjectile(this);
+        m_Game.GetBulletManager().CreateProjectile(this);
+        m_AudioEmitter.Start();
+    }
+
+    @Override
+    public void Update(double deltaTime)
+    {
+        m_WeaponComponent.Update(deltaTime);
     }
 }

@@ -4,6 +4,7 @@ import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.FloorGrid;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
+import com.raggamuffin.protorunnerv2.gameobjects.GameObject_OrientationMarker;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.CollisionDetection;
 import com.raggamuffin.protorunnerv2.utils.CollisionReport;
@@ -20,9 +21,9 @@ public class Projectile_PlasmaShot extends Projectile
 
     private boolean m_HasColided;
 
-    public Projectile_PlasmaShot(GameLogic game, Vector3 position, Vector3 initialVelocity, Vector3 forward, Colour colour, double baseDamage, double firingSpeed, AffiliationKey affiliation)
+    public Projectile_PlasmaShot(GameLogic game, Vector3 position, Vector3 initialVelocity, Vector3 firingDirection, Colour colour, double baseDamage, double firingSpeed, AffiliationKey affiliation)
     {
-        super(position, initialVelocity, forward, colour, baseDamage, affiliation, ModelType.PlasmaPulse);
+        super(position, initialVelocity, firingDirection, colour, baseDamage, affiliation, ModelType.PlasmaPulse);
 
         m_Game = game;
 
@@ -31,17 +32,19 @@ public class Projectile_PlasmaShot extends Projectile
 
         SetScale(0.25, 0.25, 3);
 
-        SetVelocity(GetForward(), firingSpeed);
+        Vector3 vel = GetVelocity();
+        vel.Add(firingDirection.X * firingSpeed, firingDirection.Y * firingSpeed, firingDirection.Z * firingSpeed);
 
         if(GetVelocity().GetLengthSqr() >= 0.1)
         {
-            // Points the laser to point in the direction it is travelling and not the direction it was fired at.
-            SetForward(GetVelocity());
-            GetForward().Normalise();
+            Vector3 fwd = GetForward();
+            fwd.SetVector(GetVelocity());
+            fwd.Normalise();
+            SetForward(fwd);
         }
         else
         {
-            SetForward(forward);
+            SetForward(firingDirection);
         }
 
         m_FloorGrid = new FloorGrid(GetPosition(), GetColour(), 10.0);

@@ -7,6 +7,7 @@ import com.raggamuffin.protorunnerv2.ai.NavigationalBehaviourInfo;
 import com.raggamuffin.protorunnerv2.ai.TargetingBehaviour;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
+import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_None;
@@ -17,18 +18,12 @@ public class TargetBot extends Vehicle
 
     public TargetBot(GameLogic game)
     {
-        super(game, ModelType.HeagonTube, 1.0);
-
-        SetScale(3, 0, 3);
-
+        super(game, ModelType.Dummy, 1.0, 1, VehicleClass.StandardVehicle, true, PublishedTopics.EnemyDestroyed, AffiliationKey.RedTeam);
 
         NavigationalBehaviourInfo navInfo = new NavigationalBehaviourInfo(0.4, 1.0, 0.7, 0.6);
         m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), navInfo, AIBehaviours.EngageTarget, FireControlBehaviour.Telegraphed, TargetingBehaviour.Standard);
 
-        SetAffiliation(AffiliationKey.RedTeam);
-
         SetColour(Colours.CalvinOrange);
-        SetAlpha(0.4);
 
         m_Engine = new Engine_Standard(this, game);
         m_Engine.SetMaxTurnRate(0);//2
@@ -37,13 +32,14 @@ public class TargetBot extends Vehicle
 
         SelectWeapon(new Weapon_None(this, game));
 
-        m_PrimaryWeapon.OpenFire();
+        OpenFire();
+
+        ApplyStatusEffect(StatusEffect.Shielded);
     }
 
     @Override
     public void Update(double deltaTime)
     {
-        m_HullPoints = m_MaxHullPoints;
         m_AIController.Update(deltaTime);
 
         super.Update(deltaTime);

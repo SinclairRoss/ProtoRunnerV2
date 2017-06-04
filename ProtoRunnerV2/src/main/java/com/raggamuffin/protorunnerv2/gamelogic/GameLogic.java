@@ -2,6 +2,7 @@ package com.raggamuffin.protorunnerv2.gamelogic;
 
 import android.app.Activity;
 
+import com.raggamuffin.protorunnerv2.ObjectEffect.ObjectEffectController;
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
 import com.raggamuffin.protorunnerv2.gameobjects.ExhibitionCameraAnchor;
@@ -15,8 +16,8 @@ import com.raggamuffin.protorunnerv2.managers.DatabaseManager;
 import com.raggamuffin.protorunnerv2.managers.GameManager;
 import com.raggamuffin.protorunnerv2.managers.GameManager_Exhibition;
 import com.raggamuffin.protorunnerv2.managers.GameManager_Play;
+import com.raggamuffin.protorunnerv2.managers.GameManager_Quiet;
 import com.raggamuffin.protorunnerv2.managers.GameManager_Test;
-import com.raggamuffin.protorunnerv2.managers.GameManager_Tutorial;
 import com.raggamuffin.protorunnerv2.managers.GameMode;
 import com.raggamuffin.protorunnerv2.managers.GameObjectManager;
 import com.raggamuffin.protorunnerv2.managers.GooglePlayService;
@@ -69,11 +70,12 @@ public class GameLogic extends ApplicationLogic
 	private SecondWindHandler m_SecondWindHandler;
     private InGameSoundEffectsManager m_SFXManager;
     private MultiplierPopperController m_PopperController;
+    private ObjectEffectController m_ObjectEffectController;
 
     private GameManager m_GameManager;
     private final GameManager_Play m_PlayManager;
-    private final GameManager_Tutorial m_TutorialManager;
     private final GameManager_Exhibition m_ExhibitionManager;
+    private final GameManager_Quiet m_QuietManager;
     private final GameManager_Test m_TestManager;
     private final GooglePlayService m_GooglePlayService;
 
@@ -111,6 +113,8 @@ public class GameLogic extends ApplicationLogic
         m_PopperController = new MultiplierPopperController(this);
         m_PopperController.Off();
 
+        m_ObjectEffectController = new ObjectEffectController(this);
+
         m_CameraAnchor = new ExhibitionCameraAnchor();
         AttachCameraToAnchor();
         m_Camera.SetInPlace();
@@ -118,23 +122,21 @@ public class GameLogic extends ApplicationLogic
         m_PubSubHub.SubscribeToTopic(PublishedTopics.PlayerSpawned, new PlayerSpawnedSubscriber());
         m_PubSubHub.SubscribeToTopic(PublishedTopics.PlayerDestroyed, new PlayerDestroyedSubscriber());
         m_PubSubHub.SubscribeToTopic(PublishedTopics.StartGame, new StartGameSubscriber());
-        m_PubSubHub.SubscribeToTopic(PublishedTopics.StartTutorial, new StartTutorialSubscriber());
         m_PubSubHub.SubscribeToTopic(PublishedTopics.EndGame, new EndGameSubscriber());
-        m_PubSubHub.SubscribeToTopic(PublishedTopics.TutorialComplete, new TutorialCompleteSubscriber());
         m_PubSubHub.SubscribeToTopic(PublishedTopics.HighScorePressed, new LeaderBoardPressedSubscriber());
         m_PubSubHub.SubscribeToTopic(PublishedTopics.AchievementsPressed, new AchievementsPressedSubscriber());
         m_PubSubHub.SubscribeToTopic(PublishedTopics.HighTimePressed, new HighTimeLeaderBoardPressedSubscriber());
-        m_PubSubHub.SubscribeToTopic(PublishedTopics.StartTest, new StartTestSubscriber());
+        m_PubSubHub.SubscribeToTopic(PublishedTopics.OnLearnToTouchComplete, new OnLearnToTouchCompleteSubscriber());
 
         m_GameReadyPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.GameReady);
 
         m_PlayManager = new GameManager_Play(this);
-        m_TutorialManager = new GameManager_Tutorial(this);
         m_ExhibitionManager = new GameManager_Exhibition(this);
+        m_QuietManager = new GameManager_Quiet(this);
         m_TestManager = new GameManager_Test(this);
-        m_GameManager = m_ExhibitionManager;
+        m_GameManager = m_QuietManager;
 
-        SetGameMode(GameMode.Exhibition);
+        SetGameMode(GameMode.Quiet);
     }
 
 	@Override
@@ -153,6 +155,7 @@ public class GameLogic extends ApplicationLogic
 		m_SecondWindHandler.Update(deltaTime);
         m_GameStats.Update(deltaTime);
         m_PopperController.Update();
+        m_ObjectEffectController.Update(deltaTime);
 
 		CheckCollisions();
 
@@ -198,11 +201,13 @@ public class GameLogic extends ApplicationLogic
                 break;
 
             case Tutorial:
-                m_GameManager = m_TutorialManager;
+                m_GameManager = m_PlayManager;
                 break;
-
             case Exhibition:
                 m_GameManager = m_ExhibitionManager;
+                break;
+            case Quiet:
+                m_GameManager = m_QuietManager;
                 break;
             case Test:
                 m_GameManager = m_TestManager;
@@ -285,9 +290,9 @@ public class GameLogic extends ApplicationLogic
 	public GameStats GetGameStats() { return m_GameStats; }
 	public SecondWindHandler GetSecondWindHandler() { return m_SecondWindHandler; }
 	public DatabaseManager GetDatabaseManager() { return m_DatabaseManager; }
-    public GameManager_Tutorial GetTutorial() { return m_TutorialManager; }
     public ColourManager GetColourManager() { return m_ColourManager; }
     public GooglePlayService GetGooglePlayService() { return m_GooglePlayService; }
+    public ObjectEffectController GetObjectEffectController() { return m_ObjectEffectController; }
 
     public void SaveScores()
     {
@@ -299,62 +304,25 @@ public class GameLogic extends ApplicationLogic
     private class StartGameSubscriber extends Subscriber
     {
         @Override
-        public void Update(int args)
+        public void Update(Object args)
         {
             m_BulletManager.Wipe();
             m_VehicleManager.Wipe();
             m_GameObjectManager.Wipe();
             m_GameStats.Start();
 
-            if(!m_DatabaseManager.HasTheTutorialBeenOffered())
-            {
-                m_UIManager.ShowScreen(UIScreens.NewToGame);
-            }
-            else
-            {
-                SetGameMode(GameMode.Play);
-                m_UIManager.ShowScreen(UIScreens.Play);
+            SetGameMode(GameMode.Play);
+            m_UIManager.ShowScreen(UIScreens.Play);
 
-                m_SecondWindHandler.AutoSpawnOff();
-                m_GameReadyPublisher.Publish();
-            }
-        }
-    }
-
-    private class StartTestSubscriber extends Subscriber
-    {
-        @Override
-        public void Update(int args)
-        {
-            m_BulletManager.Wipe();
-            m_VehicleManager.Wipe();
-            m_GameStats.Start();
-
-            SetGameMode(GameMode.Test);
             m_SecondWindHandler.AutoSpawnOff();
-            m_UIManager.ShowScreen(UIScreens.TestMode);
-        }
-    }
-
-    private class StartTutorialSubscriber extends Subscriber
-    {
-        @Override
-        public void Update(int args)
-        {
-            m_BulletManager.Wipe();
-            m_VehicleManager.Wipe();
-            m_GameStats.Start();
-
-            SetGameMode(GameMode.Tutorial);
-            m_UIManager.ShowScreen(UIScreens.Tutorial);
-            m_SecondWindHandler.AutoSpawnOn();
+            m_GameReadyPublisher.Publish();
         }
     }
 
     private class EndGameSubscriber extends Subscriber
     {
         @Override
-        public void Update(int args)
+        public void Update(Object args)
         {
             SetGameMode(GameMode.Exhibition);
             m_SecondWindHandler.Reset();
@@ -367,7 +335,7 @@ public class GameLogic extends ApplicationLogic
     private class PlayerSpawnedSubscriber extends Subscriber
     {
         @Override
-        public void Update(int args)
+        public void Update(Object args)
         {
             m_Camera.Attach(m_VehicleManager.GetPlayer());
             m_Camera.SetUp(0, 1, 0);
@@ -377,7 +345,7 @@ public class GameLogic extends ApplicationLogic
     private class PlayerDestroyedSubscriber extends Subscriber
     {
         @Override
-        public void Update(int args)
+        public void Update(Object args)
         {
             m_Camera.NormalCam();
 
@@ -389,27 +357,10 @@ public class GameLogic extends ApplicationLogic
         }
     }
 
-    private class TutorialCompleteSubscriber extends Subscriber
-    {
-        @Override
-        public void Update(int args)
-        {
-            m_DatabaseManager.TutorialOffered();
-
-            m_VehicleManager.Wipe();
-
-            SetGameMode(GameMode.Exhibition);
-            m_SecondWindHandler.Reset();
-            m_GameStats.Stop();
-            m_UIManager.ShowScreen(UIScreens.MainMenu);
-            AttachCameraToAnchor();
-        }
-    }
-
     private class LeaderBoardPressedSubscriber extends Subscriber
     {
         @Override
-        public void Update(int args)
+        public void Update(Object args)
         {
             m_GooglePlayService.DisplayLeaderBoard();
         }
@@ -418,16 +369,28 @@ public class GameLogic extends ApplicationLogic
     private class HighTimeLeaderBoardPressedSubscriber extends Subscriber
     {
         @Override
-        public void Update(int args)
+        public void Update(Object args)
         {
             m_GooglePlayService.DisplayHighTimeLeaderBoard();
         }
     }
 
+    private class OnLearnToTouchCompleteSubscriber extends Subscriber
+    {
+        @Override
+        public void Update(Object args)
+        {
+            SetGameMode(GameMode.Exhibition);
+            m_UIManager.ShowScreen(UIScreens.Splash );
+            m_GameAudioManager.StartMusic();
+        }
+    }
+
+
     private class AchievementsPressedSubscriber extends Subscriber
     {
         @Override
-        public void Update(int args)
+        public void Update(Object args)
         {
             m_GooglePlayService.DisplayAchievements();
         }

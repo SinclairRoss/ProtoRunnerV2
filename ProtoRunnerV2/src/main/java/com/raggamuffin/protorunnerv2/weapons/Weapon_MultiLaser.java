@@ -11,7 +11,7 @@ public class Weapon_MultiLaser extends Weapon
 
     public Weapon_MultiLaser(Vehicle anchor, GameLogic game, int numBeams)
     {
-        super(anchor, game, AudioClips.Laser_Enemy);
+        super(anchor, game, ProjectileType.Laser, AudioClips.Laser_Enemy);
 
         m_NumBeams = numBeams;
         double deltaRotation = (Math.PI * 2) / m_NumBeams;
@@ -26,8 +26,6 @@ public class Weapon_MultiLaser extends Weapon
         }
 
         m_WeaponComponent = InitialiseWeaponComponent(EWeaponComponents.LaserPointer);
-
-        m_ProjectileType = ProjectileType.Laser;
     }
 
     @Override
@@ -37,13 +35,13 @@ public class Weapon_MultiLaser extends Weapon
     }
 
     @Override
-    public void OpenFire()
+    public void PullTrigger()
     {
-        super.OpenFire();
+        super.PullTrigger();
 
         for(int i = 0; i < m_NumBeams; i ++)
         {
-            m_BulletManager.CreateProjectile(this);
+            m_Game.GetBulletManager().CreateProjectile(this);
             NextBarrel();
         }
     }
@@ -53,7 +51,7 @@ public class Weapon_MultiLaser extends Weapon
         WeaponBarrel barrel = GetActiveWeaponBarrel();
 
         Vector3 out = new Vector3(m_Anchor.GetForward());
-        out.RotateY(GetMuzzleIndex() * barrel.GetRotation());
+        out.Rotate(barrel.GetRotation());
 
         return out;
     }

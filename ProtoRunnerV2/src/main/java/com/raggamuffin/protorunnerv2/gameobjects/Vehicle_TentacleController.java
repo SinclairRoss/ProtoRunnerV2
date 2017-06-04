@@ -10,6 +10,7 @@ import com.raggamuffin.protorunnerv2.ai.NavigationalBehaviourInfo;
 import com.raggamuffin.protorunnerv2.ai.TargetingBehaviour;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
+import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
@@ -37,7 +38,7 @@ public class Vehicle_TentacleController extends Vehicle
 
     public Vehicle_TentacleController(GameLogic game, Vehicle anchor, double anchorAttackRange)
     {
-        super(game, ModelType.Nothing, 0);
+        super(game, ModelType.Nothing, 0, 1, VehicleClass.Drone, false, null, AffiliationKey.RedTeam);
 
         m_Anchor = anchor;
         SetPosition(m_Anchor.GetPosition());
@@ -53,16 +54,11 @@ public class Vehicle_TentacleController extends Vehicle
         m_Engine.SetMaxEngineOutput(80);
         m_Engine.SetDodgeOutput(0);
 
-        SetAffiliation(AffiliationKey.RedTeam);
-
         NavigationalBehaviourInfo navInfo = new NavigationalBehaviourInfo(0.4, 1.0, 0.0, 0.6);
         m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), navInfo, AIBehaviours.TentacleSnare, FireControlBehaviour.None, TargetingBehaviour.Tentacle);
         m_AIController.SetLeader(anchor);
 
-        m_CanBeTargeted = false;
-        m_StatusEffectManager.ApplyStatusEffect(StatusEffect.Shielded);
-
-        m_VehicleClass = VehicleClass.Drone;
+        ApplyStatusEffect(StatusEffect.Shielded);
 
         m_Shield = new Shield(this);
         game.GetGameObjectManager().AddObject(m_Shield);
@@ -150,7 +146,7 @@ public class Vehicle_TentacleController extends Vehicle
 
         if(distanceToAnchorSqr >= ANCHOR_ATTACK_RANGE * ANCHOR_ATTACK_RANGE)
         {
-            m_ClampingVector.SetAsDifference(m_Anchor.GetPosition(), GetPosition());
+            m_ClampingVector.SetVectorAsDifference(m_Anchor.GetPosition(), GetPosition());
             m_ClampingVector.Normalise();
             m_ClampingVector.Scale(ANCHOR_ATTACK_RANGE);
             m_ClampingVector.Add(m_Anchor.GetPosition());
@@ -179,7 +175,7 @@ public class Vehicle_TentacleController extends Vehicle
     @Override
     public void CleanUp()
     {
+        super.CleanUp();
         m_Shield.DetachFromObject();
-        SendDeathMessage();
     }
 }

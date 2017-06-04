@@ -10,7 +10,7 @@ public class FormationHelper
         ArrayList<Vector3> formation = new ArrayList<>(count);
 
         Vector3 right = new Vector3(forward);
-        right.SetAsCrossProduct(Vector3.UP, forward);
+        right.SetVectorAsCrossProduct(Vector3.UP, forward);
 
         double verticalOffsetI = 0.0;
         double verticalOffsetK = 0.0;
@@ -50,7 +50,7 @@ public class FormationHelper
         ArrayList<Vector3> formation = new ArrayList<>(count);
 
         Vector3 right = new Vector3(forward);
-        right.SetAsCrossProduct(Vector3.UP, forward);
+        right.SetVectorAsCrossProduct(Vector3.UP, forward);
 
         double formationWidth = spacing * (count - 1);
         double xOffset = right.X * formationWidth * 0.5;

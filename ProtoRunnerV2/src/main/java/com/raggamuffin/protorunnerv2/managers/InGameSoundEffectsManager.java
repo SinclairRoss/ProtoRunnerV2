@@ -19,11 +19,11 @@ public class InGameSoundEffectsManager
     private class EnemyDestroyedSubscriber extends Subscriber
     {
         @Override
-        public void Update(int args)
+        public void Update(Object args)
         {
             if(m_Game.GetGameMode() == GameMode.Play)
             {
-                m_Game.GetGameAudioManager().PlaySound(AudioClips.EnemyDestroyed);
+                m_Game.GetGameAudioManager().PlaySound(AudioClips.EnemyDown);
             }
         }
     }
@@ -31,9 +31,9 @@ public class InGameSoundEffectsManager
     private class PlayerHitSubscriber extends Subscriber
     {
         @Override
-        public void Update(int args)
+        public void Update(Object args)
         {
-            m_Game.GetGameAudioManager().PlaySound(AudioClips.PlayerDamaged);
+            m_Game.GetGameAudioManager().PlaySound(AudioClips.EnemyDown);
         }
     }
 }

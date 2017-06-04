@@ -30,15 +30,13 @@ public class Vehicle_ShieldBearer extends Vehicle
 
     public Vehicle_ShieldBearer(GameLogic game)
     {
-        super(game, ModelType.ShieldBearer, 5.0);
+        super(game, ModelType.ShieldBearer, 5.0, 24, VehicleClass.StandardVehicle, true, PublishedTopics.EnemyDestroyed, AffiliationKey.RedTeam);
 
         m_Game = game;
 
         SetScale(3);
 
         SelectWeapon(new Weapon_None(this, game));
-
-        m_HullPoints = 24;
 
         SetColour(Colours.CalvinOrange);
 
@@ -47,12 +45,8 @@ public class Vehicle_ShieldBearer extends Vehicle
         m_Engine.SetMaxEngineOutput(15);
         m_Engine.SetDodgeOutput(20);
 
-        SetAffiliation(AffiliationKey.RedTeam);
-
         NavigationalBehaviourInfo navInfo = new NavigationalBehaviourInfo(0.4, 1.0, 0.7, 0.6);
         m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), navInfo, AIBehaviours.StickWithThePack, FireControlBehaviour.None, TargetingBehaviour.Standard);
-
-        m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.EnemyDestroyed);
 
         CreateTentacles(TENTACLE_COUNT, game);
     }

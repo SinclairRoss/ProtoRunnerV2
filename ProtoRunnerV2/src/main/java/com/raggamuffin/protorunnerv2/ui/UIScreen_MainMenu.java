@@ -1,30 +1,36 @@
 package com.raggamuffin.protorunnerv2.ui;
 
 import android.content.Context;
+import android.media.AudioManager;
 
 import com.raggamuffin.protorunnerv2.R;
 import com.raggamuffin.protorunnerv2.audio.AudioClips;
+import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.UIManager;
 import com.raggamuffin.protorunnerv2.master.ControlScheme;
+import com.raggamuffin.protorunnerv2.master.TouchPointer;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
+import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.utils.CollisionDetection;
+import com.raggamuffin.protorunnerv2.utils.Colours;
+import com.raggamuffin.protorunnerv2.utils.Vector2;
+
+import junit.framework.Assert;
 
 public class UIScreen_MainMenu extends UIScreen
 {
-	private UILabel m_Title;
-    private UILabel m_TitleSubtext;
-	private UIButton m_Play;
-    private UIButton m_LeaderBoards;
-    private UIButton m_Achievements;
-    private UIButton m_Tutorial;
-    private UIButton m_Credits;
-    private UIButton m_TestMode;
+	private UIElement_Label m_Title;
+    private UIElement_Label m_TitleSubtext;
 
-    private UIButton m_SignIn;
-    private UIButton m_SignOut;
+    private UIObject_Button m_Play;
+    private UIObject_Button m_LeaderBoards;
+    private UIObject_Button m_Achievements;
+    private UIObject_Button m_Credits;
+
+    private Subscriber m_OnPointerUpSubscriber;
 	
 	public UIScreen_MainMenu(GameLogic Game, UIManager Manager)
 	{
@@ -35,197 +41,127 @@ public class UIScreen_MainMenu extends UIScreen
         m_LeaderBoards = null;
         m_Achievements = null;
 		m_Credits = null;
-        m_TestMode = null;
-        m_Tutorial = null;
-
-        m_SignIn = null;
-        m_SignOut = null;
 	}
 
 	@Override
 	public void Create() 
-	{	
-		super.Create();
-
+	{
         Context context = m_Game.GetContext();
 
-        m_Title         = CreateTitle(context.getString(R.string.app_name));
-        m_TitleSubtext  = CreateLabelSubtext(m_Title, context.getString(R.string.title_subtext));
-		m_Play 		    = CreateButton(context.getString(R.string.button_play), PublishedTopics.StartGame, AudioClips.UI_Play);
-        m_LeaderBoards  = CreateButton(context.getString(R.string.highscore_picker_screen_title), UIScreens.Leaderboards, AudioClips.UI_Positive);
-        m_Achievements  = CreateButton(context.getString(R.string.button_achievements), PublishedTopics.AchievementsPressed, AudioClips.UI_Positive);
-        m_Tutorial      = CreateButton(context.getString(R.string.button_tutorial), PublishedTopics.StartTutorial, AudioClips.UI_Play);
-        m_Credits	    = CreateButton(context.getString(R.string.credits_screen_title), UIScreens.Credits, AudioClips.UI_Positive);
-        m_TestMode      = CreateButton("Test_Mode", PublishedTopics.StartTest, AudioClips. UI_Play);
+        m_Title = new UIElement_Label(context.getString(R.string.app_name), UIConstants.FONTSIZE_TITLE, -0.9, 0.0, Alignment.Left, m_UIManager);
+        m_UIManager.AddUIElement(m_Title);
 
         PubSubHub pubSub = m_Game.GetPubSubHub();
+        GameAudioManager audioManager = m_Game.GetGameAudioManager();
 
-        pubSub.SubscribeToTopic(PublishedTopics.GooglePlayConnected, new OnConnectSubscriber());
-        pubSub.SubscribeToTopic(PublishedTopics.GooglePlayDisconnected, new OnDisconnectSubscriber());
+        Publisher buttonPublisher = pubSub.CreatePublisher(PublishedTopics.StartGame);
+        String buttonText = context.getString(R.string.button_play);
+        m_Play = new UIObject_Button(buttonText, Colours.RunnerBlue, 0.8, 0.7, Alignment.Right, buttonPublisher, null, m_UIManager);
 
-        m_SignIn = new UIButton(m_UIManager, null, 0, m_Game.GetGameAudioManager(), AudioClips.UI_Positive);
-        m_SignIn.SetText(context.getString(R.string.sign_in));
-        m_SignIn.SetPosition(0.9, -0.8);
-        m_SignIn.GetFont().SetAlignment(Font.Alignment.Right);
-        m_SignIn.GetFont().SetColour(m_Game.GetColourManager().GetUISecondaryColour());
+        buttonPublisher = pubSub.CreatePublisher(PublishedTopics.SwitchScreen);
+        buttonText = context.getString(R.string.highscore_picker_screen_title);
+        m_LeaderBoards = new UIObject_Button(buttonText, Colours.Crimson, 0.8, 0.4, Alignment.Right,buttonPublisher, UIScreens.Leaderboards.ordinal(), m_UIManager);
 
-        m_UIManager.AddUIElement(m_SignIn);
+        buttonPublisher = pubSub.CreatePublisher(PublishedTopics.AchievementsPressed);
+        buttonText = context.getString(R.string.button_achievements);
+        m_Achievements = new UIObject_Button(buttonText, Colours.CalvinOrange, 0.8, 0.1, Alignment.Right,buttonPublisher, null, m_UIManager);
 
-        m_SignOut = new UIButton(m_UIManager, null, 0, m_Game.GetGameAudioManager(), AudioClips.UI_Negative);
-        m_SignOut.SetText(context.getString(R.string.sign_out));
-        m_SignOut.SetPosition(0.9, -0.8);
-        m_SignOut.GetFont().SetAlignment(Font.Alignment.Right);
-        m_SignOut.GetFont().SetColour(m_Game.GetColourManager().GetUIAccentColour());
+        buttonPublisher = pubSub.CreatePublisher(PublishedTopics.SwitchScreen);
+        buttonText = context.getString(R.string.credits_screen_title);
+        m_Credits = new UIObject_Button(buttonText, Colours.EmeraldGreen, 0.8, -0.2, Alignment.Right,buttonPublisher, UIScreens.Credits.ordinal(), m_UIManager);
 
-        m_UIManager.AddUIElement(m_SignOut);
-
-        if(m_Game.GetGooglePlayService().IsConnected())
-        {
-            ShowSignOut();
-        }
-        else
-        {
-            ShowSignIn();
-        }
+        m_OnPointerUpSubscriber = new OnPointerUpSubscriber();
+        pubSub.SubscribeToTopic(PublishedTopics.OnPointerUp, m_OnPointerUpSubscriber);
     }
 
 	@Override
-	public void Remove() 
+	public void Destroy()
 	{
-        super.Remove();
-
-        m_UIManager.RemoveUIElement(m_Title);
         m_Title = null;
-
-        m_UIManager.RemoveUIElement(m_TitleSubtext);
         m_TitleSubtext = null;
-
-        m_UIManager.RemoveUIElement(m_LeaderBoards);
         m_LeaderBoards = null;
-
-        m_UIManager.RemoveUIElement(m_Achievements);
         m_Achievements = null;
-
-		m_UIManager.RemoveUIElement(m_Play);
 		m_Play = null;
-
-        m_UIManager.RemoveUIElement(m_Credits);
         m_Credits = null;
 
-        m_UIManager.RemoveUIElement(m_Tutorial);
-        m_Tutorial = null;
-
-        m_UIManager.RemoveUIElement(m_SignIn);
-        m_SignIn = null;
-
-        m_UIManager.RemoveUIElement(m_SignOut);
-        m_SignOut = null;
-
-        m_UIManager.RemoveUIElement(m_TestMode);
-        m_TestMode = null;
+        PubSubHub pubSub = m_Game.GetPubSubHub();
+        pubSub.UnsubscribeFromTopic(PublishedTopics.OnPointerUp, m_OnPointerUpSubscriber);
 	}
 
 	@Override
-	public void Update(double DeltaTime) 
+	public void Update(double deltaTime)
 	{
-		ControlScheme Scheme = m_Game.GetControlScheme();
+		ControlScheme scheme = m_Game.GetControlScheme();
 
-        if(CollisionDetection.UIElementInteraction(Scheme.GetTouchCoordinates(), m_UIManager.GetScreenSize(), m_Play))
+        m_Play.OnHoverOff();
+        m_LeaderBoards.OnHoverOff();
+        m_Achievements.OnHoverOff();
+        m_Credits.OnHoverOff();
+
+        int activePointerCount = scheme.GetActivePointerCount();
+        for (int i = 0; i < activePointerCount; ++i)
         {
-            m_Play.Pressed();
-            Scheme.ResetTouchCoordinates();
-            return;
+            TouchPointer pointer = scheme.GetPointerAtIndex(i);
+            Vector2 pointerPos = pointer.GetCurrentPosition();
+
+            if (CollisionDetection.UIElementInteraction(pointerPos, m_Play.GetTouchArea()))
+            {
+                UIElement_TouchMarker marker = m_UIManager.GetTouchDisplay().GetMarkerWithID(pointer.GetId());
+                m_Play.OnHover(marker);
+            }
+            if (CollisionDetection.UIElementInteraction(pointerPos, m_LeaderBoards.GetTouchArea()))
+            {
+                UIElement_TouchMarker marker = m_UIManager.GetTouchDisplay().GetMarkerWithID(pointer.GetId());
+                m_LeaderBoards.OnHover(marker);
+            }
+            if (CollisionDetection.UIElementInteraction(pointerPos, m_Achievements.GetTouchArea()))
+            {
+                UIElement_TouchMarker marker = m_UIManager.GetTouchDisplay().GetMarkerWithID(pointer.GetId());
+                m_Achievements.OnHover(marker);
+            }
+            if (CollisionDetection.UIElementInteraction(pointerPos, m_Credits.GetTouchArea()))
+            {
+                UIElement_TouchMarker marker = m_UIManager.GetTouchDisplay().GetMarkerWithID(pointer.GetId());
+                m_Credits.OnHover(marker);
+            }
         }
 
-        if(CollisionDetection.UIElementInteraction(Scheme.GetTouchCoordinates(), m_UIManager.GetScreenSize(), m_TestMode))
-        {
-            m_TestMode.Pressed();
-            Scheme.ResetTouchCoordinates();
-            return;
-        }
-
-        if(CollisionDetection.UIElementInteraction(Scheme.GetTouchCoordinates(), m_UIManager.GetScreenSize(), m_LeaderBoards))
-        {
-            m_LeaderBoards.Pressed();
-            Scheme.ResetTouchCoordinates();
-            return;
-        }
-
-        if(CollisionDetection.UIElementInteraction(Scheme.GetTouchCoordinates(), m_UIManager.GetScreenSize(), m_Achievements))
-        {
-            m_Achievements.Pressed();
-            Scheme.ResetTouchCoordinates();
-            return;
-        }
-
-        if(CollisionDetection.UIElementInteraction(Scheme.GetTouchCoordinates(), m_UIManager.GetScreenSize(), m_Credits))
-        {
-            m_Credits.Pressed();
-            Scheme.ResetTouchCoordinates();
-            return;
-        }
-
-        if(CollisionDetection.UIElementInteraction(Scheme.GetTouchCoordinates(), m_UIManager.GetScreenSize(), m_Tutorial))
-        {
-            m_Tutorial.Pressed();
-            Scheme.ResetTouchCoordinates();
-            return;
-        }
-
-        if(CollisionDetection.UIElementInteraction(Scheme.GetTouchCoordinates(), m_UIManager.GetScreenSize(), m_SignIn))
-        {
-            m_Game.GetGooglePlayService().Connect();
-            m_Game.GetDatabaseManager().SetAutoSignIn(true);
-
-            m_SignIn.Pressed();
-            Scheme.ResetTouchCoordinates();
-            return;
-        }
-
-        if(CollisionDetection.UIElementInteraction(Scheme.GetTouchCoordinates(), m_UIManager.GetScreenSize(), m_SignOut))
-        {
-            m_Game.GetGooglePlayService().Disconnect();
-            m_Game.GetDatabaseManager().SetAutoSignIn(false);
-
-            m_SignOut.Pressed();
-            Scheme.ResetTouchCoordinates();
-            return;
-        }
+        m_Play.Update(deltaTime);
+        m_LeaderBoards.Update(deltaTime);
+        m_Achievements.Update(deltaTime);
+        m_Credits.Update(deltaTime);
 	}
 
-    private void ShowSignIn()
-    {
-        if(m_SignIn == null|| m_SignOut == null)
-            return;
-
-        m_SignOut.Hide();
-        m_SignIn.Show();
-    }
-
-    private void ShowSignOut()
-    {
-        if(m_SignIn == null|| m_SignOut == null)
-            return;
-
-        m_SignIn.Hide();
-        m_SignOut.Show();
-    }
-
-    private class OnConnectSubscriber extends Subscriber
+    private class OnPointerUpSubscriber extends Subscriber
     {
         @Override
-        public void Update(int args)
+        public void Update(Object args)
         {
-            ShowSignOut();
-        }
-    }
+            TouchPointer pointer = (TouchPointer) args;
+            Assert.assertNotNull(pointer);
 
-    private class OnDisconnectSubscriber extends Subscriber
-    {
-        @Override
-        public void Update(int args)
-        {
-            ShowSignIn();
+            Vector2 pointerPos = pointer.GetCurrentPosition();
+
+            if (CollisionDetection.UIElementInteraction(pointerPos, m_Play.GetTouchArea()))
+            {
+                m_Play.OnPress();
+                return;
+            }
+            if (CollisionDetection.UIElementInteraction(pointerPos, m_LeaderBoards.GetTouchArea()))
+            {
+                m_LeaderBoards.OnPress();
+                return;
+            }
+            if (CollisionDetection.UIElementInteraction(pointerPos, m_Achievements.GetTouchArea()))
+            {
+                m_Achievements.OnPress();
+                return;
+            }
+            if (CollisionDetection.UIElementInteraction(pointerPos, m_Credits.GetTouchArea()))
+            {
+                m_Credits.OnPress();
+                return;
+            }
         }
     }
 }

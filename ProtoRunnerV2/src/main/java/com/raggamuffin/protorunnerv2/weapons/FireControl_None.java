@@ -9,12 +9,6 @@ public class FireControl_None extends FireControl
     }
 
     @Override
-    public boolean CanFire()
-    {
-        return false;
-    }
-
-    @Override
     public boolean ShouldFire()
     {
         return false;
@@ -22,7 +16,5 @@ public class FireControl_None extends FireControl
 
     @Override
     public void NotifyOfFire()
-    {
-        // Do nothing.
-    }
+    {}
 }

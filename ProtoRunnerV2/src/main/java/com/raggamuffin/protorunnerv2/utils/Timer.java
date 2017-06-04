@@ -15,8 +15,6 @@ public class Timer
     {
         SetDuration(durationSeconds);
         m_EndTime = 0;
-
-        m_Active = false;
     }
 
     public void Start()
@@ -49,14 +47,22 @@ public class Timer
         m_Active = true;
     }
 
-    public Boolean HasElapsed()
+    public boolean HasElapsed()
     {
         return System.currentTimeMillis() >= m_EndTime && m_Active;
     }
 
+    public boolean IsActive() { return m_Active; }
+
     public double GetProgress()
     {
-        return MathsHelper.Normalise(System.currentTimeMillis(), m_StartTime, m_EndTime);
+        return m_Active ? MathsHelper.Normalise(System.currentTimeMillis(), m_StartTime, m_EndTime) : 0.0;
+    }
+
+    public void InvertTimer()
+    {
+
+
     }
 
     public double GetInverseProgress()

@@ -13,15 +13,11 @@ import com.raggamuffin.protorunnerv2.master.RenderEffectSettings;
 import com.raggamuffin.protorunnerv2.master.RendererPacket;
 import com.raggamuffin.protorunnerv2.particles.Particle;
 import com.raggamuffin.protorunnerv2.particles.ParticleType;
-import com.raggamuffin.protorunnerv2.particles.Particle_Multiplier;
-import com.raggamuffin.protorunnerv2.particles.Particle_Standard;
 import com.raggamuffin.protorunnerv2.particles.Trail;
-import com.raggamuffin.protorunnerv2.particles.TrailNode;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
 import com.raggamuffin.protorunnerv2.ui.UIElementType;
 import com.raggamuffin.protorunnerv2.utils.FrameRateCounter;
 
-import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -120,7 +116,6 @@ public class GLRenderer implements GLSurfaceView.Renderer
 		m_Camera.Update();
 		m_UICamera.Update();
 
-
         Matrix.setIdentityM(m_ViewMatrix, 0);
         Matrix.multiplyMM(m_ViewMatrix, 0, m_Camera.m_ProjMatrix, 0, m_Camera.m_VMatrix, 0);
 
@@ -195,7 +190,7 @@ public class GLRenderer implements GLSurfaceView.Renderer
     {
         for (ModelType type : m_ModelTypes)
         {
-            CopyOnWriteArrayList<GameObject> list = m_Packet.GetModelList(type);
+            CopyOnWriteArrayList<GameObject> list = m_Packet.GetModelList_InGame(type);
 
             if(list.size() > 0)
             {
@@ -303,11 +298,16 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
         for (UIElementType type : types)
         {
-            CopyOnWriteArrayList<UIElement> Copy = m_Packet.GetUIElementList(type);
+            CopyOnWriteArrayList<UIElement> copy = m_Packet.GetUIElementList(type);
 
-            for(UIElement object : Copy)
+            if(!copy.isEmpty())
             {
-                m_UIManager.DrawElement(object, m_ViewMatrix_UI);
+                m_UIManager.InitialiseModel(type, m_ViewMatrix_UI);
+                for (UIElement object : copy)
+                {
+                    m_UIManager.DrawElement(object);
+                }
+                m_UIManager.CleanModel(type);
             }
         }
     }

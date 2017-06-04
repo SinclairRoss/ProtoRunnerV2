@@ -11,7 +11,7 @@ import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_BitLaser;
-import com.raggamuffin.protorunnerv2.weapons.Weapon_PunkShot;
+import com.raggamuffin.protorunnerv2.weapons.Weapon_PulseLaser;
 
 public class Vehicle_Bit extends Vehicle
 {
@@ -19,25 +19,21 @@ public class Vehicle_Bit extends Vehicle
 
 	public Vehicle_Bit(GameLogic game)
 	{
-		super(game, ModelType.Bit, 2);
+		super(game, ModelType.Byte, 2, 4, VehicleClass.StandardVehicle, true, PublishedTopics.EnemyDestroyed, AffiliationKey.RedTeam);
 
-       // SetColourScheme(Colours.Pink70, Colours.HotPink);
+        SetScale(0.5);
 
 		SetColour(Colours.Pink70);
 
         m_Engine = new Engine_Standard(this, game);
-		m_Engine.SetMaxTurnRate(1.5); //1.5
-		m_Engine.SetMaxEngineOutput(50); //10000
-		m_Engine.SetDodgeOutput(700);
+        m_Engine.SetMaxTurnRate(GameLogic.TEST_MODE ? 0 : 2);
+        m_Engine.SetMaxEngineOutput(GameLogic.TEST_MODE ? 0 : 70);
+        m_Engine.SetAfterBurnerOutput(90);
 
-		SetAffiliation(AffiliationKey.RedTeam); 
-		
-		SelectWeapon(new Weapon_BitLaser(this, game));
+        SelectWeapon(new Weapon_BitLaser(this, game));
 
 		NavigationalBehaviourInfo navInfo = new NavigationalBehaviourInfo(0.4, 1.0, 0.7, 0.6);
 		m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), navInfo, AIBehaviours.EngageTarget, FireControlBehaviour.Telegraphed, TargetingBehaviour.Standard);
-
-		m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.EnemyDestroyed);
 	}
 	
 	@Override 

@@ -2,6 +2,7 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
+import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
@@ -13,9 +14,7 @@ public class DodgeTestBot extends Vehicle
 
     public DodgeTestBot(GameLogic game)
     {
-        super(game, ModelType.WeaponDrone, 1);
-
-        SetAffiliation(AffiliationKey.RedTeam);
+        super(game, ModelType.WeaponDrone, 1, 1, VehicleClass.StandardVehicle, true, PublishedTopics.EnemyDestroyed, AffiliationKey.RedTeam);
 
         SetColour(Colours.CalvinOrange);
 

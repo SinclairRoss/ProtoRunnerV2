@@ -8,61 +8,61 @@ public class Vector2
 	public static final Vector2 RIGHT   = new Vector2(1, 0);
 	public static final Vector2 FORWARD = new Vector2(0, 1);
 
-	public double I;
-	public double J;
+	public double X;
+	public double Y;
 
 	public Vector2()
 	{
-		I = 0.0f;
-		J = 0.0f;
+		X = 0.0f;
+		Y = 0.0f;
 	}
 	
 	public Vector2(double i, double j)
 	{
-		I = i;
-		J = j;
+		X = i;
+		Y = j;
 	}
 	
 	public Vector2(double scale)
 	{
-		I = scale;
-		J = scale;
+		X = scale;
+		Y = scale;
 	}
 	
 	public Vector2(Vector2 vector)
 	{
-		I = vector.I;
-		J = vector.J;
+		X = vector.X;
+		Y = vector.Y;
 	}
 	
 	public Vector2(Point size)
 	{
-		I = size.x;
-		J = size.y;
+		X = size.x;
+		Y = size.y;
 	}
 
 	public void SetVector(double i, double j)
 	{
-		I = i;
-		J = j;
+		X = i;
+		Y = j;
 	}
 	
 	public void SetVector(double scale)
 	{
-		I = scale;
-		J = scale;
+		X = scale;
+		Y = scale;
 	}
 	
 	public void SetVector(Vector2 vector)
 	{
-		I = vector.I;
-		J = vector.J;
+		X = vector.X;
+		Y = vector.Y;
 	}
 	
 	public void SetVector(Point size)
 	{
-		I = size.x;
-		J = size.y;
+		X = size.x;
+		Y = size.y;
 	}
 
 	public void SetAsRandNorm()
@@ -72,8 +72,8 @@ public class Vector2
 
 	public void SetAsRand(double length)
 	{
-		I = MathsHelper.RandomDouble(-1,1);
-		J = MathsHelper.RandomDouble(-1,1);
+		X = MathsHelper.RandomDouble(-1,1);
+		Y = MathsHelper.RandomDouble(-1,1);
 
 		Normalise();
 		Scale(length);
@@ -81,46 +81,46 @@ public class Vector2
 
     public void Rotate(double theta)
     {
-        double x = I;
-        double y = J;
+        double x = X;
+        double y = Y;
 
-        I = (x  * Math.cos(theta)) - (y * Math.sin(theta));
-        J = (x  * Math.sin(theta)) + (y * Math.cos(theta));
+        X = (x  * Math.cos(theta)) - (y * Math.sin(theta));
+        Y = (x  * Math.sin(theta)) + (y * Math.cos(theta));
     }
 
     public void Scale(double scale)
     {
-        I *= scale;
-        J *= scale;
+        X *= scale;
+        Y *= scale;
     }
 
     public void Add(double x, double y)
     {
-        I += x;
-        J += y;
+        X += x;
+        Y += y;
     }
 
     public void Subtract(double x, double y)
     {
-        I -= x;
-        J -= y;
+        X -= x;
+        Y -= y;
     }
 	
 	public void SetVectorAsInverse(Vector2 vector)
 	{
-		I = -vector.I;
-		J = -vector.J;
+		X = -vector.X;
+		Y = -vector.Y;
 	}
 	
 	public void SetVectorDifference(Vector2 A, Vector2 B)
 	{
-		I = B.I - A.I;
-		J = B.J - A.J;
+		X = B.X - A.X;
+		Y = B.Y - A.Y;
 	}
 	
 	public static double DotProduct(Vector2 A, Vector2 B)
 	{
-		return (A.I * B.I) + (A.J * B.J);
+		return (A.X * B.X) + (A.Y * B.Y);
 	}
 	
 	public static double RadiansBetween(Vector2 A, Vector2 B)
@@ -130,7 +130,7 @@ public class Vector2
 	
 	public static double Determinant(Vector2 A, Vector2 B)
 	{
-		return (A.I * B.J) - (B.I * A.J);
+		return (A.X * B.Y) - (B.X * A.Y);
 	}
 	
 	public void Normalise()
@@ -138,24 +138,24 @@ public class Vector2
 		double Length = GetLength();
 		if(GetLengthSqr() != 0.0)
 		{
-			I /= Length;
-			J /= Length;
+			X /= Length;
+			Y /= Length;
 		}
 	}
 
 	public double GetLengthSqr()
 	{
-		return ((I * I) + (J * J));
+		return ((X * X) + (Y * Y));
 	}
 	
 	public double GetLength()
 	{
-		return Math.sqrt((I * I) + (J * J));
+		return Math.sqrt((X * X) + (Y * Y));
 	}
 	
 	public void Output()
 	{
-		Log.e("Vector2", "X: " + I);
-		Log.e("Vector2", "Y: " + J);
+		Log.e("Vector2", "X: " + X);
+		Log.e("Vector2", "Y: " + Y);
 	}
 }

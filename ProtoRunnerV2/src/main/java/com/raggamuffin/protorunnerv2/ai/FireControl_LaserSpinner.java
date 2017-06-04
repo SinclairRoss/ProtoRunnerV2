@@ -43,7 +43,7 @@ public class FireControl_LaserSpinner extends FireControl
             {
                 m_AttackCooldown.Update(deltaTime);
 
-                if(m_AttackCooldown.TimedOut())
+                if(m_AttackCooldown.HasElapsed())
                 {
                     m_AttackState = AttackState.ComingToAHalt;
                     m_AttackCooldown.ResetTimer();
@@ -64,7 +64,7 @@ public class FireControl_LaserSpinner extends FireControl
             {
                 m_HoldPositionTimer.Update(deltaTime);
 
-                if(m_HoldPositionTimer.TimedOut())
+                if(m_HoldPositionTimer.HasElapsed())
                 {
                     m_AttackState = AttackState.StartingAttack;
                     m_HoldPositionTimer.ResetTimer();
@@ -74,7 +74,7 @@ public class FireControl_LaserSpinner extends FireControl
             }
             case StartingAttack:
             {
-                m_Anchor.GetPrimaryWeapon().OpenFire();
+                m_Anchor.GetPrimaryWeapon().PullTrigger();
 
                 m_AttackState = AttackState.StartingSpin;
             }
@@ -82,7 +82,7 @@ public class FireControl_LaserSpinner extends FireControl
             {
                 m_StartSpinTimer.Update(deltaTime);
 
-                if(m_StartSpinTimer.TimedOut())
+                if(m_StartSpinTimer.HasElapsed())
                 {
                     double turnRate = MathsHelper.RandomBoolean() ? TURN_RATE : - TURN_RATE;
                     m_Anchor.SetTurnRate(turnRate);
@@ -96,7 +96,7 @@ public class FireControl_LaserSpinner extends FireControl
             {
                 m_AttackDuration.Update(deltaTime);
 
-                if(m_AttackDuration.TimedOut())
+                if(m_AttackDuration.HasElapsed())
                 {
                     m_AttackDuration.ResetTimer();
                     m_AttackState = AttackState.CeasingAttack;
@@ -106,7 +106,7 @@ public class FireControl_LaserSpinner extends FireControl
             }
             case CeasingAttack:
             {
-                m_Anchor.GetPrimaryWeapon().CeaseFire();
+                m_Anchor.GetPrimaryWeapon().ReleaseTrigger();
                 m_Controller.GetNavigationControl().Activate();
                 m_Controller.GetAnchor().SetEngineOutput(1.0);
                 m_Anchor.GetPrimaryWeapon().DeactivateComponent();

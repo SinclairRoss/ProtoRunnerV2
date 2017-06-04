@@ -18,23 +18,13 @@ public class AchievementListener
 
         PubSubHub pubSub = m_Game.GetPubSubHub();
 
-        pubSub.SubscribeToTopic(PublishedTopics.TutorialComplete, new TutorialCompleteSubscriber());
         pubSub.SubscribeToTopic(PublishedTopics.Fire, new TestSubscriber());
     }
 
-    private class TutorialCompleteSubscriber extends Subscriber
-    {
-        @Override
-        public void Update(int args)
-        {
-            String id = m_Game.GetContext().getString(R.string.achievement_teachers_pet_id);
-            m_GPService.UpdateAchievement(id);
-        }
-    }
     private class TestSubscriber extends Subscriber
     {
         @Override
-        public void Update(int args)
+        public void Update(Object args)
         {
             String id = m_Game.GetContext().getString(R.string.achievement_test_id);
             m_GPService.UpdateAchievement(id, 1);

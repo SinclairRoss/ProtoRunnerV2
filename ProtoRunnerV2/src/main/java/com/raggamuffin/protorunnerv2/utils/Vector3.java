@@ -1,6 +1,5 @@
 package com.raggamuffin.protorunnerv2.utils;
 
-import android.sax.RootElement;
 import android.util.Log;
 
 public final class Vector3
@@ -13,10 +12,7 @@ public final class Vector3
     }
 
     public static final Vector3 FORWARD = new Vector3(0, 0, 1);
-
     public static final Vector3 UP = new Vector3(0, 1, 0);
-    public static final Vector3 DOWN = new Vector3(0, -1, 0);
-
     public static final Vector3 RIGHT = new Vector3(1, 0, 0);
 
     public double X;
@@ -79,7 +75,7 @@ public final class Vector3
         Z = -vector.Z;
     }
 
-    public void SetAsCrossProduct(final Vector3 a, final Vector3 b)
+    public void SetVectorAsCrossProduct(final Vector3 a, final Vector3 b)
     {
         X = (a.Y * b.Z) - (b.Y * a.Z);
         Y = -((a.X * b.Z) - (b.X * a.Z));
@@ -101,7 +97,7 @@ public final class Vector3
         Scale(length);
     }
 
-    public void SetAsDifference(final Vector3 A, final Vector3 B)
+    public void SetVectorAsDifference(final Vector3 A, final Vector3 B)
     {
         X = B.X - A.X;
         Y = B.Y - A.Y;
@@ -110,13 +106,17 @@ public final class Vector3
 
     public void Normalise()
     {
-        double length = GetLength();
+        double lengthSqr = GetLengthSqr();
 
-        if (length > 0.000001)
+        if(lengthSqr < 0.9999998 || lengthSqr > 1.0000001)
         {
-            X /= length;
-            Y /= length;
-            Z /= length;
+            double length = Math.sqrt(lengthSqr);
+            if (length > 0.000001)
+            {
+                X /= length;
+                Y /= length;
+                Z /= length;
+            }
         }
     }
 
@@ -216,10 +216,34 @@ public final class Vector3
         Z = x * (axis.X * axis.Z * (1 - cosTheta) + axis.Y * sinTheta) +
             y * (axis.Y * axis.Z * (1 - cosTheta) - axis.X * sinTheta) +
             z * (cosTheta + (axis.Z * axis.Z) * (1 - cosTheta));
+    }
 
+    public void Multiply(Quaternion a)
+    {
+        double crossX = (a.Axis.Y * Z) - (Y * a.Axis.Z);
+        double crossY = -((a.Axis.X * Z) - (X * a.Axis.Z));
+        double crossZ = (a.Axis.X * Y) - (X * a.Axis.Y);
+
+        X += (crossX * 2 * a.W) + (((a.Axis.Y * crossZ) - (crossY * a.Axis.Z)) * 2);
+        Y += (crossY * 2 * a.W) + ((-((a.Axis.X * crossZ) - (crossX * a.Axis.Z))) * 2);
+        Z += (crossZ * 2 * a.W) + (((a.Axis.X * crossY) - (crossX * a.Axis.Y)) * 2);
+    }
+
+    public void Rotate(Quaternion a)
+    {
+        double dot = DotProduct(a.Axis, this);
+        double s = (a.W * a.W - dot);
+
+        double crossX = (a.Axis.Y * Z) - (Y * a.Axis.Z);
+        double crossY = -(a.Axis.X * Z) - (X * a.Axis.Z);
+        double crossZ = (a.Axis.X * Y) - (X * a.Axis.Y);
+
+        X = (2 * dot * a.Axis.X) + (s * X) + (2 * a.W * crossX);
+        Y = (2 * dot * a.Axis.Y) + (s * Y) + (2 * a.W * crossY);
+        Z = (2 * dot * a.Axis.Z) + (s * Z) + (2 * a.W * crossZ);
 
     }
-	
+
 	public static double DotProduct(Vector3 A, Vector3 B)
 	{
 		return (A.X * B.X) + (A.Y * B.Y) + (A.Z * B.Z);
@@ -245,38 +269,9 @@ public final class Vector3
         return i*i + j*j + k*k;
     }
 
-    public double Pitch()
-    {
-        double val = Math.atan(Y / Z);
-
-        if(Z < 0.0)
-        {
-            val += (Math.PI - val) * 2;
-        }
-
-        return val == val ? val : 0.0;
-    }
-
 	public double Yaw()
 	{
-		double val = Math.PI * 2 - Math.atan(X / Z);
-
-		if(Z < 0.0)
-		{
-			val += Math.PI;
-		}
-
-		return val == val ? val : 0.0;
-	}
-
-	public double Roll()
-	{
-		double val = Math.PI * 2 - Math.atan(X / Y);
-
-		if(Y < 0.0)
-		{
-			val += Math.PI;
-		}
+        double val = Math.atan2(X, (Z - 1));
 
 		return val == val ? val : 0.0;
 	}

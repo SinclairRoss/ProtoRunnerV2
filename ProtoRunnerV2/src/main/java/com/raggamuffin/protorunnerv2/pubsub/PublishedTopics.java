@@ -6,9 +6,7 @@ public enum PublishedTopics
 	StartGame,
     GameReady,
     StartTest,
-    StartTutorial,
     NextTutorialButtonPressed,
-    TutorialComplete,
     HighScorePressed,
     HighTimePressed,
     AchievementsPressed,
@@ -20,16 +18,10 @@ public enum PublishedTopics
 	EnemyDestroyed,
 	WingmanDestroyed,
 	PlayerDestroyed,
-	PlayerSwitchedWeapon,
     SignInPressed,
     SignOutPressed,
     GooglePlayConnected,
     GooglePlayDisconnected,
-
-    // Game events
-    MultiplierCollected,
-    MultiplierIncreased,
-    MultiplierDecreased,
 
     // Controls
     EvadeLeft,
@@ -46,4 +38,9 @@ public enum PublishedTopics
     WeaponRight,
     WeaponUp,
     WeaponDown,
+
+    OnLearnToTouchComplete,
+
+    OnPointerDown,
+    OnPointerUp
 }

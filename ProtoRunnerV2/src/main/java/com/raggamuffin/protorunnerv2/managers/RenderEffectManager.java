@@ -55,7 +55,7 @@ public class RenderEffectManager
 	private class PlayerHitSubscriber extends Subscriber
 	{
 		@Override
-		public void Update(final int args)
+		public void Update(final Object args)
 		{
             m_DamageEffectTimer.ResetTimer();
 		}

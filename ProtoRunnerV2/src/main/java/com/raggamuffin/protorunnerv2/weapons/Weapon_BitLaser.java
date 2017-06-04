@@ -14,9 +14,7 @@ public class Weapon_BitLaser extends Weapon
 
     public Weapon_BitLaser(Vehicle anchor, GameLogic game)
     {
-        super(anchor, game, AudioClips.Laser_Enemy);
-
-        m_ProjectileType = ProjectileType.Laser;
+        super(anchor, game, ProjectileType.Laser, AudioClips.Laser_Enemy);
 
         m_Damage = 100;
         m_FiringSpeed = 140.0;
@@ -41,17 +39,18 @@ public class Weapon_BitLaser extends Weapon
     }
 
     @Override
-    public void OpenFire()
+    public void PullTrigger()
     {
-        super.OpenFire();
+        super.PullTrigger();
 
-        m_BulletManager.CreateProjectile(this);
+        m_Game.GetBulletManager().CreateProjectile(this);
         NextBarrel();
 
         m_DurationTimer.Start();
+        m_AudioEmitter.Start();
     }
 
     @Override
-    public void CeaseFire()
+    public void ReleaseTrigger()
     {}
 }

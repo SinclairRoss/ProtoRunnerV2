@@ -9,8 +9,7 @@ public abstract class FireControl
 		m_TriggerPulled = false;
 	}
 	
-	public abstract void Update(double deltaTime);	
-	public abstract boolean CanFire();
+	public abstract void Update(double deltaTime);
 	public abstract boolean ShouldFire();
 	public abstract void NotifyOfFire();
 	

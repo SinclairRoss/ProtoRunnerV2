@@ -53,7 +53,7 @@ public class Projectile_Flare extends Projectile
     @Override
     public boolean IsValid()
     {
-        if(m_LifeSpan.TimedOut())
+        if(m_LifeSpan.HasElapsed())
         {
             return false;
         }

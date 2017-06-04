@@ -40,6 +40,14 @@ public class Colour
 		Blue 	= colour[2];
 		Alpha 	= colour[3];
 	}
+
+	public Colour(double[] colour, double alpha)
+	{
+		Red 	= colour[0];
+		Green 	= colour[1];
+		Blue 	= colour[2];
+		Alpha 	= alpha;
+	}
 	
 	public void SetColour(double red, double green, double blue, double alpha)
 	{

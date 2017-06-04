@@ -1,9 +1,8 @@
 package com.raggamuffin.protorunnerv2.managers;
 
-import android.util.Log;
-
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.weapons.Projectile;
+import com.raggamuffin.protorunnerv2.weapons.Projectile_HomingLaser;
 import com.raggamuffin.protorunnerv2.weapons.Projectile_Laser;
 import com.raggamuffin.protorunnerv2.weapons.Projectile_PlasmaShot;
 import com.raggamuffin.protorunnerv2.weapons.Projectile_TelegraphedPlasmaShot;
@@ -43,7 +42,7 @@ public class BulletManager
         }
 	}
 
-    public void CreateProjectile(Weapon origin)
+    public Projectile CreateProjectile(Weapon origin)
     {
         Projectile newProjectile = null;
 
@@ -58,12 +57,17 @@ public class BulletManager
             case Laser:
                 newProjectile = new Projectile_Laser(m_Game, origin.GetFirePosition(), origin.GetVelocity(), origin.CalculateProjectileHeading(), origin.GetBaseColour(), origin.GetBaseDamage(), origin.GetAffiliation(), origin);
                 break;
+            case HomingLaser:
+                newProjectile = new Projectile_HomingLaser(origin.GetFirePosition(), origin.GetVelocity(), origin.CalculateProjectileHeading(), origin.GetBaseColour(), origin.GetBaseDamage(), origin.GetAffiliation());
+                break;
         }
 
         AddProjectile(newProjectile);
+
+        return newProjectile;
     }
 
-    public void AddProjectile(Projectile projectile)
+    private void AddProjectile(Projectile projectile)
     {
         m_ActiveBullets.add(projectile);
         AddObjectToRenderer(projectile);

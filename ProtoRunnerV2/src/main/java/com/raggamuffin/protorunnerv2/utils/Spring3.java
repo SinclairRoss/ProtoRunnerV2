@@ -21,7 +21,7 @@ public class Spring3
 
     public Vector3 CalculateSpringForce(Vector3 position, Vector3 relaxedPosition)
     {
-        m_Stretch.SetAsDifference(relaxedPosition, position);
+        m_Stretch.SetVectorAsDifference(relaxedPosition, position);
         double stretchLength = m_Stretch.GetLength() - m_SpringLength;
 
         m_Stretch.Normalise();

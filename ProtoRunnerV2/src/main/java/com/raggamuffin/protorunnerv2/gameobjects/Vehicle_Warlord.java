@@ -3,8 +3,6 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 // Author: Sinclair Ross
 // Date:   08/04/2017
 
-import android.util.Log;
-
 import com.raggamuffin.protorunnerv2.ai.AIBehaviours;
 import com.raggamuffin.protorunnerv2.ai.AIController;
 import com.raggamuffin.protorunnerv2.ai.FireControlBehaviour;
@@ -19,6 +17,7 @@ import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.Spring1;
 import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
+import com.raggamuffin.protorunnerv2.weapons.HexplosiveLauncher;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_None;
 
 import java.util.ArrayList;
@@ -41,9 +40,11 @@ public class Vehicle_Warlord extends Vehicle
     private ArrayList<Vehicle_WarlordDrone> m_Drones;
     private Timer m_RestoreTimer;
 
+    private HexplosiveLauncher m_HexplosiveLauncher;
+
     public Vehicle_Warlord(GameLogic game)
     {
-        super(game, ModelType.WeaponDrone, 5.0);
+        super(game, ModelType.WeaponDrone, 5.0, 12, VehicleClass.StandardVehicle, true, PublishedTopics.EnemyDestroyed, AffiliationKey.RedTeam);
         SetScale(3);
 
         m_State = WarlordState.Normal;
@@ -54,27 +55,23 @@ public class Vehicle_Warlord extends Vehicle
 
         SetColour(Colours.HannahExperimentalAB);
 
-        m_MaxHullPoints = 12;
-        m_HullPoints = m_MaxHullPoints;
-
         m_Engine = new Engine(game, this);
         m_Engine.SetMaxTurnRate(1.0);
         m_Engine.SetMaxEngineOutput(70);
         m_Engine.SetDodgeOutput(0);
 
-        m_Faction = AffiliationKey.RedTeam;
         SelectWeapon(new Weapon_None(this, game));
 
         VehicleManager vehicleManager = game.GetVehicleManager();
         NavigationalBehaviourInfo navInfo = new NavigationalBehaviourInfo(0.4, 1.0, 0.7, 0.6);
-        m_AIController = new AIController(this, vehicleManager, game.GetBulletManager(), navInfo, AIBehaviours.Encircle, FireControlBehaviour.MissileLauncher, TargetingBehaviour.Standard);
-
-        m_OnDeathPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.EnemyDestroyed);
+        m_AIController = new AIController(this, vehicleManager, game.GetBulletManager(), navInfo, AIBehaviours.Encircle, FireControlBehaviour.None, TargetingBehaviour.Standard);
 
         m_Drones = new ArrayList(NUM_DRONES);
         SpawnDrones();
 
         m_RestoreTimer = new Timer(5.0);
+
+        m_HexplosiveLauncher = new HexplosiveLauncher(this, game);
     }
 
     @Override
@@ -87,6 +84,12 @@ public class Vehicle_Warlord extends Vehicle
             case Normal:
             {
                 hoverHeight = 10;
+
+               // Vehicle target = GetTarget();
+                //if(target != null)
+             //   {
+                    m_HexplosiveLauncher.Fire(new Vector3());//target.GetPosition());
+                //}
 
                 if (!AnyDronesRemaining())
                 {
@@ -123,6 +126,8 @@ public class Vehicle_Warlord extends Vehicle
             }
         }
 
+        m_HexplosiveLauncher.Update();
+
         double force = m_HoverSpring.CalculateSpringForce(GetPosition().Y, hoverHeight);
         ApplyForce(Vector3.UP, force * deltaTime);
 
@@ -153,5 +158,10 @@ public class Vehicle_Warlord extends Vehicle
         {
             m_Drones.add(m_VehicleManager.SpawnDrone(this, i, NUM_DRONES));
         }
+    }
+
+    private Vehicle GetTarget()
+    {
+        return m_AIController.GetSituationalAwareness().GetTargetSensor().GetTarget();
     }
 }
