@@ -15,6 +15,8 @@ public class Timer
     {
         SetDuration(durationSeconds);
         m_EndTime = 0;
+
+        m_Active = false;
     }
 
     public void Start()
@@ -49,7 +51,8 @@ public class Timer
 
     public boolean HasElapsed()
     {
-        return System.currentTimeMillis() >= m_EndTime && m_Active;
+        boolean hasElapsed = (System.currentTimeMillis() >= m_EndTime) && m_Active;
+        return hasElapsed;
     }
 
     public boolean IsActive() { return m_Active; }
@@ -61,7 +64,6 @@ public class Timer
 
     public void InvertTimer()
     {
-
 
     }
 

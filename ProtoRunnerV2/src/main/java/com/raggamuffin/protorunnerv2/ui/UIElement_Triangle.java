@@ -23,5 +23,4 @@ public class UIElement_Triangle extends UIElement
     {}
 
     public double GetLineWidth() { return m_LineWidth; }
-    public void SetLineWidth(double lineWidth) { m_LineWidth = lineWidth; }
 }

@@ -6,6 +6,7 @@ package com.raggamuffin.protorunnerv2.ui;
 
 import com.raggamuffin.protorunnerv2.managers.UIManager;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
+import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 
 public class UIObject_Button
@@ -19,7 +20,8 @@ public class UIObject_Button
     private UIElement_Block m_Background;
     private UIElement_Block m_EndBlock;
 
-    private double[] m_Colour;
+    private double[] m_Colour_Off;
+    private double[] m_Colour_On;
 
     private Publisher m_OnClickPublisher;
     private Object m_Args;
@@ -35,7 +37,11 @@ public class UIObject_Button
 
     public  UIObject_Button(String text, double[] colour, double x, double y, Alignment alignment, Publisher onClickPublisher, Object args, UIManager uiManager)
     {
-        m_Colour = colour;
+        m_Colour_On = Colours.CalvinOrange;
+        m_Colour_On[3] = 0.2;
+
+        m_Colour_Off = Colours.RunnerBlue;
+        m_Colour_Off[3] = 0.1;
 
         m_OnClickPublisher = onClickPublisher;
         m_Args = args;
@@ -49,13 +55,13 @@ public class UIObject_Button
 
         double xPos = x + (alignment == Alignment.Right ? PADDING : -PADDING);
 
-        m_EndBlock = new UIElement_Block(colour, uiManager, alignment);
+        m_EndBlock = new UIElement_Block(m_Colour_Off, uiManager, alignment);
         m_EndBlock.SetAlpha(0.6);
         m_EndBlock.SetPosition(xPos, y);
         m_EndBlock.SetScale(m_BackgroundLength_Retracted, m_Height);
         uiManager.AddUIElement(m_EndBlock);
 
-        m_Background = new UIElement_Block(colour, uiManager, alignment);
+        m_Background = new UIElement_Block(m_Colour_Off, uiManager, alignment);
         m_Background.SetAlpha(0.1);
         m_Background.SetPosition(xPos, y);
         m_Background.SetScale(m_BackgroundLength_Retracted, m_Height);
@@ -90,12 +96,13 @@ public class UIObject_Button
         m_OnClickPublisher.Publish(m_Args);
     }
 
-    public void OnHover(UIElement_TouchMarker touchMarker)
+    public void OnHover()
     {
         if(Double.compare(m_BackgroundLength_Target, m_BackgroundLength_Extended) != 0)
         {
             m_BackgroundLength_Target = m_BackgroundLength_Extended;
-            touchMarker.SetColour(m_Colour);
+            m_Background.SetColour(m_Colour_On);
+            m_EndBlock.SetColour(m_Colour_On);
         }
     }
 
@@ -104,10 +111,12 @@ public class UIObject_Button
         if(Double.compare(m_BackgroundLength_Target, m_BackgroundLength_Retracted) != 0)
         {
             m_BackgroundLength_Target = m_BackgroundLength_Retracted;
+            m_Background.SetColour(m_Colour_Off);
+            m_EndBlock.SetColour(m_Colour_Off);
         }
     }
 
     public UITouchArea GetTouchArea() { return m_TouchArea; }
 
-    public double[] GetColour() { return m_Colour; }
+    public double[] GetColour() { return m_Colour_On; }
 }

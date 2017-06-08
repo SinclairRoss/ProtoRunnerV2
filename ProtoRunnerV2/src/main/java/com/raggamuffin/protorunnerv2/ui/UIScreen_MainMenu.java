@@ -106,23 +106,20 @@ public class UIScreen_MainMenu extends UIScreen
 
             if (CollisionDetection.UIElementInteraction(pointerPos, m_Play.GetTouchArea()))
             {
-                UIElement_TouchMarker marker = m_UIManager.GetTouchDisplay().GetMarkerWithID(pointer.GetId());
-                m_Play.OnHover(marker);
+                m_Play.OnHover();
             }
             if (CollisionDetection.UIElementInteraction(pointerPos, m_LeaderBoards.GetTouchArea()))
             {
-                UIElement_TouchMarker marker = m_UIManager.GetTouchDisplay().GetMarkerWithID(pointer.GetId());
-                m_LeaderBoards.OnHover(marker);
+                m_LeaderBoards.OnHover();
             }
             if (CollisionDetection.UIElementInteraction(pointerPos, m_Achievements.GetTouchArea()))
             {
-                UIElement_TouchMarker marker = m_UIManager.GetTouchDisplay().GetMarkerWithID(pointer.GetId());
-                m_Achievements.OnHover(marker);
+                m_Achievements.OnHover();
             }
             if (CollisionDetection.UIElementInteraction(pointerPos, m_Credits.GetTouchArea()))
             {
-                UIElement_TouchMarker marker = m_UIManager.GetTouchDisplay().GetMarkerWithID(pointer.GetId());
-                m_Credits.OnHover(marker);
+             //   UIElement_TouchMarker marker = m_UIManager.GetTouchDisplay().GetMarkerWithID(pointer.GetId());
+                m_Credits.OnHover();
             }
         }
 

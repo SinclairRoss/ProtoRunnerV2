@@ -113,8 +113,8 @@ public class UIScreen_Credits extends UIScreen
 
             if (CollisionDetection.UIElementInteraction(pointerPos, m_BackButton.GetTouchArea()))
             {
-                UIElement_TouchMarker marker = m_UIManager.GetTouchDisplay().GetMarkerWithID(pointer.GetId());
-                m_BackButton.OnHover(marker);
+               // UIElement_TouchMarker marker = m_UIManager.GetTouchDisplay().GetMarkerWithID(pointer.GetId());
+                m_BackButton.OnHover();
             }
         }
 

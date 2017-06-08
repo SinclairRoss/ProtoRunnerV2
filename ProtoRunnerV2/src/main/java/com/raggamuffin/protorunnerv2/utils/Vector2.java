@@ -100,6 +100,12 @@ public class Vector2
         Y += y;
     }
 
+    public void Add(Vector2 a)
+	{
+		X += a.X;
+		Y += a.Y;
+	}
+
     public void Subtract(double x, double y)
     {
         X -= x;

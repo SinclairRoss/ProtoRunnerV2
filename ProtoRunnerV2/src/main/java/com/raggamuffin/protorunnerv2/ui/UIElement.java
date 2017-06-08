@@ -62,5 +62,4 @@ public abstract class UIElement
     public double GetRotation() { return m_Rotation; }
     public void SetRotation(double rotation) { m_Rotation = rotation; }
     public void Rotate(double rotation) { m_Rotation = ((m_Rotation + rotation) % (Math.PI * 2)); }
-
 }

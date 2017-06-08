@@ -30,8 +30,6 @@ public class UIScreen_LearnToTouch extends UIScreen
         super(Game, uiManager);
 
         m_TouchMe = null;
-
-
     }
 
     @Override
@@ -59,8 +57,6 @@ public class UIScreen_LearnToTouch extends UIScreen
     @Override
     public void Update(double deltaTime)
     {
-        m_TouchMe.OnHoverOff();
-
         ControlScheme scheme = m_Game.GetControlScheme();
 
         int activePointerCount = scheme.GetActivePointerCount();
@@ -72,6 +68,10 @@ public class UIScreen_LearnToTouch extends UIScreen
             if (CollisionDetection.UIElementInteraction(pointerPos, m_TouchMe.GetTouchArea()))
             {
                 m_TouchMe.OnHover();
+            }
+            else
+            {
+                m_TouchMe.OnHoverOff();
             }
         }
 

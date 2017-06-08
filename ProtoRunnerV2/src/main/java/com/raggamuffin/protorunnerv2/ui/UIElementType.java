@@ -7,5 +7,6 @@ public enum UIElementType
     Block_Right,
 
 	Label,
-    Triangle
+    Triangle,
+    Chevron
 }

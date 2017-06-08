@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.raggamuffin.protorunnerv2.ui.UIElement;
 import com.raggamuffin.protorunnerv2.ui.UIElementType;
+import com.raggamuffin.protorunnerv2.ui.UIElement_Chevron;
 import com.raggamuffin.protorunnerv2.ui.UIElement_Label;
 import com.raggamuffin.protorunnerv2.ui.UIElement_Triangle;
 
@@ -11,12 +12,14 @@ public class UIRenderManager
 {
     private Context m_Context;
 
+    private TextRenderer m_TextRenderer;
+
     private GLModel_UIBlock m_TexQuad;
     private GLModel_UIBlockRight m_TexQuad_Right;
     private GLModel_UIBlockLeft m_TexQuad_Left;
 
-    private TextRenderer m_TextRenderer;
     private GLModel_UITriangle m_TouchMarker;
+    private GLModel_UIChevron m_Chevron;
 
     public UIRenderManager(Context context)
     {
@@ -38,6 +41,7 @@ public class UIRenderManager
         m_TexQuad_Left = new GLModel_UIBlockLeft();
 
         m_TouchMarker = new GLModel_UITriangle();
+        m_Chevron = new GLModel_UIChevron();
     }
 
     public void InitialiseModel(UIElementType type, float[] viewMatrix)
@@ -58,6 +62,9 @@ public class UIRenderManager
                 break;
             case Triangle:
                 m_TouchMarker.InitialiseModel(viewMatrix);
+                break;
+            case Chevron:
+                m_Chevron.InitialiseModel(viewMatrix);
                 break;
         }
     }
@@ -81,11 +88,17 @@ public class UIRenderManager
                     m_TexQuad_Left.draw(element.GetPosition(), element.GetScale(), element.GetColour(), element.GetRotation());
                     break;
                 case Triangle:
+                {
                     UIElement_Triangle element_triangle = (UIElement_Triangle) element;
                     m_TouchMarker.Draw(element_triangle.GetPosition(), element_triangle.GetScale(), element_triangle.GetRotation(), element_triangle.GetColour(), element_triangle.GetLineWidth());
                     break;
-                default:
+                }
+                case Chevron:
+                {
+                    UIElement_Chevron chevron = (UIElement_Chevron) element;
+                    m_Chevron.Draw(chevron.GetPosition(), chevron.GetScale(), chevron.GetRotation(), chevron.GetColour(), chevron.GetLineWidth());
                     break;
+                }
             }
         }
     }
