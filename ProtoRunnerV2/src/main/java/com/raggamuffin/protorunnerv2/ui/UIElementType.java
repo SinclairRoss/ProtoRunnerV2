@@ -8,5 +8,6 @@ public enum UIElementType
 
 	Label,
     Triangle,
-    Chevron
+    Chevron,
+    Radial
 }

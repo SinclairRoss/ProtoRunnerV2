@@ -11,6 +11,7 @@ import com.raggamuffin.protorunnerv2.utils.Timer;
 public class Weapon_BitLaser extends Weapon
 {
     private Timer m_DurationTimer;
+    private Projectile m_ActiveProjectile;
 
     public Weapon_BitLaser(Vehicle anchor, GameLogic game)
     {
@@ -43,14 +44,25 @@ public class Weapon_BitLaser extends Weapon
     {
         super.PullTrigger();
 
-        m_Game.GetBulletManager().CreateProjectile(this);
+        m_ActiveProjectile = m_Game.GetBulletManager().CreateProjectile(this);
         NextBarrel();
 
         m_DurationTimer.Start();
         m_AudioEmitter.Start();
+
+        if(!m_ActiveProjectile.IsValid())
+        {
+            m_ActiveProjectile = null;
+        }
     }
 
     @Override
     public void ReleaseTrigger()
     {}
+
+    @Override
+    public boolean IsFiring()
+    {
+        return m_ActiveProjectile != null && m_ActiveProjectile.IsValid();
+    }
 }

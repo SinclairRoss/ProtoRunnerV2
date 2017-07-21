@@ -5,6 +5,7 @@ import com.raggamuffin.protorunnerv2.master.RenderEffectSettings;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
+import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 
@@ -24,7 +25,7 @@ public class RenderEffectManager
 	public RenderEffectManager(GameLogic Game, RenderEffectSettings Settings) 
 	{
 		m_RenderEffectSettings = Settings;
-        m_RenderEffectSettings.SetSkyboxColour(Game.GetColourManager().GetPrimaryColour());
+        m_RenderEffectSettings.SetSkyboxColour(Colours.RunnerBlue);
 
         m_RenderEffectSettings.SetGlowIntensity(BASE_GLOW_INTENSITY);
         m_RenderEffectSettings.SetFilmGrainIntensity(BASE_FILMGRAIN_INTENSITY);

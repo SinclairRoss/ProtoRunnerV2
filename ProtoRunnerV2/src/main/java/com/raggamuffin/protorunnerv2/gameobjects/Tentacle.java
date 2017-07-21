@@ -3,8 +3,6 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 // Author: Sinclair Ross
 // Date:   16/06/2016
 
-import android.util.Log;
-
 import com.raggamuffin.protorunnerv2.particles.RopeNode;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colour;

@@ -4,6 +4,7 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 // Date:   18/02/2017
 
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
+import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class GameObject_Marker extends GameObject
 {

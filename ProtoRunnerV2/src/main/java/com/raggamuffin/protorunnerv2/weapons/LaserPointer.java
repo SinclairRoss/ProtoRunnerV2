@@ -11,7 +11,7 @@ public class LaserPointer extends GameObject
 	private Weapon m_Anchor;
 	private WeaponBarrel m_Barrel;
 
-	public LaserPointer(GameLogic game, Weapon anchor, WeaponBarrel barrel)
+	public LaserPointer(Weapon anchor, WeaponBarrel barrel)
 	{
 		super(ModelType.LaserPointer, 1.0);
 
@@ -21,9 +21,8 @@ public class LaserPointer extends GameObject
 		SetForward(m_Anchor.GetForward());
 
         SetScale(0.05, 0.05, 1000);
-        ;
 
-        SetColour(game.GetColourManager().GetDangerColour());
+        SetColour(m_Anchor.GetBaseColour());
     }
 	
 	@Override

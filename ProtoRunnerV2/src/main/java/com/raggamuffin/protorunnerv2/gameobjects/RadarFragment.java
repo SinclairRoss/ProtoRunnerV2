@@ -53,8 +53,8 @@ public class RadarFragment extends GameObject
         m_RestingHeight = 0.25;
         m_SignatureType = RadarSignatureType.None;
 
-        m_FriendlyColour = game.GetColourManager().GetSafeColour();
-        m_EnemyColour = game.GetColourManager().GetDangerColour();
+        m_FriendlyColour = new Colour(Colours.RunnerBlue); //game.GetColourManager().GetSafeColour();
+        m_EnemyColour =new Colour(Colours.Pink70);
 
         m_NeutralColour = new Colour(Colours.PastelGrey);
         SetColour(m_NeutralColour);

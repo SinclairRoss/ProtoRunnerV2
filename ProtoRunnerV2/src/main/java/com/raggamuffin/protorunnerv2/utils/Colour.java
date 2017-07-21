@@ -19,34 +19,22 @@ public class Colour
 	
 	public Colour(double red, double green, double blue, double alpha)
 	{
-		Red 	= red;
-		Green 	= green;
-		Blue 	= blue;
-		Alpha 	= alpha;
+		SetColour(red, green, blue, alpha);
 	}
 	
 	public Colour(Colour colour)
 	{
-		Red 	= colour.Red;
-		Green 	= colour.Green;
-		Blue 	= colour.Blue;
-		Alpha 	= colour.Alpha;
+		SetColour(colour.Red, colour.Green, colour.Blue, colour.Alpha);
 	}
 	
 	public Colour(double[] colour)
 	{
-		Red 	= colour[0];
-		Green 	= colour[1];
-		Blue 	= colour[2];
-		Alpha 	= colour[3];
+		SetColour(colour[0], colour[1], colour[2], 1.0);
 	}
 
 	public Colour(double[] colour, double alpha)
 	{
-		Red 	= colour[0];
-		Green 	= colour[1];
-		Blue 	= colour[2];
-		Alpha 	= alpha;
+		SetColour(colour[0], colour[1], colour[2], alpha);
 	}
 	
 	public void SetColour(double red, double green, double blue, double alpha)
@@ -59,36 +47,13 @@ public class Colour
 	
 	public void SetColour(Colour colour)
 	{
-		Red 	= colour.Red;
-		Green 	= colour.Green;
-		Blue 	= colour.Blue;
-		Alpha 	= colour.Alpha;
+		SetColour(colour.Red, colour.Green, colour.Blue, colour.Alpha);
 	}
 	
 	public void SetColour(double[] colour)
 	{
-		Red 	= colour[0];
-		Green 	= colour[1];
-		Blue 	= colour[2];
-		Alpha 	= colour[3];
+		SetColour(colour[0], colour[1], colour[2], 1.0);
 	}
-
-    // Quick inverse.
-	public void SetAsInverse(Colour colour)
-	{
-        Red 	= 1.0 - colour.Red;
-        Green 	= 1.0 - colour.Green;
-        Blue 	= 1.0 - colour.Blue;
-        Alpha 	= colour.Alpha;
-	}
-
-    public void SetAsInverse(double[] colour)
-    {
-        Red 	= 1.0 - colour[0];
-        Green 	= 1.0 - colour[1];
-        Blue 	= 1.0 - colour[2];
-        Alpha 	= colour[3];
-    }
 	
 	public void Brighten(double amount)
 	{
@@ -121,42 +86,6 @@ public class Colour
 		Alpha 	+= DeltaAlpha * amount;
 
 		ClampColour();
-	}
-	
-	public float[] ToFloatArray()
-	{
-		float[] array = new float[4];
-
-		array[0] = (float)Red;
-		array[1] = (float)Green;
-		array[2] = (float)Blue;
-		array[3] = (float)Alpha;
-		
-		return array;
-	}
-
-    public double[] ToDoubleArray()
-    {
-        double[] array = new double[4];
-
-        array[0] = Red;
-        array[1] = Green;
-        array[2] = Blue;
-        array[3] = Alpha;
-
-        return array;
-    }
-	
-	public int ToHex()
-	{
-		int Hex = 0x00000000;
-		
-		Hex += (int)(Alpha * 255) << 24;
-		Hex += (int)(Red   * 255) << 16;
-		Hex += (int)(Green * 255) << 8;
-		Hex += (int)(Blue  * 255);
-		
-		return Hex;
 	}
 	
 	public void Add(Colour a)

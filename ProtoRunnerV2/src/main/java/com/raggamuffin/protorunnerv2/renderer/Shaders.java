@@ -50,6 +50,47 @@ public class Shaders
         +   "	gl_FragColor = u_Color;"
         +   "}";
 
+    public static final String vertexShader_UIRADIAL =
+            "uniform mat4 u_ProjMatrix;"
+        +   "uniform vec3 u_Position;"
+        +   "uniform vec3 u_Forward;"
+        +   "uniform vec3 u_Up;"
+        +   "uniform vec3 u_Right;"
+        +   "uniform vec3 u_Scale;"
+
+        +   "attribute vec4 a_Vertices;"
+        +   "attribute float a_ProgressMark;"
+
+        +   "varying float v_ProgressMark;"
+
+        +   "void main()"
+        +   "{"
+        +   "   v_ProgressMark = a_ProgressMark;"
+
+        +   "   mat4 model;"
+        +   "   model[0] = vec4(u_Right.x * u_Scale.x,      u_Right.y * u_Scale.x,      u_Right.z * u_Scale.x,      0);"
+        +   "   model[1] = vec4(u_Up.x * u_Scale.y,         u_Up.y * u_Scale.y,         u_Up.z * u_Scale.y,         0);"
+        +   "   model[2] = vec4(u_Forward.x * u_Scale.z,    u_Forward.y * u_Scale.z,    u_Forward.z * u_Scale.z,    0);"
+        +   "   model[3] = vec4(u_Position.x,               u_Position.y,               u_Position.z,               1);"
+
+        +	"	gl_Position = (u_ProjMatrix * model) * a_Vertices;"
+        +   "}";
+
+
+    public static final String fragmentShader_UIRADIAL =
+            "precision lowp float;"
+        +   "uniform vec4 u_Color;"
+        +   "uniform float u_Progress;"
+
+        +   "varying float v_ProgressMark;"
+
+        +   "void main()"
+        +   "{"
+        +   "	gl_FragColor = u_Color;"
+        +   "   gl_FragColor.a = (0.2 + (float(u_Progress >= v_ProgressMark) * 0.8)) * u_Color.a;"
+        +   "}";
+
+
     public static final String vertexShader_TRAIL =
             "uniform mat4 u_ProjMatrix;"
 
@@ -224,6 +265,102 @@ public class Shaders
 
         +   "       gl_FragColor = outerColor + innerColor;"
         +   "       gl_FragColor.w = u_Color.w;"
+        +	"}";
+
+    public static final String vertexShader_SHIELD =
+            "uniform mat4 u_ProjMatrix;"
+        +   "uniform vec3 u_Position;"
+        +   "uniform vec3 u_Forward;"
+        +   "uniform vec3 u_Up;"
+        +   "uniform vec3 u_Right;"
+        +   "uniform vec3 u_Scale;"
+
+        +	"attribute vec4 a_Vertices;"
+
+        +   "varying vec4 v_Vertices;"
+
+        + 	"void main()"
+        +	"{"
+        +   "   mat4 model;"
+        +   "   model[0] = vec4(u_Right.x * u_Scale.x,      u_Right.y * u_Scale.x,      u_Right.z * u_Scale.x,      0);"
+        +   "   model[1] = vec4(u_Up.x * u_Scale.y,         u_Up.y * u_Scale.y,         u_Up.z * u_Scale.y,         0);"
+        +   "   model[2] = vec4(u_Forward.x * u_Scale.z,    u_Forward.y * u_Scale.z,    u_Forward.z * u_Scale.z,    0);"
+        +   "   model[3] = vec4(u_Position.x,               u_Position.y,               u_Position.z,               1);"
+
+     //  +   "   model[0] = vec4(u_Scale.x,    0,     0,      0);"
+     //  +   "   model[1] = vec4(0,    u_Scale.y,     0,      0);"
+     //  +   "   model[2] = vec4(0,    0,     u_Scale.z,      0);"
+     //  +   "   model[3] = vec4(u_Position.x,               u_Position.y,               u_Position.z,               1);"
+
+        +   "   v_Vertices = a_Vertices;"
+
+        +	"	gl_Position = (u_ProjMatrix * model) * a_Vertices;"
+        +	"}";
+
+    public static final String fragmentShader_SHIELD =
+            "precision lowp float;"
+
+        +	"uniform vec4 u_Color;"
+
+        +   "varying vec4 v_Vertices;"
+
+        +	"void main()"
+        +	"{"
+        +   "   vec3 fragmentPos = vec3(v_Vertices.x, v_Vertices.y, v_Vertices.z);"
+
+        +   "float outerEdge = 0.95;"
+        +   "float innerEdge = 0.6;"
+
+        +   "   float dist = length(fragmentPos);"
+        +   "   float fadeVal = clamp((dist - innerEdge) / (outerEdge - innerEdge), 0.0, 1.0) * float(dist < outerEdge);"
+        +   "   gl_FragColor = u_Color * fadeVal;"
+        +	"}";
+
+    public static final String vertexShader_RIMLIT =
+            "uniform mat4 u_ProjMatrix;"
+        +   "uniform vec3 u_Position;"
+        +   "uniform vec3 u_Forward;"
+        +   "uniform vec3 u_Up;"
+        +   "uniform vec3 u_Right;"
+        +   "uniform vec3 u_Scale;"
+
+        +	"attribute vec4 a_Vertices;"
+
+        +   "varying vec4 v_Vertices;"
+
+        + 	"void main()"
+        +	"{"
+        +   "   mat4 model;"
+        +   "   model[0] = vec4(u_Right.x * u_Scale.x,      u_Right.y * u_Scale.x,      u_Right.z * u_Scale.x,      0);"
+        +   "   model[1] = vec4(u_Up.x * u_Scale.y,         u_Up.y * u_Scale.y,         u_Up.z * u_Scale.y,         0);"
+        +   "   model[2] = vec4(u_Forward.x * u_Scale.z,    u_Forward.y * u_Scale.z,    u_Forward.z * u_Scale.z,    0);"
+        +   "   model[3] = vec4(u_Position.x,               u_Position.y,               u_Position.z,               1);"
+
+        +   "   v_Vertices = (model * a_Vertices) - u_Position;"
+
+        +	"	gl_Position = (u_ProjMatrix * model) * a_Vertices;"
+        +	"}";
+
+    public static final String fragmentShader_RIMLIT =
+            "precision lowp float;"
+
+        +	"uniform vec4 u_Color;"
+        +   "uniform vec3 u_EyePos;"
+
+        +   "varying vec4 v_Vertices;"
+
+        +	"void main()"
+        +	"{"
+        +   "   vec3 vertices = vec3(v_Vertices.x, v_Vertices.y, v_Vertices.z);"
+        +   "   vec3 normal = normalize(vertices);"
+
+        +   "   vec3 toEye = u_EyePos - vertices;"
+        +   "   toEye = normalize(toEye);"
+
+        +   "   float dot = dot(normal, toEye);"
+        +   "   float rimLight = 1.0 - dot;"
+
+        +   "   gl_FragColor = u_Color * rimLight;"
         +	"}";
 
     public static final String fragmentShader_PHASED =

@@ -9,6 +9,7 @@ import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Timer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class UIElementColourFader
 {
@@ -23,39 +24,67 @@ public class UIElementColourFader
         m_Elements = new ArrayList<>();
 
         m_FadeTimer = new Timer(fadeDuration);
-        m_FadeTimer.StartElapsed();
 
-        m_Colour_Origin = Colours.White;
-        m_Colour_Destination = colour;
+        m_Colour_Origin = colour;
+        m_Colour_Destination = Colours.White;
     }
 
     public void AddElement(UIElement element)
     {
         m_Elements.add(element);
+
+        Colour colour = element.GetColour();
+        colour.Red = m_Colour_Origin[0];
+        colour.Green = m_Colour_Origin[1];
+        colour.Blue = m_Colour_Origin[2];
+    }
+
+    public void AddElements(UIElement... elements)
+    {
+        int elementCount = elements.length;
+        for(int i = 0; i < elementCount; ++i)
+        {
+            Colour colour = elements[i].GetColour();
+            colour.Red = m_Colour_Origin[0];
+            colour.Green = m_Colour_Origin[1];
+            colour.Blue = m_Colour_Origin[2];
+        }
+
+        m_Elements.addAll(Arrays.asList(elements));
     }
 
     public void Update()
     {
-        boolean hasTimerElapsed = m_FadeTimer.HasElapsed();
-
-        int numElements = m_Elements.size();
-        for(int i = 0; i < numElements; ++i)
+        if(m_FadeTimer.IsActive())
         {
-            UIElement element = m_Elements.get(i);
-            Colour colour = element.GetColour();
-
-            if(!hasTimerElapsed)
+            if (!m_FadeTimer.HasElapsed())
             {
-                double progress = m_FadeTimer.GetProgress();
-                colour.Red = MathsHelper.Lerp(progress, m_Colour_Origin[0], m_Colour_Destination[0]);
-                colour.Green = MathsHelper.Lerp(progress, m_Colour_Origin[1], m_Colour_Destination[1]);
-                colour.Blue = MathsHelper.Lerp(progress, m_Colour_Origin[2], m_Colour_Destination[2]);
+                int numElements = m_Elements.size();
+                for (int i = 0; i < numElements; ++i)
+                {
+                    UIElement element = m_Elements.get(i);
+                    Colour colour = element.GetColour();
+
+                    double progress = m_FadeTimer.GetProgress();
+                    colour.Red = MathsHelper.Lerp(progress, m_Colour_Origin[0], m_Colour_Destination[0]);
+                    colour.Green = MathsHelper.Lerp(progress, m_Colour_Origin[1], m_Colour_Destination[1]);
+                    colour.Blue = MathsHelper.Lerp(progress, m_Colour_Origin[2], m_Colour_Destination[2]);
+                }
             }
             else
             {
-                colour.Red = m_Colour_Destination[0];
-                colour.Green = m_Colour_Destination[1];
-                colour.Blue = m_Colour_Destination[2];
+                int numElements = m_Elements.size();
+                for (int i = 0; i < numElements; ++i)
+                {
+                    UIElement element = m_Elements.get(i);
+                    Colour colour = element.GetColour();
+
+                    colour.Red = m_Colour_Destination[0];
+                    colour.Green = m_Colour_Destination[1];
+                    colour.Blue = m_Colour_Destination[2];
+                }
+
+                m_FadeTimer.Stop();
             }
         }
     }

@@ -3,6 +3,7 @@ package com.raggamuffin.protorunnerv2.weapons;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_Point;
 import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_Ray;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
@@ -134,7 +135,7 @@ public class Projectile_Laser extends Projectile
     }
 
     @Override
-    public void CollisionResponse(CollisionReport report)
+    public void CollisionResponse(CollisionReport report, Vehicle other)
     {
         m_LaserLength *= report.GetRayEntry();
     }

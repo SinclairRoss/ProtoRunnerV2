@@ -11,6 +11,7 @@ import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
+import com.raggamuffin.protorunnerv2.utils.Vector3;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_None;
 
 public class Vehicle_Carrier extends Vehicle
@@ -19,15 +20,15 @@ public class Vehicle_Carrier extends Vehicle
 
     private int NUM_DRONES = 5;
 
-	public Vehicle_Carrier(GameLogic game)
+	public Vehicle_Carrier(GameLogic game, Vector3 position)
 	{
-		super(game, ModelType.Carrier, 5, 12, VehicleClass.StandardVehicle, true, PublishedTopics.EnemyDestroyed, AffiliationKey.RedTeam);
+		super(game, ModelType.Carrier, position, 5, 12, VehicleClass.StandardVehicle, true, PublishedTopics.EnemyDestroyed, AffiliationKey.RedTeam);
 
 		SetColour(Colours.BlockPurple);
 
         m_Engine = new Engine_Cycling(this, game);
 		m_Engine.SetMaxTurnRate(1.0);
-		m_Engine.SetMaxEngineOutput(70); // 10000
+		m_Engine.SetMaxEngineOutput(80); // 10000
         m_Engine.SetDodgeOutput(0);
 
         SelectWeapon(new Weapon_None(this, game));
@@ -38,8 +39,7 @@ public class Vehicle_Carrier extends Vehicle
 
 		for(int i = 0; i < NUM_DRONES; ++i)
         {
-            Vehicle drone = vehicleManager.SpawnDrone(this);
-            drone.SetPosition(GetPosition());
+            vehicleManager.SpawnDrone(this);
         }
     }
 	

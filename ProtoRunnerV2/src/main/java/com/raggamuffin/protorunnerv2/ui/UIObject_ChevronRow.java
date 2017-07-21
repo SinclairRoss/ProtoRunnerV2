@@ -14,6 +14,8 @@ public class UIObject_ChevronRow
     private static final int NUM_CHEVRONS = 3;
     private static final double SPACING = 1;
 
+    private UIManager m_UIManager;
+
     private ArrayList<UIElement_Chevron> m_Chevrons;
     private Timer m_TickTimer;
 
@@ -23,12 +25,14 @@ public class UIObject_ChevronRow
 
     public UIObject_ChevronRow(Vector2 position, double rotation, double scale, UIManager uiManager)
     {
+        m_UIManager = uiManager;
+
         m_AlphaFaders = new ArrayList<>(NUM_CHEVRONS);
         m_Chevrons = new ArrayList<>(NUM_CHEVRONS);
 
         for(int i = 0; i < NUM_CHEVRONS; ++i)
         {
-            UIElement_Chevron chevron = new UIElement_Chevron(uiManager);
+            UIElement_Chevron chevron = new UIElement_Chevron();
 
             chevron.SetScale(scale);
 
@@ -41,7 +45,7 @@ public class UIObject_ChevronRow
             m_Chevrons.add(chevron);
             uiManager.AddUIElement(chevron);
 
-            UIElementAlphaFader alphaFader = new UIElementAlphaFader(0.4);
+            UIElementAlphaFader alphaFader = new UIElementAlphaFader(0.4, 0.0);
             alphaFader.AddElement(chevron);
             m_AlphaFaders.add(alphaFader);
         }
@@ -50,6 +54,15 @@ public class UIObject_ChevronRow
 
         m_TickTimer = new Timer(0.5);
         m_TickTimer.Start();
+    }
+
+    public void CleanUp()
+    {
+        for(int i = 0; i < NUM_CHEVRONS; ++i)
+        {
+            UIElement_Chevron chevron = m_Chevrons.get(i);
+            m_UIManager.RemoveUIElement(chevron);
+        }
     }
 
     public void Update()
@@ -78,14 +91,6 @@ public class UIObject_ChevronRow
         }
     }
 
-    public void SetColour(double[] colour)
-    {
-        for(int i = 0; i < NUM_CHEVRONS; ++i)
-        {
-            m_Chevrons.get(i).SetColour(colour);
-        }
-    }
-
     public void ClearChevrons()
     {
         m_DisplayIndex = 0;
@@ -95,6 +100,12 @@ public class UIObject_ChevronRow
         }
 
         m_TickTimer.Start();
+    }
+
+    public void StopAnimation()
+    {
+        ClearChevrons();
+        m_TickTimer.Stop();
     }
 
     public ArrayList<UIElement_Chevron> GetChevrons()

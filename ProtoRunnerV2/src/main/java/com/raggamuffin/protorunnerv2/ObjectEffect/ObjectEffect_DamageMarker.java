@@ -3,10 +3,14 @@ package com.raggamuffin.protorunnerv2.ObjectEffect;
 // Author: Sinclair Ross
 // Date:   22/05/2017
 
+import android.util.Log;
+
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Quaternion;
+import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class ObjectEffect_DamageMarker extends ObjectEffect
@@ -15,6 +19,8 @@ public class ObjectEffect_DamageMarker extends ObjectEffect
 
     private final GameLogic m_GameLogic;
     private Vector3 m_LookPosition;
+
+    private Timer m_LifeTimer;
 
     // Roll
     private Quaternion m_RollQuaternion;
@@ -26,9 +32,11 @@ public class ObjectEffect_DamageMarker extends ObjectEffect
 
     public ObjectEffect_DamageMarker(GameLogic game)
     {
-        super(ModelType.DamageTri, ObjectEffectType.DamageMarker, 0.5);
+        super(ModelType.DamageTri, ObjectEffectType.DamageMarker);
 
         SetScale(5);
+
+        m_LifeTimer = new Timer(0.5);
 
         m_GameLogic = game;
         m_LookPosition = new Vector3();
@@ -36,7 +44,7 @@ public class ObjectEffect_DamageMarker extends ObjectEffect
     }
 
     @Override
-    public void Initialise(GameObject anchor)
+    public void Initialise(Vehicle anchor)
     {
         super.Initialise(anchor);
 
@@ -51,14 +59,16 @@ public class ObjectEffect_DamageMarker extends ObjectEffect
 
         m_RollAmount = 0;
         SetScale(0);
+
+        m_LifeTimer.Start();
     }
 
     @Override
     public void Update(double deltaTime)
     {
-        SetScale(MAX_SCALE * GetProgress());
+        SetScale(MAX_SCALE * m_LifeTimer.GetProgress());
 
-        double alpha = (1.0 - GetProgress()) * MAX_ALPHA;
+        double alpha = m_LifeTimer.GetInverseProgress() * MAX_ALPHA;
         SetAlpha(alpha);
 
         SetPosition(GetAnchor().GetPosition());
@@ -70,5 +80,11 @@ public class ObjectEffect_DamageMarker extends ObjectEffect
 
         m_RollQuaternion.SetQuaternion(GetForward(), m_RollAmount);
         Rotate(m_RollQuaternion);
+    }
+
+    @Override
+    public boolean IsValid()
+    {
+        return !m_LifeTimer.HasElapsed();
     }
 }

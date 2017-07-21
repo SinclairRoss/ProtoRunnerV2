@@ -67,7 +67,7 @@ public class GLModel_SolidObjectPriority extends GLModel
     public void Draw(GameObject obj)
     {
         Vector3 pos = obj.GetPosition();
-        GLES20.glUniform4f(m_PositionHandle, (float) pos.X, (float) pos.Y, (float) pos.Z, 1.0f);
+        GLES20.glUniform3f(m_PositionHandle, (float) pos.X, (float) pos.Y, (float) pos.Z);
 
         Vector3 fwd = obj.GetForward();
         GLES20.glUniform3f(m_ForwardHandle, (float) fwd.X, (float) fwd.Y, (float) fwd.Z);

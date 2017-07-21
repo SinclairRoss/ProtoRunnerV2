@@ -136,6 +136,11 @@ public class ParticleManager
             newParticle = new Particle_Standard();
         }
 
+        if(newParticle == null)
+        {
+            newParticle = new Particle_Standard();
+        }
+
         newParticle.Activate(origin.CalculateSpawnPoint(), origin.GetVelocity(), origin.CalculateParticleForward(), origin.GetEmissionForce(), origin.GetInitialColour(), origin.GetFinalColour(), origin.GetLifeSpan());
         m_NewParticles.add(newParticle);
 

@@ -21,16 +21,12 @@ import com.raggamuffin.protorunnerv2.ui.UIScreen_NotSignedIn;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_Play;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_Splash;
 import com.raggamuffin.protorunnerv2.ui.UIScreens;
-import com.raggamuffin.protorunnerv2.utils.Vector2;
 
 import java.util.ArrayList;
 
 public class UIManager
 {
 	private GameLogic m_Game;
-	
-	private Vector2 m_ScreenSize;
-	public final double m_ScreenRatio;
 
 	private ArrayList<UIElement> m_UIElements;
 	private UIScreen m_Screen;
@@ -47,6 +43,8 @@ public class UIManager
 
 	private TouchDisplay m_TouchDisplay;
 
+	private UIScreen m_NextScreen;
+
 	public UIManager(GameLogic game)
 	{
 		m_Game = game;
@@ -55,10 +53,7 @@ public class UIManager
 		Display display = wm.getDefaultDisplay();	
 		Point size = new Point();
 		display.getRealSize(size);
-		
-		m_ScreenSize = new Vector2(size);
-		m_ScreenRatio = m_ScreenSize.X / m_ScreenSize.Y;
-		
+
 		m_UIElements = new ArrayList<>();
 
 		m_TouchDisplay = new TouchDisplay(m_Game);
@@ -75,22 +70,27 @@ public class UIManager
         m_HighScoreScreen    = new UIScreen_HighScore(m_Game, this);
         m_LearnToTouch       = new UIScreen_LearnToTouch(m_Game, this);
 
-		ShowScreen(UIScreens.LearnToTouch);
+		ShowScreen_Immediate(m_LearnToTouch);
+        m_NextScreen = null;
 		
 		m_Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.SwitchScreen, new ButtonPressedSubscriber());
 	}
 	
 	public void Update(double deltaTime)
 	{
-		m_Screen.Update(deltaTime);
-
-		m_TouchDisplay.Update(deltaTime);
-
-		int numUIElements = m_UIElements.size();
-		for(int i = 0; i < numUIElements; ++i)
+		int elementCount = m_UIElements.size();
+		for (int i = 0; i < elementCount; ++i)
 		{
-			UIElement element = m_UIElements.get(i);
-			element.Update(deltaTime);
+			m_UIElements.get(i).Update(deltaTime);
+		}
+
+        m_Screen.Update(deltaTime);
+        m_TouchDisplay.Update(deltaTime);
+
+		if(m_NextScreen != null)
+		{
+            ShowScreen_Immediate(m_NextScreen);
+            m_NextScreen = null;
 		}
 	}
 
@@ -123,11 +123,16 @@ public class UIManager
 	
 	public void ShowScreen(UIScreens screen)
 	{
+		m_NextScreen = GetScreen(screen);
+	}
+
+	private void ShowScreen_Immediate(UIScreen screen)
+    {
         CleanScreen();
 
-		m_Screen = GetScreen(screen);
-		m_Screen.Create();
-	}
+        m_Screen = screen;
+        m_Screen.Create();
+    }
 
 	private void CleanScreen()
 	{
@@ -140,32 +145,21 @@ public class UIManager
 			}
 			m_UIElements.clear();
 
-			m_Screen.Destroy();
+			m_Screen.CleanUp();
         }
     }
 
     public void AddUIElement(UIElement element)
 	{
-		AddUIElement(element, true);
+		m_Game.AddObjectToRenderer(element);
+		m_UIElements.add(element);
 	}
 
-	public void AddUIElement(UIElement Element, boolean visible)
+	public void RemoveUIElement(UIElement element)
 	{
-		m_Game.AddObjectToRenderer(Element);
-		m_UIElements.add(Element);
-		
-		if(visible)
-        {
-            Element.Show();
-        }
+		m_Game.RemoveObjectFromRenderer(element);
+		m_UIElements.remove(element);
 	}
-
-	public double GetScreenRatio()
-	{
-		return m_ScreenRatio;
-	}
-
-	public TouchDisplay GetTouchDisplay() { return m_TouchDisplay; }
 
 	private class ButtonPressedSubscriber extends Subscriber
 	{
@@ -176,4 +170,6 @@ public class UIManager
 			ShowScreen(UIScreens.values()[screenOrdinal]);
 		}	
 	}
+
+	public TouchDisplay GetTouchDisplay() { return m_TouchDisplay; }
 }

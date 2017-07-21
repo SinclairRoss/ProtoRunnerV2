@@ -6,5 +6,7 @@ package com.raggamuffin.protorunnerv2.ObjectEffect;
 public enum ObjectEffectType
 {
     DamageMarker,
-    SpawnPillar
+    SpawnPillar,
+    Shields,
+    HealthBar
 }

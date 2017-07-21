@@ -1,12 +1,11 @@
 package com.raggamuffin.protorunnerv2.ui;
 
-
 // Author: Sinclair Ross
 // Date:   03/06/2017
 
 import com.raggamuffin.protorunnerv2.managers.UIManager;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
-import com.raggamuffin.protorunnerv2.utils.Colours;
+import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 
 public class UIObject_Button
@@ -16,12 +15,12 @@ public class UIObject_Button
     private static final double FILL_RATE = 5.0;
     private static final double ARRIVAL_DISTANCE = 0.1;
 
+    private Colour m_Colour_Off;
+    private Colour m_Colour_On;
+
     private UIElement_Label m_Label;
     private UIElement_Block m_Background;
     private UIElement_Block m_EndBlock;
-
-    private double[] m_Colour_Off;
-    private double[] m_Colour_On;
 
     private Publisher m_OnClickPublisher;
     private Object m_Args;
@@ -35,33 +34,30 @@ public class UIObject_Button
 
     private UITouchArea m_TouchArea;
 
-    public  UIObject_Button(String text, double[] colour, double x, double y, Alignment alignment, Publisher onClickPublisher, Object args, UIManager uiManager)
+    public  UIObject_Button(String text, double x, double y, Alignment alignment, Publisher onClickPublisher, Object args, UIManager uiManager)
     {
-        m_Colour_On = Colours.CalvinOrange;
-        m_Colour_On[3] = 0.2;
-
-        m_Colour_Off = Colours.RunnerBlue;
-        m_Colour_Off[3] = 0.1;
+        m_Colour_On = new Colour(UIConstants.COLOUR_ON, 0.2);
+        m_Colour_Off = new Colour(UIConstants.COLOUR_OFF, 0.1);
 
         m_OnClickPublisher = onClickPublisher;
         m_Args = args;
 
-        m_Label = new UIElement_Label(text, UIConstants.FONTSIZE_BUTTON, x, y, alignment, uiManager);
+        m_Label = new UIElement_Label(text, UIConstants.FONTSIZE_STANDARD, x, y, alignment);
         uiManager.AddUIElement(m_Label);
 
-        m_Height = UIConstants.FONTSIZE_BUTTON * 2;
+        m_Height = UIConstants.FONTSIZE_STANDARD * 2;
         m_BackgroundLength_Retracted = m_Height / UIConstants.GOLDEN_RATIO;
         m_BackgroundLength_Extended = (m_Label.CalculateLength() + (PADDING * 2));
 
         double xPos = x + (alignment == Alignment.Right ? PADDING : -PADDING);
 
-        m_EndBlock = new UIElement_Block(m_Colour_Off, uiManager, alignment);
+        m_EndBlock = new UIElement_Block(m_Colour_Off, alignment);
         m_EndBlock.SetAlpha(0.6);
         m_EndBlock.SetPosition(xPos, y);
         m_EndBlock.SetScale(m_BackgroundLength_Retracted, m_Height);
         uiManager.AddUIElement(m_EndBlock);
 
-        m_Background = new UIElement_Block(m_Colour_Off, uiManager, alignment);
+        m_Background = new UIElement_Block(m_Colour_Off, alignment);
         m_Background.SetAlpha(0.1);
         m_Background.SetPosition(xPos, y);
         m_Background.SetScale(m_BackgroundLength_Retracted, m_Height);
@@ -96,13 +92,15 @@ public class UIObject_Button
         m_OnClickPublisher.Publish(m_Args);
     }
 
-    public void OnHover()
+    public void OnHover(UIElement_TouchMarker marker)
     {
         if(Double.compare(m_BackgroundLength_Target, m_BackgroundLength_Extended) != 0)
         {
             m_BackgroundLength_Target = m_BackgroundLength_Extended;
             m_Background.SetColour(m_Colour_On);
             m_EndBlock.SetColour(m_Colour_On);
+
+            marker.SetColour(m_Colour_On);
         }
     }
 
@@ -116,7 +114,10 @@ public class UIObject_Button
         }
     }
 
-    public UITouchArea GetTouchArea() { return m_TouchArea; }
+    public UIElement_Label GetLabel()
+    {
+        return m_Label;
+    }
 
-    public double[] GetColour() { return m_Colour_On; }
+    public UITouchArea GetTouchArea() { return m_TouchArea; }
 }

@@ -1,6 +1,8 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
+import com.raggamuffin.protorunnerv2.ObjectEffect.ObjectEffect;
 import com.raggamuffin.protorunnerv2.ObjectEffect.ObjectEffectType;
+import com.raggamuffin.protorunnerv2.ObjectEffect.ObjectEffect_HealthBar;
 import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.audio.AudioEmitter_Point;
 import com.raggamuffin.protorunnerv2.audio.EAudioRepeatBehaviour;
@@ -20,6 +22,7 @@ import com.raggamuffin.protorunnerv2.weapons.Weapon_None;
 public abstract class Vehicle extends GameObject
 {
 	private final double DAMAGE_DECAY_RATE = 2.0;
+    private final double DAMAGE_INDICATOR_RATE = 10.0;
 
     ///// Control
     private GameLogic m_Game;
@@ -27,17 +30,21 @@ public abstract class Vehicle extends GameObject
 
 	////// Vehicle Attributes
 	private double m_HullPoints;
+	private final double m_MaxHullPoints;
     private boolean m_CanBeTargeted;
     private VehicleClass m_VehicleClass;
-    private StatusEffectManager m_StatusEffectManager;
+    private StatusEffectRecordKeeper m_StatusEffectRecords;
     private AffiliationKey m_Affiliation;
 	private Vector3 m_SteeringVector;
     private SteeringState m_SteeringState;
     protected Engine m_Engine;
 
+	private ObjectEffect m_HealthBar;
+
 	///// Misc Attributes
 	private Weapon m_PrimaryWeapon;
 	private Timer m_DamageDecayCounter;
+	private double m_DamagePulser;
     private Publisher m_OnDeathPublisher;
 
 	///// Aesthetics
@@ -47,19 +54,22 @@ public abstract class Vehicle extends GameObject
     ///// Audio
 	private AudioEmitter_Point m_AudioDodge;
 
-	public Vehicle(GameLogic game, ModelType modelType, double boundingRadius, int hullPoints, VehicleClass vClass, boolean canBeTargeted, PublishedTopics onDeathTopic, AffiliationKey affiliation)
+	public Vehicle(GameLogic game, ModelType modelType, Vector3 position, double boundingRadius, int hullPoints, VehicleClass vClass, boolean canBeTargeted, PublishedTopics onDeathTopic, AffiliationKey affiliation)
 	{
 		super(modelType, boundingRadius);
+
+        SetPosition(position);
 
         ///// Control
         m_Game = game;
         m_PubSubHub = game.GetPubSubHub();
 
         ////// Vehicle Attributes
+		m_MaxHullPoints = hullPoints;
         m_HullPoints = hullPoints;
         m_CanBeTargeted = canBeTargeted;
         m_VehicleClass = vClass;
-        m_StatusEffectManager = new StatusEffectManager();
+        m_StatusEffectRecords = new StatusEffectRecordKeeper(game.GetObjectEffectController(), this);
         m_Affiliation = affiliation;
 		m_SteeringVector = new Vector3(Vector3.FORWARD);
         m_SteeringState = SteeringState.Forward;
@@ -94,6 +104,9 @@ public abstract class Vehicle extends GameObject
 		m_Engine.Update(deltaTime);
 		m_PrimaryWeapon.Update(deltaTime);
 
+		m_DamagePulser += (deltaTime * (1.0 - GetHullPointsAsPercentage())) * DAMAGE_INDICATOR_RATE;
+        m_DamagePulser %= Math.PI;
+
 		super.Update(deltaTime);
 	}
 
@@ -102,15 +115,18 @@ public abstract class Vehicle extends GameObject
 		if(!HasStatusEffect(StatusEffect.Shielded))
 		{
 			DrainEnergy(damage);
+            m_Game.GetObjectEffectController().CreateEffect(ObjectEffectType.DamageMarker, this);
+			m_DamageDecayCounter.Start();
 		}
-
-        m_Game.GetObjectEffectController().CreateEffect(ObjectEffectType.DamageMarker, this);
-
-        m_DamageDecayCounter.Start();
 	}
 	
 	public void DrainEnergy(double drain)
 	{
+		if(m_HealthBar == null)
+		{
+			m_HealthBar = m_Game.GetObjectEffectController().CreateEffect(ObjectEffectType.HealthBar, this);
+		}
+
 		m_HullPoints -= drain;
 
 		if(m_HullPoints < 0)
@@ -131,6 +147,12 @@ public abstract class Vehicle extends GameObject
 		m_AudioDodge.Start();
 	}
 
+	public double GetHullPointsAsPercentage()
+	{
+		double hp = m_HullPoints / m_MaxHullPoints;
+		return hp;
+	}
+
 	public void SetTurnRate(double turnRate)
 	{
 		m_Engine.SetTurnRate(turnRate);
@@ -147,19 +169,28 @@ public abstract class Vehicle extends GameObject
 	@Override
 	public void CleanUp()
 	{
+		m_HealthBar = null;
+
+        m_HullPoints = 0;
+
         if(m_OnDeathPublisher != null)
         {
             m_OnDeathPublisher.Publish(GetModel().ordinal());
         }
 
-        m_Game.GetPopperController().Pop(GetPosition(), GetVelocity());
+        //m_Game.GetPopperController().Pop(GetPosition(), GetVelocity());
 
-		m_BurstEmitter.SetPosition(GetPosition());
-		m_BurstEmitter.SetVelocity(GetVelocity());
-		m_BurstEmitter.Burst();
+        if(GetModel() != ModelType.Nothing)
+        {
+            m_BurstEmitter.SetPosition(GetPosition());
+            m_BurstEmitter.SetVelocity(GetVelocity());
+            m_BurstEmitter.Burst();
+        }
 
 		m_PrimaryWeapon.ReleaseTrigger();
 		m_PrimaryWeapon.CleanUp();
+
+		m_Engine.CleanUp();
 
 		if(m_FloorGrid != null)
 		{
@@ -168,12 +199,14 @@ public abstract class Vehicle extends GameObject
 	}
 
     @Override
-    public double GetInnerColourIntensity() { return m_DamageDecayCounter.GetInverseProgress(); }
+    public double GetInnerColourIntensity()
+	{
+		double damageReaction = m_DamageDecayCounter.GetInverseProgress();
+		return damageReaction;
+    }
 
     @Override
     public boolean IsValid() { return m_HullPoints > 0; }
-
-    public Vector3 GetSteeringVector() { return m_SteeringVector; }
 
     public void StrafeLeft() { m_SteeringState = SteeringState.Left; }
     public void StrafeRight() { m_SteeringState = SteeringState.Right; }
@@ -185,9 +218,9 @@ public abstract class Vehicle extends GameObject
     public void EngageAfterBurners() { m_Engine.EngageAfterBurners(); }
     public void DisengageAfterBurners() { m_Engine.DisengageAfterBurners(); }
 
-    public void ApplyStatusEffect(StatusEffect status) { m_StatusEffectManager.ApplyStatusEffect(status); }
-    public void RemoveStatusEffect(StatusEffect effect) { m_StatusEffectManager.RemoveStatusEffect(effect); }
-    public boolean HasStatusEffect(StatusEffect effect) { return m_StatusEffectManager.HasStatusEffect(effect); }
+    public void ApplyStatusEffect(StatusEffect status) { m_StatusEffectRecords.ApplyStatusEffect(status); }
+    public void RemoveStatusEffect(StatusEffect effect) { m_StatusEffectRecords.RemoveStatusEffect(effect); }
+    public boolean HasStatusEffect(StatusEffect effect) { return m_StatusEffectRecords.HasStatusEffect(effect); }
 
     public boolean CanBeTargeted() { return m_CanBeTargeted; }
     public AffiliationKey GetAffiliation() { return m_Affiliation; }

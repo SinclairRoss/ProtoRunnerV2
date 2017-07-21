@@ -34,7 +34,7 @@ public class GameObject
 
     public GameObject(ModelType model, double boundingRadius)
     {
-        m_Position = new Vector3();
+        m_Position = new Vector3(0);
         m_PreviousPosition = new Vector3();
         m_Velocity = new Vector3();
         m_Scale = new Vector3(1);

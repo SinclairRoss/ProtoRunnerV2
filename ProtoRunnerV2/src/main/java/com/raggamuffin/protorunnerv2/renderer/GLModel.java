@@ -16,6 +16,11 @@ public abstract class GLModel
 
     protected int loadShader(int type, String shaderCode)
     {
+        return loadShader(type, shaderCode, "");
+    }
+
+    protected int loadShader(int type, String shaderCode, String tag)
+    {
         // create a vertex shader type (GLES20.GL_VERTEX_SHADER)
         // or a fragment shader type (GLES20.GL_FRAGMENT_SHADER)
         int shader = GLES20.glCreateShader(type);
@@ -29,7 +34,7 @@ public abstract class GLModel
 
         if (compiled[0] == 0)
         {
-            Log.e("Shader", "Shader is broken");
+            Log.e("Shader", tag + ": Shader is broken");
         }
 
         return shader;

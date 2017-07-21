@@ -8,6 +8,7 @@ import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Timer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class UIElementAlphaFader
 {
@@ -17,40 +18,55 @@ public class UIElementAlphaFader
     private double m_Alpha_Origin;
     private double m_Alpha_Destination;
 
-    public UIElementAlphaFader(double fadeDuration)
+    public UIElementAlphaFader(double fadeDuration, double alpha_origin)
     {
         m_Elements = new ArrayList<>();
 
         m_FadeTimer = new Timer(fadeDuration);
-        m_FadeTimer.StartElapsed();
 
-        m_Alpha_Origin = 1.0;
+        m_Alpha_Origin = alpha_origin;
         m_Alpha_Destination = 0.0;
     }
 
     public void AddElement(UIElement element)
     {
+        element.SetAlpha(m_Alpha_Origin);
         m_Elements.add(element);
+    }
+
+    public void AddElements(UIElement... elements)
+    {
+        int elementCount = elements.length;
+        for(int i = 0; i < elementCount; ++i)
+        {
+            elements[i].SetAlpha(m_Alpha_Origin);
+        }
+
+        m_Elements.addAll(Arrays.asList(elements));
     }
 
     public void Update()
     {
-        boolean hasTimerElapsed = m_FadeTimer.HasElapsed();
-
-        int numElements = m_Elements.size();
-        for (int i = 0; i < numElements; ++i)
+        if(m_FadeTimer.IsActive())
         {
-            UIElement element = m_Elements.get(i);
-            Colour colour = element.GetColour();
+            boolean hasTimerElapsed = m_FadeTimer.HasElapsed();
 
-            if(!hasTimerElapsed)
+            int numElements = m_Elements.size();
+            for (int i = 0; i < numElements; ++i)
             {
-                double progress = m_FadeTimer.GetProgress();
-                colour.Alpha = MathsHelper.Lerp(progress, m_Alpha_Origin, m_Alpha_Destination);
-            }
-            else
-            {
-                colour.Alpha = m_Alpha_Destination;
+                UIElement element = m_Elements.get(i);
+                Colour colour = element.GetColour();
+
+                if (!hasTimerElapsed)
+                {
+                    double progress = m_FadeTimer.GetProgress();
+                    colour.Alpha = MathsHelper.Lerp(progress, m_Alpha_Origin, m_Alpha_Destination);
+                }
+                else
+                {
+                    colour.Alpha = m_Alpha_Destination;
+                    m_FadeTimer.Stop();
+                }
             }
         }
     }

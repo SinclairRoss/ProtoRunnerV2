@@ -149,16 +149,12 @@ public abstract class Weapon
 
         switch(component)
         {
-            case None:
-            {
-                weaponComponent = new WeaponComponent_None();
-                break;
-            }
             case LaserPointer:
             {
                 weaponComponent = new WeaponComponent_LaserPointer(m_Game, this);
                 break;
             }
+            case None:
             default:
             {
                 weaponComponent = new WeaponComponent_None();
@@ -173,7 +169,6 @@ public abstract class Weapon
     {
         m_WeaponComponent.Activate();
     }
-
     public void DeactivateComponent()
     {
         m_WeaponComponent.Deactivate();
@@ -189,11 +184,6 @@ public abstract class Weapon
         return m_Damage;
     }
 
-    public int GetMuzzleIndex()
-    {
-        return m_MuzzleIndex;
-    }
-
     public Colour GetBaseColour()
     {
         return m_Anchor.GetColour();
@@ -203,12 +193,10 @@ public abstract class Weapon
 	{
 		return m_Anchor.GetVelocity();
 	}
-	
 	public Vector3 GetForward()
 	{
 		return m_Anchor.GetForward();
 	}
-
 	public Vector3 GetPosition()
 	{
 		return m_Anchor.GetPosition();
@@ -228,11 +216,9 @@ public abstract class Weapon
 	{
 		return m_Anchor;
 	}
-	
-	public boolean IsTriggerPulled()
-	{
-		return m_TriggerPulled;
-	}
+
+    public boolean IsTriggerPulled() { return m_TriggerPulled; }
+    public boolean IsFiring() { return m_IsFiring; }
 
     public ProjectileType GetProjectileType()
     {

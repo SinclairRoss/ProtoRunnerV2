@@ -3,7 +3,6 @@ package com.raggamuffin.protorunnerv2.ui;
 // Author: Sinclair Ross
 // Date:   02/06/2017
 
-import com.raggamuffin.protorunnerv2.managers.UIManager;
 import com.raggamuffin.protorunnerv2.master.TouchPointer;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.Timer;
@@ -11,6 +10,7 @@ import com.raggamuffin.protorunnerv2.utils.Timer;
 public class UIElement_TouchMarker extends UIElement_Triangle
 {
     private static final double FADE_DURATION = 0.25;
+    private static final double ROTATION_SPEED = 2.0;
 
     private enum State
     {
@@ -25,9 +25,9 @@ public class UIElement_TouchMarker extends UIElement_Triangle
 
     private Timer m_FadeTimer;
 
-    public UIElement_TouchMarker(UIManager uiManager)
+    public UIElement_TouchMarker()
     {
-        super(30.0, uiManager);
+        super(30.0);
 
         SetScale(0.2);
         SetColour(Colours.RunnerBlue);
@@ -39,7 +39,6 @@ public class UIElement_TouchMarker extends UIElement_Triangle
     {
         m_TouchPointer = pointer;
         SetPosition(m_TouchPointer.GetCurrentPosition());
-
         SetColour(Colours.RunnerBlue);
         SetAlpha(0);
 
@@ -48,7 +47,6 @@ public class UIElement_TouchMarker extends UIElement_Triangle
         m_FadeTimer.Start();
     }
 
-    @Override
     public void Update(double deltaTime)
     {
         switch (m_State)
@@ -72,6 +70,8 @@ public class UIElement_TouchMarker extends UIElement_Triangle
                 break;
             }
         }
+
+       // Rotate(deltaTime * ROTATION_SPEED);
     }
 
     public void CleanUp()

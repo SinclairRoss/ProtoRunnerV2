@@ -1,10 +1,6 @@
 package com.raggamuffin.protorunnerv2.utils;
 
-import android.util.Log;
-
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
-import com.raggamuffin.protorunnerv2.ui.UIElement;
-import com.raggamuffin.protorunnerv2.ui.UIElement_Label;
 import com.raggamuffin.protorunnerv2.ui.UITouchArea;
 
 public final class CollisionDetection 
@@ -53,17 +49,17 @@ public final class CollisionDetection
                (exitsAt >= 0.0 && exitsAt <= 1.0)   ||  // If the ray exits the sphere.
                (entersAt < 0.0 && exitsAt > 1.0))       // if the ray lies completely within sphere.
             {
-                Vector3 entryPoint = new Vector3();
-                entryPoint.SetVectorAsDifference(rayStart, rayEnd);
-                entryPoint.Scale(entersAt);
-                entryPoint.Add(rayStart);
+                //Vector3 entryPoint = new Vector3();
+                //entryPoint.SetVectorAsDifference(rayStart, rayEnd);
+                //entryPoint.Scale(entersAt);
+                //entryPoint.Add(rayStart);
+//
+                //Vector3 exitPoint = new Vector3();
+                //exitPoint.SetVectorAsDifference(rayStart, rayEnd);
+                //exitPoint.Scale(exitsAt);
+                //exitPoint.Add(rayStart);
 
-                Vector3 exitPoint = new Vector3();
-                exitPoint.SetVectorAsDifference(rayStart, rayEnd);
-                exitPoint.Scale(exitsAt);
-                exitPoint.Add(rayStart);
-
-                report = new CollisionReport(true, entersAt, exitsAt, entryPoint, exitPoint);
+                report = new CollisionReport(entersAt, exitsAt);
             }
         }
 

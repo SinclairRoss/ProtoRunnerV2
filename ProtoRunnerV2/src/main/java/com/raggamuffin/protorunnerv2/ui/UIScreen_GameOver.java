@@ -32,7 +32,7 @@ public class UIScreen_GameOver extends UIScreen
 	public void Create()
 	{
 		String text = m_Game.GetContext().getString(R.string.game_over_message);
-		m_GameOverMessage = new UIElement_Label(text, UIConstants.FONTSIZE_TITLE, 0, 0, Alignment.Center, m_UIManager);
+		m_GameOverMessage = new UIElement_Label(text, UIConstants.FONTSIZE_TITLE, 0, 0, Alignment.Center);
 		m_UIManager.AddUIElement(m_GameOverMessage);
 
 		m_Timer = new Timer(SCREEN_DURATION);
@@ -40,7 +40,7 @@ public class UIScreen_GameOver extends UIScreen
 	}
 
 	@Override
-	public void Destroy()
+	public void CleanUp()
 	{
 		m_Timer = null;
 		m_GameOverMessage = null;

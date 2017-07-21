@@ -38,7 +38,7 @@ public class VehicleManager
 	
 	private GameLogic m_Game;
 
-    private Vector3 m_PlayerPosition;
+    private Vector3 m_SpawnPosition;
 
 	private Publisher m_PlayerSpawnedPublisher;
 	
@@ -54,16 +54,11 @@ public class VehicleManager
 		
 		m_PlayerSpawnedPublisher = PubSub.CreatePublisher(PublishedTopics.PlayerSpawned);
 
-        m_PlayerPosition = new Vector3();
+        m_SpawnPosition = new Vector3();
 	}
 	
 	public void Update(double deltaTime)
 	{
-        if(m_Player != null)
-        {
-            m_PlayerPosition.SetVector(m_Player.GetPosition());
-        }
-
         for(int i = 0; i < m_Vehicles.size(); i++)
         {
             Vehicle object = m_Vehicles.get(i);
@@ -96,7 +91,9 @@ public class VehicleManager
 	{
 		if(m_Player == null)
 		{
-			m_Player = new Vehicle_Runner(m_Game);
+            m_SpawnPosition.SetVector(0);
+
+			m_Player = new Vehicle_Runner(m_Game, m_SpawnPosition);
 			m_Vehicles.add(m_Player);
 			m_BlueTeam.add(m_Player);
 			m_Game.AddObjectToRenderer(m_Player);
@@ -109,47 +106,48 @@ public class VehicleManager
     {
         Vehicle spawn;
 
+        m_SpawnPosition.SetVector(x, 0, z);
+
         switch(type)
         {
             case Wingman:
-                spawn = new Vehicle_Wingman(m_Game);
+                spawn = new Vehicle_Wingman(m_Game, m_SpawnPosition);
                 break;
             case Bit:
-                spawn = new Vehicle_Bit(m_Game);
+                spawn = new Vehicle_Bit(m_Game, m_SpawnPosition);
                 break;
             case Carrier:
-                spawn = new Vehicle_Carrier(m_Game);
+                spawn = new Vehicle_Carrier(m_Game, m_SpawnPosition);
                 break;
 			case LaserStar:
-				spawn = new Vehicle_LaserStar(m_Game);
+				spawn = new Vehicle_LaserStar(m_Game, m_SpawnPosition);
 				break;
             case ShieldBearer:
-                spawn = new Vehicle_ShieldBearer(m_Game);
+                spawn = new Vehicle_ShieldBearer(m_Game, m_SpawnPosition);
                 break;
             case Warlord:
-                spawn = new Vehicle_Warlord(m_Game);
+                spawn = new Vehicle_Warlord(m_Game, m_SpawnPosition);
                 break;
             case WeaponTestBot:
-                spawn = new WeaponTestBot(m_Game);
+                spawn = new WeaponTestBot(m_Game, m_SpawnPosition);
                 break;
             case TargetBot:
-                spawn = new TargetBot(m_Game);
+                spawn = new TargetBot(m_Game, m_SpawnPosition);
                 break;
 			case TrainingDummy:
-				spawn = new Dummy(m_Game);
+				spawn = new Dummy(m_Game, m_SpawnPosition);
 				break;
 			case BeeperBot:
-				spawn = new BeeperBot(m_Game);
+				spawn = new BeeperBot(m_Game, m_SpawnPosition);
 				break;
 			case SweeperBot:
-				spawn = new Vehicle_SweeperBot(m_Game);
+				spawn = new Vehicle_SweeperBot(m_Game, m_SpawnPosition);
 				break;
             default:
                 Log.e("VehicleManager.java", "Vehicle type: '" + type + "' not found.");
                 return null;
         }
 
-        spawn.SetPosition(x, 0, z);
 		spawn.SetRotationY(orientation);
         m_Vehicles.add(spawn);
         GetTeam(spawn.GetAffiliation()).add(spawn);
@@ -182,16 +180,12 @@ public class VehicleManager
 		return spawn;
 	}
 
-	public Vehicle_TentacleController SpawnTentacleController(Vehicle_ShieldBearer anchor)
-    {
-        Vehicle_TentacleController spawn = new Vehicle_TentacleController(m_Game, anchor, anchor.GetTentacleRange());
-
-        m_Vehicles.add(spawn);
-        GetTeam(spawn.GetAffiliation()).add(spawn);
-		m_Game.AddObjectToRenderer(spawn);
-
-        return spawn;
-    }
+	public void AddVehicle(Vehicle vehicle)
+	{
+		GetTeam(vehicle.GetAffiliation()).add(vehicle);
+        m_Vehicles.add(vehicle);
+        m_Game.AddObjectToRenderer(vehicle);
+	}
 
 	public ArrayList<Vehicle> GetTeam(AffiliationKey faction)
 	{
@@ -264,7 +258,7 @@ public class VehicleManager
 			--i;
 		}
 		
-        m_PlayerPosition.SetVector(0);
+        m_SpawnPosition.SetVector(0);
 
 		Update(0);
 	}
@@ -281,6 +275,6 @@ public class VehicleManager
 
     public Vector3 GetPlayerPosition()
     {
-        return m_PlayerPosition;
+        return m_SpawnPosition;
     }
 }

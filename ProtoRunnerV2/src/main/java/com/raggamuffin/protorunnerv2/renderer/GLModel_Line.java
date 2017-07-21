@@ -182,8 +182,6 @@ public class GLModel_Line
             Log.e("shader trail", "Shader failed to compile");
         }
 
-        Log.e("shader trail", "Shader A-OK.");
-
         return shader;
     }
 }

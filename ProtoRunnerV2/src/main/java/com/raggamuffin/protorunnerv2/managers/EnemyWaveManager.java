@@ -3,22 +3,18 @@ package com.raggamuffin.protorunnerv2.managers;
 // Author: Sinclair Ross
 // Date:   18/09/2016
 
+import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.VehicleType;
 import com.raggamuffin.protorunnerv2.utils.FormationHelper;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.SpawnHelper;
-import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 import java.util.ArrayList;
 
 public class EnemyWaveManager
 {
-    private final double MAX_ENEMIES_IN_GAME = 20;
-
-    private Timer_Accumulation m_SpawnTimer;
-
     private int m_RegularsPerSquad;
     private int m_ElitesPerSquad;
 
@@ -29,7 +25,7 @@ public class EnemyWaveManager
 
     public EnemyWaveManager(GameLogic game)
     {
-        m_RegularsPerSquad = 3;
+        m_RegularsPerSquad = 5;
         m_ElitesPerSquad = 1;
 
         m_Regulars = new ArrayList<>();
@@ -37,23 +33,20 @@ public class EnemyWaveManager
         m_Regulars.add(VehicleType.Bit);
 
         m_Elites = new ArrayList<>();
+
         m_Elites.add(VehicleType.Carrier);
         m_Elites.add(VehicleType.LaserStar);
         m_Elites.add(VehicleType.ShieldBearer);
+        m_Elites.add(VehicleType.Warlord);
 
         m_VManager = game.GetVehicleManager();
-
-        m_SpawnTimer = new Timer_Accumulation(8);
     }
 
-    public void Update(double deltaTime)
+    public void Update()
     {
-       m_SpawnTimer.Update(deltaTime);
-
-        if(m_SpawnTimer.HasElapsed())
+        if(m_VManager.GetTeam(AffiliationKey.RedTeam).isEmpty())
         {
             SpawnSquad();
-            m_SpawnTimer.ResetTimer();
         }
     }
 

@@ -57,13 +57,6 @@ public class GLModel_DamageTri extends GLModel
 
         m_NumVertices = vertices.length / 3;
 
-        m_Program = 0;
-        m_ProjMatrixHandle = 0;
-        m_PositionHandle = 0;
-        m_UpHandle = 0;
-        m_RightHandle = 0;
-        m_VertexHandle = 0;
-
         InitShaders();
 
         m_EyePos = new Vector3();

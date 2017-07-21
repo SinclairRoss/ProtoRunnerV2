@@ -19,6 +19,12 @@ public class Timer
         m_Active = false;
     }
 
+    public void Start(double durationSeconds)
+    {
+        SetDuration(durationSeconds);
+        Start();
+    }
+
     public void Start()
     {
         m_StartTime = System.currentTimeMillis();
@@ -59,17 +65,14 @@ public class Timer
 
     public double GetProgress()
     {
-        return m_Active ? MathsHelper.Normalise(System.currentTimeMillis(), m_StartTime, m_EndTime) : 0.0;
-    }
-
-    public void InvertTimer()
-    {
-
+        double progress = m_Active ? MathsHelper.Normalise(System.currentTimeMillis(), m_StartTime, m_EndTime) : 0.0;
+        return progress;
     }
 
     public double GetInverseProgress()
     {
-        return 1.0 - GetProgress();
+        double progress = 1.0 - GetProgress();
+        return progress;
     }
 
     public double GetRunTimeMillis()

@@ -9,15 +9,16 @@ import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
+import com.raggamuffin.protorunnerv2.utils.Vector3;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_BitLaser;
 
 public class WeaponTestBot extends Vehicle
 {
     private AIController m_AIController;
 
-    public WeaponTestBot(GameLogic game)
+    public WeaponTestBot(GameLogic game, Vector3 position)
     {
-        super(game, ModelType.Bit, 2, 1, VehicleClass.StandardVehicle, true, PublishedTopics.EnemyDestroyed, AffiliationKey.RedTeam);
+        super(game, ModelType.Bit, position, 2, 1, VehicleClass.StandardVehicle, true, PublishedTopics.EnemyDestroyed, AffiliationKey.RedTeam);
 
         //SetColourScheme(Colours.Pink70, Colours.RunnerBlue);
 

@@ -27,7 +27,7 @@ public class WeaponComponent_LaserPointer extends WeaponComponent
         {
             WeaponBarrel barrel = barrels.get(i);
 
-            LaserPointer pointer = new LaserPointer(game, m_Anchor, barrel);
+            LaserPointer pointer = new LaserPointer(m_Anchor, barrel);
             pointer.Off();
             m_LaserPointers.add(pointer);
             m_Game.AddObjectToRenderer(pointer);

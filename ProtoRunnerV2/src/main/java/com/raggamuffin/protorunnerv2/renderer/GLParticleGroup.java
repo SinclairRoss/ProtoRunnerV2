@@ -153,10 +153,6 @@ public abstract class GLParticleGroup
         {
             Log.e("shader particle", "Shader failed to compile");
         }
-        else
-        {
-            Log.e("shader particle", "Shader A-OK.");
-        }
 
         return shader;
     }

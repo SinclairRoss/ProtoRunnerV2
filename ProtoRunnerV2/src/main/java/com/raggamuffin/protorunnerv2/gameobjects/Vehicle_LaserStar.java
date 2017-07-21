@@ -10,6 +10,7 @@ import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
+import com.raggamuffin.protorunnerv2.utils.Vector3;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_LaserBurner;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_MultiLaser;
 
@@ -17,15 +18,9 @@ public class Vehicle_LaserStar extends Vehicle
 {
     private AIController m_AIController;
 
-    private Weapon_LaserBurner[] m_LaserBurners;
-
-    public Vehicle_LaserStar(GameLogic game)
+    public Vehicle_LaserStar(GameLogic game, Vector3 position)
     {
-        super(game, ModelType.ThreePointStar, 2, 12, VehicleClass.StandardVehicle, true, PublishedTopics.EnemyDestroyed,AffiliationKey.RedTeam);
-
-        m_LaserBurners = new Weapon_LaserBurner[3];
-
-      //  SetColourScheme(Colours.HannahExperimentalBA, Colours.HannahExperimentalBB);
+        super(game, ModelType.ThreePointStar, position, 2, 4, VehicleClass.StandardVehicle, true, PublishedTopics.EnemyDestroyed,AffiliationKey.RedTeam);
 
         SetColour(Colours.HannahExperimentalBA);
 

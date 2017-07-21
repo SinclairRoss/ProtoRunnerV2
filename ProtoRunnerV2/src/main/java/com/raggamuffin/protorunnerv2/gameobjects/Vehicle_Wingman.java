@@ -7,11 +7,12 @@ import com.raggamuffin.protorunnerv2.ai.NavigationalBehaviourInfo;
 import com.raggamuffin.protorunnerv2.ai.TargetingBehaviour;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.managers.MultiplierHoover;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
+import com.raggamuffin.protorunnerv2.utils.Colours;
+import com.raggamuffin.protorunnerv2.utils.Vector3;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_PulseLaser;
 
 public class Vehicle_Wingman extends Vehicle
@@ -21,13 +22,13 @@ public class Vehicle_Wingman extends Vehicle
 
     private Subscriber m_PlayerSpawnedSubscriber;
 	
-	public Vehicle_Wingman(GameLogic game)
+	public Vehicle_Wingman(GameLogic game, Vector3 position)
 	{
-		super(game, ModelType.Runner, 1.5, 1, VehicleClass.StandardVehicle, true, PublishedTopics.WingmanDestroyed, AffiliationKey.BlueTeam);
+		super(game, ModelType.Runner, position, 1.5, 1, VehicleClass.StandardVehicle, true, PublishedTopics.WingmanDestroyed, AffiliationKey.BlueTeam);
 		
 		m_VehicleManager = game.GetVehicleManager();
 
-        SetColour(game.GetColourManager().GetPrimaryColour());
+        SetColour(Colours.RunnerBlue);
 
         m_Engine = new Engine_Standard(this, game);
 		m_Engine.SetMaxTurnRate(2.0);
@@ -44,9 +45,6 @@ public class Vehicle_Wingman extends Vehicle
 
         m_PlayerSpawnedSubscriber = new PlayerSpawnedSubscriber();
 		game.GetPubSubHub().SubscribeToTopic(PublishedTopics.PlayerSpawned, m_PlayerSpawnedSubscriber);
-
-		Shield_Timed shield = new Shield_Timed(this);
-		game.GetGameObjectManager().AddObject(shield);
 	}
 
 	@Override 

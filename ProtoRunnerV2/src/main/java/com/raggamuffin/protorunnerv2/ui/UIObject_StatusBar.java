@@ -45,13 +45,13 @@ public class UIObject_StatusBar
         m_LowColour = new Colour(lowColour);
         m_Colour = new Colour(highColour);
 
-        m_Background = new UIElement_Block(lowColour, uiManager, Alignment.Center);
+        m_Background = new UIElement_Block(m_LowColour, Alignment.Center);
         m_Background.SetScale_UseRatio(LENGTH, HEIGHT);
         m_Background.SetPosition(x, y);
         m_Background.SetAlpha(ALPHA_BACKGROUND);
         uiManager.AddUIElement(m_Background);
 
-        m_Bar = new UIElement_Block(lowColour, uiManager, Alignment.Center);
+        m_Bar = new UIElement_Block(m_LowColour, Alignment.Center);
         m_Bar.SetScale_UseRatio(LENGTH, HEIGHT);
         m_Bar.SetPosition(x, y);
         m_Bar.SetAlpha(ALPHA_FOREGROUND);
@@ -59,7 +59,7 @@ public class UIObject_StatusBar
 
         if(!title.isEmpty())
         {
-            m_Label = new UIElement_Label(title, 0.06, x, y + LABEL_OFFSET, Alignment.Center, uiManager);
+            m_Label = new UIElement_Label(title, 0.06, x, y + LABEL_OFFSET, Alignment.Center);
             m_Label.SetColour(lowColour);
             m_Label.SetAlpha(ALPHA_FOREGROUND);
             uiManager.AddUIElement(m_Label);

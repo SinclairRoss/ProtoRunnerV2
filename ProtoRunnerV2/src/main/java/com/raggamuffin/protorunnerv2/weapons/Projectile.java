@@ -2,6 +2,7 @@ package com.raggamuffin.protorunnerv2.weapons;
 
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.CollisionReport;
 import com.raggamuffin.protorunnerv2.utils.Colour;
@@ -16,7 +17,7 @@ public abstract class Projectile extends GameObject
 	{
 		super(model, 0.1);
 
-		SetPosition(position);
+        SetPosition(position);
 		SetVelocity(initialVelocity);
 		SetForward(firingDirection);
 
@@ -30,7 +31,7 @@ public abstract class Projectile extends GameObject
 
     public abstract CollisionReport CheckForCollision(GameObject object);
 
-	public abstract void CollisionResponse(CollisionReport report);
+	public abstract void CollisionResponse(CollisionReport report, Vehicle other);
 
     public double GetDamageOutput() { return m_BaseDamage; }
     public AffiliationKey GetAffiliation() { return m_Affiliation; }

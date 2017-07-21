@@ -16,7 +16,6 @@ import java.util.ArrayList;
 public class TouchDisplay
 {
     private GameLogic m_Game;
-    private ControlScheme m_Controls;
 
     private ArrayList<UIElement_TouchMarker> m_ActiveTouchMarkers;
     private ArrayList<UIElement_TouchMarker> m_InvalidTouchMarkers;
@@ -24,7 +23,6 @@ public class TouchDisplay
     public TouchDisplay(GameLogic game)
     {
         m_Game = game;
-        m_Controls = game.GetControlScheme();
 
         m_Game.GetPubSubHub().SubscribeToTopic(PublishedTopics.OnPointerDown, new OnTouchSubscriber());
 
@@ -58,7 +56,7 @@ public class TouchDisplay
 
         if(m_InvalidTouchMarkers.isEmpty())
         {
-           touchMarker = new UIElement_TouchMarker(m_Game.GetUIManager());
+           touchMarker = new UIElement_TouchMarker();
         }
         else
         {

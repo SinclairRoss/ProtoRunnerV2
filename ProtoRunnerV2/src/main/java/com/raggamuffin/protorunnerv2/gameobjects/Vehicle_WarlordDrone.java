@@ -23,9 +23,14 @@ public class Vehicle_WarlordDrone extends Vehicle
 
     public Vehicle_WarlordDrone(GameLogic game, Vehicle_Warlord anchor, int droneNumber, int maxDroneCount)
     {
-        super(game, ModelType.EngineDrone, 5.0, 1, VehicleClass.Drone, true, null, AffiliationKey.RedTeam);
+        super(game, ModelType.EngineDrone, anchor.GetPosition(), 5.0, 1, VehicleClass.Drone, true, null, AffiliationKey.RedTeam);
 
         m_Anchor = anchor;
+
+        m_Engine = new Engine(game, this);
+        m_Engine.SetDodgeOutput(0);
+        m_Engine.SetMaxEngineOutput(0);
+        m_Engine.SetAfterBurnerOutput(0);
 
         SetColour(m_Anchor.GetColour());
         m_TrailEmitter = new TrailEmitter(game, this);

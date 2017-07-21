@@ -6,6 +6,7 @@ import com.raggamuffin.protorunnerv2.ui.UIElement;
 import com.raggamuffin.protorunnerv2.ui.UIElementType;
 import com.raggamuffin.protorunnerv2.ui.UIElement_Chevron;
 import com.raggamuffin.protorunnerv2.ui.UIElement_Label;
+import com.raggamuffin.protorunnerv2.ui.UIElement_Radial;
 import com.raggamuffin.protorunnerv2.ui.UIElement_Triangle;
 
 public class UIRenderManager
@@ -20,6 +21,7 @@ public class UIRenderManager
 
     private GLModel_UITriangle m_TouchMarker;
     private GLModel_UIChevron m_Chevron;
+    private GLModel_UIRadial m_Radial;
 
     public UIRenderManager(Context context)
     {
@@ -42,6 +44,7 @@ public class UIRenderManager
 
         m_TouchMarker = new GLModel_UITriangle();
         m_Chevron = new GLModel_UIChevron();
+        m_Radial = new GLModel_UIRadial();
     }
 
     public void InitialiseModel(UIElementType type, float[] viewMatrix)
@@ -66,39 +69,45 @@ public class UIRenderManager
             case Chevron:
                 m_Chevron.InitialiseModel(viewMatrix);
                 break;
+            case Radial:
+                m_Radial.InitialiseModel(viewMatrix, null);
+                break;
         }
     }
 
     public void DrawElement(final UIElement element)
     {
-        if (!element.IsHidden())
+        switch (element.GetType())
         {
-            switch (element.GetType())
+            case Label:
+                m_TextRenderer.DrawText((UIElement_Label) element);
+                break;
+            case Block_Centered:
+                m_TexQuad.draw(element.GetPosition(), element.GetScale(), element.GetColour(), element.GetRotation());
+                break;
+            case Block_Right:
+                m_TexQuad_Right.draw(element.GetPosition(), element.GetScale(), element.GetColour(), element.GetRotation());
+                break;
+            case Block_Left:
+                m_TexQuad_Left.draw(element.GetPosition(), element.GetScale(), element.GetColour(), element.GetRotation());
+                break;
+            case Triangle:
             {
-                case Label:
-                    m_TextRenderer.DrawText((UIElement_Label) element);
-                    break;
-                case Block_Centered:
-                    m_TexQuad.draw(element.GetPosition(), element.GetScale(), element.GetColour(), element.GetRotation());
-                    break;
-                case Block_Right:
-                    m_TexQuad_Right.draw(element.GetPosition(), element.GetScale(), element.GetColour(), element.GetRotation());
-                    break;
-                case Block_Left:
-                    m_TexQuad_Left.draw(element.GetPosition(), element.GetScale(), element.GetColour(), element.GetRotation());
-                    break;
-                case Triangle:
-                {
-                    UIElement_Triangle element_triangle = (UIElement_Triangle) element;
-                    m_TouchMarker.Draw(element_triangle.GetPosition(), element_triangle.GetScale(), element_triangle.GetRotation(), element_triangle.GetColour(), element_triangle.GetLineWidth());
-                    break;
-                }
-                case Chevron:
-                {
-                    UIElement_Chevron chevron = (UIElement_Chevron) element;
-                    m_Chevron.Draw(chevron.GetPosition(), chevron.GetScale(), chevron.GetRotation(), chevron.GetColour(), chevron.GetLineWidth());
-                    break;
-                }
+                UIElement_Triangle element_triangle = (UIElement_Triangle) element;
+                m_TouchMarker.Draw(element_triangle.GetPosition(), element_triangle.GetScale(), element_triangle.GetRotation(), element_triangle.GetColour(), element_triangle.GetLineWidth());
+                break;
+            }
+            case Chevron:
+            {
+                UIElement_Chevron chevron = (UIElement_Chevron) element;
+                m_Chevron.Draw(chevron.GetPosition(), chevron.GetScale(), chevron.GetRotation(), chevron.GetColour(), chevron.GetLineWidth());
+                break;
+            }
+            case Radial:
+            {
+                UIElement_Radial radial = (UIElement_Radial) element;
+                m_Radial.Draw(radial.GetPosition(), radial.GetScale(), radial.GetColour(), radial.GetLineWidth(), radial.GetProgress());
+                break;
             }
         }
     }

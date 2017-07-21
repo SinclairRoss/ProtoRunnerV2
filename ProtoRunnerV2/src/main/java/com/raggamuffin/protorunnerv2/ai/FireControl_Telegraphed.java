@@ -37,7 +37,7 @@ public class FireControl_Telegraphed extends FireControl
 
         m_Range = 100.0f;
         m_FireArc = Math.toRadians(1);
-        m_TelegraphTimer = new Timer(1);
+        m_TelegraphTimer = new Timer(1.25);
         m_CooldownTimer = new Timer(1.5);
 	}
 
@@ -79,24 +79,29 @@ public class FireControl_Telegraphed extends FireControl
                 m_AttackState = AttackState.PostFire;
 
                 break;
-            }
-            case PostFire:
-            {
-                m_CooldownTimer.Start();
-                m_AttackState = AttackState.Cooldown;
-            }
-            case Cooldown:
-            {
-                if(m_CooldownTimer.HasElapsed())
+           }
+           case PostFire:
+           {
+                if(!m_Weapon.IsFiring())
                 {
                     m_Controller.GetNavigationControl().Activate();
                     m_Controller.GetEvasionControl().Enable();
 
+                    m_CooldownTimer.Start();
+                    m_AttackState = AttackState.Cooldown;
+                }
+
+                break;
+           }
+           case Cooldown:
+           {
+                if(m_CooldownTimer.HasElapsed())
+                {
                     m_AttackState = AttackState.Idle;
                 }
 
                 break;
-            }
+           }
         }
     }
 

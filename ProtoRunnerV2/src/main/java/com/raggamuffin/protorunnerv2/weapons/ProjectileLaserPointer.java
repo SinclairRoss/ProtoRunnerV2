@@ -24,7 +24,7 @@ public class ProjectileLaserPointer extends GameObject
         SetScale(0.1, 0.1, 1000);
         SetAlpha(1.0);
 
-        SetColour(game.GetColourManager().GetDangerColour());
+        SetColour(anchor.GetColour());
     }
 
     @Override

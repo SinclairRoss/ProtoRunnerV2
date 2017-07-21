@@ -10,15 +10,16 @@ import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
+import com.raggamuffin.protorunnerv2.utils.Vector3;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_None;
 
 public class Dummy extends Vehicle
 {
     private AIController m_AIController;
 
-    public Dummy(GameLogic game)
+    public Dummy(GameLogic game, Vector3 position)
     {
-        super(game, ModelType.Dummy, 2, 1, VehicleClass.StandardVehicle, true, PublishedTopics.EnemyDestroyed, AffiliationKey.RedTeam);
+        super(game, ModelType.Dummy, position, 2, 1, VehicleClass.StandardVehicle, true, PublishedTopics.EnemyDestroyed, AffiliationKey.RedTeam);
 
         SetColour(Colours.ChaserOrange);
 

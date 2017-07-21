@@ -1,99 +1,74 @@
 package com.raggamuffin.protorunnerv2.ui;
 
-
 // Author: Sinclair Ross
 // Date:   04/06/2017
 
-
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.UIManager;
-import com.raggamuffin.protorunnerv2.master.ControlScheme;
-import com.raggamuffin.protorunnerv2.master.TouchPointer;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
-import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
-import com.raggamuffin.protorunnerv2.utils.CollisionDetection;
-import com.raggamuffin.protorunnerv2.utils.Vector2;
 
-import junit.framework.Assert;
+import java.util.ArrayList;
 
 public class UIScreen_LearnToTouch extends UIScreen
 {
-    private UIObject_TouchMe m_TouchMe;
-
     private Publisher m_OnLearnToTouchCompletePublisher;
-    private Subscriber m_OnPointerUpSubscriber;
+
+    private ArrayList<UITeacher> m_Teachers;
+    private UITeacher m_ActiveTeacher;
 
     public UIScreen_LearnToTouch(GameLogic Game, UIManager uiManager)
     {
         super(Game, uiManager);
 
-        m_TouchMe = null;
+        m_Teachers = null;
+        m_ActiveTeacher = null;
     }
 
     @Override
     public void Create()
     {
-        m_TouchMe = new UIObject_TouchMe(m_UIManager, m_Game.GetGameAudioManager());
+        m_Teachers = new ArrayList<>(1);
+        m_Teachers.add(new UITeacher_TouchMe(m_Game, m_UIManager));
+        //m_Teachers.add(new UITeacher_HoldMe(m_Game, m_UIManager));
+
+        StartNextLesson();
 
         PubSubHub pubSub = m_Game.GetPubSubHub();
-
         m_OnLearnToTouchCompletePublisher = pubSub.CreatePublisher(PublishedTopics.OnLearnToTouchComplete);
-
-        m_OnPointerUpSubscriber = new OnPointerUpSubscriber();
-        pubSub.SubscribeToTopic(PublishedTopics.OnPointerUp, m_OnPointerUpSubscriber);
     }
 
     @Override
-    public void Destroy()
+    public void CleanUp()
     {
-        m_TouchMe = null;
-
-        PubSubHub pubSub = m_Game.GetPubSubHub();
-        pubSub.UnsubscribeFromTopic(PublishedTopics.OnPointerUp, m_OnPointerUpSubscriber);
+        m_Teachers.clear();
+        m_Teachers = null;
     }
 
     @Override
     public void Update(double deltaTime)
     {
-        ControlScheme scheme = m_Game.GetControlScheme();
+        m_ActiveTeacher.Update(deltaTime);
 
-        int activePointerCount = scheme.GetActivePointerCount();
-        for (int i = 0; i < activePointerCount; ++i)
+        if(m_ActiveTeacher.HasCompletedLesson())
         {
-            TouchPointer pointer = scheme.GetPointerAtIndex(i);
-            Vector2 pointerPos = pointer.GetCurrentPosition();
+            m_ActiveTeacher.CleanUp();
 
-            if (CollisionDetection.UIElementInteraction(pointerPos, m_TouchMe.GetTouchArea()))
+            if(m_Teachers.isEmpty())
             {
-                m_TouchMe.OnHover();
+                m_OnLearnToTouchCompletePublisher.Publish();
             }
             else
             {
-                m_TouchMe.OnHoverOff();
+                StartNextLesson();
             }
         }
-
-        m_TouchMe.Update(deltaTime);
     }
 
-    private class OnPointerUpSubscriber extends Subscriber
+    private void StartNextLesson()
     {
-        @Override
-        public void Update(Object args)
-        {
-            TouchPointer pointer = (TouchPointer) args;
-            Assert.assertNotNull(pointer);
-
-            Vector2 pointerPos = pointer.GetCurrentPosition();
-
-            if (CollisionDetection.UIElementInteraction(pointerPos, m_TouchMe.GetTouchArea()))
-            {
-                m_TouchMe.OnPress();
-                m_OnLearnToTouchCompletePublisher.Publish();
-                return;
-            }
-        }
+        m_ActiveTeacher = m_Teachers.remove(0);
+        m_ActiveTeacher.Initialise();
     }
 }

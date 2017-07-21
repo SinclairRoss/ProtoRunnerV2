@@ -6,7 +6,7 @@ package com.raggamuffin.protorunnerv2.ObjectEffect;
 import android.util.Log;
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 
 import java.util.ArrayList;
 
@@ -45,11 +45,9 @@ public class ObjectEffectController
             {
                 ObjectEffect effect = effects.get(j);
 
-                if(effect.IsValid())
-                {
-                    effect.Update(deltaTime);
-                }
-                else
+                effect.Update(deltaTime);
+
+                if(!effect.IsValid())
                 {
                     int effectTypeIndex = effect.GetEffectType().ordinal();
 
@@ -65,12 +63,10 @@ public class ObjectEffectController
                     --numEffects;
                 }
             }
-
-            Log.e("Num effects: " + numEffects, "");
         }
     }
 
-    public ObjectEffect CreateEffect(ObjectEffectType type, GameObject anchor)
+    public ObjectEffect CreateEffect(ObjectEffectType type, Vehicle anchor)
     {
         ObjectEffect effect;
 
@@ -107,6 +103,16 @@ public class ObjectEffectController
             case SpawnPillar:
             {
                 effect = new ObjectEffect_SpawnPillar();
+                break;
+            }
+            case Shields:
+            {
+                effect = new ObjectEffect_Shields(m_GameLogic);
+                break;
+            }
+            case HealthBar:
+            {
+                effect = new ObjectEffect_HealthBar(m_GameLogic);
                 break;
             }
         }

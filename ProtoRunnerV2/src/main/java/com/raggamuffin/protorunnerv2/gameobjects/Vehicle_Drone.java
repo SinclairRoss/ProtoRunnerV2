@@ -29,7 +29,7 @@ public class Vehicle_Drone extends Vehicle
 
     public Vehicle_Drone(GameLogic game, Vehicle_Carrier anchor)
     {
-        super(game, ModelType.WeaponDrone, 1, 1, VehicleClass.Drone, false, null, AffiliationKey.RedTeam);
+        super(game, ModelType.WeaponDrone, anchor.GetPosition(), 1, 1, VehicleClass.Drone, false, null, AffiliationKey.RedTeam);
 
         m_Anchor = anchor;
         SetPosition(m_Anchor.GetPosition());
@@ -55,12 +55,14 @@ public class Vehicle_Drone extends Vehicle
         m_AIController = new AIController(this, vehicleManager, game.GetBulletManager(), navInfo, AIBehaviours.FollowTheLeader, FireControlBehaviour.None, TargetingBehaviour.None);
         m_AIController.SetLeader(anchor);
 
-        ApplyStatusEffect(StatusEffect.Shielded);
-
         m_VerticalPositionSpring = new Spring1(10);
         m_Timer_UpdateRelaxedPosition = new Timer(2);
         m_Timer_UpdateRelaxedPosition.Start();
     }
+
+    @Override
+    public void DrainEnergy(double drain)
+    {}
 
     @Override
     public void Update(double deltaTime)

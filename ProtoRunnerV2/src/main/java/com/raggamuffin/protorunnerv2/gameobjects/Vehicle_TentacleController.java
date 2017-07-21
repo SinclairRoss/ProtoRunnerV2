@@ -10,8 +10,8 @@ import com.raggamuffin.protorunnerv2.ai.NavigationalBehaviourInfo;
 import com.raggamuffin.protorunnerv2.ai.TargetingBehaviour;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
+import com.raggamuffin.protorunnerv2.utils.Spring1;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class Vehicle_TentacleController extends Vehicle
@@ -32,13 +32,11 @@ public class Vehicle_TentacleController extends Vehicle
     private LatchState m_LatchState;
     private Vehicle m_LatchTarget;
 
-    private Shield m_Shield;
-
     private Vector3 m_ClampingVector;
 
     public Vehicle_TentacleController(GameLogic game, Vehicle anchor, double anchorAttackRange)
     {
-        super(game, ModelType.Nothing, 0, 1, VehicleClass.Drone, false, null, AffiliationKey.RedTeam);
+        super(game, ModelType.Nothing, anchor.GetPosition(), 0, 1, VehicleClass.Drone, false, null, AffiliationKey.RedTeam);
 
         m_Anchor = anchor;
         SetPosition(m_Anchor.GetPosition());
@@ -51,36 +49,32 @@ public class Vehicle_TentacleController extends Vehicle
 
         m_Engine = new Engine(game, this);
         m_Engine.SetMaxTurnRate(15.0);
-        m_Engine.SetMaxEngineOutput(80);
+        m_Engine.SetMaxEngineOutput(200);
+        m_Engine.SetAfterBurnerOutput(500);
         m_Engine.SetDodgeOutput(0);
 
         NavigationalBehaviourInfo navInfo = new NavigationalBehaviourInfo(0.4, 1.0, 0.0, 0.6);
         m_AIController = new AIController(this, game.GetVehicleManager(), game.GetBulletManager(), navInfo, AIBehaviours.TentacleSnare, FireControlBehaviour.None, TargetingBehaviour.Tentacle);
         m_AIController.SetLeader(anchor);
-
-        ApplyStatusEffect(StatusEffect.Shielded);
-
-        m_Shield = new Shield(this);
-        game.GetGameObjectManager().AddObject(m_Shield);
     }
 
     public void Update(double deltaTime)
     {
         m_AIController.Update(deltaTime);
 
-        UpdateLatchBehaviour();
+        UpdateLatchBehaviour(deltaTime);
         ConfineTentacleWithinAttackRange();
 
         super.Update(deltaTime);
     }
 
-    private void UpdateLatchBehaviour()
+    private void UpdateLatchBehaviour(double deltaTime)
     {
         switch(m_LatchState)
         {
             case Free:
             {
-                FreeBehaviour();
+                FreeBehaviour(deltaTime);
                 break;
             }
             case Latched:
@@ -96,7 +90,11 @@ public class Vehicle_TentacleController extends Vehicle
         }
     }
 
-    private void FreeBehaviour()
+    @Override
+    public void DrainEnergy(double drain)
+    {}
+
+    private void FreeBehaviour(double deltaTime)
     {
         Vehicle target = m_AIController.GetSituationalAwareness().GetTargetSensor().GetTarget();
 
@@ -104,14 +102,21 @@ public class Vehicle_TentacleController extends Vehicle
         {
             if (IsTargetWithinAnchorAttackRange(target))
             {
+                m_Engine.SetAfterBurnerOutput(1.0);
+
                 if (IsTargetWithinLatchingRange(target))
                 {
                     m_LatchTarget = target;
+                    m_LatchTarget.ApplyStatusEffect(StatusEffect.Shielded);
+
                     m_Engine.SetEngineOutput(0);
-                    m_Shield.AttachToObject(m_LatchTarget);
 
                     m_LatchState = LatchState.Latched;
                 }
+            }
+            else
+            {
+                m_Engine.SetAfterBurnerOutput(0.0);
             }
         }
     }
@@ -125,7 +130,6 @@ public class Vehicle_TentacleController extends Vehicle
         else
         {
             m_Engine.SetEngineOutput(1);
-            m_Shield.DetachFromObject();
 
             m_LatchState = LatchState.SnapingOff;
         }
@@ -136,6 +140,7 @@ public class Vehicle_TentacleController extends Vehicle
         LookAt(m_Anchor.GetPosition());
         ApplyForce(GetForward(), 50);
 
+        m_LatchTarget.RemoveStatusEffect(StatusEffect.Shielded);
         m_LatchTarget = null;
         m_LatchState = LatchState.Free;
     }
@@ -156,7 +161,13 @@ public class Vehicle_TentacleController extends Vehicle
 
     private boolean IsTargetWithinAnchorAttackRange(Vehicle target)
     {
-        double anchorDistanceToTargetSqr = Vector3.GetDistanceBetweenSqr(m_Anchor.GetPosition(), target.GetPosition());
+        Vector3 a = m_Anchor.GetPosition();
+        Vector3 b = target.GetPosition();
+
+        double i = b.X - a.X;
+        double k = b.Z - a.Z;
+
+        double anchorDistanceToTargetSqr = (i * i) + (k * k);
         return (anchorDistanceToTargetSqr <= ANCHOR_ATTACK_RANGE * ANCHOR_ATTACK_RANGE);
     }
 
@@ -176,6 +187,10 @@ public class Vehicle_TentacleController extends Vehicle
     public void CleanUp()
     {
         super.CleanUp();
-        m_Shield.DetachFromObject();
+
+        if (m_LatchTarget != null)
+        {
+            m_LatchTarget.RemoveStatusEffect(StatusEffect.Shielded);
+        }
     }
 }

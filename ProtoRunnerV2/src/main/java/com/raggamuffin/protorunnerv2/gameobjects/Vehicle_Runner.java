@@ -8,7 +8,9 @@ import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
+import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
+import com.raggamuffin.protorunnerv2.utils.Vector3;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_ChargeLaser;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_PulseLaser;
 
@@ -38,28 +40,25 @@ public class Vehicle_Runner extends Vehicle
     private Subscriber ForwardSubscriber;
     private Subscriber ReverseSubscriber;
 
-    public Vehicle_Runner(GameLogic game)
+    public Vehicle_Runner(GameLogic game, Vector3 position)
 	{
-		super(game, ModelType.Runner, 1.5, 1, VehicleClass.StandardVehicle, true, PublishedTopics.PlayerDestroyed, AffiliationKey.BlueTeam);
+		super(game, ModelType.Runner, position, 1.5, 1, VehicleClass.StandardVehicle, true, PublishedTopics.PlayerDestroyed, AffiliationKey.BlueTeam);
 
         m_Camera = game.GetCamera();
 
 		m_Input = game.GetControlScheme();
 
-        SetColour(game.GetColourManager().GetPrimaryColour());
-
-        Shield_Timed shield = new Shield_Timed(this);
-        game.GetGameObjectManager().AddObject(shield);
+        SetColour(Colours.RunnerBlue);
 
 		m_Engine = new Engine_Standard(this, game);
         m_Engine.SetMaxTurnRate(2.0);
-		m_Engine.SetMaxEngineOutput(GameLogic.TEST_MODE ? 0 : 70);
+		m_Engine.SetMaxEngineOutput(GameLogic.TEST_MODE ? 0 : 70);//70
         m_Engine.SetAfterBurnerOutput(90);
 
         m_MultiplierHoover = new MultiplierHoover(this, game);
         m_Stamina = 1.0;
 
-        game.GetGameObjectManager().AddObject(new Radar(this, game));
+      //  game.GetGameObjectManager().AddObject(new Radar(this, game));
 
         SelectWeapon(new Weapon_PulseLaser(this, game));
         m_ChargeLaser = new Weapon_ChargeLaser(this, game);
@@ -104,12 +103,12 @@ public class Vehicle_Runner extends Vehicle
 
         if(m_Stamina <= 0.0)
         {
-            DisengageAfterBurners();
+           // DisengageAfterBurners();
 
-            if(GameLogic.TEST_MODE)
-            {
+            //if(GameLogic.TEST_MODE)
+           // {
                 m_Stamina = 1.0;
-            }
+           // }
         }
 
 		super.Update(deltaTime);

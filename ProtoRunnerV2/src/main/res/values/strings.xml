@@ -57,10 +57,9 @@
     <string name="revive_text">Reboot</string>
     <string name="wingman_down">Wingman Lost</string>
 
+    <string name="not_signed_in">Not signed in</string>
     <string name="sign_in">Sign in</string>
-    <string name="sign_out">Sign out</string>
 
-    <string name="not_signed_in">You must sign in with your google play account to access the leaderboards. Would you like to sign in?</string>
     <string name="cannot_connect">Unable to connect</string>
 
     <string name="label_stamina">Aux Power"</string>

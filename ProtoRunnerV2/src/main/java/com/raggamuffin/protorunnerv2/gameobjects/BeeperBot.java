@@ -10,6 +10,7 @@ import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.Timer_Accumulation;
+import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class BeeperBot extends Vehicle
 {
@@ -20,9 +21,9 @@ public class BeeperBot extends Vehicle
 
     AudioEmitter m_Beeper;
 
-    public BeeperBot(GameLogic game)
+    public BeeperBot(GameLogic game, Vector3 position)
     {
-        super(game, ModelType.Dummy, 1.0, 1, VehicleClass.StandardVehicle, true, PublishedTopics.EnemyDestroyed, AffiliationKey.RedTeam);
+        super(game, ModelType.Dummy, position, 1.0, 1, VehicleClass.StandardVehicle, true, PublishedTopics.EnemyDestroyed, AffiliationKey.RedTeam);
 
         SetColour(Colours.IndianRed);
 

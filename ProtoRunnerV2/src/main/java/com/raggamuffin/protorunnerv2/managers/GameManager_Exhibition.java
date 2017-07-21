@@ -72,17 +72,17 @@ public class GameManager_Exhibition extends GameManager
 
                 for (Vector3 pos : formation)
                 {
-                    m_VehicleManager.SpawnVehicle(VehicleType.Carrier, pos.X, pos.Z, forward.Yaw());
+           //         m_VehicleManager.SpawnVehicle(VehicleType.Carrier, pos.X, pos.Z, forward.Yaw());
                 }
 
                 for (Vector3 pos : formation)
                 {
-                    m_VehicleManager.SpawnVehicle(VehicleType.ShieldBearer, pos.X, pos.Z, forward.Yaw());
+           //         m_VehicleManager.SpawnVehicle(VehicleType.ShieldBearer, pos.X, pos.Z, forward.Yaw());
                 }
 
                 for (Vector3 pos : formation)
                 {
-                    m_VehicleManager.SpawnVehicle(VehicleType.LaserStar, pos.X, pos.Z, forward.Yaw());
+            //        m_VehicleManager.SpawnVehicle(VehicleType.LaserStar, pos.X, pos.Z, forward.Yaw());
                 }
             }
 
@@ -117,6 +117,8 @@ public class GameManager_Exhibition extends GameManager
             return;
         }
 
+       // m_VehicleManager.SpawnVehicle(VehicleType.Warlord, 0, 0, 0);
+
         if(m_VehicleManager.GetTeamCount(AffiliationKey.RedTeam) == 0)
         {
             Vector3 position = new Vector3(-SPAWN_DISTANCE_INITIAL,0,0);
@@ -129,8 +131,8 @@ public class GameManager_Exhibition extends GameManager
 
             for(Vector3 pos : formation)
             {
-                m_VehicleManager.SpawnVehicle(VehicleType.Bit, pos.X, pos.Z, forward.Yaw());
-                m_VehicleManager.SpawnVehicle(VehicleType.ShieldBearer, pos.X, pos.Z, forward.Yaw());
+       //         m_VehicleManager.SpawnVehicle(VehicleType.Bit, pos.X, pos.Z, forward.Yaw());
+        //        m_VehicleManager.SpawnVehicle(VehicleType.ShieldBearer, pos.X, pos.Z, forward.Yaw());
             }
         }
 

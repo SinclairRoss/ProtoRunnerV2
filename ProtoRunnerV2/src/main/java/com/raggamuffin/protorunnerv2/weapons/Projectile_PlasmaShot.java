@@ -4,7 +4,8 @@ import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.FloorGrid;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
-import com.raggamuffin.protorunnerv2.gameobjects.GameObject_OrientationMarker;
+import com.raggamuffin.protorunnerv2.gameobjects.StatusEffect;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.CollisionDetection;
 import com.raggamuffin.protorunnerv2.utils.CollisionReport;
@@ -80,9 +81,33 @@ public class Projectile_PlasmaShot extends Projectile
     }
 
     @Override
-    public void CollisionResponse(CollisionReport report)
+    public void CollisionResponse(CollisionReport report, Vehicle other)
     {
-        m_HasColided = true;
+        if(other.HasStatusEffect(StatusEffect.Shielded))
+        {
+            Vector3 velocity = GetVelocity();
+
+            Vector3 normal = new Vector3();
+            normal.SetVectorAsDifference(other.GetPosition(), GetPreviousPosition());
+            normal.Normalise();
+
+            double dot = Vector3.DotProduct(velocity, normal);
+            normal.Scale(dot * 2);
+
+            velocity.Subtract(normal);
+
+            Vector3 fwd = GetForward();
+            fwd.SetVector(velocity);
+            fwd.Normalise();
+            SetForward(fwd);
+
+            double posOffset = 15.0;
+            GetPosition().Add(fwd.X * posOffset, fwd.Y * posOffset, fwd.Z * posOffset);
+        }
+        else
+        {
+            m_HasColided = true;
+        }
     }
 
     @Override

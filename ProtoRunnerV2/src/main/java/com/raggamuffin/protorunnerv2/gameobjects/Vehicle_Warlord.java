@@ -42,9 +42,9 @@ public class Vehicle_Warlord extends Vehicle
 
     private HexplosiveLauncher m_HexplosiveLauncher;
 
-    public Vehicle_Warlord(GameLogic game)
+    public Vehicle_Warlord(GameLogic game, Vector3 position)
     {
-        super(game, ModelType.WeaponDrone, 5.0, 12, VehicleClass.StandardVehicle, true, PublishedTopics.EnemyDestroyed, AffiliationKey.RedTeam);
+        super(game, ModelType.WeaponDrone, position, 5.0, 12, VehicleClass.StandardVehicle, true, PublishedTopics.EnemyDestroyed, AffiliationKey.RedTeam);
         SetScale(3);
 
         m_State = WarlordState.Normal;

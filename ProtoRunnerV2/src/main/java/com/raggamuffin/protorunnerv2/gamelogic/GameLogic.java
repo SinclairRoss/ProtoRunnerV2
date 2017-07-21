@@ -11,7 +11,6 @@ import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.gameobjects.Tentacle;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.BulletManager;
-import com.raggamuffin.protorunnerv2.managers.ColourManager;
 import com.raggamuffin.protorunnerv2.managers.DatabaseManager;
 import com.raggamuffin.protorunnerv2.managers.GameManager;
 import com.raggamuffin.protorunnerv2.managers.GameManager_Exhibition;
@@ -54,7 +53,6 @@ public class GameLogic extends ApplicationLogic
 	
 	private ExhibitionCameraAnchor m_CameraAnchor;
 
-    private ColourManager m_ColourManager;
 	private DatabaseManager m_DatabaseManager;
 	private GameAudioManager m_GameAudioManager;
 	private PubSubHub m_PubSubHub;
@@ -83,7 +81,7 @@ public class GameLogic extends ApplicationLogic
 
     private GameMode m_GameMode;
 
-    public static boolean TEST_MODE = true;
+    public static boolean TEST_MODE = false;
 
 	public GameLogic(Activity activity, PubSubHub pubSub, ControlScheme scheme, RendererPacket packet)
 	{
@@ -95,7 +93,6 @@ public class GameLogic extends ApplicationLogic
 		m_Control = scheme;
 
         m_PubSubHub = pubSub;
-        m_ColourManager = new ColourManager(this);
 		m_DatabaseManager= new DatabaseManager(this);
 		m_GameAudioManager = new GameAudioManager(m_Context, m_Camera);
         m_SFXManager = new InGameSoundEffectsManager(this);
@@ -142,7 +139,6 @@ public class GameLogic extends ApplicationLogic
 	@Override
 	public void Update(double deltaTime) 
 	{
-        m_ColourManager.Update(deltaTime);
         m_GameManager.Update(deltaTime);
 		m_UIManager.Update(deltaTime);
 		m_ParticleManager.Update(deltaTime);
@@ -183,7 +179,7 @@ public class GameLogic extends ApplicationLogic
                     if (report != null)
                     {
                         vehicle.CollisionResponse(projectile.GetDamageOutput());
-                        projectile.CollisionResponse(report);
+                        projectile.CollisionResponse(report, vehicle);
                     }
                 }
 			}
@@ -290,7 +286,6 @@ public class GameLogic extends ApplicationLogic
 	public GameStats GetGameStats() { return m_GameStats; }
 	public SecondWindHandler GetSecondWindHandler() { return m_SecondWindHandler; }
 	public DatabaseManager GetDatabaseManager() { return m_DatabaseManager; }
-    public ColourManager GetColourManager() { return m_ColourManager; }
     public GooglePlayService GetGooglePlayService() { return m_GooglePlayService; }
     public ObjectEffectController GetObjectEffectController() { return m_ObjectEffectController; }
 

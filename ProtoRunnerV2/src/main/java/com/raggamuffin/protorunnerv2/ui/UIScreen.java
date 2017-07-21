@@ -15,7 +15,7 @@ public abstract class UIScreen
 	}
 	
 	public abstract void Create();
-	public abstract void Destroy();
+	public abstract void CleanUp();
 
 	public abstract void Update(double deltaTime);
 }

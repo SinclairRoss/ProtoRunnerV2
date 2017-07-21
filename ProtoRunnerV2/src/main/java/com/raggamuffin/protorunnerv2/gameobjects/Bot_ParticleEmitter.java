@@ -11,6 +11,7 @@ import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class Bot_ParticleEmitter extends GameObject
 {

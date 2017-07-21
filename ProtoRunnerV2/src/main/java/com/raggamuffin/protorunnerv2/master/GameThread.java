@@ -37,7 +37,7 @@ public class GameThread extends Thread
         m_Timer = new Timer(framePeriod);
         m_Timer.Start();
 
-        m_MaxDeltaTime = framePeriod * 10;
+        m_MaxDeltaTime = framePeriod * 3;
 
 		m_Running = true;
 	    m_Paused = false;

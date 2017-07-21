@@ -44,25 +44,22 @@ public class UIScreen_Credits extends UIScreen
 	@Override
 	public void Create()
 	{
-		//m_Title = CreateTitle(m_Game.GetContext().getString(R.string.credits_screen_title));
-	//	m_Back  = CreateBackButton(UIScreens.MainMenu);
-
 		Context context = m_Game.GetContext();
 
-		m_Title = new UIElement_Label(context.getString(R.string.credits_screen_title), UIConstants.FONTSIZE_TITLE, -0.9, 0.0, Alignment.Left, m_UIManager);
+		m_Title = new UIElement_Label(context.getString(R.string.credits_screen_title), UIConstants.FONTSIZE_TITLE, -0.9, 0.0, Alignment.Left);
 		m_UIManager.AddUIElement(m_Title);
 
-		m_Line1 = new UIElement_Label(context.getString(R.string.credits_text1), UIConstants.FONTSIZE_TITLE, 0.9, 0.8, Alignment.Right, m_UIManager);
+		m_Line1 = new UIElement_Label(context.getString(R.string.credits_text1), UIConstants.FONTSIZE_TITLE, 0.9, 0.8, Alignment.Right);
 		m_UIManager.AddUIElement(m_Line1);
 
-		m_Line2 = new UIElement_Label(context.getString(R.string.credits_text2), UIConstants.FONTSIZE_TITLE, 0.9, 0.6, Alignment.Right, m_UIManager);
-		m_Line2.SetColour(m_Game.GetColourManager().GetPrimaryColour());
+		m_Line2 = new UIElement_Label(context.getString(R.string.credits_text2), UIConstants.FONTSIZE_TITLE, 0.9, 0.6, Alignment.Right);
+		m_Line2.SetColour(Colours.RunnerBlue);//m_Game.GetColourManager().GetPrimaryColour());
 		m_UIManager.AddUIElement(m_Line2);
 
 		PubSubHub pubSub = m_Game.GetPubSubHub();
 
 		Publisher publisher = pubSub.CreatePublisher(PublishedTopics.SwitchScreen);
-		m_BackButton = new UIObject_Button(context.getString(R.string.button_back), Colours.BlockPurple, -0.8, -0.8, Alignment.Left, publisher, UIScreens.MainMenu.ordinal(), m_UIManager);
+		m_BackButton = new UIObject_Button(context.getString(R.string.button_back), -0.8, -0.8, Alignment.Left, publisher, UIScreens.MainMenu.ordinal(), m_UIManager);
 
         m_OnPointerUpSubscriber = new OnPointerUpSubscriber();
         pubSub.SubscribeToTopic(PublishedTopics.OnPointerUp, m_OnPointerUpSubscriber);
@@ -79,7 +76,7 @@ public class UIScreen_Credits extends UIScreen
 	}
 	
 	@Override
-	public void Destroy()
+	public void CleanUp()
     {
 		m_Title = null;
 		m_Line1 = null;
@@ -111,10 +108,13 @@ public class UIScreen_Credits extends UIScreen
             TouchPointer pointer = scheme.GetPointerAtIndex(i);
             Vector2 pointerPos = pointer.GetCurrentPosition();
 
+            UIElement_TouchMarker marker = m_UIManager.GetTouchDisplay().GetMarkerWithID(pointer.GetId());
+            marker.SetColour(UIConstants.COLOUR_OFF);
+
             if (CollisionDetection.UIElementInteraction(pointerPos, m_BackButton.GetTouchArea()))
             {
                // UIElement_TouchMarker marker = m_UIManager.GetTouchDisplay().GetMarkerWithID(pointer.GetId());
-                m_BackButton.OnHover();
+                m_BackButton.OnHover(marker);
             }
         }
 

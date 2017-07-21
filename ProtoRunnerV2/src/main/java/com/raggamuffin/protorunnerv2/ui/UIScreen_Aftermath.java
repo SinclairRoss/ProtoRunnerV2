@@ -65,7 +65,7 @@ public class UIScreen_Aftermath extends UIScreen
 	}
 	
 	@Override
-	public void Destroy()
+	public void CleanUp()
 	{
         m_Title = null;
 		m_ScoreLabel = null;

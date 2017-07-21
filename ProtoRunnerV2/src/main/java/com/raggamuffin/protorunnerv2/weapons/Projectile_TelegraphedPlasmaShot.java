@@ -4,6 +4,7 @@ import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.FloorGrid;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
+import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.CollisionDetection;
 import com.raggamuffin.protorunnerv2.utils.CollisionReport;
@@ -77,7 +78,7 @@ public class Projectile_TelegraphedPlasmaShot extends Projectile
     }
 
     @Override
-    public void CollisionResponse(CollisionReport report)
+    public void CollisionResponse(CollisionReport report, Vehicle other)
     {
         m_HasColided = true;
     }

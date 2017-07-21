@@ -23,6 +23,7 @@ public enum ModelType
     SpawnPillar,
     ParticleLaser,
     DamageTri,
+    Radial,
 
     HeagonTube,
     PlaneXY,

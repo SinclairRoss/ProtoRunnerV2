@@ -12,9 +12,9 @@ public class DodgeTestBot extends Vehicle
 {
     private Vector3 m_Target;
 
-    public DodgeTestBot(GameLogic game)
+    public DodgeTestBot(GameLogic game, Vector3 position)
     {
-        super(game, ModelType.WeaponDrone, 1, 1, VehicleClass.StandardVehicle, true, PublishedTopics.EnemyDestroyed, AffiliationKey.RedTeam);
+        super(game, ModelType.WeaponDrone, position, 1, 1, VehicleClass.StandardVehicle, true, PublishedTopics.EnemyDestroyed, AffiliationKey.RedTeam);
 
         SetColour(Colours.CalvinOrange);
 

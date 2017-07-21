@@ -10,6 +10,7 @@ import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
+import com.raggamuffin.protorunnerv2.utils.Vector3;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_BitLaser;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_PulseLaser;
 
@@ -17,9 +18,9 @@ public class Vehicle_Bit extends Vehicle
 {
 	private AIController m_AIController;
 
-	public Vehicle_Bit(GameLogic game)
+	public Vehicle_Bit(GameLogic game, Vector3 position)
 	{
-		super(game, ModelType.Byte, 2, 4, VehicleClass.StandardVehicle, true, PublishedTopics.EnemyDestroyed, AffiliationKey.RedTeam);
+		super(game, ModelType.Byte, position, 2, 4, VehicleClass.StandardVehicle, true, PublishedTopics.EnemyDestroyed, AffiliationKey.RedTeam);
 
         SetScale(0.5);
 
@@ -27,7 +28,7 @@ public class Vehicle_Bit extends Vehicle
 
         m_Engine = new Engine_Standard(this, game);
         m_Engine.SetMaxTurnRate(GameLogic.TEST_MODE ? 0 : 2);
-        m_Engine.SetMaxEngineOutput(GameLogic.TEST_MODE ? 0 : 70);
+        m_Engine.SetMaxEngineOutput(GameLogic.TEST_MODE ? 0 : 90); // 70
         m_Engine.SetAfterBurnerOutput(90);
 
         SelectWeapon(new Weapon_BitLaser(this, game));

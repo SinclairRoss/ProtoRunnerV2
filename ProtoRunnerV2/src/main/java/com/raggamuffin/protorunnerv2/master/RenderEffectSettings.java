@@ -1,6 +1,7 @@
 package com.raggamuffin.protorunnerv2.master;
 
 import com.raggamuffin.protorunnerv2.utils.Colour;
+import com.raggamuffin.protorunnerv2.utils.Colours;
 
 public class RenderEffectSettings
 {
@@ -16,7 +17,7 @@ public class RenderEffectSettings
 		m_GlowIntensityHoriz = 0.0;
 		m_FilmGrainIntensity = 0.0;
 
-        m_SkyBoxColour = null;
+        m_SkyBoxColour = new Colour(Colours.White);
 	}
 	
 	public double GetGlowIntensityHoriz()
@@ -55,9 +56,9 @@ public class RenderEffectSettings
 		return m_FilmGrainIntensity;
 	}
 
-    public void SetSkyboxColour(Colour colour)
+    public void SetSkyboxColour(double[] colour)
     {
-        m_SkyBoxColour = colour;
+        m_SkyBoxColour.SetColour(colour);
     }
 
     public Colour GetSkyBoxColour()

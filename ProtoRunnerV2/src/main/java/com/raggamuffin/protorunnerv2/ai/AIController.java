@@ -30,10 +30,10 @@ public class AIController
         m_NavigationControl 	= new NavigationControl(this, navInfo);
         m_EvasionControl        = new EvasionControl(this);
 		m_FireControl 			= GetFireControlBehaviour(fireBehaviour);
-        m_Behaviour             = GetBehaviour(behaviour);
+        m_Behaviour             = GetBehaviour(behaviour, vManager);
     }
 
-    private AIBehaviour GetBehaviour(AIBehaviours behaviour)
+    private AIBehaviour GetBehaviour(AIBehaviours behaviour, VehicleManager vManager)
     {
         switch(behaviour)
         {
@@ -44,7 +44,7 @@ public class AIController
             case FollowTheLeader:
                 return new AIBehaviour_FollowTheLeader(this);
             case StickWithThePack:
-                return new AIBehaviour_StickWithThePack(this);
+                return new AIBehaviour_StickWithThePack(this, vManager);
             case TentacleSnare:
                 return new AIBehaviour_TentacleSnare(this);
             default:

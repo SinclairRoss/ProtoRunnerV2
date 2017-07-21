@@ -5,6 +5,7 @@ import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
+import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class Vehicle_SweeperBot extends Vehicle
 {
@@ -13,9 +14,9 @@ public class Vehicle_SweeperBot extends Vehicle
     private final double SWEEP_LENGTH = 10.0;
     private final double DEPTH = 4.0;
 
-    public Vehicle_SweeperBot(GameLogic game)
+    public Vehicle_SweeperBot(GameLogic game, Vector3 position)
     {
-        super(game, ModelType.Ring, 1, 1, VehicleClass.StandardVehicle, true, PublishedTopics.EnemyDestroyed, AffiliationKey.RedTeam);
+        super(game, ModelType.Ring, position, 1, 1, VehicleClass.StandardVehicle, true, PublishedTopics.EnemyDestroyed, AffiliationKey.RedTeam);
 
         SetColour(Colours.HannahBlue);
 
