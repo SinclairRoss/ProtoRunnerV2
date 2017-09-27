@@ -49,7 +49,8 @@ public class Projectile_PlasmaShot extends Projectile
         }
 
         m_FloorGrid = new FloorGrid(GetPosition(), GetColour(), 10.0);
-        m_Game.AddObjectToRenderer(m_FloorGrid);
+        game.GetGameObjectManager().AddFloorGrid(m_FloorGrid);
+
         m_HasColided = false;
     }
 
@@ -113,6 +114,6 @@ public class Projectile_PlasmaShot extends Projectile
     @Override
     public void CleanUp()
     {
-        m_Game.RemoveObjectFromRenderer(m_FloorGrid);
+        m_FloorGrid.NotifyOfAnchorInvalidation();
     }
 }

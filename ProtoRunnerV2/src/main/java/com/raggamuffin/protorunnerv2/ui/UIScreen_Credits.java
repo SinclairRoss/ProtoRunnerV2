@@ -20,7 +20,7 @@ import junit.framework.Assert;
 
 public class UIScreen_Credits extends UIScreen
 {
-	private UIElement m_Title;
+	private UIElement_Label m_Title;
 	
 	private UIElement_Label m_Line1;
 	private UIElement_Label m_Line2;
@@ -47,14 +47,14 @@ public class UIScreen_Credits extends UIScreen
 		Context context = m_Game.GetContext();
 
 		m_Title = new UIElement_Label(context.getString(R.string.credits_screen_title), UIConstants.FONTSIZE_TITLE, -0.9, 0.0, Alignment.Left);
-		m_UIManager.AddUIElement(m_Title);
+		m_UIManager.AddLabel(m_Title);
 
 		m_Line1 = new UIElement_Label(context.getString(R.string.credits_text1), UIConstants.FONTSIZE_TITLE, 0.9, 0.8, Alignment.Right);
-		m_UIManager.AddUIElement(m_Line1);
+		m_UIManager.AddLabel(m_Line1);
 
 		m_Line2 = new UIElement_Label(context.getString(R.string.credits_text2), UIConstants.FONTSIZE_TITLE, 0.9, 0.6, Alignment.Right);
 		m_Line2.SetColour(Colours.RunnerBlue);//m_Game.GetColourManager().GetPrimaryColour());
-		m_UIManager.AddUIElement(m_Line2);
+		m_UIManager.AddLabel(m_Line2);
 
 		PubSubHub pubSub = m_Game.GetPubSubHub();
 
@@ -102,10 +102,8 @@ public class UIScreen_Credits extends UIScreen
 
         m_BackButton.OnHoverOff();
 
-        int activePointerCount = scheme.GetActivePointerCount();
-        for (int i = 0; i < activePointerCount; ++i)
+        for(TouchPointer pointer : scheme.GetTouchPointers())
         {
-            TouchPointer pointer = scheme.GetPointerAtIndex(i);
             Vector2 pointerPos = pointer.GetCurrentPosition();
 
             UIElement_TouchMarker marker = m_UIManager.GetTouchDisplay().GetMarkerWithID(pointer.GetId());

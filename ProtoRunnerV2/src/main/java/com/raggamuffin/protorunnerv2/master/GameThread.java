@@ -4,37 +4,32 @@
 
 package com.raggamuffin.protorunnerv2.master;
 
-import android.os.Handler;
-import android.os.Message;
-
 import com.raggamuffin.protorunnerv2.gamelogic.ApplicationLogic;
-import com.raggamuffin.protorunnerv2.utils.FrameRateCounter;
-import com.raggamuffin.protorunnerv2.utils.MathsHelper;
-import com.raggamuffin.protorunnerv2.utils.Timer;
+import com.raggamuffin.protorunnerv2.utils.FPSCounter;
+import com.raggamuffin.protorunnerv2.utils.SystemTimer;
 
 public class GameThread extends Thread
 {
 	private boolean m_Running; 
-    private boolean m_Paused; 
+    private boolean m_Paused;
     
     private ControlScheme m_ControlScheme;
     private ApplicationLogic m_Logic;
-    private Handler m_Handler;
 
-    private FrameRateCounter m_LogicDurationCounter;
-    private Timer m_Timer;
+    private SystemTimer m_Timer;
     private double m_MaxDeltaTime;
 
-	public GameThread(ApplicationLogic logic, ControlScheme scheme, Handler handler)
+    private FPSCounter m_FPS;
+
+	public GameThread(ApplicationLogic logic, ControlScheme scheme)
 	{
 		super();
 
-		m_Logic 		= logic;
+		m_Logic = logic;
 		m_ControlScheme = scheme;
-		m_Handler 		= handler;
 
         double framePeriod = 1.0 / 60.0;
-        m_Timer = new Timer(framePeriod);
+        m_Timer = new SystemTimer(framePeriod);
         m_Timer.Start();
 
         m_MaxDeltaTime = framePeriod * 3;
@@ -42,43 +37,38 @@ public class GameThread extends Thread
 		m_Running = true;
 	    m_Paused = false;
 
-        m_LogicDurationCounter = new FrameRateCounter();
+        m_FPS = new FPSCounter("Logic");
 	}
-	
+
 	@Override 
     public void run() 
     {
         while(m_Running)
         {
+         //   m_FPS.Update();
+
             if (!m_Paused)
             {
                 if (m_Timer.HasElapsed())
                 {
-                    double deltaTime = m_Timer.GetRunTimeMillis() * 0.001;
-                    deltaTime = deltaTime > m_MaxDeltaTime ? m_MaxDeltaTime : deltaTime;
+                    double runTime = m_Timer.GetRunTimeMillis();
+                    double deltaTime = runTime / 1000;
 
+                    TimeKeeper.Instance().Update(deltaTime);
+
+                    deltaTime = deltaTime > m_MaxDeltaTime ? m_MaxDeltaTime : deltaTime;
                     m_Timer.Start();
 
+                 //   Log.e("thread", Double.toString(deltaTime));
+
+                 //   m_FPS.Bump();
                     m_ControlScheme.Update(deltaTime);
 
-                    //m_LogicDurationCounter.StartFrame();
                     m_Logic.Update(deltaTime);
-                   // m_LogicDurationCounter.EndFrame();
-                   // m_LogicDurationCounter.LogFrameDuration("Logic", 16L);
-
-                    m_Handler.sendMessage(ComposeMessage(GameActivity.REQUEST_RENDER));
                 }
             }
         }
-    } 
-	
-	public Message ComposeMessage(int what)
-	{
-		Message msg = Message.obtain();
-		msg.what 	= what;
-	
-		return msg;
-	}
+    }
 
 	public void DestroyThread()
 	{

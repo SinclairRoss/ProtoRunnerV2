@@ -12,8 +12,8 @@ public class UIObject_StatusBar
 {
     private static final double LABEL_OFFSET = 0.04;
 
-    private static final double ALPHA_FOREGROUND = 0.6;
-    private static final double ALPHA_BACKGROUND = 0.1;
+    private static final float ALPHA_FOREGROUND = 0.6f;
+    private static final float ALPHA_BACKGROUND = 0.1f;
 
     private static final double HEIGHT = 0.01;
     private static final double LENGTH = 1.8;
@@ -96,9 +96,7 @@ public class UIObject_StatusBar
     {
         double lerpVal = MathsHelper.Normalise(m_DisplayedValue, LOW_VALUE - LOW_TRANSITION_LENGTH, LOW_VALUE);
 
-        m_Colour.Red = MathsHelper.Lerp(lerpVal, m_LowColour.Red,   m_HighColour.Red);
-        m_Colour.Green = MathsHelper.Lerp(lerpVal, m_LowColour.Green, m_HighColour.Green);
-        m_Colour.Blue = MathsHelper.Lerp(lerpVal, m_LowColour.Blue,  m_HighColour.Blue);
+        m_Colour.Lerp(lerpVal, m_LowColour, m_HighColour);
 
         if(m_DisplayedValue <= LOW_VALUE)
         {
@@ -109,7 +107,9 @@ public class UIObject_StatusBar
         }
         else
         {
-            m_Colour.Alpha = MathsHelper.Lerp(lerpVal, m_LowColour.Alpha,  m_HighColour.Alpha);
+            float alpha = (float)MathsHelper.Lerp(lerpVal, m_LowColour.Alpha, m_HighColour.Alpha);
+
+            m_Colour.Alpha = alpha;
         }
 
         m_Bar.SetColour(m_Colour, ALPHA_FOREGROUND);

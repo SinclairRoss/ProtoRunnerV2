@@ -10,17 +10,15 @@ public abstract class ParticleEmitter
     protected final Vector3 m_Position;
     protected final Vector3 m_Forward;
     protected final Vector3 m_Velocity;
-    private double m_EmissionForce;
-    private double m_LifeSpan;
+    private final double m_LifeSpan;
+    private final double m_EmissionForce;
 
     private Colour m_InitialColour;
     private Colour m_FinalColour;
 
     protected final ParticleManager m_ParticleManager;
 
-    ParticleType m_ParticleType;
-
-    public ParticleEmitter(GameLogic game, Colour initialColour, Colour finalColour, double emissionForce, double lifeSpan, ParticleType particleType)
+    public ParticleEmitter(GameLogic game, Colour initialColour, Colour finalColour, double emissionForce, double lifeSpan)
     {
         m_Position      = new Vector3();
         m_Forward       = new Vector3();
@@ -30,8 +28,6 @@ public abstract class ParticleEmitter
 
         m_InitialColour = initialColour;
         m_FinalColour   = finalColour;
-
-        m_ParticleType = particleType;
 
         m_ParticleManager = game.GetParticleManager();
     }
@@ -46,15 +42,7 @@ public abstract class ParticleEmitter
 
     protected void CreateParticle()
     {
-        switch(m_ParticleType)
-        {
-            case Standard:
-                m_ParticleManager.CreateParticle(this);
-                break;
-            case Multiplier:
-                m_ParticleManager.CreateParticleMultiplier(this);
-                break;
-        }
+        m_ParticleManager.CreateParticle(this);
     }
 
     // Getters.
@@ -75,7 +63,6 @@ public abstract class ParticleEmitter
     }
 
     public double GetEmissionForce() { return m_EmissionForce; }
-    public void SetEmissionForce(double force) { m_EmissionForce = force; }
 
     public double GetLifeSpan()
     {
@@ -89,23 +76,10 @@ public abstract class ParticleEmitter
     public void SetForward(Vector3 forward) { m_Forward.SetVector(forward); }
     public Vector3 GetForward() { return m_Forward; }
 
-    public void SetForward(double i, double j, double k)
-    {
-        m_Position.SetVector(i, j, k);
-    }
+    public void SetForward(double i, double j, double k) { m_Position.SetVector(i, j, k); }
 
     public void SetVelocity(Vector3 velocity)
     {
         m_Velocity.SetVector(velocity);
-    }
-
-    public void SetInitialColour(Colour colour)
-    {
-        m_InitialColour = colour;
-    }
-
-    public void SetFinalColour(Colour colour)
-    {
-        m_FinalColour = colour;
     }
 }

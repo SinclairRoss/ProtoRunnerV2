@@ -1,9 +1,10 @@
 package com.raggamuffin.protorunnerv2.renderer;
 
-import android.opengl.GLES20;
+import android.opengl.GLES31;
 import android.util.Log;
 
-import com.raggamuffin.protorunnerv2.particles.Trail;
+import com.raggamuffin.protorunnerv2.RenderObjects.RenderObject_Trail;
+import com.raggamuffin.protorunnerv2.RenderObjects.RenderObject_TrailNode;
 import com.raggamuffin.protorunnerv2.particles.TrailNode;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
@@ -12,6 +13,7 @@ import com.raggamuffin.protorunnerv2.utils.Vector3;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
+import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GLModel_Line
@@ -64,118 +66,98 @@ public class GLModel_Line
         m_Colours = new float[size * 4];
     }
 
-    public void InitialiseModel(float[] projMatrix, Vector3 eye, Trail trail)
+    public void InitialiseModel(float[] projMatrix)
     {
-        GLES20.glUseProgram(m_Program);
-        GLES20.glUniformMatrix4fv(m_ProjMatrixHandle, 1, false, projMatrix, 0);
+        GLES31.glUseProgram(m_Program);
+        GLES31.glUniformMatrix4fv(m_ProjMatrixHandle, 1, false, projMatrix, 0);
+    }
 
-        AddPoints(trail);
+    public void Draw(RenderObject_Trail trail, Vector3 eye)
+    {
+        AddPoints(trail, eye);
 
+        float dist = (float) m_ToEye.GetLength();
+        GLES31.glLineWidth((float) (20 * MathsHelper.FastInverseSqrt(dist)));
+
+        GLES31.glEnableVertexAttribArray(m_PositionHandle);
+        GLES31.glVertexAttribPointer(m_PositionHandle, 3, GLES31.GL_FLOAT, false, 12, m_VertexBuffer);
+
+        GLES31.glEnableVertexAttribArray(m_ColourHandle);
+        GLES31.glVertexAttribPointer(m_ColourHandle, 4, GLES31.GL_FLOAT, false, 16, m_ColourBuffer);
+
+        GLES31.glDrawArrays(GLES31.GL_LINE_STRIP, 0, m_NodeCount);
+    }
+
+    public void AddPoints(RenderObject_Trail trail, Vector3 eye)
+    {
         if(!trail.GetNodes().isEmpty())
         {
             m_ToEye.SetVectorAsDifference(eye, trail.GetNodes().get(0).GetPosition());
         }
-    }
 
-    private void AddPoints(Trail trail)
-    {
-        CopyOnWriteArrayList<TrailNode> trailNodes = trail.GetNodes();
+        ArrayList<RenderObject_TrailNode> nodes = trail.GetNodes();
 
-        int numTrailNodes = trailNodes.size();
-        if (numTrailNodes > m_MaxNodeCount)
+        m_NodeCount = trail.GetNodeCount();
+        if (m_NodeCount > m_MaxNodeCount)
         {
-            m_MaxNodeCount = numTrailNodes;
+            m_MaxNodeCount = m_NodeCount;
             ResizeBuffers(m_MaxNodeCount);
         }
 
-        int i = 0;
-        for(TrailNode node : trailNodes)
+        for(int i = 0; i < m_NodeCount; ++i)
         {
-            // Performing this check a second time protects against a bug triggered by
-            // the size of the particles list changing while resizing the buffers.
-            if (i >= m_MaxNodeCount)
-            {
-                m_MaxNodeCount = i+1;
-                ResizeBuffers(m_MaxNodeCount);
-            }
+            RenderObject_TrailNode node = nodes.get(i);
 
             Vector3 position = node.GetPosition();
-            Colour colour = node.GetColour();
+            m_Vertices[(i * 3)] = (float) position.X;
+            m_Vertices[(i * 3) + 1] = (float) position.Y;
+            m_Vertices[(i * 3) + 2] = (float) position.Z;
 
-            try
-            {
-                m_Vertices[(i * 3)] = (float) position.X;
-                m_Vertices[(i * 3) + 1] = (float) position.Y;
-                m_Vertices[(i * 3) + 2] = (float) position.Z;
-
-                m_Colours[(i * 4)] = (float) colour.Red;
-                m_Colours[(i * 4) + 1] = (float) colour.Green;
-                m_Colours[(i * 4) + 2] = (float) colour.Blue;
-                m_Colours[(i * 4) + 3] = (float) colour.Alpha;
-            }
-            catch(IndexOutOfBoundsException e)
-            {
-                Log.e("particle", "Shits fucked");
-            }
-
-            ++i;
+          //  Colour colour = node.GetColour();
+          //  m_Colours[(i * 4)] = (float) colour.Red;
+          //  m_Colours[(i * 4) + 1] = (float) colour.Green;
+          //  m_Colours[(i * 4) + 2] = (float) colour.Blue;
+          //  m_Colours[(i * 4) + 3] = (float) colour.Alpha;
         }
-
-        m_NodeCount = i;
 
         m_VertexBuffer.put(m_Vertices);
         m_VertexBuffer.position(0);
 
         m_ColourBuffer.put(m_Colours);
         m_ColourBuffer.position(0);
-
-    }
-
-    public void Draw()
-    {
-        float dist = (float) m_ToEye.GetLength();
-        GLES20.glLineWidth((float) (20 * MathsHelper.FastInverseSqrt(dist)));
-
-        GLES20.glEnableVertexAttribArray(m_PositionHandle);
-        GLES20.glVertexAttribPointer(m_PositionHandle, 3, GLES20.GL_FLOAT, false, 12, m_VertexBuffer);
-
-        GLES20.glEnableVertexAttribArray(m_ColourHandle);
-        GLES20.glVertexAttribPointer(m_ColourHandle, 4, GLES20.GL_FLOAT, false, 16, m_ColourBuffer);
-
-        GLES20.glDrawArrays(GLES20.GL_LINE_STRIP, 0, m_NodeCount);
     }
 
     public void CleanModel()
     {
-        GLES20.glDisableVertexAttribArray(m_PositionHandle);
-        GLES20.glDisableVertexAttribArray(m_ColourHandle);
+        GLES31.glDisableVertexAttribArray(m_PositionHandle);
+        GLES31.glDisableVertexAttribArray(m_ColourHandle);
     }
 
     private void InitShaders()
     {
-        int vertexShaderHandler 	= loadShader(GLES20.GL_VERTEX_SHADER,Shaders.vertexShader_TRAIL);
-        int fragmentShaderHandler 	= loadShader(GLES20.GL_FRAGMENT_SHADER,Shaders.fragmentShader_TRAIL);
+        int vertexShaderHandler 	= loadShader(GLES31.GL_VERTEX_SHADER,Shaders.vertexShader_TRAIL);
+        int fragmentShaderHandler 	= loadShader(GLES31.GL_FRAGMENT_SHADER,Shaders.fragmentShader_TRAIL);
 
-        m_Program = GLES20.glCreateProgram();             		// create empty OpenGL Program
-        GLES20.glAttachShader(m_Program, vertexShaderHandler);   // add the vertex shader to program
-        GLES20.glAttachShader(m_Program, fragmentShaderHandler); // add the fragment shader to program
-        GLES20.glLinkProgram(m_Program);                  		// create OpenGL program executables
+        m_Program = GLES31.glCreateProgram();             		// create empty OpenGL Program
+        GLES31.glAttachShader(m_Program, vertexShaderHandler);   // add the vertex shader to program
+        GLES31.glAttachShader(m_Program, fragmentShaderHandler); // add the fragment shader to program
+        GLES31.glLinkProgram(m_Program);                  		// create OpenGL program executables
 
-        m_ProjMatrixHandle      = GLES20.glGetUniformLocation(m_Program, "u_ProjMatrix");
-        m_PositionHandle        = GLES20.glGetAttribLocation(m_Program, "a_Position");
-        m_ColourHandle 			= GLES20.glGetAttribLocation(m_Program, "a_Color");
+        m_ProjMatrixHandle      = GLES31.glGetUniformLocation(m_Program, "u_ProjMatrix");
+        m_PositionHandle        = GLES31.glGetAttribLocation(m_Program, "a_Position");
+        m_ColourHandle 			= GLES31.glGetAttribLocation(m_Program, "a_Color");
     }
 
     private int loadShader(int type, String shaderCode)
     {
-        int shader = GLES20.glCreateShader(type);
+        int shader = GLES31.glCreateShader(type);
 
         // add the source code to the shader and compile it
-        GLES20.glShaderSource(shader, shaderCode);
-        GLES20.glCompileShader(shader);
+        GLES31.glShaderSource(shader, shaderCode);
+        GLES31.glCompileShader(shader);
 
         int[] compiled = new int[1];
-        GLES20.glGetShaderiv(shader, GLES20.GL_COMPILE_STATUS, compiled, 0);
+        GLES31.glGetShaderiv(shader, GLES31.GL_COMPILE_STATUS, compiled, 0);
 
         if (compiled[0] == 0)
         {

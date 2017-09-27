@@ -61,10 +61,11 @@ public class TrailNode
     public void Update()
     {
         double lerp = m_LifeTimer.GetProgress();
-        m_Colour.Red = MathsHelper.Lerp(lerp, m_HotColour.Red, m_ColdColour.Red);
-        m_Colour.Green = MathsHelper.Lerp(lerp, m_HotColour.Green, m_ColdColour.Green);
-        m_Colour.Blue = MathsHelper.Lerp(lerp, m_HotColour.Blue, m_ColdColour.Blue);
-        m_Colour.Alpha = CalculateAlpha();
+
+        m_ColdColour.Lerp(lerp, m_HotColour, m_ColdColour);
+
+        double alpha = CalculateAlpha();
+        m_Colour.Alpha = alpha;
     }
 
     private double CalculateAlpha()

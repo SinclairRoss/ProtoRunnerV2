@@ -1,7 +1,8 @@
 package com.raggamuffin.protorunnerv2.renderer;
 
-import android.opengl.GLES20;
+import android.opengl.GLES31;
 
+import com.raggamuffin.protorunnerv2.RenderObjects.RenderObject;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
@@ -64,58 +65,58 @@ public class GLModel_Ring extends GLModel
     @Override
     public void InitialiseModel(float[] projMatrix, Vector3 eye)
     {
-        GLES20.glUseProgram(m_Program);
+        GLES31.glUseProgram(m_Program);
 
-        GLES20.glEnableVertexAttribArray(m_VertexHandle);
-        GLES20.glVertexAttribPointer(m_VertexHandle, 3, GLES20.GL_FLOAT, false, 12, m_VertexBuffer);
+        GLES31.glEnableVertexAttribArray(m_VertexHandle);
+        GLES31.glVertexAttribPointer(m_VertexHandle, 3, GLES31.GL_FLOAT, false, 12, m_VertexBuffer);
 
-        GLES20.glUniformMatrix4fv(m_ProjMatrixHandle, 1, false, projMatrix, 0);
+        GLES31.glUniformMatrix4fv(m_ProjMatrixHandle, 1, false, projMatrix, 0);
 
-        GLES20.glLineWidth(10.0f);
+        GLES31.glLineWidth(10.0f);
     }
 
     @Override
-    public void Draw(GameObject obj)
+    public void Draw(RenderObject obj)
     {
-        Vector3 pos = obj.GetPosition();
-        GLES20.glUniform3f(m_PositionHandle, (float) pos.X, (float) pos.Y, (float) pos.Z);
+       //Vector3 pos = obj.GetPosition();
+       //GLES31.glUniform3f(m_PositionHandle, (float) pos.X, (float) pos.Y, (float) pos.Z);
 
-        Vector3 fwd = obj.GetForward();
-        GLES20.glUniform3f(m_ForwardHandle, (float) fwd.X, (float) fwd.Y, (float) fwd.Z);
+       //Vector3 fwd = obj.GetForward();
+       //GLES31.glUniform3f(m_ForwardHandle, (float) fwd.X, (float) fwd.Y, (float) fwd.Z);
 
-        Vector3 scale = obj.GetScale();
-        GLES20.glUniform3f(m_ScaleHandle, (float) scale.X, (float) scale.Y, (float) scale.Z);
+       //Vector3 scale = obj.GetScale();
+       //GLES31.glUniform3f(m_ScaleHandle, (float) scale.X, (float) scale.Y, (float) scale.Z);
 
         Colour colour = obj.GetColour();
-        GLES20.glUniform4f(m_ColourHandle, (float) colour.Red, (float) colour.Green, (float) colour.Blue, (float) colour.Alpha);
+      //  GLES31.glUniform4f(m_ColourHandle, (float) colour.Red, (float) colour.Green, (float) colour.Blue, (float) colour.Alpha);
 
-        GLES20.glDrawArrays(GLES20.GL_LINE_LOOP, 0, m_NumVertices);
+        GLES31.glDrawArrays(GLES31.GL_LINE_LOOP, 0, m_NumVertices);
     }
 
     @Override
     public void CleanModel()
     {
-        GLES20.glDisableVertexAttribArray(m_PositionHandle);
+        GLES31.glDisableVertexAttribArray(m_PositionHandle);
     }
 
     @Override
     protected void InitShaders()
     {
         // prepare shaders and OpenGL program
-        int vertexShaderHandler = loadShader(GLES20.GL_VERTEX_SHADER,Shaders.vertexShader_STANDARD);
-        int fragmentShaderHandler = loadShader(GLES20.GL_FRAGMENT_SHADER,Shaders.fragmentShader_BLOCKCOLOUR);
+        int vertexShaderHandler = loadShader(GLES31.GL_VERTEX_SHADER,Shaders.vertexShader_STANDARD);
+        int fragmentShaderHandler = loadShader(GLES31.GL_FRAGMENT_SHADER,Shaders.fragmentShader_BLOCKCOLOUR);
 
-        m_Program = GLES20.glCreateProgram();             		// create empty OpenGL Program
-        GLES20.glAttachShader(m_Program, vertexShaderHandler);   // add the vertex shader to program
-        GLES20.glAttachShader(m_Program, fragmentShaderHandler); // add the fragment shader to program
-        GLES20.glLinkProgram(m_Program);
+        m_Program = GLES31.glCreateProgram();             		// create empty OpenGL Program
+        GLES31.glAttachShader(m_Program, vertexShaderHandler);   // add the vertex shader to program
+        GLES31.glAttachShader(m_Program, fragmentShaderHandler); // add the fragment shader to program
+        GLES31.glLinkProgram(m_Program);
 
-        m_ProjMatrixHandle = GLES20.glGetUniformLocation(m_Program, "u_ProjMatrix");
-        m_PositionHandle   = GLES20.glGetUniformLocation(m_Program, "u_Position");
-        m_ForwardHandle    = GLES20.glGetUniformLocation(m_Program, "u_Forward");
-        m_ScaleHandle      = GLES20.glGetUniformLocation(m_Program, "u_Scale");
-        m_ColourHandle 	   = GLES20.glGetUniformLocation(m_Program, "u_Color");
+        m_ProjMatrixHandle = GLES31.glGetUniformLocation(m_Program, "u_ProjMatrix");
+        m_PositionHandle   = GLES31.glGetUniformLocation(m_Program, "u_Position");
+        m_ForwardHandle    = GLES31.glGetUniformLocation(m_Program, "u_Forward");
+        m_ScaleHandle      = GLES31.glGetUniformLocation(m_Program, "u_Scale");
+        m_ColourHandle 	   = GLES31.glGetUniformLocation(m_Program, "u_Color");
 
-        m_VertexHandle     = GLES20.glGetAttribLocation(m_Program, "a_Vertices");
+        m_VertexHandle     = GLES31.glGetAttribLocation(m_Program, "a_Vertices");
     }
 }

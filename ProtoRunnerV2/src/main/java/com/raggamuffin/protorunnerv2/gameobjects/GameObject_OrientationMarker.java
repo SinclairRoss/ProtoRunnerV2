@@ -31,10 +31,6 @@ public class GameObject_OrientationMarker extends GameObject
         m_Marker_Forward.SetScale(0.3);
         m_Marker_Up.SetScale(0.3);
         m_Marker_Right.SetScale(0.3);
-
-        game.AddObjectToRenderer(m_Marker_Forward);
-        game.AddObjectToRenderer(m_Marker_Up);
-        game.AddObjectToRenderer(m_Marker_Right);
     }
 
     @Override
@@ -61,9 +57,5 @@ public class GameObject_OrientationMarker extends GameObject
 
     @Override
     public void CleanUp()
-    {
-        m_Game.RemoveObjectFromRenderer(m_Marker_Forward);
-        m_Game.RemoveObjectFromRenderer(m_Marker_Up);
-        m_Game.RemoveObjectFromRenderer(m_Marker_Right);
-    }
+    {}
 }

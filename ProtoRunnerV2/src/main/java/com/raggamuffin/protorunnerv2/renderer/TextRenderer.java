@@ -4,7 +4,7 @@ package com.raggamuffin.protorunnerv2.renderer;
 // Date:   03/06/2017
 
 import android.content.Context;
-import android.opengl.GLES20;
+import android.opengl.GLES31;
 
 import com.raggamuffin.protorunnerv2.R;
 import com.raggamuffin.protorunnerv2.ui.UIElement_Label;
@@ -32,8 +32,8 @@ public class TextRenderer
     {
         m_TextQuad.InitialiseModel(viewMatrix, null);
 
-        GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_TextureHandle);
+        GLES31.glActiveTexture(GLES31.GL_TEXTURE0);
+        GLES31.glBindTexture(GLES31.GL_TEXTURE_2D, m_TextureHandle);
     }
 
     public void DrawText(final UIElement_Label element)

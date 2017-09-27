@@ -16,7 +16,7 @@ public class ParticleEmitter_Point extends ParticleEmitter
 
     public ParticleEmitter_Point(GameLogic game, Colour initialColour, Colour finalColour, double emissionForce, double lifeSpan)
     {
-        super(game, initialColour, finalColour, emissionForce, lifeSpan, ParticleType.Standard);
+        super(game, initialColour, finalColour, emissionForce, lifeSpan);
 
         m_ParticleForward = new Vector3();
 

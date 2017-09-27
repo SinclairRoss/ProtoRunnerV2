@@ -37,7 +37,7 @@ public class UIScreen_NotSignedIn extends UIScreen
         PubSubHub pubSub = m_Game.GetPubSubHub();
 
         m_Label_NotSignedIn = new UIElement_Label(context.getString(R.string.not_signed_in), UIConstants.FONTSIZE_STANDARD, 0, 0.5, Alignment.Center);
-        m_UIManager.AddUIElement(m_Label_NotSignedIn);
+        m_UIManager.AddLabel(m_Label_NotSignedIn);
 
         Publisher publisher = pubSub.CreatePublisher(PublishedTopics.SwitchScreen);
         m_Button_Back = new UIObject_Button(context.getString(R.string.button_back), -0.5, 0, Alignment.Left, publisher, UIScreens.MainMenu.ordinal(), m_UIManager);

@@ -3,7 +3,6 @@ package com.raggamuffin.protorunnerv2.ui;
 import android.content.Context;
 
 import com.raggamuffin.protorunnerv2.R;
-import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.managers.UIManager;
 import com.raggamuffin.protorunnerv2.master.ControlScheme;
@@ -40,7 +39,7 @@ public class UIScreen_MainMenu extends UIScreen
         Context context = m_Game.GetContext();
 
         m_Title = new UIElement_Label(context.getString(R.string.app_name), UIConstants.FONTSIZE_TITLE, -0.9, 0.0, Alignment.Left);
-        m_UIManager.AddUIElement(m_Title);
+        m_UIManager.AddLabel(m_Title);
 
         PubSubHub pubSub = m_Game.GetPubSubHub();
 
@@ -88,10 +87,8 @@ public class UIScreen_MainMenu extends UIScreen
         m_Achievements.OnHoverOff();
         m_Credits.OnHoverOff();
 
-        int activePointerCount = scheme.GetActivePointerCount();
-        for (int i = 0; i < activePointerCount; ++i)
+        for(TouchPointer pointer : scheme.GetTouchPointers())
         {
-            TouchPointer pointer = scheme.GetPointerAtIndex(i);
             Vector2 pointerPos = pointer.GetCurrentPosition();
 
             UIElement_TouchMarker marker = m_UIManager.GetTouchDisplay().GetMarkerWithID(pointer.GetId());

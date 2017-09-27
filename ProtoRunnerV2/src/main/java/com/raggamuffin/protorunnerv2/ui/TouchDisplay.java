@@ -66,7 +66,6 @@ public class TouchDisplay
 
         touchMarker.Initialise(pointer);
         m_ActiveTouchMarkers.add(touchMarker);
-        m_Game.AddObjectToRenderer(touchMarker);
 
         return touchMarker;
     }
@@ -77,7 +76,6 @@ public class TouchDisplay
 
         m_ActiveTouchMarkers.remove(marker);
         m_InvalidTouchMarkers.add(marker);
-        m_Game.RemoveObjectFromRenderer(marker);
     }
 
     public UIElement_TouchMarker GetMarkerWithID(int id)

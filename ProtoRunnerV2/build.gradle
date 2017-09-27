@@ -16,10 +16,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+
     productFlavors {
     }
-}
 
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
+    }
+}
 dependencies {
     compile 'com.android.support:support-v4:23.0.0'
     compile 'com.google.android.gms:play-services:8.4.0'

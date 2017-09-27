@@ -1,10 +1,7 @@
 package com.raggamuffin.protorunnerv2.renderer;
 
-import com.raggamuffin.protorunnerv2.particles.Trail;
-import com.raggamuffin.protorunnerv2.particles.TrailNode;
+import com.raggamuffin.protorunnerv2.RenderObjects.RenderObject_Trail;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
-
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class TrailRenderer
 {
@@ -20,14 +17,14 @@ public class TrailRenderer
         m_Trail = new GLModel_Line();
     }
 
-    public void Initialise(float[] projMatrix, Vector3 eye, Trail trail)
+    public void Initialise(float[] projMatrix)
     {
-        m_Trail.InitialiseModel(projMatrix, eye, trail);
+        m_Trail.InitialiseModel(projMatrix);
     }
 
-    public void Draw()
+    public void Draw(RenderObject_Trail trail, Vector3 eye)
     {
-        m_Trail.Draw();
+        m_Trail.Draw(trail, eye);
     }
 
     public void Clean()

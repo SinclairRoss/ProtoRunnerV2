@@ -2,13 +2,15 @@ package com.raggamuffin.protorunnerv2.utils;
 
 import android.util.Log;
 
-public class Colour 
+public class Colour
 {
+    private static float[] Array = new float[4];
+
 	public double Red;
 	public double Green;
 	public double Blue;
 	public double Alpha;
-	
+
 	public Colour()
 	{
 		Red 	= 1.0;
@@ -16,17 +18,17 @@ public class Colour
 		Blue 	= 1.0;
 		Alpha 	= 1.0;
 	}
-	
+
 	public Colour(double red, double green, double blue, double alpha)
 	{
 		SetColour(red, green, blue, alpha);
 	}
-	
+
 	public Colour(Colour colour)
 	{
 		SetColour(colour.Red, colour.Green, colour.Blue, colour.Alpha);
 	}
-	
+
 	public Colour(double[] colour)
 	{
 		SetColour(colour[0], colour[1], colour[2], 1.0);
@@ -36,7 +38,7 @@ public class Colour
 	{
 		SetColour(colour[0], colour[1], colour[2], alpha);
 	}
-	
+
 	public void SetColour(double red, double green, double blue, double alpha)
 	{
 		Red 	= red;
@@ -44,24 +46,24 @@ public class Colour
 		Blue 	= blue;
 		Alpha 	= alpha;
 	}
-	
+
 	public void SetColour(Colour colour)
 	{
 		SetColour(colour.Red, colour.Green, colour.Blue, colour.Alpha);
 	}
-	
+
 	public void SetColour(double[] colour)
 	{
 		SetColour(colour[0], colour[1], colour[2], 1.0);
 	}
-	
+
 	public void Brighten(double amount)
 	{
 		double DeltaRed;
 		double DeltaGreen;
 		double DeltaBlue;
 		double DeltaAlpha;
-		
+
 		if(amount > 0.0)
 		{
 			// Calculate how far a colour is from full intensity.
@@ -78,7 +80,7 @@ public class Colour
 			DeltaBlue 	= Blue;
 			DeltaAlpha 	= Alpha;
 		}
-		
+
 		// Calculate how much each colour should be intensified by.
 		Red 	+= DeltaRed   * amount;
 		Green 	+= DeltaGreen * amount;
@@ -87,40 +89,52 @@ public class Colour
 
 		ClampColour();
 	}
-	
+
+	public void Lerp(double amount, Colour coldColour, Colour hotColour)
+    {
+        Red = MathsHelper.Lerp(amount, coldColour.Red, hotColour.Red);
+        Green = MathsHelper.Lerp(amount, coldColour.Green, hotColour.Green);
+        Blue = MathsHelper.Lerp(amount, coldColour.Blue, hotColour.Blue);
+    }
+
 	public void Add(Colour a)
 	{
-        Add(a.Red, a.Green, a.Blue, a.Alpha);
+		Add(a.Red, a.Green, a.Blue, a.Alpha);
 	}
-	
+
 	public void Add(Vector3 a)
 	{
 		Add(a.X, a.Y, a.Z, 0);
 	}
-	
-	public void Add(Vector4 a)
-	{
-		Add(a.I, a.J, a.K, a.W);
-	}
-	
+
 	public void Add(double red, double green, double blue, double alpha)
 	{
 		Red 	+= red;
 		Green 	+= green;
 		Blue 	+= blue;
 		Alpha 	+= alpha;
-		
+
 		ClampColour();
 	}
-	
-	public void ClampColour()
+
+	private void ClampColour()
 	{
 		Red 	= MathsHelper.Clamp(Red, 0, 1);
 		Green 	= MathsHelper.Clamp(Green, 0, 1);
 		Blue 	= MathsHelper.Clamp(Blue, 0, 1);
 		Alpha 	= MathsHelper.Clamp(Alpha, 0, 1);
 	}
-	
+
+	public float[] AsArray()
+    {
+        Array[0] = (float)Red;
+        Array[1] = (float)Green;
+        Array[2] = (float)Blue;
+        Array[3] = (float)Alpha;
+
+        return Array;
+    }
+
 	public void Output(String tag)
 	{
 		Log.e(tag, "--------------");
@@ -130,43 +144,3 @@ public class Colour
 		Log.e(tag, "Alpha: " 	+ Double.toString(Alpha));
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

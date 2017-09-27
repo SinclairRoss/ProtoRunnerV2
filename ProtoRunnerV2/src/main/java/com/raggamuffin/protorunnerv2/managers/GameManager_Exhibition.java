@@ -22,135 +22,114 @@ public class GameManager_Exhibition extends GameManager
 
     private static VehicleManager m_VehicleManager;
 
-    private Timer m_EmissionTimer;
-    private ParticleEmitter_Burst m_TestEmitter;
-
     public GameManager_Exhibition(GameLogic game)
     {
         super(game);
 
         m_VehicleManager = m_Game.GetVehicleManager();
-
-        m_EmissionTimer = new Timer(0.1);
     }
 
     @Override
     public void Update(double deltaTime)
     {
-        if(m_Game.TEST_MODE)
+        if(m_VehicleManager.GetTeamCount(AffiliationKey.RedTeam) == 0)
         {
-           // if(m_EmissionTimer.HasElapsed())
-          //  {
-              //  m_EmissionTimer.Start();
-            //    m_TestEmitter.Burst();
-        //    }
-        }
-        else
-        {
-            if (m_VehicleManager.GetTeamCount(AffiliationKey.RedTeam) == 0)
+            Vector3 position = new Vector3(-SPAWN_DISTANCE_INITIAL, 0, 0);
+            Vector3 forward = new Vector3(1, 0, 0);
+
+            double horizSpacing = 7.0;
+            double vertSpacing = 3.0;
+
+            ArrayList<Vector3> formation = FormationHelper.CreateWedgeFormation(position, forward, horizSpacing, vertSpacing, 1);
+
+            int numBaddies = formation.size();
+            for (int i = 0; i < numBaddies; ++i)
             {
-                Vector3 position = SpawnHelper.FindRandomSpawnLocation(SPAWN_DISTANCE);
-                Vector3 forward = SpawnHelper.FindSpawnForward(position, new Vector3());
-
-                double horizSpacing = 7.0;
-                double vertSpacing = 3.0;
-
-                ArrayList<Vector3> formation = FormationHelper.CreateWedgeFormation(position, forward, horizSpacing, vertSpacing, 5);
-
-                for (Vector3 pos : formation)
-                {
-                    //      m_VehicleManager.SpawnVehicle(VehicleType.Bit, pos.X, pos.Z, forward.Yaw());
-                }
-
-                formation.clear();
-
-                Vector3 offset = new Vector3(forward);
-                offset.Scale(-3);
-                position.Add(offset);
-
-                formation = FormationHelper.CreateLineFormation(position, forward, horizSpacing, 1);
-
-                for (Vector3 pos : formation)
-                {
-           //         m_VehicleManager.SpawnVehicle(VehicleType.Carrier, pos.X, pos.Z, forward.Yaw());
-                }
-
-                for (Vector3 pos : formation)
-                {
-           //         m_VehicleManager.SpawnVehicle(VehicleType.ShieldBearer, pos.X, pos.Z, forward.Yaw());
-                }
-
-                for (Vector3 pos : formation)
-                {
-            //        m_VehicleManager.SpawnVehicle(VehicleType.LaserStar, pos.X, pos.Z, forward.Yaw());
-                }
-            }
-
-            if (m_VehicleManager.GetTeamCount(AffiliationKey.BlueTeam) == 0)
-            {
-                Vector3 position = SpawnHelper.FindRandomSpawnLocation(SPAWN_DISTANCE);
-                Vector3 forward = SpawnHelper.FindSpawnForward(position, new Vector3());
-
-                double horizSpacing = 5.0;
-                double vertSpacing = 1.0;
-
-                ArrayList<Vector3> formation = FormationHelper.CreateWedgeFormation(position, forward, horizSpacing, vertSpacing, 3);
-
-                for (Vector3 pos : formation)
-                {
-                    //m_VehicleManager.SpawnVehicle(VehicleType.Wingman, pos.X, pos.Z, forward.Yaw());
-                }
+                Vector3 pos = formation.get(i);
+                m_VehicleManager.SpawnVehicle(VehicleType.Bit, pos.X, pos.Z, forward);
             }
         }
+
+        // if (m_VehicleManager.GetTeamCount(AffiliationKey.RedTeam) == 0)
+       // {
+       //     Vector3 position = new Vector3(SpawnHelper.FindRandomSpawnLocation(SPAWN_DISTANCE));
+       //     Vector3 forward = new Vector3(SpawnHelper.FindSpawnForward(position, new Vector3()));
+//
+       //     double horizSpacing = 7.0;
+       //     double vertSpacing = 3.0;
+//
+       //     ArrayList<Vector3> formation = FormationHelper.CreateWedgeFormation(position, forward, horizSpacing, vertSpacing, 12);
+//
+       //     int numBaddies = formation.size();
+       //     for (int i = 0; i < numBaddies; ++i)
+       //     {
+       //         Vector3 pos = formation.get(i);
+       //         m_VehicleManager.SpawnVehicle(VehicleType.Bit, pos.X, pos.Z, forward);
+       //     }
+       // }
+//
+       // if (m_VehicleManager.GetTeamCount(AffiliationKey.BlueTeam) == 0)
+       // {
+       //     Vector3 position = new Vector3(SpawnHelper.FindRandomSpawnLocation(SPAWN_DISTANCE));
+       //     Vector3 forward = new Vector3(SpawnHelper.FindSpawnForward(position, new Vector3()));
+//
+       //     double horizSpacing = 5.0;
+       //     double vertSpacing = 1.0;
+//
+       //     ArrayList<Vector3> formation = FormationHelper.CreateWedgeFormation(position, forward, horizSpacing, vertSpacing, 3);
+//
+       //     int numWingment = formation.size();
+       //     for (int i = 0; i < numWingment; ++i)
+       //     {
+       //         Vector3 pos = formation.get(i);
+       //       //  m_VehicleManager.SpawnVehicle(VehicleType.Wingman, pos.X, pos.Z, forward);
+       //     }
+       // }
     }
 
     @Override
     public void Initialise()
     {
-        if(GameLogic.TEST_MODE)
-        {
-            //m_EmissionTimer.Start();
-            //m_TestEmitter = new ParticleEmitter_Burst(m_Game, new Colour(Colours.VioletRed), new Colour(Colours.Cyan), 100);
+      Vector3 position = new Vector3(-SPAWN_DISTANCE_INITIAL,0,0);
+      Vector3 forward = new Vector3(1,0,0);
 
-            m_VehicleManager.SpawnVehicle(VehicleType.Warlord, 0, 0, 0);
+      double horizSpacing = 7.0;
+      double vertSpacing = 3.0;
 
-            return;
-        }
+      ArrayList<Vector3> formation = FormationHelper.CreateWedgeFormation(position, forward, horizSpacing, vertSpacing, 1);
 
-       // m_VehicleManager.SpawnVehicle(VehicleType.Warlord, 0, 0, 0);
+      int numBaddies = formation.size();
+      for(int i = 0; i < numBaddies; ++i)
+      {
+          Vector3 pos = formation.get(i);
+          m_VehicleManager.SpawnVehicle(VehicleType.Bit, 20, 20, forward);
+      }
 
-        if(m_VehicleManager.GetTeamCount(AffiliationKey.RedTeam) == 0)
-        {
-            Vector3 position = new Vector3(-SPAWN_DISTANCE_INITIAL,0,0);
-            Vector3 forward = new Vector3(1,0,0);
+       //m_VehicleManager.SpawnVehicle(VehicleType.Bit, 2, 0, new Vector3(0,0,1));
+       //m_VehicleManager.SpawnVehicle(VehicleType.Bit, 0, 0, new Vector3(0,0,1));
+       //m_VehicleManager.SpawnVehicle(VehicleType.Bit, -2, 0, new Vector3(0,0,1));
+       //m_VehicleManager.SpawnVehicle(VehicleType.Bit, -4, 0, new Vector3(0,0,1));
+       //m_VehicleManager.SpawnVehicle(VehicleType.Bit, -6, 0, new Vector3(0,0,1));
+       //m_VehicleManager.SpawnVehicle(VehicleType.Bit, -8, 0, new Vector3(0,0,1));
+       //m_VehicleManager.SpawnVehicle(VehicleType.Bit, -10, 0, new Vector3(0,0,1));
 
-            double horizSpacing = 7.0;
-            double vertSpacing = 3.0;
-
-            ArrayList<Vector3> formation = FormationHelper.CreateWedgeFormation(position, forward, horizSpacing, vertSpacing, 7);
-
-            for(Vector3 pos : formation)
-            {
-       //         m_VehicleManager.SpawnVehicle(VehicleType.Bit, pos.X, pos.Z, forward.Yaw());
-        //        m_VehicleManager.SpawnVehicle(VehicleType.ShieldBearer, pos.X, pos.Z, forward.Yaw());
-            }
-        }
-
-        if(m_VehicleManager.GetTeamCount(AffiliationKey.BlueTeam) == 0)
-        {
-            Vector3 position = new Vector3(SPAWN_DISTANCE_INITIAL,0,0);
-            Vector3 forward = new Vector3(-1,0,0);
-
-            double horizSpacing = 5.0;
-            double vertSpacing = 1.0;
-
-            ArrayList<Vector3> formation = FormationHelper.CreateWedgeFormation(position, forward, horizSpacing, vertSpacing, 3);
-
-            for(Vector3 pos : formation)
-            {
-                //m_VehicleManager.SpawnVehicle(VehicleType.Wingman, pos.X, pos.Z, forward.Yaw());
-            }
-        }
+       // if(m_VehicleManager.GetTeamCount(AffiliationKey.BlueTeam) == 0)
+       // {
+       //     position.SetVector(SPAWN_DISTANCE_INITIAL,0,0);
+       //     forward.SetVector(-1,0,0);
+//
+       //     horizSpacing = 5.0;
+       //     vertSpacing = 1.0;
+//
+       //     formation = FormationHelper.CreateWedgeFormation(position, forward, horizSpacing, vertSpacing, 3);
+//
+       //     int numWingmen = formation.size();
+       //     for(int i = 0; i < numWingmen; ++i)
+       //     {
+       //         Vector3 pos = formation.get(i);
+       //       //  m_VehicleManager.SpawnVehicle(VehicleType.Wingman, pos.X, pos.Z, forward);
+       //     }
+       // }
     }
 
     @Override

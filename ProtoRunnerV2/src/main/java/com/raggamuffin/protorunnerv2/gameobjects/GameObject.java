@@ -30,8 +30,6 @@ public class GameObject
     private double m_BoundingRadius;
     private double m_DragCoefficient;
 
-    private GameObject_OrientationMarker m_Marker;
-
     public GameObject(ModelType model, double boundingRadius)
     {
         m_Position = new Vector3(0);
@@ -50,13 +48,6 @@ public class GameObject
         m_BoundingRadius = boundingRadius;
 
         m_DragCoefficient = 5;
-
-        if (DEBUG_BOUNDINGRING && model != ModelType.Ring)
-        {
-//            GameLogic.DEBUG_INSTANCE.GetGameObjectManager().AddObject(new Marker_BoundingSphere(this));
-
-  //          m_Marker = new GameObject_OrientationMarker(this, GameLogic.DEBUG_INSTANCE);
-        }
     }
 
     public void Update(double deltaTime)
@@ -68,11 +59,6 @@ public class GameObject
         ApplyDrag(deltaTime);
         m_PreviousPosition.SetVector(GetPosition());
         Translate(m_Velocity.X * deltaTime, m_Velocity.Y * deltaTime, m_Velocity.Z * deltaTime);
-
-        if(m_Marker != null)
-        {
-            m_Marker.Update(deltaTime);
-        }
     }
 
     private void ApplyDrag(double deltaTime)
@@ -116,35 +102,12 @@ public class GameObject
         return m_Position;
     }
 
-    public Vector3 GetPreviousPosition()
-    {
-        return m_PreviousPosition;
-    }
-
-    public Vector3 GetVelocity()
-    {
-        return m_Velocity;
-    }
-
-    public Vector3 GetScale()
-    {
-        return m_Scale;
-    }
-
-    public Vector3 GetUp()
-    {
-        return m_Up;
-    }
-
-    public Vector3 GetForward()
-    {
-        return m_Forward;
-    }
-
-    public Vector3 GetRight()
-    {
-        return m_Right;
-    }
+    public Vector3 GetPreviousPosition() { return m_PreviousPosition; }
+    public Vector3 GetVelocity() { return m_Velocity; }
+    public Vector3 GetScale() { return m_Scale; }
+    public Vector3 GetUp() { return m_Up; }
+    public Vector3 GetForward() { return m_Forward; }
+    public Vector3 GetRight() { return m_Right; }
 
     public void Rotate(Quaternion a)
     {
@@ -272,6 +235,13 @@ public class GameObject
         m_Forward = obj.m_Forward;
         m_Up = obj.m_Up;
         m_Right = obj.m_Right;
+    }
+
+    public void SetOrientationVectors(double fx, double fy, double fz,    double ux, double uy, double uz,    double rx, double ry, double rz)
+    {
+        m_Forward.SetVector(fx, fy, fz);
+        m_Up.SetVector(ux, uy, uz);
+        m_Right.SetVector(rx, ry, rz);
     }
 
     public void SetColourByRef(Colour colour) { m_Colour = colour; }

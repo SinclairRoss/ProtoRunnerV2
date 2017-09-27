@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.raggamuffin.protorunnerv2"
-    android:versionCode="1"
-    android:versionName="1.0" >
-
-    <uses-sdk
-        android:minSdkVersion="22"
-        android:targetSdkVersion="22" />
+    package="com.raggamuffin.protorunnerv2">
 
     <uses-feature 
-        android:glEsVersion="0x00020000"
+        android:glEsVersion="0x00030001"
         android:required="true"/>
     
     <supports-screens

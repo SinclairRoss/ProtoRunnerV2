@@ -3,6 +3,7 @@ package com.raggamuffin.protorunnerv2.managers;
 import android.util.Log;
 
 import com.raggamuffin.protorunnerv2.ObjectEffect.ObjectEffectType;
+import com.raggamuffin.protorunnerv2.ai.AIUpdateScheduler;
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.BeeperBot;
@@ -72,13 +73,14 @@ public class VehicleManager
                 i--;
             }
         }
+
+		AIUpdateScheduler.Instance().NotifyUpdateComplete();
 	}
 
 	// Removes vehicle from their team and the renderer.
 	// DOES NOT remove vehicle from m_Vehicles.
 	private void RemoveVehicle(Vehicle object)
-	{		
-		m_Game.RemoveObjectFromRenderer(object);
+	{
 		GetTeam(object.GetAffiliation()).remove(object);
 		
 		if(object == m_Player)
@@ -96,13 +98,12 @@ public class VehicleManager
 			m_Player = new Vehicle_Runner(m_Game, m_SpawnPosition);
 			m_Vehicles.add(m_Player);
 			m_BlueTeam.add(m_Player);
-			m_Game.AddObjectToRenderer(m_Player);
 
 			m_PlayerSpawnedPublisher.Publish();
 		}
 	}
 
-    public Vehicle SpawnVehicle(VehicleType type, double x, double z, double orientation)
+    public Vehicle SpawnVehicle(VehicleType type, double x, double z, Vector3 forward)
     {
         Vehicle spawn;
 
@@ -148,10 +149,9 @@ public class VehicleManager
                 return null;
         }
 
-		spawn.SetRotationY(orientation);
+		spawn.SetForward(forward);
         m_Vehicles.add(spawn);
         GetTeam(spawn.GetAffiliation()).add(spawn);
-        m_Game.AddObjectToRenderer(spawn);
 
 		m_Game.GetObjectEffectController().CreateEffect(ObjectEffectType.SpawnPillar, spawn);
 
@@ -164,7 +164,6 @@ public class VehicleManager
 
 		m_Vehicles.add(spawn);
 		GetTeam(spawn.GetAffiliation()).add(spawn);
-		m_Game.AddObjectToRenderer(spawn);
 
 		return spawn;
 	}
@@ -175,7 +174,6 @@ public class VehicleManager
 
 		m_Vehicles.add(spawn);
 		GetTeam(spawn.GetAffiliation()).add(spawn);
-		m_Game.AddObjectToRenderer(spawn);
 
 		return spawn;
 	}
@@ -184,7 +182,6 @@ public class VehicleManager
 	{
 		GetTeam(vehicle.GetAffiliation()).add(vehicle);
         m_Vehicles.add(vehicle);
-        m_Game.AddObjectToRenderer(vehicle);
 	}
 
 	public ArrayList<Vehicle> GetTeam(AffiliationKey faction)

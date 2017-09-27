@@ -72,6 +72,8 @@ public class Vehicle_ShieldBearer extends Vehicle
         }
 
         m_Tentacles.clear();
+
+        m_AIController.CleanUp();
     }
 
     private void CreateTentacles(GameLogic game)

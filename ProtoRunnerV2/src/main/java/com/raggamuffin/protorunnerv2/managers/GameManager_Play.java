@@ -2,15 +2,12 @@ package com.raggamuffin.protorunnerv2.managers;
 
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.gameobjects.VehicleType;
-import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_Burst;
-import com.raggamuffin.protorunnerv2.utils.Colour;
-import com.raggamuffin.protorunnerv2.utils.Colours;
+import com.raggamuffin.protorunnerv2.utils.FormationHelper;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
-import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
-import com.raggamuffin.protorunnerv2.weapons.HexPlosive;
+
+import java.util.ArrayList;
 
 public class GameManager_Play extends GameManager
 {
@@ -29,8 +26,6 @@ public class GameManager_Play extends GameManager
     public void Initialise()
     {
         m_VehicleManager.SpawnPlayer();
-
-        m_Game.GetPopperController().On();
     }
 
     static int i = 0;
@@ -38,22 +33,10 @@ public class GameManager_Play extends GameManager
     @Override
     public void Update(double deltaTime)
     {
-        if (!GameLogic.TEST_MODE)
-        {
-            m_WaveManager.Update();
-        }
-        else
-        {
-            if(m_VehicleManager.GetTeam(AffiliationKey.RedTeam).isEmpty())
-            {
-                m_VehicleManager.SpawnVehicle(VehicleType.LaserStar, 0, 0, 15);
-            }
-        }
+        m_WaveManager.Update();
     }
 
     @Override
     public void CleanUp()
-    {
-        m_Game.GetPopperController().Off();
-    }
+    {}
 }

@@ -4,8 +4,9 @@ public enum ModelType
 {
     RadarFragment,
 
+    FloorGrid,
+
 	Runner,
-    Bit,
     Byte,
     Mine,
     Missile,
@@ -31,7 +32,6 @@ public enum ModelType
     PlasmaShot,
 	RailSlug,
 	Ring,
-	StandardPoint,
 
     Shield,
 

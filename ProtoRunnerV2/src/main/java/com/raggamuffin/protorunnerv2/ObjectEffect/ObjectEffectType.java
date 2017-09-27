@@ -7,6 +7,5 @@ public enum ObjectEffectType
 {
     DamageMarker,
     SpawnPillar,
-    Shields,
-    HealthBar
+    Shields
 }

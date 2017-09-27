@@ -4,6 +4,7 @@
 package com.raggamuffin.protorunnerv2.weapons;
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
+import com.raggamuffin.protorunnerv2.managers.GameObjectManager;
 
 import java.util.ArrayList;
 
@@ -30,31 +31,20 @@ public class WeaponComponent_LaserPointer extends WeaponComponent
             LaserPointer pointer = new LaserPointer(m_Anchor, barrel);
             pointer.Off();
             m_LaserPointers.add(pointer);
-            m_Game.AddObjectToRenderer(pointer);
+
+            game.GetGameObjectManager().AddObject(pointer);
         }
     }
 
     @Override
     public void Destroy()
     {
-        int numPointers = m_LaserPointers.size();
-        for(int i = 0; i < numPointers; ++i)
-        {
-            LaserPointer pointer = m_LaserPointers.get(i);
-            m_Game.RemoveObjectFromRenderer(pointer);
-        }
+        m_LaserPointers.clear();
     }
 
     @Override
     public void Update(double deltaTime)
-    {
-        int numPointers = m_LaserPointers.size();
-        for(int i = 0; i < numPointers; ++i)
-        {
-            LaserPointer pointer = m_LaserPointers.get(i);
-            pointer.Update(deltaTime);
-        }
-    }
+    {}
 
     @Override
     public void OnActivation()

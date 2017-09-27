@@ -22,7 +22,7 @@ public class Bot_ParticleEmitter extends GameObject
     {
         super(ModelType.WeaponDrone, 1);
 
-        m_BurstEmitter = new ParticleEmitter_Burst(game, new Colour(Colours.VioletRed), new Colour(Colours.Cyan), 100);
+        m_BurstEmitter = new ParticleEmitter_Burst(game, new Colour(Colours.VioletRed), new Colour(Colours.Cyan));
         m_EmissionTimer = new Timer(3.0);
         m_EmissionTimer.Start();
     }

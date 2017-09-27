@@ -66,13 +66,8 @@ public class HexPlosive extends GameObject
         m_ExplosionHeightTimer.Start();
 
         m_OuterTube = CreateTube(GetColour(), 0.6, 1.0);
-        m_Game.AddObjectToRenderer(m_OuterTube);
-
         m_InnerTube = CreateTube(GetColour(), 1.0, INNERSCALE);
-        m_Game.AddObjectToRenderer(m_InnerTube);
-
         m_FloorGrid = new FloorGrid(GetPosition(), GetColour(), 10.0);
-        game.AddObjectToRenderer(m_FloorGrid);
 
         m_RayEmitter = new ParticleEmitter_Ray(game, GetColour(), GetColour(), 0, 0.1, 1);
         m_RayEmitter.SetPosition(GetPosition());
@@ -163,12 +158,7 @@ public class HexPlosive extends GameObject
 
     @Override
     public void CleanUp()
-    {
-        m_Game.RemoveObjectFromRenderer(m_InnerTube);
-        m_Game.RemoveObjectFromRenderer(m_OuterTube);
-
-        m_Game.RemoveObjectFromRenderer(m_FloorGrid);
-    }
+    {}
 
     @Override
     public void SetPosition(double x, double y, double z)

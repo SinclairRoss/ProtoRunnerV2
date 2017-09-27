@@ -1,9 +1,7 @@
 package com.raggamuffin.protorunnerv2.ObjectEffect;
 
-
 // Author: Sinclair Ross
 // Date:   20/07/2017
-
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
@@ -22,7 +20,7 @@ public class ObjectEffect_HealthBar extends ObjectEffect
     private static final double BASE_SCALE = 2.0;
 
     private static final double ARRIVAL_DISTANCE = 0.1;
-    private static final double FILL_RATE = 1.0;
+    private static final double FILL_RATE = 2.0;
 
     private ChaseCamera m_Camera;
     private Vector3 m_ToCamera;
@@ -34,7 +32,7 @@ public class ObjectEffect_HealthBar extends ObjectEffect
 
     public ObjectEffect_HealthBar(GameLogic gameLogic)
     {
-        super(ModelType.Radial, ObjectEffectType.HealthBar);
+        super(ModelType.Radial);
 
         m_Camera = gameLogic.GetCamera();
         m_ToCamera = new Vector3();

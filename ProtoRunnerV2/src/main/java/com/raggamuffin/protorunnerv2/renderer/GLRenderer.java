@@ -1,31 +1,37 @@
 package com.raggamuffin.protorunnerv2.renderer;
 
 import android.content.Context;
-import android.opengl.GLES20;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.opengl.GLES31;
 import android.opengl.GLSurfaceView;
-import android.opengl.Matrix;
 import android.util.Log;
 
-import com.raggamuffin.protorunnerv2.gameobjects.FloorGrid;
-import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
-import com.raggamuffin.protorunnerv2.gameobjects.Tentacle;
+import com.raggamuffin.protorunnerv2.R;
+import com.raggamuffin.protorunnerv2.RenderObjects.RenderGroup_Generic;
+import com.raggamuffin.protorunnerv2.RenderObjects.RenderGroup_Particles;
+import com.raggamuffin.protorunnerv2.RenderObjects.RenderGroup_Text;
+import com.raggamuffin.protorunnerv2.RenderObjects.RenderGroup_Vehicle;
 import com.raggamuffin.protorunnerv2.master.RenderEffectSettings;
+import com.raggamuffin.protorunnerv2.RenderObjects.RenderPackage;
+import com.raggamuffin.protorunnerv2.master.RenderPackageDistributor;
 import com.raggamuffin.protorunnerv2.master.RendererPacket;
-import com.raggamuffin.protorunnerv2.particles.Particle;
-import com.raggamuffin.protorunnerv2.particles.ParticleType;
-import com.raggamuffin.protorunnerv2.particles.Trail;
-import com.raggamuffin.protorunnerv2.ui.UIElement;
-import com.raggamuffin.protorunnerv2.ui.UIElementType;
+import com.raggamuffin.protorunnerv2.utils.FPSCounter;
 import com.raggamuffin.protorunnerv2.utils.FrameRateCounter;
 
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.Vector;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 public class GLRenderer implements GLSurfaceView.Renderer
 {
-	public static final String TAG = "DEBUG GLRenderer";
+    static { System.loadLibrary("CRenderer-lib"); }
+
+	private static final String TAG = "DEBUG GLRenderer";
+
+    private AssetManager m_AssetManager;
 
 	private int m_Width;
 	private int m_Height;
@@ -46,20 +52,18 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
     private RenderEffectSettings m_RenderEffectSettings;
 
-    private FrameRateCounter m_RenderDurationCounter;
-    private FrameRateCounter m_DeltaRender;
-
     private float[] m_ViewMatrix;
     private float[] m_ViewMatrix_UI;
     private ModelType[] m_ModelTypes;
 
-	public GLRenderer(RendererPacket packet)
+    private RenderPackageDistributor m_Distributer;
+
+    public GLRenderer(RendererPacket packet, RenderPackageDistributor distributer)
 	{
 		Log.e(TAG, "GLRenderer");
-
         m_Packet = packet;
 		m_Context = m_Packet.GetContext();
-		m_Camera = new GLCamera(m_Packet.GetCamera());
+		m_Camera = new GLCamera();
 		m_UICamera = new GLOrthoCamera();
 		m_RenderEffectSettings = m_Packet.GetRenderEffectSettings();
 
@@ -70,31 +74,114 @@ public class GLRenderer implements GLSurfaceView.Renderer
         m_RopeRenderer = new RopeRenderer();
         m_ParticleRenderer = new ParticleRenderer();
 
-        m_RenderDurationCounter = new FrameRateCounter();
-        m_DeltaRender = new FrameRateCounter();
-
         m_ViewMatrix = new float[16];
         m_ViewMatrix_UI = new float[16];
         m_ModelTypes = ModelType.values();
+
+        m_Distributer = distributer;
 	}
+
+    public static native void SetCamera_Native(float[] position, float[] lookAt, float[] up);
+    public static native void DrawVehicles_Native(float[] transforms, float[] colours, float[] innerIntensity, int modelIndex, int numInstances);
+    public static native void DrawGenericObject_Native(float[] transforms, float[] colours, int modelIndex, int numInstances);
+    public static native void DrawParticles_Native(float[] transforms, float[] colours, int numInstances);
+    public static native void DrawUIText_Native(float[] tranforms, float[] colours, char[] text, int instanceCount);
+    public static native void OnSurfaceCreated_Native(float[] vertices, int[] verticesPerModel, int[] texturePixels, int[] pixelsPerTexture, int numTextures);
+    public static native void OnSurfaceChanged_Native(int width, int height);
 
 	@Override
 	public void onSurfaceCreated(GL10 unused, EGLConfig config)
 	{
+        if(true)
+        {
+            int numModels = 3;
+
+            float[] runnerVertices = ReadFloatArrayFromResource(R.string.runner_vertices);
+            float[] bitVertices = ReadFloatArrayFromResource(R.string.byte_vertices);
+            float[] plasmaVertices = ReadFloatArrayFromResource(R.string.plasma_vertices);
+
+            int[] verticesPerModel = new int[numModels];
+            verticesPerModel[0] = runnerVertices.length;
+            verticesPerModel[1] = bitVertices.length;
+            verticesPerModel[2] = plasmaVertices.length;
+
+            int arrayLength = 0;
+            for(int i = 0; i < numModels; ++i)
+            {
+                arrayLength += verticesPerModel[i];
+            }
+
+            float[] coords = new float[arrayLength];
+
+            int offset = 0;
+            java.lang.System.arraycopy(runnerVertices, 0, coords, offset, runnerVertices.length);
+
+            offset += runnerVertices.length;
+            java.lang.System.arraycopy(bitVertices, 0, coords, offset, bitVertices.length);
+
+            offset += bitVertices.length;
+            java.lang.System.arraycopy(plasmaVertices, 0, coords, offset, plasmaVertices.length);
+
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+            options.inScaled = false;
+
+
+            Vector<Bitmap> bitmaps = new Vector<>(3);
+            bitmaps.add(BitmapFactory.decodeResource(m_Packet.GetContext().getResources(), R.drawable.floor_grid, options));
+            bitmaps.add(BitmapFactory.decodeResource(m_Packet.GetContext().getResources(), R.drawable.moire, options));
+            bitmaps.add(BitmapFactory.decodeResource(m_Packet.GetContext().getResources(), R.drawable.chlo, options));
+
+            int bitmapCount = bitmaps.size();
+
+            int[] pixelsPerTexture = new int[bitmapCount];
+            int pixelCount = 0;
+
+            for(int i = 0; i < bitmapCount; ++i)
+            {
+                Bitmap bitmap = bitmaps.get(i);
+
+                int width = bitmap.getWidth();
+                int height = bitmap.getHeight();
+                int pixelsInBitmap = width * height;
+
+                pixelCount += pixelsInBitmap;
+                pixelsPerTexture[i] = pixelsInBitmap;
+            }
+
+            int[] packedPixels = new int[pixelCount];
+            offset = 0;
+
+            for(int i = 0; i < bitmapCount; ++i)
+            {
+                Bitmap bitmap = bitmaps.get(i);
+                int width = bitmap.getWidth();
+                int height = bitmap.getHeight();
+
+                bitmap.getPixels(packedPixels, offset, width, 0, 0, width, height);
+
+                offset += width * height;
+            }
+
+            OnSurfaceCreated_Native(coords, verticesPerModel, packedPixels, pixelsPerTexture, bitmapCount);
+
+            return;
+        }
+
 		Log.e(TAG, "onSurfaceCreated");
 
-		GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		GLES20.glEnable(GLES20.GL_CULL_FACE);
-		GLES20.glCullFace(GLES20.GL_BACK);
+        GLES31.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        GLES31.glEnable(GLES31.GL_CULL_FACE);
+        GLES31.glCullFace(GLES31.GL_BACK);
 
-		GLES20.glEnable(GLES20.GL_DEPTH_TEST);
-        GLES20.glDepthFunc(GLES20.GL_LEQUAL);
-        GLES20.glDepthMask(true);
-        GLES20.glDepthRangef(0.0f, 1.0f);
-        GLES20.glClearDepthf(1.0f);
+        GLES31.glEnable(GLES31.GL_DEPTH_TEST);
+        GLES31.glDepthFunc(GLES31.GL_LEQUAL);
+        GLES31.glDepthMask(true);
+        GLES31.glDepthRangef(0.0f, 1.0f);
+        GLES31.glClearDepthf(1.0f);
 
-        GLES20.glEnable(GLES20.GL_BLEND);
-        GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
+        GLES31.glEnable(GLES31.GL_BLEND);
+        GLES31.glBlendFunc(GLES31.GL_SRC_ALPHA, GLES31.GL_ONE_MINUS_SRC_ALPHA);
 
         m_FrameBufferRenderer.LoadAssets(m_Packet);
         m_ModelManager.LoadAssets();
@@ -104,74 +191,131 @@ public class GLRenderer implements GLSurfaceView.Renderer
         m_ParticleRenderer.LoadAssets();
     }
 
+    private static FPSCounter m_FPS = new FPSCounter("Renderer");
+    private static FrameRateCounter m_Timer = new FrameRateCounter();
+
 	@Override
 	public void onDrawFrame(GL10 unused)
-	{
-        //m_Packet.OutputDebugInfo();
+    {
+        m_FPS.Update();
 
-        m_RenderDurationCounter.StartFrame();
+        RenderPackage rPackage = m_Distributer.Checkout_ForRead();
 
-        m_FrameBufferRenderer.BindFrameBuffer(FrameBufferName.RawRender);
+        if (rPackage != null)
+        {
+            m_FPS.Bump();
+            m_Timer.StartFrame();
 
-		m_Camera.Update();
-		m_UICamera.Update();
+            if (true)
+            {
+                RenderCamera camera = rPackage.GetRenderCamera();
+                SetCamera_Native(camera.GetPosition(), camera.GetLookAt(), camera.GetUp());
 
-        Matrix.setIdentityM(m_ViewMatrix, 0);
-        Matrix.multiplyMM(m_ViewMatrix, 0, m_Camera.m_ProjMatrix, 0, m_Camera.m_VMatrix, 0);
+                for(int modelIndex = 0; modelIndex < m_ModelTypes.length; ++modelIndex)
+                {
+                    ModelType type = m_ModelTypes[modelIndex];
 
-        DrawSkybox(m_ViewMatrix);
-        DrawFloorPanels(m_ViewMatrix);
-        DrawParticles(m_ViewMatrix);
-        DrawParticles_Multiplier(m_ViewMatrix);
-        DrawObjects(m_ViewMatrix);
-        DrawTrails(m_ViewMatrix);
-        DrawRopes(m_ViewMatrix);
+                    RenderGroup_Vehicle renderGroup = rPackage.GetVehiclesWithModel(type);
+                    int instanceCount = renderGroup.GetInstanceCount();
+                    if(instanceCount > 0)
+                    {
+                        DrawVehicles_Native(renderGroup.GetTransforms(), renderGroup.GetColours(), renderGroup.GetInnerIntensity(), modelIndex, instanceCount);
+                    }
 
-		DrawUI();
+                    RenderGroup_Generic renderGroup_Generic = rPackage.GetObjectsWithModel(type);
+                    instanceCount = renderGroup_Generic.GetInstanceCount();
+                    if(renderGroup_Generic.GetInstanceCount() > 0)
+                    {
+                        DrawGenericObject_Native(renderGroup_Generic.GetTransforms(), renderGroup_Generic.GetColours(), modelIndex, instanceCount);
+                    }
+                }
 
-        // Glow horizontal.
-        m_FrameBufferRenderer.BindFrameBuffer(FrameBufferName.GlowHorizontal);
-        GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_FrameBufferRenderer.GetTextureHandle(FrameBufferName.RawRender));
-        m_ModelManager.DrawFBOGlowHoriz();
+                RenderGroup_Particles particles = rPackage.GetParticles();
+                int instanceCount = particles.GetInstanceCount();
+                if(instanceCount > 0)
+                {
+                    DrawParticles_Native(particles.GetTransforms(), particles.GetColours(), particles.GetInstanceCount());
+                }
 
-        // Glow vertical.
-        m_FrameBufferRenderer.BindFrameBuffer(FrameBufferName.GlowVertical);
-        GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_FrameBufferRenderer.GetTextureHandle(FrameBufferName.GlowHorizontal));
-        m_ModelManager.DrawFBOGlowVert();
+                RenderGroup_Text text = rPackage.GetText();
+                instanceCount = text.GetInstanceCount();
+                if(instanceCount > 0)
+                {
+                    DrawUIText_Native(text.GetTransforms(), text.GetColours(), text.GetText(), text.GetInstanceCount());
+                }
 
-        // Film grain
-        m_FrameBufferRenderer.BindFrameBuffer(FrameBufferName.FilmGrain);
-        m_ModelManager.DrawFBOFilmGrain();
+                m_Distributer.CheckIn_FromRead(rPackage);
+            }
+            else
+            {
+                m_Camera.Update(rPackage.GetRenderCamera());
 
-		// Render to screen.
-		GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, 0);
-		GLES20.glViewport(0, 0, m_Width, m_Height);
-		GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
+                m_FrameBufferRenderer.BindFrameBuffer(FrameBufferName.RawRender);
 
-        GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_FrameBufferRenderer.GetTextureHandle(FrameBufferName.RawRender));
+                // Glow horizontal.
+                m_FrameBufferRenderer.BindFrameBuffer(FrameBufferName.GlowHorizontal);
+                GLES31.glActiveTexture(GLES31.GL_TEXTURE0);
+                GLES31.glBindTexture(GLES31.GL_TEXTURE_2D, m_FrameBufferRenderer.GetTextureHandle(FrameBufferName.RawRender));
+                m_ModelManager.DrawFBOGlowHoriz();
 
-        GLES20.glActiveTexture(GLES20.GL_TEXTURE1);
-        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_FrameBufferRenderer.GetTextureHandle(FrameBufferName.GlowVertical));
+                // Glow vertical.
+                m_FrameBufferRenderer.BindFrameBuffer(FrameBufferName.GlowVertical);
+                GLES31.glActiveTexture(GLES31.GL_TEXTURE0);
+                GLES31.glBindTexture(GLES31.GL_TEXTURE_2D, m_FrameBufferRenderer.GetTextureHandle(FrameBufferName.GlowHorizontal));
+                m_ModelManager.DrawFBOGlowVert();
 
-        GLES20.glActiveTexture(GLES20.GL_TEXTURE2);
-        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_FrameBufferRenderer.GetTextureHandle(FrameBufferName.FilmGrain));
+                // Film grain
+                m_FrameBufferRenderer.BindFrameBuffer(FrameBufferName.FilmGrain);
+                m_ModelManager.DrawFBOFilmGrain();
 
-        m_ModelManager.DrawFBOFinal();
+                // Render to screen.
+                GLES31.glBindFramebuffer(GLES31.GL_FRAMEBUFFER, 0);
+                GLES31.glViewport(0, 0, m_Width, m_Height);
+                GLES31.glClear(GLES31.GL_COLOR_BUFFER_BIT | GLES31.GL_DEPTH_BUFFER_BIT);
 
-       //  m_RenderDurationCounter.EndFrame();
-       //  m_RenderDurationCounter.LogFrameDuration("Renderer", 0L);
+                GLES31.glActiveTexture(GLES31.GL_TEXTURE0);
+                GLES31.glBindTexture(GLES31.GL_TEXTURE_2D, m_FrameBufferRenderer.GetTextureHandle(FrameBufferName.RawRender));
 
-        //m_DeltaRender.EndFrame();
-        //m_DeltaRender.LogFrameDuration("Delta", 30L);
-        //m_DeltaRender.StartFrame();
+                GLES31.glActiveTexture(GLES31.GL_TEXTURE1);
+                GLES31.glBindTexture(GLES31.GL_TEXTURE_2D, m_FrameBufferRenderer.GetTextureHandle(FrameBufferName.GlowVertical));
+
+                GLES31.glActiveTexture(GLES31.GL_TEXTURE2);
+                GLES31.glBindTexture(GLES31.GL_TEXTURE_2D, m_FrameBufferRenderer.GetTextureHandle(FrameBufferName.FilmGrain));
+
+                m_ModelManager.DrawFBOFinal();
+            }
+
+            m_Timer.EndFrame();
+            m_Timer.LogFrameDuration("frame length", 16L);
+        }
 	}
+
+    private float[] ReadFloatArrayFromResource(int resource)
+    {
+        String raw = m_Context.getString(resource);
+        raw = raw.replaceAll("\\s","");
+        String[] rawArray = raw.split(",");
+
+        int numValues = rawArray.length;
+        float[] array = new float[numValues];
+
+        for(int i = 0; i < numValues; i ++)
+        {
+            array[i] = Float.parseFloat(rawArray[i]);
+        }
+
+        return array;
+    }
 
 	@Override
 	public void onSurfaceChanged(GL10 unused, int width, int height)
 	{
+        if(true)
+        {
+            OnSurfaceChanged_Native(width, height);
+            return;
+        }
+
 		Log.e(TAG, "onSurfaceChanged");
 
 		m_Width = width;
@@ -180,135 +324,4 @@ public class GLRenderer implements GLSurfaceView.Renderer
 		m_Camera.ViewPortChanged(m_Width, m_Height);
 		m_UICamera.ViewPortChanged(m_Width, m_Height);
 	}
-
-    private void DrawSkybox(float[] view)
-    {
-        m_ModelManager.DrawSkyBox(m_Camera.GetPosition(), m_RenderEffectSettings.GetSkyBoxColour(), view);
-    }
-
-    private void DrawObjects(float[] view)
-    {
-        for (ModelType type : m_ModelTypes)
-        {
-            CopyOnWriteArrayList<GameObject> list = m_Packet.GetModelList_InGame(type);
-
-            if(list.size() > 0)
-            {
-                m_ModelManager.InitialiseModel(type, view, m_Camera.GetPosition());
-
-                for (GameObject obj : list)
-                {
-                    m_ModelManager.Draw(obj);
-                }
-
-                m_ModelManager.CleanModel(type);
-            }
-        }
-    }
-
-    private void DrawParticles(float[] view)
-    {
-        CopyOnWriteArrayList<Particle> list = m_Packet.GetParticles(ParticleType.Standard);
-
-        if(!list.isEmpty())
-        {
-            m_ParticleRenderer.Initialise(ParticleType.Standard, view, m_Camera.GetPosition(), list);
-            m_ParticleRenderer.Draw();
-            m_ParticleRenderer.Clean();
-        }
-    }
-
-    private void DrawParticles_Multiplier(float[] view)
-    {
-        CopyOnWriteArrayList<Particle> list = m_Packet.GetParticles(ParticleType.Multiplier);
-
-        if(!list.isEmpty())
-        {
-            m_ParticleRenderer.Initialise(ParticleType.Multiplier, view, m_Camera.GetPosition(), list);
-            m_ParticleRenderer.Draw();
-            m_ParticleRenderer.Clean();
-        }
-    }
-
-    private void DrawFloorPanels(float[] view)
-    {
-        CopyOnWriteArrayList<FloorGrid> list = m_Packet.GetFloorGrids();
-
-        if(!list.isEmpty())
-        {
-            m_ModelManager.InitialiseFloorPanel(view);
-
-            for(FloorGrid obj : list)
-            {
-                if (obj != null)
-                {
-                    m_ModelManager.DrawFloorPanel(obj.GetPosition(), obj.GetColour(), obj.GetAttenuation());
-                }
-            }
-
-            m_ModelManager.CleanFloorPanel();
-        }
-    }
-
-    private void DrawTrails(float[] view)
-    {
-        CopyOnWriteArrayList<Trail> list = m_Packet.GetTrails();
-
-        if(!list.isEmpty())
-        {
-            for (Trail trail : list)
-            {
-                if (trail != null)
-                {
-                    m_TrailRenderer.Initialise(view, m_Camera.GetPosition(), trail);
-                    m_TrailRenderer.Draw();
-                }
-            }
-
-            m_TrailRenderer.Clean();
-        }
-    }
-
-    private void DrawRopes(float[] view)
-    {
-        CopyOnWriteArrayList<Tentacle> list = m_Packet.GetRopes();
-
-        if(!list.isEmpty())
-        {
-            m_RopeRenderer.Initialise(view, m_Camera.GetPosition());
-
-            for (Tentacle obj : list)
-            {
-                if (obj != null)
-                {
-                    m_RopeRenderer.Draw(obj);
-                }
-            }
-
-            m_RopeRenderer.Clean();
-        }
-    }
-
-    private void DrawUI()
-    {
-        Matrix.setIdentityM(m_ViewMatrix_UI, 0);
-        Matrix.multiplyMM(m_ViewMatrix_UI, 0, m_UICamera.m_ProjMatrix, 0, m_UICamera.m_VMatrix, 0);
-
-        UIElementType[] types = UIElementType.values();
-
-        for (UIElementType type : types)
-        {
-            CopyOnWriteArrayList<UIElement> copy = m_Packet.GetUIElementList(type);
-
-            if(!copy.isEmpty())
-            {
-                m_UIManager.InitialiseModel(type, m_ViewMatrix_UI);
-                for (UIElement object : copy)
-                {
-                    m_UIManager.DrawElement(object);
-                }
-                m_UIManager.CleanModel(type);
-            }
-        }
-    }
 }

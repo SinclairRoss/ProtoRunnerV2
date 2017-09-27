@@ -34,7 +34,7 @@ public class UIScreen_Splash extends UIScreen
 	{
 		String text = m_Game.GetContext().getString(R.string.company_name);
 		m_Company = new UIElement_Label(text, UIConstants.FONTSIZE_TITLE, 0, 0, Alignment.Center);
-		m_UIManager.AddUIElement(m_Company);
+		m_UIManager.AddLabel(m_Company);
 
         m_Timer.Start();
 	}

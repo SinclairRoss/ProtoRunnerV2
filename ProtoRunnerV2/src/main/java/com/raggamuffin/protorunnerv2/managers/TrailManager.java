@@ -11,12 +11,10 @@ import java.util.ArrayList;
 public class TrailManager
 {
     private ArrayList<Trail> m_Trails;
-    private GameLogic m_Game;
 
-    public TrailManager(GameLogic game)
+    public TrailManager()
     {
         m_Trails = new ArrayList<>();
-        m_Game = game;
     }
 
     public void Update()
@@ -30,7 +28,6 @@ public class TrailManager
             if (!trail.IsValid())
             {
                 m_Trails.remove(i);
-                m_Game.RemoveObjectFromRenderer(trail);
 
                 --numTrails;
                 i--;
@@ -38,9 +35,6 @@ public class TrailManager
         }
     }
 
-    public void AddObject(Trail trail)
-    {
-        m_Trails.add(trail);
-        m_Game.AddObjectToRenderer(trail);
-    }
+    public void AddObject(Trail trail) { m_Trails.add(trail); }
+    public ArrayList<Trail> GetTrails() { return m_Trails; }
 }

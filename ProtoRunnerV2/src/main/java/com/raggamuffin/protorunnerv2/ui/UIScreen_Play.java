@@ -19,7 +19,7 @@ public class UIScreen_Play extends UIScreen
     public void Create()
     {
         String label = m_Game.GetContext().getString(R.string.label_stamina);
-        m_StaminaGauge = new UIObject_StatusBar(label, Colours.RunnerBlue, Colours.Red, 0, 0.8, m_UIManager);
+        m_StaminaGauge = new UIObject_StatusBar(label, Colours.EmeraldGreen, Colours.Red, 0, 0.8, m_UIManager);
     }
 
     @Override

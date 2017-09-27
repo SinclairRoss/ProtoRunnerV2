@@ -12,8 +12,13 @@ public final class Vector3
     }
 
     public static final Vector3 FORWARD = new Vector3(0, 0, 1);
+    public static final Vector3 BACK = new Vector3(0, 0, -1);
     public static final Vector3 UP = new Vector3(0, 1, 0);
     public static final Vector3 RIGHT = new Vector3(1, 0, 0);
+    public static final Vector3 ZERO = new Vector3(0);
+    public static final Vector3 ONE = new Vector3(1);
+
+    private static float[] Array = new float[3];
 
     public double X;
     public double Y;
@@ -73,6 +78,13 @@ public final class Vector3
         X = -vector.X;
         Y = -vector.Y;
         Z = -vector.Z;
+    }
+
+    public void ToFloatArray(float[] outArray)
+    {
+        outArray[0] = (float)X;
+        outArray[1] = (float)Y;
+        outArray[2] = (float)Z;
     }
 
     public void SetVectorAsCrossProduct(final Vector3 a, final Vector3 b)
@@ -271,9 +283,7 @@ public final class Vector3
 
 	public double Yaw()
 	{
-        double val = Math.atan2(X, (Z - 1));
-
-		return val == val ? val : 0.0;
+        return RadiansBetween(Vector3.FORWARD, this);
 	}
 
 	public static double Determinant(Vector3 A, Vector3 B)
@@ -333,6 +343,15 @@ public final class Vector3
             return Component.Y;
 
         return null;
+    }
+
+    public float[] AsArray()
+    {
+        Array[0] = (float)X;
+        Array[1] = (float)Y;
+        Array[2] = (float)Z;
+
+        return Array;
     }
 	
 	public void Output(String tag)

@@ -17,7 +17,7 @@ public class ObjectEffect_SpawnPillar extends ObjectEffect
 
     public ObjectEffect_SpawnPillar()
     {
-        super(ModelType.SpawnPillar, ObjectEffectType.SpawnPillar);
+        super(ModelType.SpawnPillar);
 
         m_LifeTimer = new Timer(0.7);
     }
@@ -52,6 +52,6 @@ public class ObjectEffect_SpawnPillar extends ObjectEffect
     @Override
     public boolean IsValid()
     {
-        return m_LifeTimer.HasElapsed();
+        return !m_LifeTimer.HasElapsed();
     }
 }

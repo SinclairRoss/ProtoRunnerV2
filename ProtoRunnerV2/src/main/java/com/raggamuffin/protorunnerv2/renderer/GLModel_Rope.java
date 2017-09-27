@@ -3,8 +3,9 @@ package com.raggamuffin.protorunnerv2.renderer;
 // Author: Sinclair Ross
 // Date:   21/06/2016
 
-import android.opengl.GLES20;
+import android.opengl.GLES31;
 
+import com.raggamuffin.protorunnerv2.RenderObjects.RenderObject;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.gameobjects.Tentacle;
 import com.raggamuffin.protorunnerv2.particles.RopeNode;
@@ -82,15 +83,15 @@ public class GLModel_Rope extends GLModel
     @Override
     public void InitialiseModel(float[] projMatrix, Vector3 eye)
     {
-        GLES20.glUseProgram(m_Program);
+        GLES31.glUseProgram(m_Program);
 
-        GLES20.glUniformMatrix4fv(m_ProjMatrixHandle, 1, false, projMatrix, 0);
+        GLES31.glUniformMatrix4fv(m_ProjMatrixHandle, 1, false, projMatrix, 0);
 
         m_EyePos.SetVector(eye);
     }
 
     @Override
-    public void Draw(GameObject obj)
+    public void Draw(RenderObject obj)
     {}
 
     public void AddPoint(RopeNode node)
@@ -114,58 +115,58 @@ public class GLModel_Rope extends GLModel
         m_RopeEndPoint.SetVector(x, y, z);
         float dist = (float)Vector3.GetDistanceBetween(m_EyePos, m_RopeEndPoint);
 
-        GLES20.glLineWidth((float) (40 * MathsHelper.FastInverseSqrt(dist)));
+        GLES31.glLineWidth((float) (40 * MathsHelper.FastInverseSqrt(dist)));
 
-        GLES20.glUniform4f(m_ColdColourHandle, (float) coldColour.Red, (float) coldColour.Green, (float) coldColour.Blue, (float) coldColour.Alpha);
-        GLES20.glUniform4f(m_HotColourHandle, (float) hotColour.Red, (float) hotColour.Green, (float) hotColour.Blue, (float) hotColour.Alpha);
-        GLES20.glUniform1f(m_ColourBloomPointHandle, (float)bloomPoint);
+       // GLES31.glUniform4f(m_ColdColourHandle, (float) coldColour.Red, (float) coldColour.Green, (float) coldColour.Blue, (float) coldColour.Alpha);
+        //GLES31.glUniform4f(m_HotColourHandle, (float) hotColour.Red, (float) hotColour.Green, (float) hotColour.Blue, (float) hotColour.Alpha);
+        GLES31.glUniform1f(m_ColourBloomPointHandle, (float)bloomPoint);
 
         m_VertexBuffer.put(m_Vertices);
         m_VertexBuffer.position(0);
 
-        GLES20.glEnableVertexAttribArray(m_PositionHandle);
-        GLES20.glVertexAttribPointer(m_PositionHandle, 3, GLES20.GL_FLOAT, false, 12, m_VertexBuffer);
+        GLES31.glEnableVertexAttribArray(m_PositionHandle);
+        GLES31.glVertexAttribPointer(m_PositionHandle, 3, GLES31.GL_FLOAT, false, 12, m_VertexBuffer);
 
         m_LengthBuffer.put(m_Lengths);
         m_LengthBuffer.position(0);
 
-        GLES20.glEnableVertexAttribArray(m_NormalisedLengthHandle);
-        GLES20.glVertexAttribPointer(m_NormalisedLengthHandle, 1, GLES20.GL_FLOAT, false, 4, m_LengthBuffer);
+        GLES31.glEnableVertexAttribArray(m_NormalisedLengthHandle);
+        GLES31.glVertexAttribPointer(m_NormalisedLengthHandle, 1, GLES31.GL_FLOAT, false, 4, m_LengthBuffer);
 
         m_AlphaBuffer.put(m_AlphaVals);
         m_AlphaBuffer.position(0);
 
-        GLES20.glEnableVertexAttribArray(m_AlphaHandle);
-        GLES20.glVertexAttribPointer(m_AlphaHandle, 1, GLES20.GL_FLOAT, false, 4, m_AlphaBuffer);
+        GLES31.glEnableVertexAttribArray(m_AlphaHandle);
+        GLES31.glVertexAttribPointer(m_AlphaHandle, 1, GLES31.GL_FLOAT, false, 4, m_AlphaBuffer);
 
-        GLES20.glDrawArrays(GLES20.GL_LINE_STRIP, 0, Tentacle.ROPE_RESOLUTION);
+        GLES31.glDrawArrays(GLES31.GL_LINE_STRIP, 0, Tentacle.ROPE_RESOLUTION);
         m_NodeIndex = 0;
     }
 
     @Override
     public void CleanModel()
     {
-        GLES20.glDisableVertexAttribArray(m_PositionHandle);
+        GLES31.glDisableVertexAttribArray(m_PositionHandle);
     }
 
     @Override
     protected void InitShaders()
     {
-        int vertexShaderHandler 	= loadShader(GLES20.GL_VERTEX_SHADER,Shaders.vertexShader_ROPE);
-        int fragmentShaderHandler 	= loadShader(GLES20.GL_FRAGMENT_SHADER,Shaders.fragmentShader_ROPE);
+        int vertexShaderHandler 	= loadShader(GLES31.GL_VERTEX_SHADER,Shaders.vertexShader_ROPE);
+        int fragmentShaderHandler 	= loadShader(GLES31.GL_FRAGMENT_SHADER,Shaders.fragmentShader_ROPE);
 
-        m_Program = GLES20.glCreateProgram();             	     // create empty OpenGL Program
-        GLES20.glAttachShader(m_Program, vertexShaderHandler);   // add the vertex shader to program
-        GLES20.glAttachShader(m_Program, fragmentShaderHandler); // add the fragment shader to program
-        GLES20.glLinkProgram(m_Program);                  		 // create OpenGL program executables
+        m_Program = GLES31.glCreateProgram();             	     // create empty OpenGL Program
+        GLES31.glAttachShader(m_Program, vertexShaderHandler);   // add the vertex shader to program
+        GLES31.glAttachShader(m_Program, fragmentShaderHandler); // add the fragment shader to program
+        GLES31.glLinkProgram(m_Program);                  		 // create OpenGL program executables
 
-        m_ProjMatrixHandle = GLES20.glGetUniformLocation(m_Program, "u_ProjMatrix");
-        m_HotColourHandle = GLES20.glGetUniformLocation(m_Program, "u_HotColor");
-        m_ColdColourHandle = GLES20.glGetUniformLocation(m_Program, "u_ColdColor");
-        m_ColourBloomPointHandle = GLES20.glGetUniformLocation(m_Program, "u_ColorBloomPoint");
+        m_ProjMatrixHandle = GLES31.glGetUniformLocation(m_Program, "u_ProjMatrix");
+        m_HotColourHandle = GLES31.glGetUniformLocation(m_Program, "u_HotColor");
+        m_ColdColourHandle = GLES31.glGetUniformLocation(m_Program, "u_ColdColor");
+        m_ColourBloomPointHandle = GLES31.glGetUniformLocation(m_Program, "u_ColorBloomPoint");
 
-        m_PositionHandle = GLES20.glGetAttribLocation(m_Program, "a_Position");
-        m_NormalisedLengthHandle = GLES20.glGetAttribLocation(m_Program, "a_NormalisedLength");
-        m_AlphaHandle = GLES20.glGetAttribLocation(m_Program, "a_Alpha");
+        m_PositionHandle = GLES31.glGetAttribLocation(m_Program, "a_Position");
+        m_NormalisedLengthHandle = GLES31.glGetAttribLocation(m_Program, "a_NormalisedLength");
+        m_AlphaHandle = GLES31.glGetAttribLocation(m_Program, "a_Alpha");
     }
 }

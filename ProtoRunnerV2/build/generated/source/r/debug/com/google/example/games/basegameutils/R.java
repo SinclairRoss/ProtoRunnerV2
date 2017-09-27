@@ -205,14 +205,14 @@ public final class R {
         public static final int abc_list_selector_disabled_holo_light = 0x7f02002c;
         public static final int abc_list_selector_holo_dark = 0x7f02002d;
         public static final int abc_list_selector_holo_light = 0x7f02002e;
-        public static final int common_full_open_on_phone = 0x7f020044;
-        public static final int common_ic_googleplayservices = 0x7f020059;
-        public static final int ic_plusone_medium_off_client = 0x7f020085;
-        public static final int ic_plusone_small_off_client = 0x7f020086;
-        public static final int ic_plusone_standard_off_client = 0x7f020087;
-        public static final int ic_plusone_tall_off_client = 0x7f020088;
-        public static final int powered_by_google_dark = 0x7f02009b;
-        public static final int powered_by_google_light = 0x7f02009c;
+        public static final int common_full_open_on_phone = 0x7f020045;
+        public static final int common_ic_googleplayservices = 0x7f02005a;
+        public static final int ic_plusone_medium_off_client = 0x7f020087;
+        public static final int ic_plusone_small_off_client = 0x7f020088;
+        public static final int ic_plusone_standard_off_client = 0x7f020089;
+        public static final int ic_plusone_tall_off_client = 0x7f02008a;
+        public static final int powered_by_google_dark = 0x7f02009d;
+        public static final int powered_by_google_light = 0x7f02009e;
     }
     public static final class id {
         public static final int action_bar = 0x7f0c0065;
@@ -362,11 +362,11 @@ public final class R {
         public static final int gamehelper_license_failed = 0x7f06006b;
         public static final int gamehelper_sign_in_failed = 0x7f06006c;
         public static final int gamehelper_unknown_error = 0x7f06006d;
-        public static final int license_failed = 0x7f06007f;
-        public static final int sign_in_failed = 0x7f06008d;
-        public static final int store_picture_message = 0x7f060090;
-        public static final int store_picture_title = 0x7f060091;
-        public static final int unknown_error = 0x7f060095;
+        public static final int license_failed = 0x7f06007e;
+        public static final int sign_in_failed = 0x7f06008c;
+        public static final int store_picture_message = 0x7f06008f;
+        public static final int store_picture_title = 0x7f060090;
+        public static final int unknown_error = 0x7f060094;
         public static final int wallet_buy_button_place_holder = 0x7f06003c;
     }
     public static final class style {

@@ -93,4 +93,11 @@ public class Vehicle_Drone extends Vehicle
 
     @Override
     public double GetInnerColourIntensity() { return m_Anchor.GetInnerColourIntensity(); }
+
+    @Override
+    public void CleanUp()
+    {
+        super.CleanUp();
+        m_AIController.CleanUp();
+    }
 }

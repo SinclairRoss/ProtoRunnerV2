@@ -12,9 +12,6 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.support.v4.view.MotionEventCompat;
 import android.util.Log;
 import android.view.Display;
@@ -32,12 +29,13 @@ public class GameActivity extends Activity implements SensorEventListener
 {
 	public static final String TAG = "GameActivity";
 	public static final int REQUEST_RENDER = 0;
+	public static final int REQUEST_LOGIC = 1;
 
     public static Point SCREEN_SIZE = new Point();
 	public static double SCREEN_RATIO;
 
 	private final double GYRO_LIMIT = 3.0;
-	
+
 	private GameThread m_GameThread;
 	private GameView m_GameView;
 	private ControlScheme m_ControlScheme;
@@ -47,8 +45,6 @@ public class GameActivity extends Activity implements SensorEventListener
 	private SensorManager m_SensorManager;
 	private Sensor m_Accelerometer;
 
-	private Handler m_Handler;
-	
 	private GameLogic m_GameLogic;
 
     @Override
@@ -57,22 +53,6 @@ public class GameActivity extends Activity implements SensorEventListener
 		super.onCreate(savedInstanceState);
 		
 		Log.e(TAG, "onCreate");
-
-		m_Handler = new Handler(Looper.getMainLooper())
-		{
-			@Override
-			public void handleMessage(Message msg)
-			{
-				super.handleMessage(msg);
-				
-				switch(msg.what)
-				{
-					case REQUEST_RENDER:
-						StartRender();
-						break;
-				}
-			}
-		};
 
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		
@@ -90,31 +70,26 @@ public class GameActivity extends Activity implements SensorEventListener
 		SCREEN_RATIO = (double)SCREEN_SIZE.x / (double)SCREEN_SIZE.y;
 
 		RendererPacket rendererPacket = new RendererPacket(this, new ChaseCamera(), new RenderEffectSettings(), SCREEN_SIZE);
+		RenderPackageDistributor distributer = new RenderPackageDistributor();
 
         PubSubHub pubSub = new PubSubHub();
 		m_ControlScheme = new ControlScheme(this, pubSub);
 		m_FlingListener = new FlingListener(1000.0f, 1000.0f);
 		
 		// Game states.
-		m_GameLogic = new GameLogic(this, pubSub, m_ControlScheme, rendererPacket);
+		m_GameLogic = new GameLogic(this, pubSub, m_ControlScheme, rendererPacket, distributer);
 
-        m_GameThread = new GameThread(m_GameLogic, m_ControlScheme, m_Handler);
-        m_GameThread.start();
-
-		m_GameView = new GameView(this, rendererPacket);
+		m_GameView = new GameView(this, rendererPacket, distributer);
 		setContentView(m_GameView);
+
+		m_GameThread = new GameThread(m_GameLogic, m_ControlScheme);
+		m_GameThread.start();
 
 		m_SensorManager = (SensorManager) getSystemService(GameActivity.SENSOR_SERVICE);
 		m_Accelerometer = m_SensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 		m_SensorManager.registerListener(this, m_Accelerometer, SensorManager.SENSOR_DELAY_GAME);
     }
-	
-	private void StartRender()
-	{
-		m_GameView.requestRender();
-		m_Handler.removeMessages(REQUEST_RENDER);
-	}
-	
+
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) 
 	{
@@ -151,7 +126,7 @@ public class GameActivity extends Activity implements SensorEventListener
 	{
 		super.onResume();
 		Log.e(TAG, "onResume");
-		
+
 		m_GameView.onResume();
 		m_GameThread.resumeThread();
 		m_SensorManager.registerListener(this, m_Accelerometer, SensorManager.SENSOR_DELAY_GAME);
@@ -164,7 +139,7 @@ public class GameActivity extends Activity implements SensorEventListener
 		Log.e(TAG, "onPause");
 		
 		m_GameView.onPause();
-		
+
 		m_SensorManager.unregisterListener(this);
 		m_GameThread.pauseThread();
 	}
@@ -179,15 +154,15 @@ public class GameActivity extends Activity implements SensorEventListener
 		m_GameThread.DestroyThread();
 
 		boolean Retry = true;
-		
+
 		while(Retry)
 		{
-			try 
+			try
 			{
 				Log.e(TAG, "Thread Join");
 				m_GameThread.join();
-			} 
-			catch (InterruptedException e) 
+			}
+			catch (InterruptedException e)
 			{
 				e.printStackTrace();
 			}
@@ -210,7 +185,7 @@ public class GameActivity extends Activity implements SensorEventListener
 		double tilt = MathsHelper.Clamp(event.values[1], -GYRO_LIMIT, GYRO_LIMIT);
 		tilt = MathsHelper.SignedNormalise(tilt, -GYRO_LIMIT, GYRO_LIMIT);
 		
-		m_ControlScheme.RegisterTilt(tilt);
+		m_ControlScheme.RegisterTilt(-tilt);
 	}
 
 	@Override

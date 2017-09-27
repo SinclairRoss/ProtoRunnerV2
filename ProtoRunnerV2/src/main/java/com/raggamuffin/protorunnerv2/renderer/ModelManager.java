@@ -1,10 +1,11 @@
 package com.raggamuffin.protorunnerv2.renderer;
 
 import android.content.Context;
-import android.opengl.GLES20;
+import android.opengl.GLES31;
 import android.util.Log;
 
 import com.raggamuffin.protorunnerv2.R;
+import com.raggamuffin.protorunnerv2.RenderObjects.RenderObject;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.master.RenderEffectSettings;
 import com.raggamuffin.protorunnerv2.utils.Colour;
@@ -70,11 +71,11 @@ public class ModelManager
 	{      
 		TextureLoader.LoadTextures(m_Context, m_ResourceIDs, m_TextureHandles);
 
-        //GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-       // GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_TextureHandles[0]);
+        //GLES31.glActiveTexture(GLES31.GL_TEXTURE0);
+       // GLES31.glBindTexture(GLES31.GL_TEXTURE_2D, m_TextureHandles[0]);
 
-        //GLES20.glActiveTexture(GLES20.GL_TEXTURE1);
-        //GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_TextureHandles[1]);
+        //GLES31.glActiveTexture(GLES31.GL_TEXTURE1);
+        //GLES31.glBindTexture(GLES31.GL_TEXTURE_2D, m_TextureHandles[1]);
 
 		LoadModels();
 	}
@@ -126,29 +127,39 @@ public class ModelManager
 
         return array;
     }
-	
-	public void Draw(GameObject object)
+
+   //public void DrawVehicles(GameObject object)
+   //{
+   //    GLModel model = GetModel(object.GetModel());
+
+   //    if(model != null)
+   //    {
+   //        model.DrawVehicles(object);
+   //    }
+   //}
+
+    public void Draw(RenderObject object, ModelType modelType)
     {
-        GLModel model = GetModel(object.GetModel());
+        GLModel model = GetModel(modelType);
 
         if(model != null)
         {
             model.Draw(object);
         }
-	}
+    }
 
     public void InitialiseModel(ModelType type, float[] projMatrix, Vector3 eye)
     {
         switch(type)
         {
            // case FloorPanel:
-           //     GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-           //     GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_TextureHandles[0]);
+           //     GLES31.glActiveTexture(GLES31.GL_TEXTURE0);
+           //     GLES31.glBindTexture(GLES31.GL_TEXTURE_2D, m_TextureHandles[0]);
             //    break;
 
             case RadarFragment:
-                GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-                GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_TextureHandles[1]);
+                GLES31.glActiveTexture(GLES31.GL_TEXTURE0);
+                GLES31.glBindTexture(GLES31.GL_TEXTURE_2D, m_TextureHandles[1]);
                 break;
         }
 
@@ -176,8 +187,6 @@ public class ModelManager
         {
             case Runner:
                 return m_Runner;
-            case Bit:
-                return m_Bit;
             case Byte:
                 return m_Byte;
             case Mine:
@@ -222,8 +231,6 @@ public class ModelManager
                 return null;
             case RailSlug:
                 return null;
-            case StandardPoint:
-                return null;
             case DamageTri:
                 return m_DamageTri;
             case Radial:
@@ -266,8 +273,8 @@ public class ModelManager
 
     public void InitialiseFloorPanel(float[] projMatrix)
     {
-        GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, m_TextureHandles[0]);
+        GLES31.glActiveTexture(GLES31.GL_TEXTURE0);
+        GLES31.glBindTexture(GLES31.GL_TEXTURE_2D, m_TextureHandles[0]);
 
         m_FloorPanel.InitialiseModel(projMatrix);
     }

@@ -17,7 +17,7 @@ public class ObjectEffect_Shields extends ObjectEffect
 
     public ObjectEffect_Shields(GameLogic gameLogic)
     {
-        super(ModelType.Shield, ObjectEffectType.Shields);
+        super(ModelType.Shield);
 
         m_Camera = gameLogic.GetCamera();
         m_ToCamera = new Vector3();

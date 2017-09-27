@@ -2,7 +2,6 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 
 import com.raggamuffin.protorunnerv2.ObjectEffect.ObjectEffect;
 import com.raggamuffin.protorunnerv2.ObjectEffect.ObjectEffectType;
-import com.raggamuffin.protorunnerv2.ObjectEffect.ObjectEffect_HealthBar;
 import com.raggamuffin.protorunnerv2.audio.AudioClips;
 import com.raggamuffin.protorunnerv2.audio.AudioEmitter_Point;
 import com.raggamuffin.protorunnerv2.audio.EAudioRepeatBehaviour;
@@ -86,13 +85,10 @@ public abstract class Vehicle extends GameObject
         }
 
         ///// Aesthetics
-        m_BurstEmitter = new ParticleEmitter_Burst(game, GetColour(), GetColour(), 40);
+        m_BurstEmitter = new ParticleEmitter_Burst(game, GetColour(), GetColour());
 
-        if(modelType != ModelType.Nothing)
-        {
-            m_FloorGrid = new FloorGrid(GetPosition(), GetColour(), 10.0);
-            game.AddObjectToRenderer(m_FloorGrid);
-        }
+		m_FloorGrid = new FloorGrid(GetPosition(), GetColour(), 5.0);
+		game.GetGameObjectManager().AddFloorGrid(m_FloorGrid);
 
         ///// Audio
         m_AudioDodge = new AudioEmitter_Point(this, game.GetGameAudioManager(), AudioClips.Dodge, EAudioRepeatBehaviour.Single);
@@ -124,7 +120,7 @@ public abstract class Vehicle extends GameObject
 	{
 		if(m_HealthBar == null)
 		{
-			m_HealthBar = m_Game.GetObjectEffectController().CreateEffect(ObjectEffectType.HealthBar, this);
+			m_HealthBar = m_Game.GetObjectEffectController().CreateHealthBar(this);
 		}
 
 		m_HullPoints -= drain;
@@ -192,10 +188,7 @@ public abstract class Vehicle extends GameObject
 
 		m_Engine.CleanUp();
 
-		if(m_FloorGrid != null)
-		{
-			m_Game.RemoveObjectFromRenderer(m_FloorGrid);
-		}
+		m_FloorGrid.NotifyOfAnchorInvalidation();
 	}
 
     @Override

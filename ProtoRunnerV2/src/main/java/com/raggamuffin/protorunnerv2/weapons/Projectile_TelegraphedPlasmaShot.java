@@ -2,7 +2,6 @@ package com.raggamuffin.protorunnerv2.weapons;
 
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.gameobjects.FloorGrid;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
@@ -15,17 +14,12 @@ import com.raggamuffin.protorunnerv2.utils.Vector3;
 public class Projectile_TelegraphedPlasmaShot extends Projectile
 {
     private Timer m_LifeSpan;
-    private FloorGrid m_FloorGrid;
-
-    private GameLogic m_Game;
 
     private boolean m_HasColided;
 
     public Projectile_TelegraphedPlasmaShot(GameLogic game, Vector3 position, Vector3 initialVelocity, Vector3 forward, Colour colour, double baseDamage, double firingSpeed, AffiliationKey affiliation)
     {
         super(position, initialVelocity, forward, colour, baseDamage, affiliation, ModelType.PlasmaPulse);
-
-        m_Game = game;
 
         m_LifeSpan = new Timer(4);
         m_LifeSpan.Start();
@@ -34,19 +28,11 @@ public class Projectile_TelegraphedPlasmaShot extends Projectile
 
         SetVelocity(GetForward(), firingSpeed);
 
-        if(GetVelocity().GetLengthSqr() >= 0.1)
-        {
-            SetForward(GetVelocity());
-        }
-        else
-        {
-            SetForward(forward);
-        }
+        Vector3 fwd = GetVelocity().GetLengthSqr() >= 0.1 ? GetVelocity() : forward;
+        SetForward(fwd);
 
         game.GetGameObjectManager().AddObject(new ProjectileLaserPointer(game, this));
 
-        m_FloorGrid = new FloorGrid(GetPosition(), GetColour(), 10.0);
-        m_Game.AddObjectToRenderer(m_FloorGrid);
         m_HasColided = false;
     }
 
@@ -85,7 +71,5 @@ public class Projectile_TelegraphedPlasmaShot extends Projectile
 
     @Override
     public void CleanUp()
-    {
-        m_Game.RemoveObjectFromRenderer(m_FloorGrid);
-    }
+    { }
 }

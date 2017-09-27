@@ -255,18 +255,18 @@ public class ControlScheme
 		}
 	}
 
-	public void Update(double DeltaTime)
+	public void Update(double deltaTime)
 	{
 		// Update.
-		m_DoubleSwipeTimerLeft[LEFT]   -= DeltaTime;
-		m_DoubleSwipeTimerLeft[RIGHT]  -= DeltaTime;
-		m_DoubleSwipeTimerLeft[UP] 	   -= DeltaTime;
-		m_DoubleSwipeTimerLeft[DOWN]   -= DeltaTime;
+		m_DoubleSwipeTimerLeft[LEFT]   -= deltaTime;
+		m_DoubleSwipeTimerLeft[RIGHT]  -= deltaTime;
+		m_DoubleSwipeTimerLeft[UP] 	   -= deltaTime;
+		m_DoubleSwipeTimerLeft[DOWN]   -= deltaTime;
 		
-		m_DoubleSwipeTimerRight[LEFT]  -= DeltaTime;
-		m_DoubleSwipeTimerRight[RIGHT] -= DeltaTime;
-		m_DoubleSwipeTimerRight[UP]    -= DeltaTime;
-		m_DoubleSwipeTimerRight[DOWN]  -= DeltaTime;
+		m_DoubleSwipeTimerRight[LEFT]  -= deltaTime;
+		m_DoubleSwipeTimerRight[RIGHT] -= deltaTime;
+		m_DoubleSwipeTimerRight[UP]    -= deltaTime;
+		m_DoubleSwipeTimerRight[DOWN]  -= deltaTime;
 
 		// Clamp.
 		m_DoubleSwipeTimerLeft[LEFT]   = MathsHelper.Clamp(m_DoubleSwipeTimerLeft[LEFT],  0.0f, m_DoubleTapTime);
@@ -343,5 +343,6 @@ public class ControlScheme
 	public double GetTilt() { return m_Tilt; }
 
     public int GetActivePointerCount() { return m_ActiveTouchPointers.size(); }
+	public ArrayList<TouchPointer> GetTouchPointers() { return m_ActiveTouchPointers; }
     public TouchPointer GetPointerAtIndex(int index) { return m_ActiveTouchPointers.get(index); }
 }

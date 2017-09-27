@@ -109,8 +109,6 @@ public class GameAudioManager
         double distanceSqr = toListener.GetLengthSqr();
 		double volume = 1 / (ATTENUATION * distanceSqr);
 
-		Log.e("Volume", "" + volume);
-
         return volume;
 	}
 	

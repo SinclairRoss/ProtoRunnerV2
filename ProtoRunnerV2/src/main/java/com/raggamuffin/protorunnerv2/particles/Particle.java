@@ -5,7 +5,7 @@ import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
-public abstract class Particle
+public class Particle
 {
     private Timer m_LifeTimer;
 
@@ -21,17 +21,17 @@ public abstract class Particle
     private Colour m_HotColour;
     private Colour m_ColdColour;
 
-    public Particle(double lifeSpan, double fadeIn, double fadeOut)
+    public Particle()
     {
-        m_LifeTimer = new Timer(lifeSpan);
+        m_LifeTimer = new Timer(0);
 
         m_DragCoefficient = 5;
 
         m_Position = new Vector3();
         m_Velocity = new Vector3();
 
-        m_FadeIn = fadeIn;
-        m_FadeOut = fadeOut;
+        m_FadeIn = 0.2;
+        m_FadeOut = 0.7;
 
         m_Colour = new Colour();
         m_HotColour = new Colour();
@@ -40,16 +40,12 @@ public abstract class Particle
 
     public void Update(double deltaTime)
     {
-        AdditionalBehaviour(deltaTime);
-
         ApplyDrag(deltaTime);
         UpdatePosition(deltaTime);
 
         UpdateColour();
         UpdateTransparency();
     }
-
-    protected abstract void AdditionalBehaviour(double deltaTime);
 
     private void ApplyDrag(double deltaTime)
     {
@@ -71,9 +67,7 @@ public abstract class Particle
     {
         double normLifeSpan = m_LifeTimer.GetProgress();
 
-        m_Colour.Red = MathsHelper.Lerp(normLifeSpan, m_HotColour.Red, m_ColdColour.Red);
-        m_Colour.Green = MathsHelper.Lerp(normLifeSpan, m_HotColour.Green, m_ColdColour.Green);
-        m_Colour.Blue = MathsHelper.Lerp(normLifeSpan, m_HotColour.Blue, m_ColdColour.Blue);
+        m_Colour.Lerp(normLifeSpan, m_ColdColour, m_HotColour);
     }
 
     private void UpdateTransparency()
@@ -102,6 +96,7 @@ public abstract class Particle
         m_Velocity.SetVector(vel);
         ApplyForce(forward, emissionForce);
 
+        m_Colour.SetColour(hot);
         m_HotColour.SetColour(hot);
         m_ColdColour.SetColour(cold);
 
@@ -119,25 +114,11 @@ public abstract class Particle
         m_Velocity.Z += force_z * deltaTime;
     }
 
-    public void ForceInvalidation()
-    {
-        m_LifeTimer.ElapseTimer();
-    }
-
     public boolean IsValid()
     {
         return !m_LifeTimer.HasElapsed();
     }
 
-    public abstract void OnInvalidation();
-
-    public Vector3 GetPosition()
-    {
-        return m_Position;
-    }
-
-    public Colour GetColour()
-    {
-        return m_Colour;
-    }
+    public Vector3 GetPosition() { return m_Position; }
+    public Colour GetColour() { return m_Colour; }
 }

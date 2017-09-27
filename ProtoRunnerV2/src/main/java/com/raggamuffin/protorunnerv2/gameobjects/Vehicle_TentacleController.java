@@ -192,5 +192,7 @@ public class Vehicle_TentacleController extends Vehicle
         {
             m_LatchTarget.RemoveStatusEffect(StatusEffect.Shielded);
         }
+
+        m_AIController.CleanUp();
     }
 }

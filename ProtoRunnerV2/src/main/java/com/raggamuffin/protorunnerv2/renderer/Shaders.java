@@ -2,6 +2,37 @@ package com.raggamuffin.protorunnerv2.renderer;
 
 public class Shaders
 {
+    public static final String vertexShader_INSTANCED =
+            "uniform mat4 u_ProjMatrix;"
+        +	"attribute vec4 a_Vertices;"
+
+        +   "layout(std140) uniform InstanceData"
+        +   "{"
+        +   "   vec3 u_Position;"
+        +   "}"
+
+        + 	"void main()"
+        +	"{"
+        +   "   mat4 model;"
+       // +   "   model[0] = vec4(u_Right.x * u_Scale.x,      u_Right.y * u_Scale.x,      u_Right.z * u_Scale.x,      0);"
+       // +   "   model[1] = vec4(u_Up.x * u_Scale.y,         u_Up.y * u_Scale.y,         u_Up.z * u_Scale.y,         0);"
+       // +   "   model[2] = vec4(u_Forward.x * u_Scale.z,    u_Forward.y * u_Scale.z,    u_Forward.z * u_Scale.z,    0);"
+        +   "   model[0] = vec4(1,0,0,0);"
+        +   "   model[1] = vec4(0,1,0,0);"
+        +   "   model[2] = vec4(0,1,0,0);"
+        +   "   model[3] = vec4(u_Position.x,               u_Position.y,               u_Position.z,               1);"
+
+        +	"	gl_Position = (u_ProjMatrix * model) * a_Vertices;"
+        +	"}";
+
+    public static final String fragmentShader_INSTANCED =
+            "precision lowp float;"
+
+        +   "void main()"
+        +   "{"
+        +   "	gl_FragColor = vec4(1.0, 0.0, 1.0, 1.0);"
+        +   "}";
+
     public static final String vertexShader_BASIC =
             "uniform mat4 u_ProjMatrix;"
         +   "uniform vec3 u_Position;"

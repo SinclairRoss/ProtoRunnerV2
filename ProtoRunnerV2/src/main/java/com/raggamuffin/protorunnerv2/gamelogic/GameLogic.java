@@ -2,13 +2,16 @@ package com.raggamuffin.protorunnerv2.gamelogic;
 
 import android.app.Activity;
 
+import com.raggamuffin.protorunnerv2.ObjectEffect.ObjectEffect;
 import com.raggamuffin.protorunnerv2.ObjectEffect.ObjectEffectController;
+import com.raggamuffin.protorunnerv2.ObjectEffect.ObjectEffectType;
+import com.raggamuffin.protorunnerv2.ObjectEffect.ObjectEffect_HealthBar;
+import com.raggamuffin.protorunnerv2.RenderObjects.RenderObject_HealthBar;
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
 import com.raggamuffin.protorunnerv2.gameobjects.ExhibitionCameraAnchor;
 import com.raggamuffin.protorunnerv2.gameobjects.FloorGrid;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
-import com.raggamuffin.protorunnerv2.gameobjects.Tentacle;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.managers.BulletManager;
 import com.raggamuffin.protorunnerv2.managers.DatabaseManager;
@@ -21,7 +24,6 @@ import com.raggamuffin.protorunnerv2.managers.GameMode;
 import com.raggamuffin.protorunnerv2.managers.GameObjectManager;
 import com.raggamuffin.protorunnerv2.managers.GooglePlayService;
 import com.raggamuffin.protorunnerv2.managers.InGameSoundEffectsManager;
-import com.raggamuffin.protorunnerv2.managers.MultiplierPopperController;
 import com.raggamuffin.protorunnerv2.managers.ParticleManager;
 import com.raggamuffin.protorunnerv2.managers.RenderEffectManager;
 import com.raggamuffin.protorunnerv2.managers.RopeManager;
@@ -29,19 +31,23 @@ import com.raggamuffin.protorunnerv2.managers.TrailManager;
 import com.raggamuffin.protorunnerv2.managers.UIManager;
 import com.raggamuffin.protorunnerv2.managers.VehicleManager;
 import com.raggamuffin.protorunnerv2.master.ControlScheme;
+import com.raggamuffin.protorunnerv2.RenderObjects.RenderPackage;
+import com.raggamuffin.protorunnerv2.master.RenderPackageDistributor;
 import com.raggamuffin.protorunnerv2.master.RendererPacket;
 import com.raggamuffin.protorunnerv2.particles.Particle;
-import com.raggamuffin.protorunnerv2.particles.ParticleType;
 import com.raggamuffin.protorunnerv2.particles.Trail;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
-import com.raggamuffin.protorunnerv2.ui.UIElement;
+import com.raggamuffin.protorunnerv2.ui.UIElement_Label;
 import com.raggamuffin.protorunnerv2.ui.UIScreens;
 import com.raggamuffin.protorunnerv2.utils.CollisionReport;
+import com.raggamuffin.protorunnerv2.utils.StopWatch;
+import com.raggamuffin.protorunnerv2.utils.Vector3;
 import com.raggamuffin.protorunnerv2.weapons.Projectile;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class GameLogic extends ApplicationLogic
@@ -65,9 +71,7 @@ public class GameLogic extends ApplicationLogic
 	private UIManager m_UIManager;
 	private RenderEffectManager m_RenderEffectManager;
 	private GameStats m_GameStats;
-	private SecondWindHandler m_SecondWindHandler;
     private InGameSoundEffectsManager m_SFXManager;
-    private MultiplierPopperController m_PopperController;
     private ObjectEffectController m_ObjectEffectController;
 
     private GameManager m_GameManager;
@@ -78,12 +82,17 @@ public class GameLogic extends ApplicationLogic
     private final GooglePlayService m_GooglePlayService;
 
     private Publisher m_GameReadyPublisher;
+    private Publisher m_GameOverPublisher;
 
     private GameMode m_GameMode;
 
     public static boolean TEST_MODE = false;
 
-	public GameLogic(Activity activity, PubSubHub pubSub, ControlScheme scheme, RendererPacket packet)
+    private RenderPackageDistributor m_Distributor;
+
+    private ArrayList<GameObject> m_MiscObjects;
+
+	public GameLogic(Activity activity, PubSubHub pubSub, ControlScheme scheme, RendererPacket packet, RenderPackageDistributor distributer)
 	{
 		super(activity, packet);
 
@@ -92,6 +101,8 @@ public class GameLogic extends ApplicationLogic
 		m_Camera = packet.GetCamera();
 		m_Control = scheme;
 
+        m_Distributor = distributer;
+
         m_PubSubHub = pubSub;
 		m_DatabaseManager= new DatabaseManager(this);
 		m_GameAudioManager = new GameAudioManager(m_Context, m_Camera);
@@ -99,16 +110,13 @@ public class GameLogic extends ApplicationLogic
 		m_ParticleManager = new ParticleManager(this);
 		m_BulletManager = new BulletManager(this);
 		m_VehicleManager = new VehicleManager(this);
-        m_GameObjectManager = new GameObjectManager(this);
+        m_GameObjectManager = new GameObjectManager();
         m_RopeManager = new RopeManager(this);
-        m_TrailManager = new TrailManager(this);
+        m_TrailManager = new TrailManager();
 		m_UIManager = new UIManager(this);
 		m_GameStats = new GameStats(this);
-		m_SecondWindHandler	= new SecondWindHandler(this);
         m_RenderEffectManager = new RenderEffectManager(this, m_Packet.GetRenderEffectSettings());
         m_GooglePlayService = new GooglePlayService(this);
-        m_PopperController = new MultiplierPopperController(this);
-        m_PopperController.Off();
 
         m_ObjectEffectController = new ObjectEffectController(this);
 
@@ -126,6 +134,7 @@ public class GameLogic extends ApplicationLogic
         m_PubSubHub.SubscribeToTopic(PublishedTopics.OnLearnToTouchComplete, new OnLearnToTouchCompleteSubscriber());
 
         m_GameReadyPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.GameReady);
+        m_GameOverPublisher = m_PubSubHub.CreatePublisher(PublishedTopics.EndGame);
 
         m_PlayManager = new GameManager_Play(this);
         m_ExhibitionManager = new GameManager_Exhibition(this);
@@ -133,11 +142,15 @@ public class GameLogic extends ApplicationLogic
         m_TestManager = new GameManager_Test(this);
         m_GameManager = m_QuietManager;
 
-        SetGameMode(GameMode.Quiet);
+        m_MiscObjects = new ArrayList<>();
+
+        SetGameMode(GameMode.Exhibition);
     }
 
+    private static StopWatch asdf = new StopWatch();
+
 	@Override
-	public void Update(double deltaTime) 
+	public void Update(double deltaTime)
 	{
         m_GameManager.Update(deltaTime);
 		m_UIManager.Update(deltaTime);
@@ -148,15 +161,110 @@ public class GameLogic extends ApplicationLogic
         m_RopeManager.Update(deltaTime);
         m_TrailManager.Update();
 		m_RenderEffectManager.Update(deltaTime);
-		m_SecondWindHandler.Update(deltaTime);
         m_GameStats.Update(deltaTime);
-        m_PopperController.Update();
         m_ObjectEffectController.Update(deltaTime);
 
 		CheckCollisions();
 
 		m_Camera.Update(deltaTime);
+
+        RenderPackage rPackage = WaitForRenderPackage();
+        FillRenderPackage(rPackage);
+        m_Distributor.CheckIn_FromWrite(rPackage);
 	}
+
+	private RenderPackage WaitForRenderPackage()
+    {
+        RenderPackage rPackage = null;
+        while(rPackage == null)
+        {
+            rPackage = m_Distributor.Checkout_ForWrite();
+        }
+
+        return rPackage;
+    }
+
+	private void FillRenderPackage(RenderPackage rPackage)
+    {
+        rPackage.SetCamera(m_Camera);
+
+        ArrayList<Vehicle> vehicles = m_VehicleManager.GetVehicles();
+        for(int i = 0; i < vehicles.size(); ++i)
+        {
+            Vehicle vehicle = vehicles.get(i);
+            rPackage.AddVehicle(vehicle);
+        }
+
+        ArrayList<GameObject> objects = m_GameObjectManager.GetGameObjects();
+        for(int i = 0; i < objects.size(); ++i)
+        {
+            GameObject object = objects.get(i);
+            rPackage.AddObject(object);
+        }
+
+        ArrayList<FloorGrid> grids = m_GameObjectManager.GetFloorGrids();
+        for(int i = 0; i < grids.size(); ++i)
+        {
+            FloorGrid grid = grids.get(i);
+            rPackage.AddFloorGrid(grid);
+        }
+
+        ArrayList<Projectile> m_Projectiles = m_BulletManager.GetActiveBullets();
+        for(int i = 0; i < m_Projectiles.size(); ++i)
+        {
+            GameObject object = m_Projectiles.get(i);
+            rPackage.AddObject(object);
+        }
+
+        ArrayList<Particle> particles = m_ParticleManager.GetActiveParticles();
+        int particleCount = particles.size();
+        rPackage.PrepareForParticles(particleCount);
+        for(int i = 0; i < particleCount; ++i)
+        {
+            Particle particle = particles.get(i);
+            rPackage.AddParticle(particle);
+        }
+
+        for(int i = 0; i < m_MiscObjects.size(); ++i)
+        {
+            GameObject obj = m_MiscObjects.get(i);
+            rPackage.AddObject(obj);
+        }
+
+        ObjectEffectType[] effectTypes = ObjectEffectType.values();
+        for(int i = 0; i < effectTypes.length; ++i)
+        {
+            ObjectEffectType type = effectTypes[i];
+            ArrayList<ObjectEffect> effectsOfType = m_ObjectEffectController.GetEffectsForType(type);
+
+            for (int j = 0; j < effectsOfType.size(); ++j)
+            {
+                GameObject obj = effectsOfType.get(j);
+                rPackage.AddObject(obj);
+            }
+        }
+
+        ArrayList<UIElement_Label> labels = m_UIManager.GetLabels();
+        for(int i = 0; i < labels.size(); ++i)
+        {
+            UIElement_Label label = labels.get(i);
+            rPackage.AddText(label);
+        }
+
+       //ArrayList<ObjectEffect_HealthBar> healthBars = m_ObjectEffectController.GetHealthBars();
+       //for(int i = 0; i < healthBars.size(); ++i)
+       //{
+       //    ObjectEffect_HealthBar healthBar = healthBars.get(i);
+       //    rPackage.AddHealthBar(healthBar);
+       //}
+
+       //ArrayList<Trail> trails = m_TrailManager.GetTrails();
+       //for(int i = 0; i < trails.size(); ++i)
+       //{
+       //    Trail trail = trails.get(i);
+       //    rPackage.AddTrail(trail);
+       //}
+    }
 	
 	private void CheckCollisions()
 	{
@@ -195,7 +303,6 @@ public class GameLogic extends ApplicationLogic
             case Play:
                 m_GameManager = m_PlayManager;
                 break;
-
             case Tutorial:
                 m_GameManager = m_PlayManager;
                 break;
@@ -213,24 +320,6 @@ public class GameLogic extends ApplicationLogic
         m_GameMode = mode;
         m_GameManager.Initialise();
     }
-
-    public void AddObjectToRenderer(Trail trail) { m_Packet.AddObject(trail); }
-    public void RemoveObjectFromRenderer(Trail trail) { m_Packet.RemoveObject(trail); }
-
-    public void AddRopeToRenderer(Tentacle tentacle) { m_Packet.AddObject(tentacle); }
-    public void RemoveRopeFromRenderer(Tentacle tentacle) { m_Packet.RemoveObject(tentacle); }
-
-    public void AddParticleToRenderer(ArrayList<Particle> particles, ParticleType type) { m_Packet.AddObject(particles, type); }
-    public void RemoveParticleFromRenderer(ArrayList<Particle> particles, ParticleType type) { m_Packet.RemoveObject(particles, type); }
-
-    public void AddObjectToRenderer(FloorGrid floorGrid) { m_Packet.AddObject(floorGrid);}
-    public void RemoveObjectFromRenderer(FloorGrid floorGrid) { m_Packet.RemoveObject(floorGrid); }
-
-    public void AddObjectToRenderer(GameObject obj) { m_Packet.AddObject(obj); }
-    public void RemoveObjectFromRenderer(GameObject obj) { m_Packet.RemoveObject(obj); }
-
-    public void AddObjectToRenderer(UIElement element) { m_Packet.AddUIElement(element); }
-	public void RemoveObjectFromRenderer(UIElement element) { m_Packet.RemoveUIElement(element); }
 
 	public PubSubHub GetPubSubHub()
 	{
@@ -269,22 +358,18 @@ public class GameLogic extends ApplicationLogic
 
 	public void AttachCameraToAnchor()
 	{
-		m_Camera.Attach(m_CameraAnchor);
-        m_Camera.SetUp(0,0,1);
+		m_Camera.Attach(m_CameraAnchor, Vector3.FORWARD);
 	}
-
-    public MultiplierPopperController GetPopperController()
-    {
-        return m_PopperController;
-    }
 
     public RopeManager GetRopeManager() { return m_RopeManager; }
     public TrailManager GetTrailManager() { return m_TrailManager; }
-	
+
+    public void AddMiscObject(GameObject obj) { m_MiscObjects.add(obj); }
+    public void RemoveMiscObject(GameObject obj) { m_MiscObjects.remove(obj); }
+
 	public GameAudioManager GetGameAudioManager() { return m_GameAudioManager; }
 	public UIManager GetUIManager() { return m_UIManager; }
 	public GameStats GetGameStats() { return m_GameStats; }
-	public SecondWindHandler GetSecondWindHandler() { return m_SecondWindHandler; }
 	public DatabaseManager GetDatabaseManager() { return m_DatabaseManager; }
     public GooglePlayService GetGooglePlayService() { return m_GooglePlayService; }
     public ObjectEffectController GetObjectEffectController() { return m_ObjectEffectController; }
@@ -309,7 +394,6 @@ public class GameLogic extends ApplicationLogic
             SetGameMode(GameMode.Play);
             m_UIManager.ShowScreen(UIScreens.Play);
 
-            m_SecondWindHandler.AutoSpawnOff();
             m_GameReadyPublisher.Publish();
         }
     }
@@ -320,7 +404,6 @@ public class GameLogic extends ApplicationLogic
         public void Update(Object args)
         {
             SetGameMode(GameMode.Exhibition);
-            m_SecondWindHandler.Reset();
             m_GameStats.Stop();
             m_UIManager.ShowScreen(UIScreens.GameOverScreen);
             AttachCameraToAnchor();
@@ -332,7 +415,7 @@ public class GameLogic extends ApplicationLogic
         @Override
         public void Update(Object args)
         {
-            m_Camera.Attach(m_VehicleManager.GetPlayer());
+            m_Camera.Attach(m_VehicleManager.GetPlayer(), Vector3.UP);
             m_Camera.SetUp(0, 1, 0);
         }
     }
@@ -349,6 +432,8 @@ public class GameLogic extends ApplicationLogic
             {
                 m_Camera.SetLookAt(wingmen.get(0));
             }
+
+            m_GameOverPublisher.Publish();
         }
     }
 
@@ -380,7 +465,6 @@ public class GameLogic extends ApplicationLogic
             m_GameAudioManager.StartMusic();
         }
     }
-
 
     private class AchievementsPressedSubscriber extends Subscriber
     {
@@ -414,4 +498,6 @@ public class GameLogic extends ApplicationLogic
     {
         return m_GameMode;
     }
+
+    public RendererPacket GetPacket() { return m_Packet; }
 }

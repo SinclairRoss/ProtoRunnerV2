@@ -10,6 +10,7 @@ import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
 import com.raggamuffin.protorunnerv2.ui.TouchDisplay;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
+import com.raggamuffin.protorunnerv2.ui.UIElement_Label;
 import com.raggamuffin.protorunnerv2.ui.UIScreen;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_Aftermath;
 import com.raggamuffin.protorunnerv2.ui.UIScreen_Credits;
@@ -28,6 +29,7 @@ public class UIManager
 {
 	private GameLogic m_Game;
 
+    private ArrayList<UIElement_Label> m_Labels;
 	private ArrayList<UIElement> m_UIElements;
 	private UIScreen m_Screen;
 	
@@ -54,6 +56,7 @@ public class UIManager
 		Point size = new Point();
 		display.getRealSize(size);
 
+        m_Labels = new ArrayList<>();
 		m_UIElements = new ArrayList<>();
 
 		m_TouchDisplay = new TouchDisplay(m_Game);
@@ -83,6 +86,12 @@ public class UIManager
 		{
 			m_UIElements.get(i).Update(deltaTime);
 		}
+
+		elementCount = m_Labels.size();
+        for(int i = 0; i < elementCount; ++i)
+        {
+            m_Labels.get(i).Update(deltaTime);
+        }
 
         m_Screen.Update(deltaTime);
         m_TouchDisplay.Update(deltaTime);
@@ -138,26 +147,26 @@ public class UIManager
 	{
         if(m_Screen != null)
         {
-			int numUIElements = m_UIElements.size();
-			for(int i = 0; i < numUIElements; ++i)
-			{
-				m_Game.RemoveObjectFromRenderer(m_UIElements.get(i));
-			}
 			m_UIElements.clear();
+            m_Labels.clear();
 
 			m_Screen.CleanUp();
         }
     }
 
+    public void AddLabel(UIElement_Label label)
+    {
+        m_Labels.add(label);
+    }
+
     public void AddUIElement(UIElement element)
 	{
-		m_Game.AddObjectToRenderer(element);
 		m_UIElements.add(element);
 	}
 
+	public void RemoveLabel(UIElement_Label label) { m_Labels.remove(label); }
 	public void RemoveUIElement(UIElement element)
 	{
-		m_Game.RemoveObjectFromRenderer(element);
 		m_UIElements.remove(element);
 	}
 
@@ -172,4 +181,7 @@ public class UIManager
 	}
 
 	public TouchDisplay GetTouchDisplay() { return m_TouchDisplay; }
+
+    public ArrayList<UIElement_Label> GetLabels() { return m_Labels; }
+    public ArrayList<UIElement> GetUIElements() { return m_UIElements; }
 }

@@ -164,4 +164,11 @@ public class Vehicle_Warlord extends Vehicle
     {
         return m_AIController.GetSituationalAwareness().GetTargetSensor().GetTarget();
     }
+
+    @Override
+    public void CleanUp()
+    {
+        super.CleanUp();
+        m_AIController.CleanUp();
+    }
 }

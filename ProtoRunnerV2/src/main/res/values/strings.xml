@@ -30,7 +30,6 @@
     
     <string name="label_score">Score: </string>
     <string name="label_new_personal_Best">New Personal Best!</string>
-    <string name="label_enter_your_name">Enter your initials</string>
 	<string name="label_accuracy">Accuracy</string>
 	<string name="label_play_time">Play time: </string>
 	<string name="label_num_reboots">Times rebooted: </string>
@@ -49,8 +48,8 @@
     <string name="credits_text4_sub">QA &amp; Then Some</string>
     <string name="credits_text5">Hannah Middlemass</string>
     <string name="credits_text5_sub">Art Consultant</string>
-    <string name="credits_text6">Ryan Scoble</string>
-    <string name="credits_text6_sub">Audio Production</string>
+    <string name="credits_sasha_thomson">In loving memory of Sasha Thomson</string>
+    <string name="credits_born_and_died">1992 - 2017</string>
 
     <string name="game_over_message">Session Terminated</string>
     <string name="down_but_not_out_text">System Failing</string>

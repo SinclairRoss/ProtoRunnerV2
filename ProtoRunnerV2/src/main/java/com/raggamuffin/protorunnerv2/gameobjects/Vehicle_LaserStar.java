@@ -42,4 +42,11 @@ public class Vehicle_LaserStar extends Vehicle
 
         super.Update(deltaTime);
     }
+
+    @Override
+    public void CleanUp()
+    {
+        super.CleanUp();
+        m_AIController.CleanUp();
+    }
 } 

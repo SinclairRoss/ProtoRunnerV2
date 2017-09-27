@@ -6,6 +6,7 @@ package com.raggamuffin.protorunnerv2.ui;
 import com.raggamuffin.protorunnerv2.managers.UIManager;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.utils.Colour;
+import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 
 public class UIObject_Button
@@ -36,14 +37,15 @@ public class UIObject_Button
 
     public  UIObject_Button(String text, double x, double y, Alignment alignment, Publisher onClickPublisher, Object args, UIManager uiManager)
     {
-        m_Colour_On = new Colour(UIConstants.COLOUR_ON, 0.2);
-        m_Colour_Off = new Colour(UIConstants.COLOUR_OFF, 0.1);
+        m_Colour_On = new Colour(UIConstants.COLOUR_ON, 0.2f);
+        m_Colour_Off = new Colour(UIConstants.COLOUR_OFF, 0.1f);
 
         m_OnClickPublisher = onClickPublisher;
         m_Args = args;
 
         m_Label = new UIElement_Label(text, UIConstants.FONTSIZE_STANDARD, x, y, alignment);
-        uiManager.AddUIElement(m_Label);
+        m_Label.SetColour(Colours.CalvinOrange);
+        uiManager.AddLabel(m_Label);
 
         m_Height = UIConstants.FONTSIZE_STANDARD * 2;
         m_BackgroundLength_Retracted = m_Height / UIConstants.GOLDEN_RATIO;
@@ -52,13 +54,13 @@ public class UIObject_Button
         double xPos = x + (alignment == Alignment.Right ? PADDING : -PADDING);
 
         m_EndBlock = new UIElement_Block(m_Colour_Off, alignment);
-        m_EndBlock.SetAlpha(0.6);
+        m_EndBlock.SetAlpha(0.6f);
         m_EndBlock.SetPosition(xPos, y);
         m_EndBlock.SetScale(m_BackgroundLength_Retracted, m_Height);
         uiManager.AddUIElement(m_EndBlock);
 
         m_Background = new UIElement_Block(m_Colour_Off, alignment);
-        m_Background.SetAlpha(0.1);
+        m_Background.SetAlpha(0.1f);
         m_Background.SetPosition(xPos, y);
         m_Background.SetScale(m_BackgroundLength_Retracted, m_Height);
         uiManager.AddUIElement(m_Background);

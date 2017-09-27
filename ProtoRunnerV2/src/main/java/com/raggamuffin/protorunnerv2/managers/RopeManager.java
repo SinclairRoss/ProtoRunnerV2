@@ -44,12 +44,10 @@ public class RopeManager
     public void AddObject(Tentacle obj)
     {
         m_GameObjects.add(obj);
-        m_Game.AddRopeToRenderer(obj);
     }
 
     public void RemoveObject(Tentacle obj)
     {
         m_GameObjects.remove(obj);
-        m_Game.RemoveRopeFromRenderer(obj);
     }
 }

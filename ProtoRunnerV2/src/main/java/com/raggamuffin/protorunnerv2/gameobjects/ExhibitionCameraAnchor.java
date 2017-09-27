@@ -10,6 +10,7 @@ public class ExhibitionCameraAnchor extends GameObject
         super(ModelType.Nothing, 1.0);
 
         SetPosition(0, 40, 0);
+
         SetForward(0, -1, 0);
 	}
 

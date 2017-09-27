@@ -1,6 +1,6 @@
 package com.raggamuffin.protorunnerv2.renderer;
 
-import android.opengl.GLES20;
+import android.opengl.GLES31;
 import android.opengl.Matrix;
 import android.util.Log;
 
@@ -43,7 +43,7 @@ public class GLOrthoCamera
 	{
 		Log.e(TAG, "ViewPortChanged");
 		
-		GLES20.glViewport(0, 0, width, height);
+		GLES31.glViewport(0, 0, width, height);
         float ratio = (float) width / height;
      
         // this projection matrix is applied to object coordinates

@@ -1,22 +1,104 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:2:1-48:12
+ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:2:1-42:12
 	package
 		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:3:5-44
 		INJECTED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml
 	android:versionName
-		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:5:5-30
-		INJECTED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml
-	android:versionCode
-		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:4:5-28
 		INJECTED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:2:11-69
+	android:versionCode
+		INJECTED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml
+uses-feature#0x00030001
+ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:5:5-7:34
+	android:glEsVersion
+		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:6:9-41
+	android:required
+		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:7:9-32
+supports-screens
+ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:9:5-11:5
+	android:anyDensity
+		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:10:3-28
+application
+ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:13:5-40:19
+MERGED from [ProtoRunnerV2:BaseGameUtils:unspecified] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\BaseGameUtils\build\intermediates\bundles\default\AndroidManifest.xml:30:5-31:19
+MERGED from [com.google.android.gms:play-services:8.4.0] C:\Users\Mad Beast\.android\build-cache\d94db8313ef5db18bb8b9c4da8b3c9c707dc011d\output\AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-ads:8.4.0] C:\Users\Mad Beast\.android\build-cache\80d02af8f3ffaa25d3f7d38746928011b80cdd25\output\AndroidManifest.xml:24:5-32:19
+MERGED from [com.google.android.gms:play-services-analytics:8.4.0] C:\Users\Mad Beast\.android\build-cache\7bf5a094c30565727f7ed94aa1a22f47bee090a2\output\AndroidManifest.xml:24:5-20
+MERGED from [com.google.android.gms:play-services-appindexing:8.4.0] C:\Users\Mad Beast\.android\build-cache\b834fb49938d1b60b09448934b5d79ef97baf832\output\AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-appinvite:8.4.0] C:\Users\Mad Beast\.android\build-cache\3952fee8cee83aa09f306676e96c5c31fb242280\output\AndroidManifest.xml:20:5-30:19
+MERGED from [com.google.android.gms:play-services-appstate:8.4.0] C:\Users\Mad Beast\.android\build-cache\6b6c5f98e09bd2ad076a791a884654d0eb06e7e4\output\AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-auth:8.4.0] C:\Users\Mad Beast\.android\build-cache\c7ce09cde2f977a33a81694dd65d738a33aacd12\output\AndroidManifest.xml:20:5-32:19
+MERGED from [com.google.android.gms:play-services-cast:8.4.0] C:\Users\Mad Beast\.android\build-cache\0a374259e5b702e66757dd9eb5212914a09074ce\output\AndroidManifest.xml:19:5-20
+MERGED from [com.android.support:mediarouter-v7:23.0.0] C:\Users\Mad Beast\.android\build-cache\f359ce33aa72bda74c322ea960771d2968e83567\output\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:appcompat-v7:23.0.0] C:\Users\Mad Beast\.android\build-cache\10f39f0ed2a0d888cf306a735ded04852337ad73\output\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-fitness:8.4.0] C:\Users\Mad Beast\.android\build-cache\1f304540ee5d6b4d37ed0a2778a259d17f82f47a\output\AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-games:8.4.0] C:\Users\Mad Beast\.android\build-cache\017d7d9b891f90211dec779979eedaf4a81f7d5d\output\AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-drive:8.4.0] C:\Users\Mad Beast\.android\build-cache\bc5ed2d9e691be6688804044c57680b80ea4ae38\output\AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-gcm:8.4.0] C:\Users\Mad Beast\.android\build-cache\7043b9781007ec4db1856e50660855bfea9b5b77\output\AndroidManifest.xml:24:5-20
+MERGED from [com.google.android.gms:play-services-location:8.4.0] C:\Users\Mad Beast\.android\build-cache\46d95c46886620d7a4cc00236a371c32be2bc817\output\AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\.android\build-cache\9c658c39e4cb2f5aa71f727ef50f4fa8eeef5ee1\output\AndroidManifest.xml:26:5-46:19
+MERGED from [com.google.android.gms:play-services-nearby:8.4.0] C:\Users\Mad Beast\.android\build-cache\37a44acec389a1785cd4f86a152ce5d80003dc27\output\AndroidManifest.xml:20:5-20
+MERGED from [com.google.android.gms:play-services-panorama:8.4.0] C:\Users\Mad Beast\.android\build-cache\4f1f28dcceada82aad6520762eb9b15ed21e2bb8\output\AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-plus:8.4.0] C:\Users\Mad Beast\.android\build-cache\472d98f23209f075a615f383f2f217b8c088973c\output\AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-safetynet:8.4.0] C:\Users\Mad Beast\.android\build-cache\0d125254a68dff753dd18399d86ca4cfaf330e80\output\AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-vision:8.4.0] C:\Users\Mad Beast\.android\build-cache\b279ce42ad1789567f8b5afc0b799f42abb2569b\output\AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-identity:8.4.0] C:\Users\Mad Beast\.android\build-cache\e240a4625911d2b0fd238acd42de4d34bc1dfded\output\AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-maps:8.4.0] C:\Users\Mad Beast\.android\build-cache\b266556a722f8d4496b3b339a8c1567e376bdc3e\output\AndroidManifest.xml:27:5-20
+MERGED from [com.google.android.gms:play-services-wearable:8.4.0] C:\Users\Mad Beast\.android\build-cache\37eb5396aef4fc25e2c1badd6027e604328937a1\output\AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-basement:8.4.0] C:\Users\Mad Beast\.android\build-cache\dc4b0455685cb6262105e764f3d0e0132827b7ee\output\AndroidManifest.xml:20:5-24:19
+MERGED from [com.android.support:support-v4:23.0.0] C:\Users\Mad Beast\.android\build-cache\fb413ccb637fa349799aa0ab570d64acbb3b1620\output\AndroidManifest.xml:22:5-20
+	android:label
+		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:16:9-41
+	android:allowBackup
+		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:14:9-35
+	android:icon
+		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:15:9-38
+	android:theme
+		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:17:9-40
+activity#com.raggamuffin.protorunnerv2.master.GameActivity
+ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:20:9-29:20
+	android:screenOrientation
+		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:23:13-50
+	android:label
+		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:22:13-45
+	android:name
+		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:21:13-77
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:25:14-28:29
+action#android.intent.action.MAIN
+ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:26:17-69
+	android:name
+		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:26:25-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:27:17-77
+	android:name
+		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:27:27-74
+meta-data#com.google.android.gms.appstate.APP_ID
+ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:31:9-32:53
+	android:value
+		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:32:20-50
+	android:name
+		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:31:20-73
+meta-data#com.google.android.gms.games.APP_ID
+ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:34:9-35:53
+	android:value
+		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:35:20-50
+	android:name
+		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:34:20-70
+meta-data#com.google.android.gms.version
+ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:37:9-38:75
+MERGED from [com.google.android.gms:play-services-basement:8.4.0] C:\Users\Mad Beast\.android\build-cache\dc4b0455685cb6262105e764f3d0e0132827b7ee\output\AndroidManifest.xml:21:9-23:69
+	android:value
+		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:38:20-73
+	android:name
+		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:37:20-65
 uses-sdk
-ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:7:5-9:41
+INJECTED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml reason: use-sdk injection requested
 MERGED from [ProtoRunnerV2:BaseGameUtils:unspecified] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\BaseGameUtils\build\intermediates\bundles\default\AndroidManifest.xml:22:5-24:41
 MERGED from [com.google.android.gms:play-services:8.4.0] C:\Users\Mad Beast\.android\build-cache\d94db8313ef5db18bb8b9c4da8b3c9c707dc011d\output\AndroidManifest.xml:18:5-42
 MERGED from [com.google.android.gms:play-services-ads:8.4.0] C:\Users\Mad Beast\.android\build-cache\80d02af8f3ffaa25d3f7d38746928011b80cdd25\output\AndroidManifest.xml:23:5-42
@@ -26,8 +108,8 @@ MERGED from [com.google.android.gms:play-services-appinvite:8.4.0] C:\Users\Mad 
 MERGED from [com.google.android.gms:play-services-appstate:8.4.0] C:\Users\Mad Beast\.android\build-cache\6b6c5f98e09bd2ad076a791a884654d0eb06e7e4\output\AndroidManifest.xml:18:5-42
 MERGED from [com.google.android.gms:play-services-auth:8.4.0] C:\Users\Mad Beast\.android\build-cache\c7ce09cde2f977a33a81694dd65d738a33aacd12\output\AndroidManifest.xml:18:5-43
 MERGED from [com.google.android.gms:play-services-cast:8.4.0] C:\Users\Mad Beast\.android\build-cache\0a374259e5b702e66757dd9eb5212914a09074ce\output\AndroidManifest.xml:18:5-42
-MERGED from [com.android.support:mediarouter-v7:23.0.0] C:\Users\Mad Beast\.android\build-cache\fdb4c33901c363dc5d2efafc1daf8f4fde39e87f\output\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:appcompat-v7:23.0.0] C:\Users\Mad Beast\.android\build-cache\c3f0393c237a531bb74004747afb420a4c2565a9\output\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:mediarouter-v7:23.0.0] C:\Users\Mad Beast\.android\build-cache\f359ce33aa72bda74c322ea960771d2968e83567\output\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:appcompat-v7:23.0.0] C:\Users\Mad Beast\.android\build-cache\10f39f0ed2a0d888cf306a735ded04852337ad73\output\AndroidManifest.xml:20:5-43
 MERGED from [com.google.android.gms:play-services-fitness:8.4.0] C:\Users\Mad Beast\.android\build-cache\1f304540ee5d6b4d37ed0a2778a259d17f82f47a\output\AndroidManifest.xml:18:5-42
 MERGED from [com.google.android.gms:play-services-games:8.4.0] C:\Users\Mad Beast\.android\build-cache\017d7d9b891f90211dec779979eedaf4a81f7d5d\output\AndroidManifest.xml:18:5-42
 MERGED from [com.google.android.gms:play-services-drive:8.4.0] C:\Users\Mad Beast\.android\build-cache\bc5ed2d9e691be6688804044c57680b80ea4ae38\output\AndroidManifest.xml:18:5-42
@@ -45,100 +127,13 @@ MERGED from [com.google.android.gms:play-services-maps:8.4.0] C:\Users\Mad Beast
 MERGED from [com.google.android.gms:play-services-wearable:8.4.0] C:\Users\Mad Beast\.android\build-cache\37eb5396aef4fc25e2c1badd6027e604328937a1\output\AndroidManifest.xml:18:5-42
 MERGED from [com.google.android.gms:play-services-base:8.4.0] C:\Users\Mad Beast\.android\build-cache\a20980d9159be78c56dc408f28cfd2d9b8b36e00\output\AndroidManifest.xml:18:5-42
 MERGED from [com.google.android.gms:play-services-basement:8.4.0] C:\Users\Mad Beast\.android\build-cache\dc4b0455685cb6262105e764f3d0e0132827b7ee\output\AndroidManifest.xml:18:5-42
-MERGED from [com.android.support:support-v4:23.0.0] C:\Users\Mad Beast\.android\build-cache\276e715c8fd1576f7c0aafd06f22b0bbee23eff2\output\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.0.0] C:\Users\Mad Beast\.android\build-cache\fb413ccb637fa349799aa0ab570d64acbb3b1620\output\AndroidManifest.xml:20:5-43
 	android:targetSdkVersion
-		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:9:9-38
 		INJECTED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:8:9-35
 		INJECTED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml
-uses-feature#0x00020000
-ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:11:5-13:34
-MERGED from [com.google.android.gms:play-services-maps:8.4.0] C:\Users\Mad Beast\.android\build-cache\b266556a722f8d4496b3b339a8c1567e376bdc3e\output\AndroidManifest.xml:22:5-24:33
-	android:glEsVersion
-		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:12:9-41
-	android:required
-		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:13:9-32
-supports-screens
-ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:15:5-17:5
-	android:anyDensity
-		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:16:3-28
-application
-ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:19:5-46:19
-MERGED from [ProtoRunnerV2:BaseGameUtils:unspecified] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\BaseGameUtils\build\intermediates\bundles\default\AndroidManifest.xml:30:5-31:19
-MERGED from [com.google.android.gms:play-services:8.4.0] C:\Users\Mad Beast\.android\build-cache\d94db8313ef5db18bb8b9c4da8b3c9c707dc011d\output\AndroidManifest.xml:19:5-20
-MERGED from [com.google.android.gms:play-services-ads:8.4.0] C:\Users\Mad Beast\.android\build-cache\80d02af8f3ffaa25d3f7d38746928011b80cdd25\output\AndroidManifest.xml:24:5-32:19
-MERGED from [com.google.android.gms:play-services-analytics:8.4.0] C:\Users\Mad Beast\.android\build-cache\7bf5a094c30565727f7ed94aa1a22f47bee090a2\output\AndroidManifest.xml:24:5-20
-MERGED from [com.google.android.gms:play-services-appindexing:8.4.0] C:\Users\Mad Beast\.android\build-cache\b834fb49938d1b60b09448934b5d79ef97baf832\output\AndroidManifest.xml:19:5-20
-MERGED from [com.google.android.gms:play-services-appinvite:8.4.0] C:\Users\Mad Beast\.android\build-cache\3952fee8cee83aa09f306676e96c5c31fb242280\output\AndroidManifest.xml:20:5-30:19
-MERGED from [com.google.android.gms:play-services-appstate:8.4.0] C:\Users\Mad Beast\.android\build-cache\6b6c5f98e09bd2ad076a791a884654d0eb06e7e4\output\AndroidManifest.xml:19:5-20
-MERGED from [com.google.android.gms:play-services-auth:8.4.0] C:\Users\Mad Beast\.android\build-cache\c7ce09cde2f977a33a81694dd65d738a33aacd12\output\AndroidManifest.xml:20:5-32:19
-MERGED from [com.google.android.gms:play-services-cast:8.4.0] C:\Users\Mad Beast\.android\build-cache\0a374259e5b702e66757dd9eb5212914a09074ce\output\AndroidManifest.xml:19:5-20
-MERGED from [com.android.support:mediarouter-v7:23.0.0] C:\Users\Mad Beast\.android\build-cache\fdb4c33901c363dc5d2efafc1daf8f4fde39e87f\output\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:appcompat-v7:23.0.0] C:\Users\Mad Beast\.android\build-cache\c3f0393c237a531bb74004747afb420a4c2565a9\output\AndroidManifest.xml:22:5-20
-MERGED from [com.google.android.gms:play-services-fitness:8.4.0] C:\Users\Mad Beast\.android\build-cache\1f304540ee5d6b4d37ed0a2778a259d17f82f47a\output\AndroidManifest.xml:19:5-20
-MERGED from [com.google.android.gms:play-services-games:8.4.0] C:\Users\Mad Beast\.android\build-cache\017d7d9b891f90211dec779979eedaf4a81f7d5d\output\AndroidManifest.xml:19:5-20
-MERGED from [com.google.android.gms:play-services-drive:8.4.0] C:\Users\Mad Beast\.android\build-cache\bc5ed2d9e691be6688804044c57680b80ea4ae38\output\AndroidManifest.xml:19:5-20
-MERGED from [com.google.android.gms:play-services-gcm:8.4.0] C:\Users\Mad Beast\.android\build-cache\7043b9781007ec4db1856e50660855bfea9b5b77\output\AndroidManifest.xml:24:5-20
-MERGED from [com.google.android.gms:play-services-location:8.4.0] C:\Users\Mad Beast\.android\build-cache\46d95c46886620d7a4cc00236a371c32be2bc817\output\AndroidManifest.xml:19:5-20
-MERGED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\.android\build-cache\9c658c39e4cb2f5aa71f727ef50f4fa8eeef5ee1\output\AndroidManifest.xml:26:5-46:19
-MERGED from [com.google.android.gms:play-services-nearby:8.4.0] C:\Users\Mad Beast\.android\build-cache\37a44acec389a1785cd4f86a152ce5d80003dc27\output\AndroidManifest.xml:20:5-20
-MERGED from [com.google.android.gms:play-services-panorama:8.4.0] C:\Users\Mad Beast\.android\build-cache\4f1f28dcceada82aad6520762eb9b15ed21e2bb8\output\AndroidManifest.xml:19:5-20
-MERGED from [com.google.android.gms:play-services-plus:8.4.0] C:\Users\Mad Beast\.android\build-cache\472d98f23209f075a615f383f2f217b8c088973c\output\AndroidManifest.xml:19:5-20
-MERGED from [com.google.android.gms:play-services-safetynet:8.4.0] C:\Users\Mad Beast\.android\build-cache\0d125254a68dff753dd18399d86ca4cfaf330e80\output\AndroidManifest.xml:19:5-20
-MERGED from [com.google.android.gms:play-services-vision:8.4.0] C:\Users\Mad Beast\.android\build-cache\b279ce42ad1789567f8b5afc0b799f42abb2569b\output\AndroidManifest.xml:5:5-20
-MERGED from [com.google.android.gms:play-services-identity:8.4.0] C:\Users\Mad Beast\.android\build-cache\e240a4625911d2b0fd238acd42de4d34bc1dfded\output\AndroidManifest.xml:19:5-20
-MERGED from [com.google.android.gms:play-services-maps:8.4.0] C:\Users\Mad Beast\.android\build-cache\b266556a722f8d4496b3b339a8c1567e376bdc3e\output\AndroidManifest.xml:27:5-20
-MERGED from [com.google.android.gms:play-services-wearable:8.4.0] C:\Users\Mad Beast\.android\build-cache\37eb5396aef4fc25e2c1badd6027e604328937a1\output\AndroidManifest.xml:19:5-20
-MERGED from [com.google.android.gms:play-services-basement:8.4.0] C:\Users\Mad Beast\.android\build-cache\dc4b0455685cb6262105e764f3d0e0132827b7ee\output\AndroidManifest.xml:20:5-24:19
-MERGED from [com.android.support:support-v4:23.0.0] C:\Users\Mad Beast\.android\build-cache\276e715c8fd1576f7c0aafd06f22b0bbee23eff2\output\AndroidManifest.xml:22:5-20
-	android:label
-		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:22:9-41
-	android:allowBackup
-		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:20:9-35
-	android:icon
-		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:21:9-38
-	android:theme
-		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:23:9-40
-activity#com.raggamuffin.protorunnerv2.master.GameActivity
-ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:26:9-35:20
-	android:screenOrientation
-		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:29:13-50
-	android:label
-		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:28:13-45
-	android:name
-		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:27:13-77
-intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:31:14-34:29
-action#android.intent.action.MAIN
-ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:32:17-69
-	android:name
-		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:32:25-66
-category#android.intent.category.LAUNCHER
-ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:33:17-77
-	android:name
-		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:33:27-74
-meta-data#com.google.android.gms.appstate.APP_ID
-ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:37:9-38:53
-	android:value
-		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:38:20-50
-	android:name
-		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:37:20-73
-meta-data#com.google.android.gms.games.APP_ID
-ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:40:9-41:53
-	android:value
-		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:41:20-50
-	android:name
-		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:40:20-70
-meta-data#com.google.android.gms.version
-ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:43:9-44:75
-MERGED from [com.google.android.gms:play-services-basement:8.4.0] C:\Users\Mad Beast\.android\build-cache\dc4b0455685cb6262105e764f3d0e0132827b7ee\output\AndroidManifest.xml:21:9-23:69
-	android:value
-		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:44:20-73
-	android:name
-		ADDED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:43:20-65
 meta-data#unityplayer.ForwardNativeEventsToDalvik
 ADDED from [ProtoRunnerV2:BaseGameUtils:unspecified] C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\BaseGameUtils\build\intermediates\bundles\default\AndroidManifest.xml:26:5-28:32
 	android:value
@@ -248,3 +243,10 @@ ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad
 		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\.android\build-cache\9c658c39e4cb2f5aa71f727ef50f4fa8eeef5ee1\output\AndroidManifest.xml:44:11-35
 	android:name
 		ADDED from [com.google.android.gms:play-services-measurement:8.4.0] C:\Users\Mad Beast\.android\build-cache\9c658c39e4cb2f5aa71f727ef50f4fa8eeef5ee1\output\AndroidManifest.xml:42:11-82
+uses-feature#0x00020000
+ADDED from [com.google.android.gms:play-services-maps:8.4.0] C:\Users\Mad Beast\.android\build-cache\b266556a722f8d4496b3b339a8c1567e376bdc3e\output\AndroidManifest.xml:22:5-24:33
+REJECTED from C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\src\main\AndroidManifest.xml:22:5-24:33
+	android:glEsVersion
+		ADDED from [com.google.android.gms:play-services-maps:8.4.0] C:\Users\Mad Beast\.android\build-cache\b266556a722f8d4496b3b339a8c1567e376bdc3e\output\AndroidManifest.xml:23:8-40
+	android:required
+		ADDED from [com.google.android.gms:play-services-maps:8.4.0] C:\Users\Mad Beast\.android\build-cache\b266556a722f8d4496b3b339a8c1567e376bdc3e\output\AndroidManifest.xml:24:8-31

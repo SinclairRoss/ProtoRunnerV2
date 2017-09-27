@@ -1,9 +1,7 @@
 package com.raggamuffin.protorunnerv2.ui;
 
-
 // Author: Sinclair Ross
 // Date:   03/06/2017
-
 
 import com.raggamuffin.protorunnerv2.utils.Colours;
 

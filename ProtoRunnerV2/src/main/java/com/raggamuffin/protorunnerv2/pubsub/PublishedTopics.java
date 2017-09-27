@@ -42,5 +42,10 @@ public enum PublishedTopics
     OnLearnToTouchComplete,
 
     OnPointerDown,
-    OnPointerUp
+    OnPointerUp,
+
+    LogicThreadComplete,
+
+    RenderThreadStarted,
+    RenderThreadComplete
 }

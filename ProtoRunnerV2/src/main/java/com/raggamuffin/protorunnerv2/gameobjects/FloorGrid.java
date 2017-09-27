@@ -4,6 +4,7 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 // Date:   16/01/2017
 
 import com.raggamuffin.protorunnerv2.utils.Colour;
+import com.raggamuffin.protorunnerv2.utils.Timer;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 
 public class FloorGrid
@@ -16,8 +17,12 @@ public class FloorGrid
     private Vector3 m_Position;
     private double m_Attenuation;
 
+    private Timer m_FadeAwayTimer;
+
     public FloorGrid(Vector3 anchorPosition, Colour anchorColour, double attenuation)
     {
+        super();
+
         m_AnchorPosition = anchorPosition;
         m_AnchorColour = anchorColour;
 
@@ -25,6 +30,8 @@ public class FloorGrid
         UpdatePosition();
 
         m_Attenuation = attenuation;
+
+        m_FadeAwayTimer = new Timer(5);
     }
 
     private void UpdatePosition()
@@ -36,6 +43,16 @@ public class FloorGrid
     {
         UpdatePosition();
         return m_Position;
+    }
+
+    public void NotifyOfAnchorInvalidation()
+    {
+        m_FadeAwayTimer.StartElapsed();
+    }
+
+    public boolean IsValid()
+    {
+        return !m_FadeAwayTimer.HasElapsed();
     }
 
     public Colour GetColour()

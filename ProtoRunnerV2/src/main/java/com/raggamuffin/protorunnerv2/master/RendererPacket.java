@@ -2,14 +2,12 @@ package com.raggamuffin.protorunnerv2.master;
 
 import android.content.Context;
 import android.graphics.Point;
-import android.util.Log;
 
 import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
 import com.raggamuffin.protorunnerv2.gameobjects.FloorGrid;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.gameobjects.Tentacle;
 import com.raggamuffin.protorunnerv2.particles.Particle;
-import com.raggamuffin.protorunnerv2.particles.ParticleType;
 import com.raggamuffin.protorunnerv2.particles.Trail;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.ui.UIElement;
@@ -20,19 +18,15 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class RendererPacket
 {
-    public enum ObjectRenderMode
-    {
-        InGame,
-        UI
-    }
-
     private final Point m_ScreenSize;
     private final ArrayList<CopyOnWriteArrayList<GameObject>> m_GameObjects;
     private final CopyOnWriteArrayList<Trail> m_Trails;
     private final CopyOnWriteArrayList<Tentacle> m_Tentacles;
     private final CopyOnWriteArrayList<FloorGrid> m_FloorGrids;
+
+    private final Object m_ParticleMutex;
     private final CopyOnWriteArrayList<Particle> m_Particles;
-    private final CopyOnWriteArrayList<Particle> m_Particles_Multiplier;
+
     private final ArrayList<CopyOnWriteArrayList<UIElement>> m_UIElements;
     private final ChaseCamera m_Camera;
     private final Context m_Context;
@@ -49,19 +43,19 @@ public class RendererPacket
             m_GameObjects.add(new CopyOnWriteArrayList<GameObject>());
         }
 
-        int numUIElements = UIElementType.values().length;
-        m_UIElements = new ArrayList<>(numUIElements);
+       int numUIElements = UIElementType.values().length;
+       m_UIElements = new ArrayList<>(numUIElements);
 
-        for (int i = 0; i < numUIElements; ++i)
-        {
-            m_UIElements.add(new CopyOnWriteArrayList<UIElement>());
-        }
+       for (int i = 0; i < numUIElements; ++i)
+       {
+           m_UIElements.add(new CopyOnWriteArrayList<UIElement>());
+       }
 
-        m_Particles = new CopyOnWriteArrayList<>();
-        m_Particles_Multiplier = new CopyOnWriteArrayList<>();
-        m_Trails = new CopyOnWriteArrayList<>();
-        m_Tentacles = new CopyOnWriteArrayList<>();
-        m_FloorGrids = new CopyOnWriteArrayList<>();
+       m_ParticleMutex = new Object();
+       m_Particles = new CopyOnWriteArrayList<>();
+       m_Trails = new CopyOnWriteArrayList<>();
+       m_Tentacles = new CopyOnWriteArrayList<>();
+       m_FloorGrids = new CopyOnWriteArrayList<>();
 
         m_Context = context;
         m_Camera = camera;
@@ -84,9 +78,12 @@ public class RendererPacket
 
     public CopyOnWriteArrayList<GameObject> GetModelList_InGame(ModelType type) { return m_GameObjects.get(type.ordinal()); }
 
-    public void AddObject(ArrayList<Particle> particles, ParticleType type) { GetParticleListFromType(type).addAll(particles); }
-    public void RemoveObject(ArrayList<Particle> particles, ParticleType type) { GetParticleListFromType(type).removeAll(particles); }
-    public CopyOnWriteArrayList<Particle> GetParticles(ParticleType type) { return GetParticleListFromType(type); }
+    public void AddObject(Particle particle) { m_Particles.add(particle); }
+    public void AddObject(ArrayList<Particle> particles) { m_Particles.addAll(particles); }
+    public void RemoveObject(Particle particle) { m_Particles.remove(particle); }
+    public void RemoveObject(ArrayList<Particle> particles) { m_Particles.removeAll(particles); }
+    public CopyOnWriteArrayList<Particle> GetParticles() { return m_Particles; }
+    public Object GetParticleMutex() { return m_ParticleMutex; }
 
     public void AddObject(FloorGrid floorGrid) { m_FloorGrids.add(floorGrid); }
     public void RemoveObject(FloorGrid floorGrid) { m_FloorGrids.remove(floorGrid); }
@@ -103,21 +100,4 @@ public class RendererPacket
 	public ChaseCamera GetCamera() { return m_Camera; }
 	public RenderEffectSettings GetRenderEffectSettings() { return m_RenderEffectSettings; }
     public Point GetScreenSize() { return m_ScreenSize; }
-
-    private CopyOnWriteArrayList<Particle> GetParticleListFromType(ParticleType type)
-    {
-        CopyOnWriteArrayList<Particle> particleList = null;
-
-        switch (type)
-        {
-            case Standard:
-                particleList = m_Particles;
-                break;
-            case Multiplier:
-                particleList = m_Particles_Multiplier;
-                break;
-        }
-
-        return particleList;
-    }
 }

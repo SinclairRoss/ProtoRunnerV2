@@ -1,6 +1,6 @@
 package com.raggamuffin.protorunnerv2.renderer;
 
-import android.opengl.GLES20;
+import android.opengl.GLES31;
 import android.util.Log;
 
 import com.raggamuffin.protorunnerv2.utils.Colour;
@@ -94,77 +94,77 @@ public class GLModel_FloorPanel
     public void InitShaders()
     {
         // prepare shaders and OpenGL program
-        int vertexShaderHandler	= LoadShader(GLES20.GL_VERTEX_SHADER,Shaders.vertexShader_SCROLLTEX);
-        int fragmentShaderHandler = LoadShader(GLES20.GL_FRAGMENT_SHADER,Shaders.fragmentShader_SCROLLTEX);
+        int vertexShaderHandler	= LoadShader(GLES31.GL_VERTEX_SHADER,Shaders.vertexShader_SCROLLTEX);
+        int fragmentShaderHandler = LoadShader(GLES31.GL_FRAGMENT_SHADER,Shaders.fragmentShader_SCROLLTEX);
 
-        m_Program = GLES20.glCreateProgram();             		// create empty OpenGL Program
-        GLES20.glAttachShader(m_Program, vertexShaderHandler);   // add the vertex shader to program
-        GLES20.glAttachShader(m_Program, fragmentShaderHandler); // add the fragment shader to program
-        GLES20.glLinkProgram(m_Program);                  		// create OpenGL program executables
+        m_Program = GLES31.glCreateProgram();             		// create empty OpenGL Program
+        GLES31.glAttachShader(m_Program, vertexShaderHandler);   // add the vertex shader to program
+        GLES31.glAttachShader(m_Program, fragmentShaderHandler); // add the fragment shader to program
+        GLES31.glLinkProgram(m_Program);                  		// create OpenGL program executables
 
-        m_ProjMatrixHandle = GLES20.glGetUniformLocation(m_Program, "u_ProjMatrix");
-        m_WorldPosHandle = GLES20.glGetUniformLocation(m_Program, "u_WorldPos");
-        m_ColourHandle = GLES20.glGetUniformLocation(m_Program, "u_Color");
-        m_TexUniformHandle = GLES20.glGetUniformLocation(m_Program, "u_Texture");
-        m_TexOffsetHandle = GLES20.glGetUniformLocation(m_Program, "u_TexOffset");
-        m_AttenuationCoefficientHandle = GLES20.glGetUniformLocation(m_Program, "u_AttenuationCoefficient");
+        m_ProjMatrixHandle = GLES31.glGetUniformLocation(m_Program, "u_ProjMatrix");
+        m_WorldPosHandle = GLES31.glGetUniformLocation(m_Program, "u_WorldPos");
+        m_ColourHandle = GLES31.glGetUniformLocation(m_Program, "u_Color");
+        m_TexUniformHandle = GLES31.glGetUniformLocation(m_Program, "u_Texture");
+        m_TexOffsetHandle = GLES31.glGetUniformLocation(m_Program, "u_TexOffset");
+        m_AttenuationCoefficientHandle = GLES31.glGetUniformLocation(m_Program, "u_AttenuationCoefficient");
 
-        m_PositionHandle = GLES20.glGetAttribLocation(m_Program, "a_Position");
-        m_TexCoordHandle = GLES20.glGetAttribLocation(m_Program, "a_TexCoord");
+        m_PositionHandle = GLES31.glGetAttribLocation(m_Program, "a_Position");
+        m_TexCoordHandle = GLES31.glGetAttribLocation(m_Program, "a_TexCoord");
     }
 
     public void InitialiseModel(float[] projMatrix)
     {
-        GLES20.glDisable(GLES20.GL_DEPTH_TEST);
-        GLES20.glDisable(GLES20.GL_CULL_FACE);
+        GLES31.glDisable(GLES31.GL_DEPTH_TEST);
+        GLES31.glDisable(GLES31.GL_CULL_FACE);
 
-        GLES20.glUseProgram(m_Program);
+        GLES31.glUseProgram(m_Program);
 
-        GLES20.glUniformMatrix4fv(m_ProjMatrixHandle, 1, false, projMatrix, 0);
+        GLES31.glUniformMatrix4fv(m_ProjMatrixHandle, 1, false, projMatrix, 0);
 
-        GLES20.glUniform1i(m_TexUniformHandle, 0);
+        GLES31.glUniform1i(m_TexUniformHandle, 0);
 
-        GLES20.glEnableVertexAttribArray(m_PositionHandle);
-        GLES20.glVertexAttribPointer(m_PositionHandle, COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, VERTEX_STRIDE, vertexBuffer);
+        GLES31.glEnableVertexAttribArray(m_PositionHandle);
+        GLES31.glVertexAttribPointer(m_PositionHandle, COORDS_PER_VERTEX, GLES31.GL_FLOAT, false, VERTEX_STRIDE, vertexBuffer);
 
-        GLES20.glEnableVertexAttribArray(m_TexCoordHandle);
-        GLES20.glVertexAttribPointer(m_TexCoordHandle, TEX_COORDS_PER_VERTEX, GLES20.GL_FLOAT, false, TEX_STRIDE, textureBuffer);
+        GLES31.glEnableVertexAttribArray(m_TexCoordHandle);
+        GLES31.glVertexAttribPointer(m_TexCoordHandle, TEX_COORDS_PER_VERTEX, GLES31.GL_FLOAT, false, TEX_STRIDE, textureBuffer);
     }
 
     public void Draw(Vector3 pos, Colour colour, double attenuation)
     {
-        GLES20.glUniform4f(m_WorldPosHandle, (float)pos.X, (float)pos.Y, (float)pos.Z, 1.0f);
-        GLES20.glUniform4f(m_ColourHandle, (float)colour.Red, (float)colour.Green, (float)colour.Blue, (float)colour.Alpha);
-        GLES20.glUniform1f(m_AttenuationCoefficientHandle, (float)attenuation);
+      // GLES31.glUniform4f(m_WorldPosHandle, (float)pos.X, (float)pos.Y, (float)pos.Z, 1.0f);
+      // GLES31.glUniform4f(m_ColourHandle, (float)colour.Red, (float)colour.Green, (float)colour.Blue, (float)colour.Alpha);
+      // GLES31.glUniform1f(m_AttenuationCoefficientHandle, (float)attenuation);
 
         double offsetX = (pos.X / m_RepeatStride) % m_RepeatStride;
         double offsetY = (pos.Z / m_RepeatStride) % m_RepeatStride;
-        GLES20.glUniform2f(m_TexOffsetHandle, (float)offsetX, (float)offsetY);
+        GLES31.glUniform2f(m_TexOffsetHandle, (float)offsetX, (float)offsetY);
 
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
+        GLES31.glDrawArrays(GLES31.GL_TRIANGLES, 0, vertexCount);
     }
 
     public void CleanModel()
     {
-        GLES20.glDisableVertexAttribArray(m_PositionHandle);
-        GLES20.glDisableVertexAttribArray(m_TexCoordHandle);
+        GLES31.glDisableVertexAttribArray(m_PositionHandle);
+        GLES31.glDisableVertexAttribArray(m_TexCoordHandle);
 
-        GLES20.glEnable(GLES20.GL_DEPTH_TEST);
-        GLES20.glEnable(GLES20.GL_CULL_FACE);
+        GLES31.glEnable(GLES31.GL_DEPTH_TEST);
+        GLES31.glEnable(GLES31.GL_CULL_FACE);
     }
 
     private int LoadShader(int type, String shaderCode)
     {
-        // create a vertex shader type (GLES20.GL_VERTEX_SHADER)
-        // or a fragment shader type (GLES20.GL_FRAGMENT_SHADER)
-        int shader = GLES20.glCreateShader(type);
+        // create a vertex shader type (GLES31.GL_VERTEX_SHADER)
+        // or a fragment shader type (GLES31.GL_FRAGMENT_SHADER)
+        int shader = GLES31.glCreateShader(type);
 
         // add the source code to the shader and compile it
-        GLES20.glShaderSource(shader, shaderCode);
-        GLES20.glCompileShader(shader);
+        GLES31.glShaderSource(shader, shaderCode);
+        GLES31.glCompileShader(shader);
 
         int[] compiled = new int[1];
-        GLES20.glGetShaderiv(shader, GLES20.GL_COMPILE_STATUS, compiled, 0);
+        GLES31.glGetShaderiv(shader, GLES31.GL_COMPILE_STATUS, compiled, 0);
 
         if (compiled[0] == 0)
         {

@@ -14,6 +14,7 @@ import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Colours;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 import com.raggamuffin.protorunnerv2.weapons.Weapon_PulseLaser;
+import com.raggamuffin.protorunnerv2.weapons.Weapon_PulseLaserWingman;
 
 public class Vehicle_Wingman extends Vehicle
 {
@@ -35,9 +36,7 @@ public class Vehicle_Wingman extends Vehicle
 		m_Engine.SetMaxEngineOutput(70);
         m_Engine.SetAfterBurnerOutput(90);
 		
-		ApplyStatusEffect(StatusEffect.Shielded);
-		
-		SelectWeapon(new Weapon_PulseLaser(this, game));
+		SelectWeapon(new Weapon_PulseLaserWingman(this, game));
 
 		NavigationalBehaviourInfo navInfo = new NavigationalBehaviourInfo(0.4, 1.0, 0.7, 0.6);
         m_AIController = new AIController(this, m_VehicleManager, game.GetBulletManager(), navInfo, AIBehaviours.FollowTheLeader, FireControlBehaviour.Standard, TargetingBehaviour.Standard);
@@ -60,6 +59,7 @@ public class Vehicle_Wingman extends Vehicle
     {
 		super.CleanUp();
         m_PubSubHub.UnsubscribeFromTopic(PublishedTopics.PlayerSpawned, m_PlayerSpawnedSubscriber);
+		m_AIController.CleanUp();
     }
 
     private class PlayerSpawnedSubscriber extends Subscriber

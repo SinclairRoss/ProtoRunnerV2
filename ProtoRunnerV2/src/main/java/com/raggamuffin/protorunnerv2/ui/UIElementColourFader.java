@@ -16,8 +16,8 @@ public class UIElementColourFader
     private ArrayList<UIElement> m_Elements;
     private Timer m_FadeTimer;
 
-    private double[] m_Colour_Origin;
-    private double[] m_Colour_Destination;
+    private Colour m_Colour_Origin;
+    private Colour m_Colour_Destination;
 
     public UIElementColourFader(double fadeDuration, double[] colour)
     {
@@ -25,8 +25,8 @@ public class UIElementColourFader
 
         m_FadeTimer = new Timer(fadeDuration);
 
-        m_Colour_Origin = colour;
-        m_Colour_Destination = Colours.White;
+        m_Colour_Origin = new Colour(colour);
+        m_Colour_Destination = new Colour(Colours.White);
     }
 
     public void AddElement(UIElement element)
@@ -34,9 +34,9 @@ public class UIElementColourFader
         m_Elements.add(element);
 
         Colour colour = element.GetColour();
-        colour.Red = m_Colour_Origin[0];
-        colour.Green = m_Colour_Origin[1];
-        colour.Blue = m_Colour_Origin[2];
+        colour.Red = m_Colour_Origin.Red;
+        colour.Green = m_Colour_Origin.Green;
+        colour.Blue = m_Colour_Origin.Blue;
     }
 
     public void AddElements(UIElement... elements)
@@ -45,9 +45,9 @@ public class UIElementColourFader
         for(int i = 0; i < elementCount; ++i)
         {
             Colour colour = elements[i].GetColour();
-            colour.Red = m_Colour_Origin[0];
-            colour.Green = m_Colour_Origin[1];
-            colour.Blue = m_Colour_Origin[2];
+            colour.Red = m_Colour_Origin.Red;
+            colour.Green = m_Colour_Origin.Green;
+            colour.Blue  = m_Colour_Origin.Blue;
         }
 
         m_Elements.addAll(Arrays.asList(elements));
@@ -66,9 +66,7 @@ public class UIElementColourFader
                     Colour colour = element.GetColour();
 
                     double progress = m_FadeTimer.GetProgress();
-                    colour.Red = MathsHelper.Lerp(progress, m_Colour_Origin[0], m_Colour_Destination[0]);
-                    colour.Green = MathsHelper.Lerp(progress, m_Colour_Origin[1], m_Colour_Destination[1]);
-                    colour.Blue = MathsHelper.Lerp(progress, m_Colour_Origin[2], m_Colour_Destination[2]);
+                    colour.Lerp(progress, m_Colour_Origin, m_Colour_Destination);
                 }
             }
             else
@@ -79,9 +77,9 @@ public class UIElementColourFader
                     UIElement element = m_Elements.get(i);
                     Colour colour = element.GetColour();
 
-                    colour.Red = m_Colour_Destination[0];
-                    colour.Green = m_Colour_Destination[1];
-                    colour.Blue = m_Colour_Destination[2];
+                    colour.Red = m_Colour_Destination.Red;
+                    colour.Green = m_Colour_Destination.Green;
+                    colour.Blue  = m_Colour_Destination.Blue;
                 }
 
                 m_FadeTimer.Stop();
@@ -91,8 +89,8 @@ public class UIElementColourFader
 
     public void StartFade(double[] colour_Origin, double[] colour_Destination)
     {
-        m_Colour_Origin = colour_Origin;
-        m_Colour_Destination = colour_Destination;
+        m_Colour_Origin.SetColour(colour_Origin);
+        m_Colour_Destination.SetColour(colour_Destination);
         m_FadeTimer.Start();
     }
 }

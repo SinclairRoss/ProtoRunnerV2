@@ -2,7 +2,6 @@ package com.raggamuffin.protorunnerv2.gameobjects;
 
 import com.raggamuffin.protorunnerv2.gamelogic.AffiliationKey;
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.managers.MultiplierHoover;
 import com.raggamuffin.protorunnerv2.master.ControlScheme;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
@@ -24,7 +23,6 @@ public class Vehicle_Runner extends Vehicle
 	private Publisher m_DamageTakenPublisher;
 
     private ChaseCamera m_Camera;
-    private MultiplierHoover m_MultiplierHoover;
 
     private double m_Stamina;
     private Weapon_ChargeLaser m_ChargeLaser;
@@ -55,7 +53,6 @@ public class Vehicle_Runner extends Vehicle
 		m_Engine.SetMaxEngineOutput(GameLogic.TEST_MODE ? 0 : 70);//70
         m_Engine.SetAfterBurnerOutput(90);
 
-        m_MultiplierHoover = new MultiplierHoover(this, game);
         m_Stamina = 1.0;
 
       //  game.GetGameObjectManager().AddObject(new Radar(this, game));
@@ -91,7 +88,6 @@ public class Vehicle_Runner extends Vehicle
 	@Override
 	public void Update(double deltaTime)
     {
-        m_MultiplierHoover.Update();
         m_Engine.SetTurnRate(m_Input.GetTilt());
 
         m_ChargeLaser.Update(deltaTime);

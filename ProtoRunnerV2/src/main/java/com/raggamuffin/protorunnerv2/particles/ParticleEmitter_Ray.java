@@ -17,7 +17,7 @@ public class ParticleEmitter_Ray extends ParticleEmitter
 
     public ParticleEmitter_Ray(GameLogic game, Colour initialColour, Colour finalColour, double emissionForce, double emissionRate, double lifeSpan)
     {
-        super(game, initialColour, finalColour, emissionForce, lifeSpan, ParticleType.Standard);
+        super(game, initialColour, finalColour, emissionForce, lifeSpan);
 
         m_Accuracy = Math.PI * 0.5;
         m_Length = 0.0;

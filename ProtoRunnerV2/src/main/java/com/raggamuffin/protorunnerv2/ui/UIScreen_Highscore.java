@@ -18,7 +18,7 @@ import junit.framework.Assert;
 
 public class UIScreen_HighScore extends UIScreen
 {
-    private UIElement m_Title;
+    private UIElement_Label m_Title;
 
     private UIObject_Button m_BackButton;
     private Subscriber m_OnPointerUpSubscriber;
@@ -34,7 +34,7 @@ public class UIScreen_HighScore extends UIScreen
         Context context = m_Game.GetContext();
 
         m_Title = new UIElement_Label(context.getString(R.string.highscore_picker_screen_title), UIConstants.FONTSIZE_TITLE, -0.9, 0.0, Alignment.Left);
-        m_UIManager.AddUIElement(m_Title);
+        m_UIManager.AddLabel(m_Title);
 
         PubSubHub pubSub = m_Game.GetPubSubHub();
 
@@ -63,10 +63,8 @@ public class UIScreen_HighScore extends UIScreen
 
         m_BackButton.OnHoverOff();
 
-        int activePointerCount = scheme.GetActivePointerCount();
-        for (int i = 0; i < activePointerCount; ++i)
+        for(TouchPointer pointer : scheme.GetTouchPointers())
         {
-            TouchPointer pointer = scheme.GetPointerAtIndex(i);
             Vector2 pointerPos = pointer.GetCurrentPosition();
 
             UIElement_TouchMarker marker = m_UIManager.GetTouchDisplay().GetMarkerWithID(pointer.GetId());

@@ -3,8 +3,6 @@ package com.raggamuffin.protorunnerv2.ObjectEffect;
 // Author: Sinclair Ross
 // Date:   22/05/2017
 
-import android.util.Log;
-
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 
@@ -14,8 +12,11 @@ public class ObjectEffectController
 {
     private final GameLogic m_GameLogic;
 
-    private ArrayList<ArrayList<ObjectEffect>> m_ActiveEffects;
-    private ArrayList<ArrayList<ObjectEffect>> m_InvalidEffects;
+    private final ArrayList<ArrayList<ObjectEffect>> m_ActiveEffects;
+    private final ArrayList<ArrayList<ObjectEffect>> m_InvalidEffects;
+
+    private final ArrayList<ObjectEffect_HealthBar> m_ActiveHealthBars;
+    private final ArrayList<ObjectEffect_HealthBar> m_InvalidHealthBars;
 
     public ObjectEffectController(GameLogic game)
     {
@@ -31,6 +32,9 @@ public class ObjectEffectController
             m_ActiveEffects.add(new ArrayList<ObjectEffect>());
             m_InvalidEffects.add(new ArrayList<ObjectEffect>());
         }
+
+        m_ActiveHealthBars = new ArrayList<>();
+        m_InvalidHealthBars = new ArrayList<>();
     }
 
     public void Update(double deltaTime)
@@ -38,40 +42,56 @@ public class ObjectEffectController
         int numEffectTypes = m_ActiveEffects.size();
         for(int i = 0; i < numEffectTypes; ++i)
         {
-            ArrayList<ObjectEffect> effects = m_ActiveEffects.get(i);
+            ArrayList<ObjectEffect> activeList = m_ActiveEffects.get(i);
+            ArrayList<ObjectEffect> invalidList = m_InvalidEffects.get(i);
+            UpdateListSet(deltaTime, activeList, invalidList);
+        }
 
-            int numEffects = effects.size();
-            for (int j = 0; j < numEffects; ++j)
+        for (int i = 0; i < m_ActiveHealthBars.size();)
+        {
+            ObjectEffect_HealthBar effect = m_ActiveHealthBars.get(i);
+
+            effect.Update(deltaTime);
+
+            if(!effect.IsValid())
             {
-                ObjectEffect effect = effects.get(j);
-
-                effect.Update(deltaTime);
-
-                if(!effect.IsValid())
-                {
-                    int effectTypeIndex = effect.GetEffectType().ordinal();
-
-                    ArrayList<ObjectEffect> activeEffects = m_ActiveEffects.get(effectTypeIndex);
-                    activeEffects.remove(effect);
-
-                    ArrayList<ObjectEffect> invalidEffects = m_InvalidEffects.get(effectTypeIndex);
-                    invalidEffects.add(effect);
-
-                    m_GameLogic.RemoveObjectFromRenderer(effect);
-
-                    --j;
-                    --numEffects;
-                }
+                m_ActiveHealthBars.remove(effect);
+                m_InvalidHealthBars.add(effect);
+            }
+            else
+            {
+                ++i;
             }
         }
     }
+
+    private void UpdateListSet(double deltaTime, ArrayList<ObjectEffect> activeList, ArrayList<ObjectEffect> invalidList)
+    {
+        for (int i = 0; i < activeList.size();)
+        {
+            ObjectEffect effect = activeList.get(i);
+
+            effect.Update(deltaTime);
+
+            if(!effect.IsValid())
+            {
+                activeList.remove(effect);
+                invalidList.add(effect);
+            }
+            else
+            {
+                ++i;
+            }
+        }
+    }
+
 
     public ObjectEffect CreateEffect(ObjectEffectType type, Vehicle anchor)
     {
         ObjectEffect effect;
 
         ArrayList<ObjectEffect> invalidEffects = m_InvalidEffects.get(type.ordinal());
-        if(invalidEffects.size() > 0)
+        if(!invalidEffects.isEmpty())
         {
             effect = invalidEffects.remove(invalidEffects.size() - 1);
         }
@@ -85,20 +105,18 @@ public class ObjectEffectController
         ArrayList<ObjectEffect> activeEffects = m_ActiveEffects.get(type.ordinal());
         activeEffects.add(effect);
 
-        m_GameLogic.AddObjectToRenderer(effect);
-
         return effect;
     }
 
     private ObjectEffect CreateEffectOfType(ObjectEffectType type)
     {
         ObjectEffect effect = null;
+
         switch (type)
         {
             case DamageMarker:
             {
-                effect = new ObjectEffect_DamageMarker(m_GameLogic);
-                break;
+                effect = new ObjectEffect_DamageMarker(m_GameLogic); break;
             }
             case SpawnPillar:
             {
@@ -110,13 +128,30 @@ public class ObjectEffectController
                 effect = new ObjectEffect_Shields(m_GameLogic);
                 break;
             }
-            case HealthBar:
-            {
-                effect = new ObjectEffect_HealthBar(m_GameLogic);
-                break;
-            }
         }
 
         return effect;
     }
+
+    public ObjectEffect_HealthBar CreateHealthBar(Vehicle anchor)
+    {
+        ObjectEffect_HealthBar healthBar;
+
+        if(!m_InvalidHealthBars.isEmpty())
+        {
+            healthBar = m_InvalidHealthBars.remove(m_InvalidHealthBars.size() - 1);
+        }
+        else
+        {
+            healthBar = new ObjectEffect_HealthBar(m_GameLogic);
+        }
+
+        healthBar.Initialise(anchor);
+        m_ActiveHealthBars.add(healthBar);
+
+        return healthBar;
+    }
+
+    public ArrayList<ObjectEffect> GetEffectsForType(ObjectEffectType type) { return m_ActiveEffects.get(type.ordinal()); }
+    public ArrayList<ObjectEffect_HealthBar> GetHealthBars() { return m_ActiveHealthBars; }
 }

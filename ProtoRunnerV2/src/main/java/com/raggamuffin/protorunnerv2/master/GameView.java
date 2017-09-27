@@ -15,18 +15,18 @@ public class GameView extends GLSurfaceView
 	public static final String TAG = "DEBUG GameView";
 	private GLRenderer m_Renderer;
 	
-	public GameView(Context context, RendererPacket packet)
+	public GameView(Context context, RendererPacket packet, RenderPackageDistributor distributor)
 	{	
 		super(context);
 
 		Log.e(TAG, "GameView");
 
-		m_Renderer = new GLRenderer(packet);
+		m_Renderer = new GLRenderer(packet, distributor);
 		
 		setEGLContextClientVersion(2);		// Sets openGLES version 2.
 		setPreserveEGLContextOnPause(true);
 		setRenderer(m_Renderer);			// Set the renderer for drawing on GLSurfaceView.
-		setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY); // Must call requestRender().
+		setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY); // Must call requestRender().
 	}
 
 	@Override 
@@ -36,7 +36,7 @@ public class GameView extends GLSurfaceView
 
 		Log.e(TAG, "surfaceCreated");
 	}
-	
+
 	@Override
 	public void onPause()
 	{

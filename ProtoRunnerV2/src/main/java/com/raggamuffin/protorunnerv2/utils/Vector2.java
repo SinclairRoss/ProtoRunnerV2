@@ -11,6 +11,8 @@ public class Vector2
 	public double X;
 	public double Y;
 
+	private static float[] Array = new float[2];
+
 	public Vector2()
 	{
 		X = 0.0f;
@@ -163,5 +165,13 @@ public class Vector2
 	{
 		Log.e("Vector2", "X: " + X);
 		Log.e("Vector2", "Y: " + Y);
+	}
+
+	public float[] AsArray()
+	{
+		Array[0] = (float)X;
+		Array[1] = (float)Y;
+
+		return Array;
 	}
 }

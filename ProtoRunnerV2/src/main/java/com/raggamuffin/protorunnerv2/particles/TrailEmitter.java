@@ -43,7 +43,7 @@ public class TrailEmitter
 
         m_Position = new Vector3(m_Anchor.GetPosition());
 
-        m_Trail = new Trail(this);
+        m_Trail = new Trail(this, m_Game.GetParticleManager());
         m_Trail.AddNode(m_ParticleManager.CreateTrailPoint(this));
 
         m_Game.GetTrailManager().AddObject(m_Trail);

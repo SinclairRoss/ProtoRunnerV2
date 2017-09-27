@@ -24,7 +24,8 @@ public class Engine_Cycling extends Engine
         {
             CyclingEngineAttachment attachment = new CyclingEngineAttachment(anchor, game, 2, theta * i);
             m_EngineAttachments.add(attachment);
-            game.AddObjectToRenderer(attachment);
+
+            m_Game.AddMiscObject(attachment);
         }
     }
 
@@ -48,7 +49,7 @@ public class Engine_Cycling extends Engine
         for(int i = 0; i < numEngines; ++i)
         {
             CyclingEngineAttachment attachment = m_EngineAttachments.get(i);
-            m_Game.RemoveObjectFromRenderer(attachment);
+            m_Game.RemoveMiscObject(attachment);
         }
 
         m_EngineAttachments.clear();

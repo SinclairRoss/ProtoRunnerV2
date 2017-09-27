@@ -12,105 +12,6 @@
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\Mad Beast\.android\build-cache\0a374259e5b702e66757dd9eb5212914a09074ce\output\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="551e78f21acf69ebfb489c0e79647824c838013e">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes_226e27f07122a61e799c211fe559569c6a3553fc.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Mad Beast\.android\build-cache\3952fee8cee83aa09f306676e96c5c31fb242280\output\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="9fe026fb4c7fce21bc5142f6e1bdf844f28061ac">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes_a61f8a5efbe1e4896601912736a5b5c546a3d7b3.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Mad Beast\.android\build-cache\4f1f28dcceada82aad6520762eb9b15ed21e2bb8\output\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="08d34b2d135c1cc96ab506fd8bf6916d1e2f391a">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes_a472a3cb3a9edce89832620fb7b52b64184f4aed.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Mad Beast\.android\build-cache\dc4b0455685cb6262105e764f3d0e0132827b7ee\output\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="8e673cdfadd8f2d98fdb2fda2285c30f6e449782">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes_c99d3b392adbaa2b44de589199a42c7666e0ebc1.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Mad Beast\.android\build-cache\a20980d9159be78c56dc408f28cfd2d9b8b36e00\output\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="fef2b3e4b6b1b0e5fe7b69fa137a5fa55a3182ab">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes_b53803608566475d826e9bce5a6bd51a9d8d5bad.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Mad Beast\.android\build-cache\37eb5396aef4fc25e2c1badd6027e604328937a1\output\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="e167a34eaca0b31704212f43f9576ea84e05046f">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes_80c95e5b5e8f961347d4f06a9d82818965903c73.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Mad Beast\.android\build-cache\c3f0393c237a531bb74004747afb420a4c2565a9\output\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="4fcf0b1879f8caf497c073e1432d398e9e2988c1">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes_83c7a12342166c93be797fae9dada3b403dedc42.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Mad Beast\.android\build-cache\0d125254a68dff753dd18399d86ca4cfaf330e80\output\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="0194a7409c40de94fb539d4ad9928ec5d47afeb7">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes_4fc4fa84bfd4f88ff071a51aaa45ddb28e6e32e9.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Mad Beast\.android\build-cache\80d02af8f3ffaa25d3f7d38746928011b80cdd25\output\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="b5e7892fb0708e792e0e933c4c0a0ca0ac7831fb">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes_165d226c0ded2b88671b75775a693b12f672b2ce.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Mad Beast\.android\build-cache\b834fb49938d1b60b09448934b5d79ef97baf832\output\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="65d086ee9daaf87b5af62ad24471edafa433354c">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes_3b9d565e15ac6db4bfb2e3615e81760cef705adb.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.0.0\support-annotations-23.0.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="990e7f98a7bad86a40b1f0bcfeb039023afd0839">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\support-annotations-23.0.0_3f77e93e5ed0a0d7276beffe8309c2818d2dc483.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="C:\Users\Mad Beast\.android\build-cache\b266556a722f8d4496b3b339a8c1567e376bdc3e\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
@@ -126,15 +27,6 @@
         revision="25.0.0"
         sha1="2d7fe76982677315c4dc4edfb459c8ca718a9d4c">
         <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes_817c6205d28bbcf7cb0801bb75bcc3f03e03e6cc.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Mad Beast\.android\build-cache\276e715c8fd1576f7c0aafd06f22b0bbee23eff2\output\jars\libs\internal_impl-23.0.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="8bd336eeae661e8311330284897ee07f8ebaa297">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\internal_impl-23.0.0_e659806569fa6fee1f7f46295b2e25081217e96a.jar" />
     </item>
     <item
         is-multidex="false"
@@ -156,24 +48,6 @@
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\Mad Beast\.android\build-cache\fdb4c33901c363dc5d2efafc1daf8f4fde39e87f\output\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="d358b3dd49a7c67844622dcbc9cf4339e13952ce">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes_95099f0c16661bfcb8fc5274ccf7ff9490c4b523.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Mad Beast\.android\build-cache\fdb4c33901c363dc5d2efafc1daf8f4fde39e87f\output\jars\libs\internal_impl-23.0.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="03d38bb042efe3e5ce27ba66b729a9523c36d8fe">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\internal_impl-23.0.0_08d7254204db6031627b2e70c2a9247f9873870a.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="C:\Users\Mad Beast\.android\build-cache\b279ce42ad1789567f8b5afc0b799f42abb2569b\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
@@ -183,12 +57,93 @@
     </item>
     <item
         is-multidex="false"
+        jar="C:\Users\Mad Beast\.android\build-cache\fb413ccb637fa349799aa0ab570d64acbb3b1620\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8413c27b45b7fe61dca4a98159f65e2cee215f5a">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes_35fdccd0b30c6705422dcb2fc08f2d57f763eee3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Mad Beast\.android\build-cache\0a374259e5b702e66757dd9eb5212914a09074ce\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="551e78f21acf69ebfb489c0e79647824c838013e">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes_226e27f07122a61e799c211fe559569c6a3553fc.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Mad Beast\.android\build-cache\10f39f0ed2a0d888cf306a735ded04852337ad73\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="4fcf0b1879f8caf497c073e1432d398e9e2988c1">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes_99d87ebaba10653d0390a496406d9ef841a1fb82.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Mad Beast\.android\build-cache\3952fee8cee83aa09f306676e96c5c31fb242280\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="9fe026fb4c7fce21bc5142f6e1bdf844f28061ac">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes_a61f8a5efbe1e4896601912736a5b5c546a3d7b3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Mad Beast\.android\build-cache\fb413ccb637fa349799aa0ab570d64acbb3b1620\output\jars\libs\internal_impl-23.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8bd336eeae661e8311330284897ee07f8ebaa297">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\internal_impl-23.0.0_3bca37a4aa889bf84f6fdc3e4cd55f6687ee00d0.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\Mad Beast\.android\build-cache\1f304540ee5d6b4d37ed0a2778a259d17f82f47a\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.0"
         sha1="c54246475c1bb64ac6857d1320364bfbfeda2c46">
         <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes_4ad957ac0973306f06018d26f5ea9bfeba35a3cf.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Mad Beast\.android\build-cache\f359ce33aa72bda74c322ea960771d2968e83567\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d358b3dd49a7c67844622dcbc9cf4339e13952ce">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes_65a3944b70e3122731b13e4042db6d929b54087b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Mad Beast\.android\build-cache\4f1f28dcceada82aad6520762eb9b15ed21e2bb8\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="08d34b2d135c1cc96ab506fd8bf6916d1e2f391a">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes_a472a3cb3a9edce89832620fb7b52b64184f4aed.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Mad Beast\.android\build-cache\dc4b0455685cb6262105e764f3d0e0132827b7ee\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8e673cdfadd8f2d98fdb2fda2285c30f6e449782">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes_c99d3b392adbaa2b44de589199a42c7666e0ebc1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Mad Beast\.android\build-cache\f359ce33aa72bda74c322ea960771d2968e83567\output\jars\libs\internal_impl-23.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="03d38bb042efe3e5ce27ba66b729a9523c36d8fe">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\internal_impl-23.0.0_b0e504ffd5c122c7d327649b3a0d120f0c43bdfa.jar" />
     </item>
     <item
         is-multidex="false"
@@ -219,21 +174,30 @@
     </item>
     <item
         is-multidex="false"
+        jar="C:\Users\Mad Beast\.android\build-cache\a20980d9159be78c56dc408f28cfd2d9b8b36e00\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="fef2b3e4b6b1b0e5fe7b69fa137a5fa55a3182ab">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes_b53803608566475d826e9bce5a6bd51a9d8d5bad.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Mad Beast\.android\build-cache\37eb5396aef4fc25e2c1badd6027e604328937a1\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e167a34eaca0b31704212f43f9576ea84e05046f">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes_80c95e5b5e8f961347d4f06a9d82818965903c73.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\Mad Beast\.android\build-cache\457f5909b3cbea0e3ab2c4fed3d0e446a492a8e2\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.0"
         sha1="f2df436a8f02ce7e4d7d209671fc45f97c470f0e">
         <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes_421589220d3610a29accc03bd906c34bf310029d.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\Mad Beast\.android\build-cache\276e715c8fd1576f7c0aafd06f22b0bbee23eff2\output\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="8413c27b45b7fe61dca4a98159f65e2cee215f5a">
-        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes_4a0a8636fae676a889505231517934c7547b87de.jar" />
     </item>
     <item
         is-multidex="false"
@@ -255,6 +219,15 @@
     </item>
     <item
         is-multidex="false"
+        jar="C:\Users\Mad Beast\.android\build-cache\0d125254a68dff753dd18399d86ca4cfaf330e80\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="0194a7409c40de94fb539d4ad9928ec5d47afeb7">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes_4fc4fa84bfd4f88ff071a51aaa45ddb28e6e32e9.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\Mad Beast\.android\build-cache\017d7d9b891f90211dec779979eedaf4a81f7d5d\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
@@ -270,6 +243,33 @@
         revision="25.0.0"
         sha1="613298b7aa012f121ce542881c0a599ebd8078f2">
         <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes_33b6f0893015a5169af6394e5083121cb0394c7d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Mad Beast\.android\build-cache\80d02af8f3ffaa25d3f7d38746928011b80cdd25\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b5e7892fb0708e792e0e933c4c0a0ca0ac7831fb">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes_165d226c0ded2b88671b75775a693b12f672b2ce.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Mad Beast\.android\build-cache\b834fb49938d1b60b09448934b5d79ef97baf832\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="65d086ee9daaf87b5af62ad24471edafa433354c">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\classes_3b9d565e15ac6db4bfb2e3615e81760cef705adb.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.0.0\support-annotations-23.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="990e7f98a7bad86a40b1f0bcfeb039023afd0839">
+        <dex dex="C:\Users\Mad Beast\AndroidStudioProjects\ProtoRunnerV2\ProtoRunnerV2\build\intermediates\pre-dexed\debug\support-annotations-23.0.0_3f77e93e5ed0a0d7276beffe8309c2818d2dc483.jar" />
     </item>
 
 </items>

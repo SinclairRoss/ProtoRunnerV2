@@ -1,7 +1,6 @@
 package com.raggamuffin.protorunnerv2.gameobjects;
 
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.particles.ParticleEmitter_HyperLight;
 import com.raggamuffin.protorunnerv2.utils.MathsHelper;
 import com.raggamuffin.protorunnerv2.utils.Quaternion;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
@@ -42,8 +41,6 @@ public class Engine
     private double m_MaxRoll;
     private double m_Exertion;			// How hard the engine is pushing itself.
 
-    private ParticleEmitter_HyperLight m_HyperLight;
-
     private boolean m_Active;
 
     public Engine(GameLogic game, Vehicle anchor)
@@ -74,7 +71,6 @@ public class Engine
 
         m_Exertion = 0.0;
 
-        m_HyperLight = new ParticleEmitter_HyperLight(game, m_Anchor.GetColour(), m_Anchor.GetColour(), 30, 1);
         m_Active = true;
     }
 
@@ -96,36 +92,18 @@ public class Engine
             }
 
             UpdateExertion(deltaTime);
-
-            UpdateHyperlightEmitter(deltaTime);
         }
-    }
-
-    private void UpdateHyperlightEmitter(double deltaTime)
-    {
-        Vector3 velocity = m_Anchor.GetVelocity();
-
-        Vector3 emitterForward = m_HyperLight.GetForward();
-        emitterForward.SetVector(velocity);
-        emitterForward.Normalise();
-        emitterForward.Scale(3.0);
-        emitterForward.Add(m_Anchor.GetPosition());
-
-        m_HyperLight.SetPosition(emitterForward);
-        m_HyperLight.SetVelocity(velocity);
-
-        m_HyperLight.Update(deltaTime);
     }
 
     public void DodgeLeft()
     {
-        m_DodgeDirection.SetVectorAsCrossProduct(m_Anchor.GetForward(), Vector3.UP);
+        m_DodgeDirection.SetVectorAsCrossProduct(Vector3.UP, m_Anchor.GetForward());
         m_DodgeOutput = 1.0;
     }
 
     public void DodgeRight()
     {
-        m_DodgeDirection.SetVectorAsCrossProduct(Vector3.UP, m_Anchor.GetForward());
+        m_DodgeDirection.SetVectorAsCrossProduct(m_Anchor.GetForward(), Vector3.UP);
         m_DodgeOutput = 1.0;
     }
 
@@ -166,13 +144,11 @@ public class Engine
 
     public void EngageAfterBurners()
     {
-        m_HyperLight.TurnOn();
         m_AfterBurnerOutput = 1.0;
     }
 
     public void DisengageAfterBurners()
     {
-        m_HyperLight.TurnOff();
         m_AfterBurnerOutput = 0.0;
     }
 

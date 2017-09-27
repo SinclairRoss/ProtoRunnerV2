@@ -49,10 +49,11 @@ public class ChaseCamera
         NormalCam();
     }
 	
-	public void Attach(GameObject chaseObject)
+	public void Attach(GameObject chaseObject, Vector3 up)
 	{
 		m_ChaseObject = chaseObject;
         m_LookObject  = chaseObject;
+        m_Up.SetVector(up);
 	}
 
     public void SetLookAt(GameObject lookObject)

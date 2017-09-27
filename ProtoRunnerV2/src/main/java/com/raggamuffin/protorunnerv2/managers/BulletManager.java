@@ -36,7 +36,6 @@ public class BulletManager
             {
                 bullet.CleanUp();
                 m_ActiveBullets.remove(bullet);
-                m_Game.RemoveObjectFromRenderer(bullet);
                 --i;
             }
         }
@@ -70,7 +69,6 @@ public class BulletManager
     private void AddProjectile(Projectile projectile)
     {
         m_ActiveBullets.add(projectile);
-        AddObjectToRenderer(projectile);
     }
 
 	public void Wipe()
@@ -81,15 +79,9 @@ public class BulletManager
 
             bullet.CleanUp();
             m_ActiveBullets.remove(bullet);
-            m_Game.RemoveObjectFromRenderer(bullet);
             --i;
         }
 	}
-
-    private void AddObjectToRenderer(Projectile proj)
-    {
-        m_Game.AddObjectToRenderer(proj);
-    }
 	
 	public ArrayList<Projectile> GetActiveBullets()
 	{

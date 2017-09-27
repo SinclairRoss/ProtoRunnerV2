@@ -20,13 +20,9 @@ public class StopWatch
         m_EndTime = m_StartTime;
     }
 
-    public void Stop()
+    public long Stop()
     {
         m_EndTime = System.currentTimeMillis();
-    }
-
-    public long GetTime()
-    {
         return m_EndTime - m_StartTime;
     }
 }

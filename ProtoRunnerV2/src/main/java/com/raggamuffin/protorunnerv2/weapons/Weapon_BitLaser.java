@@ -34,8 +34,6 @@ public class Weapon_BitLaser extends Weapon
     @Override
     public void Update(double deltaTime)
     {
-        m_WeaponComponent.Update(deltaTime);
-
         m_TriggerPulled = !m_DurationTimer.HasElapsed();
     }
 

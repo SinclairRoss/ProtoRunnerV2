@@ -31,6 +31,8 @@ public class AIController
         m_EvasionControl        = new EvasionControl(this);
 		m_FireControl 			= GetFireControlBehaviour(fireBehaviour);
         m_Behaviour             = GetBehaviour(behaviour, vManager);
+
+        AIUpdateScheduler.Instance().RegisterListener(m_SituationalAwareness);
     }
 
     private AIBehaviour GetBehaviour(AIBehaviours behaviour, VehicleManager vManager)
@@ -75,7 +77,11 @@ public class AIController
 	{
         CheckLeader();
 
-        m_SituationalAwareness.Update();
+        if(AIUpdateScheduler.Instance().CanUpdate(m_SituationalAwareness))
+        {
+            m_SituationalAwareness.Update();
+        }
+
 	    m_NavigationControl.SetGoal(m_Behaviour.GetNavigationCoordinates());
         m_NavigationControl.Update();
         m_EvasionControl.Update();
@@ -138,5 +144,10 @@ public class AIController
     public void SetLeader(Vehicle leader)
     {
         m_Leader = leader;
+    }
+
+    public void CleanUp()
+    {
+        AIUpdateScheduler.Instance().DeregisterComponent(m_SituationalAwareness);
     }
 }

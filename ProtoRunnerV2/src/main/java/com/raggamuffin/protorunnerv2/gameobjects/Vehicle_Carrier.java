@@ -50,4 +50,11 @@ public class Vehicle_Carrier extends Vehicle
 
         super.Update(deltaTime);
 	}
+
+	@Override
+	public void CleanUp()
+	{
+		super.CleanUp();
+		m_AIController.CleanUp();
+	}
 } 

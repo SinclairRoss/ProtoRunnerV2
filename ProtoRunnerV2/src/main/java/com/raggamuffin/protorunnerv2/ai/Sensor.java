@@ -5,7 +5,7 @@ import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 public abstract class Sensor 
 {
 	protected Vehicle m_Anchor;
-	protected double  m_SensorRadius;
+	protected final double  m_SensorRadius;
 	
 	public Sensor(Vehicle anchor, double sensorRadius)
 	{

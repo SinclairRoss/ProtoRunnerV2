@@ -3,45 +3,49 @@ package com.raggamuffin.protorunnerv2.particles;
 // Author: Sinclair Ross
 // Date:   15/03/2017
 
+import com.raggamuffin.protorunnerv2.managers.ParticleManager;
+
+import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Trail
 {
-    private TrailEmitter m_Anchor;
-    private CopyOnWriteArrayList<TrailNode> m_Nodes;
+    private ParticleManager m_ParticleManager;
 
-    public Trail(TrailEmitter anchor)
+    private TrailEmitter m_Anchor;
+    private ArrayList<TrailNode> m_Nodes;
+
+    public Trail(TrailEmitter anchor, ParticleManager pManager)
     {
+        m_ParticleManager = pManager;
+
         m_Anchor = anchor;
-        m_Nodes = new CopyOnWriteArrayList<>();
+        m_Nodes = new ArrayList<>();
     }
 
     public void Update()
     {
-        int nodeCount = m_Nodes.size();
-
         m_Nodes.get(m_Nodes.size() - 1).SetPosition(m_Anchor.GetPosition());
 
-        for(int i = 0; i < nodeCount; ++i)
+        for(int i = 0; i < m_Nodes.size();)
         {
             TrailNode node = m_Nodes.get(i);
+            node.Update();
 
-            if(node.IsValid())
+            if(!node.IsValid())
             {
-                node.Update();
+                node.CleanUp();
+                m_ParticleManager.RecycleTrailNode(node);
+                m_Nodes.remove(i);
             }
             else
             {
-                node.CleanUp();
-                m_Nodes.remove(i);
-
-                --i;
-                --nodeCount;
+                ++i;
             }
         }
     }
 
-    public CopyOnWriteArrayList<TrailNode> GetNodes() { return m_Nodes; }
+    public ArrayList<TrailNode> GetNodes() { return m_Nodes; }
     public TrailNode GetHeadNode() { return m_Nodes.isEmpty() ? null : m_Nodes.get(0); }
 
     public void AddNode(TrailNode node)

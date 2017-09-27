@@ -1,7 +1,8 @@
 package com.raggamuffin.protorunnerv2.renderer;
 
-import android.opengl.GLES20;
+import android.opengl.GLES31;
 
+import com.raggamuffin.protorunnerv2.RenderObjects.RenderObject;
 import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.utils.Colour;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
@@ -96,61 +97,61 @@ public class GLTextQuad extends GLModel
 
     public void draw(float x, float y, float scale, Colour colour)
     {
-        GLES20.glUniform4f(m_WorldPosHandle, x, y, 0.0f, 1.0f);
-        GLES20.glUniform3f(m_ScaleHandle, scale, scale, 1.0f);
-        GLES20.glUniform4f(m_ColourHandle, (float)colour.Red, (float)colour.Green, (float)colour.Blue, (float)colour.Alpha);
-        GLES20.glUniform2f(m_TexOffsetHandle, m_Offset[0], m_Offset[1]);
+        GLES31.glUniform4f(m_WorldPosHandle, x, y, 0.0f, 1.0f);
+        GLES31.glUniform3f(m_ScaleHandle, scale, scale, 1.0f);
+       // GLES31.glUniform4f(m_ColourHandle, (float)colour.Red, (float)colour.Green, (float)colour.Blue, (float)colour.Alpha);
+        GLES31.glUniform2f(m_TexOffsetHandle, m_Offset[0], m_Offset[1]);
 
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
+        GLES31.glDrawArrays(GLES31.GL_TRIANGLES, 0, vertexCount);
     }
 
     public void InitShaders()
     {
         // prepare shaders and OpenGL program
-        int vertexShaderHandler 	= loadShader(GLES20.GL_VERTEX_SHADER,Shaders.vertexShader_TEXTURED);
-        int fragmentShaderHandler 	= loadShader(GLES20.GL_FRAGMENT_SHADER,Shaders.fragmentShader_TEXTURED);
+        int vertexShaderHandler 	= loadShader(GLES31.GL_VERTEX_SHADER,Shaders.vertexShader_TEXTURED);
+        int fragmentShaderHandler 	= loadShader(GLES31.GL_FRAGMENT_SHADER,Shaders.fragmentShader_TEXTURED);
 
-        m_Program = GLES20.glCreateProgram();             		// create empty OpenGL Program
-        GLES20.glAttachShader(m_Program, vertexShaderHandler);   // add the vertex shader to program
-        GLES20.glAttachShader(m_Program, fragmentShaderHandler); // add the fragment shader to program
-        GLES20.glLinkProgram(m_Program);                  		// create OpenGL program executables
+        m_Program = GLES31.glCreateProgram();             		// create empty OpenGL Program
+        GLES31.glAttachShader(m_Program, vertexShaderHandler);   // add the vertex shader to program
+        GLES31.glAttachShader(m_Program, fragmentShaderHandler); // add the fragment shader to program
+        GLES31.glLinkProgram(m_Program);                  		// create OpenGL program executables
 
-        m_ProjMatrixHandle      = GLES20.glGetUniformLocation(m_Program, "u_ProjMatrix");
-        m_WorldPosHandle        = GLES20.glGetUniformLocation(m_Program, "u_WorldPos");
-        m_ScaleHandle           = GLES20.glGetUniformLocation(m_Program, "u_Scale");
+        m_ProjMatrixHandle      = GLES31.glGetUniformLocation(m_Program, "u_ProjMatrix");
+        m_WorldPosHandle        = GLES31.glGetUniformLocation(m_Program, "u_WorldPos");
+        m_ScaleHandle           = GLES31.glGetUniformLocation(m_Program, "u_Scale");
 
-        m_ColourHandle 			= GLES20.glGetUniformLocation(m_Program, "u_Color");
-        m_TexUniformHandle		= GLES20.glGetUniformLocation(m_Program, "u_Texture");
-        m_TexOffsetHandle		= GLES20.glGetUniformLocation(m_Program, "u_TexOffset");
+        m_ColourHandle 			= GLES31.glGetUniformLocation(m_Program, "u_Color");
+        m_TexUniformHandle		= GLES31.glGetUniformLocation(m_Program, "u_Texture");
+        m_TexOffsetHandle		= GLES31.glGetUniformLocation(m_Program, "u_TexOffset");
 
-        m_PositionHandle = GLES20.glGetAttribLocation(m_Program, "a_Position");
-        m_TexCoordHandle = GLES20.glGetAttribLocation(m_Program, "a_TexCoord");
+        m_PositionHandle = GLES31.glGetAttribLocation(m_Program, "a_Position");
+        m_TexCoordHandle = GLES31.glGetAttribLocation(m_Program, "a_TexCoord");
     }
 
     @Override
     public void InitialiseModel(float[] projMatrix, Vector3 eye)
     {
-        GLES20.glUseProgram(m_Program);
+        GLES31.glUseProgram(m_Program);
 
-        GLES20.glUniformMatrix4fv(m_ProjMatrixHandle, 1, false, projMatrix, 0);
+        GLES31.glUniformMatrix4fv(m_ProjMatrixHandle, 1, false, projMatrix, 0);
 
-        GLES20.glEnableVertexAttribArray(m_PositionHandle);
-        GLES20.glVertexAttribPointer(m_PositionHandle, 3, GLES20.GL_FLOAT, false, 12, vertexBuffer);
+        GLES31.glEnableVertexAttribArray(m_PositionHandle);
+        GLES31.glVertexAttribPointer(m_PositionHandle, 3, GLES31.GL_FLOAT, false, 12, vertexBuffer);
 
-        GLES20.glEnableVertexAttribArray(m_TexCoordHandle);
-        GLES20.glVertexAttribPointer(m_TexCoordHandle, 2, GLES20.GL_FLOAT, false, 8, textureBuffer);
+        GLES31.glEnableVertexAttribArray(m_TexCoordHandle);
+        GLES31.glVertexAttribPointer(m_TexCoordHandle, 2, GLES31.GL_FLOAT, false, 8, textureBuffer);
 
-        GLES20.glUniform1i(m_TexUniformHandle, 0);
+        GLES31.glUniform1i(m_TexUniformHandle, 0);
     }
 
     @Override
-    public void Draw(GameObject obj)
+    public void Draw(RenderObject obj)
     {}
 
     @Override
     public void CleanModel()
     {
-        GLES20.glDisableVertexAttribArray(m_PositionHandle);
-        GLES20.glDisableVertexAttribArray(m_TexCoordHandle);
+        GLES31.glDisableVertexAttribArray(m_PositionHandle);
+        GLES31.glDisableVertexAttribArray(m_TexCoordHandle);
     }
 }

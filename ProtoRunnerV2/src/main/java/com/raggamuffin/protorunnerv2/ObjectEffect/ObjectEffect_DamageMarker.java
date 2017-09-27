@@ -3,10 +3,7 @@ package com.raggamuffin.protorunnerv2.ObjectEffect;
 // Author: Sinclair Ross
 // Date:   22/05/2017
 
-import android.util.Log;
-
 import com.raggamuffin.protorunnerv2.gamelogic.GameLogic;
-import com.raggamuffin.protorunnerv2.gameobjects.GameObject;
 import com.raggamuffin.protorunnerv2.gameobjects.Vehicle;
 import com.raggamuffin.protorunnerv2.renderer.ModelType;
 import com.raggamuffin.protorunnerv2.utils.Quaternion;
@@ -32,7 +29,7 @@ public class ObjectEffect_DamageMarker extends ObjectEffect
 
     public ObjectEffect_DamageMarker(GameLogic game)
     {
-        super(ModelType.DamageTri, ObjectEffectType.DamageMarker);
+        super(ModelType.DamageTri);
 
         SetScale(5);
 
@@ -49,7 +46,7 @@ public class ObjectEffect_DamageMarker extends ObjectEffect
         super.Initialise(anchor);
 
         SetColour(GetAnchor().GetColour());
-        GetColour().Brighten(0.4);
+        GetColour().Brighten(0.4f);
         SetAlpha(0);
 
         SetPosition(GetAnchor().GetPosition());

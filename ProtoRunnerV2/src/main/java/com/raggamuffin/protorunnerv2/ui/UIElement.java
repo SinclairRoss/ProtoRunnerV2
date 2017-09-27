@@ -39,8 +39,8 @@ public abstract class UIElement
 
     public void SetColour(Colour colour) { m_Colour.SetColour(colour); }
 	public void SetColour(double[] colour) { m_Colour.SetColour(colour); }
-	public void SetColour(double[] colour, double alpha) { m_Colour.SetColour(colour[0], colour[1], colour[2], alpha); }
-    public void SetColour(Colour colour, double alpha) { m_Colour.SetColour(colour.Red, colour.Green, colour.Blue, alpha); }
+	public void SetColour(double[] colour, double alpha) { m_Colour.SetColour(colour[0], colour[1], colour[2], (float)alpha); }
+    public void SetColour(Colour colour, double alpha) { m_Colour.SetColour(colour.Red, colour.Green, colour.Blue, (float)alpha); }
 	public void SetAlpha(double alpha) { m_Colour.Alpha = alpha; }
 
 	public UIElementType GetType() { return m_ElementType; }

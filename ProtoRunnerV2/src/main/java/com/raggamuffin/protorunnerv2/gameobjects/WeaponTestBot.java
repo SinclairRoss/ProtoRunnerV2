@@ -18,7 +18,7 @@ public class WeaponTestBot extends Vehicle
 
     public WeaponTestBot(GameLogic game, Vector3 position)
     {
-        super(game, ModelType.Bit, position, 2, 1, VehicleClass.StandardVehicle, true, PublishedTopics.EnemyDestroyed, AffiliationKey.RedTeam);
+        super(game, ModelType.Dummy, position, 2, 1, VehicleClass.StandardVehicle, true, PublishedTopics.EnemyDestroyed, AffiliationKey.RedTeam);
 
         //SetColourScheme(Colours.Pink70, Colours.RunnerBlue);
 
