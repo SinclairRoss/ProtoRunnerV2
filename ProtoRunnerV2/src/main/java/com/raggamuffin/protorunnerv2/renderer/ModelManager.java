@@ -107,7 +107,7 @@ public class ModelManager
         m_WeaponDrone = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.weapondrone_vertices));
         m_ThreePointStar = new GLModel_StandardObject(ReadFloatArrayFromResource(R.string.three_point_star));
         m_DamageTri = new GLModel_DamageTri();
-        m_Shield = new GLModel_Shield(ReadFloatArrayFromResource(R.string.quad_vertices));
+     //   m_Shield = new GLModel_Shield(ReadFloatArrayFromResource(R.string.quad_vertices));
         m_Radial = new GLModel_UIRadial();
     }
 

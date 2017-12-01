@@ -5,8 +5,6 @@ import android.app.Activity;
 import com.raggamuffin.protorunnerv2.ObjectEffect.ObjectEffect;
 import com.raggamuffin.protorunnerv2.ObjectEffect.ObjectEffectController;
 import com.raggamuffin.protorunnerv2.ObjectEffect.ObjectEffectType;
-import com.raggamuffin.protorunnerv2.ObjectEffect.ObjectEffect_HealthBar;
-import com.raggamuffin.protorunnerv2.RenderObjects.RenderObject_HealthBar;
 import com.raggamuffin.protorunnerv2.audio.GameAudioManager;
 import com.raggamuffin.protorunnerv2.gameobjects.ChaseCamera;
 import com.raggamuffin.protorunnerv2.gameobjects.ExhibitionCameraAnchor;
@@ -35,11 +33,11 @@ import com.raggamuffin.protorunnerv2.RenderObjects.RenderPackage;
 import com.raggamuffin.protorunnerv2.master.RenderPackageDistributor;
 import com.raggamuffin.protorunnerv2.master.RendererPacket;
 import com.raggamuffin.protorunnerv2.particles.Particle;
-import com.raggamuffin.protorunnerv2.particles.Trail;
 import com.raggamuffin.protorunnerv2.pubsub.PubSubHub;
 import com.raggamuffin.protorunnerv2.pubsub.PublishedTopics;
 import com.raggamuffin.protorunnerv2.pubsub.Publisher;
 import com.raggamuffin.protorunnerv2.pubsub.Subscriber;
+import com.raggamuffin.protorunnerv2.ui.UIElement;
 import com.raggamuffin.protorunnerv2.ui.UIElement_Label;
 import com.raggamuffin.protorunnerv2.ui.UIScreens;
 import com.raggamuffin.protorunnerv2.utils.CollisionReport;
@@ -47,7 +45,6 @@ import com.raggamuffin.protorunnerv2.utils.StopWatch;
 import com.raggamuffin.protorunnerv2.utils.Vector3;
 import com.raggamuffin.protorunnerv2.weapons.Projectile;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class GameLogic extends ApplicationLogic
@@ -56,7 +53,7 @@ public class GameLogic extends ApplicationLogic
 
 	private ChaseCamera m_Camera;
 	private ControlScheme m_Control;
-	
+
 	private ExhibitionCameraAnchor m_CameraAnchor;
 
 	private DatabaseManager m_DatabaseManager;
@@ -251,6 +248,13 @@ public class GameLogic extends ApplicationLogic
             rPackage.AddText(label);
         }
 
+        ArrayList<UIElement> uiElements =  m_UIManager.GetUIElements();
+        for(int i = 0; i < uiElements.size(); ++i)
+        {
+            UIElement label = uiElements.get(i);
+            rPackage.AddUIElement(label);
+        }
+
        //ArrayList<ObjectEffect_HealthBar> healthBars = m_ObjectEffectController.GetHealthBars();
        //for(int i = 0; i < healthBars.size(); ++i)
        //{
@@ -265,7 +269,7 @@ public class GameLogic extends ApplicationLogic
        //    rPackage.AddTrail(trail);
        //}
     }
-	
+
 	private void CheckCollisions()
 	{
         ArrayList<Projectile> projectiles = m_BulletManager.GetActiveBullets();
@@ -340,7 +344,7 @@ public class GameLogic extends ApplicationLogic
 	{
 		return m_BulletManager;
 	}
-	
+
 	public ParticleManager GetParticleManager()
 	{
 		return m_ParticleManager;

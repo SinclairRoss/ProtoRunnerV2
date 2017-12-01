@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.opengl.GLES31;
 import android.opengl.GLSurfaceView;
 import android.util.Log;
@@ -12,11 +13,13 @@ import com.raggamuffin.protorunnerv2.R;
 import com.raggamuffin.protorunnerv2.RenderObjects.RenderGroup_Generic;
 import com.raggamuffin.protorunnerv2.RenderObjects.RenderGroup_Particles;
 import com.raggamuffin.protorunnerv2.RenderObjects.RenderGroup_Text;
+import com.raggamuffin.protorunnerv2.RenderObjects.RenderGroup_UI;
 import com.raggamuffin.protorunnerv2.RenderObjects.RenderGroup_Vehicle;
 import com.raggamuffin.protorunnerv2.master.RenderEffectSettings;
 import com.raggamuffin.protorunnerv2.RenderObjects.RenderPackage;
 import com.raggamuffin.protorunnerv2.master.RenderPackageDistributor;
 import com.raggamuffin.protorunnerv2.master.RendererPacket;
+import com.raggamuffin.protorunnerv2.ui.UIElementType;
 import com.raggamuffin.protorunnerv2.utils.FPSCounter;
 import com.raggamuffin.protorunnerv2.utils.FrameRateCounter;
 
@@ -52,9 +55,8 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
     private RenderEffectSettings m_RenderEffectSettings;
 
-    private float[] m_ViewMatrix;
-    private float[] m_ViewMatrix_UI;
     private ModelType[] m_ModelTypes;
+    private UIElementType[] m_UIElementTypes;
 
     private RenderPackageDistributor m_Distributer;
 
@@ -74,19 +76,23 @@ public class GLRenderer implements GLSurfaceView.Renderer
         m_RopeRenderer = new RopeRenderer();
         m_ParticleRenderer = new ParticleRenderer();
 
-        m_ViewMatrix = new float[16];
-        m_ViewMatrix_UI = new float[16];
         m_ModelTypes = ModelType.values();
+        m_UIElementTypes = UIElementType.values();
 
         m_Distributer = distributer;
 	}
+
+
+	public static native void StartRender_Native();
+    public static native void FinaliseRender_Native();
 
     public static native void SetCamera_Native(float[] position, float[] lookAt, float[] up);
     public static native void DrawVehicles_Native(float[] transforms, float[] colours, float[] innerIntensity, int modelIndex, int numInstances);
     public static native void DrawGenericObject_Native(float[] transforms, float[] colours, int modelIndex, int numInstances);
     public static native void DrawParticles_Native(float[] transforms, float[] colours, int numInstances);
-    public static native void DrawUIText_Native(float[] tranforms, float[] colours, char[] text, int instanceCount);
-    public static native void OnSurfaceCreated_Native(float[] vertices, int[] verticesPerModel, int[] texturePixels, int[] pixelsPerTexture, int numTextures);
+    public static native void DrawUIText_Native(float[] positions, float[] scales, float[] colours, char[] text, int instanceCount);
+    public static native void DrawUIElements_Native(float[] transforms,float[] scales, float[] colours, int elementType, int instanceCount);
+    public static native void OnSurfaceCreated_Native(float[] vertices, int[] verticesPerModel, int[] texturePixels, int[] pixelsPerTexture, int numTextures, int screenWidth, int screenHeight);
     public static native void OnSurfaceChanged_Native(int width, int height);
 
 	@Override
@@ -94,16 +100,20 @@ public class GLRenderer implements GLSurfaceView.Renderer
 	{
         if(true)
         {
-            int numModels = 3;
+            int numModels = 4;
 
             float[] runnerVertices = ReadFloatArrayFromResource(R.string.runner_vertices);
             float[] bitVertices = ReadFloatArrayFromResource(R.string.byte_vertices);
             float[] plasmaVertices = ReadFloatArrayFromResource(R.string.plasma_vertices);
 
+            float[] uiQuadVertices_Left = ReadFloatArrayFromResource(R.string.ui_quad_right_vertices);
+
             int[] verticesPerModel = new int[numModels];
             verticesPerModel[0] = runnerVertices.length;
             verticesPerModel[1] = bitVertices.length;
             verticesPerModel[2] = plasmaVertices.length;
+
+            verticesPerModel[3] = uiQuadVertices_Left.length;
 
             int arrayLength = 0;
             for(int i = 0; i < numModels; ++i)
@@ -115,22 +125,26 @@ public class GLRenderer implements GLSurfaceView.Renderer
 
             int offset = 0;
             java.lang.System.arraycopy(runnerVertices, 0, coords, offset, runnerVertices.length);
-
             offset += runnerVertices.length;
-            java.lang.System.arraycopy(bitVertices, 0, coords, offset, bitVertices.length);
 
+            java.lang.System.arraycopy(bitVertices, 0, coords, offset, bitVertices.length);
             offset += bitVertices.length;
+
             java.lang.System.arraycopy(plasmaVertices, 0, coords, offset, plasmaVertices.length);
+            offset += plasmaVertices.length;
+
+            java.lang.System.arraycopy(uiQuadVertices_Left, 0, coords, offset, uiQuadVertices_Left.length);
+            offset += uiQuadVertices_Left.length;
 
             final BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Bitmap.Config.ARGB_8888;
             options.inScaled = false;
 
-
             Vector<Bitmap> bitmaps = new Vector<>(3);
             bitmaps.add(BitmapFactory.decodeResource(m_Packet.GetContext().getResources(), R.drawable.floor_grid, options));
             bitmaps.add(BitmapFactory.decodeResource(m_Packet.GetContext().getResources(), R.drawable.moire, options));
             bitmaps.add(BitmapFactory.decodeResource(m_Packet.GetContext().getResources(), R.drawable.chlo, options));
+            bitmaps.add(BitmapFactory.decodeResource(m_Packet.GetContext().getResources(), R.drawable.noise, options));
 
             int bitmapCount = bitmaps.size();
 
@@ -163,7 +177,8 @@ public class GLRenderer implements GLSurfaceView.Renderer
                 offset += width * height;
             }
 
-            OnSurfaceCreated_Native(coords, verticesPerModel, packedPixels, pixelsPerTexture, bitmapCount);
+            Point screenSize = m_Packet.GetScreenSize();
+            OnSurfaceCreated_Native(coords, verticesPerModel, packedPixels, pixelsPerTexture, bitmapCount, screenSize.x, screenSize.y);
 
             return;
         }
@@ -211,6 +226,8 @@ public class GLRenderer implements GLSurfaceView.Renderer
                 RenderCamera camera = rPackage.GetRenderCamera();
                 SetCamera_Native(camera.GetPosition(), camera.GetLookAt(), camera.GetUp());
 
+                StartRender_Native();
+
                 for(int modelIndex = 0; modelIndex < m_ModelTypes.length; ++modelIndex)
                 {
                     ModelType type = m_ModelTypes[modelIndex];
@@ -241,10 +258,21 @@ public class GLRenderer implements GLSurfaceView.Renderer
                 instanceCount = text.GetInstanceCount();
                 if(instanceCount > 0)
                 {
-                    DrawUIText_Native(text.GetTransforms(), text.GetColours(), text.GetText(), text.GetInstanceCount());
+                    DrawUIText_Native(text.GetPositions(), text.GetScales(), text.GetColours(), text.GetText(), text.GetInstanceCount());
+                }
+
+
+                for(int i = 0; i < m_UIElementTypes.length; ++i)
+                {
+                    UIElementType type = m_UIElementTypes[i];
+
+                    RenderGroup_UI uiElements = rPackage.GetUIElementsWithType(type);
+                    DrawUIElements_Native(uiElements.GetPosition(), uiElements.GetScales(), uiElements.GetColours(), i, uiElements.GetInstanceCount());
                 }
 
                 m_Distributer.CheckIn_FromRead(rPackage);
+
+                FinaliseRender_Native();
             }
             else
             {

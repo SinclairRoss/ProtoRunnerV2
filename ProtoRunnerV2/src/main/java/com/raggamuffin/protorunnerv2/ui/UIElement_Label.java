@@ -15,6 +15,7 @@ public class UIElement_Label extends UIElement
         super(UIElementType.Label);
 
         m_Text = text;
+        SetScale(fontSize);
         m_FontSize = fontSize;
         m_Alignment = alignment;
 
@@ -28,7 +29,6 @@ public class UIElement_Label extends UIElement
     {
         return m_Text;
     }
-    public double GetFontSize() { return m_FontSize; }
 
     @Override
     public void Update(double deltaTime)

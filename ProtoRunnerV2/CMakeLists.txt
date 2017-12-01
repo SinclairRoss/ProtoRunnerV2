@@ -14,10 +14,15 @@ add_library( CRenderer-lib
              src/main/cpp/OpenGL/Textures/TextureContainer.cpp
              src/main/cpp/OpenGL/Text/TextRenderer.cpp
              src/main/cpp/OpenGL/Text/Model_LetterBlock.cpp
+             src/main/cpp/OpenGL/UI/UIRenderer.cpp
+             src/main/cpp/OpenGL/UI/GLModel_UIBlock.cpp
              src/main/cpp/OpenGL/Shaders/Shader_Wireframe.h
              src/main/cpp/OpenGL/Shaders/Shader_Basic.h
              src/main/cpp/OpenGL/Shaders/Shader_Particles.h
              src/main/cpp/OpenGL/Shaders/Shader_FloorGrid.h
+             src/main/cpp/OpenGL/Shaders/Shader_BasicUI.h
+             src/main/cpp/OpenGL/FrameBufferEffects/FrameBufferContainer.cpp
+             src/main/cpp/OpenGL/FrameBufferEffects/Model_ScreenQuad.cpp
              src/main/cpp/OpenGL/Utils/Helpers.cpp
              src/main/cpp/OpenGL/Utils/ProceduralTextures.cpp)
 

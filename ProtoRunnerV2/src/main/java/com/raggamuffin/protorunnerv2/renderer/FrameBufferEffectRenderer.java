@@ -89,7 +89,7 @@ public class FrameBufferEffectRenderer
         GLES31.glViewport(0, 0, m_TextureSize[i].x, m_TextureSize[i].y);
 
         GLES31.glClear(GLES31.GL_COLOR_BUFFER_BIT | GLES31.GL_DEPTH_BUFFER_BIT);
-    }
+}
 
     public int GetTextureHandle(FrameBufferName name)
     {

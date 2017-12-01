@@ -159,10 +159,10 @@ public final class R {
         public static final int ic_plusone_small_off_client = 0x7f020088;
         public static final int ic_plusone_standard_off_client = 0x7f020089;
         public static final int ic_plusone_tall_off_client = 0x7f02008a;
-        public static final int places_ic_clear = 0x7f02009b;
-        public static final int places_ic_search = 0x7f02009c;
-        public static final int powered_by_google_dark = 0x7f02009d;
-        public static final int powered_by_google_light = 0x7f02009e;
+        public static final int places_ic_clear = 0x7f02009c;
+        public static final int places_ic_search = 0x7f02009d;
+        public static final int powered_by_google_dark = 0x7f02009e;
+        public static final int powered_by_google_light = 0x7f02009f;
     }
     public static final class id {
         public static final int adjust_height = 0x7f0c001d;
@@ -269,8 +269,8 @@ public final class R {
         public static final int decline = 0x7f060063;
         public static final int place_autocomplete_clear_button = 0x7f060039;
         public static final int place_autocomplete_search_hint = 0x7f06003a;
-        public static final int store_picture_message = 0x7f06008f;
-        public static final int store_picture_title = 0x7f060090;
+        public static final int store_picture_message = 0x7f06008e;
+        public static final int store_picture_title = 0x7f06008f;
         public static final int wallet_buy_button_place_holder = 0x7f06003c;
     }
     public static final class style {

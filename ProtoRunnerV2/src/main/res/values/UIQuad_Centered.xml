@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ui_quad_centered_vertices">
+       0.5f, 0.5f, 0.0f,
+        -0.5f, 0.5f, 0.0f,
+      -0.5f, -0.5f, 0.0f,
+
+        0.5f, 0.5f, 0.0f,
+        -0.5f, -0.5f, 0.0f,
+        0.5f, -0.5f, 0.0f,
+
+    </string>
+</resources>

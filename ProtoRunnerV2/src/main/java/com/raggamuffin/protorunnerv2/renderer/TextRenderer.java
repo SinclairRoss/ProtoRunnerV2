@@ -38,19 +38,19 @@ public class TextRenderer
 
     public void DrawText(final UIElement_Label element)
     {
-        Vector2 position = element.GetPosition();
-        String text = element.GetText();
-        int length = text.length();
-        float fontSize = (float)element.GetFontSize();
+      // Vector2 position = element.GetPosition();
+      // String text = element.GetText();
+      // int length = text.length();
+      ///  float fontSize = (float)element.GetFontSize();
 
-        for(int i = 0; i < length; ++i)
-        {
-            float x = (float)position.X + fontSize * i;
-            float y = (float)position.Y;
+      // for(int i = 0; i < length; ++i)
+      // {
+      //     float x = (float)position.X + fontSize * i;
+      //     float y = (float)position.Y;
 
-            m_TextQuad.SetOffset(GetTexCoord(text.charAt(i)));
-            m_TextQuad.draw(x, y, fontSize, element.GetColour());
-        }
+      //     m_TextQuad.SetOffset(GetTexCoord(text.charAt(i)));
+      //     m_TextQuad.draw(x, y, fontSize, element.GetColour());
+      // }
     }
 
     public void CleanUp()

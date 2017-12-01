@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="plane_xy">
-       0.0f, 0.0f, -0.5f,
+        0.0f, 0.0f, -0.5f,
         1.0f, 0.0f, 0.5f,
         1.0f, 0.0f, -0.5f,
 
